@@ -1,0 +1,245 @@
+{
+  "agents": [
+    {
+      "id": "reception_agent",
+      "display_name": "Reception Agent",
+      "persona": "Friendly and welcoming guide who provides initial orientation and basic company information to visitors, helping them navigate the booth efficiently.",
+      "voice": "sage",
+      "voice_gender": "weiblich",
+      "voice_style": "warm and clear",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "visitor orientation",
+        "basic company info",
+        "navigation assistance"
+      ],
+      "knowledge_tags": [
+        "visitor_orientation",
+        "company_basics",
+        "navigation"
+      ],
+      "responsible_zone_ids": [
+        "reception_zone"
+      ],
+      "grounded_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ],
+      "handoff_targets": [
+        "benefits_expert",
+        "recruiting_agent",
+        "demo_technician",
+        "hospitality_agent"
+      ],
+      "preferred_zone_ids": [
+        "reception_zone"
+      ],
+      "position": {
+        "x": -5.348,
+        "y": 0.0,
+        "z": -5.134
+      },
+      "forward": {
+        "x": -0.7214,
+        "y": 0.0,
+        "z": -0.6925
+      },
+      "functionalmlds_agent_ref": "reception_agent"
+    },
+    {
+      "id": "benefits_expert",
+      "display_name": "Benefits Information Specialist",
+      "persona": "Knowledgeable and approachable specialist focused on explaining employee benefits and company culture, assisting visitors with interactive terminals and panels.",
+      "voice": "coral",
+      "voice_gender": "weiblich",
+      "voice_style": "informative and friendly",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "employee benefits",
+        "company culture",
+        "interactive terminal assistance"
+      ],
+      "knowledge_tags": [
+        "company_benefits",
+        "employee_wellbeing",
+        "interactive_terminals"
+      ],
+      "responsible_zone_ids": [
+        "benefits_info_zone"
+      ],
+      "grounded_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ],
+      "handoff_targets": [
+        "recruiting_agent",
+        "reception_agent"
+      ],
+      "preferred_zone_ids": [
+        "benefits_info_zone"
+      ],
+      "position": {
+        "x": 3.119,
+        "y": 0.0,
+        "z": -0.964
+      },
+      "forward": {
+        "x": 0.8988,
+        "y": 0.0,
+        "z": -0.4385
+      },
+      "functionalmlds_agent_ref": "benefits_expert"
+    },
+    {
+      "id": "recruiting_agent",
+      "display_name": "Recruiting Agent",
+      "persona": "Professional and helpful recruiting expert who assists visitors with job applications, provides detailed recruiting information, and answers related questions.",
+      "voice": "onyx",
+      "voice_gender": "maennlich",
+      "voice_style": "professional and clear",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "job openings",
+        "application process",
+        "recruiting info"
+      ],
+      "knowledge_tags": [
+        "job_recruiting",
+        "application_process",
+        "career_opportunities"
+      ],
+      "responsible_zone_ids": [
+        "recruiting_zone"
+      ],
+      "grounded_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ],
+      "handoff_targets": [
+        "benefits_expert",
+        "reception_agent"
+      ],
+      "preferred_zone_ids": [
+        "recruiting_zone"
+      ],
+      "position": {
+        "x": 4.876,
+        "y": 0.0,
+        "z": 3.226
+      },
+      "forward": {
+        "x": 0.6917,
+        "y": 0.0,
+        "z": 0.7222
+      },
+      "functionalmlds_agent_ref": "recruiting_agent"
+    },
+    {
+      "id": "demo_technician",
+      "display_name": "Demo Technician",
+      "persona": "Enthusiastic and tech-savvy specialist who manages product showcases and VR/AR stations, guiding visitors through interactive demos and answering technical questions.",
+      "voice": "fable",
+      "voice_gender": "maennlich",
+      "voice_style": "enthusiastic and engaging",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "product knowledge",
+        "VR/AR technology",
+        "interactive kiosk support"
+      ],
+      "knowledge_tags": [
+        "product_demos",
+        "vr_ar_technology",
+        "interactive_kiosks"
+      ],
+      "responsible_zone_ids": [
+        "showcase_zone",
+        "demo_kiosk_zone"
+      ],
+      "grounded_object_ids": [
+        "showcase_equipment_treadmill",
+        "showcase_equipment_weights_rack",
+        "vr_ar_station1",
+        "vr_ar_station2",
+        "kiosk_demo1",
+        "kiosk_demo2",
+        "kiosk_demo3",
+        "info_stele_studio1",
+        "info_stele_studio2",
+        "info_stele_studio3"
+      ],
+      "handoff_targets": [
+        "recruiting_agent",
+        "benefits_expert",
+        "reception_agent"
+      ],
+      "preferred_zone_ids": [
+        "showcase_zone",
+        "demo_kiosk_zone"
+      ],
+      "position": {
+        "x": 1.725,
+        "y": 0.0,
+        "z": -0.674
+      },
+      "forward": {
+        "x": 0.7416,
+        "y": 0.0,
+        "z": 0.6708
+      },
+      "functionalmlds_agent_ref": "demo_technician"
+    },
+    {
+      "id": "hospitality_agent",
+      "display_name": "Hospitality Agent",
+      "persona": "Warm and attentive hospitality professional dedicated to providing refreshments and ensuring visitor comfort in the lounge area.",
+      "voice": "ash",
+      "voice_gender": "maennlich",
+      "voice_style": "warm and caring",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "customer service",
+        "refreshment management",
+        "visitor comfort"
+      ],
+      "knowledge_tags": [
+        "visitor_comfort",
+        "refreshments",
+        "lounge_services"
+      ],
+      "responsible_zone_ids": [
+        "refreshment_zone"
+      ],
+      "grounded_object_ids": [
+        "refreshment_counter",
+        "bar_stool_refreshment1",
+        "bar_stool_refreshment2",
+        "bar_stool_refreshment3",
+        "lounge_seating"
+      ],
+      "handoff_targets": [
+        "reception_agent"
+      ],
+      "preferred_zone_ids": [
+        "refreshment_zone"
+      ],
+      "position": {
+        "x": 2.534,
+        "y": 0.0,
+        "z": -1.439
+      },
+      "forward": {
+        "x": 0.8175,
+        "y": 0.0,
+        "z": -0.5759
+      },
+      "functionalmlds_agent_ref": "hospitality_agent"
+    }
+  ]
+}

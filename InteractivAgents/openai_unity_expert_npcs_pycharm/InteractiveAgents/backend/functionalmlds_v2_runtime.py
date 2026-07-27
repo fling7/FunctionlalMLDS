@@ -1,0 +1,960 @@
+from __future__ import annotations
+
+import hashlib
+import json
+import math
+from pathlib import Path
+from typing import Any, Dict, Iterable, List, Mapping, Optional
+
+
+V05_MODEL_VERSION = "v0.5"
+V2_INSTANCE_SCHEMA = "dynamic_functional_mlds_v2_instance"
+V2_MODEL_VERSION = "2.0.0-model"
+V2_TRACE_SCHEMA = "functionalmlds_trace_map_v2"
+V2_TRACE_VERSION = "2.0"
+RUNTIME_CONTEXT_SCHEMA = "functionalmlds_runtime_context_v2"
+PLACEMENT_ARTIFACT_SCHEMA = "functionalmlds_agent_placements"
+PLACEMENT_ARTIFACT_SCHEMA_VERSION = "2.0"
+PLACEMENT_ALGORITHM_VERSION = "2.0.0"
+PLACEMENT_ORIGINS = frozenset({"deterministic", "wizard_manual"})
+PLACEMENT_DEPLOYMENT_FIELDS = (
+    "placement_schema",
+    "placement_schema_version",
+    "placement_algorithm_version",
+    "placement_origin",
+    "placement_artifact_sha256",
+    "placement_projection_sha256",
+)
+
+
+class FunctionalMldsContractError(ValueError):
+    """Raised when a materialized FunctionalMLDS project is inconsistent."""
+
+
+def load_project_contract(project_dir: Path) -> Dict[str, Any]:
+    project_dir = Path(project_dir).resolve()
+    meta = _read_json(project_dir / "project.json")
+    generation_mode = str(meta.get("generation_mode") or "").strip().lower()
+    if generation_mode and generation_mode != "functionalmlds":
+        return {
+            "kind": "none",
+            "project": meta,
+            "model_version": "",
+            "profile": "none",
+            "runtime_context": None,
+        }
+
+    version = _resolve_contract_version(project_dir, meta)
+
+    if version == V2_MODEL_VERSION:
+        return _load_v2_contract(project_dir, meta)
+    if version in {V05_MODEL_VERSION, "0.5", ""}:
+        return _load_v05_contract(project_dir, meta)
+    raise FunctionalMldsContractError(
+        f"Unsupported FunctionalMLDS model version {version!r}; expected {V2_MODEL_VERSION!r} or {V05_MODEL_VERSION!r}."
+    )
+
+
+def load_v2_document(project_dir: Path) -> Dict[str, Any]:
+    contract = load_project_contract(project_dir)
+    if contract.get("kind") != "v2":
+        raise FunctionalMldsContractError("Project does not expose a native V2 FunctionalMLDS instance.")
+    return dict(contract["instance"])
+
+
+def select_runtime_action(runtime_context: Mapping[str, Any], action_kind: str) -> Dict[str, Any]:
+    action_kind = str(action_kind or "").strip().lower()
+    matches = [
+        dict(item)
+        for item in runtime_context.get("runtime_actions", [])
+        if isinstance(item, Mapping) and str(item.get("action_kind") or "").lower() == action_kind
+    ]
+    if not matches:
+        raise FunctionalMldsContractError(f"Runtime context has no exact action mapping for {action_kind!r}.")
+    if len(matches) > 1:
+        raise FunctionalMldsContractError(
+            f"Runtime context has {len(matches)} ambiguous action mappings for {action_kind!r}."
+        )
+    return matches[0]
+
+
+def _load_v2_contract(project_dir: Path, meta: Mapping[str, Any]) -> Dict[str, Any]:
+    instance_path = _resolve_project_file(
+        project_dir,
+        meta.get("functionalmlds_model_path") or meta.get("functionalmlds_v2_path"),
+        "functionalmlds.v2.instance.json",
+    )
+    trace_path = _resolve_project_file(
+        project_dir,
+        meta.get("functionalmlds_trace_map_path"),
+        "trace_map.v2.json",
+    )
+    instance = _read_json(instance_path)
+    trace = _read_json(trace_path)
+    _validate_optional_placement_deployment(project_dir, meta, trace)
+    model_sha256 = _sha256(instance_path)
+    declared_hash = str(meta.get("functionalmlds_model_sha256") or "").strip().upper()
+    if declared_hash and declared_hash != model_sha256:
+        raise FunctionalMldsContractError(
+            f"FunctionalMLDS model hash mismatch: project.json={declared_hash}, actual={model_sha256}."
+        )
+
+    by_id = _validate_v2_instance(instance)
+    _validate_v2_project_metadata(project_dir, meta, instance)
+    _validate_v2_trace(trace, by_id, model_sha256, instance)
+    context = _build_v2_runtime_context(instance, trace, model_sha256)
+    return {
+        "kind": "v2",
+        "project": dict(meta),
+        "model_version": V2_MODEL_VERSION,
+        "profile": str(instance.get("fixture_profile") or instance.get("profile") or "executable"),
+        "model_sha256": model_sha256,
+        "instance_path": str(instance_path),
+        "trace_path": str(trace_path),
+        "instance": instance,
+        "trace": trace,
+        "runtime_context": context,
+    }
+
+
+def _load_v05_contract(project_dir: Path, meta: Mapping[str, Any]) -> Dict[str, Any]:
+    trace_path = _resolve_project_file(project_dir, None, "trace_map.json", required=False)
+    trace = _read_json(trace_path) if trace_path.exists() else {}
+    if trace and trace.get("schema") != "functionalmlds_trace_map":
+        raise FunctionalMldsContractError(
+            "Legacy v0.5 projects require a functionalmlds_trace_map trace; "
+            f"found {trace.get('schema')!r}."
+        )
+    _validate_optional_placement_deployment(project_dir, meta, trace)
+    legacy_model_path = _resolve_project_file(
+        project_dir,
+        meta.get("functionalmlds_legacy_path"),
+        "functionalmlds.v05.instance.json",
+        required=False,
+    )
+    if legacy_model_path.exists():
+        legacy_instance = _read_json(legacy_model_path)
+        if (
+            legacy_instance.get("schema") != "functionalmlds_case_study"
+            or legacy_instance.get("metamodelVersion") != V05_MODEL_VERSION
+        ):
+            raise FunctionalMldsContractError(
+                "Legacy model file must be a functionalmlds_case_study with metamodelVersion 'v0.5'."
+            )
+    actions: List[Dict[str, Any]] = []
+    for item in trace.get("runtime_actions", []):
+        if not isinstance(item, Mapping):
+            continue
+        action_kind = _legacy_action_kind(item)
+        if not action_kind:
+            continue
+        actions.append(
+            {
+                "action_kind": action_kind,
+                "scenario_step_id": _legacy_step_id(trace, item.get("capability_id")),
+                "capability_use_id": _legacy_capability_use_id(trace, item.get("capability_id")),
+                "capability_id": _optional_text(item.get("capability_id")),
+                "provider_entity_id": None,
+                "target_ids": [],
+                "runtime_binding_id": _optional_text(item.get("runtime_binding_id")),
+                "runtime_action_id": _optional_text(item.get("runtime_action_id")),
+                "locator": {
+                    "kind": "endpoint" if item.get("endpoint") else ("tool" if item.get("tool") else "topic"),
+                    "value": item.get("endpoint") or item.get("tool") or item.get("topic"),
+                },
+                "assertion_ids": [],
+                "validation_case_ids": [],
+                "runtime_validation_target_ids": [],
+            }
+        )
+    context = {
+        "schema": RUNTIME_CONTEXT_SCHEMA,
+        "case_id": trace.get("case_id"),
+        "model_version": V05_MODEL_VERSION,
+        "model_sha256": "",
+        "profile": "legacy",
+        "trace_schema_version": "1.0",
+        "main_scenario_id": trace.get("main_scenario_id"),
+        "runtime_validation_target_id": None,
+        "runtime_actions": actions,
+        "assertions": [],
+        "agents": list(trace.get("agents") or []),
+    }
+    return {
+        "kind": "v05",
+        "project": dict(meta),
+        "model_version": V05_MODEL_VERSION,
+        "profile": "legacy",
+        "model_sha256": "",
+        "trace_path": str(trace_path) if trace_path.exists() else "",
+        "trace": trace,
+        "runtime_context": context,
+    }
+
+
+def _validate_v2_instance(instance: Mapping[str, Any]) -> Dict[str, Dict[str, Any]]:
+    if instance.get("schema") != V2_INSTANCE_SCHEMA:
+        raise FunctionalMldsContractError(
+            f"Native V2 instance schema must be {V2_INSTANCE_SCHEMA!r}."
+        )
+    if instance.get("metamodelVersion") != V2_MODEL_VERSION:
+        raise FunctionalMldsContractError(
+            f"Native V2 instance must target model {V2_MODEL_VERSION!r}."
+        )
+    if instance.get("serializationVersion") != "1.0":
+        raise FunctionalMldsContractError("Native V2 instance serializationVersion must be '1.0'.")
+    _required_text(instance.get("id"), "native V2 instance.id")
+    _required_text(instance.get("caseId"), "native V2 instance.caseId")
+    if str(instance.get("fixture_profile") or instance.get("profile") or "") != "executable":
+        raise FunctionalMldsContractError("Runtime projects require the executable V2 profile.")
+    objects = instance.get("objects")
+    if not isinstance(objects, list) or not objects:
+        raise FunctionalMldsContractError("Native V2 instance requires a non-empty objects array.")
+    by_id: Dict[str, Dict[str, Any]] = {}
+    for index, raw in enumerate(objects):
+        if not isinstance(raw, Mapping):
+            raise FunctionalMldsContractError(f"objects[{index}] must be an object.")
+        object_id = _required_text(raw.get("id"), f"objects[{index}].id")
+        object_type = _required_text(raw.get("type"), f"objects[{index}].type")
+        if object_id in by_id:
+            raise FunctionalMldsContractError(f"Duplicate V2 object id {object_id!r}.")
+        by_id[object_id] = dict(raw)
+        if object_type == "Assertion":
+            raise FunctionalMldsContractError("Abstract Assertion cannot be instantiated.")
+
+    roots = [item for item in by_id.values() if item.get("type") == "DynamicFunctionalModel"]
+    if len(roots) != 1:
+        raise FunctionalMldsContractError("Native V2 instance requires exactly one DynamicFunctionalModel root.")
+    root = roots[0]
+    if root.get("id") != instance.get("id"):
+        raise FunctionalMldsContractError(
+            "DynamicFunctionalModel root id must equal the native V2 instance id."
+        )
+    _require_exact_typed_refs(root, "requirementsModel", by_id, "RequirementsModel", 1)
+    _require_exact_typed_refs(root, "verificationValidation", by_id, "VerificationValidation", 1)
+    _require_refs(root, "scenario", by_id, minimum=1, expected_type="Scenario")
+
+    assertions = {
+        "StateAssertion",
+        "EventAssertion",
+        "OutputAssertion",
+        "GroundingAssertion",
+        "RelationAssertion",
+    }
+    for item in by_id.values():
+        object_type = str(item.get("type"))
+        if object_type in assertions:
+            _require_exact_refs(item, "subject", by_id, 1)
+            _require_exact_typed_refs(item, "expression", by_id, "EAExpression", 1)
+        elif object_type == "Effect":
+            refs = _require_refs(item, "specifiedBy", by_id, minimum=1)
+            if any(str(by_id[ref].get("type")) not in assertions for ref in refs):
+                raise FunctionalMldsContractError(f"Effect {item['id']!r} specifiedBy must reference Assertions.")
+        elif object_type == "Capability":
+            _require_refs(item, "effect", by_id, minimum=1, expected_type="Effect")
+        elif object_type == "RuntimeBinding":
+            _require_exact_typed_refs(item, "capability", by_id, "Capability", 1)
+            _require_refs(item, "runtimeAction", by_id, minimum=1, expected_type="RuntimeAction")
+        elif object_type == "RuntimeAction":
+            _require_exact_typed_refs(item, "locator", by_id, "RuntimeActionLocator", 1)
+            _require_exact_typed_refs(item, "inputSchema", by_id, "SchemaReference", 1)
+            if "outputSchema" in item:
+                _require_exact_typed_refs(item, "outputSchema", by_id, "SchemaReference", 1)
+            _require_refs(item, "runtimeParameter", by_id, minimum=0, expected_type="RuntimeParameter")
+        elif object_type == "RuntimeActionLocator":
+            if item.get("kind") not in {"endpoint", "tool", "topic"} or not _optional_text(item.get("value")):
+                raise FunctionalMldsContractError(f"RuntimeActionLocator {item['id']!r} is invalid.")
+        elif object_type == "CapabilityUse":
+            capability_ids = _refs(item.get("typeRef") or item.get("capability"))
+            if len(capability_ids) != 1 or capability_ids[0] not in by_id or by_id[capability_ids[0]].get("type") != "Capability":
+                raise FunctionalMldsContractError(f"CapabilityUse {item['id']!r} requires exactly one Capability type.")
+            provider_ids = _require_refs(item, "provider", by_id, minimum=1, maximum=1)
+            provider = by_id[provider_ids[0]]
+            if capability_ids[0] not in _refs(provider.get("providedCapability")):
+                raise FunctionalMldsContractError(f"CapabilityUse {item['id']!r} provider does not provide its Capability.")
+        elif object_type == "RuntimeValidationTarget":
+            if not _optional_text(item.get("platform")):
+                raise FunctionalMldsContractError(f"RuntimeValidationTarget {item['id']!r} requires platform.")
+            bindings = _require_refs(item, "runtimeBinding", by_id, minimum=0, expected_type="RuntimeBinding")
+            if not set(bindings).issubset(set(_refs(item.get("element")))):
+                raise FunctionalMldsContractError(
+                    f"RuntimeValidationTarget {item['id']!r} runtimeBinding must be a subset of element."
+                )
+            _require_refs(item, "element", by_id, minimum=1)
+        elif object_type == "ValidationCase":
+            _require_refs(item, "vvSubject", by_id, minimum=1)
+            _require_refs(
+                item,
+                "vvTarget",
+                by_id,
+                minimum=1,
+                expected_type="RuntimeValidationTarget",
+            )
+            _require_refs(
+                item,
+                "vvProcedure",
+                by_id,
+                minimum=0,
+                expected_type="RuntimeValidationProcedure",
+            )
+
+    main_scenarios = [
+        item for item in by_id.values() if item.get("type") == "Scenario" and item.get("kind") == "main"
+    ]
+    if len(main_scenarios) != 1:
+        raise FunctionalMldsContractError("Native V2 instance requires exactly one main Scenario.")
+
+    for step in [item for item in by_id.values() if item.get("type") == "ScenarioStep"]:
+        for use_id in _refs(step.get("capabilityUse")):
+            use = by_id.get(use_id)
+            if not use or use.get("type") != "CapabilityUse":
+                raise FunctionalMldsContractError(f"ScenarioStep {step['id']!r} references invalid CapabilityUse.")
+            provider_ids = _refs(use.get("provider"))
+            if not provider_ids or provider_ids[0] not in _refs(step.get("performedBy")):
+                raise FunctionalMldsContractError(
+                    f"ScenarioStep {step['id']!r} must include its CapabilityUse provider in performedBy."
+                )
+    return by_id
+
+
+def _validate_v2_trace(
+    trace: Mapping[str, Any],
+    by_id: Mapping[str, Mapping[str, Any]],
+    model_sha256: str,
+    instance: Mapping[str, Any],
+) -> None:
+    if trace.get("schema") != V2_TRACE_SCHEMA or str(trace.get("schema_version")) != V2_TRACE_VERSION:
+        raise FunctionalMldsContractError("V2 trace map has an unsupported schema or schema_version.")
+    if trace.get("model_version") != V2_MODEL_VERSION:
+        raise FunctionalMldsContractError("V2 trace map model_version does not match the native instance.")
+    if str(trace.get("model_sha256") or "").upper() != model_sha256:
+        raise FunctionalMldsContractError("V2 trace map model_sha256 does not match the native instance.")
+    if str(trace.get("case_id") or "") != str(instance.get("caseId") or ""):
+        raise FunctionalMldsContractError("V2 trace map case_id does not match the native instance.")
+    instance_profile = str(instance.get("fixture_profile") or instance.get("profile") or "")
+    if str(trace.get("profile") or "") != instance_profile:
+        raise FunctionalMldsContractError("V2 trace map profile does not match the native instance.")
+    main_scenarios = [
+        item for item in by_id.values() if item.get("type") == "Scenario" and item.get("kind") == "main"
+    ]
+    if len(main_scenarios) != 1 or trace.get("main_scenario_id") != main_scenarios[0].get("id"):
+        raise FunctionalMldsContractError(
+            "V2 trace map main_scenario_id must identify the model's unique main Scenario."
+        )
+    actions = trace.get("runtime_actions")
+    if not isinstance(actions, list) or not actions:
+        raise FunctionalMldsContractError("V2 trace map requires runtime_actions.")
+    seen_action_kinds: Dict[str, int] = {}
+    actual_chains: List[tuple[str, str, str, str, str, str]] = []
+    for index, raw in enumerate(actions):
+        if not isinstance(raw, Mapping):
+            raise FunctionalMldsContractError(f"runtime_actions[{index}] must be an object.")
+        required = (
+            "scenario_step_id",
+            "capability_use_id",
+            "capability_id",
+            "provider_entity_id",
+            "runtime_binding_id",
+            "runtime_action_id",
+        )
+        ids = {name: _required_text(raw.get(name), f"runtime_actions[{index}].{name}") for name in required}
+        if any(value not in by_id for value in ids.values()):
+            raise FunctionalMldsContractError(f"runtime_actions[{index}] contains an unresolved model reference.")
+        step = by_id[ids["scenario_step_id"]]
+        use = by_id[ids["capability_use_id"]]
+        capability = by_id[ids["capability_id"]]
+        provider = by_id[ids["provider_entity_id"]]
+        binding = by_id[ids["runtime_binding_id"]]
+        action = by_id[ids["runtime_action_id"]]
+        if ids["capability_use_id"] not in _refs(step.get("capabilityUse")):
+            raise FunctionalMldsContractError(f"runtime_actions[{index}] bypasses ScenarioStep.capabilityUse.")
+        if ids["capability_id"] not in _refs(use.get("typeRef") or use.get("capability")):
+            raise FunctionalMldsContractError(f"runtime_actions[{index}] CapabilityUse type mismatch.")
+        if ids["provider_entity_id"] not in _refs(use.get("provider")) or ids["provider_entity_id"] not in _refs(step.get("performedBy")):
+            raise FunctionalMldsContractError(f"runtime_actions[{index}] provider chain mismatch.")
+        if ids["capability_id"] not in _refs(provider.get("providedCapability")):
+            raise FunctionalMldsContractError(f"runtime_actions[{index}] provider does not provide the Capability.")
+        if ids["capability_id"] not in _refs(binding.get("capability")):
+            raise FunctionalMldsContractError(f"runtime_actions[{index}] RuntimeBinding capability mismatch.")
+        if ids["runtime_action_id"] not in _refs(binding.get("runtimeAction")):
+            raise FunctionalMldsContractError(f"runtime_actions[{index}] RuntimeAction is not owned by the binding.")
+        if step.get("type") != "ScenarioStep" or use.get("type") != "CapabilityUse" or capability.get("type") != "Capability" or binding.get("type") != "RuntimeBinding" or action.get("type") != "RuntimeAction":
+            raise FunctionalMldsContractError(f"runtime_actions[{index}] contains a type-invalid chain.")
+        actual_chains.append(tuple(ids[name] for name in required))
+
+        expected_targets = _refs(use.get("target"))
+        expected_assertions: List[str] = []
+        for effect_id in _refs(capability.get("effect")):
+            expected_assertions.extend(_refs(by_id[effect_id].get("specifiedBy")))
+        expected_assertions = list(dict.fromkeys(expected_assertions))
+        expected_cases = [
+            str(item.get("id"))
+            for item in by_id.values()
+            if item.get("type") == "ValidationCase" and ids["runtime_binding_id"] in _refs(item.get("vvSubject"))
+        ]
+        expected_runtime_targets: List[str] = []
+        for validation_case in by_id.values():
+            if validation_case.get("type") != "ValidationCase":
+                continue
+            for target_id in _refs(validation_case.get("vvTarget")):
+                target = by_id[target_id]
+                if ids["runtime_binding_id"] in _refs(target.get("runtimeBinding")):
+                    expected_runtime_targets.append(target_id)
+        expected_runtime_targets = list(dict.fromkeys(expected_runtime_targets))
+        _require_exact_trace_list(raw, "target_ids", expected_targets, by_id, index)
+        _require_exact_trace_list(raw, "assertion_ids", expected_assertions, by_id, index)
+        _require_exact_trace_list(raw, "validation_case_ids", expected_cases, by_id, index)
+        _require_exact_trace_list(
+            raw,
+            "runtime_validation_target_ids",
+            expected_runtime_targets,
+            by_id,
+            index,
+        )
+
+        locator_ids = _refs(action.get("locator"))
+        modeled_locator = by_id[locator_ids[0]]
+        expected_locator = {
+            "kind": modeled_locator.get("kind"),
+            "value": modeled_locator.get("value"),
+        }
+        locator = raw.get("locator")
+        if not isinstance(locator, Mapping) or dict(locator) != expected_locator:
+            raise FunctionalMldsContractError(
+                f"runtime_actions[{index}].locator does not exactly match RuntimeAction.locator."
+            )
+        action_kind = _runtime_action_kind(action, by_id)
+        if _optional_text(raw.get("action_kind")) != action_kind:
+            raise FunctionalMldsContractError(
+                f"runtime_actions[{index}].action_kind does not match the modeled applicationActionKind."
+            )
+        seen_action_kinds[action_kind] = seen_action_kinds.get(action_kind, 0) + 1
+
+    expected_chains: List[tuple[str, str, str, str, str, str]] = []
+    steps_for_use: Dict[str, List[Mapping[str, Any]]] = {}
+    for step in by_id.values():
+        if step.get("type") != "ScenarioStep":
+            continue
+        for use_id in _refs(step.get("capabilityUse")):
+            steps_for_use.setdefault(use_id, []).append(step)
+    uses_for_capability: Dict[str, List[Mapping[str, Any]]] = {}
+    for use in by_id.values():
+        if use.get("type") != "CapabilityUse":
+            continue
+        capability_ids = _refs(use.get("typeRef") or use.get("capability"))
+        if len(capability_ids) == 1:
+            uses_for_capability.setdefault(capability_ids[0], []).append(use)
+    for binding in by_id.values():
+        if binding.get("type") != "RuntimeBinding":
+            continue
+        capability_ids = _refs(binding.get("capability"))
+        if len(capability_ids) != 1:
+            continue
+        capability_id = capability_ids[0]
+        for action_id in _refs(binding.get("runtimeAction")):
+            for use in uses_for_capability.get(capability_id, []):
+                use_id = str(use.get("id"))
+                steps = steps_for_use.get(use_id, [])
+                if len(steps) != 1:
+                    raise FunctionalMldsContractError(
+                        f"CapabilityUse {use_id!r} must belong to exactly one ScenarioStep for runtime mapping."
+                    )
+                providers = _refs(use.get("provider"))
+                if len(providers) != 1:
+                    raise FunctionalMldsContractError(
+                        f"CapabilityUse {use_id!r} must have exactly one provider for runtime mapping."
+                    )
+                expected_chains.append(
+                    (
+                        str(steps[0].get("id")),
+                        use_id,
+                        capability_id,
+                        providers[0],
+                        str(binding.get("id")),
+                        action_id,
+                    )
+                )
+    if len(actual_chains) != len(set(actual_chains)):
+        raise FunctionalMldsContractError("V2 runtime trace contains duplicate runtime action chains.")
+    if set(actual_chains) != set(expected_chains):
+        raise FunctionalMldsContractError(
+            "V2 runtime trace is not a complete, exact projection of the model's runtime action chains."
+        )
+
+    for action_kind in ("setup", "chat", "handoff"):
+        if seen_action_kinds.get(action_kind) != 1:
+            raise FunctionalMldsContractError(
+                f"V2 runtime trace requires exactly one {action_kind!r} action mapping; found {seen_action_kinds.get(action_kind, 0)}."
+            )
+
+
+def _build_v2_runtime_context(
+    instance: Mapping[str, Any],
+    trace: Mapping[str, Any],
+    model_sha256: str,
+) -> Dict[str, Any]:
+    objects = [dict(item) for item in instance.get("objects", []) if isinstance(item, Mapping)]
+    assertions = []
+    assertion_types = {
+        "StateAssertion",
+        "EventAssertion",
+        "OutputAssertion",
+        "GroundingAssertion",
+        "RelationAssertion",
+    }
+    by_id = {str(item.get("id")): item for item in objects}
+    for item in objects:
+        if item.get("type") not in assertion_types:
+            continue
+        expression_ids = _refs(item.get("expression"))
+        expression = by_id.get(expression_ids[0], {}) if expression_ids else {}
+        assertions.append(
+            {
+                "id": item.get("id"),
+                "assertion_type": item.get("type"),
+                "subject_id": (_refs(item.get("subject")) or [None])[0],
+                "expression_text": item.get("expressionText")
+                or expression.get("mixedStringContent")
+                or expression.get("expression")
+                or "",
+                "severity": item.get("severity"),
+            }
+        )
+    targets = [item for item in objects if item.get("type") == "RuntimeValidationTarget"]
+    unity_target = next((item for item in targets if "unity" in str(item.get("platform") or "").lower()), None)
+    if unity_target is None and targets:
+        unity_target = targets[0]
+    agents = []
+    for item in objects:
+        if item.get("type") != "Agent":
+            continue
+        agents.append(
+            {
+                "functionalmlds_agent_id": item.get("id"),
+                "entity_id": item.get("id"),
+                "source_agent_id": item.get("sourceAgentId"),
+                "provided_capability_ids": _refs(item.get("providedCapability")),
+                "plays_actor_ids": _refs(item.get("playsActor")),
+                "responsible_zone_ids": _refs(item.get("responsibleZone")),
+                "grounded_asset_ids": _refs(item.get("groundedAsset")),
+                "grounded_object_group_ids": _refs(item.get("groundedObjectGroup")),
+            }
+        )
+    return {
+        "schema": RUNTIME_CONTEXT_SCHEMA,
+        "case_id": trace.get("case_id"),
+        "model_version": V2_MODEL_VERSION,
+        "model_sha256": model_sha256,
+        "profile": "executable",
+        "trace_schema_version": V2_TRACE_VERSION,
+        "main_scenario_id": trace.get("main_scenario_id"),
+        "runtime_validation_target_id": unity_target.get("id") if unity_target else None,
+        "runtime_actions": [dict(item) for item in trace.get("runtime_actions", [])],
+        "assertions": assertions,
+        "agents": agents,
+    }
+
+
+def _resolve_contract_version(project_dir: Path, meta: Mapping[str, Any]) -> str:
+    declared = [
+        str(meta.get(field) or "").strip()
+        for field in ("functionalmlds_model_version", "metamodelVersion")
+        if str(meta.get(field) or "").strip()
+    ]
+    normalized = [V05_MODEL_VERSION if value == "0.5" else value for value in declared]
+    if len(set(normalized)) > 1:
+        raise FunctionalMldsContractError(
+            f"Conflicting FunctionalMLDS version declarations in project.json: {normalized!r}."
+        )
+    declared_version = normalized[0] if normalized else ""
+
+    active_trace_path = _resolve_project_file(
+        project_dir,
+        meta.get("functionalmlds_trace_map_path"),
+        "trace_map.json",
+        required=False,
+    )
+    active_trace_schema = ""
+    if active_trace_path.exists():
+        active_trace_schema = str(_read_json(active_trace_path).get("schema") or "")
+
+    native_model_path = _resolve_project_file(
+        project_dir,
+        meta.get("functionalmlds_model_path"),
+        "functionalmlds.v2.instance.json",
+        required=False,
+    )
+    native_schema = ""
+    native_version = ""
+    if native_model_path.exists():
+        native_model = _read_json(native_model_path)
+        native_schema = str(native_model.get("schema") or "")
+        native_version = str(native_model.get("metamodelVersion") or "")
+
+    v2_hints = {
+        "active trace schema": active_trace_schema == V2_TRACE_SCHEMA,
+        "native model schema": native_schema == V2_INSTANCE_SCHEMA,
+        "native model version": native_version == V2_MODEL_VERSION,
+        "project model schema": str(meta.get("functionalmlds_model_schema") or "") == V2_INSTANCE_SCHEMA,
+        "project trace version": str(meta.get("functionalmlds_trace_schema_version") or "") == V2_TRACE_VERSION,
+    }
+    has_v2_hint = any(v2_hints.values())
+    if declared_version in {V05_MODEL_VERSION, ""} and has_v2_hint:
+        hints = ", ".join(name for name, present in v2_hints.items() if present)
+        raise FunctionalMldsContractError(
+            "Mixed or downgraded FunctionalMLDS contract: project.json does not explicitly "
+            f"declare {V2_MODEL_VERSION!r}, but V2 evidence is present ({hints})."
+        )
+    if declared_version == V2_MODEL_VERSION:
+        if active_trace_schema and active_trace_schema != V2_TRACE_SCHEMA:
+            raise FunctionalMldsContractError(
+                f"V2 project points to incompatible active trace schema {active_trace_schema!r}."
+            )
+        return V2_MODEL_VERSION
+    if declared_version in {V05_MODEL_VERSION, ""}:
+        return V05_MODEL_VERSION
+    return declared_version
+
+
+def _validate_v2_project_metadata(
+    project_dir: Path,
+    meta: Mapping[str, Any],
+    instance: Mapping[str, Any],
+) -> None:
+    expected = {
+        "metamodelVersion": V2_MODEL_VERSION,
+        "functionalmlds_model_version": V2_MODEL_VERSION,
+        "functionalmlds_model_schema": V2_INSTANCE_SCHEMA,
+        "functionalmlds_profile": "executable",
+        "functionalmlds_trace_schema_version": V2_TRACE_VERSION,
+    }
+    for field, value in expected.items():
+        if meta.get(field) != value:
+            raise FunctionalMldsContractError(
+                f"V2 project metadata {field} must be {value!r}, got {meta.get(field)!r}."
+            )
+    case_id = str(instance.get("caseId") or "")
+    if str(meta.get("id") or "") != case_id or project_dir.name != case_id:
+        raise FunctionalMldsContractError(
+            "V2 project id, project directory, and native instance caseId must match exactly."
+        )
+
+
+def _require_exact_trace_list(
+    action: Mapping[str, Any],
+    field: str,
+    expected: List[str],
+    by_id: Mapping[str, Mapping[str, Any]],
+    action_index: int,
+) -> None:
+    raw = action.get(field)
+    if not isinstance(raw, list) or any(not isinstance(value, str) or not value for value in raw):
+        raise FunctionalMldsContractError(
+            f"runtime_actions[{action_index}].{field} must be an explicit string array."
+        )
+    actual = list(raw)
+    for ref in actual:
+        if ref not in by_id:
+            raise FunctionalMldsContractError(
+                f"runtime_actions[{action_index}].{field} contains unresolved {ref!r}."
+            )
+    if actual != expected:
+        raise FunctionalMldsContractError(
+            f"runtime_actions[{action_index}].{field} does not exactly match its modeled derivation."
+        )
+
+
+def _runtime_action_kind(
+    action: Mapping[str, Any],
+    by_id: Mapping[str, Mapping[str, Any]],
+) -> str:
+    markers: List[str] = []
+    for schema_id in _refs(action.get("inputSchema")):
+        schema = by_id.get(schema_id)
+        if not schema or schema.get("type") != "SchemaReference":
+            continue
+        raw = schema.get("text")
+        if not isinstance(raw, str) or not raw.strip():
+            continue
+        try:
+            payload = json.loads(raw)
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(payload, Mapping):
+            continue
+        marker = str(payload.get("applicationActionKind") or "").strip().lower()
+        if marker:
+            markers.append(marker)
+    allowed = {"setup", "chat", "handoff", "runtime"}
+    if len(markers) != 1 or markers[0] not in allowed:
+        raise FunctionalMldsContractError(
+            f"RuntimeAction {action.get('id')!r} requires exactly one modeled "
+            f"applicationActionKind in {sorted(allowed)!r}; found {markers!r}."
+        )
+    return markers[0]
+
+
+def _placement_projection_sha256(agents: Any) -> str:
+    if not isinstance(agents, list):
+        raise FunctionalMldsContractError("agents.json agents must be an array.")
+    projection: List[Dict[str, Any]] = []
+    seen_ids = set()
+    for index, agent in enumerate(agents):
+        if not isinstance(agent, Mapping):
+            raise FunctionalMldsContractError(f"agents[{index}] must be an object.")
+        agent_id = str(agent.get("id") or "").strip()
+        if not agent_id or agent_id in seen_ids:
+            raise FunctionalMldsContractError(
+                "Placement projection requires unique, non-empty agent ids."
+            )
+        seen_ids.add(agent_id)
+        vectors: Dict[str, Dict[str, Any]] = {}
+        for field_name in ("position", "forward"):
+            vector = agent.get(field_name)
+            if not isinstance(vector, Mapping):
+                raise FunctionalMldsContractError(
+                    f"agents[{index}].{field_name} must be an object."
+                )
+            components: Dict[str, Any] = {}
+            for axis in ("x", "y", "z"):
+                value = vector.get(axis)
+                if (
+                    isinstance(value, bool)
+                    or not isinstance(value, (int, float))
+                    or not math.isfinite(float(value))
+                ):
+                    raise FunctionalMldsContractError(
+                        f"agents[{index}].{field_name}.{axis} must be a finite JSON number."
+                    )
+                components[axis] = value
+            vectors[field_name] = components
+        projection.append(
+            {
+                "id": agent_id,
+                "position": vectors["position"],
+                "forward": vectors["forward"],
+            }
+        )
+    projection.sort(key=lambda item: item["id"])
+    canonical = json.dumps(
+        projection,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+        allow_nan=False,
+    )
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def _validate_optional_placement_deployment(
+    project_dir: Path,
+    meta: Mapping[str, Any],
+    trace: Mapping[str, Any],
+) -> None:
+    agents_path = project_dir / "agents.json"
+    agents_payload = _read_json(agents_path) if agents_path.exists() else {}
+    declarations = {
+        "project.json": meta,
+        "active trace map": trace,
+        "agents.json": agents_payload,
+    }
+    if not any(
+        field_name in document
+        for document in declarations.values()
+        for field_name in PLACEMENT_DEPLOYMENT_FIELDS
+    ):
+        # Backward compatibility for projects materialized before placement
+        # deployment provenance became part of the runtime contract.
+        return
+
+    expected_values: Dict[str, Any] = {}
+    for field_name in PLACEMENT_DEPLOYMENT_FIELDS:
+        values = {
+            document_name: document.get(field_name)
+            for document_name, document in declarations.items()
+        }
+        if any(value in (None, "") for value in values.values()):
+            raise FunctionalMldsContractError(
+                f"Placement deployment field {field_name!r} must be declared by "
+                "project.json, the active trace map, and agents.json."
+            )
+        distinct = {str(value) for value in values.values()}
+        if len(distinct) != 1:
+            raise FunctionalMldsContractError(
+                f"Placement deployment field {field_name!r} disagrees across declarations: {values}."
+            )
+        expected_values[field_name] = next(iter(values.values()))
+
+    expected_contract = {
+        "placement_schema": PLACEMENT_ARTIFACT_SCHEMA,
+        "placement_schema_version": PLACEMENT_ARTIFACT_SCHEMA_VERSION,
+        "placement_algorithm_version": PLACEMENT_ALGORITHM_VERSION,
+    }
+    for field_name, expected in expected_contract.items():
+        if expected_values.get(field_name) != expected:
+            raise FunctionalMldsContractError(
+                f"Placement deployment {field_name} must be {expected!r}."
+            )
+    if expected_values.get("placement_origin") not in PLACEMENT_ORIGINS:
+        raise FunctionalMldsContractError("Placement deployment origin is unsupported.")
+    artifact_hash = str(expected_values.get("placement_artifact_sha256") or "")
+    if len(artifact_hash) != 64 or any(char not in "0123456789abcdef" for char in artifact_hash):
+        raise FunctionalMldsContractError(
+            "Placement artifact SHA-256 must be a lowercase 64-character hexadecimal digest."
+        )
+    projection_hash = _placement_projection_sha256(agents_payload.get("agents"))
+    if projection_hash != expected_values.get("placement_projection_sha256"):
+        raise FunctionalMldsContractError(
+            "agents.json id/position/forward projection does not match its declared SHA-256."
+        )
+
+
+def _resolve_project_file(
+    project_dir: Path,
+    raw_path: Any,
+    default_name: str,
+    *,
+    required: bool = True,
+) -> Path:
+    text = _optional_text(raw_path)
+    candidate = Path(text) if text else project_dir / default_name
+    if not candidate.is_absolute():
+        candidate = project_dir / candidate
+    candidate = candidate.resolve()
+    if required and not candidate.is_file():
+        raise FunctionalMldsContractError(f"Required FunctionalMLDS project file is missing: {candidate}")
+    return candidate
+
+
+def _read_json(path: Path) -> Dict[str, Any]:
+    try:
+        value = json.loads(Path(path).read_text(encoding="utf-8-sig"))
+    except FileNotFoundError as exc:
+        raise FunctionalMldsContractError(f"Required JSON file is missing: {path}") from exc
+    except (OSError, json.JSONDecodeError) as exc:
+        raise FunctionalMldsContractError(f"Invalid JSON file {path}: {exc}") from exc
+    if not isinstance(value, dict):
+        raise FunctionalMldsContractError(f"JSON root must be an object: {path}")
+    return value
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest().upper()
+
+
+def _refs(value: Any) -> List[str]:
+    if value is None:
+        return []
+    if isinstance(value, (str, int, float)):
+        text = str(value).strip()
+        return [text] if text else []
+    if not isinstance(value, list):
+        return []
+    return [str(item).strip() for item in value if str(item).strip()]
+
+
+def _require_refs(
+    item: Mapping[str, Any],
+    field: str,
+    by_id: Mapping[str, Mapping[str, Any]],
+    *,
+    minimum: int,
+    maximum: Optional[int] = None,
+    expected_type: Optional[str] = None,
+) -> List[str]:
+    refs = _refs(item.get(field))
+    if len(refs) < minimum or (maximum is not None and len(refs) > maximum):
+        upper = "*" if maximum is None else str(maximum)
+        raise FunctionalMldsContractError(
+            f"{item.get('type')} {item.get('id')!r}.{field} requires {minimum}..{upper} references."
+        )
+    for ref in refs:
+        target = by_id.get(ref)
+        if target is None:
+            raise FunctionalMldsContractError(f"{item.get('id')!r}.{field} contains unresolved reference {ref!r}.")
+        if expected_type and target.get("type") != expected_type:
+            raise FunctionalMldsContractError(
+                f"{item.get('id')!r}.{field} must reference {expected_type}, got {target.get('type')}."
+            )
+    return refs
+
+
+def _require_exact_refs(
+    item: Mapping[str, Any],
+    field: str,
+    by_id: Mapping[str, Mapping[str, Any]],
+    count: int,
+) -> List[str]:
+    return _require_refs(item, field, by_id, minimum=count, maximum=count)
+
+
+def _require_exact_typed_refs(
+    item: Mapping[str, Any],
+    field: str,
+    by_id: Mapping[str, Mapping[str, Any]],
+    expected_type: str,
+    count: int,
+) -> List[str]:
+    return _require_refs(
+        item,
+        field,
+        by_id,
+        minimum=count,
+        maximum=count,
+        expected_type=expected_type,
+    )
+
+
+def _required_text(value: Any, field: str) -> str:
+    text = _optional_text(value)
+    if not text:
+        raise FunctionalMldsContractError(f"{field} is required.")
+    return text
+
+
+def _optional_text(value: Any) -> Optional[str]:
+    text = str(value or "").strip()
+    return text or None
+
+
+def _legacy_action_kind(item: Mapping[str, Any]) -> Optional[str]:
+    endpoint = str(item.get("endpoint") or "")
+    action_id = str(item.get("runtime_action_id") or "")
+    capability_id = str(item.get("capability_id") or "")
+    if endpoint == "POST /setup":
+        return "setup"
+    if endpoint == "POST /chat" and ("HANDOFF" in action_id or "HANDOFF" in capability_id):
+        return "handoff"
+    if endpoint == "POST /chat":
+        return "chat"
+    return None
+
+
+def _legacy_capability_use_id(trace: Mapping[str, Any], capability_id: Any) -> Optional[str]:
+    capability_id = _optional_text(capability_id)
+    if not capability_id:
+        return None
+    case_id = str(trace.get("case_id") or "").upper()
+    prefix = f"CAP-{case_id}-"
+    suffix = capability_id[len(prefix) :] if capability_id.startswith(prefix) else capability_id
+    for step in trace.get("scenario_steps", []):
+        if not isinstance(step, Mapping):
+            continue
+        for use_id in _refs(step.get("capability_use_ids")):
+            if use_id.endswith(suffix):
+                return use_id
+    return None
+
+
+def _legacy_step_id(trace: Mapping[str, Any], capability_id: Any) -> Optional[str]:
+    use_id = _legacy_capability_use_id(trace, capability_id)
+    if not use_id:
+        return None
+    for step in trace.get("scenario_steps", []):
+        if isinstance(step, Mapping) and use_id in _refs(step.get("capability_use_ids")):
+            return _optional_text(step.get("scenario_step_id"))
+    return None

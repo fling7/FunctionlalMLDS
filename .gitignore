@@ -25,6 +25,7 @@ __pycache__/
 
 # Generated Unity smoke-test project copies
 output/unity_smoke/
+runtime_logs/
 
 # Unity/IDE generated files
 *.csproj

@@ -1,0 +1,21 @@
+{
+  "id": "classroom_dinosaur",
+  "display_name": "Classroom Dinosaur",
+  "description": "Generated FunctionalMLDS case-study project for Interactive Agents.",
+  "created_ms": 1783499372896,
+  "updated_ms": 1784032762537,
+  "generation_mode": "functionalmlds",
+  "functionalmlds_trace_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.instance.generated.json",
+  "functionalmlds_case_dir": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur",
+  "source_mlds_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\input\\source_mlds.json",
+  "metamodelVersion": "2.0.0-model",
+  "functionalmlds_model_version": "2.0.0-model",
+  "functionalmlds_model_schema": "dynamic_functional_mlds_v2_instance",
+  "functionalmlds_profile": "executable",
+  "functionalmlds_model_sha256": "5FE7E33D91933A87DCB25539F68EC34B6751950216BB121DFBE83EE61066451C",
+  "functionalmlds_model_path": "functionalmlds.v2.instance.json",
+  "functionalmlds_legacy_path": "functionalmlds.v05.instance.json",
+  "functionalmlds_trace_map_path": "trace_map.v2.json",
+  "functionalmlds_legacy_trace_map_path": "trace_map.v05.json",
+  "functionalmlds_trace_schema_version": "2.0"
+}
