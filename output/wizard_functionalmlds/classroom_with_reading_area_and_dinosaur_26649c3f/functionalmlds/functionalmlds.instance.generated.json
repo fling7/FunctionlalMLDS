@@ -1,0 +1,1858 @@
+{
+  "schema": "functionalmlds_case_study",
+  "metamodelVersion": "v0.5",
+  "caseId": "classroom_with_reading_area_and_dinosaur_26649c3f",
+  "requirementsModel": {
+    "id": "RM-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F",
+    "requirements": [
+      {
+        "id": "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-001",
+        "text": "The pipeline shall ingest an MLDS scene and preserve stable object identities."
+      },
+      {
+        "id": "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-002",
+        "text": "The pipeline shall derive room semantics grounded in existing MLDS objects."
+      },
+      {
+        "id": "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-003",
+        "text": "The pipeline shall synthesize backend-compatible spatial agent roles."
+      },
+      {
+        "id": "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-004",
+        "text": "Every generated agent knowledge tag shall be covered by materialized knowledge."
+      },
+      {
+        "id": "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-005",
+        "text": "Every generated agent shall be placed inside the room without obstacle overlap."
+      },
+      {
+        "id": "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-006",
+        "text": "The generated behavior shall be traceable from requirements to runtime actions and validation cases."
+      }
+    ],
+    "useCases": [
+      {
+        "id": "UC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-01",
+        "name": "Generate and use spatially grounded multi-agent guide",
+        "actor_ids": [
+          "ACT-CASE-STUDY-ENGINEER",
+          "ACT-VISITOR",
+          "ACT-ROOM-GUIDE"
+        ],
+        "extensionPoints": [],
+        "includes": [],
+        "extends": [],
+        "scenarios": [
+          {
+            "id": "SC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MAIN",
+            "kind": "main",
+            "description": "Main scenario for generating and using a spatially grounded multi-agent room guide.",
+            "precondition_ids": [
+              "COND-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-VALID-INPUT"
+            ],
+            "postcondition_ids": [
+              "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANSWER-GROUNDED"
+            ],
+            "steps": [
+              {
+                "id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S01",
+                "stepNumber": 1,
+                "kind": "actorIntent",
+                "performedBy": "ACT-CASE-STUDY-ENGINEER",
+                "text": "Provide an MLDS file as case-study input.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [
+                  "EV-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MLDS-PROVIDED"
+                ],
+                "guard": "COND-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-VALID-INPUT",
+                "resultingState": [],
+                "capabilityUseIds": []
+              },
+              {
+                "id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S02",
+                "stepNumber": 2,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Load and normalize the MLDS scene.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-NORMALIZED-SCENE-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S02-ANALYZE-MLDS-SCENE"
+                ]
+              },
+              {
+                "id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S03",
+                "stepNumber": 3,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Derive semantic zones, visitor goals and interaction topics.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-SCENE-SEMANTICS-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S03-ANALYZE-MLDS-SCENE"
+                ]
+              },
+              {
+                "id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S04",
+                "stepNumber": 4,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Generate spatially grounded agent roles and handoff rules.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-AGENT-ROLES-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S04-DERIVE-SPATIAL-AGENT-ROLES"
+                ]
+              },
+              {
+                "id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S05",
+                "stepNumber": 5,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Generate materialized knowledge entries for all agent knowledge tags.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-KNOWLEDGE-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S05-GENERATE-ROOM-KNOWLEDGE"
+                ]
+              },
+              {
+                "id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S06",
+                "stepNumber": 6,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Place generated agents inside the room near their responsibilities.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-PLACEMENT-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S06-PLACE-AGENTS-IN-SCENE"
+                ]
+              },
+              {
+                "id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S07",
+                "stepNumber": 7,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Assemble and validate the FunctionalMLDS trace instance.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-FUNCTIONALMLDS-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S07-ASSEMBLE-FUNCTIONAL-MLDS"
+                ]
+              },
+              {
+                "id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S08",
+                "stepNumber": 8,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Materialize the Interactive Agents project files.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-PROJECT-MATERIALIZED"
+                ],
+                "capabilityUseIds": [
+                  "CU-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S08-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+                ]
+              },
+              {
+                "id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S09",
+                "stepNumber": 9,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Set up an Interactive Agents runtime session.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": "COND-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-AGENTS-AVAILABLE",
+                "resultingState": [
+                  "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-SETUP-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S09-SETUP-INTERACTIVE-SESSION"
+                ]
+              },
+              {
+                "id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S10",
+                "stepNumber": 10,
+                "kind": "actorIntent",
+                "performedBy": "ACT-VISITOR",
+                "text": "Ask a room-related question to an agent.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [
+                  "EV-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-VISITOR-QUESTION"
+                ],
+                "guard": null,
+                "resultingState": [],
+                "capabilityUseIds": []
+              },
+              {
+                "id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S11",
+                "stepNumber": 11,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Answer the visitor question using grounded room knowledge.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANSWER-GROUNDED"
+                ],
+                "capabilityUseIds": [
+                  "CU-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S11-ANSWER-ROOM-GROUNDED-QUESTION"
+                ]
+              },
+              {
+                "id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S12",
+                "stepNumber": 12,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Optionally hand off to the responsible specialist agent.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [
+                  "EV-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-HANDOFF-NEEDED"
+                ],
+                "guard": "COND-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-HANDOFF-TARGET-AVAILABLE",
+                "resultingState": [
+                  "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-HANDOFF-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S12-HANDOFF-TO-RESPONSIBLE-AGENT"
+                ]
+              }
+            ],
+            "stepRelations": [
+              {
+                "id": "REL-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-01-02",
+                "kind": "sequence",
+                "source_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S01",
+                "target_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S02",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-02-03",
+                "kind": "sequence",
+                "source_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S02",
+                "target_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S03",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-03-04",
+                "kind": "sequence",
+                "source_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S03",
+                "target_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S04",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-04-05",
+                "kind": "sequence",
+                "source_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S04",
+                "target_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S05",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-05-06",
+                "kind": "sequence",
+                "source_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S05",
+                "target_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S06",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-06-07",
+                "kind": "sequence",
+                "source_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S06",
+                "target_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S07",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-07-08",
+                "kind": "sequence",
+                "source_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S07",
+                "target_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S08",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-08-09",
+                "kind": "sequence",
+                "source_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S08",
+                "target_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S09",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-09-10",
+                "kind": "sequence",
+                "source_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S09",
+                "target_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S10",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-10-11",
+                "kind": "sequence",
+                "source_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S10",
+                "target_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S11",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-11-12",
+                "kind": "sequence",
+                "source_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S11",
+                "target_step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S12",
+                "guard": null,
+                "probability": 1.0
+              }
+            ],
+            "parallelGroups": []
+          }
+        ]
+      }
+    ]
+  },
+  "actors": [
+    {
+      "id": "ACT-CASE-STUDY-ENGINEER",
+      "name": "Case Study Engineer",
+      "description": "Provides MLDS input and runs the validation pipeline."
+    },
+    {
+      "id": "ACT-VISITOR",
+      "name": "Visitor",
+      "description": "Asks room-related questions in the generated immersive environment."
+    },
+    {
+      "id": "ACT-ROOM-GUIDE",
+      "name": "Room Guide",
+      "description": "Role played by generated interactive agents."
+    }
+  ],
+  "entities": [
+    {
+      "id": "ENT-ZONE-TEACHING_ZONE",
+      "name": "Teaching and Instruction Zone",
+      "kind": "zone",
+      "source_id": "teaching_zone",
+      "entityRole": "semanticZone",
+      "source_object_ids": [
+        "chalkboard",
+        "teacher_desk",
+        "student_desk1",
+        "student_desk2",
+        "student_desk3",
+        "student_desk4",
+        "student_desk5",
+        "student_desk6",
+        "student_desk7",
+        "student_desk8",
+        "student_desk9",
+        "student_desk10",
+        "student_desk11",
+        "student_desk12",
+        "student_desk13",
+        "student_desk14",
+        "student_desk15",
+        "student_desk16",
+        "student_desk17",
+        "student_desk18",
+        "student_desk19",
+        "student_desk20"
+      ],
+      "purpose": "Primary area for teacher-led instruction and student learning"
+    },
+    {
+      "id": "ENT-ZONE-READING_AREA",
+      "name": "Reading and Relaxation Area",
+      "kind": "zone",
+      "source_id": "reading_area",
+      "entityRole": "semanticZone",
+      "source_object_ids": [
+        "reading_table",
+        "beanbag1",
+        "beanbag2",
+        "beanbag3",
+        "beanbag4"
+      ],
+      "purpose": "Space for quiet reading, group discussions, and informal seating"
+    },
+    {
+      "id": "ENT-ZONE-EDUCATIONAL_DISPLAY_ZONE",
+      "name": "Dinosaur Exhibit and Decor Zone",
+      "kind": "zone",
+      "source_id": "educational_display_zone",
+      "entityRole": "semanticZone",
+      "source_object_ids": [
+        "dinosaur_skeleton",
+        "picture1",
+        "picture2"
+      ],
+      "purpose": "Area showcasing the dinosaur skeleton and decorative artworks for educational enrichment"
+    },
+    {
+      "id": "ENT-ZONE-BOOK_STORAGE_ZONE",
+      "name": "Bookcase and Resource Zone",
+      "kind": "zone",
+      "source_id": "book_storage_zone",
+      "entityRole": "semanticZone",
+      "source_object_ids": [
+        "bookcase"
+      ],
+      "purpose": "Storage and access point for books and educational materials"
+    },
+    {
+      "id": "ENT-ZONE-PLANT_DECOR_ZONE",
+      "name": "Plant Decoration Zone",
+      "kind": "zone",
+      "source_id": "plant_decor_zone",
+      "entityRole": "semanticZone",
+      "source_object_ids": [
+        "plant1",
+        "plant2",
+        "plant3",
+        "plant4",
+        "plant5"
+      ],
+      "purpose": "Natural elements enhancing room ambiance and comfort"
+    },
+    {
+      "id": "ENT-GROUP-DECOR",
+      "name": "Object group: decor",
+      "kind": "asset",
+      "source_id": "group:decor",
+      "entityRole": "objectGroup",
+      "source_group": "decor",
+      "source_object_ids": [
+        "dinosaur_skeleton",
+        "picture1",
+        "picture2"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-EQUIPMENT",
+      "name": "Object group: equipment",
+      "kind": "asset",
+      "source_id": "group:equipment",
+      "entityRole": "objectGroup",
+      "source_group": "equipment",
+      "source_object_ids": [
+        "chalkboard"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-FURNITURE",
+      "name": "Object group: furniture",
+      "kind": "asset",
+      "source_id": "group:furniture",
+      "entityRole": "objectGroup",
+      "source_group": "furniture",
+      "source_object_ids": [
+        "teacher_desk",
+        "student_desk1",
+        "student_desk2",
+        "student_desk3",
+        "student_desk4",
+        "student_desk5",
+        "student_desk6",
+        "student_desk7",
+        "student_desk8",
+        "student_desk9",
+        "student_desk10",
+        "student_desk11",
+        "student_desk12",
+        "student_desk13",
+        "student_desk14",
+        "student_desk15",
+        "student_desk16",
+        "student_desk17",
+        "student_desk18",
+        "student_desk19",
+        "student_desk20",
+        "bookcase",
+        "reading_table"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-PLANTS",
+      "name": "Object group: plants",
+      "kind": "asset",
+      "source_id": "group:plants",
+      "entityRole": "objectGroup",
+      "source_group": "plants",
+      "source_object_ids": [
+        "plant1",
+        "plant2",
+        "plant3",
+        "plant4",
+        "plant5"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-SEATING",
+      "name": "Object group: seating",
+      "kind": "asset",
+      "source_id": "group:seating",
+      "entityRole": "objectGroup",
+      "source_group": "seating",
+      "source_object_ids": [
+        "beanbag1",
+        "beanbag2",
+        "beanbag3",
+        "beanbag4"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-BEANBAG1",
+      "name": "beanbag",
+      "kind": "asset",
+      "source_id": "beanbag1",
+      "entityRole": "sceneObject",
+      "source_group": "seating",
+      "object_type": "beanbag",
+      "object_group_entity_id": "ENT-GROUP-SEATING"
+    },
+    {
+      "id": "ENT-ASSET-BEANBAG2",
+      "name": "beanbag",
+      "kind": "asset",
+      "source_id": "beanbag2",
+      "entityRole": "sceneObject",
+      "source_group": "seating",
+      "object_type": "beanbag",
+      "object_group_entity_id": "ENT-GROUP-SEATING"
+    },
+    {
+      "id": "ENT-ASSET-BEANBAG3",
+      "name": "beanbag",
+      "kind": "asset",
+      "source_id": "beanbag3",
+      "entityRole": "sceneObject",
+      "source_group": "seating",
+      "object_type": "beanbag",
+      "object_group_entity_id": "ENT-GROUP-SEATING"
+    },
+    {
+      "id": "ENT-ASSET-BEANBAG4",
+      "name": "beanbag",
+      "kind": "asset",
+      "source_id": "beanbag4",
+      "entityRole": "sceneObject",
+      "source_group": "seating",
+      "object_type": "beanbag",
+      "object_group_entity_id": "ENT-GROUP-SEATING"
+    },
+    {
+      "id": "ENT-ASSET-BOOKCASE",
+      "name": "bookcase",
+      "kind": "asset",
+      "source_id": "bookcase",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "bookcase",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-CHALKBOARD",
+      "name": "chalkboard",
+      "kind": "asset",
+      "source_id": "chalkboard",
+      "entityRole": "sceneObject",
+      "source_group": "equipment",
+      "object_type": "chalkboard",
+      "object_group_entity_id": "ENT-GROUP-EQUIPMENT"
+    },
+    {
+      "id": "ENT-ASSET-DINOSAUR_SKELETON",
+      "name": "dinosaur_skeleton",
+      "kind": "asset",
+      "source_id": "dinosaur_skeleton",
+      "entityRole": "sceneObject",
+      "source_group": "decor",
+      "object_type": "dinosaur_skeleton",
+      "object_group_entity_id": "ENT-GROUP-DECOR"
+    },
+    {
+      "id": "ENT-ASSET-PICTURE1",
+      "name": "picture",
+      "kind": "asset",
+      "source_id": "picture1",
+      "entityRole": "sceneObject",
+      "source_group": "decor",
+      "object_type": "picture",
+      "object_group_entity_id": "ENT-GROUP-DECOR"
+    },
+    {
+      "id": "ENT-ASSET-PICTURE2",
+      "name": "picture",
+      "kind": "asset",
+      "source_id": "picture2",
+      "entityRole": "sceneObject",
+      "source_group": "decor",
+      "object_type": "picture",
+      "object_group_entity_id": "ENT-GROUP-DECOR"
+    },
+    {
+      "id": "ENT-ASSET-PLANT1",
+      "name": "plant",
+      "kind": "asset",
+      "source_id": "plant1",
+      "entityRole": "sceneObject",
+      "source_group": "plants",
+      "object_type": "plant",
+      "object_group_entity_id": "ENT-GROUP-PLANTS"
+    },
+    {
+      "id": "ENT-ASSET-PLANT2",
+      "name": "plant",
+      "kind": "asset",
+      "source_id": "plant2",
+      "entityRole": "sceneObject",
+      "source_group": "plants",
+      "object_type": "plant",
+      "object_group_entity_id": "ENT-GROUP-PLANTS"
+    },
+    {
+      "id": "ENT-ASSET-PLANT3",
+      "name": "plant",
+      "kind": "asset",
+      "source_id": "plant3",
+      "entityRole": "sceneObject",
+      "source_group": "plants",
+      "object_type": "plant",
+      "object_group_entity_id": "ENT-GROUP-PLANTS"
+    },
+    {
+      "id": "ENT-ASSET-PLANT4",
+      "name": "plant",
+      "kind": "asset",
+      "source_id": "plant4",
+      "entityRole": "sceneObject",
+      "source_group": "plants",
+      "object_type": "plant",
+      "object_group_entity_id": "ENT-GROUP-PLANTS"
+    },
+    {
+      "id": "ENT-ASSET-PLANT5",
+      "name": "plant",
+      "kind": "asset",
+      "source_id": "plant5",
+      "entityRole": "sceneObject",
+      "source_group": "plants",
+      "object_type": "plant",
+      "object_group_entity_id": "ENT-GROUP-PLANTS"
+    },
+    {
+      "id": "ENT-ASSET-READING_TABLE",
+      "name": "table",
+      "kind": "asset",
+      "source_id": "reading_table",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "table",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-STUDENT_DESK1",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "student_desk1",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-STUDENT_DESK10",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "student_desk10",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-STUDENT_DESK11",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "student_desk11",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-STUDENT_DESK12",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "student_desk12",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-STUDENT_DESK13",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "student_desk13",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-STUDENT_DESK14",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "student_desk14",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-STUDENT_DESK15",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "student_desk15",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-STUDENT_DESK16",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "student_desk16",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-STUDENT_DESK17",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "student_desk17",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-STUDENT_DESK18",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "student_desk18",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-STUDENT_DESK19",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "student_desk19",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-STUDENT_DESK2",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "student_desk2",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-STUDENT_DESK20",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "student_desk20",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-STUDENT_DESK3",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "student_desk3",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-STUDENT_DESK4",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "student_desk4",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-STUDENT_DESK5",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "student_desk5",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-STUDENT_DESK6",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "student_desk6",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-STUDENT_DESK7",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "student_desk7",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-STUDENT_DESK8",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "student_desk8",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-STUDENT_DESK9",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "student_desk9",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-ASSET-TEACHER_DESK",
+      "name": "desk",
+      "kind": "asset",
+      "source_id": "teacher_desk",
+      "entityRole": "sceneObject",
+      "source_group": "furniture",
+      "object_type": "desk",
+      "object_group_entity_id": "ENT-GROUP-FURNITURE"
+    },
+    {
+      "id": "ENT-AGENT-TEACHER_AGENT",
+      "name": "Teacher Agent",
+      "kind": "agent",
+      "source_id": "teacher_agent",
+      "entityRole": "interactiveAgent"
+    },
+    {
+      "id": "ENT-AGENT-LIBRARIAN_AGENT",
+      "name": "Librarian Agent",
+      "kind": "agent",
+      "source_id": "librarian_agent",
+      "entityRole": "interactiveAgent"
+    },
+    {
+      "id": "ENT-AGENT-MUSEUM_GUIDE_AGENT",
+      "name": "Museum Guide Agent",
+      "kind": "agent",
+      "source_id": "museum_guide_agent",
+      "entityRole": "interactiveAgent"
+    },
+    {
+      "id": "ENT-AGENT-PLANT_DECORATOR_AGENT",
+      "name": "Plant Decorator Agent",
+      "kind": "agent",
+      "source_id": "plant_decorator_agent",
+      "entityRole": "interactiveAgent"
+    },
+    {
+      "id": "ENT-STATE-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F",
+      "name": "Case study validation state",
+      "kind": "stateObject",
+      "source_id": "validation_state"
+    }
+  ],
+  "agents": [
+    {
+      "id": "AG-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-TEACHER_AGENT",
+      "source_agent_id": "teacher_agent",
+      "entity_id": "ENT-AGENT-TEACHER_AGENT",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapabilityIds": [
+        "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "display_name": "Teacher Agent",
+      "persona": "A knowledgeable and patient educator who guides students through lessons, encourages participation, and manages classroom activities with clarity and enthusiasm.",
+      "expertise": [
+        "instruction",
+        "classroom management",
+        "student engagement"
+      ],
+      "knowledge_tags": [
+        "teaching_zone",
+        "chalkboard",
+        "teacher_desk",
+        "student_desks",
+        "classroom_management",
+        "lesson_planning"
+      ],
+      "voice": "sage",
+      "voice_gender": "weiblich",
+      "voice_style": "freundlich und klar",
+      "tts_model": "gpt-4o-mini-tts",
+      "responsible_zone_ids": [
+        "teaching_zone"
+      ],
+      "responsibleZoneEntityIds": [
+        "ENT-ZONE-TEACHING_ZONE"
+      ],
+      "grounded_object_ids": [
+        "chalkboard",
+        "teacher_desk",
+        "student_desk1",
+        "student_desk2",
+        "student_desk3",
+        "student_desk4",
+        "student_desk5",
+        "student_desk6",
+        "student_desk7",
+        "student_desk8",
+        "student_desk9",
+        "student_desk10",
+        "student_desk11",
+        "student_desk12",
+        "student_desk13",
+        "student_desk14",
+        "student_desk15",
+        "student_desk16",
+        "student_desk17",
+        "student_desk18",
+        "student_desk19",
+        "student_desk20"
+      ],
+      "groundedAssetEntityIds": [
+        "ENT-ASSET-CHALKBOARD",
+        "ENT-ASSET-TEACHER_DESK",
+        "ENT-ASSET-STUDENT_DESK1",
+        "ENT-ASSET-STUDENT_DESK2",
+        "ENT-ASSET-STUDENT_DESK3",
+        "ENT-ASSET-STUDENT_DESK4",
+        "ENT-ASSET-STUDENT_DESK5",
+        "ENT-ASSET-STUDENT_DESK6",
+        "ENT-ASSET-STUDENT_DESK7",
+        "ENT-ASSET-STUDENT_DESK8",
+        "ENT-ASSET-STUDENT_DESK9",
+        "ENT-ASSET-STUDENT_DESK10",
+        "ENT-ASSET-STUDENT_DESK11",
+        "ENT-ASSET-STUDENT_DESK12",
+        "ENT-ASSET-STUDENT_DESK13",
+        "ENT-ASSET-STUDENT_DESK14",
+        "ENT-ASSET-STUDENT_DESK15",
+        "ENT-ASSET-STUDENT_DESK16",
+        "ENT-ASSET-STUDENT_DESK17",
+        "ENT-ASSET-STUDENT_DESK18",
+        "ENT-ASSET-STUDENT_DESK19",
+        "ENT-ASSET-STUDENT_DESK20"
+      ],
+      "grounded_object_groups": [
+        "equipment",
+        "furniture"
+      ],
+      "groundedObjectGroupEntityIds": [
+        "ENT-GROUP-EQUIPMENT",
+        "ENT-GROUP-FURNITURE"
+      ],
+      "handoff_targets": [
+        "librarian_agent",
+        "museum_guide_agent"
+      ],
+      "handoffTargetAgentIds": [
+        "AG-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-LIBRARIAN_AGENT",
+        "AG-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MUSEUM_GUIDE_AGENT"
+      ]
+    },
+    {
+      "id": "AG-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-LIBRARIAN_AGENT",
+      "source_agent_id": "librarian_agent",
+      "entity_id": "ENT-AGENT-LIBRARIAN_AGENT",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapabilityIds": [
+        "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "display_name": "Librarian Agent",
+      "persona": "A helpful and resourceful assistant who supports students in finding educational materials, promotes reading, and fosters a quiet, welcoming atmosphere in the reading and book storage areas.",
+      "expertise": [
+        "resource management",
+        "reading promotion",
+        "student support"
+      ],
+      "knowledge_tags": [
+        "reading_area",
+        "book_storage_zone",
+        "bookcase",
+        "reading_table",
+        "beanbags",
+        "literacy_support"
+      ],
+      "voice": "fable",
+      "voice_gender": "weiblich",
+      "voice_style": "ruhig und unterstützend",
+      "tts_model": "gpt-4o-mini-tts",
+      "responsible_zone_ids": [
+        "reading_area",
+        "book_storage_zone"
+      ],
+      "responsibleZoneEntityIds": [
+        "ENT-ZONE-READING_AREA",
+        "ENT-ZONE-BOOK_STORAGE_ZONE"
+      ],
+      "grounded_object_ids": [
+        "bookcase",
+        "reading_table",
+        "beanbag1",
+        "beanbag2",
+        "beanbag3",
+        "beanbag4"
+      ],
+      "groundedAssetEntityIds": [
+        "ENT-ASSET-BOOKCASE",
+        "ENT-ASSET-READING_TABLE",
+        "ENT-ASSET-BEANBAG1",
+        "ENT-ASSET-BEANBAG2",
+        "ENT-ASSET-BEANBAG3",
+        "ENT-ASSET-BEANBAG4"
+      ],
+      "grounded_object_groups": [
+        "furniture",
+        "seating"
+      ],
+      "groundedObjectGroupEntityIds": [
+        "ENT-GROUP-FURNITURE",
+        "ENT-GROUP-SEATING"
+      ],
+      "handoff_targets": [
+        "teacher_agent",
+        "museum_guide_agent"
+      ],
+      "handoffTargetAgentIds": [
+        "AG-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-TEACHER_AGENT",
+        "AG-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MUSEUM_GUIDE_AGENT"
+      ]
+    },
+    {
+      "id": "AG-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MUSEUM_GUIDE_AGENT",
+      "source_agent_id": "museum_guide_agent",
+      "entity_id": "ENT-AGENT-MUSEUM_GUIDE_AGENT",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapabilityIds": [
+        "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "display_name": "Museum Guide Agent",
+      "persona": "An engaging and informative guide who captivates visitors with detailed knowledge about the dinosaur skeleton exhibit and related educational displays, encouraging curiosity and exploration.",
+      "expertise": [
+        "educational exhibits",
+        "interactive learning",
+        "visitor engagement"
+      ],
+      "knowledge_tags": [
+        "educational_display_zone",
+        "dinosaur_skeleton",
+        "decorative_art",
+        "visitor_engagement"
+      ],
+      "voice": "coral",
+      "voice_gender": "maennlich",
+      "voice_style": "lebhaft und enthusiastisch",
+      "tts_model": "gpt-4o-mini-tts",
+      "responsible_zone_ids": [
+        "educational_display_zone"
+      ],
+      "responsibleZoneEntityIds": [
+        "ENT-ZONE-EDUCATIONAL_DISPLAY_ZONE"
+      ],
+      "grounded_object_ids": [
+        "dinosaur_skeleton",
+        "picture1",
+        "picture2"
+      ],
+      "groundedAssetEntityIds": [
+        "ENT-ASSET-DINOSAUR_SKELETON",
+        "ENT-ASSET-PICTURE1",
+        "ENT-ASSET-PICTURE2"
+      ],
+      "grounded_object_groups": [
+        "decor"
+      ],
+      "groundedObjectGroupEntityIds": [
+        "ENT-GROUP-DECOR"
+      ],
+      "handoff_targets": [
+        "teacher_agent",
+        "librarian_agent"
+      ],
+      "handoffTargetAgentIds": [
+        "AG-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-TEACHER_AGENT",
+        "AG-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-LIBRARIAN_AGENT"
+      ]
+    },
+    {
+      "id": "AG-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-PLANT_DECORATOR_AGENT",
+      "source_agent_id": "plant_decorator_agent",
+      "entity_id": "ENT-AGENT-PLANT_DECORATOR_AGENT",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapabilityIds": [
+        "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "display_name": "Plant Decorator Agent",
+      "persona": "A calm and soothing presence who provides information about the natural plant decorations, enhancing the ambiance and comfort of the classroom environment.",
+      "expertise": [
+        "plant care",
+        "environmental comfort",
+        "decorative elements"
+      ],
+      "knowledge_tags": [
+        "plant_decor_zone",
+        "plants",
+        "natural_ambiance"
+      ],
+      "voice": "ash",
+      "voice_gender": "weiblich",
+      "voice_style": "sanft und beruhigend",
+      "tts_model": "gpt-4o-mini-tts",
+      "responsible_zone_ids": [
+        "plant_decor_zone"
+      ],
+      "responsibleZoneEntityIds": [
+        "ENT-ZONE-PLANT_DECOR_ZONE"
+      ],
+      "grounded_object_ids": [
+        "plant1",
+        "plant2",
+        "plant3",
+        "plant4",
+        "plant5"
+      ],
+      "groundedAssetEntityIds": [
+        "ENT-ASSET-PLANT1",
+        "ENT-ASSET-PLANT2",
+        "ENT-ASSET-PLANT3",
+        "ENT-ASSET-PLANT4",
+        "ENT-ASSET-PLANT5"
+      ],
+      "grounded_object_groups": [
+        "plants"
+      ],
+      "groundedObjectGroupEntityIds": [
+        "ENT-GROUP-PLANTS"
+      ],
+      "handoff_targets": [
+        "teacher_agent"
+      ],
+      "handoffTargetAgentIds": [
+        "AG-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-TEACHER_AGENT"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "EV-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MLDS-PROVIDED",
+      "kind": "environment",
+      "expression": "source_mlds.json available"
+    },
+    {
+      "id": "EV-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-VISITOR-QUESTION",
+      "kind": "user",
+      "expression": "visitor asks a room-related question"
+    },
+    {
+      "id": "EV-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-HANDOFF-NEEDED",
+      "kind": "user",
+      "expression": "visitor question belongs to another agent expertise"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "COND-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-VALID-INPUT",
+      "kind": "precondition",
+      "expression": "MLDS input parses successfully"
+    },
+    {
+      "id": "COND-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-AGENTS-AVAILABLE",
+      "kind": "guard",
+      "expression": "at least two valid agents exist"
+    },
+    {
+      "id": "COND-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-HANDOFF-TARGET-AVAILABLE",
+      "kind": "guard",
+      "expression": "handoff target exists and is not the source agent"
+    }
+  ],
+  "stateAssertions": [
+    {
+      "id": "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-NORMALIZED-SCENE-VALID",
+      "subject_id": "ENT-STATE-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F",
+      "expression": "Normalized MLDS scene is valid and object IDs are unique."
+    },
+    {
+      "id": "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-SCENE-SEMANTICS-VALID",
+      "subject_id": "ENT-STATE-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F",
+      "expression": "Scene semantics are grounded in existing object IDs."
+    },
+    {
+      "id": "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-AGENT-ROLES-VALID",
+      "subject_id": "ENT-STATE-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F",
+      "expression": "Generated agents have valid zones, objects, knowledge tags and handoff targets."
+    },
+    {
+      "id": "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-KNOWLEDGE-VALID",
+      "subject_id": "ENT-STATE-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F",
+      "expression": "Every agent knowledge tag has at least one materialized knowledge entry."
+    },
+    {
+      "id": "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-PLACEMENT-VALID",
+      "subject_id": "ENT-STATE-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F",
+      "expression": "Every generated agent has a valid room position and forward vector."
+    },
+    {
+      "id": "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-FUNCTIONALMLDS-VALID",
+      "subject_id": "ENT-STATE-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F",
+      "expression": "FunctionalMLDS instance satisfies all core invariants."
+    },
+    {
+      "id": "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-PROJECT-MATERIALIZED",
+      "subject_id": "ENT-STATE-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F",
+      "expression": "Interactive Agents project files are present and backend-readable."
+    },
+    {
+      "id": "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-SETUP-VALID",
+      "subject_id": "ENT-STATE-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F",
+      "expression": "Interactive Agents backend setup returns a valid session with all agents."
+    },
+    {
+      "id": "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANSWER-GROUNDED",
+      "subject_id": "ENT-STATE-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F",
+      "expression": "A visitor question is answered using room-grounded agent knowledge."
+    },
+    {
+      "id": "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-HANDOFF-VALID",
+      "subject_id": "ENT-STATE-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F",
+      "expression": "A specialist handoff targets an existing responsible agent when needed."
+    }
+  ],
+  "capabilityUses": [
+    {
+      "id": "CU-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S02-ANALYZE-MLDS-SCENE",
+      "step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S02",
+      "capability_id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANALYZE-MLDS-SCENE",
+      "parameters": []
+    },
+    {
+      "id": "CU-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S03-ANALYZE-MLDS-SCENE",
+      "step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S03",
+      "capability_id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANALYZE-MLDS-SCENE",
+      "parameters": []
+    },
+    {
+      "id": "CU-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S04-DERIVE-SPATIAL-AGENT-ROLES",
+      "step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S04",
+      "capability_id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-DERIVE-SPATIAL-AGENT-ROLES",
+      "parameters": []
+    },
+    {
+      "id": "CU-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S05-GENERATE-ROOM-KNOWLEDGE",
+      "step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S05",
+      "capability_id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-GENERATE-ROOM-KNOWLEDGE",
+      "parameters": []
+    },
+    {
+      "id": "CU-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S06-PLACE-AGENTS-IN-SCENE",
+      "step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S06",
+      "capability_id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-PLACE-AGENTS-IN-SCENE",
+      "parameters": []
+    },
+    {
+      "id": "CU-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S07-ASSEMBLE-FUNCTIONAL-MLDS",
+      "step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S07",
+      "capability_id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ASSEMBLE-FUNCTIONAL-MLDS",
+      "parameters": []
+    },
+    {
+      "id": "CU-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S08-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S08",
+      "capability_id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "parameters": []
+    },
+    {
+      "id": "CU-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S09-SETUP-INTERACTIVE-SESSION",
+      "step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S09",
+      "capability_id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-SETUP-INTERACTIVE-SESSION",
+      "parameters": []
+    },
+    {
+      "id": "CU-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S11-ANSWER-ROOM-GROUNDED-QUESTION",
+      "step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S11",
+      "capability_id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANSWER-ROOM-GROUNDED-QUESTION",
+      "parameters": []
+    },
+    {
+      "id": "CU-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "step_id": "STEP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-S12",
+      "capability_id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "parameters": []
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANALYZE-MLDS-SCENE",
+      "name": "Analyze Mlds Scene",
+      "text": "Analyze MLDS scene structure and normalize room objects.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANALYZE-MLDS-SCENE-01",
+          "text": "Effect of ANALYZE-MLDS-SCENE: normalized scene valid.",
+          "evidencedBy": [
+            "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-NORMALIZED-SCENE-VALID"
+          ]
+        },
+        {
+          "id": "EFF-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANALYZE-MLDS-SCENE-02",
+          "text": "Effect of ANALYZE-MLDS-SCENE: scene semantics valid.",
+          "evidencedBy": [
+            "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-SCENE-SEMANTICS-VALID"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-DERIVE-SPATIAL-AGENT-ROLES",
+      "name": "Derive Spatial Agent Roles",
+      "text": "Derive agent roles grounded in semantic zones and objects.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-DERIVE-SPATIAL-AGENT-ROLES-01",
+          "text": "Effect of DERIVE-SPATIAL-AGENT-ROLES: agent roles valid.",
+          "evidencedBy": [
+            "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-AGENT-ROLES-VALID"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-GENERATE-ROOM-KNOWLEDGE",
+      "name": "Generate Room Knowledge",
+      "text": "Generate local knowledge entries for all agent knowledge tags.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-GENERATE-ROOM-KNOWLEDGE-01",
+          "text": "Effect of GENERATE-ROOM-KNOWLEDGE: knowledge valid.",
+          "evidencedBy": [
+            "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-KNOWLEDGE-VALID"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-PLACE-AGENTS-IN-SCENE",
+      "name": "Place Agents In Scene",
+      "text": "Place agents in valid positions near their responsible zones.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-PLACE-AGENTS-IN-SCENE-01",
+          "text": "Effect of PLACE-AGENTS-IN-SCENE: placement valid.",
+          "evidencedBy": [
+            "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-PLACEMENT-VALID"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ASSEMBLE-FUNCTIONAL-MLDS",
+      "name": "Assemble Functional Mlds",
+      "text": "Assemble a valid FunctionalMLDS instance for the case study.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ASSEMBLE-FUNCTIONAL-MLDS-01",
+          "text": "Effect of ASSEMBLE-FUNCTIONAL-MLDS: functionalmlds valid.",
+          "evidencedBy": [
+            "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-FUNCTIONALMLDS-VALID"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "name": "Materialize Interactive Agents Project",
+      "text": "Write backend-compatible Interactive Agents project files.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT-01",
+          "text": "Effect of MATERIALIZE-INTERACTIVE-AGENTS-PROJECT: project materialized.",
+          "evidencedBy": [
+            "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-PROJECT-MATERIALIZED"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-SETUP-INTERACTIVE-SESSION",
+      "name": "Setup Interactive Session",
+      "text": "Initialize the runtime session for the generated project.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-SETUP-INTERACTIVE-SESSION-01",
+          "text": "Effect of SETUP-INTERACTIVE-SESSION: setup valid.",
+          "evidencedBy": [
+            "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-SETUP-VALID"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANSWER-ROOM-GROUNDED-QUESTION",
+      "name": "Answer Room Grounded Question",
+      "text": "Answer visitor questions using room-grounded agent knowledge.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANSWER-ROOM-GROUNDED-QUESTION-01",
+          "text": "Effect of ANSWER-ROOM-GROUNDED-QUESTION: answer grounded.",
+          "evidencedBy": [
+            "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANSWER-GROUNDED"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "name": "Handoff To Responsible Agent",
+      "text": "Forward a question to an existing responsible specialist agent.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-HANDOFF-TO-RESPONSIBLE-AGENT-01",
+          "text": "Effect of HANDOFF-TO-RESPONSIBLE-AGENT: handoff valid.",
+          "evidencedBy": [
+            "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-HANDOFF-VALID"
+          ]
+        }
+      ]
+    }
+  ],
+  "runtimeBindings": [
+    {
+      "id": "RB-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANALYZE-MLDS-SCENE",
+      "capability_id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANALYZE-MLDS-SCENE",
+      "targetPlatform": "CaseStudyPipeline",
+      "runtimeActions": [
+        {
+          "id": "RA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-RUN-MLDS-INGESTION",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.mlds_ingestion.run_ingestion_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        },
+        {
+          "id": "RA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-RUN-SCENE-SEMANTICS",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.scene_semantics.run_scene_semantics_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        },
+        {
+          "id": "RA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ARROW-ANALYZE",
+          "endpoint": "POST /projects/arrow/analyze",
+          "tool": null,
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-DERIVE-SPATIAL-AGENT-ROLES",
+      "capability_id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-DERIVE-SPATIAL-AGENT-ROLES",
+      "targetPlatform": "CaseStudyPipeline",
+      "runtimeActions": [
+        {
+          "id": "RA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-RUN-AGENT-ROLES",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.agent_roles.run_agent_roles_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-GENERATE-ROOM-KNOWLEDGE",
+      "capability_id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-GENERATE-ROOM-KNOWLEDGE",
+      "targetPlatform": "CaseStudyPipeline",
+      "runtimeActions": [
+        {
+          "id": "RA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-RUN-KNOWLEDGE-SYNTHESIS",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.knowledge_synthesis.run_knowledge_synthesis_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-PLACE-AGENTS-IN-SCENE",
+      "capability_id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-PLACE-AGENTS-IN-SCENE",
+      "targetPlatform": "CaseStudyPipeline",
+      "runtimeActions": [
+        {
+          "id": "RA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-RUN-AGENT-PLACEMENT",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.agent_placement.run_agent_placement_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ASSEMBLE-FUNCTIONAL-MLDS",
+      "capability_id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ASSEMBLE-FUNCTIONAL-MLDS",
+      "targetPlatform": "CaseStudyPipeline",
+      "runtimeActions": [
+        {
+          "id": "RA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-RUN-FUNCTIONALMLDS-ASSEMBLER",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.functionalmlds_assembler.run_functionalmlds_assembly_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "capability_id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "runtimeActions": [
+        {
+          "id": "RA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ARROW-COMMIT",
+          "endpoint": "POST /projects/arrow/commit",
+          "tool": null,
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        },
+        {
+          "id": "RA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-WRITE-PROJECT-FILES",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.project_materializer.run_project_materializer_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-SETUP-INTERACTIVE-SESSION",
+      "capability_id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-SETUP-INTERACTIVE-SESSION",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "runtimeActions": [
+        {
+          "id": "RA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-BACKEND-SETUP",
+          "endpoint": "POST /setup",
+          "tool": null,
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANSWER-ROOM-GROUNDED-QUESTION",
+      "capability_id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANSWER-ROOM-GROUNDED-QUESTION",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "runtimeActions": [
+        {
+          "id": "RA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-BACKEND-CHAT",
+          "endpoint": "POST /chat",
+          "tool": null,
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "capability_id": "CAP-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "runtimeActions": [
+        {
+          "id": "RA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-BACKEND-CHAT-HANDOFF",
+          "endpoint": "POST /chat",
+          "tool": null,
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    }
+  ],
+  "validationCases": [
+    {
+      "id": "VC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MLDS-INGESTION",
+      "level": "concrete",
+      "validates_use_case_ids": [
+        "UC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-01"
+      ],
+      "verifies_requirement_ids": [
+        "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-001"
+      ],
+      "stimulus_ids": [
+        "EV-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MLDS-PROVIDED"
+      ],
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANALYZE-MLDS-SCENE"
+      ],
+      "expectedOutcome": [
+        "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-NORMALIZED-SCENE-VALID"
+      ]
+    },
+    {
+      "id": "VC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MODEL-INVARIANTS",
+      "level": "concrete",
+      "validates_use_case_ids": [
+        "UC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-01"
+      ],
+      "verifies_requirement_ids": [
+        "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-006"
+      ],
+      "stimulus_ids": [],
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "expectedOutcome": [
+        "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-FUNCTIONALMLDS-VALID"
+      ]
+    },
+    {
+      "id": "VC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-PROJECT-MATERIALIZATION",
+      "level": "concrete",
+      "validates_use_case_ids": [
+        "UC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-01"
+      ],
+      "verifies_requirement_ids": [
+        "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-004",
+        "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-005"
+      ],
+      "stimulus_ids": [],
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "expectedOutcome": [
+        "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-PROJECT-MATERIALIZED"
+      ]
+    },
+    {
+      "id": "VC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-SETUP",
+      "level": "concrete",
+      "validates_use_case_ids": [
+        "UC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-01"
+      ],
+      "verifies_requirement_ids": [
+        "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-003",
+        "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-005"
+      ],
+      "stimulus_ids": [],
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-SETUP-INTERACTIVE-SESSION"
+      ],
+      "expectedOutcome": [
+        "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-SETUP-VALID"
+      ]
+    },
+    {
+      "id": "VC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-CHAT-GROUNDING",
+      "level": "concrete",
+      "validates_use_case_ids": [
+        "UC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-01"
+      ],
+      "verifies_requirement_ids": [
+        "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-002",
+        "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-004",
+        "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-006"
+      ],
+      "stimulus_ids": [
+        "EV-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-VISITOR-QUESTION"
+      ],
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "expectedOutcome": [
+        "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-ANSWER-GROUNDED"
+      ]
+    },
+    {
+      "id": "VC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-HANDOFF",
+      "level": "concrete",
+      "validates_use_case_ids": [
+        "UC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-01"
+      ],
+      "verifies_requirement_ids": [
+        "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-003",
+        "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-006"
+      ],
+      "stimulus_ids": [
+        "EV-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-HANDOFF-NEEDED"
+      ],
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expectedOutcome": [
+        "SA-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-HANDOFF-VALID"
+      ]
+    }
+  ],
+  "satisfyRelationships": [
+    {
+      "id": "SAT-REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-001",
+      "satisfiedRequirement": [
+        "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-001"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-01",
+        "VC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-002",
+      "satisfiedRequirement": [
+        "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-002"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-01",
+        "VC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-003",
+      "satisfiedRequirement": [
+        "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-003"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-01",
+        "VC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-004",
+      "satisfiedRequirement": [
+        "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-004"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-01",
+        "VC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-005",
+      "satisfiedRequirement": [
+        "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-005"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-01",
+        "VC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-006",
+      "satisfiedRequirement": [
+        "REQ-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-006"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-01",
+        "VC-CLASSROOM_WITH_READING_AREA_AND_DINOSAUR_26649C3F-MODEL-INVARIANTS"
+      ]
+    }
+  ]
+}

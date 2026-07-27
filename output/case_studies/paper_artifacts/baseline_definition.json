@@ -1,0 +1,99 @@
+{
+  "schema": "functionalmlds_case_study_baseline_definition",
+  "schema_version": "1.0",
+  "baseline": {
+    "id": "baseline_a_direct_mldsi_to_interactive_agents",
+    "name": "Direct MLDSI-to-Interactive-Agents Generation",
+    "entry_points": [
+      "InteractivAgents/InteractiveAgents2/Assets/Scripting/ArrowProjectWizard.cs",
+      "POST /projects/arrow/analyze",
+      "POST /projects/arrow/chat",
+      "POST /projects/arrow/commit"
+    ],
+    "inputs": [
+      "MLDSI/MLDS JSON scene file",
+      "optional Wizard chat feedback"
+    ],
+    "outputs": [
+      "project.json",
+      "room_plan.json",
+      "agents.json",
+      "project-local kb entries",
+      "placement preview"
+    ],
+    "present_checks": [
+      "structured LLM output schema",
+      "agent and voice normalization",
+      "placement normalization",
+      "basic backend request validation"
+    ],
+    "missing_first_class_constructs": [
+      "FunctionalMLDS instance",
+      "UseCase",
+      "Scenario",
+      "ScenarioStep",
+      "Requirement-to-validation trace",
+      "Capability",
+      "CapabilityUse",
+      "RuntimeBinding",
+      "RuntimeAction",
+      "stage manifest",
+      "repair attempts"
+    ]
+  },
+  "treatment": {
+    "id": "treatment_b_functionalmlds_mediated_generation",
+    "name": "FunctionalMLDS-Mediated Generation",
+    "entry_points": [
+      "tools/case_study_pipeline/run_batch_case_study.py"
+    ],
+    "inputs": [
+      "same MLDSI/MLDS JSON scene files"
+    ],
+    "additional_outputs": [
+      "functionalmlds/functionalmlds.instance.generated.json",
+      "stage_manifest.json",
+      "validation/*.json",
+      "runtime_logs/*.json",
+      "aggregate reports",
+      "paper artefacts"
+    ],
+    "stages": [
+      "mlds_ingestion",
+      "scene_semantics",
+      "agent_roles",
+      "knowledge_synthesis",
+      "agent_placement",
+      "functionalmlds_assembly",
+      "project_materialization",
+      "schema_validation",
+      "functionalmlds_invariants",
+      "traceability_metrics",
+      "placement_metrics",
+      "handoff_metrics",
+      "evaluation_questions",
+      "runtime_setup",
+      "chat_tests",
+      "handoff_tests",
+      "answer_grounding",
+      "stage_completion",
+      "cross_case_metrics",
+      "generalizability_assessment"
+    ]
+  },
+  "controlled_variables": [
+    "same input scene files",
+    "same backend target format",
+    "same runtime setup and chat endpoints",
+    "same domain corpus",
+    "same model family where LLM calls are required"
+  ],
+  "primary_comparison_dimensions": [
+    "traceability",
+    "consistency",
+    "runtime-checkability",
+    "generalizability",
+    "repairability",
+    "reproducibility"
+  ]
+}

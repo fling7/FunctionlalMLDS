@@ -1,0 +1,458 @@
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Built from '6000.4/staging' branch; Version is '6000.4.5f1 (cc83ebd631f8) revision 13403115'; Using compiler version '194234433'; Build Type 'Release'
+OS: 'Windows 11  (10.0.26200) Enterprise' Language: 'de' Physical Memory: 32440 MB
+[Licensing::IpcConnector] Channel LicenseClient-BurkLo doesn't exist
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+System  architecture: x64
+Process architecture: x64
+Date: 2026-07-14T12:46:53Z
+[Licensing::Module] Successfully launched the LicensingClient (PId: 14536)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-BurkLo" at "2026-07-14T12:46:54.6298479Z"
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\6000.4.5f1\Editor\Unity.exe
+-batchmode
+-nographics
+-quit
+-projectPath
+C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2
+-logFile
+C:\Users\burklo\Documents\FunctionalMLDS\output\unity_v2_alignment\unity_qam_v2_compile.log
+Successfully changed project path to: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2
+C:/Users/burklo/Documents/FunctionalMLDS/InteractivAgents/InteractiveAgents2
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+Player connection [63152]  Target information:
+
+Player connection [63152]  * "[IP] 10.5.0.2 [Port] 55504 [Flags] 2 [Guid] 2492475584 [EditorId] 2492475584 [Version] 1048832 [Id] WindowsEditor(7,IFAI-P2) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [63152]  * "[IP] 192.168.178.118 [Port] 55504 [Flags] 2 [Guid] 2492475584 [EditorId] 2492475584 [Version] 1048832 [Id] WindowsEditor(7,IFAI-P2) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [63152] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [63152] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 14536, path: "C:/Program Files/Unity/Hub/Editor/6000.4.5f1/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client.exe")
+[Licensing::Module] LicensingClient has failed validation; ignoring
+[Package Manager] Connected to IPC stream "Upm-70628" after 0.8 seconds.
+[Licensing::Module] Licensing is not yet initialized.
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.18.1+9fbee8e
+  Session Id:              024fe6177bb64eb5b100b60a2925be90
+  Correlation Id:          5387f4fca5732d96bc27c8eb4345b873
+  External correlation Id: 6168367863715543884
+  Machine Id:              D3E8OJaw2IFHdoQ3B31+kHWx7ns=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-BurkLo" (connect: 0.87s, validation: 1.04s, handshake: 0.56s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-BurkLo-notifications" at "2026-07-14T12:46:56.2362264Z"
+[Licensing::Module] Connected to LicensingClient (PId: 14536, launch time: 0.01, total connection time: 2.46s)
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: 9072248033397-burklo-UnityProStuXXXX
+  Product: Unity Educator
+  Type: Assigned
+  Expiration: 2027-05-05T13:46:48Z
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.06
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] Licensing Background thread has ended after 2.74s
+[Licensing::Module] Licensing is initialized (took 0.42s).
+[Licensing::Client] Successfully resolved entitlement details
+Library Redirect Path: Library/
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Refreshing native plugins compatible for Editor in 2.91 ms, found 0 plugins.
+Initialize engine version: 6000.4.5f1 (cc83ebd631f8)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.4.5f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/burklo/Documents/FunctionalMLDS/InteractivAgents/InteractiveAgents2/Assets
+Forcing GfxDevice: Null
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+NullGfxDevice:
+    Version:  NULL 1.0 [1.0]
+    Renderer: Null Device
+    Vendor:   Unity Technologies
+Shader Hidden/ChartRasterizerHardware is not supported: GPU does not support conservative rasterization
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.4.5f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.4.5f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.4.5f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56628
+CodeReloadManager initialized
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+ImportWorker Server TCP listen port: 0
+AcceleratorClientConnectionCallback - disconnected - :0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.4.5f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.4.5f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+[Licensing::Client] Successfully resolved entitlement details
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.4.5f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+Registered in 0.010595 seconds.
+Native extension for Android target not found
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Package Manager log level set to [2]
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.974 seconds
+Domain Reload Profiling: 1950ms
+	BeginReloadAssembly (268ms)
+		CreateAndSetChildDomain (8ms)
+	RebuildCommonClasses (77ms)
+	RebuildNativeTypeToScriptingClass (32ms)
+	initialDomainReloadingComplete (126ms)
+	LoadAllAssembliesAndSetupDomain (468ms)
+		LoadAssemblies (255ms)
+		AnalyzeDomain (444ms)
+			TypeCache.Refresh (443ms)
+				TypeCache.ScanAssembly (410ms)
+	FinalizeReload (979ms)
+		SetupLoadedEditorAssemblies (0ms)
+			InitializePlatformSupportModulesInManaged (149ms)
+			BeforeProcessingInitializeOnLoad (217ms)
+			ProcessInitializeOnLoadAttributes (221ms)
+			ProcessInitializeOnLoadMethodAttributes (203ms)
+[Licensing::Client] Successfully resolved entitlement details
+Application.AssetDatabase Initial Refresh Start
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 69 packages:
+  Packages from [https://package.openupm.com]:
+    com.de-panther.webxr@0.23.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.de-panther.webxr@02c23b44317e)
+    com.de-panther.webxr-interactions@0.23.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.de-panther.webxr-interactions@0959009ea159)
+  Packages from [https://packages.unity.com]:
+    com.unity.ai.assistant@2.7.0-pre.2 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.ai.assistant@6ed6beda7ca9)
+    com.unity.ai.inference@2.6.1 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.ai.inference@9a123aee5df7)
+    com.unity.ai.navigation@2.0.12 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.ai.navigation@734c2c4c5591)
+    com.unity.cloud.gltfast@6.18.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.cloud.gltfast@17a3b690793e)
+    com.unity.collab-proxy@2.12.4 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.collab-proxy@0b1559bcd34e)
+    com.unity.ide.rider@3.0.39 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.ide.rider@4504839d03f7)
+    com.unity.ide.visualstudio@2.0.27 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.ide.visualstudio@dc1ddd4f09b6)
+    com.unity.inputsystem@1.19.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.inputsystem@21a28c3a6c83)
+    com.unity.timeline@1.8.12 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.timeline@8cd8509afae5)
+    com.unity.visualscripting@1.9.11 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.visualscripting@8bed5ad90189)
+    com.unity.xr.interaction.toolkit@3.5.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.xr.interaction.toolkit@8cbdb3075518)
+    com.unity.mathematics@1.3.3 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.mathematics@19a9377c4ffa)
+    com.unity.xr.core-utils@2.6.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.xr.core-utils@a8b900321199)
+    com.unity.burst@1.8.29 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.burst@6bb9aca3ef38)
+    com.unity.dt.app-ui@2.1.1 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.dt.app-ui@8ac7e730dd5d)
+    com.unity.nuget.newtonsoft-json@3.2.2 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.nuget.newtonsoft-json@4dfd81071c64)
+    com.unity.xr.management@4.5.2 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.xr.management@f589c7ba49ff)
+    com.unity.searcher@4.9.4 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.searcher@d45a78918735)
+    com.unity.nuget.mono-cecil@1.11.6 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff)
+    com.unity.test-framework.performance@3.4.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.test-framework.performance@aa81a99c4a75)
+    com.unity.xr.legacyinputhelpers@3.0.1 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.xr.legacyinputhelpers@3f62d634f63b)
+  Built-in packages:
+    com.unity.multiplayer.center@1.0.1 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.multiplayer.center@f01f4ba8d00a)
+    com.unity.render-pipelines.universal@17.4.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.render-pipelines.universal@4d008a28541a)
+    com.unity.test-framework@1.6.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.test-framework@76560ee600cb)
+    com.unity.ugui@2.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.ugui@d8a2716f3013)
+    com.unity.modules.accessibility@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.accessibility)
+    com.unity.modules.adaptiveperformance@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.adaptiveperformance)
+    com.unity.modules.ai@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.ai)
+    com.unity.modules.androidjni@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.androidjni)
+    com.unity.modules.animation@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.animation)
+    com.unity.modules.assetbundle@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.assetbundle)
+    com.unity.modules.audio@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.audio)
+    com.unity.modules.cloth@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.cloth)
+    com.unity.modules.director@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.director)
+    com.unity.modules.imageconversion@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.imageconversion)
+    com.unity.modules.imgui@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.imgui)
+    com.unity.modules.jsonserialize@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.jsonserialize)
+    com.unity.modules.particlesystem@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.particlesystem)
+    com.unity.modules.physics@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.physics)
+    com.unity.modules.physics2d@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.physics2d)
+    com.unity.modules.screencapture@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.screencapture)
+    com.unity.modules.terrain@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.terrain)
+    com.unity.modules.terrainphysics@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.terrainphysics)
+    com.unity.modules.tilemap@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.tilemap)
+    com.unity.modules.ui@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.ui)
+    com.unity.modules.uielements@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.uielements)
+    com.unity.modules.umbra@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.umbra)
+    com.unity.modules.unityanalytics@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.unityanalytics)
+    com.unity.modules.unitywebrequest@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.unitywebrequest)
+    com.unity.modules.unitywebrequestassetbundle@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.unitywebrequestassetbundle)
+    com.unity.modules.unitywebrequestaudio@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.unitywebrequestaudio)
+    com.unity.modules.unitywebrequesttexture@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.unitywebrequesttexture)
+    com.unity.modules.unitywebrequestwww@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.unitywebrequestwww)
+    com.unity.modules.vectorgraphics@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.vectorgraphics)
+    com.unity.modules.vehicles@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.vehicles)
+    com.unity.modules.video@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.video)
+    com.unity.modules.vr@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.vr)
+    com.unity.modules.wind@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.wind)
+    com.unity.modules.xr@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.xr)
+    com.unity.modules.subsystems@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.subsystems)
+    com.unity.modules.hierarchycore@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.modules.hierarchycore)
+    com.unity.ext.nunit@2.0.5 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.ext.nunit@d8c07649098d)
+    com.unity.render-pipelines.core@17.4.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.render-pipelines.core@2269be549234)
+    com.unity.shadergraph@17.4.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.shadergraph@cd28a7c13031)
+    com.unity.render-pipelines.universal-config@17.4.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.render-pipelines.universal-config@0db4263b9e6b)
+    com.unity.collections@6.4.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.collections@9c2353fb96f6)
+    com.unity.2d.sprite@1.0.0 (location: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\InteractiveAgents2\Library\PackageCache\com.unity.2d.sprite@929df5adbb1f)
+[Subsystems] No new subsystems found in resolved package list.
+[Package Manager] Done registering packages in 0.03 seconds
+[ScriptCompilation] Requested script compilation because: AssetDatabase observed changes in script compilation related files
+Duplicate assembly 'System.Runtime.CompilerServices.Unsafe.dll' with different versions detected, using 'Packages/com.unity.ai.assistant/Plugins/Shared/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' and ignoring 'Packages/com.unity.collections/Unity.Collections.Tests/System.Runtime.CompilerServices.Unsafe/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.Refreshing native plugins compatible for Editor in 7.66 ms, found 5 plugins.
+Starting: C:\Program Files\Unity\Hub\Editor\6000.4.5f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/2000b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: C:/Users/burklo/Documents/FunctionalMLDS/InteractivAgents/InteractiveAgents2
+Duplicate assembly 'System.Runtime.CompilerServices.Unsafe.dll' with different versions detected, using 'Packages/com.unity.ai.assistant/Plugins/Shared/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' and ignoring 'Packages/com.unity.collections/Unity.Collections.Tests/System.Runtime.CompilerServices.Unsafe/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.DisplayProgressbar: Compiling Scripts
+ExitCode: 4 Duration: 5s64ms
+Rebuilding DAG because FileSignature timestamp changed: Library/Bee/2000b0aE-inputdata.json
+[1359/1800  1s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+*** Tundra requires additional run (4.92 seconds), 2 items updated, 1358 evaluated
+Starting: C:\Program Files\Unity\Hub\Editor\6000.4.5f1\Editor\Data\netcorerun\netcorerun.exe "C:\Program Files\Unity\Hub\Editor\6000.4.5f1\Editor\Data\Tools\BuildPipeline\ScriptCompilationBuildProgram.exe" "Library/Bee/2000b0aE.dag.json" "Library/Bee/2000b0aE-inputdata.json" "Library\Bee\buildprogram0.traceevents"
+WorkingDir: C:/Users/burklo/Documents/FunctionalMLDS/InteractivAgents/InteractiveAgents2
+ExitCode: 0 Duration: 4s196ms
+Starting: C:\Program Files\Unity\Hub\Editor\6000.4.5f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/2000b0aE.dag" --continue-on-failure --dagfilejson="Library\Bee\2000b0aE.dag.json" --profile="Library/Bee/backend2.traceevents" ScriptAssemblies
+WorkingDir: C:/Users/burklo/Documents/FunctionalMLDS/InteractivAgents/InteractiveAgents2
+ExitCode: 0 Duration: 6s312ms
+Finished compiling graph: 1804 nodes, 38726 flattened edges (31156 ToBuild, 304 ToUse), maximum node priority 2054
+[ 834/1800  0s] WriteText Library/Bee/artifacts/2000b0aE.dag/Assembly-CSharp.rsp
+[1359/1800  0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+[1792/1800  3s] Csc Library/Bee/artifacts/2000b0aE.dag/Assembly-CSharp.dll (+2 others)
+Assets\Scripting\ProjectManagerUI.cs(1018,9): warning CS0618: 'UnityWebRequest.chunkedTransfer' is obsolete: 'HTTP/2 and many HTTP/1.1 servers don't support this; we recommend leaving it set to false (default).'
+[1793/1800  0s] Csc Library/Bee/artifacts/2000b0aE.dag/Assembly-CSharp-Editor.dll (+2 others)
+[1794/1800  0s] ILPostProcess Library/Bee/artifacts/2000b0aE.dag/post-processed/Assembly-CSharp.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2000b0aE.dag/Assembly-CSharp.dll, with 119 defines and 361 references
+
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[1795/1800  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp.pdb
+[1796/1800  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp.dll
+[1797/1800  0s] ILPostProcess Library/Bee/artifacts/2000b0aE.dag/post-processed/Assembly-CSharp-Editor.dll (+pdb)
+Processing assembly Library/Bee/artifacts/2000b0aE.dag/Assembly-CSharp-Editor.dll, with 117 defines and 391 references
+
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[1798/1800  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.pdb
+[1799/1800  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+*** Tundra build success (6.22 seconds), 10 items updated, 1800 evaluated
+Assets\Scripting\ProjectManagerUI.cs(1018,9): warning CS0618: 'UnityWebRequest.chunkedTransfer' is obsolete: 'HTTP/2 and many HTTP/1.1 servers don't support this; we recommend leaving it set to false (default).'
+AssetDatabase: script compilation time: 16.637609s
+Begin MonoManager ReloadAssembly
+Duplicate assembly 'System.Runtime.CompilerServices.Unsafe.dll' with different versions detected, using 'Packages/com.unity.ai.assistant/Plugins/Shared/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' and ignoring 'Packages/com.unity.collections/Unity.Collections.Tests/System.Runtime.CompilerServices.Unsafe/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.Assembly Assembly-CSharp-Editor-firstpass.dll at Library/ScriptAssemblies/Assembly-CSharp-Editor-firstpass.dll not valid. Loading of assembly skipped.
+Assembly Assembly-CSharp-firstpass.dll at Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll not valid. Loading of assembly skipped.
+Assembly DocCodeExamples.dll at Library/ScriptAssemblies/DocCodeExamples.dll not valid. Loading of assembly skipped.
+Assembly TestNewCustomAssembly.dll at Library/ScriptAssemblies/TestNewCustomAssembly.dll not valid. Loading of assembly skipped.
+Assembly Unity.2D.Sprite.Package.EditorTests.dll at Library/ScriptAssemblies/Unity.2D.Sprite.Package.EditorTests.dll not valid. Loading of assembly skipped.
+Assembly Unity.AI.Assistant.Integrations.Sample.Editor.dll at Library/ScriptAssemblies/Unity.AI.Assistant.Integrations.Sample.Editor.dll not valid. Loading of assembly skipped.
+Assembly Unity.AppUI.Editor.Tests.dll at Library/ScriptAssemblies/Unity.AppUI.Editor.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.AppUI.Tests.dll at Library/ScriptAssemblies/Unity.AppUI.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.Collections.BurstCompatibilityGen.dll at Library/ScriptAssemblies/Unity.Collections.BurstCompatibilityGen.dll not valid. Loading of assembly skipped.
+Assembly Unity.Collections.DocCodeSamples.dll at Library/ScriptAssemblies/Unity.Collections.DocCodeSamples.dll not valid. Loading of assembly skipped.
+Assembly Unity.Collections.PerformanceTests.dll at Library/ScriptAssemblies/Unity.Collections.PerformanceTests.dll not valid. Loading of assembly skipped.
+Assembly Unity.Collections.Tests.dll at Library/ScriptAssemblies/Unity.Collections.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.Collections.Tests.Playmode.dll at Library/ScriptAssemblies/Unity.Collections.Tests.Playmode.dll not valid. Loading of assembly skipped.
+Assembly Unity.InputSystem.IntegrationTests.dll at Library/ScriptAssemblies/Unity.InputSystem.IntegrationTests.dll not valid. Loading of assembly skipped.
+Assembly Unity.Mathematics.Tests.dll at Library/ScriptAssemblies/Unity.Mathematics.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.Multiplayer.Center.Editor.Tests.dll at Library/ScriptAssemblies/Unity.Multiplayer.Center.Editor.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.Multiplayer.Center.Tests.dll at Library/ScriptAssemblies/Unity.Multiplayer.Center.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.Nuget.Mono-Cecil.dll at Library/ScriptAssemblies/Unity.Nuget.Mono-Cecil.dll not valid. Loading of assembly skipped.
+Assembly Unity.PathTracing.Editor.Tests.dll at Library/ScriptAssemblies/Unity.PathTracing.Editor.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.PathTracing.Runtime.Tests.dll at Library/ScriptAssemblies/Unity.PathTracing.Runtime.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.RenderPipelines.Core.Editor.Tests.dll at Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.RenderPipelines.Core.Runtime.Tests.dll at Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.RenderPipelines.Universal.Config.Editor.Tests.dll at Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Config.Editor.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.RenderPipelines.Universal.Editor.Tests.dll at Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Editor.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.RenderPipelines.Universal.Runtime.Tests.dll at Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Runtime.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.Searcher.EditorTests.dll at Library/ScriptAssemblies/Unity.Searcher.EditorTests.dll not valid. Loading of assembly skipped.
+Assembly Unity.ShaderGraph.Editor.Tests.dll at Library/ScriptAssemblies/Unity.ShaderGraph.Editor.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.TextMeshPro.Editor.Tests.dll at Library/ScriptAssemblies/Unity.TextMeshPro.Editor.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.TextMeshPro.Tests.dll at Library/ScriptAssemblies/Unity.TextMeshPro.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.UnifiedRayTracing.Editor.Tests.dll at Library/ScriptAssemblies/Unity.UnifiedRayTracing.Editor.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.XR.CoreUtils.CodeSamples.Tests.dll at Library/ScriptAssemblies/Unity.XR.CoreUtils.CodeSamples.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.XR.CoreUtils.Editor.Tests.dll at Library/ScriptAssemblies/Unity.XR.CoreUtils.Editor.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.XR.CoreUtils.Tests.dll at Library/ScriptAssemblies/Unity.XR.CoreUtils.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.XR.Interaction.Toolkit.Editor.Tests.dll at Library/ScriptAssemblies/Unity.XR.Interaction.Toolkit.Editor.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.XR.Interaction.Toolkit.Tests.dll at Library/ScriptAssemblies/Unity.XR.Interaction.Toolkit.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.XR.Management.EditorTests.dll at Library/ScriptAssemblies/Unity.XR.Management.EditorTests.dll not valid. Loading of assembly skipped.
+Assembly Unity.XR.Management.TestPackage.dll at Library/ScriptAssemblies/Unity.XR.Management.TestPackage.dll not valid. Loading of assembly skipped.
+Assembly Unity.XR.Management.TestPackage.Editor.dll at Library/ScriptAssemblies/Unity.XR.Management.TestPackage.Editor.dll not valid. Loading of assembly skipped.
+Assembly Unity.XR.Management.Tests.dll at Library/ScriptAssemblies/Unity.XR.Management.Tests.dll not valid. Loading of assembly skipped.
+Assembly Unity.XR.Management.Tests.Standalone.dll at Library/ScriptAssemblies/Unity.XR.Management.Tests.Standalone.dll not valid. Loading of assembly skipped.
+Assembly Unity.XR.TestSupport.dll at Library/ScriptAssemblies/Unity.XR.TestSupport.dll not valid. Loading of assembly skipped.
+Assembly UnityEditor.UI.Common.Tests.dll at Library/ScriptAssemblies/UnityEditor.UI.Common.Tests.dll not valid. Loading of assembly skipped.
+Assembly UnityEditor.UI.EditorTests.dll at Library/ScriptAssemblies/UnityEditor.UI.EditorTests.dll not valid. Loading of assembly skipped.
+Assembly UnityEditor.XR.LegacyInputHelpers.Tests.dll at Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.Tests.dll not valid. Loading of assembly skipped.
+Assembly UnityEngine.SpatialTracking.Tests.dll at Library/ScriptAssemblies/UnityEngine.SpatialTracking.Tests.dll not valid. Loading of assembly skipped.
+Assembly UnityEngine.UI.Tests.dll at Library/ScriptAssemblies/UnityEngine.UI.Tests.dll not valid. Loading of assembly skipped.
+Refreshing native plugins compatible for Editor in 13.14 ms, found 5 plugins.
+Native extension for Android target not found
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 7.85 ms, found 5 plugins.
+Duplicate assembly 'System.Runtime.CompilerServices.Unsafe.dll' with different versions detected, using 'Packages/com.unity.ai.assistant/Plugins/Shared/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' and ignoring 'Packages/com.unity.collections/Unity.Collections.Tests/System.Runtime.CompilerServices.Unsafe/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.Refreshing native plugins compatible for Editor in 8.76 ms, found 5 plugins.
+ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in 12.222 seconds
+Domain Reload Profiling: 16393ms
+	BeginReloadAssembly (903ms)
+		DisableScriptedObjects (79ms)
+		CreateAndSetChildDomain (228ms)
+	RebuildCommonClasses (179ms)
+	RebuildNativeTypeToScriptingClass (43ms)
+	initialDomainReloadingComplete (243ms)
+	LoadAllAssembliesAndSetupDomain (2802ms)
+		LoadAssemblies (2112ms)
+		AnalyzeDomain (1177ms)
+			TypeCache.Refresh (912ms)
+				TypeCache.ScanAssembly (860ms)
+			BuildScriptInfoCaches (235ms)
+			ResolveRequiredComponents (26ms)
+	FinalizeReload (12224ms)
+		SetupLoadedEditorAssemblies (0ms)
+			InitializePlatformSupportModulesInManaged (107ms)
+			BeforeProcessingInitializeOnLoad (581ms)
+			ProcessInitializeOnLoadAttributes (9635ms)
+			ProcessInitializeOnLoadMethodAttributes (1096ms)
+			AfterProcessingInitializeOnLoad (18ms)
+		AwakeInstancesAfterBackupRestoration (64ms)
+Refreshing native plugins compatible for Editor in 10.02 ms, found 5 plugins.
+(Values over 0.050ms)
+Asset Pipeline Refresh (id=0162e8c85cdff3440af6f73e98aff551): Total: 39.688 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=15885 ms
+		Asset DB Callback time: managed=2727 ms, native=60 ms
+		Scripting: domain reloads=1, domain reload time=4190 ms, compile time=16642 ms, other=180 ms
+		Project Asset Count: scripts=2398, non-scripts=6071
+		Asset File Changes: new=1, changed=2, moved=0, deleted=0
+		Scan Filter Count: 0
+	InvokePackagesCallback: 37.387ms
+	ApplyChangesToAssetFolders: 1.880ms
+	Scan: 2590.295ms
+	OnSourceAssetsModified: 1.835ms
+	CategorizeScriptCompilationAssets: 157.252ms
+	ProcessAssetsWithTransientArtifactChanges: 211.671ms
+	CategorizeAssets: 260.983ms
+	CompileScripts: 16641.529ms
+	ImportOutOfDateAssets: 12273.057ms (12265.038ms without children)
+		ReloadNativeAssets: 0.075ms
+		UnloadImportedAssets: 1.509ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 2.867ms
+		OnDemandSchedulerStart: 3.562ms
+	PostProcessAllAssets: 2734.708ms
+		XRBuildSystem.XRAssetImported 5.538ms
+		VCAutoAddAssetPostprocess 3.454ms
+		VersionControlSettings.HiddenFilePostprocess 0.219ms
+		MonoPostProcessAllAssets: 2722.872ms
+			AssetPostprocessor.OnPostprocessAllAssets 787.383ms
+			SyncVS.PostprocessSyncProject 506.133ms
+			StyleCatalogPostProcessor.OnPostprocessAllAssets 162.650ms
+			AssetReferenceReimportMonitor.OnPostprocessAllAssets 150.678ms
+			AssetCallbacks.OnPostprocessAllAssets 71.872ms
+			UniversalRenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 38.922ms
+			BuilderAssetPostprocessor.OnPostprocessAllAssets 38.117ms
+			WindowAssetPostprocessingWatcher.OnPostprocessAllAssets 10.328ms
+			GraphRefreshPostprocessor.OnPostprocessAllAssets 8.226ms
+			SpeedTree9Postprocessor.OnPostprocessAllAssets 6.762ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 5.546ms
+			AssetChangedListener.OnPostprocessAllAssets 3.714ms
+			TMPro_TexturePostProcessor.OnPostprocessAllAssets 3.673ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 3.257ms
+			AssetChangeDetector.OnPostprocessAllAssets 2.780ms
+			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 2.455ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 2.177ms
+			ArtifactBrowserPostProcessor.OnPostprocessAllAssets 1.918ms
+			SpriteEditorTexturePostprocessor.OnPostprocessAllAssets 1.759ms
+			MaterialPostprocessor.OnPostprocessAllAssets 1.723ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 1.591ms
+			UVCSAssetPostprocessor.OnPostprocessAllAssets 1.535ms
+			AudioMixerPostprocessor.OnPostprocessAllAssets 1.449ms
+			SkillsProjectAssetPostprocessor.OnPostprocessAllAssets 1.285ms
+			ModelAssetProcessor.OnPostprocessAllAssets 1.227ms
+			AssetDatabaseCallbacks.OnPostprocessAllAssets 1.193ms
+			TextAssetPostProcessor.OnPostprocessAllAssets 1.062ms
+			AssetEvents.OnPostprocessAllAssets 0.930ms
+			ProjectSettingsPostprocessor.OnPostprocessAllAssets 0.912ms
+			PostProcessor.OnPostprocessAllAssets 0.873ms
+			InputActionJsonNameModifierAssetProcessor.OnPostprocessAllAssets 0.859ms
+			ConfigAssetsTracker.OnPostprocessAllAssets 0.655ms
+			TerrainToolbarOverlayPostProcessor.OnPostprocessAllAssets 0.636ms
+			ScenarioDriftAssetsTracker.OnPostprocessAllAssets 0.513ms
+			WebXRBuildProcessor.OnPostprocessAllAssets 0.510ms
+			SamplePostprocessor.OnPostprocessAllAssets 0.476ms
+			SpeedTreePostProcessor.OnPostprocessAllAssets 0.453ms
+			AudioContainerPostProcessor.OnPostprocessAllAssets 0.384ms
+			TrackSelectedAssetsProcessor.OnPostprocessAllAssets 0.196ms
+	PostAssetChangesProfiler: 18.489ms
+	UnloadStreamsBegin: 9.218ms
+	PersistCurrentRevisions: 0.744ms
+	GenerateScriptTypeHashes: 18.582ms
+	GenerateScriptTypeSerializationHashes: 31.406ms
+	Untracked: 4729.065ms
+
+Application.AssetDatabase Initial Refresh End
+Shader Hidden/ChartRasterizerHardware is not supported: GPU does not support conservative rasterization
+Scanning for USB devices : 17.845ms
+Initializing Unity extensions:
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-InteractiveAgents2
+Unloading 72 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 11277 unused Assets / (6.9 MB). Loaded Objects now: 12205.
+Memory consumption went from 327.0 MB to 320.1 MB.
+Total: 64.149200 ms (FindLiveObjects: 2.664000 ms CreateObjectMapping: 2.820700 ms MarkObjects: 48.905700 ms  DeleteObjects: 9.750100 ms)
+
+Batchmode quit successfully invoked - shutting down!
+Curl error 42: Callback aborted
+Killing ADB server in 2,2060006 seconds.
+Start importing ProjectSettings/EditorBuildSettings.asset using Guid(0000000000000000b000000000000000) (LibraryAssetImporter) -> (Import Result ID: '9b5b4b1ce977c0394bd6e11392a44803') in 0.0138593 seconds [static dependencies only]. Details - ImportResultOutputID=d777934f36c664454d62eda103573334 DependenciesID=c332da2a486a9d2273b14b0285056503 StaticDependenciesID=831eb131f29acd1f027c45ab048a6ff6 
+Refreshing native plugins compatible for Editor in 7.89 ms, found 5 plugins.
+Asset Pipeline Refresh (id=2110d5a6d935eee4b83db8ad837d7c49): Total: 0.166 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input Polling Thread exited.
+Input System module state changed to: Shutdown.
+[Licensing::IpcConnector] LicenseClient-BurkLo-notifications channel disconnected successfully.
+[Licensing::IpcConnector] LicenseClient-BurkLo channel disconnected successfully.
+AcceleratorClientConnectionCallback - disconnected - :0
+Cleanup mono
+CodeReloadManager destroyed
+Exiting batchmode successfully now!
+Exiting without the bug reporter. Application will terminate with return code 0

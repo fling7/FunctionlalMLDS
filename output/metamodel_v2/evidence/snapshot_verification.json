@@ -1,0 +1,11 @@
+{
+  "current_v05_hash_mismatches": [],
+  "file_count": 132,
+  "manifest": "archive/metamodel_snapshot_20260714_084522_pre_v2/manifest.sha256.csv",
+  "missing_current": [],
+  "missing_snapshot": [],
+  "snapshot": "archive/metamodel_snapshot_20260714_084522_pre_v2",
+  "snapshot_hash_mismatches": [],
+  "status": "pass",
+  "zip": "archive/metamodel_snapshot_20260714_084522_pre_v2.zip"
+}

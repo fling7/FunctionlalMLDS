@@ -1,0 +1,51 @@
+{
+  "cases": [
+    {
+      "case_id": "bestfit_career_fair",
+      "chat_endpoint": true,
+      "events": 64,
+      "handoff_action": true,
+      "log": "output/case_studies/bestfit_career_fair/runtime_logs/events.jsonl",
+      "setup_endpoint": true,
+      "step_suffixes": [
+        "S09",
+        "S11",
+        "S12"
+      ],
+      "trace_map": "InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/projects/bestfit_career_fair/trace_map.json"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "chat_endpoint": true,
+      "events": 119,
+      "handoff_action": true,
+      "log": "output/case_studies/classroom_dinosaur/runtime_logs/events.jsonl",
+      "setup_endpoint": true,
+      "step_suffixes": [
+        "S09",
+        "S11",
+        "S12"
+      ],
+      "trace_map": "InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/projects/classroom_dinosaur/trace_map.json"
+    },
+    {
+      "case_id": "steinpilz_brand_room",
+      "chat_endpoint": true,
+      "events": 77,
+      "handoff_action": true,
+      "log": "output/case_studies/steinpilz_brand_room/runtime_logs/events.jsonl",
+      "setup_endpoint": true,
+      "step_suffixes": [
+        "S09",
+        "S11",
+        "S12"
+      ],
+      "trace_map": "InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/projects/steinpilz_brand_room/trace_map.json"
+    }
+  ],
+  "event_count": 260,
+  "log_count": 3,
+  "minimum_event_count": 260,
+  "status": "pass",
+  "unresolved": []
+}

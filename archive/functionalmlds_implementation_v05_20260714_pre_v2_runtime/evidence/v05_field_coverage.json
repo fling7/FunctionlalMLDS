@@ -1,0 +1,13 @@
+{
+  "covered": true,
+  "coveredPathCount": 173,
+  "resolvedTargetCount": 173,
+  "unresolvedTargets": [],
+  "missingStructurePaths": [],
+  "missingLeafPaths": [],
+  "declaredButUnobservedStructurePaths": [],
+  "declaredButUnobservedLeafPaths": [],
+  "entryCount": 173,
+  "structurePathCount": 72,
+  "leafPathCount": 101
+}

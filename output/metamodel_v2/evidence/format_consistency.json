@@ -1,0 +1,21 @@
+{
+  "association_count": 157,
+  "canonical_model": "output/metamodel_v2/generated/dynamic_functional_mlds_v2.model.json",
+  "class_count": 118,
+  "invariant_count": 74,
+  "mermaid_count": 8,
+  "png_count": 8,
+  "status": "pass",
+  "svg_count": 8,
+  "view_count": 8,
+  "view_names": [
+    "01_east_adl_infrastructure",
+    "02_east_adl_requirements_usecases",
+    "03_east_adl_function_system_behavior",
+    "04_dfmlds_scenario_flow",
+    "05_dfmlds_capability_runtime",
+    "06_east_adl_dfmlds_verification_validation",
+    "07_optional_annex_feature_knowledge",
+    "dynamic_functional_mlds_v2_metamodel"
+  ]
+}

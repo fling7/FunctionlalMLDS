@@ -1,0 +1,418 @@
+{
+  "schema": "functionalmlds_trace_map",
+  "case_id": "steinpilz_brand_room",
+  "functionalmlds_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\functionalmlds\\functionalmlds.instance.generated.json",
+  "project_files": {
+    "project": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\project.json",
+    "room_plan": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\room_plan.json",
+    "agents": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\agents.json",
+    "kb_root": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\kb"
+  },
+  "use_case_id": "UC-STEINPILZ_BRAND_ROOM-01",
+  "main_scenario_id": "SC-STEINPILZ_BRAND_ROOM-MAIN",
+  "scenario_steps": [
+    {
+      "scenario_step_id": "STEP-STEINPILZ_BRAND_ROOM-S01",
+      "step_number": 1,
+      "capability_use_ids": [],
+      "resulting_state_ids": []
+    },
+    {
+      "scenario_step_id": "STEP-STEINPILZ_BRAND_ROOM-S02",
+      "step_number": 2,
+      "capability_use_ids": [
+        "CU-STEINPILZ_BRAND_ROOM-S02-ANALYZE-MLDS-SCENE"
+      ],
+      "resulting_state_ids": [
+        "SA-STEINPILZ_BRAND_ROOM-NORMALIZED-SCENE-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-STEINPILZ_BRAND_ROOM-S03",
+      "step_number": 3,
+      "capability_use_ids": [
+        "CU-STEINPILZ_BRAND_ROOM-S03-ANALYZE-MLDS-SCENE"
+      ],
+      "resulting_state_ids": [
+        "SA-STEINPILZ_BRAND_ROOM-SCENE-SEMANTICS-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-STEINPILZ_BRAND_ROOM-S04",
+      "step_number": 4,
+      "capability_use_ids": [
+        "CU-STEINPILZ_BRAND_ROOM-S04-DERIVE-SPATIAL-AGENT-ROLES"
+      ],
+      "resulting_state_ids": [
+        "SA-STEINPILZ_BRAND_ROOM-AGENT-ROLES-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-STEINPILZ_BRAND_ROOM-S05",
+      "step_number": 5,
+      "capability_use_ids": [
+        "CU-STEINPILZ_BRAND_ROOM-S05-GENERATE-ROOM-KNOWLEDGE"
+      ],
+      "resulting_state_ids": [
+        "SA-STEINPILZ_BRAND_ROOM-KNOWLEDGE-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-STEINPILZ_BRAND_ROOM-S06",
+      "step_number": 6,
+      "capability_use_ids": [
+        "CU-STEINPILZ_BRAND_ROOM-S06-PLACE-AGENTS-IN-SCENE"
+      ],
+      "resulting_state_ids": [
+        "SA-STEINPILZ_BRAND_ROOM-PLACEMENT-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-STEINPILZ_BRAND_ROOM-S07",
+      "step_number": 7,
+      "capability_use_ids": [
+        "CU-STEINPILZ_BRAND_ROOM-S07-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "resulting_state_ids": [
+        "SA-STEINPILZ_BRAND_ROOM-FUNCTIONALMLDS-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-STEINPILZ_BRAND_ROOM-S08",
+      "step_number": 8,
+      "capability_use_ids": [
+        "CU-STEINPILZ_BRAND_ROOM-S08-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "resulting_state_ids": [
+        "SA-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZED"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-STEINPILZ_BRAND_ROOM-S09",
+      "step_number": 9,
+      "capability_use_ids": [
+        "CU-STEINPILZ_BRAND_ROOM-S09-SETUP-INTERACTIVE-SESSION"
+      ],
+      "resulting_state_ids": [
+        "SA-STEINPILZ_BRAND_ROOM-SETUP-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-STEINPILZ_BRAND_ROOM-S10",
+      "step_number": 10,
+      "capability_use_ids": [],
+      "resulting_state_ids": []
+    },
+    {
+      "scenario_step_id": "STEP-STEINPILZ_BRAND_ROOM-S11",
+      "step_number": 11,
+      "capability_use_ids": [
+        "CU-STEINPILZ_BRAND_ROOM-S11-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "resulting_state_ids": [
+        "SA-STEINPILZ_BRAND_ROOM-ANSWER-GROUNDED"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-STEINPILZ_BRAND_ROOM-S12",
+      "step_number": 12,
+      "capability_use_ids": [
+        "CU-STEINPILZ_BRAND_ROOM-S12-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "resulting_state_ids": [
+        "SA-STEINPILZ_BRAND_ROOM-HANDOFF-VALID"
+      ]
+    }
+  ],
+  "capabilities": [
+    {
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE",
+      "effect_ids": [
+        "EFF-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE-01",
+        "EFF-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE-02"
+      ]
+    },
+    {
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-DERIVE-SPATIAL-AGENT-ROLES",
+      "effect_ids": [
+        "EFF-STEINPILZ_BRAND_ROOM-DERIVE-SPATIAL-AGENT-ROLES-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-GENERATE-ROOM-KNOWLEDGE",
+      "effect_ids": [
+        "EFF-STEINPILZ_BRAND_ROOM-GENERATE-ROOM-KNOWLEDGE-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-PLACE-AGENTS-IN-SCENE",
+      "effect_ids": [
+        "EFF-STEINPILZ_BRAND_ROOM-PLACE-AGENTS-IN-SCENE-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-ASSEMBLE-FUNCTIONAL-MLDS",
+      "effect_ids": [
+        "EFF-STEINPILZ_BRAND_ROOM-ASSEMBLE-FUNCTIONAL-MLDS-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "effect_ids": [
+        "EFF-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-SETUP-INTERACTIVE-SESSION",
+      "effect_ids": [
+        "EFF-STEINPILZ_BRAND_ROOM-SETUP-INTERACTIVE-SESSION-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+      "effect_ids": [
+        "EFF-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "effect_ids": [
+        "EFF-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT-01"
+      ]
+    }
+  ],
+  "runtime_actions": [
+    {
+      "runtime_binding_id": "RB-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE",
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE",
+      "runtime_action_id": "RA-STEINPILZ_BRAND_ROOM-RUN-MLDS-INGESTION",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.mlds_ingestion.run_ingestion_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE",
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE",
+      "runtime_action_id": "RA-STEINPILZ_BRAND_ROOM-RUN-SCENE-SEMANTICS",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.scene_semantics.run_scene_semantics_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE",
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE",
+      "runtime_action_id": "RA-STEINPILZ_BRAND_ROOM-ARROW-ANALYZE",
+      "endpoint": "POST /projects/arrow/analyze",
+      "tool": null,
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-STEINPILZ_BRAND_ROOM-DERIVE-SPATIAL-AGENT-ROLES",
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-DERIVE-SPATIAL-AGENT-ROLES",
+      "runtime_action_id": "RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-ROLES",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.agent_roles.run_agent_roles_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-STEINPILZ_BRAND_ROOM-GENERATE-ROOM-KNOWLEDGE",
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-GENERATE-ROOM-KNOWLEDGE",
+      "runtime_action_id": "RA-STEINPILZ_BRAND_ROOM-RUN-KNOWLEDGE-SYNTHESIS",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.knowledge_synthesis.run_knowledge_synthesis_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-STEINPILZ_BRAND_ROOM-PLACE-AGENTS-IN-SCENE",
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-PLACE-AGENTS-IN-SCENE",
+      "runtime_action_id": "RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-PLACEMENT",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.agent_placement.run_agent_placement_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-STEINPILZ_BRAND_ROOM-ASSEMBLE-FUNCTIONAL-MLDS",
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-ASSEMBLE-FUNCTIONAL-MLDS",
+      "runtime_action_id": "RA-STEINPILZ_BRAND_ROOM-RUN-FUNCTIONALMLDS-ASSEMBLER",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.functionalmlds_assembler.run_functionalmlds_assembly_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "runtime_action_id": "RA-STEINPILZ_BRAND_ROOM-ARROW-COMMIT",
+      "endpoint": "POST /projects/arrow/commit",
+      "tool": null,
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "runtime_action_id": "RA-STEINPILZ_BRAND_ROOM-WRITE-PROJECT-FILES",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.project_materializer.run_project_materializer_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-STEINPILZ_BRAND_ROOM-SETUP-INTERACTIVE-SESSION",
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-SETUP-INTERACTIVE-SESSION",
+      "runtime_action_id": "RA-STEINPILZ_BRAND_ROOM-BACKEND-SETUP",
+      "endpoint": "POST /setup",
+      "tool": null,
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+      "runtime_action_id": "RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT",
+      "endpoint": "POST /chat",
+      "tool": null,
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "capability_id": "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "runtime_action_id": "RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT-HANDOFF",
+      "endpoint": "POST /chat",
+      "tool": null,
+      "topic": null
+    }
+  ],
+  "validation_cases": [
+    {
+      "validation_case_id": "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION",
+      "runtime_binding_ids": [
+        "RB-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE"
+      ],
+      "expected_outcome_ids": [
+        "SA-STEINPILZ_BRAND_ROOM-NORMALIZED-SCENE-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS",
+      "runtime_binding_ids": [
+        "RB-STEINPILZ_BRAND_ROOM-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "expected_outcome_ids": [
+        "SA-STEINPILZ_BRAND_ROOM-FUNCTIONALMLDS-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION",
+      "runtime_binding_ids": [
+        "RB-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "expected_outcome_ids": [
+        "SA-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZED"
+      ]
+    },
+    {
+      "validation_case_id": "VC-STEINPILZ_BRAND_ROOM-SETUP",
+      "runtime_binding_ids": [
+        "RB-STEINPILZ_BRAND_ROOM-SETUP-INTERACTIVE-SESSION"
+      ],
+      "expected_outcome_ids": [
+        "SA-STEINPILZ_BRAND_ROOM-SETUP-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING",
+      "runtime_binding_ids": [
+        "RB-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "expected_outcome_ids": [
+        "SA-STEINPILZ_BRAND_ROOM-ANSWER-GROUNDED"
+      ]
+    },
+    {
+      "validation_case_id": "VC-STEINPILZ_BRAND_ROOM-HANDOFF",
+      "runtime_binding_ids": [
+        "RB-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-STEINPILZ_BRAND_ROOM-HANDOFF-VALID"
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "agent_id": "reception_agent",
+      "functionalmlds_agent_id": "AG-STEINPILZ_BRAND_ROOM-RECEPTION_AGENT",
+      "entity_id": "ENT-AGENT-RECEPTION_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "visitor_orientation",
+        "company_overview",
+        "booth_navigation"
+      ]
+    },
+    {
+      "agent_id": "product_specialist_agent",
+      "functionalmlds_agent_id": "AG-STEINPILZ_BRAND_ROOM-PRODUCT_SPECIALIST_AGENT",
+      "entity_id": "ENT-AGENT-PRODUCT_SPECIALIST_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "cheese_products",
+        "product_sampling",
+        "customer_engagement"
+      ]
+    },
+    {
+      "agent_id": "production_expert_agent",
+      "functionalmlds_agent_id": "AG-STEINPILZ_BRAND_ROOM-PRODUCTION_EXPERT_AGENT",
+      "entity_id": "ENT-AGENT-PRODUCTION_EXPERT_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "production_process",
+        "energy_management",
+        "sustainability"
+      ]
+    },
+    {
+      "agent_id": "digital_interaction_agent",
+      "functionalmlds_agent_id": "AG-STEINPILZ_BRAND_ROOM-DIGITAL_INTERACTION_AGENT",
+      "entity_id": "ENT-AGENT-DIGITAL_INTERACTION_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "digital_interaction",
+        "content_navigation",
+        "technical_support"
+      ]
+    },
+    {
+      "agent_id": "career_advisor_agent",
+      "functionalmlds_agent_id": "AG-STEINPILZ_BRAND_ROOM-CAREER_ADVISOR_AGENT",
+      "entity_id": "ENT-AGENT-CAREER_ADVISOR_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "career_opportunities",
+        "training_programs",
+        "company_culture"
+      ]
+    },
+    {
+      "agent_id": "lounge_host_agent",
+      "functionalmlds_agent_id": "AG-STEINPILZ_BRAND_ROOM-LOUNGE_HOST_AGENT",
+      "entity_id": "ENT-AGENT-LOUNGE_HOST_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "visitor_comfort",
+        "networking",
+        "hospitality"
+      ]
+    }
+  ]
+}

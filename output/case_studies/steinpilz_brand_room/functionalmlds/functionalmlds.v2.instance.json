@@ -1,0 +1,3692 @@
+{
+  "schema": "dynamic_functional_mlds_v2_instance",
+  "id": "DFM-STEINPILZ_BRAND_ROOM",
+  "metamodelVersion": "2.0.0-model",
+  "serializationVersion": "1.0",
+  "caseId": "steinpilz_brand_room",
+  "profile": "executable",
+  "fixture_profile": "executable",
+  "sourceContract": {
+    "schema": "functionalmlds_case_study",
+    "metamodelVersion": "v0.5",
+    "semanticProjectionSha256": "a95f2a8dd1487c44587f6cd0e3407b754aa059cec81cb9a17c60b2f750826500"
+  },
+  "objects": [
+    {
+      "id": "DFM-STEINPILZ_BRAND_ROOM",
+      "type": "DynamicFunctionalModel",
+      "requirementsModel": [
+        "RM-STEINPILZ_BRAND_ROOM"
+      ],
+      "verificationValidation": [
+        "VV-STEINPILZ_BRAND_ROOM"
+      ],
+      "actor": [
+        "ACT-CASE-STUDY-ENGINEER",
+        "ACT-VISITOR",
+        "ACT-ROOM-GUIDE"
+      ],
+      "scenario": [
+        "SC-STEINPILZ_BRAND_ROOM-MAIN"
+      ],
+      "scenarioEvent": [
+        "EV-STEINPILZ_BRAND_ROOM-MLDS-PROVIDED",
+        "EV-STEINPILZ_BRAND_ROOM-VISITOR-QUESTION",
+        "EV-STEINPILZ_BRAND_ROOM-HANDOFF-NEEDED"
+      ],
+      "scenarioCondition": [
+        "COND-STEINPILZ_BRAND_ROOM-VALID-INPUT",
+        "COND-STEINPILZ_BRAND_ROOM-AGENTS-AVAILABLE",
+        "COND-STEINPILZ_BRAND_ROOM-HANDOFF-TARGET-AVAILABLE"
+      ],
+      "assertion": [
+        "SA-STEINPILZ_BRAND_ROOM-NORMALIZED-SCENE-VALID",
+        "SA-STEINPILZ_BRAND_ROOM-SCENE-SEMANTICS-VALID",
+        "SA-STEINPILZ_BRAND_ROOM-AGENT-ROLES-VALID",
+        "SA-STEINPILZ_BRAND_ROOM-KNOWLEDGE-VALID",
+        "SA-STEINPILZ_BRAND_ROOM-PLACEMENT-VALID",
+        "SA-STEINPILZ_BRAND_ROOM-FUNCTIONALMLDS-VALID",
+        "SA-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZED",
+        "SA-STEINPILZ_BRAND_ROOM-SETUP-VALID",
+        "SA-STEINPILZ_BRAND_ROOM-ANSWER-GROUNDED",
+        "SA-STEINPILZ_BRAND_ROOM-HANDOFF-VALID",
+        "AST-STEINPILZ_BRAND_ROOM-DERIVED-EVENT",
+        "AST-STEINPILZ_BRAND_ROOM-DERIVED-OUTPUT",
+        "AST-STEINPILZ_BRAND_ROOM-DERIVED-GROUNDING",
+        "AST-STEINPILZ_BRAND_ROOM-DERIVED-RELATION"
+      ],
+      "entity": [
+        "ENT-ZONE-ENTRANCE_ZONE",
+        "ENT-ZONE-PRODUCT_DISPLAY_ZONE",
+        "ENT-ZONE-PRODUCTION_MODEL_ZONE",
+        "ENT-ZONE-INTERACTIVE_ZONE",
+        "ENT-ZONE-CAREER_ZONE",
+        "ENT-ZONE-ENERGY_MONITORING_ZONE",
+        "ENT-ZONE-LOUNGE_ZONE",
+        "ENT-ZONE-NAVIGATION_PATH",
+        "ENT-GROUP-BRANDING",
+        "ENT-GROUP-CAREER",
+        "ENT-GROUP-ENERGY",
+        "ENT-GROUP-ENTRANCE",
+        "ENT-GROUP-INTERACTIVE",
+        "ENT-GROUP-LOUNGE",
+        "ENT-GROUP-PRODUCT_COUNTERS",
+        "ENT-GROUP-PRODUCT_PEDESTALS",
+        "ENT-GROUP-PRODUCTION_MODELS",
+        "ENT-ASSET-BRAND_PANEL1",
+        "ENT-ASSET-BRAND_PANEL2",
+        "ENT-ASSET-BRAND_PANEL3",
+        "ENT-ASSET-BRAND_PANEL4",
+        "ENT-ASSET-CHAIR1",
+        "ENT-ASSET-CHAIR2",
+        "ENT-ASSET-ENERGY_STATION1",
+        "ENT-ASSET-ENERGY_STATION2",
+        "ENT-ASSET-LOUNGE_TABLE",
+        "ENT-ASSET-MEETING_POD1",
+        "ENT-ASSET-MEETING_POD2",
+        "ENT-ASSET-MEETING_POD3",
+        "ENT-ASSET-PRODUCT_PEDESTAL1",
+        "ENT-ASSET-PRODUCT_PEDESTAL2",
+        "ENT-ASSET-PRODUCT_PEDESTAL3",
+        "ENT-ASSET-PRODUCT_PEDESTAL4",
+        "ENT-ASSET-PRODUCT_PEDESTAL5",
+        "ENT-ASSET-PRODUCT_PEDESTAL6",
+        "ENT-ASSET-PRODUCTION_MODEL1",
+        "ENT-ASSET-PRODUCTION_MODEL2",
+        "ENT-ASSET-RECEPTION_DESK",
+        "ENT-ASSET-REFRIGERATED_COUNTER1",
+        "ENT-ASSET-REFRIGERATED_COUNTER2",
+        "ENT-ASSET-REFRIGERATED_COUNTER3",
+        "ENT-ASSET-REFRIGERATED_COUNTER4",
+        "ENT-ASSET-SOFA1",
+        "ENT-ASSET-TOUCH_KIOSK1",
+        "ENT-ASSET-TOUCH_KIOSK2",
+        "ENT-ASSET-TRAINING_BOARD1",
+        "ENT-ASSET-TRAINING_BOARD2",
+        "ENT-AGENT-RECEPTION_AGENT",
+        "ENT-AGENT-PRODUCT_SPECIALIST_AGENT",
+        "ENT-AGENT-PRODUCTION_EXPERT_AGENT",
+        "ENT-AGENT-DIGITAL_INTERACTION_AGENT",
+        "ENT-AGENT-CAREER_ADVISOR_AGENT",
+        "ENT-AGENT-LOUNGE_HOST_AGENT",
+        "ENT-STATE-STEINPILZ_BRAND_ROOM",
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "capability": [
+        "CAP-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE",
+        "CAP-STEINPILZ_BRAND_ROOM-DERIVE-SPATIAL-AGENT-ROLES",
+        "CAP-STEINPILZ_BRAND_ROOM-GENERATE-ROOM-KNOWLEDGE",
+        "CAP-STEINPILZ_BRAND_ROOM-PLACE-AGENTS-IN-SCENE",
+        "CAP-STEINPILZ_BRAND_ROOM-ASSEMBLE-FUNCTIONAL-MLDS",
+        "CAP-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+        "CAP-STEINPILZ_BRAND_ROOM-SETUP-INTERACTIVE-SESSION",
+        "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "runtimeBinding": [
+        "RB-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE",
+        "RB-STEINPILZ_BRAND_ROOM-DERIVE-SPATIAL-AGENT-ROLES",
+        "RB-STEINPILZ_BRAND_ROOM-GENERATE-ROOM-KNOWLEDGE",
+        "RB-STEINPILZ_BRAND_ROOM-PLACE-AGENTS-IN-SCENE",
+        "RB-STEINPILZ_BRAND_ROOM-ASSEMBLE-FUNCTIONAL-MLDS",
+        "RB-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+        "RB-STEINPILZ_BRAND_ROOM-SETUP-INTERACTIVE-SESSION",
+        "RB-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "ownedRelationship": [
+        "UC-STEINPILZ_BRAND_ROOM-01-ACTOR-1",
+        "UC-STEINPILZ_BRAND_ROOM-01-ACTOR-2",
+        "UC-STEINPILZ_BRAND_ROOM-01-ACTOR-3",
+        "UC-STEINPILZ_BRAND_ROOM-01-SPEC-SC-STEINPILZ_BRAND_ROOM-MAIN",
+        "SAT-REQ-STEINPILZ_BRAND_ROOM-001",
+        "SAT-REQ-STEINPILZ_BRAND_ROOM-002",
+        "SAT-REQ-STEINPILZ_BRAND_ROOM-003",
+        "SAT-REQ-STEINPILZ_BRAND_ROOM-004",
+        "SAT-REQ-STEINPILZ_BRAND_ROOM-005",
+        "SAT-REQ-STEINPILZ_BRAND_ROOM-006",
+        "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-USECASE-1",
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-USECASE-1",
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-USECASE-1",
+        "VC-STEINPILZ_BRAND_ROOM-SETUP-USECASE-1",
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-USECASE-1",
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF-USECASE-1"
+      ]
+    },
+    {
+      "id": "REQ-STEINPILZ_BRAND_ROOM-001",
+      "type": "Requirement",
+      "text": "The pipeline shall ingest an MLDS scene and preserve stable object identities."
+    },
+    {
+      "id": "REQ-STEINPILZ_BRAND_ROOM-002",
+      "type": "Requirement",
+      "text": "The pipeline shall derive room semantics grounded in existing MLDS objects."
+    },
+    {
+      "id": "REQ-STEINPILZ_BRAND_ROOM-003",
+      "type": "Requirement",
+      "text": "The pipeline shall synthesize backend-compatible spatial agent roles."
+    },
+    {
+      "id": "REQ-STEINPILZ_BRAND_ROOM-004",
+      "type": "Requirement",
+      "text": "Every generated agent knowledge tag shall be covered by materialized knowledge."
+    },
+    {
+      "id": "REQ-STEINPILZ_BRAND_ROOM-005",
+      "type": "Requirement",
+      "text": "Every generated agent shall be placed inside the room without obstacle overlap."
+    },
+    {
+      "id": "REQ-STEINPILZ_BRAND_ROOM-006",
+      "type": "Requirement",
+      "text": "The generated behavior shall be traceable from requirements to runtime actions and validation cases."
+    },
+    {
+      "id": "UC-STEINPILZ_BRAND_ROOM-01",
+      "type": "UseCase",
+      "extensionPoint": [],
+      "include": [],
+      "extend": [],
+      "name": "Generate and use spatially grounded multi-agent guide"
+    },
+    {
+      "id": "RM-STEINPILZ_BRAND_ROOM",
+      "type": "RequirementsModel",
+      "requirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-001",
+        "REQ-STEINPILZ_BRAND_ROOM-002",
+        "REQ-STEINPILZ_BRAND_ROOM-003",
+        "REQ-STEINPILZ_BRAND_ROOM-004",
+        "REQ-STEINPILZ_BRAND_ROOM-005",
+        "REQ-STEINPILZ_BRAND_ROOM-006"
+      ],
+      "useCase": [
+        "UC-STEINPILZ_BRAND_ROOM-01"
+      ]
+    },
+    {
+      "id": "ACT-CASE-STUDY-ENGINEER",
+      "type": "Actor",
+      "name": "Case Study Engineer",
+      "text": "Provides MLDS input and runs the validation pipeline."
+    },
+    {
+      "id": "ACT-VISITOR",
+      "type": "Actor",
+      "name": "Visitor",
+      "text": "Asks room-related questions in the generated immersive environment."
+    },
+    {
+      "id": "ACT-ROOM-GUIDE",
+      "type": "Actor",
+      "name": "Room Guide",
+      "text": "Role played by generated interactive agents."
+    },
+    {
+      "id": "ENT-ZONE-ENTRANCE_ZONE",
+      "type": "Entity",
+      "name": "Entrance and Reception",
+      "kind": "zone",
+      "sourceId": "entrance_zone",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "reception_desk",
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "purpose": "Welcome visitors, provide initial information and guidance"
+    },
+    {
+      "id": "ENT-ZONE-PRODUCT_DISPLAY_ZONE",
+      "type": "Entity",
+      "name": "Cheese Product Display",
+      "kind": "zone",
+      "sourceId": "product_display_zone",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ],
+      "purpose": "Showcase cheese products in refrigerated counters and on pedestals for sampling and viewing"
+    },
+    {
+      "id": "ENT-ZONE-PRODUCTION_MODEL_ZONE",
+      "type": "Entity",
+      "name": "Production Technology Display",
+      "kind": "zone",
+      "sourceId": "production_model_zone",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "production_model1",
+        "production_model2"
+      ],
+      "purpose": "Display detailed production models to explain cheese manufacturing process"
+    },
+    {
+      "id": "ENT-ZONE-INTERACTIVE_ZONE",
+      "type": "Entity",
+      "name": "Interactive Information Kiosks",
+      "kind": "zone",
+      "sourceId": "interactive_zone",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "purpose": "Provide digital interactive content about products, production, and company"
+    },
+    {
+      "id": "ENT-ZONE-CAREER_ZONE",
+      "type": "Entity",
+      "name": "Career and Training Area",
+      "kind": "zone",
+      "sourceId": "career_zone",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "purpose": "Facilitate career discussions, training sessions, and meetings with company representatives"
+    },
+    {
+      "id": "ENT-ZONE-ENERGY_MONITORING_ZONE",
+      "type": "Entity",
+      "name": "Energy Measurement Stations",
+      "kind": "zone",
+      "sourceId": "energy_monitoring_zone",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "energy_station1",
+        "energy_station2"
+      ],
+      "purpose": "Showcase energy measurement and sustainability technology related to production"
+    },
+    {
+      "id": "ENT-ZONE-LOUNGE_ZONE",
+      "type": "Entity",
+      "name": "Lounge and Networking Area",
+      "kind": "zone",
+      "sourceId": "lounge_zone",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "purpose": "Provide comfortable seating for informal meetings, relaxation, and networking"
+    },
+    {
+      "id": "ENT-ZONE-NAVIGATION_PATH",
+      "type": "Entity",
+      "name": "Visitor Circulation Path",
+      "kind": "zone",
+      "sourceId": "navigation_path",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "floor_marking_path1"
+      ],
+      "purpose": "Guide visitor movement through the booth to ensure smooth flow and coverage of zones"
+    },
+    {
+      "id": "ENT-GROUP-BRANDING",
+      "type": "Entity",
+      "name": "Object group: branding",
+      "kind": "asset",
+      "sourceId": "group:branding",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "sourceGroup": "branding"
+    },
+    {
+      "id": "ENT-GROUP-CAREER",
+      "type": "Entity",
+      "name": "Object group: career",
+      "kind": "asset",
+      "sourceId": "group:career",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "sourceGroup": "career"
+    },
+    {
+      "id": "ENT-GROUP-ENERGY",
+      "type": "Entity",
+      "name": "Object group: energy",
+      "kind": "asset",
+      "sourceId": "group:energy",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "energy_station1",
+        "energy_station2"
+      ],
+      "sourceGroup": "energy"
+    },
+    {
+      "id": "ENT-GROUP-ENTRANCE",
+      "type": "Entity",
+      "name": "Object group: entrance",
+      "kind": "asset",
+      "sourceId": "group:entrance",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "reception_desk"
+      ],
+      "sourceGroup": "entrance"
+    },
+    {
+      "id": "ENT-GROUP-INTERACTIVE",
+      "type": "Entity",
+      "name": "Object group: interactive",
+      "kind": "asset",
+      "sourceId": "group:interactive",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "sourceGroup": "interactive"
+    },
+    {
+      "id": "ENT-GROUP-LOUNGE",
+      "type": "Entity",
+      "name": "Object group: lounge",
+      "kind": "asset",
+      "sourceId": "group:lounge",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "sourceGroup": "lounge"
+    },
+    {
+      "id": "ENT-GROUP-PRODUCT_COUNTERS",
+      "type": "Entity",
+      "name": "Object group: product_counters",
+      "kind": "asset",
+      "sourceId": "group:product_counters",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4"
+      ],
+      "sourceGroup": "product_counters"
+    },
+    {
+      "id": "ENT-GROUP-PRODUCT_PEDESTALS",
+      "type": "Entity",
+      "name": "Object group: product_pedestals",
+      "kind": "asset",
+      "sourceId": "group:product_pedestals",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ],
+      "sourceGroup": "product_pedestals"
+    },
+    {
+      "id": "ENT-GROUP-PRODUCTION_MODELS",
+      "type": "Entity",
+      "name": "Object group: production_models",
+      "kind": "asset",
+      "sourceId": "group:production_models",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "production_model1",
+        "production_model2"
+      ],
+      "sourceGroup": "production_models"
+    },
+    {
+      "id": "ENT-ASSET-BRAND_PANEL1",
+      "type": "Entity",
+      "name": "brand_panel",
+      "kind": "asset",
+      "sourceId": "brand_panel1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "branding",
+      "objectType": "brand_panel",
+      "objectGroup": [
+        "ENT-GROUP-BRANDING"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-BRAND_PANEL2",
+      "type": "Entity",
+      "name": "brand_panel",
+      "kind": "asset",
+      "sourceId": "brand_panel2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "branding",
+      "objectType": "brand_panel",
+      "objectGroup": [
+        "ENT-GROUP-BRANDING"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-BRAND_PANEL3",
+      "type": "Entity",
+      "name": "brand_panel",
+      "kind": "asset",
+      "sourceId": "brand_panel3",
+      "entityRole": "sceneObject",
+      "sourceGroup": "branding",
+      "objectType": "brand_panel",
+      "objectGroup": [
+        "ENT-GROUP-BRANDING"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-BRAND_PANEL4",
+      "type": "Entity",
+      "name": "brand_panel",
+      "kind": "asset",
+      "sourceId": "brand_panel4",
+      "entityRole": "sceneObject",
+      "sourceGroup": "branding",
+      "objectType": "brand_panel",
+      "objectGroup": [
+        "ENT-GROUP-BRANDING"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-CHAIR1",
+      "type": "Entity",
+      "name": "chair",
+      "kind": "asset",
+      "sourceId": "chair1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "lounge",
+      "objectType": "chair",
+      "objectGroup": [
+        "ENT-GROUP-LOUNGE"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-CHAIR2",
+      "type": "Entity",
+      "name": "chair",
+      "kind": "asset",
+      "sourceId": "chair2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "lounge",
+      "objectType": "chair",
+      "objectGroup": [
+        "ENT-GROUP-LOUNGE"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-ENERGY_STATION1",
+      "type": "Entity",
+      "name": "energy_station",
+      "kind": "asset",
+      "sourceId": "energy_station1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "energy",
+      "objectType": "energy_station",
+      "objectGroup": [
+        "ENT-GROUP-ENERGY"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-ENERGY_STATION2",
+      "type": "Entity",
+      "name": "energy_station",
+      "kind": "asset",
+      "sourceId": "energy_station2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "energy",
+      "objectType": "energy_station",
+      "objectGroup": [
+        "ENT-GROUP-ENERGY"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-LOUNGE_TABLE",
+      "type": "Entity",
+      "name": "lounge_table",
+      "kind": "asset",
+      "sourceId": "lounge_table",
+      "entityRole": "sceneObject",
+      "sourceGroup": "lounge",
+      "objectType": "lounge_table",
+      "objectGroup": [
+        "ENT-GROUP-LOUNGE"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-MEETING_POD1",
+      "type": "Entity",
+      "name": "meeting_pod",
+      "kind": "asset",
+      "sourceId": "meeting_pod1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "career",
+      "objectType": "meeting_pod",
+      "objectGroup": [
+        "ENT-GROUP-CAREER"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-MEETING_POD2",
+      "type": "Entity",
+      "name": "meeting_pod",
+      "kind": "asset",
+      "sourceId": "meeting_pod2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "career",
+      "objectType": "meeting_pod",
+      "objectGroup": [
+        "ENT-GROUP-CAREER"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-MEETING_POD3",
+      "type": "Entity",
+      "name": "meeting_pod",
+      "kind": "asset",
+      "sourceId": "meeting_pod3",
+      "entityRole": "sceneObject",
+      "sourceGroup": "career",
+      "objectType": "meeting_pod",
+      "objectGroup": [
+        "ENT-GROUP-CAREER"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-PRODUCT_PEDESTAL1",
+      "type": "Entity",
+      "name": "product_pedestal",
+      "kind": "asset",
+      "sourceId": "product_pedestal1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "product_pedestals",
+      "objectType": "product_pedestal",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCT_PEDESTALS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-PRODUCT_PEDESTAL2",
+      "type": "Entity",
+      "name": "product_pedestal",
+      "kind": "asset",
+      "sourceId": "product_pedestal2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "product_pedestals",
+      "objectType": "product_pedestal",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCT_PEDESTALS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-PRODUCT_PEDESTAL3",
+      "type": "Entity",
+      "name": "product_pedestal",
+      "kind": "asset",
+      "sourceId": "product_pedestal3",
+      "entityRole": "sceneObject",
+      "sourceGroup": "product_pedestals",
+      "objectType": "product_pedestal",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCT_PEDESTALS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-PRODUCT_PEDESTAL4",
+      "type": "Entity",
+      "name": "product_pedestal",
+      "kind": "asset",
+      "sourceId": "product_pedestal4",
+      "entityRole": "sceneObject",
+      "sourceGroup": "product_pedestals",
+      "objectType": "product_pedestal",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCT_PEDESTALS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-PRODUCT_PEDESTAL5",
+      "type": "Entity",
+      "name": "product_pedestal",
+      "kind": "asset",
+      "sourceId": "product_pedestal5",
+      "entityRole": "sceneObject",
+      "sourceGroup": "product_pedestals",
+      "objectType": "product_pedestal",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCT_PEDESTALS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-PRODUCT_PEDESTAL6",
+      "type": "Entity",
+      "name": "product_pedestal",
+      "kind": "asset",
+      "sourceId": "product_pedestal6",
+      "entityRole": "sceneObject",
+      "sourceGroup": "product_pedestals",
+      "objectType": "product_pedestal",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCT_PEDESTALS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-PRODUCTION_MODEL1",
+      "type": "Entity",
+      "name": "production_model",
+      "kind": "asset",
+      "sourceId": "production_model1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "production_models",
+      "objectType": "production_model",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCTION_MODELS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-PRODUCTION_MODEL2",
+      "type": "Entity",
+      "name": "production_model",
+      "kind": "asset",
+      "sourceId": "production_model2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "production_models",
+      "objectType": "production_model",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCTION_MODELS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-RECEPTION_DESK",
+      "type": "Entity",
+      "name": "reception_desk",
+      "kind": "asset",
+      "sourceId": "reception_desk",
+      "entityRole": "sceneObject",
+      "sourceGroup": "entrance",
+      "objectType": "reception_desk",
+      "objectGroup": [
+        "ENT-GROUP-ENTRANCE"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-REFRIGERATED_COUNTER1",
+      "type": "Entity",
+      "name": "refrigerated_counter",
+      "kind": "asset",
+      "sourceId": "refrigerated_counter1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "product_counters",
+      "objectType": "refrigerated_counter",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCT_COUNTERS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-REFRIGERATED_COUNTER2",
+      "type": "Entity",
+      "name": "refrigerated_counter",
+      "kind": "asset",
+      "sourceId": "refrigerated_counter2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "product_counters",
+      "objectType": "refrigerated_counter",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCT_COUNTERS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-REFRIGERATED_COUNTER3",
+      "type": "Entity",
+      "name": "refrigerated_counter",
+      "kind": "asset",
+      "sourceId": "refrigerated_counter3",
+      "entityRole": "sceneObject",
+      "sourceGroup": "product_counters",
+      "objectType": "refrigerated_counter",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCT_COUNTERS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-REFRIGERATED_COUNTER4",
+      "type": "Entity",
+      "name": "refrigerated_counter",
+      "kind": "asset",
+      "sourceId": "refrigerated_counter4",
+      "entityRole": "sceneObject",
+      "sourceGroup": "product_counters",
+      "objectType": "refrigerated_counter",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCT_COUNTERS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-SOFA1",
+      "type": "Entity",
+      "name": "sofa",
+      "kind": "asset",
+      "sourceId": "sofa1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "lounge",
+      "objectType": "sofa",
+      "objectGroup": [
+        "ENT-GROUP-LOUNGE"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-TOUCH_KIOSK1",
+      "type": "Entity",
+      "name": "touch_kiosk",
+      "kind": "asset",
+      "sourceId": "touch_kiosk1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "interactive",
+      "objectType": "touch_kiosk",
+      "objectGroup": [
+        "ENT-GROUP-INTERACTIVE"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-TOUCH_KIOSK2",
+      "type": "Entity",
+      "name": "touch_kiosk",
+      "kind": "asset",
+      "sourceId": "touch_kiosk2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "interactive",
+      "objectType": "touch_kiosk",
+      "objectGroup": [
+        "ENT-GROUP-INTERACTIVE"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-TRAINING_BOARD1",
+      "type": "Entity",
+      "name": "training_board",
+      "kind": "asset",
+      "sourceId": "training_board1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "career",
+      "objectType": "training_board",
+      "objectGroup": [
+        "ENT-GROUP-CAREER"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-TRAINING_BOARD2",
+      "type": "Entity",
+      "name": "training_board",
+      "kind": "asset",
+      "sourceId": "training_board2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "career",
+      "objectType": "training_board",
+      "objectGroup": [
+        "ENT-GROUP-CAREER"
+      ]
+    },
+    {
+      "id": "ENT-AGENT-RECEPTION_AGENT",
+      "type": "Agent",
+      "name": "Reception Agent",
+      "kind": "agent",
+      "sourceId": "reception_agent",
+      "entityRole": "interactiveAgent",
+      "sourceAgentId": "reception_agent",
+      "displayName": "Reception Agent",
+      "persona": "Friendly and welcoming guide who provides initial orientation and general information about the booth and company.",
+      "expertise": [
+        "visitor orientation",
+        "basic product knowledge",
+        "booth navigation"
+      ],
+      "knowledgeTag": [
+        "visitor_orientation",
+        "company_overview",
+        "booth_navigation"
+      ],
+      "voice": "fable",
+      "voiceGender": "maennlich",
+      "voiceStyle": "warm and approachable",
+      "ttsModel": "gpt-4o-mini-tts",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapability": [
+        "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "responsibleZone": [
+        "ENT-ZONE-ENTRANCE_ZONE"
+      ],
+      "groundedAsset": [
+        "ENT-ASSET-RECEPTION_DESK",
+        "ENT-ASSET-BRAND_PANEL1",
+        "ENT-ASSET-BRAND_PANEL2",
+        "ENT-ASSET-BRAND_PANEL3",
+        "ENT-ASSET-BRAND_PANEL4"
+      ],
+      "groundedObjectGroup": [
+        "ENT-GROUP-ENTRANCE",
+        "ENT-GROUP-BRANDING"
+      ],
+      "handoffTarget": [
+        "ENT-AGENT-PRODUCT_SPECIALIST_AGENT",
+        "ENT-AGENT-PRODUCTION_EXPERT_AGENT",
+        "ENT-AGENT-DIGITAL_INTERACTION_AGENT",
+        "ENT-AGENT-CAREER_ADVISOR_AGENT",
+        "ENT-AGENT-LOUNGE_HOST_AGENT"
+      ]
+    },
+    {
+      "id": "ENT-AGENT-PRODUCT_SPECIALIST_AGENT",
+      "type": "Agent",
+      "name": "Product Specialist Agent",
+      "kind": "agent",
+      "sourceId": "product_specialist_agent",
+      "entityRole": "interactiveAgent",
+      "sourceAgentId": "product_specialist_agent",
+      "displayName": "Product Specialist Agent",
+      "persona": "Knowledgeable cheese expert passionate about explaining products and facilitating sampling experiences.",
+      "expertise": [
+        "cheese product knowledge",
+        "sampling facilitation",
+        "customer engagement"
+      ],
+      "knowledgeTag": [
+        "cheese_products",
+        "product_sampling",
+        "customer_engagement"
+      ],
+      "voice": "sage",
+      "voiceGender": "weiblich",
+      "voiceStyle": "enthusiastic and clear",
+      "ttsModel": "gpt-4o-mini-tts",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapability": [
+        "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "responsibleZone": [
+        "ENT-ZONE-PRODUCT_DISPLAY_ZONE"
+      ],
+      "groundedAsset": [
+        "ENT-ASSET-REFRIGERATED_COUNTER1",
+        "ENT-ASSET-REFRIGERATED_COUNTER2",
+        "ENT-ASSET-REFRIGERATED_COUNTER3",
+        "ENT-ASSET-REFRIGERATED_COUNTER4",
+        "ENT-ASSET-PRODUCT_PEDESTAL1",
+        "ENT-ASSET-PRODUCT_PEDESTAL2",
+        "ENT-ASSET-PRODUCT_PEDESTAL3",
+        "ENT-ASSET-PRODUCT_PEDESTAL4",
+        "ENT-ASSET-PRODUCT_PEDESTAL5",
+        "ENT-ASSET-PRODUCT_PEDESTAL6"
+      ],
+      "groundedObjectGroup": [
+        "ENT-GROUP-PRODUCT_COUNTERS",
+        "ENT-GROUP-PRODUCT_PEDESTALS"
+      ],
+      "handoffTarget": [
+        "ENT-AGENT-PRODUCTION_EXPERT_AGENT",
+        "ENT-AGENT-DIGITAL_INTERACTION_AGENT",
+        "ENT-AGENT-CAREER_ADVISOR_AGENT"
+      ]
+    },
+    {
+      "id": "ENT-AGENT-PRODUCTION_EXPERT_AGENT",
+      "type": "Agent",
+      "name": "Production Expert Agent",
+      "kind": "agent",
+      "sourceId": "production_expert_agent",
+      "entityRole": "interactiveAgent",
+      "sourceAgentId": "production_expert_agent",
+      "displayName": "Production Expert Agent",
+      "persona": "Technical specialist explaining cheese production technology and sustainability with detailed knowledge and clarity.",
+      "expertise": [
+        "production technology",
+        "energy management",
+        "sustainability"
+      ],
+      "knowledgeTag": [
+        "production_process",
+        "energy_management",
+        "sustainability"
+      ],
+      "voice": "onyx",
+      "voiceGender": "maennlich",
+      "voiceStyle": "professional and informative",
+      "ttsModel": "gpt-4o-mini-tts",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapability": [
+        "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "responsibleZone": [
+        "ENT-ZONE-PRODUCTION_MODEL_ZONE",
+        "ENT-ZONE-ENERGY_MONITORING_ZONE"
+      ],
+      "groundedAsset": [
+        "ENT-ASSET-PRODUCTION_MODEL1",
+        "ENT-ASSET-PRODUCTION_MODEL2",
+        "ENT-ASSET-ENERGY_STATION1",
+        "ENT-ASSET-ENERGY_STATION2"
+      ],
+      "groundedObjectGroup": [
+        "ENT-GROUP-PRODUCTION_MODELS",
+        "ENT-GROUP-ENERGY"
+      ],
+      "handoffTarget": [
+        "ENT-AGENT-DIGITAL_INTERACTION_AGENT",
+        "ENT-AGENT-CAREER_ADVISOR_AGENT"
+      ]
+    },
+    {
+      "id": "ENT-AGENT-DIGITAL_INTERACTION_AGENT",
+      "type": "Agent",
+      "name": "Digital Interaction Agent",
+      "kind": "agent",
+      "sourceId": "digital_interaction_agent",
+      "entityRole": "interactiveAgent",
+      "sourceAgentId": "digital_interaction_agent",
+      "displayName": "Digital Interaction Agent",
+      "persona": "Helpful digital assistant guiding visitors through interactive kiosks and digital content with patience and clarity.",
+      "expertise": [
+        "digital kiosk operation",
+        "content guidance",
+        "technical support"
+      ],
+      "knowledgeTag": [
+        "digital_interaction",
+        "content_navigation",
+        "technical_support"
+      ],
+      "voice": "coral",
+      "voiceGender": "weiblich",
+      "voiceStyle": "clear and supportive",
+      "ttsModel": "gpt-4o-mini-tts",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapability": [
+        "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "responsibleZone": [
+        "ENT-ZONE-INTERACTIVE_ZONE"
+      ],
+      "groundedAsset": [
+        "ENT-ASSET-TOUCH_KIOSK1",
+        "ENT-ASSET-TOUCH_KIOSK2"
+      ],
+      "groundedObjectGroup": [
+        "ENT-GROUP-INTERACTIVE"
+      ],
+      "handoffTarget": [
+        "ENT-AGENT-PRODUCT_SPECIALIST_AGENT",
+        "ENT-AGENT-PRODUCTION_EXPERT_AGENT",
+        "ENT-AGENT-CAREER_ADVISOR_AGENT"
+      ]
+    },
+    {
+      "id": "ENT-AGENT-CAREER_ADVISOR_AGENT",
+      "type": "Agent",
+      "name": "Career Advisor Agent",
+      "kind": "agent",
+      "sourceId": "career_advisor_agent",
+      "entityRole": "interactiveAgent",
+      "sourceAgentId": "career_advisor_agent",
+      "displayName": "Career Advisor Agent",
+      "persona": "Encouraging and knowledgeable career counselor facilitating discussions about opportunities and training programs.",
+      "expertise": [
+        "career counseling",
+        "training program knowledge",
+        "meeting facilitation"
+      ],
+      "knowledgeTag": [
+        "career_opportunities",
+        "training_programs",
+        "company_culture"
+      ],
+      "voice": "ballad",
+      "voiceGender": "maennlich",
+      "voiceStyle": "motivational and empathetic",
+      "ttsModel": "gpt-4o-mini-tts",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapability": [
+        "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "responsibleZone": [
+        "ENT-ZONE-CAREER_ZONE"
+      ],
+      "groundedAsset": [
+        "ENT-ASSET-MEETING_POD1",
+        "ENT-ASSET-MEETING_POD2",
+        "ENT-ASSET-MEETING_POD3",
+        "ENT-ASSET-TRAINING_BOARD1",
+        "ENT-ASSET-TRAINING_BOARD2"
+      ],
+      "groundedObjectGroup": [
+        "ENT-GROUP-CAREER"
+      ],
+      "handoffTarget": [
+        "ENT-AGENT-LOUNGE_HOST_AGENT"
+      ]
+    },
+    {
+      "id": "ENT-AGENT-LOUNGE_HOST_AGENT",
+      "type": "Agent",
+      "name": "Lounge Host Agent",
+      "kind": "agent",
+      "sourceId": "lounge_host_agent",
+      "entityRole": "interactiveAgent",
+      "sourceAgentId": "lounge_host_agent",
+      "displayName": "Lounge Host Agent",
+      "persona": "Warm and hospitable host ensuring visitor comfort and encouraging networking in the lounge area.",
+      "expertise": [
+        "visitor comfort",
+        "networking facilitation",
+        "hospitality"
+      ],
+      "knowledgeTag": [
+        "visitor_comfort",
+        "networking",
+        "hospitality"
+      ],
+      "voice": "ash",
+      "voiceGender": "maennlich",
+      "voiceStyle": "relaxed and friendly",
+      "ttsModel": "gpt-4o-mini-tts",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapability": [
+        "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "responsibleZone": [
+        "ENT-ZONE-LOUNGE_ZONE"
+      ],
+      "groundedAsset": [
+        "ENT-ASSET-SOFA1",
+        "ENT-ASSET-LOUNGE_TABLE",
+        "ENT-ASSET-CHAIR1",
+        "ENT-ASSET-CHAIR2"
+      ],
+      "groundedObjectGroup": [
+        "ENT-GROUP-LOUNGE"
+      ],
+      "handoffTarget": [
+        "ENT-AGENT-RECEPTION_AGENT"
+      ]
+    },
+    {
+      "id": "ENT-STATE-STEINPILZ_BRAND_ROOM",
+      "type": "Entity",
+      "name": "Case study validation state",
+      "kind": "stateObject",
+      "sourceId": "validation_state"
+    },
+    {
+      "id": "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR",
+      "type": "Entity",
+      "name": "Runtime Orchestrator",
+      "sourceId": "runtime-orchestrator",
+      "entityRole": "runtimeOrchestrator",
+      "purpose": "Explicit executable provider for projected runtime capability uses.",
+      "providedCapability": [
+        "CAP-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE",
+        "CAP-STEINPILZ_BRAND_ROOM-DERIVE-SPATIAL-AGENT-ROLES",
+        "CAP-STEINPILZ_BRAND_ROOM-GENERATE-ROOM-KNOWLEDGE",
+        "CAP-STEINPILZ_BRAND_ROOM-PLACE-AGENTS-IN-SCENE",
+        "CAP-STEINPILZ_BRAND_ROOM-ASSEMBLE-FUNCTIONAL-MLDS",
+        "CAP-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+        "CAP-STEINPILZ_BRAND_ROOM-SETUP-INTERACTIVE-SESSION",
+        "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ]
+    },
+    {
+      "id": "EV-STEINPILZ_BRAND_ROOM-MLDS-PROVIDED",
+      "type": "ScenarioExternalEvent",
+      "kind": "environment",
+      "expressionText": "source_mlds.json available",
+      "mixedStringContent": "source_mlds.json available"
+    },
+    {
+      "id": "EV-STEINPILZ_BRAND_ROOM-VISITOR-QUESTION",
+      "type": "ScenarioExternalEvent",
+      "kind": "user",
+      "expressionText": "visitor asks a room-related question",
+      "mixedStringContent": "visitor asks a room-related question"
+    },
+    {
+      "id": "EV-STEINPILZ_BRAND_ROOM-HANDOFF-NEEDED",
+      "type": "ScenarioExternalEvent",
+      "kind": "user",
+      "expressionText": "visitor question belongs to another agent expertise",
+      "mixedStringContent": "visitor question belongs to another agent expertise"
+    },
+    {
+      "id": "COND-STEINPILZ_BRAND_ROOM-VALID-INPUT",
+      "type": "ScenarioCondition",
+      "kind": "precondition",
+      "datatype": "EABoolean",
+      "expressionText": "MLDS input parses successfully",
+      "mixedStringContent": "MLDS input parses successfully"
+    },
+    {
+      "id": "COND-STEINPILZ_BRAND_ROOM-AGENTS-AVAILABLE",
+      "type": "ScenarioCondition",
+      "kind": "guard",
+      "datatype": "EABoolean",
+      "expressionText": "at least two valid agents exist",
+      "mixedStringContent": "at least two valid agents exist"
+    },
+    {
+      "id": "COND-STEINPILZ_BRAND_ROOM-HANDOFF-TARGET-AVAILABLE",
+      "type": "ScenarioCondition",
+      "kind": "guard",
+      "datatype": "EABoolean",
+      "expressionText": "handoff target exists and is not the source agent",
+      "mixedStringContent": "handoff target exists and is not the source agent"
+    },
+    {
+      "id": "EXPR-SA-STEINPILZ_BRAND_ROOM-NORMALIZED-SCENE-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "Normalized MLDS scene is valid and object IDs are unique."
+    },
+    {
+      "id": "SA-STEINPILZ_BRAND_ROOM-NORMALIZED-SCENE-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-STEINPILZ_BRAND_ROOM"
+      ],
+      "expression": [
+        "EXPR-SA-STEINPILZ_BRAND_ROOM-NORMALIZED-SCENE-VALID"
+      ],
+      "expressionText": "Normalized MLDS scene is valid and object IDs are unique.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-STEINPILZ_BRAND_ROOM-SCENE-SEMANTICS-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "Scene semantics are grounded in existing object IDs."
+    },
+    {
+      "id": "SA-STEINPILZ_BRAND_ROOM-SCENE-SEMANTICS-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-STEINPILZ_BRAND_ROOM"
+      ],
+      "expression": [
+        "EXPR-SA-STEINPILZ_BRAND_ROOM-SCENE-SEMANTICS-VALID"
+      ],
+      "expressionText": "Scene semantics are grounded in existing object IDs.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-STEINPILZ_BRAND_ROOM-AGENT-ROLES-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "Generated agents have valid zones, objects, knowledge tags and handoff targets."
+    },
+    {
+      "id": "SA-STEINPILZ_BRAND_ROOM-AGENT-ROLES-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-STEINPILZ_BRAND_ROOM"
+      ],
+      "expression": [
+        "EXPR-SA-STEINPILZ_BRAND_ROOM-AGENT-ROLES-VALID"
+      ],
+      "expressionText": "Generated agents have valid zones, objects, knowledge tags and handoff targets.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-STEINPILZ_BRAND_ROOM-KNOWLEDGE-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "Every agent knowledge tag has at least one materialized knowledge entry."
+    },
+    {
+      "id": "SA-STEINPILZ_BRAND_ROOM-KNOWLEDGE-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-STEINPILZ_BRAND_ROOM"
+      ],
+      "expression": [
+        "EXPR-SA-STEINPILZ_BRAND_ROOM-KNOWLEDGE-VALID"
+      ],
+      "expressionText": "Every agent knowledge tag has at least one materialized knowledge entry.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-STEINPILZ_BRAND_ROOM-PLACEMENT-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "Every generated agent has a valid room position and forward vector."
+    },
+    {
+      "id": "SA-STEINPILZ_BRAND_ROOM-PLACEMENT-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-STEINPILZ_BRAND_ROOM"
+      ],
+      "expression": [
+        "EXPR-SA-STEINPILZ_BRAND_ROOM-PLACEMENT-VALID"
+      ],
+      "expressionText": "Every generated agent has a valid room position and forward vector.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-STEINPILZ_BRAND_ROOM-FUNCTIONALMLDS-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "FunctionalMLDS instance satisfies all core invariants."
+    },
+    {
+      "id": "SA-STEINPILZ_BRAND_ROOM-FUNCTIONALMLDS-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-STEINPILZ_BRAND_ROOM"
+      ],
+      "expression": [
+        "EXPR-SA-STEINPILZ_BRAND_ROOM-FUNCTIONALMLDS-VALID"
+      ],
+      "expressionText": "FunctionalMLDS instance satisfies all core invariants.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZED",
+      "type": "EAExpression",
+      "mixedStringContent": "Interactive Agents project files are present and backend-readable."
+    },
+    {
+      "id": "SA-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZED",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-STEINPILZ_BRAND_ROOM"
+      ],
+      "expression": [
+        "EXPR-SA-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZED"
+      ],
+      "expressionText": "Interactive Agents project files are present and backend-readable.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-STEINPILZ_BRAND_ROOM-SETUP-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "Interactive Agents backend setup returns a valid session with all agents."
+    },
+    {
+      "id": "SA-STEINPILZ_BRAND_ROOM-SETUP-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-STEINPILZ_BRAND_ROOM"
+      ],
+      "expression": [
+        "EXPR-SA-STEINPILZ_BRAND_ROOM-SETUP-VALID"
+      ],
+      "expressionText": "Interactive Agents backend setup returns a valid session with all agents.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-STEINPILZ_BRAND_ROOM-ANSWER-GROUNDED",
+      "type": "EAExpression",
+      "mixedStringContent": "A visitor question is answered using room-grounded agent knowledge."
+    },
+    {
+      "id": "SA-STEINPILZ_BRAND_ROOM-ANSWER-GROUNDED",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-STEINPILZ_BRAND_ROOM"
+      ],
+      "expression": [
+        "EXPR-SA-STEINPILZ_BRAND_ROOM-ANSWER-GROUNDED"
+      ],
+      "expressionText": "A visitor question is answered using room-grounded agent knowledge.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-STEINPILZ_BRAND_ROOM-HANDOFF-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "A specialist handoff targets an existing responsible agent when needed."
+    },
+    {
+      "id": "SA-STEINPILZ_BRAND_ROOM-HANDOFF-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-STEINPILZ_BRAND_ROOM"
+      ],
+      "expression": [
+        "EXPR-SA-STEINPILZ_BRAND_ROOM-HANDOFF-VALID"
+      ],
+      "expressionText": "A specialist handoff targets an existing responsible agent when needed.",
+      "severity": "error"
+    },
+    {
+      "id": "EFF-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-STEINPILZ_BRAND_ROOM-NORMALIZED-SCENE-VALID"
+      ],
+      "text": "Effect of ANALYZE-MLDS-SCENE: normalized scene valid."
+    },
+    {
+      "id": "EFF-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE-02",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-STEINPILZ_BRAND_ROOM-SCENE-SEMANTICS-VALID"
+      ],
+      "text": "Effect of ANALYZE-MLDS-SCENE: scene semantics valid."
+    },
+    {
+      "id": "CAP-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE-01",
+        "EFF-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE-02"
+      ],
+      "name": "Analyze Mlds Scene",
+      "text": "Analyze MLDS scene structure and normalize room objects."
+    },
+    {
+      "id": "EFF-STEINPILZ_BRAND_ROOM-DERIVE-SPATIAL-AGENT-ROLES-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-STEINPILZ_BRAND_ROOM-AGENT-ROLES-VALID"
+      ],
+      "text": "Effect of DERIVE-SPATIAL-AGENT-ROLES: agent roles valid."
+    },
+    {
+      "id": "CAP-STEINPILZ_BRAND_ROOM-DERIVE-SPATIAL-AGENT-ROLES",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-STEINPILZ_BRAND_ROOM-DERIVE-SPATIAL-AGENT-ROLES-01"
+      ],
+      "name": "Derive Spatial Agent Roles",
+      "text": "Derive agent roles grounded in semantic zones and objects."
+    },
+    {
+      "id": "EFF-STEINPILZ_BRAND_ROOM-GENERATE-ROOM-KNOWLEDGE-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-STEINPILZ_BRAND_ROOM-KNOWLEDGE-VALID"
+      ],
+      "text": "Effect of GENERATE-ROOM-KNOWLEDGE: knowledge valid."
+    },
+    {
+      "id": "CAP-STEINPILZ_BRAND_ROOM-GENERATE-ROOM-KNOWLEDGE",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-STEINPILZ_BRAND_ROOM-GENERATE-ROOM-KNOWLEDGE-01"
+      ],
+      "name": "Generate Room Knowledge",
+      "text": "Generate local knowledge entries for all agent knowledge tags."
+    },
+    {
+      "id": "EFF-STEINPILZ_BRAND_ROOM-PLACE-AGENTS-IN-SCENE-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-STEINPILZ_BRAND_ROOM-PLACEMENT-VALID"
+      ],
+      "text": "Effect of PLACE-AGENTS-IN-SCENE: placement valid."
+    },
+    {
+      "id": "CAP-STEINPILZ_BRAND_ROOM-PLACE-AGENTS-IN-SCENE",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-STEINPILZ_BRAND_ROOM-PLACE-AGENTS-IN-SCENE-01"
+      ],
+      "name": "Place Agents In Scene",
+      "text": "Place agents in valid positions near their responsible zones."
+    },
+    {
+      "id": "EFF-STEINPILZ_BRAND_ROOM-ASSEMBLE-FUNCTIONAL-MLDS-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-STEINPILZ_BRAND_ROOM-FUNCTIONALMLDS-VALID"
+      ],
+      "text": "Effect of ASSEMBLE-FUNCTIONAL-MLDS: functionalmlds valid."
+    },
+    {
+      "id": "CAP-STEINPILZ_BRAND_ROOM-ASSEMBLE-FUNCTIONAL-MLDS",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-STEINPILZ_BRAND_ROOM-ASSEMBLE-FUNCTIONAL-MLDS-01"
+      ],
+      "name": "Assemble Functional Mlds",
+      "text": "Assemble a valid FunctionalMLDS instance for the case study."
+    },
+    {
+      "id": "EFF-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZED"
+      ],
+      "text": "Effect of MATERIALIZE-INTERACTIVE-AGENTS-PROJECT: project materialized."
+    },
+    {
+      "id": "CAP-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT-01"
+      ],
+      "name": "Materialize Interactive Agents Project",
+      "text": "Write backend-compatible Interactive Agents project files."
+    },
+    {
+      "id": "EFF-STEINPILZ_BRAND_ROOM-SETUP-INTERACTIVE-SESSION-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-STEINPILZ_BRAND_ROOM-SETUP-VALID"
+      ],
+      "text": "Effect of SETUP-INTERACTIVE-SESSION: setup valid."
+    },
+    {
+      "id": "CAP-STEINPILZ_BRAND_ROOM-SETUP-INTERACTIVE-SESSION",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-STEINPILZ_BRAND_ROOM-SETUP-INTERACTIVE-SESSION-01"
+      ],
+      "name": "Setup Interactive Session",
+      "text": "Initialize the runtime session for the generated project."
+    },
+    {
+      "id": "EFF-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-STEINPILZ_BRAND_ROOM-ANSWER-GROUNDED"
+      ],
+      "text": "Effect of ANSWER-ROOM-GROUNDED-QUESTION: answer grounded."
+    },
+    {
+      "id": "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION-01"
+      ],
+      "name": "Answer Room Grounded Question",
+      "text": "Answer visitor questions using room-grounded agent knowledge."
+    },
+    {
+      "id": "EFF-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-STEINPILZ_BRAND_ROOM-HANDOFF-VALID"
+      ],
+      "text": "Effect of HANDOFF-TO-RESPONSIBLE-AGENT: handoff valid."
+    },
+    {
+      "id": "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT-01"
+      ],
+      "name": "Handoff To Responsible Agent",
+      "text": "Forward a question to an existing responsible specialist agent."
+    },
+    {
+      "id": "LOC-RA-STEINPILZ_BRAND_ROOM-RUN-MLDS-INGESTION",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.mlds_ingestion.run_ingestion_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-MLDS-INGESTION-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-MLDS-INGESTION-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-STEINPILZ_BRAND_ROOM-RUN-MLDS-INGESTION",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-STEINPILZ_BRAND_ROOM-RUN-MLDS-INGESTION"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-MLDS-INGESTION-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-MLDS-INGESTION-OUTPUT"
+      ]
+    },
+    {
+      "id": "LOC-RA-STEINPILZ_BRAND_ROOM-RUN-SCENE-SEMANTICS",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.scene_semantics.run_scene_semantics_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-SCENE-SEMANTICS-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-SCENE-SEMANTICS-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-STEINPILZ_BRAND_ROOM-RUN-SCENE-SEMANTICS",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-STEINPILZ_BRAND_ROOM-RUN-SCENE-SEMANTICS"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-SCENE-SEMANTICS-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-SCENE-SEMANTICS-OUTPUT"
+      ]
+    },
+    {
+      "id": "LOC-RA-STEINPILZ_BRAND_ROOM-ARROW-ANALYZE",
+      "type": "RuntimeActionLocator",
+      "kind": "endpoint",
+      "value": "POST /projects/arrow/analyze"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-ARROW-ANALYZE-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-ARROW-ANALYZE-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-STEINPILZ_BRAND_ROOM-ARROW-ANALYZE",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-STEINPILZ_BRAND_ROOM-ARROW-ANALYZE"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-ARROW-ANALYZE-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-ARROW-ANALYZE-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE",
+      "type": "RuntimeBinding",
+      "targetPlatform": "CaseStudyPipeline",
+      "capability": [
+        "CAP-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE"
+      ],
+      "runtimeAction": [
+        "RA-STEINPILZ_BRAND_ROOM-RUN-MLDS-INGESTION",
+        "RA-STEINPILZ_BRAND_ROOM-RUN-SCENE-SEMANTICS",
+        "RA-STEINPILZ_BRAND_ROOM-ARROW-ANALYZE"
+      ]
+    },
+    {
+      "id": "LOC-RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-ROLES",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.agent_roles.run_agent_roles_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-ROLES-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-ROLES-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-ROLES",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-ROLES"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-ROLES-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-ROLES-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-STEINPILZ_BRAND_ROOM-DERIVE-SPATIAL-AGENT-ROLES",
+      "type": "RuntimeBinding",
+      "targetPlatform": "CaseStudyPipeline",
+      "capability": [
+        "CAP-STEINPILZ_BRAND_ROOM-DERIVE-SPATIAL-AGENT-ROLES"
+      ],
+      "runtimeAction": [
+        "RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-ROLES"
+      ]
+    },
+    {
+      "id": "LOC-RA-STEINPILZ_BRAND_ROOM-RUN-KNOWLEDGE-SYNTHESIS",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.knowledge_synthesis.run_knowledge_synthesis_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-KNOWLEDGE-SYNTHESIS-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-KNOWLEDGE-SYNTHESIS-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-STEINPILZ_BRAND_ROOM-RUN-KNOWLEDGE-SYNTHESIS",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-STEINPILZ_BRAND_ROOM-RUN-KNOWLEDGE-SYNTHESIS"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-KNOWLEDGE-SYNTHESIS-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-KNOWLEDGE-SYNTHESIS-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-STEINPILZ_BRAND_ROOM-GENERATE-ROOM-KNOWLEDGE",
+      "type": "RuntimeBinding",
+      "targetPlatform": "CaseStudyPipeline",
+      "capability": [
+        "CAP-STEINPILZ_BRAND_ROOM-GENERATE-ROOM-KNOWLEDGE"
+      ],
+      "runtimeAction": [
+        "RA-STEINPILZ_BRAND_ROOM-RUN-KNOWLEDGE-SYNTHESIS"
+      ]
+    },
+    {
+      "id": "LOC-RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-PLACEMENT",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.agent_placement.run_agent_placement_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-PLACEMENT-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-PLACEMENT-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-PLACEMENT",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-PLACEMENT"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-PLACEMENT-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-PLACEMENT-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-STEINPILZ_BRAND_ROOM-PLACE-AGENTS-IN-SCENE",
+      "type": "RuntimeBinding",
+      "targetPlatform": "CaseStudyPipeline",
+      "capability": [
+        "CAP-STEINPILZ_BRAND_ROOM-PLACE-AGENTS-IN-SCENE"
+      ],
+      "runtimeAction": [
+        "RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-PLACEMENT"
+      ]
+    },
+    {
+      "id": "LOC-RA-STEINPILZ_BRAND_ROOM-RUN-FUNCTIONALMLDS-ASSEMBLER",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.functionalmlds_assembler.run_functionalmlds_assembly_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-FUNCTIONALMLDS-ASSEMBLER-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-FUNCTIONALMLDS-ASSEMBLER-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-STEINPILZ_BRAND_ROOM-RUN-FUNCTIONALMLDS-ASSEMBLER",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-STEINPILZ_BRAND_ROOM-RUN-FUNCTIONALMLDS-ASSEMBLER"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-FUNCTIONALMLDS-ASSEMBLER-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-RUN-FUNCTIONALMLDS-ASSEMBLER-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-STEINPILZ_BRAND_ROOM-ASSEMBLE-FUNCTIONAL-MLDS",
+      "type": "RuntimeBinding",
+      "targetPlatform": "CaseStudyPipeline",
+      "capability": [
+        "CAP-STEINPILZ_BRAND_ROOM-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "runtimeAction": [
+        "RA-STEINPILZ_BRAND_ROOM-RUN-FUNCTIONALMLDS-ASSEMBLER"
+      ]
+    },
+    {
+      "id": "LOC-RA-STEINPILZ_BRAND_ROOM-ARROW-COMMIT",
+      "type": "RuntimeActionLocator",
+      "kind": "endpoint",
+      "value": "POST /projects/arrow/commit"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-ARROW-COMMIT-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-ARROW-COMMIT-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-STEINPILZ_BRAND_ROOM-ARROW-COMMIT",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-STEINPILZ_BRAND_ROOM-ARROW-COMMIT"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-ARROW-COMMIT-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-ARROW-COMMIT-OUTPUT"
+      ]
+    },
+    {
+      "id": "LOC-RA-STEINPILZ_BRAND_ROOM-WRITE-PROJECT-FILES",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.project_materializer.run_project_materializer_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-WRITE-PROJECT-FILES-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-WRITE-PROJECT-FILES-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-STEINPILZ_BRAND_ROOM-WRITE-PROJECT-FILES",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-STEINPILZ_BRAND_ROOM-WRITE-PROJECT-FILES"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-WRITE-PROJECT-FILES-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-WRITE-PROJECT-FILES-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "type": "RuntimeBinding",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "capability": [
+        "CAP-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "runtimeAction": [
+        "RA-STEINPILZ_BRAND_ROOM-ARROW-COMMIT",
+        "RA-STEINPILZ_BRAND_ROOM-WRITE-PROJECT-FILES"
+      ]
+    },
+    {
+      "id": "LOC-RA-STEINPILZ_BRAND_ROOM-BACKEND-SETUP",
+      "type": "RuntimeActionLocator",
+      "kind": "endpoint",
+      "value": "POST /setup"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-BACKEND-SETUP-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"setup\"}"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-BACKEND-SETUP-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-STEINPILZ_BRAND_ROOM-BACKEND-SETUP",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-STEINPILZ_BRAND_ROOM-BACKEND-SETUP"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-BACKEND-SETUP-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-BACKEND-SETUP-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-STEINPILZ_BRAND_ROOM-SETUP-INTERACTIVE-SESSION",
+      "type": "RuntimeBinding",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "capability": [
+        "CAP-STEINPILZ_BRAND_ROOM-SETUP-INTERACTIVE-SESSION"
+      ],
+      "runtimeAction": [
+        "RA-STEINPILZ_BRAND_ROOM-BACKEND-SETUP"
+      ]
+    },
+    {
+      "id": "LOC-RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT",
+      "type": "RuntimeActionLocator",
+      "kind": "endpoint",
+      "value": "POST /chat"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"chat\"}"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+      "type": "RuntimeBinding",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "capability": [
+        "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "runtimeAction": [
+        "RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT"
+      ]
+    },
+    {
+      "id": "LOC-RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT-HANDOFF",
+      "type": "RuntimeActionLocator",
+      "kind": "endpoint",
+      "value": "POST /chat"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT-HANDOFF-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"handoff\"}"
+    },
+    {
+      "id": "SCHEMA-RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT-HANDOFF-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT-HANDOFF",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT-HANDOFF"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT-HANDOFF-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT-HANDOFF-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "type": "RuntimeBinding",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "capability": [
+        "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "runtimeAction": [
+        "RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT-HANDOFF"
+      ]
+    },
+    {
+      "id": "PV-STEP-STEINPILZ_BRAND_ROOM-S01-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-STEINPILZ_BRAND_ROOM-S01",
+      "type": "ScenarioStep",
+      "kind": "actorIntent",
+      "actorRole": [
+        "ACT-CASE-STUDY-ENGINEER"
+      ],
+      "performedBy": [],
+      "triggeredBy": [
+        "EV-STEINPILZ_BRAND_ROOM-MLDS-PROVIDED"
+      ],
+      "resultingAssertion": [],
+      "capabilityUse": [],
+      "text": "Provide an MLDS file as case-study input.",
+      "guard": [
+        "COND-STEINPILZ_BRAND_ROOM-VALID-INPUT"
+      ],
+      "occurrenceProbability": [
+        "PV-STEP-STEINPILZ_BRAND_ROOM-S01-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-STEINPILZ_BRAND_ROOM-S02-ANALYZE-MLDS-SCENE",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE"
+      ],
+      "provider": [
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-STEINPILZ_BRAND_ROOM"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-STEINPILZ_BRAND_ROOM-S02-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-STEINPILZ_BRAND_ROOM-S02",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-STEINPILZ_BRAND_ROOM-NORMALIZED-SCENE-VALID"
+      ],
+      "capabilityUse": [
+        "CU-STEINPILZ_BRAND_ROOM-S02-ANALYZE-MLDS-SCENE"
+      ],
+      "text": "Load and normalize the MLDS scene.",
+      "occurrenceProbability": [
+        "PV-STEP-STEINPILZ_BRAND_ROOM-S02-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-STEINPILZ_BRAND_ROOM-S03-ANALYZE-MLDS-SCENE",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE"
+      ],
+      "provider": [
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-STEINPILZ_BRAND_ROOM"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-STEINPILZ_BRAND_ROOM-S03-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-STEINPILZ_BRAND_ROOM-S03",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-STEINPILZ_BRAND_ROOM-SCENE-SEMANTICS-VALID"
+      ],
+      "capabilityUse": [
+        "CU-STEINPILZ_BRAND_ROOM-S03-ANALYZE-MLDS-SCENE"
+      ],
+      "text": "Derive semantic zones, visitor goals and interaction topics.",
+      "occurrenceProbability": [
+        "PV-STEP-STEINPILZ_BRAND_ROOM-S03-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-STEINPILZ_BRAND_ROOM-S04-DERIVE-SPATIAL-AGENT-ROLES",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-STEINPILZ_BRAND_ROOM-DERIVE-SPATIAL-AGENT-ROLES"
+      ],
+      "provider": [
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-STEINPILZ_BRAND_ROOM"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-STEINPILZ_BRAND_ROOM-S04-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-STEINPILZ_BRAND_ROOM-S04",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-STEINPILZ_BRAND_ROOM-AGENT-ROLES-VALID"
+      ],
+      "capabilityUse": [
+        "CU-STEINPILZ_BRAND_ROOM-S04-DERIVE-SPATIAL-AGENT-ROLES"
+      ],
+      "text": "Generate spatially grounded agent roles and handoff rules.",
+      "occurrenceProbability": [
+        "PV-STEP-STEINPILZ_BRAND_ROOM-S04-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-STEINPILZ_BRAND_ROOM-S05-GENERATE-ROOM-KNOWLEDGE",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-STEINPILZ_BRAND_ROOM-GENERATE-ROOM-KNOWLEDGE"
+      ],
+      "provider": [
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-STEINPILZ_BRAND_ROOM"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-STEINPILZ_BRAND_ROOM-S05-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-STEINPILZ_BRAND_ROOM-S05",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-STEINPILZ_BRAND_ROOM-KNOWLEDGE-VALID"
+      ],
+      "capabilityUse": [
+        "CU-STEINPILZ_BRAND_ROOM-S05-GENERATE-ROOM-KNOWLEDGE"
+      ],
+      "text": "Generate materialized knowledge entries for all agent knowledge tags.",
+      "occurrenceProbability": [
+        "PV-STEP-STEINPILZ_BRAND_ROOM-S05-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-STEINPILZ_BRAND_ROOM-S06-PLACE-AGENTS-IN-SCENE",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-STEINPILZ_BRAND_ROOM-PLACE-AGENTS-IN-SCENE"
+      ],
+      "provider": [
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-STEINPILZ_BRAND_ROOM"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-STEINPILZ_BRAND_ROOM-S06-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-STEINPILZ_BRAND_ROOM-S06",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-STEINPILZ_BRAND_ROOM-PLACEMENT-VALID"
+      ],
+      "capabilityUse": [
+        "CU-STEINPILZ_BRAND_ROOM-S06-PLACE-AGENTS-IN-SCENE"
+      ],
+      "text": "Place generated agents inside the room near their responsibilities.",
+      "occurrenceProbability": [
+        "PV-STEP-STEINPILZ_BRAND_ROOM-S06-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-STEINPILZ_BRAND_ROOM-S07-ASSEMBLE-FUNCTIONAL-MLDS",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-STEINPILZ_BRAND_ROOM-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "provider": [
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-STEINPILZ_BRAND_ROOM"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-STEINPILZ_BRAND_ROOM-S07-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-STEINPILZ_BRAND_ROOM-S07",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-STEINPILZ_BRAND_ROOM-FUNCTIONALMLDS-VALID"
+      ],
+      "capabilityUse": [
+        "CU-STEINPILZ_BRAND_ROOM-S07-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "text": "Assemble and validate the FunctionalMLDS trace instance.",
+      "occurrenceProbability": [
+        "PV-STEP-STEINPILZ_BRAND_ROOM-S07-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-STEINPILZ_BRAND_ROOM-S08-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "provider": [
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-STEINPILZ_BRAND_ROOM"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-STEINPILZ_BRAND_ROOM-S08-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-STEINPILZ_BRAND_ROOM-S08",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZED"
+      ],
+      "capabilityUse": [
+        "CU-STEINPILZ_BRAND_ROOM-S08-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "text": "Materialize the Interactive Agents project files.",
+      "occurrenceProbability": [
+        "PV-STEP-STEINPILZ_BRAND_ROOM-S08-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-STEINPILZ_BRAND_ROOM-S09-SETUP-INTERACTIVE-SESSION",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-STEINPILZ_BRAND_ROOM-SETUP-INTERACTIVE-SESSION"
+      ],
+      "provider": [
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-STEINPILZ_BRAND_ROOM"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-STEINPILZ_BRAND_ROOM-S09-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-STEINPILZ_BRAND_ROOM-S09",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-STEINPILZ_BRAND_ROOM-SETUP-VALID"
+      ],
+      "capabilityUse": [
+        "CU-STEINPILZ_BRAND_ROOM-S09-SETUP-INTERACTIVE-SESSION"
+      ],
+      "text": "Set up an Interactive Agents runtime session.",
+      "guard": [
+        "COND-STEINPILZ_BRAND_ROOM-AGENTS-AVAILABLE"
+      ],
+      "occurrenceProbability": [
+        "PV-STEP-STEINPILZ_BRAND_ROOM-S09-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "PV-STEP-STEINPILZ_BRAND_ROOM-S10-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-STEINPILZ_BRAND_ROOM-S10",
+      "type": "ScenarioStep",
+      "kind": "actorIntent",
+      "actorRole": [
+        "ACT-VISITOR"
+      ],
+      "performedBy": [],
+      "triggeredBy": [
+        "EV-STEINPILZ_BRAND_ROOM-VISITOR-QUESTION"
+      ],
+      "resultingAssertion": [],
+      "capabilityUse": [],
+      "text": "Ask a room-related question to an agent.",
+      "occurrenceProbability": [
+        "PV-STEP-STEINPILZ_BRAND_ROOM-S10-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-STEINPILZ_BRAND_ROOM-S11-ANSWER-ROOM-GROUNDED-QUESTION",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "provider": [
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-STEINPILZ_BRAND_ROOM"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-STEINPILZ_BRAND_ROOM-S11-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-STEINPILZ_BRAND_ROOM-S11",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-STEINPILZ_BRAND_ROOM-ANSWER-GROUNDED"
+      ],
+      "capabilityUse": [
+        "CU-STEINPILZ_BRAND_ROOM-S11-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "text": "Answer the visitor question using grounded room knowledge.",
+      "occurrenceProbability": [
+        "PV-STEP-STEINPILZ_BRAND_ROOM-S11-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-STEINPILZ_BRAND_ROOM-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "provider": [
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-STEINPILZ_BRAND_ROOM"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-STEINPILZ_BRAND_ROOM-S12-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-STEINPILZ_BRAND_ROOM-S12",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-STEINPILZ_BRAND_ROOM-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [
+        "EV-STEINPILZ_BRAND_ROOM-HANDOFF-NEEDED"
+      ],
+      "resultingAssertion": [
+        "SA-STEINPILZ_BRAND_ROOM-HANDOFF-VALID"
+      ],
+      "capabilityUse": [
+        "CU-STEINPILZ_BRAND_ROOM-S12-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "text": "Optionally hand off to the responsible specialist agent.",
+      "guard": [
+        "COND-STEINPILZ_BRAND_ROOM-HANDOFF-TARGET-AVAILABLE"
+      ],
+      "occurrenceProbability": [
+        "PV-STEP-STEINPILZ_BRAND_ROOM-S12-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "REL-STEINPILZ_BRAND_ROOM-01-02",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S01"
+      ],
+      "targetStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S02"
+      ],
+      "source": [
+        "STEP-STEINPILZ_BRAND_ROOM-S01"
+      ],
+      "target": [
+        "STEP-STEINPILZ_BRAND_ROOM-S02"
+      ]
+    },
+    {
+      "id": "REL-STEINPILZ_BRAND_ROOM-02-03",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S02"
+      ],
+      "targetStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S03"
+      ],
+      "source": [
+        "STEP-STEINPILZ_BRAND_ROOM-S02"
+      ],
+      "target": [
+        "STEP-STEINPILZ_BRAND_ROOM-S03"
+      ]
+    },
+    {
+      "id": "REL-STEINPILZ_BRAND_ROOM-03-04",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S03"
+      ],
+      "targetStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S04"
+      ],
+      "source": [
+        "STEP-STEINPILZ_BRAND_ROOM-S03"
+      ],
+      "target": [
+        "STEP-STEINPILZ_BRAND_ROOM-S04"
+      ]
+    },
+    {
+      "id": "REL-STEINPILZ_BRAND_ROOM-04-05",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S04"
+      ],
+      "targetStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S05"
+      ],
+      "source": [
+        "STEP-STEINPILZ_BRAND_ROOM-S04"
+      ],
+      "target": [
+        "STEP-STEINPILZ_BRAND_ROOM-S05"
+      ]
+    },
+    {
+      "id": "REL-STEINPILZ_BRAND_ROOM-05-06",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S05"
+      ],
+      "targetStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S06"
+      ],
+      "source": [
+        "STEP-STEINPILZ_BRAND_ROOM-S05"
+      ],
+      "target": [
+        "STEP-STEINPILZ_BRAND_ROOM-S06"
+      ]
+    },
+    {
+      "id": "REL-STEINPILZ_BRAND_ROOM-06-07",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S06"
+      ],
+      "targetStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S07"
+      ],
+      "source": [
+        "STEP-STEINPILZ_BRAND_ROOM-S06"
+      ],
+      "target": [
+        "STEP-STEINPILZ_BRAND_ROOM-S07"
+      ]
+    },
+    {
+      "id": "REL-STEINPILZ_BRAND_ROOM-07-08",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S07"
+      ],
+      "targetStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S08"
+      ],
+      "source": [
+        "STEP-STEINPILZ_BRAND_ROOM-S07"
+      ],
+      "target": [
+        "STEP-STEINPILZ_BRAND_ROOM-S08"
+      ]
+    },
+    {
+      "id": "REL-STEINPILZ_BRAND_ROOM-08-09",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S08"
+      ],
+      "targetStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S09"
+      ],
+      "source": [
+        "STEP-STEINPILZ_BRAND_ROOM-S08"
+      ],
+      "target": [
+        "STEP-STEINPILZ_BRAND_ROOM-S09"
+      ]
+    },
+    {
+      "id": "REL-STEINPILZ_BRAND_ROOM-09-10",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S09"
+      ],
+      "targetStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S10"
+      ],
+      "source": [
+        "STEP-STEINPILZ_BRAND_ROOM-S09"
+      ],
+      "target": [
+        "STEP-STEINPILZ_BRAND_ROOM-S10"
+      ]
+    },
+    {
+      "id": "REL-STEINPILZ_BRAND_ROOM-10-11",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S10"
+      ],
+      "targetStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S11"
+      ],
+      "source": [
+        "STEP-STEINPILZ_BRAND_ROOM-S10"
+      ],
+      "target": [
+        "STEP-STEINPILZ_BRAND_ROOM-S11"
+      ]
+    },
+    {
+      "id": "REL-STEINPILZ_BRAND_ROOM-11-12",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S11"
+      ],
+      "targetStep": [
+        "STEP-STEINPILZ_BRAND_ROOM-S12"
+      ],
+      "source": [
+        "STEP-STEINPILZ_BRAND_ROOM-S11"
+      ],
+      "target": [
+        "STEP-STEINPILZ_BRAND_ROOM-S12"
+      ]
+    },
+    {
+      "id": "SC-STEINPILZ_BRAND_ROOM-MAIN",
+      "type": "Scenario",
+      "kind": "main",
+      "precondition": [
+        "COND-STEINPILZ_BRAND_ROOM-VALID-INPUT"
+      ],
+      "postcondition": [
+        "SA-STEINPILZ_BRAND_ROOM-ANSWER-GROUNDED"
+      ],
+      "step": [
+        "STEP-STEINPILZ_BRAND_ROOM-S01",
+        "STEP-STEINPILZ_BRAND_ROOM-S02",
+        "STEP-STEINPILZ_BRAND_ROOM-S03",
+        "STEP-STEINPILZ_BRAND_ROOM-S04",
+        "STEP-STEINPILZ_BRAND_ROOM-S05",
+        "STEP-STEINPILZ_BRAND_ROOM-S06",
+        "STEP-STEINPILZ_BRAND_ROOM-S07",
+        "STEP-STEINPILZ_BRAND_ROOM-S08",
+        "STEP-STEINPILZ_BRAND_ROOM-S09",
+        "STEP-STEINPILZ_BRAND_ROOM-S10",
+        "STEP-STEINPILZ_BRAND_ROOM-S11",
+        "STEP-STEINPILZ_BRAND_ROOM-S12"
+      ],
+      "stepRelation": [
+        "REL-STEINPILZ_BRAND_ROOM-01-02",
+        "REL-STEINPILZ_BRAND_ROOM-02-03",
+        "REL-STEINPILZ_BRAND_ROOM-03-04",
+        "REL-STEINPILZ_BRAND_ROOM-04-05",
+        "REL-STEINPILZ_BRAND_ROOM-05-06",
+        "REL-STEINPILZ_BRAND_ROOM-06-07",
+        "REL-STEINPILZ_BRAND_ROOM-07-08",
+        "REL-STEINPILZ_BRAND_ROOM-08-09",
+        "REL-STEINPILZ_BRAND_ROOM-09-10",
+        "REL-STEINPILZ_BRAND_ROOM-10-11",
+        "REL-STEINPILZ_BRAND_ROOM-11-12"
+      ],
+      "parallelGroup": [],
+      "text": "Main scenario for generating and using a spatially grounded multi-agent room guide."
+    },
+    {
+      "id": "EXPR-AST-STEINPILZ_BRAND_ROOM-DERIVED-EVENT",
+      "type": "EAExpression",
+      "mixedStringContent": "The projected runtime trigger is observable."
+    },
+    {
+      "id": "AST-STEINPILZ_BRAND_ROOM-DERIVED-EVENT",
+      "type": "EventAssertion",
+      "subject": [
+        "EV-STEINPILZ_BRAND_ROOM-MLDS-PROVIDED"
+      ],
+      "expression": [
+        "EXPR-AST-STEINPILZ_BRAND_ROOM-DERIVED-EVENT"
+      ],
+      "expressionText": "The projected runtime trigger is observable.",
+      "severity": "warning"
+    },
+    {
+      "id": "EXPR-AST-STEINPILZ_BRAND_ROOM-DERIVED-OUTPUT",
+      "type": "EAExpression",
+      "mixedStringContent": "The bound runtime action produces an observable output."
+    },
+    {
+      "id": "AST-STEINPILZ_BRAND_ROOM-DERIVED-OUTPUT",
+      "type": "OutputAssertion",
+      "subject": [
+        "RA-STEINPILZ_BRAND_ROOM-RUN-MLDS-INGESTION"
+      ],
+      "expression": [
+        "EXPR-AST-STEINPILZ_BRAND_ROOM-DERIVED-OUTPUT"
+      ],
+      "expressionText": "The bound runtime action produces an observable output.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-AST-STEINPILZ_BRAND_ROOM-DERIVED-GROUNDING",
+      "type": "EAExpression",
+      "mixedStringContent": "The runtime participant remains grounded in an identifiable model entity."
+    },
+    {
+      "id": "AST-STEINPILZ_BRAND_ROOM-DERIVED-GROUNDING",
+      "type": "GroundingAssertion",
+      "subject": [
+        "ENT-ZONE-ENTRANCE_ZONE"
+      ],
+      "expression": [
+        "EXPR-AST-STEINPILZ_BRAND_ROOM-DERIVED-GROUNDING"
+      ],
+      "expressionText": "The runtime participant remains grounded in an identifiable model entity.",
+      "severity": "warning"
+    },
+    {
+      "id": "EXPR-AST-STEINPILZ_BRAND_ROOM-DERIVED-RELATION",
+      "type": "EAExpression",
+      "mixedStringContent": "The capability occurrence is linked to its explicit provider and targets."
+    },
+    {
+      "id": "AST-STEINPILZ_BRAND_ROOM-DERIVED-RELATION",
+      "type": "RelationAssertion",
+      "subject": [
+        "CU-STEINPILZ_BRAND_ROOM-S02-ANALYZE-MLDS-SCENE"
+      ],
+      "expression": [
+        "EXPR-AST-STEINPILZ_BRAND_ROOM-DERIVED-RELATION"
+      ],
+      "expressionText": "The capability occurrence is linked to its explicit provider and targets.",
+      "severity": "critical"
+    },
+    {
+      "id": "UC-STEINPILZ_BRAND_ROOM-01-ACTOR-1",
+      "type": "ActorParticipation",
+      "actor": [
+        "ACT-CASE-STUDY-ENGINEER"
+      ],
+      "useCase": [
+        "UC-STEINPILZ_BRAND_ROOM-01"
+      ]
+    },
+    {
+      "id": "UC-STEINPILZ_BRAND_ROOM-01-ACTOR-2",
+      "type": "ActorParticipation",
+      "actor": [
+        "ACT-VISITOR"
+      ],
+      "useCase": [
+        "UC-STEINPILZ_BRAND_ROOM-01"
+      ]
+    },
+    {
+      "id": "UC-STEINPILZ_BRAND_ROOM-01-ACTOR-3",
+      "type": "ActorParticipation",
+      "actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "useCase": [
+        "UC-STEINPILZ_BRAND_ROOM-01"
+      ]
+    },
+    {
+      "id": "UC-STEINPILZ_BRAND_ROOM-01-SPEC-SC-STEINPILZ_BRAND_ROOM-MAIN",
+      "type": "UseCaseScenarioSpecification",
+      "useCase": [
+        "UC-STEINPILZ_BRAND_ROOM-01"
+      ],
+      "scenario": [
+        "SC-STEINPILZ_BRAND_ROOM-MAIN"
+      ]
+    },
+    {
+      "id": "SAT-REQ-STEINPILZ_BRAND_ROOM-001",
+      "type": "Satisfy",
+      "satisfiedRequirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-001"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-STEINPILZ_BRAND_ROOM-01",
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-STEINPILZ_BRAND_ROOM-002",
+      "type": "Satisfy",
+      "satisfiedRequirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-002"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-STEINPILZ_BRAND_ROOM-01",
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-STEINPILZ_BRAND_ROOM-003",
+      "type": "Satisfy",
+      "satisfiedRequirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-003"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-STEINPILZ_BRAND_ROOM-01",
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-STEINPILZ_BRAND_ROOM-004",
+      "type": "Satisfy",
+      "satisfiedRequirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-004"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-STEINPILZ_BRAND_ROOM-01",
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-STEINPILZ_BRAND_ROOM-005",
+      "type": "Satisfy",
+      "satisfiedRequirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-005"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-STEINPILZ_BRAND_ROOM-01",
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-STEINPILZ_BRAND_ROOM-006",
+      "type": "Satisfy",
+      "satisfiedRequirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-006"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-STEINPILZ_BRAND_ROOM-01",
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-TARGET-1",
+      "type": "RuntimeValidationTarget",
+      "platform": "CaseStudyPipeline",
+      "environmentRef": "case:steinpilz_brand_room",
+      "element": [
+        "RB-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE"
+      ],
+      "runtimeBinding": [
+        "RB-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-TARGET-1",
+      "type": "RuntimeValidationTarget",
+      "platform": "CaseStudyPipeline",
+      "environmentRef": "case:steinpilz_brand_room",
+      "element": [
+        "RB-STEINPILZ_BRAND_ROOM-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "runtimeBinding": [
+        "RB-STEINPILZ_BRAND_ROOM-ASSEMBLE-FUNCTIONAL-MLDS"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-TARGET-1",
+      "type": "RuntimeValidationTarget",
+      "platform": "InteractiveAgentsBackend",
+      "environmentRef": "case:steinpilz_brand_room",
+      "element": [
+        "RB-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "runtimeBinding": [
+        "RB-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-SETUP-TARGET-1",
+      "type": "RuntimeValidationTarget",
+      "platform": "InteractiveAgentsBackend",
+      "environmentRef": "case:steinpilz_brand_room",
+      "element": [
+        "RB-STEINPILZ_BRAND_ROOM-SETUP-INTERACTIVE-SESSION"
+      ],
+      "runtimeBinding": [
+        "RB-STEINPILZ_BRAND_ROOM-SETUP-INTERACTIVE-SESSION"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-TARGET-1",
+      "type": "RuntimeValidationTarget",
+      "platform": "InteractiveAgentsBackend",
+      "environmentRef": "case:steinpilz_brand_room",
+      "element": [
+        "RB-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "runtimeBinding": [
+        "RB-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-HANDOFF-TARGET-1",
+      "type": "RuntimeValidationTarget",
+      "platform": "InteractiveAgentsBackend",
+      "environmentRef": "case:steinpilz_brand_room",
+      "element": [
+        "RB-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "runtimeBinding": [
+        "RB-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-STIMULUS-1",
+      "type": "RuntimeStimulus",
+      "scenarioEvent": [
+        "EV-STEINPILZ_BRAND_ROOM-MLDS-PROVIDED"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-OUTCOME-1",
+      "type": "StateAssertionOutcome",
+      "assertion": [
+        "SA-STEINPILZ_BRAND_ROOM-NORMALIZED-SCENE-VALID"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-PROCEDURE",
+      "type": "RuntimeValidationProcedure",
+      "vvStimuli": [
+        "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-STIMULUS-1"
+      ],
+      "vvIntendedOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-OUTCOME-1"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1",
+      "type": "AssertionResult",
+      "assertion": [
+        "SA-STEINPILZ_BRAND_ROOM-NORMALIZED-SCENE-VALID"
+      ],
+      "verdict": "inconclusive",
+      "evidenceRef": "pending://steinpilz_brand_room/VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION/SA-STEINPILZ_BRAND_ROOM-NORMALIZED-SCENE-VALID"
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-PROCEDURE-LOG-PENDING-ACTUAL-1",
+      "type": "RuntimeActualOutcome",
+      "intendedOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-OUTCOME-1"
+      ],
+      "result": [
+        "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-PROCEDURE-LOG-PENDING",
+      "type": "RuntimeValidationLog",
+      "date": "1970-01-01T00:00:00Z",
+      "performedVVProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-PROCEDURE"
+      ],
+      "vvActualOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ],
+      "actualOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION",
+      "type": "ValidationCase",
+      "vvSubject": [
+        "RB-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE"
+      ],
+      "vvTarget": [
+        "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-TARGET-1"
+      ],
+      "vvProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-PROCEDURE"
+      ],
+      "vvLog": [
+        "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-PROCEDURE-LOG-PENDING"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-OUTCOME-1",
+      "type": "StateAssertionOutcome",
+      "assertion": [
+        "SA-STEINPILZ_BRAND_ROOM-FUNCTIONALMLDS-VALID"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-PROCEDURE",
+      "type": "RuntimeValidationProcedure",
+      "vvStimuli": [],
+      "vvIntendedOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-OUTCOME-1"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1",
+      "type": "AssertionResult",
+      "assertion": [
+        "SA-STEINPILZ_BRAND_ROOM-FUNCTIONALMLDS-VALID"
+      ],
+      "verdict": "inconclusive",
+      "evidenceRef": "pending://steinpilz_brand_room/VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS/SA-STEINPILZ_BRAND_ROOM-FUNCTIONALMLDS-VALID"
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING-ACTUAL-1",
+      "type": "RuntimeActualOutcome",
+      "intendedOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-OUTCOME-1"
+      ],
+      "result": [
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING",
+      "type": "RuntimeValidationLog",
+      "date": "1970-01-01T00:00:00Z",
+      "performedVVProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-PROCEDURE"
+      ],
+      "vvActualOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ],
+      "actualOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS",
+      "type": "ValidationCase",
+      "vvSubject": [
+        "RB-STEINPILZ_BRAND_ROOM-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "vvTarget": [
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-TARGET-1"
+      ],
+      "vvProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-PROCEDURE"
+      ],
+      "vvLog": [
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-OUTCOME-1",
+      "type": "StateAssertionOutcome",
+      "assertion": [
+        "SA-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZED"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-PROCEDURE",
+      "type": "RuntimeValidationProcedure",
+      "vvStimuli": [],
+      "vvIntendedOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-OUTCOME-1"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1",
+      "type": "AssertionResult",
+      "assertion": [
+        "SA-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZED"
+      ],
+      "verdict": "inconclusive",
+      "evidenceRef": "pending://steinpilz_brand_room/VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION/SA-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZED"
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING-ACTUAL-1",
+      "type": "RuntimeActualOutcome",
+      "intendedOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-OUTCOME-1"
+      ],
+      "result": [
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING",
+      "type": "RuntimeValidationLog",
+      "date": "1970-01-01T00:00:00Z",
+      "performedVVProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-PROCEDURE"
+      ],
+      "vvActualOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ],
+      "actualOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION",
+      "type": "ValidationCase",
+      "vvSubject": [
+        "RB-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "vvTarget": [
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-TARGET-1"
+      ],
+      "vvProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-PROCEDURE"
+      ],
+      "vvLog": [
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-SETUP-OUTCOME-1",
+      "type": "StateAssertionOutcome",
+      "assertion": [
+        "SA-STEINPILZ_BRAND_ROOM-SETUP-VALID"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-SETUP-PROCEDURE",
+      "type": "RuntimeValidationProcedure",
+      "vvStimuli": [],
+      "vvIntendedOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-SETUP-OUTCOME-1"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-SETUP-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1",
+      "type": "AssertionResult",
+      "assertion": [
+        "SA-STEINPILZ_BRAND_ROOM-SETUP-VALID"
+      ],
+      "verdict": "inconclusive",
+      "evidenceRef": "pending://steinpilz_brand_room/VC-STEINPILZ_BRAND_ROOM-SETUP/SA-STEINPILZ_BRAND_ROOM-SETUP-VALID"
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-SETUP-PROCEDURE-LOG-PENDING-ACTUAL-1",
+      "type": "RuntimeActualOutcome",
+      "intendedOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-SETUP-OUTCOME-1"
+      ],
+      "result": [
+        "VC-STEINPILZ_BRAND_ROOM-SETUP-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-SETUP-PROCEDURE-LOG-PENDING",
+      "type": "RuntimeValidationLog",
+      "date": "1970-01-01T00:00:00Z",
+      "performedVVProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-SETUP-PROCEDURE"
+      ],
+      "vvActualOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-SETUP-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ],
+      "actualOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-SETUP-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-SETUP",
+      "type": "ValidationCase",
+      "vvSubject": [
+        "RB-STEINPILZ_BRAND_ROOM-SETUP-INTERACTIVE-SESSION"
+      ],
+      "vvTarget": [
+        "VC-STEINPILZ_BRAND_ROOM-SETUP-TARGET-1"
+      ],
+      "vvProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-SETUP-PROCEDURE"
+      ],
+      "vvLog": [
+        "VC-STEINPILZ_BRAND_ROOM-SETUP-PROCEDURE-LOG-PENDING"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-STIMULUS-1",
+      "type": "RuntimeStimulus",
+      "scenarioEvent": [
+        "EV-STEINPILZ_BRAND_ROOM-VISITOR-QUESTION"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-OUTCOME-1",
+      "type": "StateAssertionOutcome",
+      "assertion": [
+        "SA-STEINPILZ_BRAND_ROOM-ANSWER-GROUNDED"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-PROCEDURE",
+      "type": "RuntimeValidationProcedure",
+      "vvStimuli": [
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-STIMULUS-1"
+      ],
+      "vvIntendedOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-OUTCOME-1"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1",
+      "type": "AssertionResult",
+      "assertion": [
+        "SA-STEINPILZ_BRAND_ROOM-ANSWER-GROUNDED"
+      ],
+      "verdict": "inconclusive",
+      "evidenceRef": "pending://steinpilz_brand_room/VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING/SA-STEINPILZ_BRAND_ROOM-ANSWER-GROUNDED"
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-PROCEDURE-LOG-PENDING-ACTUAL-1",
+      "type": "RuntimeActualOutcome",
+      "intendedOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-OUTCOME-1"
+      ],
+      "result": [
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-PROCEDURE-LOG-PENDING",
+      "type": "RuntimeValidationLog",
+      "date": "1970-01-01T00:00:00Z",
+      "performedVVProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-PROCEDURE"
+      ],
+      "vvActualOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ],
+      "actualOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING",
+      "type": "ValidationCase",
+      "vvSubject": [
+        "RB-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "vvTarget": [
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-TARGET-1"
+      ],
+      "vvProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-PROCEDURE"
+      ],
+      "vvLog": [
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-PROCEDURE-LOG-PENDING"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-HANDOFF-STIMULUS-1",
+      "type": "RuntimeStimulus",
+      "scenarioEvent": [
+        "EV-STEINPILZ_BRAND_ROOM-HANDOFF-NEEDED"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-HANDOFF-OUTCOME-1",
+      "type": "StateAssertionOutcome",
+      "assertion": [
+        "SA-STEINPILZ_BRAND_ROOM-HANDOFF-VALID"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-HANDOFF-PROCEDURE",
+      "type": "RuntimeValidationProcedure",
+      "vvStimuli": [
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF-STIMULUS-1"
+      ],
+      "vvIntendedOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF-OUTCOME-1"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-HANDOFF-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1",
+      "type": "AssertionResult",
+      "assertion": [
+        "SA-STEINPILZ_BRAND_ROOM-HANDOFF-VALID"
+      ],
+      "verdict": "inconclusive",
+      "evidenceRef": "pending://steinpilz_brand_room/VC-STEINPILZ_BRAND_ROOM-HANDOFF/SA-STEINPILZ_BRAND_ROOM-HANDOFF-VALID"
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-HANDOFF-PROCEDURE-LOG-PENDING-ACTUAL-1",
+      "type": "RuntimeActualOutcome",
+      "intendedOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF-OUTCOME-1"
+      ],
+      "result": [
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-HANDOFF-PROCEDURE-LOG-PENDING",
+      "type": "RuntimeValidationLog",
+      "date": "1970-01-01T00:00:00Z",
+      "performedVVProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF-PROCEDURE"
+      ],
+      "vvActualOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ],
+      "actualOutcome": [
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-HANDOFF",
+      "type": "ValidationCase",
+      "vvSubject": [
+        "RB-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "vvTarget": [
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF-TARGET-1"
+      ],
+      "vvProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF-PROCEDURE"
+      ],
+      "vvLog": [
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF-PROCEDURE-LOG-PENDING"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-VERIFY-1",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-001"
+      ],
+      "verifiedByCase": [
+        "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION"
+      ],
+      "verifiedByProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-001"
+      ],
+      "vvCase": [
+        "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-VERIFY-1",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-006"
+      ],
+      "verifiedByCase": [
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS"
+      ],
+      "verifiedByProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-006"
+      ],
+      "vvCase": [
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-VERIFY-1",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-004"
+      ],
+      "verifiedByCase": [
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION"
+      ],
+      "verifiedByProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-004"
+      ],
+      "vvCase": [
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-VERIFY-2",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-005"
+      ],
+      "verifiedByCase": [
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION"
+      ],
+      "verifiedByProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-005"
+      ],
+      "vvCase": [
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-SETUP-VERIFY-1",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-003"
+      ],
+      "verifiedByCase": [
+        "VC-STEINPILZ_BRAND_ROOM-SETUP"
+      ],
+      "verifiedByProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-SETUP-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-003"
+      ],
+      "vvCase": [
+        "VC-STEINPILZ_BRAND_ROOM-SETUP"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-SETUP-VERIFY-2",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-005"
+      ],
+      "verifiedByCase": [
+        "VC-STEINPILZ_BRAND_ROOM-SETUP"
+      ],
+      "verifiedByProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-SETUP-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-005"
+      ],
+      "vvCase": [
+        "VC-STEINPILZ_BRAND_ROOM-SETUP"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-VERIFY-1",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-002"
+      ],
+      "verifiedByCase": [
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING"
+      ],
+      "verifiedByProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-002"
+      ],
+      "vvCase": [
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-VERIFY-2",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-004"
+      ],
+      "verifiedByCase": [
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING"
+      ],
+      "verifiedByProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-004"
+      ],
+      "vvCase": [
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-VERIFY-3",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-006"
+      ],
+      "verifiedByCase": [
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING"
+      ],
+      "verifiedByProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-006"
+      ],
+      "vvCase": [
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-HANDOFF-VERIFY-1",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-003"
+      ],
+      "verifiedByCase": [
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF"
+      ],
+      "verifiedByProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-003"
+      ],
+      "vvCase": [
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-HANDOFF-VERIFY-2",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-006"
+      ],
+      "verifiedByCase": [
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF"
+      ],
+      "verifiedByProcedure": [
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-STEINPILZ_BRAND_ROOM-006"
+      ],
+      "vvCase": [
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-USECASE-1",
+      "type": "ValidationCaseUseCaseBinding",
+      "validationCase": [
+        "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION"
+      ],
+      "useCase": [
+        "UC-STEINPILZ_BRAND_ROOM-01"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-USECASE-1",
+      "type": "ValidationCaseUseCaseBinding",
+      "validationCase": [
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS"
+      ],
+      "useCase": [
+        "UC-STEINPILZ_BRAND_ROOM-01"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-USECASE-1",
+      "type": "ValidationCaseUseCaseBinding",
+      "validationCase": [
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION"
+      ],
+      "useCase": [
+        "UC-STEINPILZ_BRAND_ROOM-01"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-SETUP-USECASE-1",
+      "type": "ValidationCaseUseCaseBinding",
+      "validationCase": [
+        "VC-STEINPILZ_BRAND_ROOM-SETUP"
+      ],
+      "useCase": [
+        "UC-STEINPILZ_BRAND_ROOM-01"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-USECASE-1",
+      "type": "ValidationCaseUseCaseBinding",
+      "validationCase": [
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING"
+      ],
+      "useCase": [
+        "UC-STEINPILZ_BRAND_ROOM-01"
+      ]
+    },
+    {
+      "id": "VC-STEINPILZ_BRAND_ROOM-HANDOFF-USECASE-1",
+      "type": "ValidationCaseUseCaseBinding",
+      "validationCase": [
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF"
+      ],
+      "useCase": [
+        "UC-STEINPILZ_BRAND_ROOM-01"
+      ]
+    },
+    {
+      "id": "VV-STEINPILZ_BRAND_ROOM",
+      "type": "VerificationValidation",
+      "vvTarget": [
+        "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-TARGET-1",
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-TARGET-1",
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-TARGET-1",
+        "VC-STEINPILZ_BRAND_ROOM-SETUP-TARGET-1",
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-TARGET-1",
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF-TARGET-1"
+      ],
+      "vvCase": [
+        "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION",
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS",
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION",
+        "VC-STEINPILZ_BRAND_ROOM-SETUP",
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING",
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF"
+      ],
+      "verify": [
+        "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION-VERIFY-1",
+        "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS-VERIFY-1",
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-VERIFY-1",
+        "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION-VERIFY-2",
+        "VC-STEINPILZ_BRAND_ROOM-SETUP-VERIFY-1",
+        "VC-STEINPILZ_BRAND_ROOM-SETUP-VERIFY-2",
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-VERIFY-1",
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-VERIFY-2",
+        "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING-VERIFY-3",
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF-VERIFY-1",
+        "VC-STEINPILZ_BRAND_ROOM-HANDOFF-VERIFY-2"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "session_id": "65f83fbb-8e39-4c13-8135-1b79a39a8622",
+  "memory_mode": "agent_private_history",
+  "agents": [
+    {
+      "id": "teacher_agent",
+      "display_name": "Teacher Agent",
+      "voice": "sage",
+      "voice_style": "clear and encouraging",
+      "tts_model": "gpt-4o-mini-tts",
+      "position": {
+        "x": 0.996,
+        "y": 0.0,
+        "z": -0.287
+      },
+      "forward": {
+        "x": -0.479,
+        "y": 0.0,
+        "z": -0.8778
+      },
+      "spawn_point_id": null,
+      "zone_id": null,
+      "tags": []
+    },
+    {
+      "id": "reading_area_guide",
+      "display_name": "Reading Area Guide",
+      "voice": "fable",
+      "voice_style": "warm and inviting",
+      "tts_model": "gpt-4o-mini-tts",
+      "position": {
+        "x": -0.149,
+        "y": 0.0,
+        "z": 2.989
+      },
+      "forward": {
+        "x": 0.3741,
+        "y": 0.0,
+        "z": 0.9274
+      },
+      "spawn_point_id": null,
+      "zone_id": null,
+      "tags": []
+    },
+    {
+      "id": "exhibit_interpreter",
+      "display_name": "Exhibit Interpreter",
+      "voice": "nova",
+      "voice_style": "enthusiastic and clear",
+      "tts_model": "gpt-4o-mini-tts",
+      "position": {
+        "x": 2.433,
+        "y": 0.0,
+        "z": 4.362
+      },
+      "forward": {
+        "x": 0.059,
+        "y": 0.0,
+        "z": 0.9983
+      },
+      "spawn_point_id": null,
+      "zone_id": null,
+      "tags": []
+    },
+    {
+      "id": "decorative_zone_ambassador",
+      "display_name": "Decorative Zone Ambassador",
+      "voice": "coral",
+      "voice_style": "soft and pleasant",
+      "tts_model": "gpt-4o-mini-tts",
+      "position": {
+        "x": 0.995,
+        "y": 0.0,
+        "z": -1.575
+      },
+      "forward": {
+        "x": -0.4255,
+        "y": 0.0,
+        "z": -0.905
+      },
+      "spawn_point_id": null,
+      "zone_id": null,
+      "tags": []
+    }
+  ]
+}

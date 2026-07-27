@@ -1,0 +1,179 @@
+{
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "agent_count": 6,
+    "placement_count": 6,
+    "valid_position_count": 6,
+    "valid_position_ratio": 1.0,
+    "out_of_bounds_count": 0,
+    "obstacle_overlap_count": 0,
+    "minimum_agent_distance": 0.985146,
+    "minimum_agent_distance_threshold": 0.75,
+    "average_distance_to_target_xz": 1.424488,
+    "max_distance_to_target_xz": 1.904608,
+    "average_nearest_responsible_group_distance": 1.872293,
+    "max_nearest_responsible_group_distance": 5.310176,
+    "average_nearest_responsible_zone_distance": 2.137813,
+    "max_nearest_responsible_zone_distance": 5.310176
+  },
+  "per_agent": [
+    {
+      "agent_id": "reception_agent",
+      "valid_position": true,
+      "position": {
+        "x": -1.111,
+        "z": 2.286
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 1.904608,
+      "responsible_group_count": 2,
+      "distance_to_responsible_object_groups": {
+        "count": 2,
+        "nearest": 1.877902,
+        "average": 1.960239,
+        "maximum": 2.042576
+      },
+      "responsible_zone_count": 1,
+      "distance_to_responsible_zones": {
+        "count": 1,
+        "nearest": 1.877902,
+        "average": 1.877902,
+        "maximum": 1.877902
+      }
+    },
+    {
+      "agent_id": "product_specialist_agent",
+      "valid_position": true,
+      "position": {
+        "x": -3.818,
+        "z": 0.021
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 1.700011,
+      "responsible_group_count": 2,
+      "distance_to_responsible_object_groups": {
+        "count": 2,
+        "nearest": 0.948899,
+        "average": 1.865489,
+        "maximum": 2.782079
+      },
+      "responsible_zone_count": 1,
+      "distance_to_responsible_zones": {
+        "count": 1,
+        "nearest": 1.902568,
+        "average": 1.902568,
+        "maximum": 1.902568
+      }
+    },
+    {
+      "agent_id": "production_expert_agent",
+      "valid_position": true,
+      "position": {
+        "x": 1.142,
+        "z": 0.152
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 1.743156,
+      "responsible_group_count": 2,
+      "distance_to_responsible_object_groups": {
+        "count": 2,
+        "nearest": 5.310176,
+        "average": 6.746251,
+        "maximum": 8.182327
+      },
+      "responsible_zone_count": 2,
+      "distance_to_responsible_zones": {
+        "count": 2,
+        "nearest": 5.310176,
+        "average": 6.746251,
+        "maximum": 8.182327
+      }
+    },
+    {
+      "agent_id": "digital_interaction_agent",
+      "valid_position": true,
+      "position": {
+        "x": 5.2,
+        "z": 0.0
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 0.25,
+      "responsible_group_count": 1,
+      "distance_to_responsible_object_groups": {
+        "count": 1,
+        "nearest": 0.25,
+        "average": 0.25,
+        "maximum": 0.25
+      },
+      "responsible_zone_count": 1,
+      "distance_to_responsible_zones": {
+        "count": 1,
+        "nearest": 0.25,
+        "average": 0.25,
+        "maximum": 0.25
+      }
+    },
+    {
+      "agent_id": "career_advisor_agent",
+      "valid_position": true,
+      "position": {
+        "x": 1.759,
+        "z": 0.92
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 1.250625,
+      "responsible_group_count": 1,
+      "distance_to_responsible_object_groups": {
+        "count": 1,
+        "nearest": 1.148251,
+        "average": 1.148251,
+        "maximum": 1.148251
+      },
+      "responsible_zone_count": 1,
+      "distance_to_responsible_zones": {
+        "count": 1,
+        "nearest": 1.787703,
+        "average": 1.787703,
+        "maximum": 1.787703
+      }
+    },
+    {
+      "agent_id": "lounge_host_agent",
+      "valid_position": true,
+      "position": {
+        "x": 1.15,
+        "z": -1.375
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 1.698529,
+      "responsible_group_count": 1,
+      "distance_to_responsible_object_groups": {
+        "count": 1,
+        "nearest": 1.698529,
+        "average": 1.698529,
+        "maximum": 1.698529
+      },
+      "responsible_zone_count": 1,
+      "distance_to_responsible_zones": {
+        "count": 1,
+        "nearest": 1.698529,
+        "average": 1.698529,
+        "maximum": 1.698529
+      }
+    }
+  ]
+}

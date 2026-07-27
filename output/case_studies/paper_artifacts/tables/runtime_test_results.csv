@@ -1,0 +1,4 @@
+case_id,chat_tests,chat_success,handoff_tests,handoff_success_rate,grounded_answers,grounding_ratio,valid_placements,obstacle_overlaps
+bestfit_career_fair,23,23,12,1.0,23,1.0,5,0
+classroom_dinosaur,14,14,6,1.0,14,1.0,4,0
+steinpilz_brand_room,29,29,15,1.0,29,1.0,6,0

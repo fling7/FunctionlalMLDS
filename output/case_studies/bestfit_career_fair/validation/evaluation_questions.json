@@ -1,0 +1,733 @@
+{
+  "schema": "functionalmlds_evaluation_questions",
+  "schema_version": "1.0",
+  "case_id": "bestfit_career_fair",
+  "generation_mode": "deterministic",
+  "prompt_version": null,
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "question_count": 23,
+    "zone_question_count": 6,
+    "semantic_zone_count": 6,
+    "agent_responsibility_question_count": 5,
+    "agent_count": 5,
+    "handoff_question_count": 12,
+    "declared_handoff_pair_count": 12,
+    "zone_question_coverage": 1.0,
+    "agent_question_coverage": 1.0,
+    "handoff_pair_question_coverage": 1.0
+  },
+  "questions": [
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-ZONE-RECEPTION_ZONE",
+      "case_id": "bestfit_career_fair",
+      "kind": "zone_grounding",
+      "text": "What can I do in the Reception and Welcome Area area, and which objects there are relevant for initial visitor greeting and orientation with branding and basic info.?",
+      "active_agent_id": "reception_agent",
+      "expected_agent_id": "reception_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "reception_zone"
+      ],
+      "expected_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "scene_semantics.semantic_zones",
+        "zone_id": "reception_zone",
+        "object_ids": [
+          "totem_reception",
+          "kiosk_reception"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-ZONE-SHOWCASE_ZONE",
+      "case_id": "bestfit_career_fair",
+      "kind": "zone_grounding",
+      "text": "What can I do in the Product Showcase Area area, and which objects there are relevant for display and demonstration of company products and technologies to attract interest.?",
+      "active_agent_id": "demo_technician",
+      "expected_agent_id": "demo_technician",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "showcase_zone"
+      ],
+      "expected_object_ids": [
+        "showcase_equipment_treadmill",
+        "showcase_equipment_weights_rack",
+        "vr_ar_station1",
+        "vr_ar_station2",
+        "info_stele_studio1",
+        "info_stele_studio2"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "scene_semantics.semantic_zones",
+        "zone_id": "showcase_zone",
+        "object_ids": [
+          "showcase_equipment_treadmill",
+          "showcase_equipment_weights_rack",
+          "vr_ar_station1",
+          "vr_ar_station2",
+          "info_stele_studio1",
+          "info_stele_studio2",
+          "info_stele_studio3"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-ZONE-BENEFITS_INFO_ZONE",
+      "case_id": "bestfit_career_fair",
+      "kind": "zone_grounding",
+      "text": "What can I do in the Company Benefits Information Zone area, and which objects there are relevant for provide detailed information about employee benefits and company values via panels and interactive terminals.?",
+      "active_agent_id": "benefits_expert",
+      "expected_agent_id": "benefits_expert",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "benefits_info_zone"
+      ],
+      "expected_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "scene_semantics.semantic_zones",
+        "zone_id": "benefits_info_zone",
+        "object_ids": [
+          "benefits_panel1",
+          "benefits_panel2",
+          "benefits_panel3",
+          "interactive_terminal_benefits1",
+          "interactive_terminal_benefits2"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-ZONE-RECRUITING_ZONE",
+      "case_id": "bestfit_career_fair",
+      "kind": "zone_grounding",
+      "text": "What can I do in the Recruiting and Job Application Area area, and which objects there are relevant for interactive terminals and posters for job listings and application processes, with seating for discussions.?",
+      "active_agent_id": "recruiting_agent",
+      "expected_agent_id": "recruiting_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "recruiting_zone"
+      ],
+      "expected_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "scene_semantics.semantic_zones",
+        "zone_id": "recruiting_zone",
+        "object_ids": [
+          "touch_terminal_recruiting1",
+          "touch_terminal_recruiting2",
+          "chair_recruiting",
+          "poster_recruiting1",
+          "poster_recruiting2"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-ZONE-DEMO_KIOSK_ZONE",
+      "case_id": "bestfit_career_fair",
+      "kind": "zone_grounding",
+      "text": "What can I do in the Demo Kiosk Interaction Zone area, and which objects there are relevant for interactive kiosks for product demos or company information accessible via touchscreen interfaces.?",
+      "active_agent_id": "demo_technician",
+      "expected_agent_id": "demo_technician",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "demo_kiosk_zone"
+      ],
+      "expected_object_ids": [
+        "kiosk_demo1",
+        "kiosk_demo2",
+        "kiosk_demo3"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "scene_semantics.semantic_zones",
+        "zone_id": "demo_kiosk_zone",
+        "object_ids": [
+          "kiosk_demo1",
+          "kiosk_demo2",
+          "kiosk_demo3"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-ZONE-REFRESHMENT_ZONE",
+      "case_id": "bestfit_career_fair",
+      "kind": "zone_grounding",
+      "text": "What can I do in the Refreshment and Lounge Area area, and which objects there are relevant for area for visitors to relax, have refreshments, and informal conversations.?",
+      "active_agent_id": "hospitality_agent",
+      "expected_agent_id": "hospitality_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "refreshment_zone"
+      ],
+      "expected_object_ids": [
+        "refreshment_counter",
+        "bar_stool_refreshment1",
+        "bar_stool_refreshment2",
+        "bar_stool_refreshment3",
+        "lounge_seating"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "scene_semantics.semantic_zones",
+        "zone_id": "refreshment_zone",
+        "object_ids": [
+          "refreshment_counter",
+          "bar_stool_refreshment1",
+          "bar_stool_refreshment2",
+          "bar_stool_refreshment3",
+          "lounge_seating"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-AGENT-RECEPTION_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "agent_responsibility",
+      "text": "Reception Agent, what are you responsible for in this room, especially regarding visitor orientation, basic company info, navigation assistance?",
+      "active_agent_id": "reception_agent",
+      "expected_agent_id": "reception_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "reception_zone"
+      ],
+      "expected_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "agent_roles.agents",
+        "agent_id": "reception_agent",
+        "knowledge_tags": [
+          "visitor_orientation",
+          "company_basics",
+          "navigation"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-AGENT-BENEFITS_EXPERT",
+      "case_id": "bestfit_career_fair",
+      "kind": "agent_responsibility",
+      "text": "Benefits Information Specialist, what are you responsible for in this room, especially regarding employee benefits, company culture, interactive terminal assistance?",
+      "active_agent_id": "benefits_expert",
+      "expected_agent_id": "benefits_expert",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "benefits_info_zone"
+      ],
+      "expected_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "agent_roles.agents",
+        "agent_id": "benefits_expert",
+        "knowledge_tags": [
+          "company_benefits",
+          "employee_wellbeing",
+          "interactive_terminals"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-AGENT-RECRUITING_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "agent_responsibility",
+      "text": "Recruiting Agent, what are you responsible for in this room, especially regarding job openings, application process, recruiting info?",
+      "active_agent_id": "recruiting_agent",
+      "expected_agent_id": "recruiting_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "recruiting_zone"
+      ],
+      "expected_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "agent_roles.agents",
+        "agent_id": "recruiting_agent",
+        "knowledge_tags": [
+          "job_recruiting",
+          "application_process",
+          "career_opportunities"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-AGENT-DEMO_TECHNICIAN",
+      "case_id": "bestfit_career_fair",
+      "kind": "agent_responsibility",
+      "text": "Demo Technician, what are you responsible for in this room, especially regarding product knowledge, VR/AR technology, interactive kiosk support?",
+      "active_agent_id": "demo_technician",
+      "expected_agent_id": "demo_technician",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "showcase_zone",
+        "demo_kiosk_zone"
+      ],
+      "expected_object_ids": [
+        "showcase_equipment_treadmill",
+        "showcase_equipment_weights_rack",
+        "vr_ar_station1",
+        "vr_ar_station2",
+        "kiosk_demo1",
+        "kiosk_demo2",
+        "kiosk_demo3",
+        "info_stele_studio1"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "agent_roles.agents",
+        "agent_id": "demo_technician",
+        "knowledge_tags": [
+          "product_demos",
+          "vr_ar_technology",
+          "interactive_kiosks"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-AGENT-HOSPITALITY_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "agent_responsibility",
+      "text": "Hospitality Agent, what are you responsible for in this room, especially regarding customer service, refreshment management, visitor comfort?",
+      "active_agent_id": "hospitality_agent",
+      "expected_agent_id": "hospitality_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "refreshment_zone"
+      ],
+      "expected_object_ids": [
+        "refreshment_counter",
+        "bar_stool_refreshment1",
+        "bar_stool_refreshment2",
+        "bar_stool_refreshment3",
+        "lounge_seating"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "agent_roles.agents",
+        "agent_id": "hospitality_agent",
+        "knowledge_tags": [
+          "visitor_comfort",
+          "refreshments",
+          "lounge_services"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-RECEPTION_AGENT_TO_BENEFITS_EXPERT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: visitor requests detailed information about company benefits or culture. Please connect me to the right expert if Benefits Information Specialist should handle it.",
+      "active_agent_id": "reception_agent",
+      "expected_agent_id": "benefits_expert",
+      "expected_handoff": true,
+      "expected_handoff_to": "benefits_expert",
+      "expected_zone_ids": [
+        "benefits_info_zone"
+      ],
+      "expected_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ],
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "benefits_expert",
+      "handoff_condition": "visitor requests detailed information about company benefits or culture",
+      "handoff_reason": "Benefits Expert has specialized knowledge on employee benefits and culture",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "reception_agent",
+        "target_agent_id": "benefits_expert"
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-RECEPTION_AGENT_TO_RECRUITING_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: visitor inquires about job openings or recruiting process. Please connect me to the right expert if Recruiting Agent should handle it.",
+      "active_agent_id": "reception_agent",
+      "expected_agent_id": "recruiting_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "recruiting_agent",
+      "expected_zone_ids": [
+        "recruiting_zone"
+      ],
+      "expected_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ],
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "recruiting_agent",
+      "handoff_condition": "visitor inquires about job openings or recruiting process",
+      "handoff_reason": "Recruiting Agent specializes in job opportunities and application assistance",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "reception_agent",
+        "target_agent_id": "recruiting_agent"
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-RECEPTION_AGENT_TO_DEMO_TECHNICIAN",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: visitor wants to interact with product demos or VR/AR experiences. Please connect me to the right expert if Demo Technician should handle it.",
+      "active_agent_id": "reception_agent",
+      "expected_agent_id": "demo_technician",
+      "expected_handoff": true,
+      "expected_handoff_to": "demo_technician",
+      "expected_zone_ids": [
+        "showcase_zone",
+        "demo_kiosk_zone"
+      ],
+      "expected_object_ids": [
+        "showcase_equipment_treadmill",
+        "showcase_equipment_weights_rack",
+        "vr_ar_station1",
+        "vr_ar_station2",
+        "kiosk_demo1",
+        "kiosk_demo2",
+        "kiosk_demo3",
+        "info_stele_studio1"
+      ],
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "demo_technician",
+      "handoff_condition": "visitor wants to interact with product demos or VR/AR experiences",
+      "handoff_reason": "Demo Technician manages product showcases and interactive demos",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "reception_agent",
+        "target_agent_id": "demo_technician"
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-RECEPTION_AGENT_TO_HOSPITALITY_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: visitor seeks refreshments or a place to relax. Please connect me to the right expert if Hospitality Agent should handle it.",
+      "active_agent_id": "reception_agent",
+      "expected_agent_id": "hospitality_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "hospitality_agent",
+      "expected_zone_ids": [
+        "refreshment_zone"
+      ],
+      "expected_object_ids": [
+        "refreshment_counter",
+        "bar_stool_refreshment1",
+        "bar_stool_refreshment2",
+        "bar_stool_refreshment3",
+        "lounge_seating"
+      ],
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "hospitality_agent",
+      "handoff_condition": "visitor seeks refreshments or a place to relax",
+      "handoff_reason": "Hospitality Agent provides refreshments and lounge comfort",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "reception_agent",
+        "target_agent_id": "hospitality_agent"
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-BENEFITS_EXPERT_TO_RECRUITING_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: visitor expresses interest in job applications after learning about benefits. Please connect me to the right expert if Recruiting Agent should handle it.",
+      "active_agent_id": "benefits_expert",
+      "expected_agent_id": "recruiting_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "recruiting_agent",
+      "expected_zone_ids": [
+        "recruiting_zone"
+      ],
+      "expected_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ],
+      "source_agent_id": "benefits_expert",
+      "target_agent_id": "recruiting_agent",
+      "handoff_condition": "visitor expresses interest in job applications after learning about benefits",
+      "handoff_reason": "Recruiting Agent can assist with job application details",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "benefits_expert",
+        "target_agent_id": "recruiting_agent"
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-BENEFITS_EXPERT_TO_RECEPTION_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: visitor needs general orientation or navigation help. Please connect me to the right expert if Reception Agent should handle it.",
+      "active_agent_id": "benefits_expert",
+      "expected_agent_id": "reception_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "reception_agent",
+      "expected_zone_ids": [
+        "reception_zone"
+      ],
+      "expected_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ],
+      "source_agent_id": "benefits_expert",
+      "target_agent_id": "reception_agent",
+      "handoff_condition": "visitor needs general orientation or navigation help",
+      "handoff_reason": "Reception Agent provides overall visitor guidance",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "benefits_expert",
+        "target_agent_id": "reception_agent"
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-RECRUITING_AGENT_TO_BENEFITS_EXPERT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: visitor asks about company culture or benefits during recruiting discussion. Please connect me to the right expert if Benefits Information Specialist should handle it.",
+      "active_agent_id": "recruiting_agent",
+      "expected_agent_id": "benefits_expert",
+      "expected_handoff": true,
+      "expected_handoff_to": "benefits_expert",
+      "expected_zone_ids": [
+        "benefits_info_zone"
+      ],
+      "expected_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ],
+      "source_agent_id": "recruiting_agent",
+      "target_agent_id": "benefits_expert",
+      "handoff_condition": "visitor asks about company culture or benefits during recruiting discussion",
+      "handoff_reason": "Benefits Expert has detailed knowledge on company culture and benefits",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "recruiting_agent",
+        "target_agent_id": "benefits_expert"
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-RECRUITING_AGENT_TO_RECEPTION_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: visitor requires general information or orientation. Please connect me to the right expert if Reception Agent should handle it.",
+      "active_agent_id": "recruiting_agent",
+      "expected_agent_id": "reception_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "reception_agent",
+      "expected_zone_ids": [
+        "reception_zone"
+      ],
+      "expected_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ],
+      "source_agent_id": "recruiting_agent",
+      "target_agent_id": "reception_agent",
+      "handoff_condition": "visitor requires general information or orientation",
+      "handoff_reason": "Reception Agent supports visitor orientation and basic info",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "recruiting_agent",
+        "target_agent_id": "reception_agent"
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-DEMO_TECHNICIAN_TO_RECRUITING_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: visitor wants to know about job opportunities after product demos. Please connect me to the right expert if Recruiting Agent should handle it.",
+      "active_agent_id": "demo_technician",
+      "expected_agent_id": "recruiting_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "recruiting_agent",
+      "expected_zone_ids": [
+        "recruiting_zone"
+      ],
+      "expected_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ],
+      "source_agent_id": "demo_technician",
+      "target_agent_id": "recruiting_agent",
+      "handoff_condition": "visitor wants to know about job opportunities after product demos",
+      "handoff_reason": "Recruiting Agent specializes in recruiting information",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "demo_technician",
+        "target_agent_id": "recruiting_agent"
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-DEMO_TECHNICIAN_TO_BENEFITS_EXPERT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: visitor asks about company culture or benefits during demo interaction. Please connect me to the right expert if Benefits Information Specialist should handle it.",
+      "active_agent_id": "demo_technician",
+      "expected_agent_id": "benefits_expert",
+      "expected_handoff": true,
+      "expected_handoff_to": "benefits_expert",
+      "expected_zone_ids": [
+        "benefits_info_zone"
+      ],
+      "expected_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ],
+      "source_agent_id": "demo_technician",
+      "target_agent_id": "benefits_expert",
+      "handoff_condition": "visitor asks about company culture or benefits during demo interaction",
+      "handoff_reason": "Benefits Expert provides detailed benefits and culture info",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "demo_technician",
+        "target_agent_id": "benefits_expert"
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-DEMO_TECHNICIAN_TO_RECEPTION_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: visitor needs general orientation or assistance. Please connect me to the right expert if Reception Agent should handle it.",
+      "active_agent_id": "demo_technician",
+      "expected_agent_id": "reception_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "reception_agent",
+      "expected_zone_ids": [
+        "reception_zone"
+      ],
+      "expected_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ],
+      "source_agent_id": "demo_technician",
+      "target_agent_id": "reception_agent",
+      "handoff_condition": "visitor needs general orientation or assistance",
+      "handoff_reason": "Reception Agent provides visitor guidance",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "demo_technician",
+        "target_agent_id": "reception_agent"
+      }
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-HOSPITALITY_AGENT_TO_RECEPTION_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: visitor seeks information beyond refreshments or lounge services. Please connect me to the right expert if Reception Agent should handle it.",
+      "active_agent_id": "hospitality_agent",
+      "expected_agent_id": "reception_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "reception_agent",
+      "expected_zone_ids": [
+        "reception_zone"
+      ],
+      "expected_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ],
+      "source_agent_id": "hospitality_agent",
+      "target_agent_id": "reception_agent",
+      "handoff_condition": "visitor seeks information beyond refreshments or lounge services",
+      "handoff_reason": "Reception Agent provides comprehensive visitor assistance",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "hospitality_agent",
+        "target_agent_id": "reception_agent"
+      }
+    }
+  ]
+}

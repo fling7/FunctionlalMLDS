@@ -1,0 +1,1013 @@
+{
+  "schema_kind": "mlds_scene",
+  "scene_name": "Classroom_With_Reading_Area_And_Dinosaur",
+  "environment_type": "indoor",
+  "dimensions": {
+    "width": 10.0,
+    "height": 4.0,
+    "depth": 14.0
+  },
+  "room_bounds": {
+    "min_x": -5.0,
+    "max_x": 5.0,
+    "min_z": -7.0,
+    "max_z": 7.0
+  },
+  "objects": [
+    {
+      "object_id": "floor",
+      "source_id": "floor",
+      "object_type": "floor",
+      "group": "floor",
+      "position": {
+        "x": 0.0,
+        "y": -0.05,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 10.0,
+        "height": 0.1,
+        "depth": 14.0
+      },
+      "specification": "A flat, smooth concrete floor panel with a subtle modern texture and uniform light gray color, providing a clean and durable foundation for the interior space.",
+      "children_count": 0
+    },
+    {
+      "object_id": "ceiling",
+      "source_id": "ceiling",
+      "object_type": "ceiling",
+      "group": "structural",
+      "position": {
+        "x": 0.0,
+        "y": 4.0,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 10.0,
+        "height": 0.1,
+        "depth": 14.0
+      },
+      "specification": "A flat, smooth white ceiling panel with a modern matte finish, minimalistic aesthetic, and subtle integrated mounting points for overhead lighting fixtures.",
+      "children_count": 0
+    },
+    {
+      "object_id": "wall_front",
+      "source_id": "wall_front",
+      "object_type": "wall",
+      "group": "structural",
+      "position": {
+        "x": 0.0,
+        "y": 2.0,
+        "z": -7.1
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 10.0,
+        "height": 4.0,
+        "depth": 0.2
+      },
+      "specification": "A tall vertical modern drywall wall painted in crisp white with clean sharp edges and minimalistic trim.",
+      "children_count": 0
+    },
+    {
+      "object_id": "wall_back",
+      "source_id": "wall_back",
+      "object_type": "wall",
+      "group": "structural",
+      "position": {
+        "x": 0.0,
+        "y": 2.0,
+        "z": 7.1
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 180.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 10.0,
+        "height": 4.0,
+        "depth": 0.2
+      },
+      "specification": "A tall vertical modern drywall wall painted in crisp white with clean sharp edges and minimalistic trim.",
+      "children_count": 0
+    },
+    {
+      "object_id": "wall_left",
+      "source_id": "wall_left",
+      "object_type": "wall",
+      "group": "structural",
+      "position": {
+        "x": -5.1,
+        "y": 2.0,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 90.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 14.0,
+        "height": 4.0,
+        "depth": 0.2
+      },
+      "specification": "A tall vertical modern drywall wall painted in crisp white with clean sharp edges and minimalistic trim.",
+      "children_count": 0
+    },
+    {
+      "object_id": "wall_right",
+      "source_id": "wall_right",
+      "object_type": "wall",
+      "group": "structural",
+      "position": {
+        "x": 5.1,
+        "y": 2.0,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 270.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 14.0,
+        "height": 4.0,
+        "depth": 0.2
+      },
+      "specification": "A tall vertical modern drywall wall painted in crisp white with clean sharp edges and minimalistic trim.",
+      "children_count": 0
+    },
+    {
+      "object_id": "chalkboard",
+      "source_id": "chalkboard",
+      "object_type": "chalkboard",
+      "group": "equipment",
+      "position": {
+        "x": 0.0,
+        "y": 1.5,
+        "z": -6.875
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 3.0,
+        "height": 1.0,
+        "depth": 0.05
+      },
+      "specification": "A large modern chalkboard with a deep matte dark green writing surface framed by a slim metallic frame, featuring crisp edges for an educational environment.",
+      "children_count": 0
+    },
+    {
+      "object_id": "teacher_desk",
+      "source_id": "teacher_desk",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": 0.0,
+        "y": 0.4,
+        "z": -5.2
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.8,
+        "height": 0.8,
+        "depth": 0.8
+      },
+      "specification": "A contemporary teacher's desk featuring a rectangular wood veneer top with a warm walnut finish, supported by slim black metal legs, with a streamlined and functional design.",
+      "children_count": 0
+    },
+    {
+      "object_id": "student_desk1",
+      "source_id": "student_desk1",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": -4.0,
+        "y": 0.375,
+        "z": -3.9
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.75,
+        "depth": 0.6
+      },
+      "specification": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic.",
+      "children_count": 0
+    },
+    {
+      "object_id": "student_desk2",
+      "source_id": "student_desk2",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": -2.0,
+        "y": 0.375,
+        "z": -3.9
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.75,
+        "depth": 0.6
+      },
+      "specification": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic.",
+      "children_count": 0
+    },
+    {
+      "object_id": "student_desk3",
+      "source_id": "student_desk3",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": 0.0,
+        "y": 0.375,
+        "z": -3.9
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.75,
+        "depth": 0.6
+      },
+      "specification": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic.",
+      "children_count": 0
+    },
+    {
+      "object_id": "student_desk4",
+      "source_id": "student_desk4",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": 2.0,
+        "y": 0.375,
+        "z": -3.9
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.75,
+        "depth": 0.6
+      },
+      "specification": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic.",
+      "children_count": 0
+    },
+    {
+      "object_id": "student_desk5",
+      "source_id": "student_desk5",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": 4.0,
+        "y": 0.375,
+        "z": -3.9
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.75,
+        "depth": 0.6
+      },
+      "specification": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic.",
+      "children_count": 0
+    },
+    {
+      "object_id": "student_desk6",
+      "source_id": "student_desk6",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": -4.0,
+        "y": 0.375,
+        "z": -2.4
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.75,
+        "depth": 0.6
+      },
+      "specification": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic.",
+      "children_count": 0
+    },
+    {
+      "object_id": "student_desk7",
+      "source_id": "student_desk7",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": -2.0,
+        "y": 0.375,
+        "z": -2.4
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.75,
+        "depth": 0.6
+      },
+      "specification": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic.",
+      "children_count": 0
+    },
+    {
+      "object_id": "student_desk8",
+      "source_id": "student_desk8",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": 0.0,
+        "y": 0.375,
+        "z": -2.4
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.75,
+        "depth": 0.6
+      },
+      "specification": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic.",
+      "children_count": 0
+    },
+    {
+      "object_id": "student_desk9",
+      "source_id": "student_desk9",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": 2.0,
+        "y": 0.375,
+        "z": -2.4
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.75,
+        "depth": 0.6
+      },
+      "specification": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic.",
+      "children_count": 0
+    },
+    {
+      "object_id": "student_desk10",
+      "source_id": "student_desk10",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": 4.0,
+        "y": 0.375,
+        "z": -2.4
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.75,
+        "depth": 0.6
+      },
+      "specification": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic.",
+      "children_count": 0
+    },
+    {
+      "object_id": "student_desk11",
+      "source_id": "student_desk11",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": -4.0,
+        "y": 0.375,
+        "z": -0.9
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.75,
+        "depth": 0.6
+      },
+      "specification": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic.",
+      "children_count": 0
+    },
+    {
+      "object_id": "student_desk12",
+      "source_id": "student_desk12",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": -2.0,
+        "y": 0.375,
+        "z": -0.9
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.75,
+        "depth": 0.6
+      },
+      "specification": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic.",
+      "children_count": 0
+    },
+    {
+      "object_id": "student_desk13",
+      "source_id": "student_desk13",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": 0.0,
+        "y": 0.375,
+        "z": -0.9
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.75,
+        "depth": 0.6
+      },
+      "specification": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic.",
+      "children_count": 0
+    },
+    {
+      "object_id": "student_desk14",
+      "source_id": "student_desk14",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": 2.0,
+        "y": 0.375,
+        "z": -0.9
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.75,
+        "depth": 0.6
+      },
+      "specification": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic.",
+      "children_count": 0
+    },
+    {
+      "object_id": "student_desk15",
+      "source_id": "student_desk15",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": 4.0,
+        "y": 0.375,
+        "z": -0.9
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.75,
+        "depth": 0.6
+      },
+      "specification": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic.",
+      "children_count": 0
+    },
+    {
+      "object_id": "student_desk16",
+      "source_id": "student_desk16",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": -4.0,
+        "y": 0.375,
+        "z": 0.6
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.75,
+        "depth": 0.6
+      },
+      "specification": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic.",
+      "children_count": 0
+    },
+    {
+      "object_id": "student_desk17",
+      "source_id": "student_desk17",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": -2.0,
+        "y": 0.375,
+        "z": 0.6
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.75,
+        "depth": 0.6
+      },
+      "specification": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic.",
+      "children_count": 0
+    },
+    {
+      "object_id": "student_desk18",
+      "source_id": "student_desk18",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": 0.0,
+        "y": 0.375,
+        "z": 0.6
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.75,
+        "depth": 0.6
+      },
+      "specification": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic.",
+      "children_count": 0
+    },
+    {
+      "object_id": "student_desk19",
+      "source_id": "student_desk19",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": 2.0,
+        "y": 0.375,
+        "z": 0.6
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.75,
+        "depth": 0.6
+      },
+      "specification": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic.",
+      "children_count": 0
+    },
+    {
+      "object_id": "student_desk20",
+      "source_id": "student_desk20",
+      "object_type": "desk",
+      "group": "furniture",
+      "position": {
+        "x": 4.0,
+        "y": 0.375,
+        "z": 0.6
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.75,
+        "depth": 0.6
+      },
+      "specification": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic.",
+      "children_count": 0
+    },
+    {
+      "object_id": "bookcase",
+      "source_id": "bookcase",
+      "object_type": "bookcase",
+      "group": "furniture",
+      "position": {
+        "x": 4.7,
+        "y": 1.0,
+        "z": 3.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 270.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 2.0,
+        "height": 2.0,
+        "depth": 0.4
+      },
+      "specification": "A modern low-profile open-shelf bookcase crafted from dark wood veneer with clean lines and minimalistic design, providing multiple storage compartments.",
+      "children_count": 0
+    },
+    {
+      "object_id": "reading_table",
+      "source_id": "reading_table",
+      "object_type": "table",
+      "group": "furniture",
+      "position": {
+        "x": 0.0,
+        "y": 0.3,
+        "z": 5.5
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.6,
+        "depth": 1.0
+      },
+      "specification": "A small modern rectangular reading table with a light wood surface and angled black metal legs, offering a cozy and functional focal point for the reading area.",
+      "children_count": 0
+    },
+    {
+      "object_id": "beanbag1",
+      "source_id": "beanbag1",
+      "object_type": "beanbag",
+      "group": "seating",
+      "position": {
+        "x": -1.2,
+        "y": 0.25,
+        "z": 4.1
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 30.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 0.8,
+        "height": 0.5,
+        "depth": 0.8
+      },
+      "specification": "A soft, plush fabric beanbag with a rounded form and vibrant upholstery, offering comfortable casual seating with a contemporary lounge style.",
+      "children_count": 0
+    },
+    {
+      "object_id": "beanbag2",
+      "source_id": "beanbag2",
+      "object_type": "beanbag",
+      "group": "seating",
+      "position": {
+        "x": -0.4,
+        "y": 0.25,
+        "z": 3.9
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 10.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 0.8,
+        "height": 0.5,
+        "depth": 0.8
+      },
+      "specification": "A soft, plush fabric beanbag with a rounded form and vibrant upholstery, offering comfortable casual seating with a contemporary lounge style.",
+      "children_count": 0
+    },
+    {
+      "object_id": "beanbag3",
+      "source_id": "beanbag3",
+      "object_type": "beanbag",
+      "group": "seating",
+      "position": {
+        "x": 0.4,
+        "y": 0.25,
+        "z": 3.9
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": -10.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 0.8,
+        "height": 0.5,
+        "depth": 0.8
+      },
+      "specification": "A soft, plush fabric beanbag with a rounded form and vibrant upholstery, offering comfortable casual seating with a contemporary lounge style.",
+      "children_count": 0
+    },
+    {
+      "object_id": "beanbag4",
+      "source_id": "beanbag4",
+      "object_type": "beanbag",
+      "group": "seating",
+      "position": {
+        "x": 1.2,
+        "y": 0.25,
+        "z": 4.1
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": -30.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 0.8,
+        "height": 0.5,
+        "depth": 0.8
+      },
+      "specification": "A soft, plush fabric beanbag with a rounded form and vibrant upholstery, offering comfortable casual seating with a contemporary lounge style.",
+      "children_count": 0
+    },
+    {
+      "object_id": "dinosaur_skeleton",
+      "source_id": "dinosaur_skeleton",
+      "object_type": "dinosaur_skeleton",
+      "group": "decor",
+      "position": {
+        "x": 2.5,
+        "y": 0.75,
+        "z": 5.5
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 90.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 2.0,
+        "height": 1.5,
+        "depth": 0.6
+      },
+      "specification": "A detailed museum-quality dinosaur skeleton model with articulated bone-like elements in a clean off-white finish, mounted on a minimal metal base for display.",
+      "children_count": 0
+    },
+    {
+      "object_id": "plant1",
+      "source_id": "plant1",
+      "object_type": "plant",
+      "group": "plants",
+      "position": {
+        "x": -4.5,
+        "y": 0.6,
+        "z": -6.5
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 45.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 0.6,
+        "height": 1.2,
+        "depth": 0.6
+      },
+      "specification": "A potted indoor plant with lush green foliage in a simple modern planter with a matte finish, adding a touch of nature to the room.",
+      "children_count": 0
+    },
+    {
+      "object_id": "plant2",
+      "source_id": "plant2",
+      "object_type": "plant",
+      "group": "plants",
+      "position": {
+        "x": 4.5,
+        "y": 0.6,
+        "z": -6.5
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": -45.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 0.6,
+        "height": 1.2,
+        "depth": 0.6
+      },
+      "specification": "A potted indoor plant with lush green foliage in a simple modern planter with a matte finish, adding a touch of nature to the room.",
+      "children_count": 0
+    },
+    {
+      "object_id": "plant3",
+      "source_id": "plant3",
+      "object_type": "plant",
+      "group": "plants",
+      "position": {
+        "x": 0.0,
+        "y": 1.0,
+        "z": -5.2
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 0.3,
+        "height": 0.4,
+        "depth": 0.3
+      },
+      "specification": "A small potted indoor plant with delicate greenery in a compact modern planter, perfect for tabletop or shelf display.",
+      "children_count": 0
+    },
+    {
+      "object_id": "plant4",
+      "source_id": "plant4",
+      "object_type": "plant",
+      "group": "plants",
+      "position": {
+        "x": 4.3,
+        "y": 0.5,
+        "z": 1.5
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 90.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 0.6,
+        "height": 1.0,
+        "depth": 0.6
+      },
+      "specification": "A potted indoor plant with lush green foliage in a simple modern planter with a matte finish, adding a touch of nature to the room.",
+      "children_count": 0
+    },
+    {
+      "object_id": "plant5",
+      "source_id": "plant5",
+      "object_type": "plant",
+      "group": "plants",
+      "position": {
+        "x": -1.5,
+        "y": 0.6,
+        "z": 5.8
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": -30.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 0.6,
+        "height": 1.2,
+        "depth": 0.6
+      },
+      "specification": "A potted indoor plant with lush green foliage in a simple modern planter with a matte finish, adding a touch of nature to the room.",
+      "children_count": 0
+    },
+    {
+      "object_id": "picture1",
+      "source_id": "picture1",
+      "object_type": "picture",
+      "group": "decor",
+      "position": {
+        "x": -4.89,
+        "y": 2.0,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 90.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.6,
+        "depth": 0.02
+      },
+      "specification": "A framed abstract artwork print with a thin black frame, showcasing modern decorative style and a balanced composition.",
+      "children_count": 0
+    },
+    {
+      "object_id": "picture2",
+      "source_id": "picture2",
+      "object_type": "picture",
+      "group": "decor",
+      "position": {
+        "x": 4.89,
+        "y": 2.0,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 270.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.0,
+        "height": 0.6,
+        "depth": 0.02
+      },
+      "specification": "A framed abstract artwork print with a thin black frame, showcasing modern decorative style and a balanced composition.",
+      "children_count": 0
+    }
+  ],
+  "object_groups_declared": {
+    "structural": {
+      "color": "#CCCCCC"
+    },
+    "floor": {
+      "color": "#888888"
+    },
+    "furniture": {
+      "color": "#A0522D"
+    },
+    "seating": {
+      "color": "#8B4513"
+    },
+    "decor": {
+      "color": "#FFD700"
+    },
+    "plants": {
+      "color": "#228B22"
+    },
+    "equipment": {
+      "color": "#B0C4DE"
+    }
+  },
+  "zones": [],
+  "spawn_points": [],
+  "source_stats": {
+    "object_count": 42,
+    "group_count": 7
+  }
+}

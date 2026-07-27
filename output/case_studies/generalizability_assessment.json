@@ -1,0 +1,90 @@
+{
+  "schema": "functionalmlds_generalizability_assessment",
+  "schema_version": "1.0",
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "check_count": 5,
+    "passed_check_count": 5,
+    "generalizability_score": 1.0,
+    "case_count": 3,
+    "domain_count": 3
+  },
+  "checks": [
+    {
+      "check_id": "multi_domain_corpus",
+      "passed": true,
+      "evidence": {
+        "case_count": 3,
+        "domain_count": 3,
+        "domains": [
+          "Career Fair / Recruiting Event",
+          "Food Industry Trade Fair",
+          "education"
+        ]
+      }
+    },
+    {
+      "check_id": "same_pipeline_stages",
+      "passed": true,
+      "evidence": {
+        "same_stage_set_for_all_cases": true,
+        "per_case_stage_count": {
+          "bestfit_career_fair": 19,
+          "classroom_dinosaur": 19,
+          "steinpilz_brand_room": 19
+        },
+        "stage_ids": [
+          "agent_placement",
+          "agent_roles",
+          "answer_grounding",
+          "case_initialization",
+          "chat_tests",
+          "evaluation_questions",
+          "functionalmlds_assembly",
+          "functionalmlds_invariants",
+          "handoff_metrics",
+          "handoff_tests",
+          "knowledge_synthesis",
+          "mlds_ingestion",
+          "placement_metrics",
+          "project_materialization",
+          "runtime_setup",
+          "scene_semantics",
+          "schema_validation",
+          "stage_completion",
+          "traceability_metrics"
+        ]
+      }
+    },
+    {
+      "check_id": "no_failed_cases",
+      "passed": true,
+      "evidence": {
+        "success_count": 3,
+        "failure_count": 0
+      }
+    },
+    {
+      "check_id": "domain_terms_externalized",
+      "passed": true,
+      "evidence": {
+        "status": "clean",
+        "scanned_file_count": 25,
+        "finding_count": 0,
+        "findings": []
+      }
+    },
+    {
+      "check_id": "runtime_behavior_cross_domain",
+      "passed": true,
+      "evidence": {
+        "average_handoff_accuracy": 1.0,
+        "average_answer_grounding_ratio": 1.0,
+        "successful_chat_tests": 66,
+        "total_chat_tests": 66
+      }
+    }
+  ]
+}

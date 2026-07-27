@@ -1,0 +1,404 @@
+{
+  "schema": "functionalmlds_chat_test_results_raw",
+  "schema_version": "1.0",
+  "case_id": "classroom_dinosaur",
+  "backend_url": "http://127.0.0.1:8787",
+  "responses": [
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-ZONE-INSTRUCTION_ZONE",
+      "request": {
+        "session_id": "ba16f1a0-d394-4756-b2a0-02d6fb544650",
+        "active_agent_id": "teacher_agent",
+        "user_text": "What can I do in the Instruction Zone area, and which objects there are relevant for primary teaching area for lessons and instruction?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 1542.817,
+      "response": {
+        "session_id": "ba16f1a0-d394-4756-b2a0-02d6fb544650",
+        "active_agent_id": "teacher_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "teacher_agent",
+            "text": "Im Instruction Zone Bereich kannst du Unterricht abhalten, Gruppen- oder Einzelarbeit organisieren und Lerninhalte präsentieren. Wichtige Objekte sind die große Tafel für anschauliche Erklärungen, der Lehrerpult zur Steuerung der Aktivitäten und die 20 modernen Schülertische, die sowohl Einzel- als auch Gruppenarbeit unterstützen."
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-ZONE-READING_AREA",
+      "request": {
+        "session_id": "9d2caf44-6c30-43b9-b3b5-febed4869122",
+        "active_agent_id": "reading_area_guide",
+        "user_text": "What can I do in the Reading Area area, and which objects there are relevant for cozy space for reading and quiet study?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 3579.444,
+      "response": {
+        "session_id": "9d2caf44-6c30-43b9-b3b5-febed4869122",
+        "active_agent_id": "reading_area_guide",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "reading_area_guide",
+            "text": "Im Lesebereich kannst du am Lesetisch konzentriert arbeiten oder in der Gruppe lesen, auf den bequemen Sitzsäcken entspannen und Bücher aus dem offenen Regal auswählen. Die Sitzsäcke, das Bücherregal, der Lesetisch und eine Zimmerpflanze sorgen für eine gemütliche Atmosphäre zum Lesen und Lernen."
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-ZONE-DINOSAUR_DISPLAY_ZONE",
+      "request": {
+        "session_id": "b29e6e4c-63e3-4177-9dc0-b89ceb56eeb4",
+        "active_agent_id": "exhibit_interpreter",
+        "user_text": "What can I do in the Dinosaur Display Zone area, and which objects there are relevant for exhibit area for educational dinosaur skeleton model?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 2313.618,
+      "response": {
+        "session_id": "b29e6e4c-63e3-4177-9dc0-b89ceb56eeb4",
+        "active_agent_id": "exhibit_interpreter",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "exhibit_interpreter",
+            "text": "Im Dinosaurier-Ausstellungsbereich kannst du das detailreiche Skelettmodell bestaunen und mehr über prähistorisches Leben, Knochenstrukturen und Paläontologie lernen. Das zentrale Objekt ist das museumstaugliche Dinosaurierskelett auf einem schlichten Metallgestell – ideal, um die Anatomie und Geschichte der Dinosaurier zu entdecken. Möchtest du mehr über das Skelett selbst oder über die Paläontologie erfahren?"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-ZONE-DECORATIVE_ZONE",
+      "request": {
+        "session_id": "338f5802-fa7d-4574-b8ea-b2636ca87676",
+        "active_agent_id": "decorative_zone_ambassador",
+        "user_text": "What can I do in the Decorative Zone area, and which objects there are relevant for enhance room ambiance and aesthetics?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 2290.762,
+      "response": {
+        "session_id": "338f5802-fa7d-4574-b8ea-b2636ca87676",
+        "active_agent_id": "decorative_zone_ambassador",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "decorative_zone_ambassador",
+            "text": "In der Decorative Zone kannst du die Atmosphäre genießen und dich inspirieren lassen. Besonders hervorzuheben sind zwei gerahmte abstrakte Kunstwerke im modernen Design sowie vier Zimmerpflanzen mit üppigem, grünem Laub. Diese Elemente sorgen für eine angenehme und einladende Umgebung. Möchtest du mehr über die Kunstwerke oder die Pflanzen erfahren?"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-AGENT-TEACHER_AGENT",
+      "request": {
+        "session_id": "4ef77acd-5f1b-434b-9c3f-db7bc3f0b3e2",
+        "active_agent_id": "teacher_agent",
+        "user_text": "Teacher Agent, what are you responsible for in this room, especially regarding instruction, classroom management, student engagement?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 2739.15,
+      "response": {
+        "session_id": "4ef77acd-5f1b-434b-9c3f-db7bc3f0b3e2",
+        "active_agent_id": "teacher_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "teacher_agent",
+            "text": "Ich bin hier verantwortlich für die Vermittlung von Unterrichtsinhalten, das Organisieren und Steuern von Klassenaktivitäten sowie das Fördern der aktiven Beteiligung der Lernenden. Ich sorge dafür, dass der Unterricht strukturiert abläuft, die Lernumgebung angenehm ist und alle Schüler motiviert mitarbeiten."
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-AGENT-READING_AREA_GUIDE",
+      "request": {
+        "session_id": "cb3b706b-5eef-4ac4-be17-078408419ce7",
+        "active_agent_id": "reading_area_guide",
+        "user_text": "Reading Area Guide, what are you responsible for in this room, especially regarding reading facilitation, visitor assistance, environment management?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 1615.593,
+      "response": {
+        "session_id": "cb3b706b-5eef-4ac4-be17-078408419ce7",
+        "active_agent_id": "reading_area_guide",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "reading_area_guide",
+            "text": "Ich unterstütze Besucher beim Nutzen des Lesebereichs, helfe bei der Auswahl und Nutzung der Bücher, sorge für eine angenehme Atmosphäre und beantworte Fragen zur Umgebung. Möchten Sie mehr über die Sitzmöglichkeiten oder die Buchauswahl erfahren?"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-AGENT-EXHIBIT_INTERPRETER",
+      "request": {
+        "session_id": "31bcf059-34e3-495e-9b48-88def3a5bb08",
+        "active_agent_id": "exhibit_interpreter",
+        "user_text": "Exhibit Interpreter, what are you responsible for in this room, especially regarding museum education, paleontology basics, visitor engagement?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 2205.557,
+      "response": {
+        "session_id": "31bcf059-34e3-495e-9b48-88def3a5bb08",
+        "active_agent_id": "exhibit_interpreter",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "exhibit_interpreter",
+            "text": "Ich bin hier, um Besucher über das Dinosaurierskelett zu informieren, Grundlagen der Paläontologie zu erklären und Fragen rund um das Exponat zu beantworten. Mein Ziel ist es, Interesse an Naturgeschichte zu wecken und den Museumsbesuch spannend und lehrreich zu gestalten."
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-AGENT-DECORATIVE_ZONE_AMBASSADOR",
+      "request": {
+        "session_id": "5c5419e2-e2a9-4806-9bd0-337dd2efe5df",
+        "active_agent_id": "decorative_zone_ambassador",
+        "user_text": "Decorative Zone Ambassador, what are you responsible for in this room, especially regarding art appreciation, environment aesthetics, visitor engagement?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 1813.389,
+      "response": {
+        "session_id": "5c5419e2-e2a9-4806-9bd0-337dd2efe5df",
+        "active_agent_id": "decorative_zone_ambassador",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "decorative_zone_ambassador",
+            "text": "Ich bin dafür da, Ihnen die dekorativen Elemente des Raums näherzubringen. Dazu gehören die modernen abstrakten Kunstwerke und die grünen Zimmerpflanzen, die gemeinsam eine angenehme und einladende Atmosphäre schaffen. Gerne beantworte ich Fragen zu Kunst, Pflanzen oder wie diese das Raumerlebnis verbessern."
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-HANDOFF-TEACHER_AGENT_TO_READING_AREA_GUIDE",
+      "request": {
+        "session_id": "638cf7ac-1631-489d-a61e-a38deeb9677c",
+        "active_agent_id": "teacher_agent",
+        "user_text": "I am asking you, but my topic is this: Visitor seeks assistance or information about reading area usage or relaxation spots.. Please connect me to the right expert if Reading Area Guide should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 4069.561,
+      "response": {
+        "session_id": "638cf7ac-1631-489d-a61e-a38deeb9677c",
+        "active_agent_id": "reading_area_guide",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "teacher_agent",
+          "to": "reading_area_guide",
+          "reason": "Frage betrifft Nutzung des Lese- und Entspannungsbereichs, was außerhalb meines Unterrichtsschwerpunkts liegt.",
+          "brief": "Besucher sucht Infos zur Nutzung des Lese- oder Entspannungsbereichs."
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "teacher_agent",
+            "text": "Ich leite Sie gerne an unseren Reading Area Guide weiter, der Ihnen bei Fragen zur Nutzung des Lese- und Entspannungsbereichs helfen kann."
+          },
+          {
+            "type": "say",
+            "agent_id": "reading_area_guide",
+            "text": "{\n  \"antwort\": \"Hallo! Ich bin genau der richtige Ansprechpartner für den Lese- und Entspannungsbereich. Hier kannst du am Lesetisch konzentriert arbeiten oder mit anderen lesen, dich auf den bequemen Sitzsäcken entspannen und Bücher aus dem offenen Regal auswählen. Gibt es etwas Bestimmtes, wobei ich dir helfen kann – möchtest du zum Beispiel wissen, wie du den Bereich reservierst oder welche Bücher zur Verfügung stehen?\"\n}"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-HANDOFF-TEACHER_AGENT_TO_EXHIBIT_INTERPRETER",
+      "request": {
+        "session_id": "8482c090-3e18-4129-a5c2-e8a56f02786b",
+        "active_agent_id": "teacher_agent",
+        "user_text": "I am asking you, but my topic is this: Visitor shows interest in the dinosaur skeleton exhibit or related educational content.. Please connect me to the right expert if Exhibit Interpreter should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 6403.604,
+      "response": {
+        "session_id": "8482c090-3e18-4129-a5c2-e8a56f02786b",
+        "active_agent_id": "exhibit_interpreter",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "teacher_agent",
+          "to": "exhibit_interpreter",
+          "reason": "Frage bezieht sich auf Dinosaurierskelett-Ausstellung und Bildungsinhalte, was in den Bereich des Exhibit Interpreter fällt.",
+          "brief": "Besucher interessiert sich für das Dinosaurierskelett oder passende Bildungsinhalte. Bitte übernehmen und informieren."
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "teacher_agent",
+            "text": "Ich leite Sie gerne an unseren Ausstellungs-Experten weiter, der Ihnen alles rund um das Dinosaurierskelett und passende Bildungsinhalte erklären kann."
+          },
+          {
+            "type": "say",
+            "agent_id": "exhibit_interpreter",
+            "text": "{\n  \"role\": \"exhibit_interpreter\",\n  \"response\": \"Willkommen bei der Dinosaurierskelett-Ausstellung! Ich bin genau der richtige Ansprechpartner für Fragen rund um das Skelett und die Grundlagen der Paläontologie. Das ausgestellte Dinosaurierskelett ist ein detailgetreues Modell, das anschaulich den Knochenbau und die Anatomie dieser faszinierenden Tiere zeigt. Es bietet eine tolle Möglichkeit, mehr über das Leben in der Urzeit und die Arbeit von Paläontologen zu erfahren. Gibt es etwas Bestimmtes, das Sie über das Skelett oder Dinosaurier wissen möchten?\"\n}"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-HANDOFF-READING_AREA_GUIDE_TO_TEACHER_AGENT",
+      "request": {
+        "session_id": "3ae44011-b276-40b3-b23e-e00b53c164cd",
+        "active_agent_id": "reading_area_guide",
+        "user_text": "I am asking you, but my topic is this: Visitor requires instructional support or classroom activity information beyond reading area.. Please connect me to the right expert if Teacher Agent should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 3302.813,
+      "response": {
+        "session_id": "3ae44011-b276-40b3-b23e-e00b53c164cd",
+        "active_agent_id": "teacher_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "reading_area_guide",
+          "to": "teacher_agent",
+          "reason": "Nutzer benötigt Unterstützung zu Unterricht oder Aktivitäten, was außerhalb des Lesebereichs liegt.",
+          "brief": "Thema: Unterrichtsunterstützung oder Aktivitäten; Nutzer sucht weiterführende Informationen."
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "reading_area_guide",
+            "text": "Ich leite Sie gerne an unseren Teacher Agent weiter, da Ihre Anfrage über den Lesebereich hinausgeht und Unterrichts- oder Aktivitätsinformationen betrifft."
+          },
+          {
+            "type": "say",
+            "agent_id": "teacher_agent",
+            "text": "{\n  \"role\": \"teacher_agent\",\n  \"response\": \"Hallo! Ich bin der richtige Ansprechpartner für Unterrichtsunterstützung und Aktivitäten im Klassenraum. Möchtest du Informationen zu bestimmten Unterrichtsmethoden, zur Gestaltung von Aktivitäten oder zur Nutzung der Unterrichtszone? Bitte nenne dein konkretes Anliegen, damit ich gezielt helfen kann.\"\n}"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-HANDOFF-EXHIBIT_INTERPRETER_TO_TEACHER_AGENT",
+      "request": {
+        "session_id": "6388b2b1-4c3d-4135-93e8-27427d657a98",
+        "active_agent_id": "exhibit_interpreter",
+        "user_text": "I am asking you, but my topic is this: Visitor has questions related to classroom instruction or general learning activities after exhibit interaction.. Please connect me to the right expert if Teacher Agent should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 5404.086,
+      "response": {
+        "session_id": "6388b2b1-4c3d-4135-93e8-27427d657a98",
+        "active_agent_id": "teacher_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "exhibit_interpreter",
+          "to": "teacher_agent",
+          "reason": "Fragen zu Unterricht oder allgemeinen Lernaktivitäten nach dem Ausstellungsbesuch liegen außerhalb meines Fachgebiets.",
+          "brief": "Besucher hat Fragen zum Unterricht oder zu Lernaktivitäten nach dem Ausstellungsbesuch."
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "exhibit_interpreter",
+            "text": "Gerne! Ich leite Sie an unseren Teacher Agent weiter, der Ihnen bei Fragen zu Unterricht oder Lernaktivitäten nach dem Ausstellungsbesuch weiterhelfen kann."
+          },
+          {
+            "type": "say",
+            "agent_id": "teacher_agent",
+            "text": "{\n  \"role\": \"teacher_agent\",\n  \"response\": \"Hallo! Ich bin der richtige Ansprechpartner für Fragen zu Unterricht oder Lernaktivitäten nach dem Ausstellungsbesuch. Was genau möchten Sie wissen oder planen? Geht es um konkrete Unterrichtsideen, Nachbereitung der Ausstellung oder etwas anderes?\"\n}"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-HANDOFF-DECORATIVE_ZONE_AMBASSADOR_TO_TEACHER_AGENT",
+      "request": {
+        "session_id": "748caa37-7bb9-4a68-b297-b8af169d9d9a",
+        "active_agent_id": "decorative_zone_ambassador",
+        "user_text": "I am asking you, but my topic is this: Visitor requests information or assistance related to classroom instruction or activities.. Please connect me to the right expert if Teacher Agent should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 4584.963,
+      "response": {
+        "session_id": "748caa37-7bb9-4a68-b297-b8af169d9d9a",
+        "active_agent_id": "teacher_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "decorative_zone_ambassador",
+          "to": "teacher_agent",
+          "reason": "Anfrage betrifft Unterricht oder Aktivitäten im Klassenraum.",
+          "brief": "Thema: Unterricht/Aktivitäten im Klassenraum. Nutzer bittet um Information oder Unterstützung."
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "decorative_zone_ambassador",
+            "text": "Ich leite Sie gerne an unseren Teacher Agent weiter, da Ihre Anfrage den Unterricht oder Aktivitäten betrifft."
+          },
+          {
+            "type": "say",
+            "agent_id": "teacher_agent",
+            "text": "{\n  \"role\": \"Teacher Agent\",\n  \"response\": \"Hallo! Ich bin der richtige Ansprechpartner für alle Fragen rund um Unterricht und Aktivitäten im Klassenraum. Wobei kann ich Ihnen konkret helfen? Geht es um Unterrichtsmethoden, Klassenmanagement oder etwas anderes?\"\n}"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-HANDOFF-DECORATIVE_ZONE_AMBASSADOR_TO_READING_AREA_GUIDE",
+      "request": {
+        "session_id": "7f193e49-56ea-4ed8-be18-aec1a25dadc0",
+        "active_agent_id": "decorative_zone_ambassador",
+        "user_text": "I am asking you, but my topic is this: Visitor wants to know more about reading area facilities or related visitor assistance.. Please connect me to the right expert if Reading Area Guide should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 5559.794,
+      "response": {
+        "session_id": "7f193e49-56ea-4ed8-be18-aec1a25dadc0",
+        "active_agent_id": "reading_area_guide",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "decorative_zone_ambassador",
+          "to": "reading_area_guide",
+          "reason": "Anfrage betrifft Einrichtungen und Besucherunterstützung im Lesebereich, was außerhalb meines Fachgebiets liegt.",
+          "brief": "Besucher möchte mehr über die Einrichtungen und Unterstützung im Lesebereich erfahren."
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "decorative_zone_ambassador",
+            "text": "Gerne verbinde ich Sie mit unserem Reading Area Guide, der Ihnen alle Informationen zu den Einrichtungen und zur Besucherunterstützung im Lesebereich geben kann."
+          },
+          {
+            "type": "say",
+            "agent_id": "reading_area_guide",
+            "text": "{\n  \"antwort\": \"Willkommen im Lesebereich! Hier findest du einen kleinen rechteckigen Lesetisch für konzentriertes Arbeiten oder gemeinsames Lesen, vier bequeme Sitzsäcke zum Entspannen, ein offenes Bücherregal mit verschiedenen Büchern sowie eine Zimmerpflanze für eine angenehme Atmosphäre. Du kannst dir jederzeit ein Buch nehmen, am Tisch lernen oder dich auf den Sitzsäcken ausruhen. Benötigst du Unterstützung bei der Auswahl eines Buches oder möchtest du mehr über die Nutzungsmöglichkeiten erfahren?\"\n}"
+          }
+        ]
+      }
+    }
+  ]
+}

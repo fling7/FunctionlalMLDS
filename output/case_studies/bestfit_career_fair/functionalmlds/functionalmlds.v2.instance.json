@@ -1,0 +1,3610 @@
+{
+  "schema": "dynamic_functional_mlds_v2_instance",
+  "id": "DFM-BESTFIT_CAREER_FAIR",
+  "metamodelVersion": "2.0.0-model",
+  "serializationVersion": "1.0",
+  "caseId": "bestfit_career_fair",
+  "profile": "executable",
+  "fixture_profile": "executable",
+  "sourceContract": {
+    "schema": "functionalmlds_case_study",
+    "metamodelVersion": "v0.5",
+    "semanticProjectionSha256": "e75ff465c5312ac32bd51059c74c45877f0cb180eb03262941ee75852fac2c9b"
+  },
+  "objects": [
+    {
+      "id": "DFM-BESTFIT_CAREER_FAIR",
+      "type": "DynamicFunctionalModel",
+      "requirementsModel": [
+        "RM-BESTFIT_CAREER_FAIR"
+      ],
+      "verificationValidation": [
+        "VV-BESTFIT_CAREER_FAIR"
+      ],
+      "actor": [
+        "ACT-CASE-STUDY-ENGINEER",
+        "ACT-VISITOR",
+        "ACT-ROOM-GUIDE"
+      ],
+      "scenario": [
+        "SC-BESTFIT_CAREER_FAIR-MAIN"
+      ],
+      "scenarioEvent": [
+        "EV-BESTFIT_CAREER_FAIR-MLDS-PROVIDED",
+        "EV-BESTFIT_CAREER_FAIR-VISITOR-QUESTION",
+        "EV-BESTFIT_CAREER_FAIR-HANDOFF-NEEDED"
+      ],
+      "scenarioCondition": [
+        "COND-BESTFIT_CAREER_FAIR-VALID-INPUT",
+        "COND-BESTFIT_CAREER_FAIR-AGENTS-AVAILABLE",
+        "COND-BESTFIT_CAREER_FAIR-HANDOFF-TARGET-AVAILABLE"
+      ],
+      "assertion": [
+        "SA-BESTFIT_CAREER_FAIR-NORMALIZED-SCENE-VALID",
+        "SA-BESTFIT_CAREER_FAIR-SCENE-SEMANTICS-VALID",
+        "SA-BESTFIT_CAREER_FAIR-AGENT-ROLES-VALID",
+        "SA-BESTFIT_CAREER_FAIR-KNOWLEDGE-VALID",
+        "SA-BESTFIT_CAREER_FAIR-PLACEMENT-VALID",
+        "SA-BESTFIT_CAREER_FAIR-FUNCTIONALMLDS-VALID",
+        "SA-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZED",
+        "SA-BESTFIT_CAREER_FAIR-SETUP-VALID",
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID",
+        "AST-BESTFIT_CAREER_FAIR-DERIVED-EVENT",
+        "AST-BESTFIT_CAREER_FAIR-DERIVED-OUTPUT",
+        "AST-BESTFIT_CAREER_FAIR-DERIVED-GROUNDING",
+        "AST-BESTFIT_CAREER_FAIR-DERIVED-RELATION"
+      ],
+      "entity": [
+        "ENT-ZONE-RECEPTION_ZONE",
+        "ENT-ZONE-SHOWCASE_ZONE",
+        "ENT-ZONE-BENEFITS_INFO_ZONE",
+        "ENT-ZONE-RECRUITING_ZONE",
+        "ENT-ZONE-DEMO_KIOSK_ZONE",
+        "ENT-ZONE-REFRESHMENT_ZONE",
+        "ENT-GROUP-DEMO_KIOSKS",
+        "ENT-GROUP-KIOSKS",
+        "ENT-GROUP-LOUNGE",
+        "ENT-GROUP-PANELS",
+        "ENT-GROUP-RECEPTION",
+        "ENT-GROUP-RECRUITING",
+        "ENT-GROUP-REFRESHMENT",
+        "ENT-GROUP-SHOWCASE",
+        "ENT-GROUP-STELES",
+        "ENT-GROUP-STOOLS",
+        "ENT-GROUP-TERMINALS",
+        "ENT-GROUP-VR_STATIONS",
+        "ENT-ASSET-BAR_STOOL_REFRESHMENT1",
+        "ENT-ASSET-BAR_STOOL_REFRESHMENT2",
+        "ENT-ASSET-BAR_STOOL_REFRESHMENT3",
+        "ENT-ASSET-BENEFITS_PANEL1",
+        "ENT-ASSET-BENEFITS_PANEL2",
+        "ENT-ASSET-BENEFITS_PANEL3",
+        "ENT-ASSET-CHAIR_RECRUITING",
+        "ENT-ASSET-INFO_STELE_STUDIO1",
+        "ENT-ASSET-INFO_STELE_STUDIO2",
+        "ENT-ASSET-INFO_STELE_STUDIO3",
+        "ENT-ASSET-INTERACTIVE_TERMINAL_BENEFITS1",
+        "ENT-ASSET-INTERACTIVE_TERMINAL_BENEFITS2",
+        "ENT-ASSET-KIOSK_DEMO1",
+        "ENT-ASSET-KIOSK_DEMO2",
+        "ENT-ASSET-KIOSK_DEMO3",
+        "ENT-ASSET-KIOSK_RECEPTION",
+        "ENT-ASSET-LOUNGE_SEATING",
+        "ENT-ASSET-POSTER_RECRUITING1",
+        "ENT-ASSET-POSTER_RECRUITING2",
+        "ENT-ASSET-REFRESHMENT_COUNTER",
+        "ENT-ASSET-SHOWCASE_EQUIPMENT_TREADMILL",
+        "ENT-ASSET-SHOWCASE_EQUIPMENT_WEIGHTS_RACK",
+        "ENT-ASSET-TOTEM_RECEPTION",
+        "ENT-ASSET-TOUCH_TERMINAL_RECRUITING1",
+        "ENT-ASSET-TOUCH_TERMINAL_RECRUITING2",
+        "ENT-ASSET-VR_AR_STATION1",
+        "ENT-ASSET-VR_AR_STATION2",
+        "ENT-AGENT-RECEPTION_AGENT",
+        "ENT-AGENT-BENEFITS_EXPERT",
+        "ENT-AGENT-RECRUITING_AGENT",
+        "ENT-AGENT-DEMO_TECHNICIAN",
+        "ENT-AGENT-HOSPITALITY_AGENT",
+        "ENT-STATE-BESTFIT_CAREER_FAIR",
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "capability": [
+        "CAP-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE",
+        "CAP-BESTFIT_CAREER_FAIR-DERIVE-SPATIAL-AGENT-ROLES",
+        "CAP-BESTFIT_CAREER_FAIR-GENERATE-ROOM-KNOWLEDGE",
+        "CAP-BESTFIT_CAREER_FAIR-PLACE-AGENTS-IN-SCENE",
+        "CAP-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS",
+        "CAP-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+        "CAP-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION",
+        "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "runtimeBinding": [
+        "RB-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE",
+        "RB-BESTFIT_CAREER_FAIR-DERIVE-SPATIAL-AGENT-ROLES",
+        "RB-BESTFIT_CAREER_FAIR-GENERATE-ROOM-KNOWLEDGE",
+        "RB-BESTFIT_CAREER_FAIR-PLACE-AGENTS-IN-SCENE",
+        "RB-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS",
+        "RB-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+        "RB-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION",
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "ownedRelationship": [
+        "UC-BESTFIT_CAREER_FAIR-01-ACTOR-1",
+        "UC-BESTFIT_CAREER_FAIR-01-ACTOR-2",
+        "UC-BESTFIT_CAREER_FAIR-01-ACTOR-3",
+        "UC-BESTFIT_CAREER_FAIR-01-SPEC-SC-BESTFIT_CAREER_FAIR-MAIN",
+        "SAT-REQ-BESTFIT_CAREER_FAIR-001",
+        "SAT-REQ-BESTFIT_CAREER_FAIR-002",
+        "SAT-REQ-BESTFIT_CAREER_FAIR-003",
+        "SAT-REQ-BESTFIT_CAREER_FAIR-004",
+        "SAT-REQ-BESTFIT_CAREER_FAIR-005",
+        "SAT-REQ-BESTFIT_CAREER_FAIR-006",
+        "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-USECASE-1",
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-USECASE-1",
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-USECASE-1",
+        "VC-BESTFIT_CAREER_FAIR-SETUP-USECASE-1",
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-USECASE-1",
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF-USECASE-1"
+      ]
+    },
+    {
+      "id": "REQ-BESTFIT_CAREER_FAIR-001",
+      "type": "Requirement",
+      "text": "The pipeline shall ingest an MLDS scene and preserve stable object identities."
+    },
+    {
+      "id": "REQ-BESTFIT_CAREER_FAIR-002",
+      "type": "Requirement",
+      "text": "The pipeline shall derive room semantics grounded in existing MLDS objects."
+    },
+    {
+      "id": "REQ-BESTFIT_CAREER_FAIR-003",
+      "type": "Requirement",
+      "text": "The pipeline shall synthesize backend-compatible spatial agent roles."
+    },
+    {
+      "id": "REQ-BESTFIT_CAREER_FAIR-004",
+      "type": "Requirement",
+      "text": "Every generated agent knowledge tag shall be covered by materialized knowledge."
+    },
+    {
+      "id": "REQ-BESTFIT_CAREER_FAIR-005",
+      "type": "Requirement",
+      "text": "Every generated agent shall be placed inside the room without obstacle overlap."
+    },
+    {
+      "id": "REQ-BESTFIT_CAREER_FAIR-006",
+      "type": "Requirement",
+      "text": "The generated behavior shall be traceable from requirements to runtime actions and validation cases."
+    },
+    {
+      "id": "UC-BESTFIT_CAREER_FAIR-01",
+      "type": "UseCase",
+      "extensionPoint": [],
+      "include": [],
+      "extend": [],
+      "name": "Generate and use spatially grounded multi-agent guide"
+    },
+    {
+      "id": "RM-BESTFIT_CAREER_FAIR",
+      "type": "RequirementsModel",
+      "requirement": [
+        "REQ-BESTFIT_CAREER_FAIR-001",
+        "REQ-BESTFIT_CAREER_FAIR-002",
+        "REQ-BESTFIT_CAREER_FAIR-003",
+        "REQ-BESTFIT_CAREER_FAIR-004",
+        "REQ-BESTFIT_CAREER_FAIR-005",
+        "REQ-BESTFIT_CAREER_FAIR-006"
+      ],
+      "useCase": [
+        "UC-BESTFIT_CAREER_FAIR-01"
+      ]
+    },
+    {
+      "id": "ACT-CASE-STUDY-ENGINEER",
+      "type": "Actor",
+      "name": "Case Study Engineer",
+      "text": "Provides MLDS input and runs the validation pipeline."
+    },
+    {
+      "id": "ACT-VISITOR",
+      "type": "Actor",
+      "name": "Visitor",
+      "text": "Asks room-related questions in the generated immersive environment."
+    },
+    {
+      "id": "ACT-ROOM-GUIDE",
+      "type": "Actor",
+      "name": "Room Guide",
+      "text": "Role played by generated interactive agents."
+    },
+    {
+      "id": "ENT-ZONE-RECEPTION_ZONE",
+      "type": "Entity",
+      "name": "Reception and Welcome Area",
+      "kind": "zone",
+      "sourceId": "reception_zone",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "totem_reception",
+        "kiosk_reception"
+      ],
+      "purpose": "Initial visitor greeting and orientation with branding and basic info."
+    },
+    {
+      "id": "ENT-ZONE-SHOWCASE_ZONE",
+      "type": "Entity",
+      "name": "Product Showcase Area",
+      "kind": "zone",
+      "sourceId": "showcase_zone",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "showcase_equipment_treadmill",
+        "showcase_equipment_weights_rack",
+        "vr_ar_station1",
+        "vr_ar_station2",
+        "info_stele_studio1",
+        "info_stele_studio2",
+        "info_stele_studio3"
+      ],
+      "purpose": "Display and demonstration of company products and technologies to attract interest."
+    },
+    {
+      "id": "ENT-ZONE-BENEFITS_INFO_ZONE",
+      "type": "Entity",
+      "name": "Company Benefits Information Zone",
+      "kind": "zone",
+      "sourceId": "benefits_info_zone",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ],
+      "purpose": "Provide detailed information about employee benefits and company values via panels and interactive terminals."
+    },
+    {
+      "id": "ENT-ZONE-RECRUITING_ZONE",
+      "type": "Entity",
+      "name": "Recruiting and Job Application Area",
+      "kind": "zone",
+      "sourceId": "recruiting_zone",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ],
+      "purpose": "Interactive terminals and posters for job listings and application processes, with seating for discussions."
+    },
+    {
+      "id": "ENT-ZONE-DEMO_KIOSK_ZONE",
+      "type": "Entity",
+      "name": "Demo Kiosk Interaction Zone",
+      "kind": "zone",
+      "sourceId": "demo_kiosk_zone",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "kiosk_demo1",
+        "kiosk_demo2",
+        "kiosk_demo3"
+      ],
+      "purpose": "Interactive kiosks for product demos or company information accessible via touchscreen interfaces."
+    },
+    {
+      "id": "ENT-ZONE-REFRESHMENT_ZONE",
+      "type": "Entity",
+      "name": "Refreshment and Lounge Area",
+      "kind": "zone",
+      "sourceId": "refreshment_zone",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "refreshment_counter",
+        "bar_stool_refreshment1",
+        "bar_stool_refreshment2",
+        "bar_stool_refreshment3",
+        "lounge_seating"
+      ],
+      "purpose": "Area for visitors to relax, have refreshments, and informal conversations."
+    },
+    {
+      "id": "ENT-GROUP-DEMO_KIOSKS",
+      "type": "Entity",
+      "name": "Object group: demo_kiosks",
+      "kind": "asset",
+      "sourceId": "group:demo_kiosks",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "kiosk_demo1",
+        "kiosk_demo2",
+        "kiosk_demo3"
+      ],
+      "sourceGroup": "demo_kiosks"
+    },
+    {
+      "id": "ENT-GROUP-KIOSKS",
+      "type": "Entity",
+      "name": "Object group: kiosks",
+      "kind": "asset",
+      "sourceId": "group:kiosks",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "kiosk_reception"
+      ],
+      "sourceGroup": "kiosks"
+    },
+    {
+      "id": "ENT-GROUP-LOUNGE",
+      "type": "Entity",
+      "name": "Object group: lounge",
+      "kind": "asset",
+      "sourceId": "group:lounge",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "lounge_seating"
+      ],
+      "sourceGroup": "lounge"
+    },
+    {
+      "id": "ENT-GROUP-PANELS",
+      "type": "Entity",
+      "name": "Object group: panels",
+      "kind": "asset",
+      "sourceId": "group:panels",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3"
+      ],
+      "sourceGroup": "panels"
+    },
+    {
+      "id": "ENT-GROUP-RECEPTION",
+      "type": "Entity",
+      "name": "Object group: reception",
+      "kind": "asset",
+      "sourceId": "group:reception",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "totem_reception"
+      ],
+      "sourceGroup": "reception"
+    },
+    {
+      "id": "ENT-GROUP-RECRUITING",
+      "type": "Entity",
+      "name": "Object group: recruiting",
+      "kind": "asset",
+      "sourceId": "group:recruiting",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ],
+      "sourceGroup": "recruiting"
+    },
+    {
+      "id": "ENT-GROUP-REFRESHMENT",
+      "type": "Entity",
+      "name": "Object group: refreshment",
+      "kind": "asset",
+      "sourceId": "group:refreshment",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "refreshment_counter"
+      ],
+      "sourceGroup": "refreshment"
+    },
+    {
+      "id": "ENT-GROUP-SHOWCASE",
+      "type": "Entity",
+      "name": "Object group: showcase",
+      "kind": "asset",
+      "sourceId": "group:showcase",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "showcase_equipment_treadmill",
+        "showcase_equipment_weights_rack"
+      ],
+      "sourceGroup": "showcase"
+    },
+    {
+      "id": "ENT-GROUP-STELES",
+      "type": "Entity",
+      "name": "Object group: steles",
+      "kind": "asset",
+      "sourceId": "group:steles",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "info_stele_studio1",
+        "info_stele_studio2",
+        "info_stele_studio3"
+      ],
+      "sourceGroup": "steles"
+    },
+    {
+      "id": "ENT-GROUP-STOOLS",
+      "type": "Entity",
+      "name": "Object group: stools",
+      "kind": "asset",
+      "sourceId": "group:stools",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "bar_stool_refreshment1",
+        "bar_stool_refreshment2",
+        "bar_stool_refreshment3"
+      ],
+      "sourceGroup": "stools"
+    },
+    {
+      "id": "ENT-GROUP-TERMINALS",
+      "type": "Entity",
+      "name": "Object group: terminals",
+      "kind": "asset",
+      "sourceId": "group:terminals",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ],
+      "sourceGroup": "terminals"
+    },
+    {
+      "id": "ENT-GROUP-VR_STATIONS",
+      "type": "Entity",
+      "name": "Object group: vr_stations",
+      "kind": "asset",
+      "sourceId": "group:vr_stations",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "vr_ar_station1",
+        "vr_ar_station2"
+      ],
+      "sourceGroup": "vr_stations"
+    },
+    {
+      "id": "ENT-ASSET-BAR_STOOL_REFRESHMENT1",
+      "type": "Entity",
+      "name": "bar_stool",
+      "kind": "asset",
+      "sourceId": "bar_stool_refreshment1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "stools",
+      "objectType": "bar_stool",
+      "objectGroup": [
+        "ENT-GROUP-STOOLS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-BAR_STOOL_REFRESHMENT2",
+      "type": "Entity",
+      "name": "bar_stool",
+      "kind": "asset",
+      "sourceId": "bar_stool_refreshment2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "stools",
+      "objectType": "bar_stool",
+      "objectGroup": [
+        "ENT-GROUP-STOOLS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-BAR_STOOL_REFRESHMENT3",
+      "type": "Entity",
+      "name": "bar_stool",
+      "kind": "asset",
+      "sourceId": "bar_stool_refreshment3",
+      "entityRole": "sceneObject",
+      "sourceGroup": "stools",
+      "objectType": "bar_stool",
+      "objectGroup": [
+        "ENT-GROUP-STOOLS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-BENEFITS_PANEL1",
+      "type": "Entity",
+      "name": "panel",
+      "kind": "asset",
+      "sourceId": "benefits_panel1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "panels",
+      "objectType": "panel",
+      "objectGroup": [
+        "ENT-GROUP-PANELS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-BENEFITS_PANEL2",
+      "type": "Entity",
+      "name": "panel",
+      "kind": "asset",
+      "sourceId": "benefits_panel2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "panels",
+      "objectType": "panel",
+      "objectGroup": [
+        "ENT-GROUP-PANELS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-BENEFITS_PANEL3",
+      "type": "Entity",
+      "name": "panel",
+      "kind": "asset",
+      "sourceId": "benefits_panel3",
+      "entityRole": "sceneObject",
+      "sourceGroup": "panels",
+      "objectType": "panel",
+      "objectGroup": [
+        "ENT-GROUP-PANELS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-CHAIR_RECRUITING",
+      "type": "Entity",
+      "name": "chair",
+      "kind": "asset",
+      "sourceId": "chair_recruiting",
+      "entityRole": "sceneObject",
+      "sourceGroup": "recruiting",
+      "objectType": "chair",
+      "objectGroup": [
+        "ENT-GROUP-RECRUITING"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-INFO_STELE_STUDIO1",
+      "type": "Entity",
+      "name": "info_stele",
+      "kind": "asset",
+      "sourceId": "info_stele_studio1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "steles",
+      "objectType": "info_stele",
+      "objectGroup": [
+        "ENT-GROUP-STELES"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-INFO_STELE_STUDIO2",
+      "type": "Entity",
+      "name": "info_stele",
+      "kind": "asset",
+      "sourceId": "info_stele_studio2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "steles",
+      "objectType": "info_stele",
+      "objectGroup": [
+        "ENT-GROUP-STELES"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-INFO_STELE_STUDIO3",
+      "type": "Entity",
+      "name": "info_stele",
+      "kind": "asset",
+      "sourceId": "info_stele_studio3",
+      "entityRole": "sceneObject",
+      "sourceGroup": "steles",
+      "objectType": "info_stele",
+      "objectGroup": [
+        "ENT-GROUP-STELES"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-INTERACTIVE_TERMINAL_BENEFITS1",
+      "type": "Entity",
+      "name": "terminal",
+      "kind": "asset",
+      "sourceId": "interactive_terminal_benefits1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "terminals",
+      "objectType": "terminal",
+      "objectGroup": [
+        "ENT-GROUP-TERMINALS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-INTERACTIVE_TERMINAL_BENEFITS2",
+      "type": "Entity",
+      "name": "terminal",
+      "kind": "asset",
+      "sourceId": "interactive_terminal_benefits2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "terminals",
+      "objectType": "terminal",
+      "objectGroup": [
+        "ENT-GROUP-TERMINALS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-KIOSK_DEMO1",
+      "type": "Entity",
+      "name": "kiosk",
+      "kind": "asset",
+      "sourceId": "kiosk_demo1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "demo_kiosks",
+      "objectType": "kiosk",
+      "objectGroup": [
+        "ENT-GROUP-DEMO_KIOSKS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-KIOSK_DEMO2",
+      "type": "Entity",
+      "name": "kiosk",
+      "kind": "asset",
+      "sourceId": "kiosk_demo2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "demo_kiosks",
+      "objectType": "kiosk",
+      "objectGroup": [
+        "ENT-GROUP-DEMO_KIOSKS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-KIOSK_DEMO3",
+      "type": "Entity",
+      "name": "kiosk",
+      "kind": "asset",
+      "sourceId": "kiosk_demo3",
+      "entityRole": "sceneObject",
+      "sourceGroup": "demo_kiosks",
+      "objectType": "kiosk",
+      "objectGroup": [
+        "ENT-GROUP-DEMO_KIOSKS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-KIOSK_RECEPTION",
+      "type": "Entity",
+      "name": "kiosk",
+      "kind": "asset",
+      "sourceId": "kiosk_reception",
+      "entityRole": "sceneObject",
+      "sourceGroup": "kiosks",
+      "objectType": "kiosk",
+      "objectGroup": [
+        "ENT-GROUP-KIOSKS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-LOUNGE_SEATING",
+      "type": "Entity",
+      "name": "sofa",
+      "kind": "asset",
+      "sourceId": "lounge_seating",
+      "entityRole": "sceneObject",
+      "sourceGroup": "lounge",
+      "objectType": "sofa",
+      "objectGroup": [
+        "ENT-GROUP-LOUNGE"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-POSTER_RECRUITING1",
+      "type": "Entity",
+      "name": "poster",
+      "kind": "asset",
+      "sourceId": "poster_recruiting1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "recruiting",
+      "objectType": "poster",
+      "objectGroup": [
+        "ENT-GROUP-RECRUITING"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-POSTER_RECRUITING2",
+      "type": "Entity",
+      "name": "poster",
+      "kind": "asset",
+      "sourceId": "poster_recruiting2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "recruiting",
+      "objectType": "poster",
+      "objectGroup": [
+        "ENT-GROUP-RECRUITING"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-REFRESHMENT_COUNTER",
+      "type": "Entity",
+      "name": "counter",
+      "kind": "asset",
+      "sourceId": "refreshment_counter",
+      "entityRole": "sceneObject",
+      "sourceGroup": "refreshment",
+      "objectType": "counter",
+      "objectGroup": [
+        "ENT-GROUP-REFRESHMENT"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-SHOWCASE_EQUIPMENT_TREADMILL",
+      "type": "Entity",
+      "name": "treadmill",
+      "kind": "asset",
+      "sourceId": "showcase_equipment_treadmill",
+      "entityRole": "sceneObject",
+      "sourceGroup": "showcase",
+      "objectType": "treadmill",
+      "objectGroup": [
+        "ENT-GROUP-SHOWCASE"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-SHOWCASE_EQUIPMENT_WEIGHTS_RACK",
+      "type": "Entity",
+      "name": "weights_rack",
+      "kind": "asset",
+      "sourceId": "showcase_equipment_weights_rack",
+      "entityRole": "sceneObject",
+      "sourceGroup": "showcase",
+      "objectType": "weights_rack",
+      "objectGroup": [
+        "ENT-GROUP-SHOWCASE"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-TOTEM_RECEPTION",
+      "type": "Entity",
+      "name": "totem",
+      "kind": "asset",
+      "sourceId": "totem_reception",
+      "entityRole": "sceneObject",
+      "sourceGroup": "reception",
+      "objectType": "totem",
+      "objectGroup": [
+        "ENT-GROUP-RECEPTION"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-TOUCH_TERMINAL_RECRUITING1",
+      "type": "Entity",
+      "name": "terminal",
+      "kind": "asset",
+      "sourceId": "touch_terminal_recruiting1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "recruiting",
+      "objectType": "terminal",
+      "objectGroup": [
+        "ENT-GROUP-RECRUITING"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-TOUCH_TERMINAL_RECRUITING2",
+      "type": "Entity",
+      "name": "terminal",
+      "kind": "asset",
+      "sourceId": "touch_terminal_recruiting2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "recruiting",
+      "objectType": "terminal",
+      "objectGroup": [
+        "ENT-GROUP-RECRUITING"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-VR_AR_STATION1",
+      "type": "Entity",
+      "name": "vr_station",
+      "kind": "asset",
+      "sourceId": "vr_ar_station1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "vr_stations",
+      "objectType": "vr_station",
+      "objectGroup": [
+        "ENT-GROUP-VR_STATIONS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-VR_AR_STATION2",
+      "type": "Entity",
+      "name": "vr_station",
+      "kind": "asset",
+      "sourceId": "vr_ar_station2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "vr_stations",
+      "objectType": "vr_station",
+      "objectGroup": [
+        "ENT-GROUP-VR_STATIONS"
+      ]
+    },
+    {
+      "id": "ENT-AGENT-RECEPTION_AGENT",
+      "type": "Agent",
+      "name": "Reception Agent",
+      "kind": "agent",
+      "sourceId": "reception_agent",
+      "entityRole": "interactiveAgent",
+      "sourceAgentId": "reception_agent",
+      "displayName": "Reception Agent",
+      "persona": "Friendly and welcoming guide who provides initial orientation and basic company information to visitors, helping them navigate the booth efficiently.",
+      "expertise": [
+        "visitor orientation",
+        "basic company info",
+        "navigation assistance"
+      ],
+      "knowledgeTag": [
+        "visitor_orientation",
+        "company_basics",
+        "navigation"
+      ],
+      "voice": "sage",
+      "voiceGender": "weiblich",
+      "voiceStyle": "warm and clear",
+      "ttsModel": "gpt-4o-mini-tts",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapability": [
+        "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "responsibleZone": [
+        "ENT-ZONE-RECEPTION_ZONE"
+      ],
+      "groundedAsset": [
+        "ENT-ASSET-TOTEM_RECEPTION",
+        "ENT-ASSET-KIOSK_RECEPTION"
+      ],
+      "groundedObjectGroup": [
+        "ENT-GROUP-RECEPTION",
+        "ENT-GROUP-KIOSKS"
+      ],
+      "handoffTarget": [
+        "ENT-AGENT-BENEFITS_EXPERT",
+        "ENT-AGENT-RECRUITING_AGENT",
+        "ENT-AGENT-DEMO_TECHNICIAN",
+        "ENT-AGENT-HOSPITALITY_AGENT"
+      ]
+    },
+    {
+      "id": "ENT-AGENT-BENEFITS_EXPERT",
+      "type": "Agent",
+      "name": "Benefits Information Specialist",
+      "kind": "agent",
+      "sourceId": "benefits_expert",
+      "entityRole": "interactiveAgent",
+      "sourceAgentId": "benefits_expert",
+      "displayName": "Benefits Information Specialist",
+      "persona": "Knowledgeable and approachable specialist focused on explaining employee benefits and company culture, assisting visitors with interactive terminals and panels.",
+      "expertise": [
+        "employee benefits",
+        "company culture",
+        "interactive terminal assistance"
+      ],
+      "knowledgeTag": [
+        "company_benefits",
+        "employee_wellbeing",
+        "interactive_terminals"
+      ],
+      "voice": "coral",
+      "voiceGender": "weiblich",
+      "voiceStyle": "informative and friendly",
+      "ttsModel": "gpt-4o-mini-tts",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapability": [
+        "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "responsibleZone": [
+        "ENT-ZONE-BENEFITS_INFO_ZONE"
+      ],
+      "groundedAsset": [
+        "ENT-ASSET-BENEFITS_PANEL1",
+        "ENT-ASSET-BENEFITS_PANEL2",
+        "ENT-ASSET-BENEFITS_PANEL3",
+        "ENT-ASSET-INTERACTIVE_TERMINAL_BENEFITS1",
+        "ENT-ASSET-INTERACTIVE_TERMINAL_BENEFITS2"
+      ],
+      "groundedObjectGroup": [
+        "ENT-GROUP-PANELS",
+        "ENT-GROUP-TERMINALS"
+      ],
+      "handoffTarget": [
+        "ENT-AGENT-RECRUITING_AGENT",
+        "ENT-AGENT-RECEPTION_AGENT"
+      ]
+    },
+    {
+      "id": "ENT-AGENT-RECRUITING_AGENT",
+      "type": "Agent",
+      "name": "Recruiting Agent",
+      "kind": "agent",
+      "sourceId": "recruiting_agent",
+      "entityRole": "interactiveAgent",
+      "sourceAgentId": "recruiting_agent",
+      "displayName": "Recruiting Agent",
+      "persona": "Professional and helpful recruiting expert who assists visitors with job applications, provides detailed recruiting information, and answers related questions.",
+      "expertise": [
+        "job openings",
+        "application process",
+        "recruiting info"
+      ],
+      "knowledgeTag": [
+        "job_recruiting",
+        "application_process",
+        "career_opportunities"
+      ],
+      "voice": "onyx",
+      "voiceGender": "maennlich",
+      "voiceStyle": "professional and clear",
+      "ttsModel": "gpt-4o-mini-tts",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapability": [
+        "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "responsibleZone": [
+        "ENT-ZONE-RECRUITING_ZONE"
+      ],
+      "groundedAsset": [
+        "ENT-ASSET-TOUCH_TERMINAL_RECRUITING1",
+        "ENT-ASSET-TOUCH_TERMINAL_RECRUITING2",
+        "ENT-ASSET-CHAIR_RECRUITING",
+        "ENT-ASSET-POSTER_RECRUITING1",
+        "ENT-ASSET-POSTER_RECRUITING2"
+      ],
+      "groundedObjectGroup": [
+        "ENT-GROUP-RECRUITING"
+      ],
+      "handoffTarget": [
+        "ENT-AGENT-BENEFITS_EXPERT",
+        "ENT-AGENT-RECEPTION_AGENT"
+      ]
+    },
+    {
+      "id": "ENT-AGENT-DEMO_TECHNICIAN",
+      "type": "Agent",
+      "name": "Demo Technician",
+      "kind": "agent",
+      "sourceId": "demo_technician",
+      "entityRole": "interactiveAgent",
+      "sourceAgentId": "demo_technician",
+      "displayName": "Demo Technician",
+      "persona": "Enthusiastic and tech-savvy specialist who manages product showcases and VR/AR stations, guiding visitors through interactive demos and answering technical questions.",
+      "expertise": [
+        "product knowledge",
+        "VR/AR technology",
+        "interactive kiosk support"
+      ],
+      "knowledgeTag": [
+        "product_demos",
+        "vr_ar_technology",
+        "interactive_kiosks"
+      ],
+      "voice": "fable",
+      "voiceGender": "maennlich",
+      "voiceStyle": "enthusiastic and engaging",
+      "ttsModel": "gpt-4o-mini-tts",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapability": [
+        "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "responsibleZone": [
+        "ENT-ZONE-SHOWCASE_ZONE",
+        "ENT-ZONE-DEMO_KIOSK_ZONE"
+      ],
+      "groundedAsset": [
+        "ENT-ASSET-SHOWCASE_EQUIPMENT_TREADMILL",
+        "ENT-ASSET-SHOWCASE_EQUIPMENT_WEIGHTS_RACK",
+        "ENT-ASSET-VR_AR_STATION1",
+        "ENT-ASSET-VR_AR_STATION2",
+        "ENT-ASSET-KIOSK_DEMO1",
+        "ENT-ASSET-KIOSK_DEMO2",
+        "ENT-ASSET-KIOSK_DEMO3",
+        "ENT-ASSET-INFO_STELE_STUDIO1",
+        "ENT-ASSET-INFO_STELE_STUDIO2",
+        "ENT-ASSET-INFO_STELE_STUDIO3"
+      ],
+      "groundedObjectGroup": [
+        "ENT-GROUP-SHOWCASE",
+        "ENT-GROUP-VR_STATIONS",
+        "ENT-GROUP-DEMO_KIOSKS",
+        "ENT-GROUP-STELES"
+      ],
+      "handoffTarget": [
+        "ENT-AGENT-RECRUITING_AGENT",
+        "ENT-AGENT-BENEFITS_EXPERT",
+        "ENT-AGENT-RECEPTION_AGENT"
+      ]
+    },
+    {
+      "id": "ENT-AGENT-HOSPITALITY_AGENT",
+      "type": "Agent",
+      "name": "Hospitality Agent",
+      "kind": "agent",
+      "sourceId": "hospitality_agent",
+      "entityRole": "interactiveAgent",
+      "sourceAgentId": "hospitality_agent",
+      "displayName": "Hospitality Agent",
+      "persona": "Warm and attentive hospitality professional dedicated to providing refreshments and ensuring visitor comfort in the lounge area.",
+      "expertise": [
+        "customer service",
+        "refreshment management",
+        "visitor comfort"
+      ],
+      "knowledgeTag": [
+        "visitor_comfort",
+        "refreshments",
+        "lounge_services"
+      ],
+      "voice": "ash",
+      "voiceGender": "maennlich",
+      "voiceStyle": "warm and caring",
+      "ttsModel": "gpt-4o-mini-tts",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapability": [
+        "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "responsibleZone": [
+        "ENT-ZONE-REFRESHMENT_ZONE"
+      ],
+      "groundedAsset": [
+        "ENT-ASSET-REFRESHMENT_COUNTER",
+        "ENT-ASSET-BAR_STOOL_REFRESHMENT1",
+        "ENT-ASSET-BAR_STOOL_REFRESHMENT2",
+        "ENT-ASSET-BAR_STOOL_REFRESHMENT3",
+        "ENT-ASSET-LOUNGE_SEATING"
+      ],
+      "groundedObjectGroup": [
+        "ENT-GROUP-REFRESHMENT",
+        "ENT-GROUP-STOOLS",
+        "ENT-GROUP-LOUNGE"
+      ],
+      "handoffTarget": [
+        "ENT-AGENT-RECEPTION_AGENT"
+      ]
+    },
+    {
+      "id": "ENT-STATE-BESTFIT_CAREER_FAIR",
+      "type": "Entity",
+      "name": "Case study validation state",
+      "kind": "stateObject",
+      "sourceId": "validation_state"
+    },
+    {
+      "id": "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR",
+      "type": "Entity",
+      "name": "Runtime Orchestrator",
+      "sourceId": "runtime-orchestrator",
+      "entityRole": "runtimeOrchestrator",
+      "purpose": "Explicit executable provider for projected runtime capability uses.",
+      "providedCapability": [
+        "CAP-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE",
+        "CAP-BESTFIT_CAREER_FAIR-DERIVE-SPATIAL-AGENT-ROLES",
+        "CAP-BESTFIT_CAREER_FAIR-GENERATE-ROOM-KNOWLEDGE",
+        "CAP-BESTFIT_CAREER_FAIR-PLACE-AGENTS-IN-SCENE",
+        "CAP-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS",
+        "CAP-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+        "CAP-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION",
+        "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ]
+    },
+    {
+      "id": "EV-BESTFIT_CAREER_FAIR-MLDS-PROVIDED",
+      "type": "ScenarioExternalEvent",
+      "kind": "environment",
+      "expressionText": "source_mlds.json available",
+      "mixedStringContent": "source_mlds.json available"
+    },
+    {
+      "id": "EV-BESTFIT_CAREER_FAIR-VISITOR-QUESTION",
+      "type": "ScenarioExternalEvent",
+      "kind": "user",
+      "expressionText": "visitor asks a room-related question",
+      "mixedStringContent": "visitor asks a room-related question"
+    },
+    {
+      "id": "EV-BESTFIT_CAREER_FAIR-HANDOFF-NEEDED",
+      "type": "ScenarioExternalEvent",
+      "kind": "user",
+      "expressionText": "visitor question belongs to another agent expertise",
+      "mixedStringContent": "visitor question belongs to another agent expertise"
+    },
+    {
+      "id": "COND-BESTFIT_CAREER_FAIR-VALID-INPUT",
+      "type": "ScenarioCondition",
+      "kind": "precondition",
+      "datatype": "EABoolean",
+      "expressionText": "MLDS input parses successfully",
+      "mixedStringContent": "MLDS input parses successfully"
+    },
+    {
+      "id": "COND-BESTFIT_CAREER_FAIR-AGENTS-AVAILABLE",
+      "type": "ScenarioCondition",
+      "kind": "guard",
+      "datatype": "EABoolean",
+      "expressionText": "at least two valid agents exist",
+      "mixedStringContent": "at least two valid agents exist"
+    },
+    {
+      "id": "COND-BESTFIT_CAREER_FAIR-HANDOFF-TARGET-AVAILABLE",
+      "type": "ScenarioCondition",
+      "kind": "guard",
+      "datatype": "EABoolean",
+      "expressionText": "handoff target exists and is not the source agent",
+      "mixedStringContent": "handoff target exists and is not the source agent"
+    },
+    {
+      "id": "EXPR-SA-BESTFIT_CAREER_FAIR-NORMALIZED-SCENE-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "Normalized MLDS scene is valid and object IDs are unique."
+    },
+    {
+      "id": "SA-BESTFIT_CAREER_FAIR-NORMALIZED-SCENE-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-BESTFIT_CAREER_FAIR"
+      ],
+      "expression": [
+        "EXPR-SA-BESTFIT_CAREER_FAIR-NORMALIZED-SCENE-VALID"
+      ],
+      "expressionText": "Normalized MLDS scene is valid and object IDs are unique.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-BESTFIT_CAREER_FAIR-SCENE-SEMANTICS-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "Scene semantics are grounded in existing object IDs."
+    },
+    {
+      "id": "SA-BESTFIT_CAREER_FAIR-SCENE-SEMANTICS-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-BESTFIT_CAREER_FAIR"
+      ],
+      "expression": [
+        "EXPR-SA-BESTFIT_CAREER_FAIR-SCENE-SEMANTICS-VALID"
+      ],
+      "expressionText": "Scene semantics are grounded in existing object IDs.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-BESTFIT_CAREER_FAIR-AGENT-ROLES-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "Generated agents have valid zones, objects, knowledge tags and handoff targets."
+    },
+    {
+      "id": "SA-BESTFIT_CAREER_FAIR-AGENT-ROLES-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-BESTFIT_CAREER_FAIR"
+      ],
+      "expression": [
+        "EXPR-SA-BESTFIT_CAREER_FAIR-AGENT-ROLES-VALID"
+      ],
+      "expressionText": "Generated agents have valid zones, objects, knowledge tags and handoff targets.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-BESTFIT_CAREER_FAIR-KNOWLEDGE-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "Every agent knowledge tag has at least one materialized knowledge entry."
+    },
+    {
+      "id": "SA-BESTFIT_CAREER_FAIR-KNOWLEDGE-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-BESTFIT_CAREER_FAIR"
+      ],
+      "expression": [
+        "EXPR-SA-BESTFIT_CAREER_FAIR-KNOWLEDGE-VALID"
+      ],
+      "expressionText": "Every agent knowledge tag has at least one materialized knowledge entry.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-BESTFIT_CAREER_FAIR-PLACEMENT-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "Every generated agent has a valid room position and forward vector."
+    },
+    {
+      "id": "SA-BESTFIT_CAREER_FAIR-PLACEMENT-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-BESTFIT_CAREER_FAIR"
+      ],
+      "expression": [
+        "EXPR-SA-BESTFIT_CAREER_FAIR-PLACEMENT-VALID"
+      ],
+      "expressionText": "Every generated agent has a valid room position and forward vector.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-BESTFIT_CAREER_FAIR-FUNCTIONALMLDS-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "FunctionalMLDS instance satisfies all core invariants."
+    },
+    {
+      "id": "SA-BESTFIT_CAREER_FAIR-FUNCTIONALMLDS-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-BESTFIT_CAREER_FAIR"
+      ],
+      "expression": [
+        "EXPR-SA-BESTFIT_CAREER_FAIR-FUNCTIONALMLDS-VALID"
+      ],
+      "expressionText": "FunctionalMLDS instance satisfies all core invariants.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZED",
+      "type": "EAExpression",
+      "mixedStringContent": "Interactive Agents project files are present and backend-readable."
+    },
+    {
+      "id": "SA-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZED",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-BESTFIT_CAREER_FAIR"
+      ],
+      "expression": [
+        "EXPR-SA-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZED"
+      ],
+      "expressionText": "Interactive Agents project files are present and backend-readable.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-BESTFIT_CAREER_FAIR-SETUP-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "Interactive Agents backend setup returns a valid session with all agents."
+    },
+    {
+      "id": "SA-BESTFIT_CAREER_FAIR-SETUP-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-BESTFIT_CAREER_FAIR"
+      ],
+      "expression": [
+        "EXPR-SA-BESTFIT_CAREER_FAIR-SETUP-VALID"
+      ],
+      "expressionText": "Interactive Agents backend setup returns a valid session with all agents.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+      "type": "EAExpression",
+      "mixedStringContent": "A visitor question is answered using room-grounded agent knowledge."
+    },
+    {
+      "id": "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-BESTFIT_CAREER_FAIR"
+      ],
+      "expression": [
+        "EXPR-SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED"
+      ],
+      "expressionText": "A visitor question is answered using room-grounded agent knowledge.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "A specialist handoff targets an existing responsible agent when needed."
+    },
+    {
+      "id": "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-BESTFIT_CAREER_FAIR"
+      ],
+      "expression": [
+        "EXPR-SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ],
+      "expressionText": "A specialist handoff targets an existing responsible agent when needed.",
+      "severity": "error"
+    },
+    {
+      "id": "EFF-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-BESTFIT_CAREER_FAIR-NORMALIZED-SCENE-VALID"
+      ],
+      "text": "Effect of ANALYZE-MLDS-SCENE: normalized scene valid."
+    },
+    {
+      "id": "EFF-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE-02",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-BESTFIT_CAREER_FAIR-SCENE-SEMANTICS-VALID"
+      ],
+      "text": "Effect of ANALYZE-MLDS-SCENE: scene semantics valid."
+    },
+    {
+      "id": "CAP-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE-01",
+        "EFF-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE-02"
+      ],
+      "name": "Analyze Mlds Scene",
+      "text": "Analyze MLDS scene structure and normalize room objects."
+    },
+    {
+      "id": "EFF-BESTFIT_CAREER_FAIR-DERIVE-SPATIAL-AGENT-ROLES-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-BESTFIT_CAREER_FAIR-AGENT-ROLES-VALID"
+      ],
+      "text": "Effect of DERIVE-SPATIAL-AGENT-ROLES: agent roles valid."
+    },
+    {
+      "id": "CAP-BESTFIT_CAREER_FAIR-DERIVE-SPATIAL-AGENT-ROLES",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-BESTFIT_CAREER_FAIR-DERIVE-SPATIAL-AGENT-ROLES-01"
+      ],
+      "name": "Derive Spatial Agent Roles",
+      "text": "Derive agent roles grounded in semantic zones and objects."
+    },
+    {
+      "id": "EFF-BESTFIT_CAREER_FAIR-GENERATE-ROOM-KNOWLEDGE-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-BESTFIT_CAREER_FAIR-KNOWLEDGE-VALID"
+      ],
+      "text": "Effect of GENERATE-ROOM-KNOWLEDGE: knowledge valid."
+    },
+    {
+      "id": "CAP-BESTFIT_CAREER_FAIR-GENERATE-ROOM-KNOWLEDGE",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-BESTFIT_CAREER_FAIR-GENERATE-ROOM-KNOWLEDGE-01"
+      ],
+      "name": "Generate Room Knowledge",
+      "text": "Generate local knowledge entries for all agent knowledge tags."
+    },
+    {
+      "id": "EFF-BESTFIT_CAREER_FAIR-PLACE-AGENTS-IN-SCENE-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-BESTFIT_CAREER_FAIR-PLACEMENT-VALID"
+      ],
+      "text": "Effect of PLACE-AGENTS-IN-SCENE: placement valid."
+    },
+    {
+      "id": "CAP-BESTFIT_CAREER_FAIR-PLACE-AGENTS-IN-SCENE",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-BESTFIT_CAREER_FAIR-PLACE-AGENTS-IN-SCENE-01"
+      ],
+      "name": "Place Agents In Scene",
+      "text": "Place agents in valid positions near their responsible zones."
+    },
+    {
+      "id": "EFF-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-BESTFIT_CAREER_FAIR-FUNCTIONALMLDS-VALID"
+      ],
+      "text": "Effect of ASSEMBLE-FUNCTIONAL-MLDS: functionalmlds valid."
+    },
+    {
+      "id": "CAP-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS-01"
+      ],
+      "name": "Assemble Functional Mlds",
+      "text": "Assemble a valid FunctionalMLDS instance for the case study."
+    },
+    {
+      "id": "EFF-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZED"
+      ],
+      "text": "Effect of MATERIALIZE-INTERACTIVE-AGENTS-PROJECT: project materialized."
+    },
+    {
+      "id": "CAP-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT-01"
+      ],
+      "name": "Materialize Interactive Agents Project",
+      "text": "Write backend-compatible Interactive Agents project files."
+    },
+    {
+      "id": "EFF-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-BESTFIT_CAREER_FAIR-SETUP-VALID"
+      ],
+      "text": "Effect of SETUP-INTERACTIVE-SESSION: setup valid."
+    },
+    {
+      "id": "CAP-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION-01"
+      ],
+      "name": "Setup Interactive Session",
+      "text": "Initialize the runtime session for the generated project."
+    },
+    {
+      "id": "EFF-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED"
+      ],
+      "text": "Effect of ANSWER-ROOM-GROUNDED-QUESTION: answer grounded."
+    },
+    {
+      "id": "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION-01"
+      ],
+      "name": "Answer Room Grounded Question",
+      "text": "Answer visitor questions using room-grounded agent knowledge."
+    },
+    {
+      "id": "EFF-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ],
+      "text": "Effect of HANDOFF-TO-RESPONSIBLE-AGENT: handoff valid."
+    },
+    {
+      "id": "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT-01"
+      ],
+      "name": "Handoff To Responsible Agent",
+      "text": "Forward a question to an existing responsible specialist agent."
+    },
+    {
+      "id": "LOC-RA-BESTFIT_CAREER_FAIR-RUN-MLDS-INGESTION",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.mlds_ingestion.run_ingestion_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-MLDS-INGESTION-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-MLDS-INGESTION-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-BESTFIT_CAREER_FAIR-RUN-MLDS-INGESTION",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-BESTFIT_CAREER_FAIR-RUN-MLDS-INGESTION"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-MLDS-INGESTION-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-MLDS-INGESTION-OUTPUT"
+      ]
+    },
+    {
+      "id": "LOC-RA-BESTFIT_CAREER_FAIR-RUN-SCENE-SEMANTICS",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.scene_semantics.run_scene_semantics_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-SCENE-SEMANTICS-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-SCENE-SEMANTICS-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-BESTFIT_CAREER_FAIR-RUN-SCENE-SEMANTICS",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-BESTFIT_CAREER_FAIR-RUN-SCENE-SEMANTICS"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-SCENE-SEMANTICS-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-SCENE-SEMANTICS-OUTPUT"
+      ]
+    },
+    {
+      "id": "LOC-RA-BESTFIT_CAREER_FAIR-ARROW-ANALYZE",
+      "type": "RuntimeActionLocator",
+      "kind": "endpoint",
+      "value": "POST /projects/arrow/analyze"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-ARROW-ANALYZE-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-ARROW-ANALYZE-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-BESTFIT_CAREER_FAIR-ARROW-ANALYZE",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-BESTFIT_CAREER_FAIR-ARROW-ANALYZE"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-ARROW-ANALYZE-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-ARROW-ANALYZE-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE",
+      "type": "RuntimeBinding",
+      "targetPlatform": "CaseStudyPipeline",
+      "capability": [
+        "CAP-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE"
+      ],
+      "runtimeAction": [
+        "RA-BESTFIT_CAREER_FAIR-RUN-MLDS-INGESTION",
+        "RA-BESTFIT_CAREER_FAIR-RUN-SCENE-SEMANTICS",
+        "RA-BESTFIT_CAREER_FAIR-ARROW-ANALYZE"
+      ]
+    },
+    {
+      "id": "LOC-RA-BESTFIT_CAREER_FAIR-RUN-AGENT-ROLES",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.agent_roles.run_agent_roles_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-AGENT-ROLES-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-AGENT-ROLES-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-BESTFIT_CAREER_FAIR-RUN-AGENT-ROLES",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-BESTFIT_CAREER_FAIR-RUN-AGENT-ROLES"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-AGENT-ROLES-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-AGENT-ROLES-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-BESTFIT_CAREER_FAIR-DERIVE-SPATIAL-AGENT-ROLES",
+      "type": "RuntimeBinding",
+      "targetPlatform": "CaseStudyPipeline",
+      "capability": [
+        "CAP-BESTFIT_CAREER_FAIR-DERIVE-SPATIAL-AGENT-ROLES"
+      ],
+      "runtimeAction": [
+        "RA-BESTFIT_CAREER_FAIR-RUN-AGENT-ROLES"
+      ]
+    },
+    {
+      "id": "LOC-RA-BESTFIT_CAREER_FAIR-RUN-KNOWLEDGE-SYNTHESIS",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.knowledge_synthesis.run_knowledge_synthesis_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-KNOWLEDGE-SYNTHESIS-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-KNOWLEDGE-SYNTHESIS-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-BESTFIT_CAREER_FAIR-RUN-KNOWLEDGE-SYNTHESIS",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-BESTFIT_CAREER_FAIR-RUN-KNOWLEDGE-SYNTHESIS"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-KNOWLEDGE-SYNTHESIS-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-KNOWLEDGE-SYNTHESIS-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-BESTFIT_CAREER_FAIR-GENERATE-ROOM-KNOWLEDGE",
+      "type": "RuntimeBinding",
+      "targetPlatform": "CaseStudyPipeline",
+      "capability": [
+        "CAP-BESTFIT_CAREER_FAIR-GENERATE-ROOM-KNOWLEDGE"
+      ],
+      "runtimeAction": [
+        "RA-BESTFIT_CAREER_FAIR-RUN-KNOWLEDGE-SYNTHESIS"
+      ]
+    },
+    {
+      "id": "LOC-RA-BESTFIT_CAREER_FAIR-RUN-AGENT-PLACEMENT",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.agent_placement.run_agent_placement_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-AGENT-PLACEMENT-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-AGENT-PLACEMENT-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-BESTFIT_CAREER_FAIR-RUN-AGENT-PLACEMENT",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-BESTFIT_CAREER_FAIR-RUN-AGENT-PLACEMENT"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-AGENT-PLACEMENT-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-AGENT-PLACEMENT-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-BESTFIT_CAREER_FAIR-PLACE-AGENTS-IN-SCENE",
+      "type": "RuntimeBinding",
+      "targetPlatform": "CaseStudyPipeline",
+      "capability": [
+        "CAP-BESTFIT_CAREER_FAIR-PLACE-AGENTS-IN-SCENE"
+      ],
+      "runtimeAction": [
+        "RA-BESTFIT_CAREER_FAIR-RUN-AGENT-PLACEMENT"
+      ]
+    },
+    {
+      "id": "LOC-RA-BESTFIT_CAREER_FAIR-RUN-FUNCTIONALMLDS-ASSEMBLER",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.functionalmlds_assembler.run_functionalmlds_assembly_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-FUNCTIONALMLDS-ASSEMBLER-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-FUNCTIONALMLDS-ASSEMBLER-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-BESTFIT_CAREER_FAIR-RUN-FUNCTIONALMLDS-ASSEMBLER",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-BESTFIT_CAREER_FAIR-RUN-FUNCTIONALMLDS-ASSEMBLER"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-FUNCTIONALMLDS-ASSEMBLER-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-RUN-FUNCTIONALMLDS-ASSEMBLER-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS",
+      "type": "RuntimeBinding",
+      "targetPlatform": "CaseStudyPipeline",
+      "capability": [
+        "CAP-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "runtimeAction": [
+        "RA-BESTFIT_CAREER_FAIR-RUN-FUNCTIONALMLDS-ASSEMBLER"
+      ]
+    },
+    {
+      "id": "LOC-RA-BESTFIT_CAREER_FAIR-ARROW-COMMIT",
+      "type": "RuntimeActionLocator",
+      "kind": "endpoint",
+      "value": "POST /projects/arrow/commit"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-ARROW-COMMIT-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-ARROW-COMMIT-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-BESTFIT_CAREER_FAIR-ARROW-COMMIT",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-BESTFIT_CAREER_FAIR-ARROW-COMMIT"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-ARROW-COMMIT-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-ARROW-COMMIT-OUTPUT"
+      ]
+    },
+    {
+      "id": "LOC-RA-BESTFIT_CAREER_FAIR-WRITE-PROJECT-FILES",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.project_materializer.run_project_materializer_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-WRITE-PROJECT-FILES-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-WRITE-PROJECT-FILES-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-BESTFIT_CAREER_FAIR-WRITE-PROJECT-FILES",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-BESTFIT_CAREER_FAIR-WRITE-PROJECT-FILES"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-WRITE-PROJECT-FILES-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-WRITE-PROJECT-FILES-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "type": "RuntimeBinding",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "capability": [
+        "CAP-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "runtimeAction": [
+        "RA-BESTFIT_CAREER_FAIR-ARROW-COMMIT",
+        "RA-BESTFIT_CAREER_FAIR-WRITE-PROJECT-FILES"
+      ]
+    },
+    {
+      "id": "LOC-RA-BESTFIT_CAREER_FAIR-BACKEND-SETUP",
+      "type": "RuntimeActionLocator",
+      "kind": "endpoint",
+      "value": "POST /setup"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-BACKEND-SETUP-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"setup\"}"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-BACKEND-SETUP-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-BESTFIT_CAREER_FAIR-BACKEND-SETUP",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-BESTFIT_CAREER_FAIR-BACKEND-SETUP"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-BACKEND-SETUP-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-BACKEND-SETUP-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION",
+      "type": "RuntimeBinding",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "capability": [
+        "CAP-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION"
+      ],
+      "runtimeAction": [
+        "RA-BESTFIT_CAREER_FAIR-BACKEND-SETUP"
+      ]
+    },
+    {
+      "id": "LOC-RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT",
+      "type": "RuntimeActionLocator",
+      "kind": "endpoint",
+      "value": "POST /chat"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"chat\"}"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+      "type": "RuntimeBinding",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "capability": [
+        "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "runtimeAction": [
+        "RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT"
+      ]
+    },
+    {
+      "id": "LOC-RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT-HANDOFF",
+      "type": "RuntimeActionLocator",
+      "kind": "endpoint",
+      "value": "POST /chat"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT-HANDOFF-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"handoff\"}"
+    },
+    {
+      "id": "SCHEMA-RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT-HANDOFF-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT-HANDOFF",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT-HANDOFF"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT-HANDOFF-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT-HANDOFF-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "type": "RuntimeBinding",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "capability": [
+        "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "runtimeAction": [
+        "RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT-HANDOFF"
+      ]
+    },
+    {
+      "id": "PV-STEP-BESTFIT_CAREER_FAIR-S01-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-BESTFIT_CAREER_FAIR-S01",
+      "type": "ScenarioStep",
+      "kind": "actorIntent",
+      "actorRole": [
+        "ACT-CASE-STUDY-ENGINEER"
+      ],
+      "performedBy": [],
+      "triggeredBy": [
+        "EV-BESTFIT_CAREER_FAIR-MLDS-PROVIDED"
+      ],
+      "resultingAssertion": [],
+      "capabilityUse": [],
+      "text": "Provide an MLDS file as case-study input.",
+      "guard": [
+        "COND-BESTFIT_CAREER_FAIR-VALID-INPUT"
+      ],
+      "occurrenceProbability": [
+        "PV-STEP-BESTFIT_CAREER_FAIR-S01-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-BESTFIT_CAREER_FAIR-S02-ANALYZE-MLDS-SCENE",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE"
+      ],
+      "provider": [
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-BESTFIT_CAREER_FAIR"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-BESTFIT_CAREER_FAIR-S02-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-BESTFIT_CAREER_FAIR-S02",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-BESTFIT_CAREER_FAIR-NORMALIZED-SCENE-VALID"
+      ],
+      "capabilityUse": [
+        "CU-BESTFIT_CAREER_FAIR-S02-ANALYZE-MLDS-SCENE"
+      ],
+      "text": "Load and normalize the MLDS scene.",
+      "occurrenceProbability": [
+        "PV-STEP-BESTFIT_CAREER_FAIR-S02-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-BESTFIT_CAREER_FAIR-S03-ANALYZE-MLDS-SCENE",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE"
+      ],
+      "provider": [
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-BESTFIT_CAREER_FAIR"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-BESTFIT_CAREER_FAIR-S03-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-BESTFIT_CAREER_FAIR-S03",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-BESTFIT_CAREER_FAIR-SCENE-SEMANTICS-VALID"
+      ],
+      "capabilityUse": [
+        "CU-BESTFIT_CAREER_FAIR-S03-ANALYZE-MLDS-SCENE"
+      ],
+      "text": "Derive semantic zones, visitor goals and interaction topics.",
+      "occurrenceProbability": [
+        "PV-STEP-BESTFIT_CAREER_FAIR-S03-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-BESTFIT_CAREER_FAIR-S04-DERIVE-SPATIAL-AGENT-ROLES",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-BESTFIT_CAREER_FAIR-DERIVE-SPATIAL-AGENT-ROLES"
+      ],
+      "provider": [
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-BESTFIT_CAREER_FAIR"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-BESTFIT_CAREER_FAIR-S04-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-BESTFIT_CAREER_FAIR-S04",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-BESTFIT_CAREER_FAIR-AGENT-ROLES-VALID"
+      ],
+      "capabilityUse": [
+        "CU-BESTFIT_CAREER_FAIR-S04-DERIVE-SPATIAL-AGENT-ROLES"
+      ],
+      "text": "Generate spatially grounded agent roles and handoff rules.",
+      "occurrenceProbability": [
+        "PV-STEP-BESTFIT_CAREER_FAIR-S04-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-BESTFIT_CAREER_FAIR-S05-GENERATE-ROOM-KNOWLEDGE",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-BESTFIT_CAREER_FAIR-GENERATE-ROOM-KNOWLEDGE"
+      ],
+      "provider": [
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-BESTFIT_CAREER_FAIR"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-BESTFIT_CAREER_FAIR-S05-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-BESTFIT_CAREER_FAIR-S05",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-BESTFIT_CAREER_FAIR-KNOWLEDGE-VALID"
+      ],
+      "capabilityUse": [
+        "CU-BESTFIT_CAREER_FAIR-S05-GENERATE-ROOM-KNOWLEDGE"
+      ],
+      "text": "Generate materialized knowledge entries for all agent knowledge tags.",
+      "occurrenceProbability": [
+        "PV-STEP-BESTFIT_CAREER_FAIR-S05-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-BESTFIT_CAREER_FAIR-S06-PLACE-AGENTS-IN-SCENE",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-BESTFIT_CAREER_FAIR-PLACE-AGENTS-IN-SCENE"
+      ],
+      "provider": [
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-BESTFIT_CAREER_FAIR"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-BESTFIT_CAREER_FAIR-S06-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-BESTFIT_CAREER_FAIR-S06",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-BESTFIT_CAREER_FAIR-PLACEMENT-VALID"
+      ],
+      "capabilityUse": [
+        "CU-BESTFIT_CAREER_FAIR-S06-PLACE-AGENTS-IN-SCENE"
+      ],
+      "text": "Place generated agents inside the room near their responsibilities.",
+      "occurrenceProbability": [
+        "PV-STEP-BESTFIT_CAREER_FAIR-S06-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-BESTFIT_CAREER_FAIR-S07-ASSEMBLE-FUNCTIONAL-MLDS",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "provider": [
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-BESTFIT_CAREER_FAIR"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-BESTFIT_CAREER_FAIR-S07-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-BESTFIT_CAREER_FAIR-S07",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-BESTFIT_CAREER_FAIR-FUNCTIONALMLDS-VALID"
+      ],
+      "capabilityUse": [
+        "CU-BESTFIT_CAREER_FAIR-S07-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "text": "Assemble and validate the FunctionalMLDS trace instance.",
+      "occurrenceProbability": [
+        "PV-STEP-BESTFIT_CAREER_FAIR-S07-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-BESTFIT_CAREER_FAIR-S08-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "provider": [
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-BESTFIT_CAREER_FAIR"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-BESTFIT_CAREER_FAIR-S08-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-BESTFIT_CAREER_FAIR-S08",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZED"
+      ],
+      "capabilityUse": [
+        "CU-BESTFIT_CAREER_FAIR-S08-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "text": "Materialize the Interactive Agents project files.",
+      "occurrenceProbability": [
+        "PV-STEP-BESTFIT_CAREER_FAIR-S08-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-BESTFIT_CAREER_FAIR-S09-SETUP-INTERACTIVE-SESSION",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION"
+      ],
+      "provider": [
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-BESTFIT_CAREER_FAIR"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-BESTFIT_CAREER_FAIR-S09-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-BESTFIT_CAREER_FAIR-S09",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-BESTFIT_CAREER_FAIR-SETUP-VALID"
+      ],
+      "capabilityUse": [
+        "CU-BESTFIT_CAREER_FAIR-S09-SETUP-INTERACTIVE-SESSION"
+      ],
+      "text": "Set up an Interactive Agents runtime session.",
+      "guard": [
+        "COND-BESTFIT_CAREER_FAIR-AGENTS-AVAILABLE"
+      ],
+      "occurrenceProbability": [
+        "PV-STEP-BESTFIT_CAREER_FAIR-S09-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "PV-STEP-BESTFIT_CAREER_FAIR-S10-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-BESTFIT_CAREER_FAIR-S10",
+      "type": "ScenarioStep",
+      "kind": "actorIntent",
+      "actorRole": [
+        "ACT-VISITOR"
+      ],
+      "performedBy": [],
+      "triggeredBy": [
+        "EV-BESTFIT_CAREER_FAIR-VISITOR-QUESTION"
+      ],
+      "resultingAssertion": [],
+      "capabilityUse": [],
+      "text": "Ask a room-related question to an agent.",
+      "occurrenceProbability": [
+        "PV-STEP-BESTFIT_CAREER_FAIR-S10-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-BESTFIT_CAREER_FAIR-S11-ANSWER-ROOM-GROUNDED-QUESTION",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "provider": [
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-BESTFIT_CAREER_FAIR"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-BESTFIT_CAREER_FAIR-S11-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-BESTFIT_CAREER_FAIR-S11",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED"
+      ],
+      "capabilityUse": [
+        "CU-BESTFIT_CAREER_FAIR-S11-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "text": "Answer the visitor question using grounded room knowledge.",
+      "occurrenceProbability": [
+        "PV-STEP-BESTFIT_CAREER_FAIR-S11-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-BESTFIT_CAREER_FAIR-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "provider": [
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-BESTFIT_CAREER_FAIR"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-BESTFIT_CAREER_FAIR-S12-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-BESTFIT_CAREER_FAIR-S12",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-BESTFIT_CAREER_FAIR-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [
+        "EV-BESTFIT_CAREER_FAIR-HANDOFF-NEEDED"
+      ],
+      "resultingAssertion": [
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ],
+      "capabilityUse": [
+        "CU-BESTFIT_CAREER_FAIR-S12-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "text": "Optionally hand off to the responsible specialist agent.",
+      "guard": [
+        "COND-BESTFIT_CAREER_FAIR-HANDOFF-TARGET-AVAILABLE"
+      ],
+      "occurrenceProbability": [
+        "PV-STEP-BESTFIT_CAREER_FAIR-S12-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "REL-BESTFIT_CAREER_FAIR-01-02",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S01"
+      ],
+      "targetStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S02"
+      ],
+      "source": [
+        "STEP-BESTFIT_CAREER_FAIR-S01"
+      ],
+      "target": [
+        "STEP-BESTFIT_CAREER_FAIR-S02"
+      ]
+    },
+    {
+      "id": "REL-BESTFIT_CAREER_FAIR-02-03",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S02"
+      ],
+      "targetStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S03"
+      ],
+      "source": [
+        "STEP-BESTFIT_CAREER_FAIR-S02"
+      ],
+      "target": [
+        "STEP-BESTFIT_CAREER_FAIR-S03"
+      ]
+    },
+    {
+      "id": "REL-BESTFIT_CAREER_FAIR-03-04",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S03"
+      ],
+      "targetStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S04"
+      ],
+      "source": [
+        "STEP-BESTFIT_CAREER_FAIR-S03"
+      ],
+      "target": [
+        "STEP-BESTFIT_CAREER_FAIR-S04"
+      ]
+    },
+    {
+      "id": "REL-BESTFIT_CAREER_FAIR-04-05",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S04"
+      ],
+      "targetStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S05"
+      ],
+      "source": [
+        "STEP-BESTFIT_CAREER_FAIR-S04"
+      ],
+      "target": [
+        "STEP-BESTFIT_CAREER_FAIR-S05"
+      ]
+    },
+    {
+      "id": "REL-BESTFIT_CAREER_FAIR-05-06",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S05"
+      ],
+      "targetStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S06"
+      ],
+      "source": [
+        "STEP-BESTFIT_CAREER_FAIR-S05"
+      ],
+      "target": [
+        "STEP-BESTFIT_CAREER_FAIR-S06"
+      ]
+    },
+    {
+      "id": "REL-BESTFIT_CAREER_FAIR-06-07",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S06"
+      ],
+      "targetStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S07"
+      ],
+      "source": [
+        "STEP-BESTFIT_CAREER_FAIR-S06"
+      ],
+      "target": [
+        "STEP-BESTFIT_CAREER_FAIR-S07"
+      ]
+    },
+    {
+      "id": "REL-BESTFIT_CAREER_FAIR-07-08",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S07"
+      ],
+      "targetStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S08"
+      ],
+      "source": [
+        "STEP-BESTFIT_CAREER_FAIR-S07"
+      ],
+      "target": [
+        "STEP-BESTFIT_CAREER_FAIR-S08"
+      ]
+    },
+    {
+      "id": "REL-BESTFIT_CAREER_FAIR-08-09",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S08"
+      ],
+      "targetStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S09"
+      ],
+      "source": [
+        "STEP-BESTFIT_CAREER_FAIR-S08"
+      ],
+      "target": [
+        "STEP-BESTFIT_CAREER_FAIR-S09"
+      ]
+    },
+    {
+      "id": "REL-BESTFIT_CAREER_FAIR-09-10",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S09"
+      ],
+      "targetStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S10"
+      ],
+      "source": [
+        "STEP-BESTFIT_CAREER_FAIR-S09"
+      ],
+      "target": [
+        "STEP-BESTFIT_CAREER_FAIR-S10"
+      ]
+    },
+    {
+      "id": "REL-BESTFIT_CAREER_FAIR-10-11",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S10"
+      ],
+      "targetStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S11"
+      ],
+      "source": [
+        "STEP-BESTFIT_CAREER_FAIR-S10"
+      ],
+      "target": [
+        "STEP-BESTFIT_CAREER_FAIR-S11"
+      ]
+    },
+    {
+      "id": "REL-BESTFIT_CAREER_FAIR-11-12",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S11"
+      ],
+      "targetStep": [
+        "STEP-BESTFIT_CAREER_FAIR-S12"
+      ],
+      "source": [
+        "STEP-BESTFIT_CAREER_FAIR-S11"
+      ],
+      "target": [
+        "STEP-BESTFIT_CAREER_FAIR-S12"
+      ]
+    },
+    {
+      "id": "SC-BESTFIT_CAREER_FAIR-MAIN",
+      "type": "Scenario",
+      "kind": "main",
+      "precondition": [
+        "COND-BESTFIT_CAREER_FAIR-VALID-INPUT"
+      ],
+      "postcondition": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED"
+      ],
+      "step": [
+        "STEP-BESTFIT_CAREER_FAIR-S01",
+        "STEP-BESTFIT_CAREER_FAIR-S02",
+        "STEP-BESTFIT_CAREER_FAIR-S03",
+        "STEP-BESTFIT_CAREER_FAIR-S04",
+        "STEP-BESTFIT_CAREER_FAIR-S05",
+        "STEP-BESTFIT_CAREER_FAIR-S06",
+        "STEP-BESTFIT_CAREER_FAIR-S07",
+        "STEP-BESTFIT_CAREER_FAIR-S08",
+        "STEP-BESTFIT_CAREER_FAIR-S09",
+        "STEP-BESTFIT_CAREER_FAIR-S10",
+        "STEP-BESTFIT_CAREER_FAIR-S11",
+        "STEP-BESTFIT_CAREER_FAIR-S12"
+      ],
+      "stepRelation": [
+        "REL-BESTFIT_CAREER_FAIR-01-02",
+        "REL-BESTFIT_CAREER_FAIR-02-03",
+        "REL-BESTFIT_CAREER_FAIR-03-04",
+        "REL-BESTFIT_CAREER_FAIR-04-05",
+        "REL-BESTFIT_CAREER_FAIR-05-06",
+        "REL-BESTFIT_CAREER_FAIR-06-07",
+        "REL-BESTFIT_CAREER_FAIR-07-08",
+        "REL-BESTFIT_CAREER_FAIR-08-09",
+        "REL-BESTFIT_CAREER_FAIR-09-10",
+        "REL-BESTFIT_CAREER_FAIR-10-11",
+        "REL-BESTFIT_CAREER_FAIR-11-12"
+      ],
+      "parallelGroup": [],
+      "text": "Main scenario for generating and using a spatially grounded multi-agent room guide."
+    },
+    {
+      "id": "EXPR-AST-BESTFIT_CAREER_FAIR-DERIVED-EVENT",
+      "type": "EAExpression",
+      "mixedStringContent": "The projected runtime trigger is observable."
+    },
+    {
+      "id": "AST-BESTFIT_CAREER_FAIR-DERIVED-EVENT",
+      "type": "EventAssertion",
+      "subject": [
+        "EV-BESTFIT_CAREER_FAIR-MLDS-PROVIDED"
+      ],
+      "expression": [
+        "EXPR-AST-BESTFIT_CAREER_FAIR-DERIVED-EVENT"
+      ],
+      "expressionText": "The projected runtime trigger is observable.",
+      "severity": "warning"
+    },
+    {
+      "id": "EXPR-AST-BESTFIT_CAREER_FAIR-DERIVED-OUTPUT",
+      "type": "EAExpression",
+      "mixedStringContent": "The bound runtime action produces an observable output."
+    },
+    {
+      "id": "AST-BESTFIT_CAREER_FAIR-DERIVED-OUTPUT",
+      "type": "OutputAssertion",
+      "subject": [
+        "RA-BESTFIT_CAREER_FAIR-RUN-MLDS-INGESTION"
+      ],
+      "expression": [
+        "EXPR-AST-BESTFIT_CAREER_FAIR-DERIVED-OUTPUT"
+      ],
+      "expressionText": "The bound runtime action produces an observable output.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-AST-BESTFIT_CAREER_FAIR-DERIVED-GROUNDING",
+      "type": "EAExpression",
+      "mixedStringContent": "The runtime participant remains grounded in an identifiable model entity."
+    },
+    {
+      "id": "AST-BESTFIT_CAREER_FAIR-DERIVED-GROUNDING",
+      "type": "GroundingAssertion",
+      "subject": [
+        "ENT-ZONE-RECEPTION_ZONE"
+      ],
+      "expression": [
+        "EXPR-AST-BESTFIT_CAREER_FAIR-DERIVED-GROUNDING"
+      ],
+      "expressionText": "The runtime participant remains grounded in an identifiable model entity.",
+      "severity": "warning"
+    },
+    {
+      "id": "EXPR-AST-BESTFIT_CAREER_FAIR-DERIVED-RELATION",
+      "type": "EAExpression",
+      "mixedStringContent": "The capability occurrence is linked to its explicit provider and targets."
+    },
+    {
+      "id": "AST-BESTFIT_CAREER_FAIR-DERIVED-RELATION",
+      "type": "RelationAssertion",
+      "subject": [
+        "CU-BESTFIT_CAREER_FAIR-S02-ANALYZE-MLDS-SCENE"
+      ],
+      "expression": [
+        "EXPR-AST-BESTFIT_CAREER_FAIR-DERIVED-RELATION"
+      ],
+      "expressionText": "The capability occurrence is linked to its explicit provider and targets.",
+      "severity": "critical"
+    },
+    {
+      "id": "UC-BESTFIT_CAREER_FAIR-01-ACTOR-1",
+      "type": "ActorParticipation",
+      "actor": [
+        "ACT-CASE-STUDY-ENGINEER"
+      ],
+      "useCase": [
+        "UC-BESTFIT_CAREER_FAIR-01"
+      ]
+    },
+    {
+      "id": "UC-BESTFIT_CAREER_FAIR-01-ACTOR-2",
+      "type": "ActorParticipation",
+      "actor": [
+        "ACT-VISITOR"
+      ],
+      "useCase": [
+        "UC-BESTFIT_CAREER_FAIR-01"
+      ]
+    },
+    {
+      "id": "UC-BESTFIT_CAREER_FAIR-01-ACTOR-3",
+      "type": "ActorParticipation",
+      "actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "useCase": [
+        "UC-BESTFIT_CAREER_FAIR-01"
+      ]
+    },
+    {
+      "id": "UC-BESTFIT_CAREER_FAIR-01-SPEC-SC-BESTFIT_CAREER_FAIR-MAIN",
+      "type": "UseCaseScenarioSpecification",
+      "useCase": [
+        "UC-BESTFIT_CAREER_FAIR-01"
+      ],
+      "scenario": [
+        "SC-BESTFIT_CAREER_FAIR-MAIN"
+      ]
+    },
+    {
+      "id": "SAT-REQ-BESTFIT_CAREER_FAIR-001",
+      "type": "Satisfy",
+      "satisfiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-001"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-BESTFIT_CAREER_FAIR-01",
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-BESTFIT_CAREER_FAIR-002",
+      "type": "Satisfy",
+      "satisfiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-002"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-BESTFIT_CAREER_FAIR-01",
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-BESTFIT_CAREER_FAIR-003",
+      "type": "Satisfy",
+      "satisfiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-003"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-BESTFIT_CAREER_FAIR-01",
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-BESTFIT_CAREER_FAIR-004",
+      "type": "Satisfy",
+      "satisfiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-004"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-BESTFIT_CAREER_FAIR-01",
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-BESTFIT_CAREER_FAIR-005",
+      "type": "Satisfy",
+      "satisfiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-005"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-BESTFIT_CAREER_FAIR-01",
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-BESTFIT_CAREER_FAIR-006",
+      "type": "Satisfy",
+      "satisfiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-006"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-BESTFIT_CAREER_FAIR-01",
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-TARGET-1",
+      "type": "RuntimeValidationTarget",
+      "platform": "CaseStudyPipeline",
+      "environmentRef": "case:bestfit_career_fair",
+      "element": [
+        "RB-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE"
+      ],
+      "runtimeBinding": [
+        "RB-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-TARGET-1",
+      "type": "RuntimeValidationTarget",
+      "platform": "CaseStudyPipeline",
+      "environmentRef": "case:bestfit_career_fair",
+      "element": [
+        "RB-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "runtimeBinding": [
+        "RB-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-TARGET-1",
+      "type": "RuntimeValidationTarget",
+      "platform": "InteractiveAgentsBackend",
+      "environmentRef": "case:bestfit_career_fair",
+      "element": [
+        "RB-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "runtimeBinding": [
+        "RB-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-SETUP-TARGET-1",
+      "type": "RuntimeValidationTarget",
+      "platform": "InteractiveAgentsBackend",
+      "environmentRef": "case:bestfit_career_fair",
+      "element": [
+        "RB-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION"
+      ],
+      "runtimeBinding": [
+        "RB-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-TARGET-1",
+      "type": "RuntimeValidationTarget",
+      "platform": "InteractiveAgentsBackend",
+      "environmentRef": "case:bestfit_career_fair",
+      "element": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "runtimeBinding": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-HANDOFF-TARGET-1",
+      "type": "RuntimeValidationTarget",
+      "platform": "InteractiveAgentsBackend",
+      "environmentRef": "case:bestfit_career_fair",
+      "element": [
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "runtimeBinding": [
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-STIMULUS-1",
+      "type": "RuntimeStimulus",
+      "scenarioEvent": [
+        "EV-BESTFIT_CAREER_FAIR-MLDS-PROVIDED"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-OUTCOME-1",
+      "type": "StateAssertionOutcome",
+      "assertion": [
+        "SA-BESTFIT_CAREER_FAIR-NORMALIZED-SCENE-VALID"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-PROCEDURE",
+      "type": "RuntimeValidationProcedure",
+      "vvStimuli": [
+        "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-STIMULUS-1"
+      ],
+      "vvIntendedOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-OUTCOME-1"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1",
+      "type": "AssertionResult",
+      "assertion": [
+        "SA-BESTFIT_CAREER_FAIR-NORMALIZED-SCENE-VALID"
+      ],
+      "verdict": "inconclusive",
+      "evidenceRef": "pending://bestfit_career_fair/VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION/SA-BESTFIT_CAREER_FAIR-NORMALIZED-SCENE-VALID"
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-PROCEDURE-LOG-PENDING-ACTUAL-1",
+      "type": "RuntimeActualOutcome",
+      "intendedOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-OUTCOME-1"
+      ],
+      "result": [
+        "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-PROCEDURE-LOG-PENDING",
+      "type": "RuntimeValidationLog",
+      "date": "1970-01-01T00:00:00Z",
+      "performedVVProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-PROCEDURE"
+      ],
+      "vvActualOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ],
+      "actualOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION",
+      "type": "ValidationCase",
+      "vvSubject": [
+        "RB-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE"
+      ],
+      "vvTarget": [
+        "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-TARGET-1"
+      ],
+      "vvProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-PROCEDURE"
+      ],
+      "vvLog": [
+        "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-PROCEDURE-LOG-PENDING"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-OUTCOME-1",
+      "type": "StateAssertionOutcome",
+      "assertion": [
+        "SA-BESTFIT_CAREER_FAIR-FUNCTIONALMLDS-VALID"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-PROCEDURE",
+      "type": "RuntimeValidationProcedure",
+      "vvStimuli": [],
+      "vvIntendedOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-OUTCOME-1"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1",
+      "type": "AssertionResult",
+      "assertion": [
+        "SA-BESTFIT_CAREER_FAIR-FUNCTIONALMLDS-VALID"
+      ],
+      "verdict": "inconclusive",
+      "evidenceRef": "pending://bestfit_career_fair/VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS/SA-BESTFIT_CAREER_FAIR-FUNCTIONALMLDS-VALID"
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING-ACTUAL-1",
+      "type": "RuntimeActualOutcome",
+      "intendedOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-OUTCOME-1"
+      ],
+      "result": [
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING",
+      "type": "RuntimeValidationLog",
+      "date": "1970-01-01T00:00:00Z",
+      "performedVVProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-PROCEDURE"
+      ],
+      "vvActualOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ],
+      "actualOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS",
+      "type": "ValidationCase",
+      "vvSubject": [
+        "RB-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "vvTarget": [
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-TARGET-1"
+      ],
+      "vvProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-PROCEDURE"
+      ],
+      "vvLog": [
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-OUTCOME-1",
+      "type": "StateAssertionOutcome",
+      "assertion": [
+        "SA-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZED"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-PROCEDURE",
+      "type": "RuntimeValidationProcedure",
+      "vvStimuli": [],
+      "vvIntendedOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-OUTCOME-1"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1",
+      "type": "AssertionResult",
+      "assertion": [
+        "SA-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZED"
+      ],
+      "verdict": "inconclusive",
+      "evidenceRef": "pending://bestfit_career_fair/VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION/SA-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZED"
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING-ACTUAL-1",
+      "type": "RuntimeActualOutcome",
+      "intendedOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-OUTCOME-1"
+      ],
+      "result": [
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING",
+      "type": "RuntimeValidationLog",
+      "date": "1970-01-01T00:00:00Z",
+      "performedVVProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-PROCEDURE"
+      ],
+      "vvActualOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ],
+      "actualOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION",
+      "type": "ValidationCase",
+      "vvSubject": [
+        "RB-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "vvTarget": [
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-TARGET-1"
+      ],
+      "vvProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-PROCEDURE"
+      ],
+      "vvLog": [
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-SETUP-OUTCOME-1",
+      "type": "StateAssertionOutcome",
+      "assertion": [
+        "SA-BESTFIT_CAREER_FAIR-SETUP-VALID"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-SETUP-PROCEDURE",
+      "type": "RuntimeValidationProcedure",
+      "vvStimuli": [],
+      "vvIntendedOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-SETUP-OUTCOME-1"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-SETUP-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1",
+      "type": "AssertionResult",
+      "assertion": [
+        "SA-BESTFIT_CAREER_FAIR-SETUP-VALID"
+      ],
+      "verdict": "inconclusive",
+      "evidenceRef": "pending://bestfit_career_fair/VC-BESTFIT_CAREER_FAIR-SETUP/SA-BESTFIT_CAREER_FAIR-SETUP-VALID"
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-SETUP-PROCEDURE-LOG-PENDING-ACTUAL-1",
+      "type": "RuntimeActualOutcome",
+      "intendedOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-SETUP-OUTCOME-1"
+      ],
+      "result": [
+        "VC-BESTFIT_CAREER_FAIR-SETUP-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-SETUP-PROCEDURE-LOG-PENDING",
+      "type": "RuntimeValidationLog",
+      "date": "1970-01-01T00:00:00Z",
+      "performedVVProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-SETUP-PROCEDURE"
+      ],
+      "vvActualOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-SETUP-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ],
+      "actualOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-SETUP-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-SETUP",
+      "type": "ValidationCase",
+      "vvSubject": [
+        "RB-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION"
+      ],
+      "vvTarget": [
+        "VC-BESTFIT_CAREER_FAIR-SETUP-TARGET-1"
+      ],
+      "vvProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-SETUP-PROCEDURE"
+      ],
+      "vvLog": [
+        "VC-BESTFIT_CAREER_FAIR-SETUP-PROCEDURE-LOG-PENDING"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-STIMULUS-1",
+      "type": "RuntimeStimulus",
+      "scenarioEvent": [
+        "EV-BESTFIT_CAREER_FAIR-VISITOR-QUESTION"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-OUTCOME-1",
+      "type": "StateAssertionOutcome",
+      "assertion": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-PROCEDURE",
+      "type": "RuntimeValidationProcedure",
+      "vvStimuli": [
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-STIMULUS-1"
+      ],
+      "vvIntendedOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-OUTCOME-1"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1",
+      "type": "AssertionResult",
+      "assertion": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED"
+      ],
+      "verdict": "inconclusive",
+      "evidenceRef": "pending://bestfit_career_fair/VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING/SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED"
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-PROCEDURE-LOG-PENDING-ACTUAL-1",
+      "type": "RuntimeActualOutcome",
+      "intendedOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-OUTCOME-1"
+      ],
+      "result": [
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-PROCEDURE-LOG-PENDING",
+      "type": "RuntimeValidationLog",
+      "date": "1970-01-01T00:00:00Z",
+      "performedVVProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-PROCEDURE"
+      ],
+      "vvActualOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ],
+      "actualOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING",
+      "type": "ValidationCase",
+      "vvSubject": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "vvTarget": [
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-TARGET-1"
+      ],
+      "vvProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-PROCEDURE"
+      ],
+      "vvLog": [
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-PROCEDURE-LOG-PENDING"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-HANDOFF-STIMULUS-1",
+      "type": "RuntimeStimulus",
+      "scenarioEvent": [
+        "EV-BESTFIT_CAREER_FAIR-HANDOFF-NEEDED"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-HANDOFF-OUTCOME-1",
+      "type": "StateAssertionOutcome",
+      "assertion": [
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-HANDOFF-PROCEDURE",
+      "type": "RuntimeValidationProcedure",
+      "vvStimuli": [
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF-STIMULUS-1"
+      ],
+      "vvIntendedOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF-OUTCOME-1"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-HANDOFF-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1",
+      "type": "AssertionResult",
+      "assertion": [
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ],
+      "verdict": "inconclusive",
+      "evidenceRef": "pending://bestfit_career_fair/VC-BESTFIT_CAREER_FAIR-HANDOFF/SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-HANDOFF-PROCEDURE-LOG-PENDING-ACTUAL-1",
+      "type": "RuntimeActualOutcome",
+      "intendedOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF-OUTCOME-1"
+      ],
+      "result": [
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-HANDOFF-PROCEDURE-LOG-PENDING",
+      "type": "RuntimeValidationLog",
+      "date": "1970-01-01T00:00:00Z",
+      "performedVVProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF-PROCEDURE"
+      ],
+      "vvActualOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ],
+      "actualOutcome": [
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-HANDOFF",
+      "type": "ValidationCase",
+      "vvSubject": [
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "vvTarget": [
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF-TARGET-1"
+      ],
+      "vvProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF-PROCEDURE"
+      ],
+      "vvLog": [
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF-PROCEDURE-LOG-PENDING"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-VERIFY-1",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-001"
+      ],
+      "verifiedByCase": [
+        "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION"
+      ],
+      "verifiedByProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-BESTFIT_CAREER_FAIR-001"
+      ],
+      "vvCase": [
+        "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-VERIFY-1",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-006"
+      ],
+      "verifiedByCase": [
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS"
+      ],
+      "verifiedByProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-BESTFIT_CAREER_FAIR-006"
+      ],
+      "vvCase": [
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-VERIFY-1",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-004"
+      ],
+      "verifiedByCase": [
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION"
+      ],
+      "verifiedByProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-BESTFIT_CAREER_FAIR-004"
+      ],
+      "vvCase": [
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-VERIFY-2",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-005"
+      ],
+      "verifiedByCase": [
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION"
+      ],
+      "verifiedByProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-BESTFIT_CAREER_FAIR-005"
+      ],
+      "vvCase": [
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-SETUP-VERIFY-1",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-003"
+      ],
+      "verifiedByCase": [
+        "VC-BESTFIT_CAREER_FAIR-SETUP"
+      ],
+      "verifiedByProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-SETUP-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-BESTFIT_CAREER_FAIR-003"
+      ],
+      "vvCase": [
+        "VC-BESTFIT_CAREER_FAIR-SETUP"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-SETUP-VERIFY-2",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-005"
+      ],
+      "verifiedByCase": [
+        "VC-BESTFIT_CAREER_FAIR-SETUP"
+      ],
+      "verifiedByProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-SETUP-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-BESTFIT_CAREER_FAIR-005"
+      ],
+      "vvCase": [
+        "VC-BESTFIT_CAREER_FAIR-SETUP"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-VERIFY-1",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-002"
+      ],
+      "verifiedByCase": [
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING"
+      ],
+      "verifiedByProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-BESTFIT_CAREER_FAIR-002"
+      ],
+      "vvCase": [
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-VERIFY-2",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-004"
+      ],
+      "verifiedByCase": [
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING"
+      ],
+      "verifiedByProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-BESTFIT_CAREER_FAIR-004"
+      ],
+      "vvCase": [
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-VERIFY-3",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-006"
+      ],
+      "verifiedByCase": [
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING"
+      ],
+      "verifiedByProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-BESTFIT_CAREER_FAIR-006"
+      ],
+      "vvCase": [
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-HANDOFF-VERIFY-1",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-003"
+      ],
+      "verifiedByCase": [
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF"
+      ],
+      "verifiedByProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-BESTFIT_CAREER_FAIR-003"
+      ],
+      "vvCase": [
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-HANDOFF-VERIFY-2",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-006"
+      ],
+      "verifiedByCase": [
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF"
+      ],
+      "verifiedByProcedure": [
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-BESTFIT_CAREER_FAIR-006"
+      ],
+      "vvCase": [
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-USECASE-1",
+      "type": "ValidationCaseUseCaseBinding",
+      "validationCase": [
+        "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION"
+      ],
+      "useCase": [
+        "UC-BESTFIT_CAREER_FAIR-01"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-USECASE-1",
+      "type": "ValidationCaseUseCaseBinding",
+      "validationCase": [
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS"
+      ],
+      "useCase": [
+        "UC-BESTFIT_CAREER_FAIR-01"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-USECASE-1",
+      "type": "ValidationCaseUseCaseBinding",
+      "validationCase": [
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION"
+      ],
+      "useCase": [
+        "UC-BESTFIT_CAREER_FAIR-01"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-SETUP-USECASE-1",
+      "type": "ValidationCaseUseCaseBinding",
+      "validationCase": [
+        "VC-BESTFIT_CAREER_FAIR-SETUP"
+      ],
+      "useCase": [
+        "UC-BESTFIT_CAREER_FAIR-01"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-USECASE-1",
+      "type": "ValidationCaseUseCaseBinding",
+      "validationCase": [
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING"
+      ],
+      "useCase": [
+        "UC-BESTFIT_CAREER_FAIR-01"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-HANDOFF-USECASE-1",
+      "type": "ValidationCaseUseCaseBinding",
+      "validationCase": [
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF"
+      ],
+      "useCase": [
+        "UC-BESTFIT_CAREER_FAIR-01"
+      ]
+    },
+    {
+      "id": "VV-BESTFIT_CAREER_FAIR",
+      "type": "VerificationValidation",
+      "vvTarget": [
+        "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-TARGET-1",
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-TARGET-1",
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-TARGET-1",
+        "VC-BESTFIT_CAREER_FAIR-SETUP-TARGET-1",
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-TARGET-1",
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF-TARGET-1"
+      ],
+      "vvCase": [
+        "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION",
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS",
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION",
+        "VC-BESTFIT_CAREER_FAIR-SETUP",
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING",
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF"
+      ],
+      "verify": [
+        "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION-VERIFY-1",
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS-VERIFY-1",
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-VERIFY-1",
+        "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION-VERIFY-2",
+        "VC-BESTFIT_CAREER_FAIR-SETUP-VERIFY-1",
+        "VC-BESTFIT_CAREER_FAIR-SETUP-VERIFY-2",
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-VERIFY-1",
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-VERIFY-2",
+        "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING-VERIFY-3",
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF-VERIFY-1",
+        "VC-BESTFIT_CAREER_FAIR-HANDOFF-VERIFY-2"
+      ]
+    }
+  ]
+}

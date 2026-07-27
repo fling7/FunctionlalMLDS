@@ -1,0 +1,14 @@
+UNITY_V2_SMOKE_BACKEND_READY http://127.0.0.1:18787
+[ProjectManager] Initialisiert: C:\Users\burklo\Documents\FunctionalMLDS\InteractivAgents\openai_unity_expert_npcs_pycharm\InteractiveAgents\projects
+[HTTP] -> GET /projects
+[ProjectAPI] Liste Projekte abrufen
+[ProjectManager] Projektliste geladen: 15 Projekte
+[HTTP] <- GET /projects 200
+[HTTP] "GET /projects HTTP/1.1" 200 -
+[HTTP] -> POST /setup
+[HTTP] <- POST /setup 200
+[HTTP] "POST /setup HTTP/1.1" 200 -
+[HTTP] -> GET /projects/classroom_dinosaur/functionalmlds-v2
+[ProjectAPI] FunctionalMLDS V2 laden: classroom_dinosaur
+[HTTP] <- GET /projects/classroom_dinosaur/functionalmlds-v2 200
+[HTTP] "GET /projects/classroom_dinosaur/functionalmlds-v2 HTTP/1.1" 200 -

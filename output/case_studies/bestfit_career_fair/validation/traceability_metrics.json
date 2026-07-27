@@ -1,0 +1,276 @@
+{
+  "status": "valid",
+  "errors": [],
+  "warnings": [
+    "scenario_step_to_capability_coverage coverage is 0.833333 (10/12).",
+    "runtime_action_to_log_coverage coverage is 0.25 (3/12)."
+  ],
+  "metrics": {
+    "metric_count": 6,
+    "full_coverage_metric_count": 4,
+    "partial_coverage_metric_count": 2,
+    "average_coverage": 0.847222
+  },
+  "traceability_metrics": [
+    {
+      "metric_id": "requirement_to_validation_coverage",
+      "description": "Share of Requirements referenced by at least one ValidationCase.",
+      "numerator": 6,
+      "denominator": 6,
+      "coverage": 1.0,
+      "covered_ids": [
+        "REQ-BESTFIT_CAREER_FAIR-001",
+        "REQ-BESTFIT_CAREER_FAIR-002",
+        "REQ-BESTFIT_CAREER_FAIR-003",
+        "REQ-BESTFIT_CAREER_FAIR-004",
+        "REQ-BESTFIT_CAREER_FAIR-005",
+        "REQ-BESTFIT_CAREER_FAIR-006"
+      ],
+      "uncovered_ids": [],
+      "details": {
+        "validation_cases_by_requirement": {
+          "REQ-BESTFIT_CAREER_FAIR-001": [
+            "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION"
+          ],
+          "REQ-BESTFIT_CAREER_FAIR-002": [
+            "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING"
+          ],
+          "REQ-BESTFIT_CAREER_FAIR-006": [
+            "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS",
+            "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING",
+            "VC-BESTFIT_CAREER_FAIR-HANDOFF"
+          ],
+          "REQ-BESTFIT_CAREER_FAIR-004": [
+            "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION",
+            "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING"
+          ],
+          "REQ-BESTFIT_CAREER_FAIR-003": [
+            "VC-BESTFIT_CAREER_FAIR-SETUP",
+            "VC-BESTFIT_CAREER_FAIR-HANDOFF"
+          ],
+          "REQ-BESTFIT_CAREER_FAIR-005": [
+            "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION",
+            "VC-BESTFIT_CAREER_FAIR-SETUP"
+          ]
+        }
+      }
+    },
+    {
+      "metric_id": "scenario_step_to_capability_coverage",
+      "description": "Share of ScenarioSteps operationalized by at least one existing CapabilityUse.",
+      "numerator": 10,
+      "denominator": 12,
+      "coverage": 0.833333,
+      "covered_ids": [
+        "STEP-BESTFIT_CAREER_FAIR-S02",
+        "STEP-BESTFIT_CAREER_FAIR-S03",
+        "STEP-BESTFIT_CAREER_FAIR-S04",
+        "STEP-BESTFIT_CAREER_FAIR-S05",
+        "STEP-BESTFIT_CAREER_FAIR-S06",
+        "STEP-BESTFIT_CAREER_FAIR-S07",
+        "STEP-BESTFIT_CAREER_FAIR-S08",
+        "STEP-BESTFIT_CAREER_FAIR-S09",
+        "STEP-BESTFIT_CAREER_FAIR-S11",
+        "STEP-BESTFIT_CAREER_FAIR-S12"
+      ],
+      "uncovered_ids": [
+        "STEP-BESTFIT_CAREER_FAIR-S01",
+        "STEP-BESTFIT_CAREER_FAIR-S10"
+      ],
+      "details": {
+        "invalid_capability_use_refs": {},
+        "uncovered_step_kinds": {
+          "STEP-BESTFIT_CAREER_FAIR-S01": "actorIntent",
+          "STEP-BESTFIT_CAREER_FAIR-S10": "actorIntent"
+        }
+      }
+    },
+    {
+      "metric_id": "capability_to_runtime_binding_coverage",
+      "description": "Share of Capabilities with at least one RuntimeBinding.",
+      "numerator": 9,
+      "denominator": 9,
+      "coverage": 1.0,
+      "covered_ids": [
+        "CAP-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE",
+        "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS",
+        "CAP-BESTFIT_CAREER_FAIR-DERIVE-SPATIAL-AGENT-ROLES",
+        "CAP-BESTFIT_CAREER_FAIR-GENERATE-ROOM-KNOWLEDGE",
+        "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT",
+        "CAP-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+        "CAP-BESTFIT_CAREER_FAIR-PLACE-AGENTS-IN-SCENE",
+        "CAP-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION"
+      ],
+      "uncovered_ids": [],
+      "details": {}
+    },
+    {
+      "metric_id": "runtime_action_to_log_coverage",
+      "description": "Share of RuntimeActions observed in runtime_logs/events.jsonl.",
+      "numerator": 3,
+      "denominator": 12,
+      "coverage": 0.25,
+      "covered_ids": [
+        "RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT",
+        "RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT-HANDOFF",
+        "RA-BESTFIT_CAREER_FAIR-BACKEND-SETUP"
+      ],
+      "uncovered_ids": [
+        "RA-BESTFIT_CAREER_FAIR-ARROW-ANALYZE",
+        "RA-BESTFIT_CAREER_FAIR-ARROW-COMMIT",
+        "RA-BESTFIT_CAREER_FAIR-RUN-AGENT-PLACEMENT",
+        "RA-BESTFIT_CAREER_FAIR-RUN-AGENT-ROLES",
+        "RA-BESTFIT_CAREER_FAIR-RUN-FUNCTIONALMLDS-ASSEMBLER",
+        "RA-BESTFIT_CAREER_FAIR-RUN-KNOWLEDGE-SYNTHESIS",
+        "RA-BESTFIT_CAREER_FAIR-RUN-MLDS-INGESTION",
+        "RA-BESTFIT_CAREER_FAIR-RUN-SCENE-SEMANTICS",
+        "RA-BESTFIT_CAREER_FAIR-WRITE-PROJECT-FILES"
+      ],
+      "details": {
+        "runtime_log_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\runtime_logs\\events.jsonl",
+        "logged_runtime_action_ids": [
+          "RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT",
+          "RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT-HANDOFF",
+          "RA-BESTFIT_CAREER_FAIR-BACKEND-SETUP"
+        ]
+      }
+    },
+    {
+      "metric_id": "agent_to_knowledge_tag_coverage",
+      "description": "Share of Agents whose knowledge_tags are fully backed by generated knowledge entries.",
+      "numerator": 5,
+      "denominator": 5,
+      "coverage": 1.0,
+      "covered_ids": [
+        "benefits_expert",
+        "demo_technician",
+        "hospitality_agent",
+        "reception_agent",
+        "recruiting_agent"
+      ],
+      "uncovered_ids": [],
+      "details": {
+        "available_knowledge_tags": [
+          "application_process",
+          "career_opportunities",
+          "company_basics",
+          "company_benefits",
+          "employee_wellbeing",
+          "interactive_kiosks",
+          "interactive_terminals",
+          "job_recruiting",
+          "lounge_services",
+          "navigation",
+          "product_demos",
+          "refreshments",
+          "visitor_comfort",
+          "visitor_orientation",
+          "vr_ar_technology"
+        ],
+        "missing_tags_by_agent": {}
+      }
+    },
+    {
+      "metric_id": "object_group_to_agent_role_grounding",
+      "description": "Share of semantic MLDS object groups grounded by at least one AgentRole grounded_object_id.",
+      "numerator": 12,
+      "denominator": 12,
+      "coverage": 1.0,
+      "covered_ids": [
+        "demo_kiosks",
+        "kiosks",
+        "lounge",
+        "panels",
+        "reception",
+        "recruiting",
+        "refreshment",
+        "showcase",
+        "steles",
+        "stools",
+        "terminals",
+        "vr_stations"
+      ],
+      "uncovered_ids": [],
+      "details": {
+        "all_object_groups": [
+          "demo_kiosks",
+          "floor",
+          "kiosks",
+          "lights",
+          "lounge",
+          "overhead_lights",
+          "panels",
+          "reception",
+          "recruiting",
+          "refreshment",
+          "showcase",
+          "steles",
+          "stools",
+          "terminals",
+          "vr_stations",
+          "walls"
+        ],
+        "excluded_structural_groups": [
+          "floor",
+          "lights",
+          "overhead_lights",
+          "walls"
+        ],
+        "grounded_objects_by_group": {
+          "showcase": [
+            "showcase_equipment_treadmill",
+            "showcase_equipment_weights_rack"
+          ],
+          "demo_kiosks": [
+            "kiosk_demo1",
+            "kiosk_demo2",
+            "kiosk_demo3"
+          ],
+          "recruiting": [
+            "chair_recruiting",
+            "poster_recruiting1",
+            "poster_recruiting2",
+            "touch_terminal_recruiting1",
+            "touch_terminal_recruiting2"
+          ],
+          "kiosks": [
+            "kiosk_reception"
+          ],
+          "terminals": [
+            "interactive_terminal_benefits1",
+            "interactive_terminal_benefits2"
+          ],
+          "reception": [
+            "totem_reception"
+          ],
+          "panels": [
+            "benefits_panel1",
+            "benefits_panel2",
+            "benefits_panel3"
+          ],
+          "stools": [
+            "bar_stool_refreshment1",
+            "bar_stool_refreshment2",
+            "bar_stool_refreshment3"
+          ],
+          "refreshment": [
+            "refreshment_counter"
+          ],
+          "steles": [
+            "info_stele_studio1",
+            "info_stele_studio2",
+            "info_stele_studio3"
+          ],
+          "lounge": [
+            "lounge_seating"
+          ],
+          "vr_stations": [
+            "vr_ar_station1",
+            "vr_ar_station2"
+          ]
+        }
+      }
+    }
+  ]
+}

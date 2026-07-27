@@ -1,0 +1,94 @@
+{
+  "handoffs": [
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "product_specialist_agent",
+      "condition": "Visitor requests detailed product information or tasting guidance",
+      "reason": "Product Specialist has in-depth knowledge about cheese products and tastings"
+    },
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "digital_interaction_agent",
+      "condition": "Visitor wants to use interactive kiosks or digital content",
+      "reason": "Digital Interaction Agent supports digital navigation and content interaction"
+    },
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "career_consultant_agent",
+      "condition": "Visitor is interested in career or business discussions",
+      "reason": "Career Consultant facilitates career and business meetings"
+    },
+    {
+      "source_agent_id": "product_specialist_agent",
+      "target_agent_id": "production_expert_agent",
+      "condition": "Visitor asks about cheese production technology or energy measurement",
+      "reason": "Production Expert specializes in production processes and energy management"
+    },
+    {
+      "source_agent_id": "product_specialist_agent",
+      "target_agent_id": "digital_interaction_agent",
+      "condition": "Visitor wants to explore digital content related to products",
+      "reason": "Digital Interaction Agent assists with interactive digital content"
+    },
+    {
+      "source_agent_id": "product_specialist_agent",
+      "target_agent_id": "reception_agent",
+      "condition": "Visitor needs general guidance or directions",
+      "reason": "Reception Agent provides overall visitor assistance and navigation"
+    },
+    {
+      "source_agent_id": "production_expert_agent",
+      "target_agent_id": "digital_interaction_agent",
+      "condition": "Visitor wants to access digital information about production processes",
+      "reason": "Digital Interaction Agent supports digital content navigation"
+    },
+    {
+      "source_agent_id": "production_expert_agent",
+      "target_agent_id": "career_consultant_agent",
+      "condition": "Visitor is interested in training or career opportunities related to production",
+      "reason": "Career Consultant facilitates career discussions and training"
+    },
+    {
+      "source_agent_id": "production_expert_agent",
+      "target_agent_id": "product_specialist_agent",
+      "condition": "Visitor asks product-related questions after production explanation",
+      "reason": "Product Specialist provides detailed product knowledge"
+    },
+    {
+      "source_agent_id": "digital_interaction_agent",
+      "target_agent_id": "product_specialist_agent",
+      "condition": "Visitor requests expert product information after digital exploration",
+      "reason": "Product Specialist offers detailed product expertise"
+    },
+    {
+      "source_agent_id": "digital_interaction_agent",
+      "target_agent_id": "production_expert_agent",
+      "condition": "Visitor requests technical production details after digital interaction",
+      "reason": "Production Expert provides technical explanations"
+    },
+    {
+      "source_agent_id": "digital_interaction_agent",
+      "target_agent_id": "reception_agent",
+      "condition": "Visitor needs general assistance or directions",
+      "reason": "Reception Agent supports visitor guidance"
+    },
+    {
+      "source_agent_id": "career_consultant_agent",
+      "target_agent_id": "reception_agent",
+      "condition": "Visitor seeks general booth information or navigation",
+      "reason": "Reception Agent provides visitor assistance and orientation"
+    },
+    {
+      "source_agent_id": "career_consultant_agent",
+      "target_agent_id": "production_expert_agent",
+      "condition": "Visitor wants technical details related to production during career discussions",
+      "reason": "Production Expert offers technical expertise"
+    },
+    {
+      "source_agent_id": "lounge_host_agent",
+      "target_agent_id": "reception_agent",
+      "condition": "Visitor wants to resume active exploration or needs guidance",
+      "reason": "Reception Agent provides visitor assistance and navigation"
+    }
+  ]
+}

@@ -1,0 +1,374 @@
+{
+  "domain": "Food Industry Trade Fair",
+  "room_purpose": "Exhibition booth for showcasing cheese products and production technology",
+  "visitor_goals": [
+    "Learn about cheese products and their varieties",
+    "Experience product tasting and sampling",
+    "Understand cheese production processes",
+    "Interact with digital information kiosks",
+    "Engage in business or career discussions",
+    "Relax in lounge area"
+  ],
+  "semantic_zones": [
+    {
+      "zone_id": "entrance_zone",
+      "name": "Entrance and Reception",
+      "purpose": "Welcome visitors, provide initial information and guidance",
+      "object_ids": [
+        "reception_desk",
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "centroid_xz": {
+        "x": 0.0,
+        "z": 3.8
+      },
+      "visitor_goals_supported": [
+        "Learn about cheese products and their varieties"
+      ]
+    },
+    {
+      "zone_id": "product_display_zone",
+      "name": "Cheese Product Display",
+      "purpose": "Showcase cheese products for viewing and tasting",
+      "object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ],
+      "centroid_xz": {
+        "x": -5.7,
+        "z": 0.3
+      },
+      "visitor_goals_supported": [
+        "Experience product tasting and sampling",
+        "Learn about cheese products and their varieties"
+      ]
+    },
+    {
+      "zone_id": "production_model_zone",
+      "name": "Cheese Production Models",
+      "purpose": "Demonstrate industrial cheese manufacturing equipment and processes",
+      "object_ids": [
+        "production_model1",
+        "production_model2"
+      ],
+      "centroid_xz": {
+        "x": 6.45,
+        "z": 0.0
+      },
+      "visitor_goals_supported": [
+        "Understand cheese production processes"
+      ]
+    },
+    {
+      "zone_id": "interactive_zone",
+      "name": "Interactive Information Kiosks",
+      "purpose": "Provide digital interactive content about products and production",
+      "object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "centroid_xz": {
+        "x": 4.95,
+        "z": 0.0
+      },
+      "visitor_goals_supported": [
+        "Interact with digital information kiosks"
+      ]
+    },
+    {
+      "zone_id": "career_zone",
+      "name": "Career and Business Meeting Area",
+      "purpose": "Facilitate meetings, training, and career discussions",
+      "object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "centroid_xz": {
+        "x": 2.75,
+        "z": 1.5
+      },
+      "visitor_goals_supported": [
+        "Engage in business or career discussions"
+      ]
+    },
+    {
+      "zone_id": "energy_station_zone",
+      "name": "Energy Measurement Stations",
+      "purpose": "Showcase energy measurement technology related to cheese production",
+      "object_ids": [
+        "energy_station1",
+        "energy_station2"
+      ],
+      "centroid_xz": {
+        "x": -6.6,
+        "z": 2.8
+      },
+      "visitor_goals_supported": [
+        "Understand cheese production processes"
+      ]
+    },
+    {
+      "zone_id": "lounge_zone",
+      "name": "Lounge and Relaxation Area",
+      "purpose": "Provide comfortable seating for visitors to rest and informal talks",
+      "object_ids": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "centroid_xz": {
+        "x": 0.0,
+        "z": -2.625
+      },
+      "visitor_goals_supported": [
+        "Relax in lounge area"
+      ]
+    },
+    {
+      "zone_id": "navigation_zone",
+      "name": "Visitor Circulation Path",
+      "purpose": "Guide visitor movement through the booth",
+      "object_ids": [
+        "floor_marking_path1"
+      ],
+      "centroid_xz": {
+        "x": 0.0,
+        "z": 0.0
+      },
+      "visitor_goals_supported": [
+        "Navigate the exhibition space"
+      ]
+    }
+  ],
+  "important_objects": [
+    {
+      "object_id": "reception_desk",
+      "reason": "Primary visitor contact point for information and welcome"
+    },
+    {
+      "object_id": "brand_panel1",
+      "reason": "Branding and product information display"
+    },
+    {
+      "object_id": "refrigerated_counter1",
+      "reason": "Product display with temperature control for cheese samples"
+    },
+    {
+      "object_id": "product_pedestal1",
+      "reason": "Elevated display for individual cheese samples"
+    },
+    {
+      "object_id": "production_model1",
+      "reason": "Visual demonstration of cheese production equipment"
+    },
+    {
+      "object_id": "touch_kiosk1",
+      "reason": "Interactive digital content access"
+    },
+    {
+      "object_id": "meeting_pod1",
+      "reason": "Private meeting and discussion space"
+    },
+    {
+      "object_id": "training_board1",
+      "reason": "Interactive training and presentation tool"
+    },
+    {
+      "object_id": "energy_station1",
+      "reason": "Showcase of energy measurement technology"
+    },
+    {
+      "object_id": "sofa1",
+      "reason": "Comfortable seating for visitor relaxation"
+    },
+    {
+      "object_id": "floor_marking_path1",
+      "reason": "Physical guidance for visitor circulation"
+    }
+  ],
+  "interaction_topics": [
+    {
+      "topic_id": "product_information",
+      "title": "Cheese Product Details",
+      "description": "Information about different cheese varieties, tasting notes, and sourcing.",
+      "related_object_ids": [
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4",
+        "refrigerated_counter1",
+        "product_pedestal1"
+      ]
+    },
+    {
+      "topic_id": "production_process",
+      "title": "Cheese Production Process",
+      "description": "Explanation of industrial cheese manufacturing using production models and energy stations.",
+      "related_object_ids": [
+        "production_model1",
+        "production_model2",
+        "energy_station1",
+        "energy_station2"
+      ]
+    },
+    {
+      "topic_id": "digital_interaction",
+      "title": "Interactive Digital Content",
+      "description": "Use of touch kiosks to explore detailed product info, videos, and interactive guides.",
+      "related_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ]
+    },
+    {
+      "topic_id": "career_opportunities",
+      "title": "Career and Business Discussions",
+      "description": "Meetings and training sessions about career opportunities in the cheese industry.",
+      "related_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ]
+    }
+  ],
+  "agent_role_candidates": [
+    {
+      "role_id": "reception_agent",
+      "display_name": "Reception Agent",
+      "mission": "Welcome visitors, provide initial information and guide them through the booth.",
+      "expertise": [
+        "visitor assistance",
+        "product knowledge",
+        "navigation guidance"
+      ],
+      "responsible_zone_ids": [
+        "entrance_zone"
+      ],
+      "grounded_object_ids": [
+        "reception_desk",
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ]
+    },
+    {
+      "role_id": "product_specialist_agent",
+      "display_name": "Product Specialist Agent",
+      "mission": "Explain cheese products, assist with tasting and answer product-related questions.",
+      "expertise": [
+        "product details",
+        "tasting guidance",
+        "customer interaction"
+      ],
+      "responsible_zone_ids": [
+        "product_display_zone"
+      ],
+      "grounded_object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ]
+    },
+    {
+      "role_id": "production_expert_agent",
+      "display_name": "Production Expert Agent",
+      "mission": "Demonstrate and explain cheese production technology and energy measurement.",
+      "expertise": [
+        "production process",
+        "technical explanation",
+        "energy management"
+      ],
+      "responsible_zone_ids": [
+        "production_model_zone",
+        "energy_station_zone"
+      ],
+      "grounded_object_ids": [
+        "production_model1",
+        "production_model2",
+        "energy_station1",
+        "energy_station2"
+      ]
+    },
+    {
+      "role_id": "digital_interaction_agent",
+      "display_name": "Digital Interaction Agent",
+      "mission": "Assist visitors with interactive kiosks and digital content navigation.",
+      "expertise": [
+        "digital content",
+        "user interaction",
+        "technical support"
+      ],
+      "responsible_zone_ids": [
+        "interactive_zone"
+      ],
+      "grounded_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ]
+    },
+    {
+      "role_id": "career_consultant_agent",
+      "display_name": "Career Consultant Agent",
+      "mission": "Facilitate career discussions, meetings, and training sessions.",
+      "expertise": [
+        "career guidance",
+        "training facilitation",
+        "business communication"
+      ],
+      "responsible_zone_ids": [
+        "career_zone"
+      ],
+      "grounded_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ]
+    },
+    {
+      "role_id": "lounge_host_agent",
+      "display_name": "Lounge Host Agent",
+      "mission": "Ensure visitor comfort and informal engagement in the lounge area.",
+      "expertise": [
+        "visitor comfort",
+        "informal communication",
+        "hospitality"
+      ],
+      "responsible_zone_ids": [
+        "lounge_zone"
+      ],
+      "grounded_object_ids": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ]
+    }
+  ]
+}

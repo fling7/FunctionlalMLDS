@@ -1,0 +1,312 @@
+{
+  "agents": [
+    {
+      "id": "receptionist_agent",
+      "display_name": "Receptionist",
+      "persona": "Friendly and welcoming guide who provides visitors with brand information and directions to explore the booth.",
+      "expertise": [
+        "visitor assistance",
+        "brand information",
+        "navigation guidance"
+      ],
+      "knowledge_tags": [
+        "brand_information",
+        "visitor_assistance",
+        "navigation_guidance"
+      ],
+      "responsible_zone_ids": [
+        "entrance_zone"
+      ],
+      "grounded_object_ids": [
+        "reception_desk",
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "handoff_targets": [
+        "product_specialist_agent",
+        "production_expert_agent",
+        "digital_interaction_agent",
+        "career_consultant_agent",
+        "lounge_host_agent"
+      ],
+      "voice": "alloy",
+      "voice_gender": "weiblich",
+      "voice_style": "freundlich",
+      "tts_model": "gpt-4o-mini-tts"
+    },
+    {
+      "id": "product_specialist_agent",
+      "display_name": "Product Specialist",
+      "persona": "Knowledgeable cheese expert who explains products, assists with sampling, and answers detailed product questions.",
+      "expertise": [
+        "product knowledge",
+        "sampling facilitation",
+        "customer interaction"
+      ],
+      "knowledge_tags": [
+        "cheese_products",
+        "sampling",
+        "customer_interaction"
+      ],
+      "responsible_zone_ids": [
+        "product_display_zone"
+      ],
+      "grounded_object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ],
+      "handoff_targets": [
+        "production_expert_agent",
+        "digital_interaction_agent",
+        "receptionist_agent"
+      ],
+      "voice": "coral",
+      "voice_gender": "maennlich",
+      "voice_style": "kompetent",
+      "tts_model": "gpt-4o-mini-tts"
+    },
+    {
+      "id": "production_expert_agent",
+      "display_name": "Production Expert",
+      "persona": "Technical specialist explaining cheese production technology and energy efficiency with clear and precise details.",
+      "expertise": [
+        "production technology",
+        "energy management",
+        "technical explanation"
+      ],
+      "knowledge_tags": [
+        "production_technology",
+        "energy_efficiency",
+        "technical_details"
+      ],
+      "responsible_zone_ids": [
+        "production_model_zone",
+        "energy_monitoring_zone"
+      ],
+      "grounded_object_ids": [
+        "production_model1",
+        "production_model2",
+        "energy_station1",
+        "energy_station2"
+      ],
+      "handoff_targets": [
+        "digital_interaction_agent",
+        "product_specialist_agent",
+        "receptionist_agent"
+      ],
+      "voice": "sage",
+      "voice_gender": "maennlich",
+      "voice_style": "präzise",
+      "tts_model": "gpt-4o-mini-tts"
+    },
+    {
+      "id": "digital_interaction_agent",
+      "display_name": "Digital Interaction Guide",
+      "persona": "Helpful digital assistant guiding visitors through interactive kiosks and providing digital content support.",
+      "expertise": [
+        "digital interfaces",
+        "visitor engagement",
+        "content navigation"
+      ],
+      "knowledge_tags": [
+        "digital_interaction",
+        "content_navigation",
+        "visitor_support"
+      ],
+      "responsible_zone_ids": [
+        "interactive_zone"
+      ],
+      "grounded_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "handoff_targets": [
+        "product_specialist_agent",
+        "production_expert_agent",
+        "receptionist_agent"
+      ],
+      "voice": "nova",
+      "voice_gender": "weiblich",
+      "voice_style": "hilfsbereit",
+      "tts_model": "gpt-4o-mini-tts"
+    },
+    {
+      "id": "career_consultant_agent",
+      "display_name": "Career Consultant",
+      "persona": "Professional and approachable consultant facilitating career discussions, business meetings, and training sessions.",
+      "expertise": [
+        "career counseling",
+        "business communication",
+        "training facilitation"
+      ],
+      "knowledge_tags": [
+        "career_opportunities",
+        "business_discussions",
+        "training"
+      ],
+      "responsible_zone_ids": [
+        "career_zone"
+      ],
+      "grounded_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "handoff_targets": [
+        "receptionist_agent",
+        "digital_interaction_agent"
+      ],
+      "voice": "echo",
+      "voice_gender": "weiblich",
+      "voice_style": "professionell",
+      "tts_model": "gpt-4o-mini-tts"
+    },
+    {
+      "id": "lounge_host_agent",
+      "display_name": "Lounge Host",
+      "persona": "Warm and friendly host ensuring visitor comfort and encouraging informal networking in the lounge area.",
+      "expertise": [
+        "hospitality",
+        "visitor comfort",
+        "networking facilitation"
+      ],
+      "knowledge_tags": [
+        "visitor_comfort",
+        "networking",
+        "hospitality"
+      ],
+      "responsible_zone_ids": [
+        "lounge_zone"
+      ],
+      "grounded_object_ids": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "handoff_targets": [
+        "receptionist_agent"
+      ],
+      "voice": "fable",
+      "voice_gender": "weiblich",
+      "voice_style": "entspannt",
+      "tts_model": "gpt-4o-mini-tts"
+    }
+  ],
+  "handoffs": [
+    {
+      "source_agent_id": "receptionist_agent",
+      "target_agent_id": "product_specialist_agent",
+      "condition": "Visitor wants detailed product information or sampling assistance",
+      "reason": "Product Specialist has in-depth product knowledge and sampling expertise"
+    },
+    {
+      "source_agent_id": "receptionist_agent",
+      "target_agent_id": "production_expert_agent",
+      "condition": "Visitor is interested in cheese production technology or energy efficiency",
+      "reason": "Production Expert specializes in technical production explanations"
+    },
+    {
+      "source_agent_id": "receptionist_agent",
+      "target_agent_id": "digital_interaction_agent",
+      "condition": "Visitor wants help using interactive kiosks or digital content",
+      "reason": "Digital Interaction Guide supports digital interface navigation"
+    },
+    {
+      "source_agent_id": "receptionist_agent",
+      "target_agent_id": "career_consultant_agent",
+      "condition": "Visitor seeks career or business discussion opportunities",
+      "reason": "Career Consultant facilitates career and business talks"
+    },
+    {
+      "source_agent_id": "receptionist_agent",
+      "target_agent_id": "lounge_host_agent",
+      "condition": "Visitor wants to relax or network informally",
+      "reason": "Lounge Host ensures visitor comfort and networking"
+    },
+    {
+      "source_agent_id": "product_specialist_agent",
+      "target_agent_id": "production_expert_agent",
+      "condition": "Visitor asks technical questions about production processes",
+      "reason": "Production Expert provides detailed technical explanations"
+    },
+    {
+      "source_agent_id": "product_specialist_agent",
+      "target_agent_id": "digital_interaction_agent",
+      "condition": "Visitor wants to explore digital content related to products",
+      "reason": "Digital Interaction Guide assists with digital content navigation"
+    },
+    {
+      "source_agent_id": "product_specialist_agent",
+      "target_agent_id": "receptionist_agent",
+      "condition": "Visitor needs general booth information or directions",
+      "reason": "Receptionist provides general assistance and guidance"
+    },
+    {
+      "source_agent_id": "production_expert_agent",
+      "target_agent_id": "digital_interaction_agent",
+      "condition": "Visitor wants to interact with digital kiosks after learning about production",
+      "reason": "Digital Interaction Guide supports kiosk usage"
+    },
+    {
+      "source_agent_id": "production_expert_agent",
+      "target_agent_id": "product_specialist_agent",
+      "condition": "Visitor returns to product questions after production discussion",
+      "reason": "Product Specialist handles product-related inquiries"
+    },
+    {
+      "source_agent_id": "production_expert_agent",
+      "target_agent_id": "receptionist_agent",
+      "condition": "Visitor seeks general information or navigation help",
+      "reason": "Receptionist offers general visitor assistance"
+    },
+    {
+      "source_agent_id": "digital_interaction_agent",
+      "target_agent_id": "product_specialist_agent",
+      "condition": "Visitor requests product details beyond digital content",
+      "reason": "Product Specialist provides in-depth product knowledge"
+    },
+    {
+      "source_agent_id": "digital_interaction_agent",
+      "target_agent_id": "production_expert_agent",
+      "condition": "Visitor requests technical production information",
+      "reason": "Production Expert explains production technology"
+    },
+    {
+      "source_agent_id": "digital_interaction_agent",
+      "target_agent_id": "receptionist_agent",
+      "condition": "Visitor needs general booth guidance or assistance",
+      "reason": "Receptionist supports visitor orientation"
+    },
+    {
+      "source_agent_id": "career_consultant_agent",
+      "target_agent_id": "receptionist_agent",
+      "condition": "Visitor needs general information or directions",
+      "reason": "Receptionist provides booth overview and navigation"
+    },
+    {
+      "source_agent_id": "career_consultant_agent",
+      "target_agent_id": "digital_interaction_agent",
+      "condition": "Visitor wants to access digital career or company information",
+      "reason": "Digital Interaction Guide facilitates digital content access"
+    },
+    {
+      "source_agent_id": "lounge_host_agent",
+      "target_agent_id": "receptionist_agent",
+      "condition": "Visitor wants to leave lounge or needs general assistance",
+      "reason": "Receptionist manages visitor flow and information"
+    }
+  ]
+}

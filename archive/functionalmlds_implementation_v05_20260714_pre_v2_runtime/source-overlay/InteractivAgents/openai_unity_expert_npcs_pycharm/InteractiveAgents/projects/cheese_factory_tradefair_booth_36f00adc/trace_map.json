@@ -1,0 +1,418 @@
+{
+  "schema": "functionalmlds_trace_map",
+  "case_id": "cheese_factory_tradefair_booth_36f00adc",
+  "functionalmlds_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\functionalmlds\\functionalmlds.instance.generated.json",
+  "project_files": {
+    "project": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\project.json",
+    "room_plan": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\room_plan.json",
+    "agents": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\agents.json",
+    "kb_root": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\kb"
+  },
+  "use_case_id": "UC-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-01",
+  "main_scenario_id": "SC-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-MAIN",
+  "scenario_steps": [
+    {
+      "scenario_step_id": "STEP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S01",
+      "step_number": 1,
+      "capability_use_ids": [],
+      "resulting_state_ids": []
+    },
+    {
+      "scenario_step_id": "STEP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S02",
+      "step_number": 2,
+      "capability_use_ids": [
+        "CU-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S02-ANALYZE-MLDS-SCENE"
+      ],
+      "resulting_state_ids": [
+        "SA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-NORMALIZED-SCENE-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S03",
+      "step_number": 3,
+      "capability_use_ids": [
+        "CU-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S03-ANALYZE-MLDS-SCENE"
+      ],
+      "resulting_state_ids": [
+        "SA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-SCENE-SEMANTICS-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S04",
+      "step_number": 4,
+      "capability_use_ids": [
+        "CU-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S04-DERIVE-SPATIAL-AGENT-ROLES"
+      ],
+      "resulting_state_ids": [
+        "SA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-AGENT-ROLES-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S05",
+      "step_number": 5,
+      "capability_use_ids": [
+        "CU-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S05-GENERATE-ROOM-KNOWLEDGE"
+      ],
+      "resulting_state_ids": [
+        "SA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-KNOWLEDGE-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S06",
+      "step_number": 6,
+      "capability_use_ids": [
+        "CU-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S06-PLACE-AGENTS-IN-SCENE"
+      ],
+      "resulting_state_ids": [
+        "SA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-PLACEMENT-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S07",
+      "step_number": 7,
+      "capability_use_ids": [
+        "CU-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S07-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "resulting_state_ids": [
+        "SA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-FUNCTIONALMLDS-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S08",
+      "step_number": 8,
+      "capability_use_ids": [
+        "CU-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S08-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "resulting_state_ids": [
+        "SA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-PROJECT-MATERIALIZED"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S09",
+      "step_number": 9,
+      "capability_use_ids": [
+        "CU-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S09-SETUP-INTERACTIVE-SESSION"
+      ],
+      "resulting_state_ids": [
+        "SA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-SETUP-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S10",
+      "step_number": 10,
+      "capability_use_ids": [],
+      "resulting_state_ids": []
+    },
+    {
+      "scenario_step_id": "STEP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S11",
+      "step_number": 11,
+      "capability_use_ids": [
+        "CU-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S11-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "resulting_state_ids": [
+        "SA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ANSWER-GROUNDED"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S12",
+      "step_number": 12,
+      "capability_use_ids": [
+        "CU-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-S12-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "resulting_state_ids": [
+        "SA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-HANDOFF-VALID"
+      ]
+    }
+  ],
+  "capabilities": [
+    {
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ANALYZE-MLDS-SCENE",
+      "effect_ids": [
+        "EFF-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ANALYZE-MLDS-SCENE-01",
+        "EFF-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ANALYZE-MLDS-SCENE-02"
+      ]
+    },
+    {
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-DERIVE-SPATIAL-AGENT-ROLES",
+      "effect_ids": [
+        "EFF-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-DERIVE-SPATIAL-AGENT-ROLES-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-GENERATE-ROOM-KNOWLEDGE",
+      "effect_ids": [
+        "EFF-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-GENERATE-ROOM-KNOWLEDGE-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-PLACE-AGENTS-IN-SCENE",
+      "effect_ids": [
+        "EFF-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-PLACE-AGENTS-IN-SCENE-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ASSEMBLE-FUNCTIONAL-MLDS",
+      "effect_ids": [
+        "EFF-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ASSEMBLE-FUNCTIONAL-MLDS-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "effect_ids": [
+        "EFF-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-SETUP-INTERACTIVE-SESSION",
+      "effect_ids": [
+        "EFF-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-SETUP-INTERACTIVE-SESSION-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ANSWER-ROOM-GROUNDED-QUESTION",
+      "effect_ids": [
+        "EFF-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ANSWER-ROOM-GROUNDED-QUESTION-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "effect_ids": [
+        "EFF-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-HANDOFF-TO-RESPONSIBLE-AGENT-01"
+      ]
+    }
+  ],
+  "runtime_actions": [
+    {
+      "runtime_binding_id": "RB-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ANALYZE-MLDS-SCENE",
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ANALYZE-MLDS-SCENE",
+      "runtime_action_id": "RA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-RUN-MLDS-INGESTION",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.mlds_ingestion.run_ingestion_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ANALYZE-MLDS-SCENE",
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ANALYZE-MLDS-SCENE",
+      "runtime_action_id": "RA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-RUN-SCENE-SEMANTICS",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.scene_semantics.run_scene_semantics_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ANALYZE-MLDS-SCENE",
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ANALYZE-MLDS-SCENE",
+      "runtime_action_id": "RA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ARROW-ANALYZE",
+      "endpoint": "POST /projects/arrow/analyze",
+      "tool": null,
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-DERIVE-SPATIAL-AGENT-ROLES",
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-DERIVE-SPATIAL-AGENT-ROLES",
+      "runtime_action_id": "RA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-RUN-AGENT-ROLES",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.agent_roles.run_agent_roles_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-GENERATE-ROOM-KNOWLEDGE",
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-GENERATE-ROOM-KNOWLEDGE",
+      "runtime_action_id": "RA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-RUN-KNOWLEDGE-SYNTHESIS",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.knowledge_synthesis.run_knowledge_synthesis_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-PLACE-AGENTS-IN-SCENE",
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-PLACE-AGENTS-IN-SCENE",
+      "runtime_action_id": "RA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-RUN-AGENT-PLACEMENT",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.agent_placement.run_agent_placement_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ASSEMBLE-FUNCTIONAL-MLDS",
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ASSEMBLE-FUNCTIONAL-MLDS",
+      "runtime_action_id": "RA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-RUN-FUNCTIONALMLDS-ASSEMBLER",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.functionalmlds_assembler.run_functionalmlds_assembly_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "runtime_action_id": "RA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ARROW-COMMIT",
+      "endpoint": "POST /projects/arrow/commit",
+      "tool": null,
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "runtime_action_id": "RA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-WRITE-PROJECT-FILES",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.project_materializer.run_project_materializer_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-SETUP-INTERACTIVE-SESSION",
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-SETUP-INTERACTIVE-SESSION",
+      "runtime_action_id": "RA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-BACKEND-SETUP",
+      "endpoint": "POST /setup",
+      "tool": null,
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ANSWER-ROOM-GROUNDED-QUESTION",
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ANSWER-ROOM-GROUNDED-QUESTION",
+      "runtime_action_id": "RA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-BACKEND-CHAT",
+      "endpoint": "POST /chat",
+      "tool": null,
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "capability_id": "CAP-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "runtime_action_id": "RA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-BACKEND-CHAT-HANDOFF",
+      "endpoint": "POST /chat",
+      "tool": null,
+      "topic": null
+    }
+  ],
+  "validation_cases": [
+    {
+      "validation_case_id": "VC-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-MLDS-INGESTION",
+      "runtime_binding_ids": [
+        "RB-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ANALYZE-MLDS-SCENE"
+      ],
+      "expected_outcome_ids": [
+        "SA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-NORMALIZED-SCENE-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-MODEL-INVARIANTS",
+      "runtime_binding_ids": [
+        "RB-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "expected_outcome_ids": [
+        "SA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-FUNCTIONALMLDS-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-PROJECT-MATERIALIZATION",
+      "runtime_binding_ids": [
+        "RB-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-PROJECT-MATERIALIZED"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-SETUP",
+      "runtime_binding_ids": [
+        "RB-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-SETUP-INTERACTIVE-SESSION"
+      ],
+      "expected_outcome_ids": [
+        "SA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-SETUP-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-CHAT-GROUNDING",
+      "runtime_binding_ids": [
+        "RB-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "expected_outcome_ids": [
+        "SA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-ANSWER-GROUNDED"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-HANDOFF",
+      "runtime_binding_ids": [
+        "RB-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-HANDOFF-VALID"
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "agent_id": "reception_agent",
+      "functionalmlds_agent_id": "AG-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-RECEPTION_AGENT",
+      "entity_id": "ENT-AGENT-RECEPTION_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "cheese_products",
+        "visitor_guidance",
+        "booth_navigation"
+      ]
+    },
+    {
+      "agent_id": "product_specialist_agent",
+      "functionalmlds_agent_id": "AG-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-PRODUCT_SPECIALIST_AGENT",
+      "entity_id": "ENT-AGENT-PRODUCT_SPECIALIST_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "cheese_varieties",
+        "product_tasting",
+        "customer_engagement"
+      ]
+    },
+    {
+      "agent_id": "production_expert_agent",
+      "functionalmlds_agent_id": "AG-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-PRODUCTION_EXPERT_AGENT",
+      "entity_id": "ENT-AGENT-PRODUCTION_EXPERT_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "cheese_production",
+        "industrial_equipment",
+        "energy_measurement"
+      ]
+    },
+    {
+      "agent_id": "digital_interaction_agent",
+      "functionalmlds_agent_id": "AG-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-DIGITAL_INTERACTION_AGENT",
+      "entity_id": "ENT-AGENT-DIGITAL_INTERACTION_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "interactive_kiosks",
+        "digital_guides",
+        "user_support"
+      ]
+    },
+    {
+      "agent_id": "career_consultant_agent",
+      "functionalmlds_agent_id": "AG-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-CAREER_CONSULTANT_AGENT",
+      "entity_id": "ENT-AGENT-CAREER_CONSULTANT_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "career_opportunities",
+        "training_sessions",
+        "business_discussions"
+      ]
+    },
+    {
+      "agent_id": "lounge_host_agent",
+      "functionalmlds_agent_id": "AG-CHEESE_FACTORY_TRADEFAIR_BOOTH_36F00ADC-LOUNGE_HOST_AGENT",
+      "entity_id": "ENT-AGENT-LOUNGE_HOST_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "visitor_relaxation",
+        "informal_engagement",
+        "hospitality"
+      ]
+    }
+  ]
+}

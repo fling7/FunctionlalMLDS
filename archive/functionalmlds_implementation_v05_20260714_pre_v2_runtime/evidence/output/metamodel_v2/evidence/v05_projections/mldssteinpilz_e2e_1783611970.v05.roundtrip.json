@@ -1,0 +1,1959 @@
+{
+  "schema": "functionalmlds_case_study",
+  "metamodelVersion": "v0.5",
+  "caseId": "mldssteinpilz_e2e_1783611970",
+  "requirementsModel": {
+    "id": "RM-MLDSSTEINPILZ_E2E_1783611970",
+    "requirements": [
+      {
+        "id": "REQ-MLDSSTEINPILZ_E2E_1783611970-001",
+        "text": "The pipeline shall ingest an MLDS scene and preserve stable object identities."
+      },
+      {
+        "id": "REQ-MLDSSTEINPILZ_E2E_1783611970-002",
+        "text": "The pipeline shall derive room semantics grounded in existing MLDS objects."
+      },
+      {
+        "id": "REQ-MLDSSTEINPILZ_E2E_1783611970-003",
+        "text": "The pipeline shall synthesize backend-compatible spatial agent roles."
+      },
+      {
+        "id": "REQ-MLDSSTEINPILZ_E2E_1783611970-004",
+        "text": "Every generated agent knowledge tag shall be covered by materialized knowledge."
+      },
+      {
+        "id": "REQ-MLDSSTEINPILZ_E2E_1783611970-005",
+        "text": "Every generated agent shall be placed inside the room without obstacle overlap."
+      },
+      {
+        "id": "REQ-MLDSSTEINPILZ_E2E_1783611970-006",
+        "text": "The generated behavior shall be traceable from requirements to runtime actions and validation cases."
+      }
+    ],
+    "useCases": [
+      {
+        "id": "UC-MLDSSTEINPILZ_E2E_1783611970-01",
+        "name": "Generate and use spatially grounded multi-agent guide",
+        "actor_ids": [
+          "ACT-CASE-STUDY-ENGINEER",
+          "ACT-VISITOR",
+          "ACT-ROOM-GUIDE"
+        ],
+        "extensionPoints": [],
+        "includes": [],
+        "extends": [],
+        "scenarios": [
+          {
+            "id": "SC-MLDSSTEINPILZ_E2E_1783611970-MAIN",
+            "kind": "main",
+            "description": "Main scenario for generating and using a spatially grounded multi-agent room guide.",
+            "precondition_ids": [
+              "COND-MLDSSTEINPILZ_E2E_1783611970-VALID-INPUT"
+            ],
+            "postcondition_ids": [
+              "SA-MLDSSTEINPILZ_E2E_1783611970-ANSWER-GROUNDED"
+            ],
+            "steps": [
+              {
+                "id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S01",
+                "stepNumber": 1,
+                "kind": "actorIntent",
+                "performedBy": "ACT-CASE-STUDY-ENGINEER",
+                "text": "Provide an MLDS file as case-study input.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [
+                  "EV-MLDSSTEINPILZ_E2E_1783611970-MLDS-PROVIDED"
+                ],
+                "guard": "COND-MLDSSTEINPILZ_E2E_1783611970-VALID-INPUT",
+                "resultingState": [],
+                "capabilityUseIds": []
+              },
+              {
+                "id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S02",
+                "stepNumber": 2,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Load and normalize the MLDS scene.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-MLDSSTEINPILZ_E2E_1783611970-NORMALIZED-SCENE-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-MLDSSTEINPILZ_E2E_1783611970-S02-ANALYZE-MLDS-SCENE"
+                ]
+              },
+              {
+                "id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S03",
+                "stepNumber": 3,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Derive semantic zones, visitor goals and interaction topics.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-MLDSSTEINPILZ_E2E_1783611970-SCENE-SEMANTICS-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-MLDSSTEINPILZ_E2E_1783611970-S03-ANALYZE-MLDS-SCENE"
+                ]
+              },
+              {
+                "id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S04",
+                "stepNumber": 4,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Generate spatially grounded agent roles and handoff rules.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-MLDSSTEINPILZ_E2E_1783611970-AGENT-ROLES-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-MLDSSTEINPILZ_E2E_1783611970-S04-DERIVE-SPATIAL-AGENT-ROLES"
+                ]
+              },
+              {
+                "id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S05",
+                "stepNumber": 5,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Generate materialized knowledge entries for all agent knowledge tags.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-MLDSSTEINPILZ_E2E_1783611970-KNOWLEDGE-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-MLDSSTEINPILZ_E2E_1783611970-S05-GENERATE-ROOM-KNOWLEDGE"
+                ]
+              },
+              {
+                "id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S06",
+                "stepNumber": 6,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Place generated agents inside the room near their responsibilities.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-MLDSSTEINPILZ_E2E_1783611970-PLACEMENT-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-MLDSSTEINPILZ_E2E_1783611970-S06-PLACE-AGENTS-IN-SCENE"
+                ]
+              },
+              {
+                "id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S07",
+                "stepNumber": 7,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Assemble and validate the FunctionalMLDS trace instance.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-MLDSSTEINPILZ_E2E_1783611970-FUNCTIONALMLDS-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-MLDSSTEINPILZ_E2E_1783611970-S07-ASSEMBLE-FUNCTIONAL-MLDS"
+                ]
+              },
+              {
+                "id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S08",
+                "stepNumber": 8,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Materialize the Interactive Agents project files.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-MLDSSTEINPILZ_E2E_1783611970-PROJECT-MATERIALIZED"
+                ],
+                "capabilityUseIds": [
+                  "CU-MLDSSTEINPILZ_E2E_1783611970-S08-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+                ]
+              },
+              {
+                "id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S09",
+                "stepNumber": 9,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Set up an Interactive Agents runtime session.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": "COND-MLDSSTEINPILZ_E2E_1783611970-AGENTS-AVAILABLE",
+                "resultingState": [
+                  "SA-MLDSSTEINPILZ_E2E_1783611970-SETUP-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-MLDSSTEINPILZ_E2E_1783611970-S09-SETUP-INTERACTIVE-SESSION"
+                ]
+              },
+              {
+                "id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S10",
+                "stepNumber": 10,
+                "kind": "actorIntent",
+                "performedBy": "ACT-VISITOR",
+                "text": "Ask a room-related question to an agent.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [
+                  "EV-MLDSSTEINPILZ_E2E_1783611970-VISITOR-QUESTION"
+                ],
+                "guard": null,
+                "resultingState": [],
+                "capabilityUseIds": []
+              },
+              {
+                "id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S11",
+                "stepNumber": 11,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Answer the visitor question using grounded room knowledge.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-MLDSSTEINPILZ_E2E_1783611970-ANSWER-GROUNDED"
+                ],
+                "capabilityUseIds": [
+                  "CU-MLDSSTEINPILZ_E2E_1783611970-S11-ANSWER-ROOM-GROUNDED-QUESTION"
+                ]
+              },
+              {
+                "id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S12",
+                "stepNumber": 12,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Optionally hand off to the responsible specialist agent.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [
+                  "EV-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-NEEDED"
+                ],
+                "guard": "COND-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-TARGET-AVAILABLE",
+                "resultingState": [
+                  "SA-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-MLDSSTEINPILZ_E2E_1783611970-S12-HANDOFF-TO-RESPONSIBLE-AGENT"
+                ]
+              }
+            ],
+            "stepRelations": [
+              {
+                "id": "REL-MLDSSTEINPILZ_E2E_1783611970-01-02",
+                "kind": "sequence",
+                "source_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S01",
+                "target_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S02",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-MLDSSTEINPILZ_E2E_1783611970-02-03",
+                "kind": "sequence",
+                "source_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S02",
+                "target_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S03",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-MLDSSTEINPILZ_E2E_1783611970-03-04",
+                "kind": "sequence",
+                "source_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S03",
+                "target_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S04",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-MLDSSTEINPILZ_E2E_1783611970-04-05",
+                "kind": "sequence",
+                "source_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S04",
+                "target_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S05",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-MLDSSTEINPILZ_E2E_1783611970-05-06",
+                "kind": "sequence",
+                "source_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S05",
+                "target_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S06",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-MLDSSTEINPILZ_E2E_1783611970-06-07",
+                "kind": "sequence",
+                "source_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S06",
+                "target_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S07",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-MLDSSTEINPILZ_E2E_1783611970-07-08",
+                "kind": "sequence",
+                "source_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S07",
+                "target_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S08",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-MLDSSTEINPILZ_E2E_1783611970-08-09",
+                "kind": "sequence",
+                "source_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S08",
+                "target_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S09",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-MLDSSTEINPILZ_E2E_1783611970-09-10",
+                "kind": "sequence",
+                "source_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S09",
+                "target_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S10",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-MLDSSTEINPILZ_E2E_1783611970-10-11",
+                "kind": "sequence",
+                "source_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S10",
+                "target_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S11",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-MLDSSTEINPILZ_E2E_1783611970-11-12",
+                "kind": "sequence",
+                "source_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S11",
+                "target_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S12",
+                "guard": null,
+                "probability": 1.0
+              }
+            ],
+            "parallelGroups": []
+          }
+        ]
+      }
+    ]
+  },
+  "actors": [
+    {
+      "id": "ACT-CASE-STUDY-ENGINEER",
+      "name": "Case Study Engineer",
+      "description": "Provides MLDS input and runs the validation pipeline."
+    },
+    {
+      "id": "ACT-VISITOR",
+      "name": "Visitor",
+      "description": "Asks room-related questions in the generated immersive environment."
+    },
+    {
+      "id": "ACT-ROOM-GUIDE",
+      "name": "Room Guide",
+      "description": "Role played by generated interactive agents."
+    }
+  ],
+  "entities": [
+    {
+      "id": "ENT-ZONE-ENTRANCE_ZONE",
+      "name": "Entrance and Reception",
+      "kind": "zone",
+      "source_id": "entrance_zone",
+      "entityRole": "semanticZone",
+      "source_object_ids": [
+        "reception_desk",
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "purpose": "Welcome visitors and provide initial information"
+    },
+    {
+      "id": "ENT-ZONE-PRODUCT_DISPLAY_ZONE",
+      "name": "Cheese Product Display",
+      "kind": "zone",
+      "source_id": "product_display_zone",
+      "entityRole": "semanticZone",
+      "source_object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ],
+      "purpose": "Display and sample cheese products in refrigerated counters and pedestals"
+    },
+    {
+      "id": "ENT-ZONE-PRODUCTION_MODEL_ZONE",
+      "name": "Cheese Production Models",
+      "kind": "zone",
+      "source_id": "production_model_zone",
+      "entityRole": "semanticZone",
+      "source_object_ids": [
+        "production_model1",
+        "production_model2"
+      ],
+      "purpose": "Showcase industrial cheese manufacturing equipment models"
+    },
+    {
+      "id": "ENT-ZONE-INTERACTIVE_ZONE",
+      "name": "Interactive Information Kiosks",
+      "kind": "zone",
+      "source_id": "interactive_zone",
+      "entityRole": "semanticZone",
+      "source_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "purpose": "Provide digital interactive information about products and production"
+    },
+    {
+      "id": "ENT-ZONE-CAREER_ZONE",
+      "name": "Career and Business Meeting Area",
+      "kind": "zone",
+      "source_id": "career_zone",
+      "entityRole": "semanticZone",
+      "source_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "purpose": "Facilitate business discussions, meetings, and training sessions"
+    },
+    {
+      "id": "ENT-ZONE-LOUNGE_ZONE",
+      "name": "Lounge and Networking Area",
+      "kind": "zone",
+      "source_id": "lounge_zone",
+      "entityRole": "semanticZone",
+      "source_object_ids": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "purpose": "Provide comfortable seating for relaxation and informal networking"
+    },
+    {
+      "id": "ENT-ZONE-ENERGY_MONITORING_ZONE",
+      "name": "Energy Measurement Stations",
+      "kind": "zone",
+      "source_id": "energy_monitoring_zone",
+      "entityRole": "semanticZone",
+      "source_object_ids": [
+        "energy_station1",
+        "energy_station2"
+      ],
+      "purpose": "Display energy consumption and efficiency data related to production"
+    },
+    {
+      "id": "ENT-GROUP-BRANDING",
+      "name": "Object group: branding",
+      "kind": "asset",
+      "source_id": "group:branding",
+      "entityRole": "objectGroup",
+      "source_group": "branding",
+      "source_object_ids": [
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-CAREER",
+      "name": "Object group: career",
+      "kind": "asset",
+      "source_id": "group:career",
+      "entityRole": "objectGroup",
+      "source_group": "career",
+      "source_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-ENERGY",
+      "name": "Object group: energy",
+      "kind": "asset",
+      "source_id": "group:energy",
+      "entityRole": "objectGroup",
+      "source_group": "energy",
+      "source_object_ids": [
+        "energy_station1",
+        "energy_station2"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-ENTRANCE",
+      "name": "Object group: entrance",
+      "kind": "asset",
+      "source_id": "group:entrance",
+      "entityRole": "objectGroup",
+      "source_group": "entrance",
+      "source_object_ids": [
+        "reception_desk"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-INTERACTIVE",
+      "name": "Object group: interactive",
+      "kind": "asset",
+      "source_id": "group:interactive",
+      "entityRole": "objectGroup",
+      "source_group": "interactive",
+      "source_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-LOUNGE",
+      "name": "Object group: lounge",
+      "kind": "asset",
+      "source_id": "group:lounge",
+      "entityRole": "objectGroup",
+      "source_group": "lounge",
+      "source_object_ids": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-PRODUCT_COUNTERS",
+      "name": "Object group: product_counters",
+      "kind": "asset",
+      "source_id": "group:product_counters",
+      "entityRole": "objectGroup",
+      "source_group": "product_counters",
+      "source_object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-PRODUCT_PEDESTALS",
+      "name": "Object group: product_pedestals",
+      "kind": "asset",
+      "source_id": "group:product_pedestals",
+      "entityRole": "objectGroup",
+      "source_group": "product_pedestals",
+      "source_object_ids": [
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-PRODUCTION_MODELS",
+      "name": "Object group: production_models",
+      "kind": "asset",
+      "source_id": "group:production_models",
+      "entityRole": "objectGroup",
+      "source_group": "production_models",
+      "source_object_ids": [
+        "production_model1",
+        "production_model2"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-BRAND_PANEL1",
+      "name": "brand_panel",
+      "kind": "asset",
+      "source_id": "brand_panel1",
+      "entityRole": "sceneObject",
+      "source_group": "branding",
+      "object_type": "brand_panel",
+      "object_group_entity_id": "ENT-GROUP-BRANDING"
+    },
+    {
+      "id": "ENT-ASSET-BRAND_PANEL2",
+      "name": "brand_panel",
+      "kind": "asset",
+      "source_id": "brand_panel2",
+      "entityRole": "sceneObject",
+      "source_group": "branding",
+      "object_type": "brand_panel",
+      "object_group_entity_id": "ENT-GROUP-BRANDING"
+    },
+    {
+      "id": "ENT-ASSET-BRAND_PANEL3",
+      "name": "brand_panel",
+      "kind": "asset",
+      "source_id": "brand_panel3",
+      "entityRole": "sceneObject",
+      "source_group": "branding",
+      "object_type": "brand_panel",
+      "object_group_entity_id": "ENT-GROUP-BRANDING"
+    },
+    {
+      "id": "ENT-ASSET-BRAND_PANEL4",
+      "name": "brand_panel",
+      "kind": "asset",
+      "source_id": "brand_panel4",
+      "entityRole": "sceneObject",
+      "source_group": "branding",
+      "object_type": "brand_panel",
+      "object_group_entity_id": "ENT-GROUP-BRANDING"
+    },
+    {
+      "id": "ENT-ASSET-CHAIR1",
+      "name": "chair",
+      "kind": "asset",
+      "source_id": "chair1",
+      "entityRole": "sceneObject",
+      "source_group": "lounge",
+      "object_type": "chair",
+      "object_group_entity_id": "ENT-GROUP-LOUNGE"
+    },
+    {
+      "id": "ENT-ASSET-CHAIR2",
+      "name": "chair",
+      "kind": "asset",
+      "source_id": "chair2",
+      "entityRole": "sceneObject",
+      "source_group": "lounge",
+      "object_type": "chair",
+      "object_group_entity_id": "ENT-GROUP-LOUNGE"
+    },
+    {
+      "id": "ENT-ASSET-ENERGY_STATION1",
+      "name": "energy_station",
+      "kind": "asset",
+      "source_id": "energy_station1",
+      "entityRole": "sceneObject",
+      "source_group": "energy",
+      "object_type": "energy_station",
+      "object_group_entity_id": "ENT-GROUP-ENERGY"
+    },
+    {
+      "id": "ENT-ASSET-ENERGY_STATION2",
+      "name": "energy_station",
+      "kind": "asset",
+      "source_id": "energy_station2",
+      "entityRole": "sceneObject",
+      "source_group": "energy",
+      "object_type": "energy_station",
+      "object_group_entity_id": "ENT-GROUP-ENERGY"
+    },
+    {
+      "id": "ENT-ASSET-LOUNGE_TABLE",
+      "name": "lounge_table",
+      "kind": "asset",
+      "source_id": "lounge_table",
+      "entityRole": "sceneObject",
+      "source_group": "lounge",
+      "object_type": "lounge_table",
+      "object_group_entity_id": "ENT-GROUP-LOUNGE"
+    },
+    {
+      "id": "ENT-ASSET-MEETING_POD1",
+      "name": "meeting_pod",
+      "kind": "asset",
+      "source_id": "meeting_pod1",
+      "entityRole": "sceneObject",
+      "source_group": "career",
+      "object_type": "meeting_pod",
+      "object_group_entity_id": "ENT-GROUP-CAREER"
+    },
+    {
+      "id": "ENT-ASSET-MEETING_POD2",
+      "name": "meeting_pod",
+      "kind": "asset",
+      "source_id": "meeting_pod2",
+      "entityRole": "sceneObject",
+      "source_group": "career",
+      "object_type": "meeting_pod",
+      "object_group_entity_id": "ENT-GROUP-CAREER"
+    },
+    {
+      "id": "ENT-ASSET-MEETING_POD3",
+      "name": "meeting_pod",
+      "kind": "asset",
+      "source_id": "meeting_pod3",
+      "entityRole": "sceneObject",
+      "source_group": "career",
+      "object_type": "meeting_pod",
+      "object_group_entity_id": "ENT-GROUP-CAREER"
+    },
+    {
+      "id": "ENT-ASSET-PRODUCT_PEDESTAL1",
+      "name": "product_pedestal",
+      "kind": "asset",
+      "source_id": "product_pedestal1",
+      "entityRole": "sceneObject",
+      "source_group": "product_pedestals",
+      "object_type": "product_pedestal",
+      "object_group_entity_id": "ENT-GROUP-PRODUCT_PEDESTALS"
+    },
+    {
+      "id": "ENT-ASSET-PRODUCT_PEDESTAL2",
+      "name": "product_pedestal",
+      "kind": "asset",
+      "source_id": "product_pedestal2",
+      "entityRole": "sceneObject",
+      "source_group": "product_pedestals",
+      "object_type": "product_pedestal",
+      "object_group_entity_id": "ENT-GROUP-PRODUCT_PEDESTALS"
+    },
+    {
+      "id": "ENT-ASSET-PRODUCT_PEDESTAL3",
+      "name": "product_pedestal",
+      "kind": "asset",
+      "source_id": "product_pedestal3",
+      "entityRole": "sceneObject",
+      "source_group": "product_pedestals",
+      "object_type": "product_pedestal",
+      "object_group_entity_id": "ENT-GROUP-PRODUCT_PEDESTALS"
+    },
+    {
+      "id": "ENT-ASSET-PRODUCT_PEDESTAL4",
+      "name": "product_pedestal",
+      "kind": "asset",
+      "source_id": "product_pedestal4",
+      "entityRole": "sceneObject",
+      "source_group": "product_pedestals",
+      "object_type": "product_pedestal",
+      "object_group_entity_id": "ENT-GROUP-PRODUCT_PEDESTALS"
+    },
+    {
+      "id": "ENT-ASSET-PRODUCT_PEDESTAL5",
+      "name": "product_pedestal",
+      "kind": "asset",
+      "source_id": "product_pedestal5",
+      "entityRole": "sceneObject",
+      "source_group": "product_pedestals",
+      "object_type": "product_pedestal",
+      "object_group_entity_id": "ENT-GROUP-PRODUCT_PEDESTALS"
+    },
+    {
+      "id": "ENT-ASSET-PRODUCT_PEDESTAL6",
+      "name": "product_pedestal",
+      "kind": "asset",
+      "source_id": "product_pedestal6",
+      "entityRole": "sceneObject",
+      "source_group": "product_pedestals",
+      "object_type": "product_pedestal",
+      "object_group_entity_id": "ENT-GROUP-PRODUCT_PEDESTALS"
+    },
+    {
+      "id": "ENT-ASSET-PRODUCTION_MODEL1",
+      "name": "production_model",
+      "kind": "asset",
+      "source_id": "production_model1",
+      "entityRole": "sceneObject",
+      "source_group": "production_models",
+      "object_type": "production_model",
+      "object_group_entity_id": "ENT-GROUP-PRODUCTION_MODELS"
+    },
+    {
+      "id": "ENT-ASSET-PRODUCTION_MODEL2",
+      "name": "production_model",
+      "kind": "asset",
+      "source_id": "production_model2",
+      "entityRole": "sceneObject",
+      "source_group": "production_models",
+      "object_type": "production_model",
+      "object_group_entity_id": "ENT-GROUP-PRODUCTION_MODELS"
+    },
+    {
+      "id": "ENT-ASSET-RECEPTION_DESK",
+      "name": "reception_desk",
+      "kind": "asset",
+      "source_id": "reception_desk",
+      "entityRole": "sceneObject",
+      "source_group": "entrance",
+      "object_type": "reception_desk",
+      "object_group_entity_id": "ENT-GROUP-ENTRANCE"
+    },
+    {
+      "id": "ENT-ASSET-REFRIGERATED_COUNTER1",
+      "name": "refrigerated_counter",
+      "kind": "asset",
+      "source_id": "refrigerated_counter1",
+      "entityRole": "sceneObject",
+      "source_group": "product_counters",
+      "object_type": "refrigerated_counter",
+      "object_group_entity_id": "ENT-GROUP-PRODUCT_COUNTERS"
+    },
+    {
+      "id": "ENT-ASSET-REFRIGERATED_COUNTER2",
+      "name": "refrigerated_counter",
+      "kind": "asset",
+      "source_id": "refrigerated_counter2",
+      "entityRole": "sceneObject",
+      "source_group": "product_counters",
+      "object_type": "refrigerated_counter",
+      "object_group_entity_id": "ENT-GROUP-PRODUCT_COUNTERS"
+    },
+    {
+      "id": "ENT-ASSET-REFRIGERATED_COUNTER3",
+      "name": "refrigerated_counter",
+      "kind": "asset",
+      "source_id": "refrigerated_counter3",
+      "entityRole": "sceneObject",
+      "source_group": "product_counters",
+      "object_type": "refrigerated_counter",
+      "object_group_entity_id": "ENT-GROUP-PRODUCT_COUNTERS"
+    },
+    {
+      "id": "ENT-ASSET-REFRIGERATED_COUNTER4",
+      "name": "refrigerated_counter",
+      "kind": "asset",
+      "source_id": "refrigerated_counter4",
+      "entityRole": "sceneObject",
+      "source_group": "product_counters",
+      "object_type": "refrigerated_counter",
+      "object_group_entity_id": "ENT-GROUP-PRODUCT_COUNTERS"
+    },
+    {
+      "id": "ENT-ASSET-SOFA1",
+      "name": "sofa",
+      "kind": "asset",
+      "source_id": "sofa1",
+      "entityRole": "sceneObject",
+      "source_group": "lounge",
+      "object_type": "sofa",
+      "object_group_entity_id": "ENT-GROUP-LOUNGE"
+    },
+    {
+      "id": "ENT-ASSET-TOUCH_KIOSK1",
+      "name": "touch_kiosk",
+      "kind": "asset",
+      "source_id": "touch_kiosk1",
+      "entityRole": "sceneObject",
+      "source_group": "interactive",
+      "object_type": "touch_kiosk",
+      "object_group_entity_id": "ENT-GROUP-INTERACTIVE"
+    },
+    {
+      "id": "ENT-ASSET-TOUCH_KIOSK2",
+      "name": "touch_kiosk",
+      "kind": "asset",
+      "source_id": "touch_kiosk2",
+      "entityRole": "sceneObject",
+      "source_group": "interactive",
+      "object_type": "touch_kiosk",
+      "object_group_entity_id": "ENT-GROUP-INTERACTIVE"
+    },
+    {
+      "id": "ENT-ASSET-TRAINING_BOARD1",
+      "name": "training_board",
+      "kind": "asset",
+      "source_id": "training_board1",
+      "entityRole": "sceneObject",
+      "source_group": "career",
+      "object_type": "training_board",
+      "object_group_entity_id": "ENT-GROUP-CAREER"
+    },
+    {
+      "id": "ENT-ASSET-TRAINING_BOARD2",
+      "name": "training_board",
+      "kind": "asset",
+      "source_id": "training_board2",
+      "entityRole": "sceneObject",
+      "source_group": "career",
+      "object_type": "training_board",
+      "object_group_entity_id": "ENT-GROUP-CAREER"
+    },
+    {
+      "id": "ENT-AGENT-RECEPTIONIST_AGENT",
+      "name": "Receptionist",
+      "kind": "agent",
+      "source_id": "receptionist_agent",
+      "entityRole": "interactiveAgent"
+    },
+    {
+      "id": "ENT-AGENT-PRODUCT_SPECIALIST_AGENT",
+      "name": "Product Specialist",
+      "kind": "agent",
+      "source_id": "product_specialist_agent",
+      "entityRole": "interactiveAgent"
+    },
+    {
+      "id": "ENT-AGENT-PRODUCTION_EXPERT_AGENT",
+      "name": "Production Expert",
+      "kind": "agent",
+      "source_id": "production_expert_agent",
+      "entityRole": "interactiveAgent"
+    },
+    {
+      "id": "ENT-AGENT-DIGITAL_INTERACTION_AGENT",
+      "name": "Digital Interaction Guide",
+      "kind": "agent",
+      "source_id": "digital_interaction_agent",
+      "entityRole": "interactiveAgent"
+    },
+    {
+      "id": "ENT-AGENT-CAREER_CONSULTANT_AGENT",
+      "name": "Career Consultant",
+      "kind": "agent",
+      "source_id": "career_consultant_agent",
+      "entityRole": "interactiveAgent"
+    },
+    {
+      "id": "ENT-AGENT-LOUNGE_HOST_AGENT",
+      "name": "Lounge Host",
+      "kind": "agent",
+      "source_id": "lounge_host_agent",
+      "entityRole": "interactiveAgent"
+    },
+    {
+      "id": "ENT-STATE-MLDSSTEINPILZ_E2E_1783611970",
+      "name": "Case study validation state",
+      "kind": "stateObject",
+      "source_id": "validation_state"
+    }
+  ],
+  "agents": [
+    {
+      "id": "AG-MLDSSTEINPILZ_E2E_1783611970-RECEPTIONIST_AGENT",
+      "source_agent_id": "receptionist_agent",
+      "entity_id": "ENT-AGENT-RECEPTIONIST_AGENT",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapabilityIds": [
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "display_name": "Receptionist",
+      "persona": "Friendly and welcoming guide who provides visitors with brand information and directions to explore the booth.",
+      "expertise": [
+        "visitor assistance",
+        "brand information",
+        "navigation guidance"
+      ],
+      "knowledge_tags": [
+        "brand_information",
+        "visitor_assistance",
+        "navigation_guidance"
+      ],
+      "voice": "alloy",
+      "voice_gender": "weiblich",
+      "voice_style": "freundlich",
+      "tts_model": "gpt-4o-mini-tts",
+      "responsible_zone_ids": [
+        "entrance_zone"
+      ],
+      "responsibleZoneEntityIds": [
+        "ENT-ZONE-ENTRANCE_ZONE"
+      ],
+      "grounded_object_ids": [
+        "reception_desk",
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "groundedAssetEntityIds": [
+        "ENT-ASSET-RECEPTION_DESK",
+        "ENT-ASSET-BRAND_PANEL1",
+        "ENT-ASSET-BRAND_PANEL2",
+        "ENT-ASSET-BRAND_PANEL3",
+        "ENT-ASSET-BRAND_PANEL4"
+      ],
+      "grounded_object_groups": [
+        "entrance",
+        "branding"
+      ],
+      "groundedObjectGroupEntityIds": [
+        "ENT-GROUP-ENTRANCE",
+        "ENT-GROUP-BRANDING"
+      ],
+      "handoff_targets": [
+        "product_specialist_agent",
+        "production_expert_agent",
+        "digital_interaction_agent",
+        "career_consultant_agent",
+        "lounge_host_agent"
+      ],
+      "handoffTargetAgentIds": [
+        "AG-MLDSSTEINPILZ_E2E_1783611970-PRODUCT_SPECIALIST_AGENT",
+        "AG-MLDSSTEINPILZ_E2E_1783611970-PRODUCTION_EXPERT_AGENT",
+        "AG-MLDSSTEINPILZ_E2E_1783611970-DIGITAL_INTERACTION_AGENT",
+        "AG-MLDSSTEINPILZ_E2E_1783611970-CAREER_CONSULTANT_AGENT",
+        "AG-MLDSSTEINPILZ_E2E_1783611970-LOUNGE_HOST_AGENT"
+      ]
+    },
+    {
+      "id": "AG-MLDSSTEINPILZ_E2E_1783611970-PRODUCT_SPECIALIST_AGENT",
+      "source_agent_id": "product_specialist_agent",
+      "entity_id": "ENT-AGENT-PRODUCT_SPECIALIST_AGENT",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapabilityIds": [
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "display_name": "Product Specialist",
+      "persona": "Knowledgeable cheese expert who explains products, assists with sampling, and answers detailed product questions.",
+      "expertise": [
+        "product knowledge",
+        "sampling facilitation",
+        "customer interaction"
+      ],
+      "knowledge_tags": [
+        "cheese_products",
+        "sampling",
+        "customer_interaction"
+      ],
+      "voice": "coral",
+      "voice_gender": "maennlich",
+      "voice_style": "kompetent",
+      "tts_model": "gpt-4o-mini-tts",
+      "responsible_zone_ids": [
+        "product_display_zone"
+      ],
+      "responsibleZoneEntityIds": [
+        "ENT-ZONE-PRODUCT_DISPLAY_ZONE"
+      ],
+      "grounded_object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ],
+      "groundedAssetEntityIds": [
+        "ENT-ASSET-REFRIGERATED_COUNTER1",
+        "ENT-ASSET-REFRIGERATED_COUNTER2",
+        "ENT-ASSET-REFRIGERATED_COUNTER3",
+        "ENT-ASSET-REFRIGERATED_COUNTER4",
+        "ENT-ASSET-PRODUCT_PEDESTAL1",
+        "ENT-ASSET-PRODUCT_PEDESTAL2",
+        "ENT-ASSET-PRODUCT_PEDESTAL3",
+        "ENT-ASSET-PRODUCT_PEDESTAL4",
+        "ENT-ASSET-PRODUCT_PEDESTAL5",
+        "ENT-ASSET-PRODUCT_PEDESTAL6"
+      ],
+      "grounded_object_groups": [
+        "product_counters",
+        "product_pedestals"
+      ],
+      "groundedObjectGroupEntityIds": [
+        "ENT-GROUP-PRODUCT_COUNTERS",
+        "ENT-GROUP-PRODUCT_PEDESTALS"
+      ],
+      "handoff_targets": [
+        "production_expert_agent",
+        "digital_interaction_agent",
+        "receptionist_agent"
+      ],
+      "handoffTargetAgentIds": [
+        "AG-MLDSSTEINPILZ_E2E_1783611970-PRODUCTION_EXPERT_AGENT",
+        "AG-MLDSSTEINPILZ_E2E_1783611970-DIGITAL_INTERACTION_AGENT",
+        "AG-MLDSSTEINPILZ_E2E_1783611970-RECEPTIONIST_AGENT"
+      ]
+    },
+    {
+      "id": "AG-MLDSSTEINPILZ_E2E_1783611970-PRODUCTION_EXPERT_AGENT",
+      "source_agent_id": "production_expert_agent",
+      "entity_id": "ENT-AGENT-PRODUCTION_EXPERT_AGENT",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapabilityIds": [
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "display_name": "Production Expert",
+      "persona": "Technical specialist explaining cheese production technology and energy efficiency with clear and precise details.",
+      "expertise": [
+        "production technology",
+        "energy management",
+        "technical explanation"
+      ],
+      "knowledge_tags": [
+        "production_technology",
+        "energy_efficiency",
+        "technical_details"
+      ],
+      "voice": "sage",
+      "voice_gender": "maennlich",
+      "voice_style": "präzise",
+      "tts_model": "gpt-4o-mini-tts",
+      "responsible_zone_ids": [
+        "production_model_zone",
+        "energy_monitoring_zone"
+      ],
+      "responsibleZoneEntityIds": [
+        "ENT-ZONE-PRODUCTION_MODEL_ZONE",
+        "ENT-ZONE-ENERGY_MONITORING_ZONE"
+      ],
+      "grounded_object_ids": [
+        "production_model1",
+        "production_model2",
+        "energy_station1",
+        "energy_station2"
+      ],
+      "groundedAssetEntityIds": [
+        "ENT-ASSET-PRODUCTION_MODEL1",
+        "ENT-ASSET-PRODUCTION_MODEL2",
+        "ENT-ASSET-ENERGY_STATION1",
+        "ENT-ASSET-ENERGY_STATION2"
+      ],
+      "grounded_object_groups": [
+        "production_models",
+        "energy"
+      ],
+      "groundedObjectGroupEntityIds": [
+        "ENT-GROUP-PRODUCTION_MODELS",
+        "ENT-GROUP-ENERGY"
+      ],
+      "handoff_targets": [
+        "digital_interaction_agent",
+        "product_specialist_agent",
+        "receptionist_agent"
+      ],
+      "handoffTargetAgentIds": [
+        "AG-MLDSSTEINPILZ_E2E_1783611970-DIGITAL_INTERACTION_AGENT",
+        "AG-MLDSSTEINPILZ_E2E_1783611970-PRODUCT_SPECIALIST_AGENT",
+        "AG-MLDSSTEINPILZ_E2E_1783611970-RECEPTIONIST_AGENT"
+      ]
+    },
+    {
+      "id": "AG-MLDSSTEINPILZ_E2E_1783611970-DIGITAL_INTERACTION_AGENT",
+      "source_agent_id": "digital_interaction_agent",
+      "entity_id": "ENT-AGENT-DIGITAL_INTERACTION_AGENT",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapabilityIds": [
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "display_name": "Digital Interaction Guide",
+      "persona": "Helpful digital assistant guiding visitors through interactive kiosks and providing digital content support.",
+      "expertise": [
+        "digital interfaces",
+        "visitor engagement",
+        "content navigation"
+      ],
+      "knowledge_tags": [
+        "digital_interaction",
+        "content_navigation",
+        "visitor_support"
+      ],
+      "voice": "nova",
+      "voice_gender": "weiblich",
+      "voice_style": "hilfsbereit",
+      "tts_model": "gpt-4o-mini-tts",
+      "responsible_zone_ids": [
+        "interactive_zone"
+      ],
+      "responsibleZoneEntityIds": [
+        "ENT-ZONE-INTERACTIVE_ZONE"
+      ],
+      "grounded_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "groundedAssetEntityIds": [
+        "ENT-ASSET-TOUCH_KIOSK1",
+        "ENT-ASSET-TOUCH_KIOSK2"
+      ],
+      "grounded_object_groups": [
+        "interactive"
+      ],
+      "groundedObjectGroupEntityIds": [
+        "ENT-GROUP-INTERACTIVE"
+      ],
+      "handoff_targets": [
+        "product_specialist_agent",
+        "production_expert_agent",
+        "receptionist_agent"
+      ],
+      "handoffTargetAgentIds": [
+        "AG-MLDSSTEINPILZ_E2E_1783611970-PRODUCT_SPECIALIST_AGENT",
+        "AG-MLDSSTEINPILZ_E2E_1783611970-PRODUCTION_EXPERT_AGENT",
+        "AG-MLDSSTEINPILZ_E2E_1783611970-RECEPTIONIST_AGENT"
+      ]
+    },
+    {
+      "id": "AG-MLDSSTEINPILZ_E2E_1783611970-CAREER_CONSULTANT_AGENT",
+      "source_agent_id": "career_consultant_agent",
+      "entity_id": "ENT-AGENT-CAREER_CONSULTANT_AGENT",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapabilityIds": [
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "display_name": "Career Consultant",
+      "persona": "Professional and approachable consultant facilitating career discussions, business meetings, and training sessions.",
+      "expertise": [
+        "career counseling",
+        "business communication",
+        "training facilitation"
+      ],
+      "knowledge_tags": [
+        "career_opportunities",
+        "business_discussions",
+        "training"
+      ],
+      "voice": "echo",
+      "voice_gender": "weiblich",
+      "voice_style": "professionell",
+      "tts_model": "gpt-4o-mini-tts",
+      "responsible_zone_ids": [
+        "career_zone"
+      ],
+      "responsibleZoneEntityIds": [
+        "ENT-ZONE-CAREER_ZONE"
+      ],
+      "grounded_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "groundedAssetEntityIds": [
+        "ENT-ASSET-MEETING_POD1",
+        "ENT-ASSET-MEETING_POD2",
+        "ENT-ASSET-MEETING_POD3",
+        "ENT-ASSET-TRAINING_BOARD1",
+        "ENT-ASSET-TRAINING_BOARD2"
+      ],
+      "grounded_object_groups": [
+        "career"
+      ],
+      "groundedObjectGroupEntityIds": [
+        "ENT-GROUP-CAREER"
+      ],
+      "handoff_targets": [
+        "receptionist_agent",
+        "digital_interaction_agent"
+      ],
+      "handoffTargetAgentIds": [
+        "AG-MLDSSTEINPILZ_E2E_1783611970-RECEPTIONIST_AGENT",
+        "AG-MLDSSTEINPILZ_E2E_1783611970-DIGITAL_INTERACTION_AGENT"
+      ]
+    },
+    {
+      "id": "AG-MLDSSTEINPILZ_E2E_1783611970-LOUNGE_HOST_AGENT",
+      "source_agent_id": "lounge_host_agent",
+      "entity_id": "ENT-AGENT-LOUNGE_HOST_AGENT",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapabilityIds": [
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "display_name": "Lounge Host",
+      "persona": "Warm and friendly host ensuring visitor comfort and encouraging informal networking in the lounge area.",
+      "expertise": [
+        "hospitality",
+        "visitor comfort",
+        "networking facilitation"
+      ],
+      "knowledge_tags": [
+        "visitor_comfort",
+        "networking",
+        "hospitality"
+      ],
+      "voice": "fable",
+      "voice_gender": "weiblich",
+      "voice_style": "entspannt",
+      "tts_model": "gpt-4o-mini-tts",
+      "responsible_zone_ids": [
+        "lounge_zone"
+      ],
+      "responsibleZoneEntityIds": [
+        "ENT-ZONE-LOUNGE_ZONE"
+      ],
+      "grounded_object_ids": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "groundedAssetEntityIds": [
+        "ENT-ASSET-SOFA1",
+        "ENT-ASSET-LOUNGE_TABLE",
+        "ENT-ASSET-CHAIR1",
+        "ENT-ASSET-CHAIR2"
+      ],
+      "grounded_object_groups": [
+        "lounge"
+      ],
+      "groundedObjectGroupEntityIds": [
+        "ENT-GROUP-LOUNGE"
+      ],
+      "handoff_targets": [
+        "receptionist_agent"
+      ],
+      "handoffTargetAgentIds": [
+        "AG-MLDSSTEINPILZ_E2E_1783611970-RECEPTIONIST_AGENT"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "EV-MLDSSTEINPILZ_E2E_1783611970-MLDS-PROVIDED",
+      "kind": "environment",
+      "expression": "source_mlds.json available"
+    },
+    {
+      "id": "EV-MLDSSTEINPILZ_E2E_1783611970-VISITOR-QUESTION",
+      "kind": "user",
+      "expression": "visitor asks a room-related question"
+    },
+    {
+      "id": "EV-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-NEEDED",
+      "kind": "user",
+      "expression": "visitor question belongs to another agent expertise"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "COND-MLDSSTEINPILZ_E2E_1783611970-VALID-INPUT",
+      "kind": "precondition",
+      "expression": "MLDS input parses successfully"
+    },
+    {
+      "id": "COND-MLDSSTEINPILZ_E2E_1783611970-AGENTS-AVAILABLE",
+      "kind": "guard",
+      "expression": "at least two valid agents exist"
+    },
+    {
+      "id": "COND-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-TARGET-AVAILABLE",
+      "kind": "guard",
+      "expression": "handoff target exists and is not the source agent"
+    }
+  ],
+  "stateAssertions": [
+    {
+      "id": "SA-MLDSSTEINPILZ_E2E_1783611970-NORMALIZED-SCENE-VALID",
+      "subject_id": "ENT-STATE-MLDSSTEINPILZ_E2E_1783611970",
+      "expression": "Normalized MLDS scene is valid and object IDs are unique."
+    },
+    {
+      "id": "SA-MLDSSTEINPILZ_E2E_1783611970-SCENE-SEMANTICS-VALID",
+      "subject_id": "ENT-STATE-MLDSSTEINPILZ_E2E_1783611970",
+      "expression": "Scene semantics are grounded in existing object IDs."
+    },
+    {
+      "id": "SA-MLDSSTEINPILZ_E2E_1783611970-AGENT-ROLES-VALID",
+      "subject_id": "ENT-STATE-MLDSSTEINPILZ_E2E_1783611970",
+      "expression": "Generated agents have valid zones, objects, knowledge tags and handoff targets."
+    },
+    {
+      "id": "SA-MLDSSTEINPILZ_E2E_1783611970-KNOWLEDGE-VALID",
+      "subject_id": "ENT-STATE-MLDSSTEINPILZ_E2E_1783611970",
+      "expression": "Every agent knowledge tag has at least one materialized knowledge entry."
+    },
+    {
+      "id": "SA-MLDSSTEINPILZ_E2E_1783611970-PLACEMENT-VALID",
+      "subject_id": "ENT-STATE-MLDSSTEINPILZ_E2E_1783611970",
+      "expression": "Every generated agent has a valid room position and forward vector."
+    },
+    {
+      "id": "SA-MLDSSTEINPILZ_E2E_1783611970-FUNCTIONALMLDS-VALID",
+      "subject_id": "ENT-STATE-MLDSSTEINPILZ_E2E_1783611970",
+      "expression": "FunctionalMLDS instance satisfies all core invariants."
+    },
+    {
+      "id": "SA-MLDSSTEINPILZ_E2E_1783611970-PROJECT-MATERIALIZED",
+      "subject_id": "ENT-STATE-MLDSSTEINPILZ_E2E_1783611970",
+      "expression": "Interactive Agents project files are present and backend-readable."
+    },
+    {
+      "id": "SA-MLDSSTEINPILZ_E2E_1783611970-SETUP-VALID",
+      "subject_id": "ENT-STATE-MLDSSTEINPILZ_E2E_1783611970",
+      "expression": "Interactive Agents backend setup returns a valid session with all agents."
+    },
+    {
+      "id": "SA-MLDSSTEINPILZ_E2E_1783611970-ANSWER-GROUNDED",
+      "subject_id": "ENT-STATE-MLDSSTEINPILZ_E2E_1783611970",
+      "expression": "A visitor question is answered using room-grounded agent knowledge."
+    },
+    {
+      "id": "SA-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-VALID",
+      "subject_id": "ENT-STATE-MLDSSTEINPILZ_E2E_1783611970",
+      "expression": "A specialist handoff targets an existing responsible agent when needed."
+    }
+  ],
+  "capabilityUses": [
+    {
+      "id": "CU-MLDSSTEINPILZ_E2E_1783611970-S02-ANALYZE-MLDS-SCENE",
+      "step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S02",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-ANALYZE-MLDS-SCENE",
+      "parameters": []
+    },
+    {
+      "id": "CU-MLDSSTEINPILZ_E2E_1783611970-S03-ANALYZE-MLDS-SCENE",
+      "step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S03",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-ANALYZE-MLDS-SCENE",
+      "parameters": []
+    },
+    {
+      "id": "CU-MLDSSTEINPILZ_E2E_1783611970-S04-DERIVE-SPATIAL-AGENT-ROLES",
+      "step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S04",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-DERIVE-SPATIAL-AGENT-ROLES",
+      "parameters": []
+    },
+    {
+      "id": "CU-MLDSSTEINPILZ_E2E_1783611970-S05-GENERATE-ROOM-KNOWLEDGE",
+      "step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S05",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-GENERATE-ROOM-KNOWLEDGE",
+      "parameters": []
+    },
+    {
+      "id": "CU-MLDSSTEINPILZ_E2E_1783611970-S06-PLACE-AGENTS-IN-SCENE",
+      "step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S06",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-PLACE-AGENTS-IN-SCENE",
+      "parameters": []
+    },
+    {
+      "id": "CU-MLDSSTEINPILZ_E2E_1783611970-S07-ASSEMBLE-FUNCTIONAL-MLDS",
+      "step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S07",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-ASSEMBLE-FUNCTIONAL-MLDS",
+      "parameters": []
+    },
+    {
+      "id": "CU-MLDSSTEINPILZ_E2E_1783611970-S08-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S08",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "parameters": []
+    },
+    {
+      "id": "CU-MLDSSTEINPILZ_E2E_1783611970-S09-SETUP-INTERACTIVE-SESSION",
+      "step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S09",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-SETUP-INTERACTIVE-SESSION",
+      "parameters": []
+    },
+    {
+      "id": "CU-MLDSSTEINPILZ_E2E_1783611970-S11-ANSWER-ROOM-GROUNDED-QUESTION",
+      "step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S11",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-ANSWER-ROOM-GROUNDED-QUESTION",
+      "parameters": []
+    },
+    {
+      "id": "CU-MLDSSTEINPILZ_E2E_1783611970-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S12",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "parameters": []
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "CAP-MLDSSTEINPILZ_E2E_1783611970-ANALYZE-MLDS-SCENE",
+      "name": "Analyze Mlds Scene",
+      "text": "Analyze MLDS scene structure and normalize room objects.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-MLDSSTEINPILZ_E2E_1783611970-ANALYZE-MLDS-SCENE-01",
+          "text": "Effect of ANALYZE-MLDS-SCENE: normalized scene valid.",
+          "evidencedBy": [
+            "SA-MLDSSTEINPILZ_E2E_1783611970-NORMALIZED-SCENE-VALID"
+          ]
+        },
+        {
+          "id": "EFF-MLDSSTEINPILZ_E2E_1783611970-ANALYZE-MLDS-SCENE-02",
+          "text": "Effect of ANALYZE-MLDS-SCENE: scene semantics valid.",
+          "evidencedBy": [
+            "SA-MLDSSTEINPILZ_E2E_1783611970-SCENE-SEMANTICS-VALID"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-MLDSSTEINPILZ_E2E_1783611970-DERIVE-SPATIAL-AGENT-ROLES",
+      "name": "Derive Spatial Agent Roles",
+      "text": "Derive agent roles grounded in semantic zones and objects.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-MLDSSTEINPILZ_E2E_1783611970-DERIVE-SPATIAL-AGENT-ROLES-01",
+          "text": "Effect of DERIVE-SPATIAL-AGENT-ROLES: agent roles valid.",
+          "evidencedBy": [
+            "SA-MLDSSTEINPILZ_E2E_1783611970-AGENT-ROLES-VALID"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-MLDSSTEINPILZ_E2E_1783611970-GENERATE-ROOM-KNOWLEDGE",
+      "name": "Generate Room Knowledge",
+      "text": "Generate local knowledge entries for all agent knowledge tags.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-MLDSSTEINPILZ_E2E_1783611970-GENERATE-ROOM-KNOWLEDGE-01",
+          "text": "Effect of GENERATE-ROOM-KNOWLEDGE: knowledge valid.",
+          "evidencedBy": [
+            "SA-MLDSSTEINPILZ_E2E_1783611970-KNOWLEDGE-VALID"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-MLDSSTEINPILZ_E2E_1783611970-PLACE-AGENTS-IN-SCENE",
+      "name": "Place Agents In Scene",
+      "text": "Place agents in valid positions near their responsible zones.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-MLDSSTEINPILZ_E2E_1783611970-PLACE-AGENTS-IN-SCENE-01",
+          "text": "Effect of PLACE-AGENTS-IN-SCENE: placement valid.",
+          "evidencedBy": [
+            "SA-MLDSSTEINPILZ_E2E_1783611970-PLACEMENT-VALID"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-MLDSSTEINPILZ_E2E_1783611970-ASSEMBLE-FUNCTIONAL-MLDS",
+      "name": "Assemble Functional Mlds",
+      "text": "Assemble a valid FunctionalMLDS instance for the case study.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-MLDSSTEINPILZ_E2E_1783611970-ASSEMBLE-FUNCTIONAL-MLDS-01",
+          "text": "Effect of ASSEMBLE-FUNCTIONAL-MLDS: functionalmlds valid.",
+          "evidencedBy": [
+            "SA-MLDSSTEINPILZ_E2E_1783611970-FUNCTIONALMLDS-VALID"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-MLDSSTEINPILZ_E2E_1783611970-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "name": "Materialize Interactive Agents Project",
+      "text": "Write backend-compatible Interactive Agents project files.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-MLDSSTEINPILZ_E2E_1783611970-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT-01",
+          "text": "Effect of MATERIALIZE-INTERACTIVE-AGENTS-PROJECT: project materialized.",
+          "evidencedBy": [
+            "SA-MLDSSTEINPILZ_E2E_1783611970-PROJECT-MATERIALIZED"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-MLDSSTEINPILZ_E2E_1783611970-SETUP-INTERACTIVE-SESSION",
+      "name": "Setup Interactive Session",
+      "text": "Initialize the runtime session for the generated project.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-MLDSSTEINPILZ_E2E_1783611970-SETUP-INTERACTIVE-SESSION-01",
+          "text": "Effect of SETUP-INTERACTIVE-SESSION: setup valid.",
+          "evidencedBy": [
+            "SA-MLDSSTEINPILZ_E2E_1783611970-SETUP-VALID"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-MLDSSTEINPILZ_E2E_1783611970-ANSWER-ROOM-GROUNDED-QUESTION",
+      "name": "Answer Room Grounded Question",
+      "text": "Answer visitor questions using room-grounded agent knowledge.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-MLDSSTEINPILZ_E2E_1783611970-ANSWER-ROOM-GROUNDED-QUESTION-01",
+          "text": "Effect of ANSWER-ROOM-GROUNDED-QUESTION: answer grounded.",
+          "evidencedBy": [
+            "SA-MLDSSTEINPILZ_E2E_1783611970-ANSWER-GROUNDED"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "name": "Handoff To Responsible Agent",
+      "text": "Forward a question to an existing responsible specialist agent.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-TO-RESPONSIBLE-AGENT-01",
+          "text": "Effect of HANDOFF-TO-RESPONSIBLE-AGENT: handoff valid.",
+          "evidencedBy": [
+            "SA-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-VALID"
+          ]
+        }
+      ]
+    }
+  ],
+  "runtimeBindings": [
+    {
+      "id": "RB-MLDSSTEINPILZ_E2E_1783611970-ANALYZE-MLDS-SCENE",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-ANALYZE-MLDS-SCENE",
+      "targetPlatform": "CaseStudyPipeline",
+      "runtimeActions": [
+        {
+          "id": "RA-MLDSSTEINPILZ_E2E_1783611970-RUN-MLDS-INGESTION",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.mlds_ingestion.run_ingestion_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        },
+        {
+          "id": "RA-MLDSSTEINPILZ_E2E_1783611970-RUN-SCENE-SEMANTICS",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.scene_semantics.run_scene_semantics_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        },
+        {
+          "id": "RA-MLDSSTEINPILZ_E2E_1783611970-ARROW-ANALYZE",
+          "endpoint": "POST /projects/arrow/analyze",
+          "tool": null,
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-MLDSSTEINPILZ_E2E_1783611970-DERIVE-SPATIAL-AGENT-ROLES",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-DERIVE-SPATIAL-AGENT-ROLES",
+      "targetPlatform": "CaseStudyPipeline",
+      "runtimeActions": [
+        {
+          "id": "RA-MLDSSTEINPILZ_E2E_1783611970-RUN-AGENT-ROLES",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.agent_roles.run_agent_roles_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-MLDSSTEINPILZ_E2E_1783611970-GENERATE-ROOM-KNOWLEDGE",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-GENERATE-ROOM-KNOWLEDGE",
+      "targetPlatform": "CaseStudyPipeline",
+      "runtimeActions": [
+        {
+          "id": "RA-MLDSSTEINPILZ_E2E_1783611970-RUN-KNOWLEDGE-SYNTHESIS",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.knowledge_synthesis.run_knowledge_synthesis_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-MLDSSTEINPILZ_E2E_1783611970-PLACE-AGENTS-IN-SCENE",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-PLACE-AGENTS-IN-SCENE",
+      "targetPlatform": "CaseStudyPipeline",
+      "runtimeActions": [
+        {
+          "id": "RA-MLDSSTEINPILZ_E2E_1783611970-RUN-AGENT-PLACEMENT",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.agent_placement.run_agent_placement_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-MLDSSTEINPILZ_E2E_1783611970-ASSEMBLE-FUNCTIONAL-MLDS",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-ASSEMBLE-FUNCTIONAL-MLDS",
+      "targetPlatform": "CaseStudyPipeline",
+      "runtimeActions": [
+        {
+          "id": "RA-MLDSSTEINPILZ_E2E_1783611970-RUN-FUNCTIONALMLDS-ASSEMBLER",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.functionalmlds_assembler.run_functionalmlds_assembly_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-MLDSSTEINPILZ_E2E_1783611970-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "runtimeActions": [
+        {
+          "id": "RA-MLDSSTEINPILZ_E2E_1783611970-ARROW-COMMIT",
+          "endpoint": "POST /projects/arrow/commit",
+          "tool": null,
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        },
+        {
+          "id": "RA-MLDSSTEINPILZ_E2E_1783611970-WRITE-PROJECT-FILES",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.project_materializer.run_project_materializer_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-MLDSSTEINPILZ_E2E_1783611970-SETUP-INTERACTIVE-SESSION",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-SETUP-INTERACTIVE-SESSION",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "runtimeActions": [
+        {
+          "id": "RA-MLDSSTEINPILZ_E2E_1783611970-BACKEND-SETUP",
+          "endpoint": "POST /setup",
+          "tool": null,
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-MLDSSTEINPILZ_E2E_1783611970-ANSWER-ROOM-GROUNDED-QUESTION",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-ANSWER-ROOM-GROUNDED-QUESTION",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "runtimeActions": [
+        {
+          "id": "RA-MLDSSTEINPILZ_E2E_1783611970-BACKEND-CHAT",
+          "endpoint": "POST /chat",
+          "tool": null,
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "runtimeActions": [
+        {
+          "id": "RA-MLDSSTEINPILZ_E2E_1783611970-BACKEND-CHAT-HANDOFF",
+          "endpoint": "POST /chat",
+          "tool": null,
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    }
+  ],
+  "validationCases": [
+    {
+      "id": "VC-MLDSSTEINPILZ_E2E_1783611970-MLDS-INGESTION",
+      "level": "concrete",
+      "validates_use_case_ids": [
+        "UC-MLDSSTEINPILZ_E2E_1783611970-01"
+      ],
+      "verifies_requirement_ids": [
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-001"
+      ],
+      "stimulus_ids": [
+        "EV-MLDSSTEINPILZ_E2E_1783611970-MLDS-PROVIDED"
+      ],
+      "runtime_binding_ids": [
+        "RB-MLDSSTEINPILZ_E2E_1783611970-ANALYZE-MLDS-SCENE"
+      ],
+      "expectedOutcome": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-NORMALIZED-SCENE-VALID"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_E2E_1783611970-MODEL-INVARIANTS",
+      "level": "concrete",
+      "validates_use_case_ids": [
+        "UC-MLDSSTEINPILZ_E2E_1783611970-01"
+      ],
+      "verifies_requirement_ids": [
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-006"
+      ],
+      "stimulus_ids": [],
+      "runtime_binding_ids": [
+        "RB-MLDSSTEINPILZ_E2E_1783611970-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "expectedOutcome": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-FUNCTIONALMLDS-VALID"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_E2E_1783611970-PROJECT-MATERIALIZATION",
+      "level": "concrete",
+      "validates_use_case_ids": [
+        "UC-MLDSSTEINPILZ_E2E_1783611970-01"
+      ],
+      "verifies_requirement_ids": [
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-004",
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-005"
+      ],
+      "stimulus_ids": [],
+      "runtime_binding_ids": [
+        "RB-MLDSSTEINPILZ_E2E_1783611970-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "expectedOutcome": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-PROJECT-MATERIALIZED"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_E2E_1783611970-SETUP",
+      "level": "concrete",
+      "validates_use_case_ids": [
+        "UC-MLDSSTEINPILZ_E2E_1783611970-01"
+      ],
+      "verifies_requirement_ids": [
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-003",
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-005"
+      ],
+      "stimulus_ids": [],
+      "runtime_binding_ids": [
+        "RB-MLDSSTEINPILZ_E2E_1783611970-SETUP-INTERACTIVE-SESSION"
+      ],
+      "expectedOutcome": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-SETUP-VALID"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_E2E_1783611970-CHAT-GROUNDING",
+      "level": "concrete",
+      "validates_use_case_ids": [
+        "UC-MLDSSTEINPILZ_E2E_1783611970-01"
+      ],
+      "verifies_requirement_ids": [
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-002",
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-004",
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-006"
+      ],
+      "stimulus_ids": [
+        "EV-MLDSSTEINPILZ_E2E_1783611970-VISITOR-QUESTION"
+      ],
+      "runtime_binding_ids": [
+        "RB-MLDSSTEINPILZ_E2E_1783611970-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "expectedOutcome": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-ANSWER-GROUNDED"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_E2E_1783611970-HANDOFF",
+      "level": "concrete",
+      "validates_use_case_ids": [
+        "UC-MLDSSTEINPILZ_E2E_1783611970-01"
+      ],
+      "verifies_requirement_ids": [
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-003",
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-006"
+      ],
+      "stimulus_ids": [
+        "EV-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-NEEDED"
+      ],
+      "runtime_binding_ids": [
+        "RB-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expectedOutcome": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-VALID"
+      ]
+    }
+  ],
+  "satisfyRelationships": [
+    {
+      "id": "SAT-REQ-MLDSSTEINPILZ_E2E_1783611970-001",
+      "satisfiedRequirement": [
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-001"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-MLDSSTEINPILZ_E2E_1783611970-01",
+        "VC-MLDSSTEINPILZ_E2E_1783611970-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-MLDSSTEINPILZ_E2E_1783611970-002",
+      "satisfiedRequirement": [
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-002"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-MLDSSTEINPILZ_E2E_1783611970-01",
+        "VC-MLDSSTEINPILZ_E2E_1783611970-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-MLDSSTEINPILZ_E2E_1783611970-003",
+      "satisfiedRequirement": [
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-003"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-MLDSSTEINPILZ_E2E_1783611970-01",
+        "VC-MLDSSTEINPILZ_E2E_1783611970-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-MLDSSTEINPILZ_E2E_1783611970-004",
+      "satisfiedRequirement": [
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-004"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-MLDSSTEINPILZ_E2E_1783611970-01",
+        "VC-MLDSSTEINPILZ_E2E_1783611970-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-MLDSSTEINPILZ_E2E_1783611970-005",
+      "satisfiedRequirement": [
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-005"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-MLDSSTEINPILZ_E2E_1783611970-01",
+        "VC-MLDSSTEINPILZ_E2E_1783611970-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-MLDSSTEINPILZ_E2E_1783611970-006",
+      "satisfiedRequirement": [
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-006"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-MLDSSTEINPILZ_E2E_1783611970-01",
+        "VC-MLDSSTEINPILZ_E2E_1783611970-MODEL-INVARIANTS"
+      ]
+    }
+  ]
+}

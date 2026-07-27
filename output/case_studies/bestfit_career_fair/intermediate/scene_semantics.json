@@ -1,0 +1,321 @@
+{
+  "domain": "Career Fair / Recruiting Event",
+  "room_purpose": "To showcase company culture, benefits, and job opportunities to attract and engage potential candidates.",
+  "visitor_goals": [
+    "Learn about company benefits and culture",
+    "Explore job openings and recruiting information",
+    "Interact with demo products and technologies",
+    "Engage with recruiting staff or agents",
+    "Relax and refresh during the visit"
+  ],
+  "semantic_zones": [
+    {
+      "zone_id": "reception_zone",
+      "name": "Reception and Welcome Area",
+      "purpose": "Initial visitor greeting and orientation with branding and basic info.",
+      "object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ],
+      "centroid_xz": {
+        "x": -6.25,
+        "z": -6.0
+      },
+      "visitor_goals_supported": [
+        "Learn about company benefits and culture",
+        "Engage with recruiting staff or agents"
+      ]
+    },
+    {
+      "zone_id": "showcase_zone",
+      "name": "Product Showcase Area",
+      "purpose": "Display and demonstration of company products and technologies to attract interest.",
+      "object_ids": [
+        "showcase_equipment_treadmill",
+        "showcase_equipment_weights_rack",
+        "vr_ar_station1",
+        "vr_ar_station2",
+        "info_stele_studio1",
+        "info_stele_studio2",
+        "info_stele_studio3"
+      ],
+      "centroid_xz": {
+        "x": 0.14,
+        "z": 1.1
+      },
+      "visitor_goals_supported": [
+        "Interact with demo products and technologies",
+        "Learn about company benefits and culture"
+      ]
+    },
+    {
+      "zone_id": "benefits_info_zone",
+      "name": "Company Benefits Information Zone",
+      "purpose": "Provide detailed information about employee benefits and company values via panels and interactive terminals.",
+      "object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ],
+      "centroid_xz": {
+        "x": 5.5,
+        "z": -2.0
+      },
+      "visitor_goals_supported": [
+        "Learn about company benefits and culture"
+      ]
+    },
+    {
+      "zone_id": "recruiting_zone",
+      "name": "Recruiting and Job Application Area",
+      "purpose": "Interactive terminals and posters for job listings and application processes, with seating for discussions.",
+      "object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ],
+      "centroid_xz": {
+        "x": 6.0,
+        "z": 4.4
+      },
+      "visitor_goals_supported": [
+        "Explore job openings and recruiting information",
+        "Engage with recruiting staff or agents"
+      ]
+    },
+    {
+      "zone_id": "demo_kiosk_zone",
+      "name": "Demo Kiosk Interaction Zone",
+      "purpose": "Interactive kiosks for product demos or company information accessible via touchscreen interfaces.",
+      "object_ids": [
+        "kiosk_demo1",
+        "kiosk_demo2",
+        "kiosk_demo3"
+      ],
+      "centroid_xz": {
+        "x": 9.0,
+        "z": 0.0
+      },
+      "visitor_goals_supported": [
+        "Interact with demo products and technologies"
+      ]
+    },
+    {
+      "zone_id": "refreshment_zone",
+      "name": "Refreshment and Lounge Area",
+      "purpose": "Area for visitors to relax, have refreshments, and informal conversations.",
+      "object_ids": [
+        "refreshment_counter",
+        "bar_stool_refreshment1",
+        "bar_stool_refreshment2",
+        "bar_stool_refreshment3",
+        "lounge_seating"
+      ],
+      "centroid_xz": {
+        "x": 4.0,
+        "z": -2.58
+      },
+      "visitor_goals_supported": [
+        "Relax and refresh during the visit"
+      ]
+    }
+  ],
+  "important_objects": [
+    {
+      "object_id": "totem_reception",
+      "reason": "Primary branding and welcome signage to orient visitors."
+    },
+    {
+      "object_id": "kiosk_reception",
+      "reason": "Interactive reception kiosk for visitor check-in or initial information."
+    },
+    {
+      "object_id": "interactive_terminal_benefits1",
+      "reason": "Interactive terminal for detailed benefits exploration."
+    },
+    {
+      "object_id": "interactive_terminal_benefits2",
+      "reason": "Interactive terminal for detailed benefits exploration."
+    },
+    {
+      "object_id": "touch_terminal_recruiting1",
+      "reason": "Interactive terminal for job application and recruiting info."
+    },
+    {
+      "object_id": "touch_terminal_recruiting2",
+      "reason": "Interactive terminal for job application and recruiting info."
+    },
+    {
+      "object_id": "vr_ar_station1",
+      "reason": "Engaging VR/AR demo station showcasing company technology."
+    },
+    {
+      "object_id": "vr_ar_station2",
+      "reason": "Engaging VR/AR demo station showcasing company technology."
+    },
+    {
+      "object_id": "kiosk_demo1",
+      "reason": "Interactive demo kiosk for product or service exploration."
+    },
+    {
+      "object_id": "kiosk_demo2",
+      "reason": "Interactive demo kiosk for product or service exploration."
+    },
+    {
+      "object_id": "kiosk_demo3",
+      "reason": "Interactive demo kiosk for product or service exploration."
+    }
+  ],
+  "interaction_topics": [
+    {
+      "topic_id": "company_benefits",
+      "title": "Company Benefits and Culture",
+      "description": "Information about employee benefits, company values, and workplace culture presented on panels and interactive terminals.",
+      "related_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ]
+    },
+    {
+      "topic_id": "job_recruiting",
+      "title": "Job Opportunities and Recruiting",
+      "description": "Details on current job openings, application procedures, and recruiting events accessible via terminals and posters.",
+      "related_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "poster_recruiting1",
+        "poster_recruiting2",
+        "chair_recruiting"
+      ]
+    },
+    {
+      "topic_id": "product_demos",
+      "title": "Product Demonstrations and VR Experiences",
+      "description": "Hands-on demos of company products including fitness equipment and VR/AR stations to engage visitors.",
+      "related_object_ids": [
+        "showcase_equipment_treadmill",
+        "showcase_equipment_weights_rack",
+        "vr_ar_station1",
+        "vr_ar_station2",
+        "kiosk_demo1",
+        "kiosk_demo2",
+        "kiosk_demo3",
+        "info_stele_studio1",
+        "info_stele_studio2",
+        "info_stele_studio3"
+      ]
+    }
+  ],
+  "agent_role_candidates": [
+    {
+      "role_id": "reception_agent",
+      "display_name": "Reception Agent",
+      "mission": "Welcome visitors, provide initial information, and guide them to relevant zones.",
+      "expertise": [
+        "visitor orientation",
+        "basic company info",
+        "navigation assistance"
+      ],
+      "responsible_zone_ids": [
+        "reception_zone"
+      ],
+      "grounded_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ]
+    },
+    {
+      "role_id": "benefits_expert",
+      "display_name": "Benefits Information Specialist",
+      "mission": "Explain company benefits and culture, assist visitors with interactive terminals and panels.",
+      "expertise": [
+        "employee benefits",
+        "company culture",
+        "interactive terminal assistance"
+      ],
+      "responsible_zone_ids": [
+        "benefits_info_zone"
+      ],
+      "grounded_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ]
+    },
+    {
+      "role_id": "recruiting_agent",
+      "display_name": "Recruiting Agent",
+      "mission": "Assist visitors with job applications, provide recruiting information, and answer related questions.",
+      "expertise": [
+        "job openings",
+        "application process",
+        "recruiting info"
+      ],
+      "responsible_zone_ids": [
+        "recruiting_zone"
+      ],
+      "grounded_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ]
+    },
+    {
+      "role_id": "demo_technician",
+      "display_name": "Demo Technician",
+      "mission": "Manage and demonstrate product showcases and VR/AR stations, assist visitors with interactive demos.",
+      "expertise": [
+        "product knowledge",
+        "VR/AR technology",
+        "interactive kiosk support"
+      ],
+      "responsible_zone_ids": [
+        "showcase_zone",
+        "demo_kiosk_zone"
+      ],
+      "grounded_object_ids": [
+        "showcase_equipment_treadmill",
+        "showcase_equipment_weights_rack",
+        "vr_ar_station1",
+        "vr_ar_station2",
+        "kiosk_demo1",
+        "kiosk_demo2",
+        "kiosk_demo3",
+        "info_stele_studio1",
+        "info_stele_studio2",
+        "info_stele_studio3"
+      ]
+    },
+    {
+      "role_id": "hospitality_agent",
+      "display_name": "Hospitality Agent",
+      "mission": "Provide refreshments and maintain the lounge area to ensure visitor comfort.",
+      "expertise": [
+        "customer service",
+        "refreshment management",
+        "visitor comfort"
+      ],
+      "responsible_zone_ids": [
+        "refreshment_zone"
+      ],
+      "grounded_object_ids": [
+        "refreshment_counter",
+        "bar_stool_refreshment1",
+        "bar_stool_refreshment2",
+        "bar_stool_refreshment3",
+        "lounge_seating"
+      ]
+    }
+  ]
+}

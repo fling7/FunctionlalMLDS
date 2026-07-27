@@ -1,0 +1,31 @@
+{
+  "schema": "functionalmlds_repair_prompt_registry",
+  "schema_version": "1.0",
+  "status": "valid",
+  "repair_prompts": [
+    {
+      "prompt_version": "repair_invalid_object_refs_v1",
+      "path": "tools/case_study_pipeline/prompts/repair_invalid_object_refs_v1.md",
+      "used_by_stage": "scene_semantics",
+      "purpose": "Repair invalid scene-semantics object references while preserving valid semantic structure."
+    },
+    {
+      "prompt_version": "repair_invalid_handoff_targets_v1",
+      "path": "tools/case_study_pipeline/prompts/repair_invalid_handoff_targets_v1.md",
+      "used_by_stage": "agent_roles",
+      "purpose": "Repair invalid agent role or handoff references using only allowed IDs."
+    },
+    {
+      "prompt_version": "repair_missing_knowledge_entries_v1",
+      "path": "tools/case_study_pipeline/prompts/repair_missing_knowledge_entries_v1.md",
+      "used_by_stage": "knowledge_synthesis",
+      "purpose": "Repair missing or invalid knowledge entries for required agent knowledge tags."
+    },
+    {
+      "prompt_version": "repair_missing_capabilities_v1",
+      "path": "tools/case_study_pipeline/prompts/repair_missing_capabilities_v1.md",
+      "used_by_stage": "functionalmlds_assembly_future_repair",
+      "purpose": "Prepared prompt for future repair of missing Capability, CapabilityUse or RuntimeBinding coverage."
+    }
+  ]
+}

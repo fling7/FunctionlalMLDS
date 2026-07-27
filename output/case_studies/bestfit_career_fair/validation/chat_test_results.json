@@ -1,0 +1,725 @@
+{
+  "schema": "functionalmlds_chat_test_results",
+  "schema_version": "1.0",
+  "case_id": "bestfit_career_fair",
+  "backend_url": "http://127.0.0.1:8787",
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "selected_question_count": 23,
+    "executed_chat_count": 23,
+    "successful_chat_count": 23,
+    "failed_chat_count": 0,
+    "http_200_count": 23,
+    "say_event_coverage": 1.0,
+    "nonempty_answer_coverage": 1.0,
+    "handoff_question_count": 12,
+    "observed_handoff_count": 12,
+    "isolated_session_per_question": true
+  },
+  "chat_tests": [
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-ZONE-RECEPTION_ZONE",
+      "case_id": "bestfit_career_fair",
+      "kind": "zone_grounding",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 1660.669,
+      "session_id": "11a1508f-738d-44c9-810f-cd630fad3e5c",
+      "active_agent_id": "reception_agent",
+      "response_active_agent_id": "reception_agent",
+      "event_count": 1,
+      "say_event_count": 1,
+      "answer_char_count": 250,
+      "answer_preview": "Im Empfangsbereich finden Sie einen gebrandeten Totem und ein interaktives Kiosk. Hier erhalten Sie eine erste Orientierung, grundlegende Infos zur Firma sowie Hinweise zur Standnavigation. Beide Objekte sind zentral für die Begrüßung und Einführung.",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "observed_handoff": false,
+      "observed_handoff_to": null,
+      "expected_agent_id": "reception_agent",
+      "expected_zone_ids": [
+        "reception_zone"
+      ],
+      "expected_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-ZONE-SHOWCASE_ZONE",
+      "case_id": "bestfit_career_fair",
+      "kind": "zone_grounding",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 1957.666,
+      "session_id": "169f5db0-0d1c-4d9b-8a2e-8aeef0a76376",
+      "active_agent_id": "demo_technician",
+      "response_active_agent_id": "demo_technician",
+      "event_count": 1,
+      "say_event_count": 1,
+      "answer_char_count": 281,
+      "answer_preview": "Im Product Showcase Bereich können Sie unsere Produkte, z.B. Fitnessgeräte, an speziellen Infostelen entdecken. Ich führe Sie gern durch praktische Vorführungen und erkläre die wichtigsten Funktionen. Gibt es ein bestimmtes Produkt oder Technologie, das Sie besonders interessiert?",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "observed_handoff": false,
+      "observed_handoff_to": null,
+      "expected_agent_id": "demo_technician",
+      "expected_zone_ids": [
+        "showcase_zone"
+      ],
+      "expected_object_ids": [
+        "showcase_equipment_treadmill",
+        "showcase_equipment_weights_rack",
+        "vr_ar_station1",
+        "vr_ar_station2",
+        "info_stele_studio1",
+        "info_stele_studio2"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-ZONE-BENEFITS_INFO_ZONE",
+      "case_id": "bestfit_career_fair",
+      "kind": "zone_grounding",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 2024.563,
+      "session_id": "bcae816a-f6ca-4dd8-81c8-e41c3769bcde",
+      "active_agent_id": "benefits_expert",
+      "response_active_agent_id": "benefits_expert",
+      "event_count": 1,
+      "say_event_count": 1,
+      "answer_char_count": 359,
+      "answer_preview": "In der Company Benefits Information Zone können Sie an interaktiven Touchscreen-Terminals und Infopaneelen alles über unsere Mitarbeiter-Benefits erfahren – z.B. Gesundheitspläne, Altersvorsorge, Wellness-Programme und unsere Unternehmenskultur. Die Terminals bieten FAQs, Videos und personalisierte Infos. Möchten Sie zu einem bestimmten Benefit mehr wissen?",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "observed_handoff": false,
+      "observed_handoff_to": null,
+      "expected_agent_id": "benefits_expert",
+      "expected_zone_ids": [
+        "benefits_info_zone"
+      ],
+      "expected_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-ZONE-RECRUITING_ZONE",
+      "case_id": "bestfit_career_fair",
+      "kind": "zone_grounding",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 1925.877,
+      "session_id": "05eb2684-d5d5-427f-8493-a7e9253e72d4",
+      "active_agent_id": "recruiting_agent",
+      "response_active_agent_id": "recruiting_agent",
+      "event_count": 1,
+      "say_event_count": 1,
+      "answer_char_count": 367,
+      "answer_preview": "Im Recruiting- und Bewerbungsbereich finden Sie interaktive Terminals und Poster mit aktuellen Stellenangeboten, Infos zu Unternehmensrollen und Recruiting-Events. Sie können an den Terminals mehr über den Bewerbungsprozess erfahren, sich direkt bewerben oder Unterstützung von uns Recruiting Agents erhalten. Es gibt auch Sitzgelegenheiten für persönliche Gespräche.",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "observed_handoff": false,
+      "observed_handoff_to": null,
+      "expected_agent_id": "recruiting_agent",
+      "expected_zone_ids": [
+        "recruiting_zone"
+      ],
+      "expected_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-ZONE-DEMO_KIOSK_ZONE",
+      "case_id": "bestfit_career_fair",
+      "kind": "zone_grounding",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 2342.895,
+      "session_id": "9384397d-1c1d-451b-8c93-e86cc08af0c7",
+      "active_agent_id": "demo_technician",
+      "response_active_agent_id": "demo_technician",
+      "event_count": 1,
+      "say_event_count": 1,
+      "answer_char_count": 337,
+      "answer_preview": "In der Demo Kiosk Interaction Zone können Sie interaktive Touchscreen-Kioske nutzen, um Produktvideos, technische Daten und Unternehmensinfos anzusehen. Diese Kioske sind speziell dafür da, Produktdemos und Informationen leicht zugänglich zu machen. Möchten Sie Hilfe bei einem bestimmten Produkt oder einer bestimmten Funktion am Kiosk?",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "observed_handoff": false,
+      "observed_handoff_to": null,
+      "expected_agent_id": "demo_technician",
+      "expected_zone_ids": [
+        "demo_kiosk_zone"
+      ],
+      "expected_object_ids": [
+        "kiosk_demo1",
+        "kiosk_demo2",
+        "kiosk_demo3"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-ZONE-REFRESHMENT_ZONE",
+      "case_id": "bestfit_career_fair",
+      "kind": "zone_grounding",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 1680.531,
+      "session_id": "b9fd5c77-8b15-4964-8e6a-7a42910bc3b5",
+      "active_agent_id": "hospitality_agent",
+      "response_active_agent_id": "hospitality_agent",
+      "event_count": 1,
+      "say_event_count": 1,
+      "answer_char_count": 283,
+      "answer_preview": "Im Refreshment- und Lounge-Bereich können Sie sich auf bequemen Loungemöbeln entspannen, Getränke und Snacks am modernen Refreshment Counter genießen und an den Barhockern in lockerer Atmosphäre verweilen. Der Bereich eignet sich ideal für informelle Gespräche und eine kleine Pause.",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "observed_handoff": false,
+      "observed_handoff_to": null,
+      "expected_agent_id": "hospitality_agent",
+      "expected_zone_ids": [
+        "refreshment_zone"
+      ],
+      "expected_object_ids": [
+        "refreshment_counter",
+        "bar_stool_refreshment1",
+        "bar_stool_refreshment2",
+        "bar_stool_refreshment3",
+        "lounge_seating"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-AGENT-RECEPTION_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "agent_responsibility",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 3875.215,
+      "session_id": "571782c8-edaf-473c-9773-c1cde05ad7bd",
+      "active_agent_id": "reception_agent",
+      "response_active_agent_id": "reception_agent",
+      "event_count": 1,
+      "say_event_count": 1,
+      "answer_char_count": 281,
+      "answer_preview": "Herzlich willkommen! Ich bin Ihr Ansprechpartner für die erste Orientierung am Stand. Ich gebe Ihnen einen Überblick über das Unternehmen, unsere Werte und helfe Ihnen, sich hier zurechtzufinden. Wenn Sie Fragen zu bestimmten Bereichen oder Themen haben, leite ich Sie gern weiter.",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "observed_handoff": false,
+      "observed_handoff_to": null,
+      "expected_agent_id": "reception_agent",
+      "expected_zone_ids": [
+        "reception_zone"
+      ],
+      "expected_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-AGENT-BENEFITS_EXPERT",
+      "case_id": "bestfit_career_fair",
+      "kind": "agent_responsibility",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 4286.469,
+      "session_id": "d4c26959-d5a2-460b-a2ce-1ad21b3199db",
+      "active_agent_id": "benefits_expert",
+      "response_active_agent_id": "benefits_expert",
+      "event_count": 1,
+      "say_event_count": 1,
+      "answer_char_count": 378,
+      "answer_preview": "Ich bin hier, um Ihnen alle Informationen rund um unsere Mitarbeiter-Benefits, die Unternehmenskultur und das Wohlfühlangebot zu erklären. Außerdem unterstütze ich Sie gerne bei der Nutzung der interaktiven Terminals, an denen Sie Details zu Gesundheitsplänen, Altersvorsorge und weiteren Vorteilen entdecken können. Benötigen Sie Hilfe bei einem bestimmten Thema oder Terminal?",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "observed_handoff": false,
+      "observed_handoff_to": null,
+      "expected_agent_id": "benefits_expert",
+      "expected_zone_ids": [
+        "benefits_info_zone"
+      ],
+      "expected_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-AGENT-RECRUITING_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "agent_responsibility",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 1519.004,
+      "session_id": "9b67068d-5864-45c2-9f1b-66748ee3bc95",
+      "active_agent_id": "recruiting_agent",
+      "response_active_agent_id": "recruiting_agent",
+      "event_count": 1,
+      "say_event_count": 1,
+      "answer_char_count": 256,
+      "answer_preview": "Ich bin Ihr Ansprechpartner für alle Fragen rund um aktuelle Stellenangebote, den Bewerbungsprozess und allgemeine Recruiting-Informationen. Ich unterstütze Sie bei der Orientierung, gebe Auskunft zu offenen Positionen und begleite Sie bei Ihrer Bewerbung.",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "observed_handoff": false,
+      "observed_handoff_to": null,
+      "expected_agent_id": "recruiting_agent",
+      "expected_zone_ids": [
+        "recruiting_zone"
+      ],
+      "expected_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-AGENT-DEMO_TECHNICIAN",
+      "case_id": "bestfit_career_fair",
+      "kind": "agent_responsibility",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 5788.385,
+      "session_id": "fa37a92a-3bab-4ce6-abee-0bea4f5da111",
+      "active_agent_id": "demo_technician",
+      "response_active_agent_id": "demo_technician",
+      "event_count": 1,
+      "say_event_count": 1,
+      "answer_char_count": 289,
+      "answer_preview": "Ich bin hier zuständig für die Betreuung der Produktpräsentationen, die Unterstützung an den VR/AR-Stationen und die Hilfe bei der Nutzung der interaktiven Kioske. Ich erkläre Ihnen gerne die Produkte, führe Sie durch die VR/AR-Demos und zeige, wie Sie an den Kiosken Informationen finden.",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "observed_handoff": false,
+      "observed_handoff_to": null,
+      "expected_agent_id": "demo_technician",
+      "expected_zone_ids": [
+        "showcase_zone",
+        "demo_kiosk_zone"
+      ],
+      "expected_object_ids": [
+        "showcase_equipment_treadmill",
+        "showcase_equipment_weights_rack",
+        "vr_ar_station1",
+        "vr_ar_station2",
+        "kiosk_demo1",
+        "kiosk_demo2",
+        "kiosk_demo3",
+        "info_stele_studio1"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-AGENT-HOSPITALITY_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "agent_responsibility",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 2715.479,
+      "session_id": "017bfd0b-4163-499e-90ef-3e3bcd2c1bdc",
+      "active_agent_id": "hospitality_agent",
+      "response_active_agent_id": "hospitality_agent",
+      "event_count": 1,
+      "say_event_count": 1,
+      "answer_char_count": 252,
+      "answer_preview": "Ich bin für die Betreuung im Lounge-Bereich zuständig: Ich sorge für Getränke und Snacks am Tresen, achte auf eine angenehme Atmosphäre und unterstütze Sie dabei, sich wohlzufühlen. Haben Sie einen speziellen Wunsch oder benötigen Sie etwas Bestimmtes?",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "observed_handoff": false,
+      "observed_handoff_to": null,
+      "expected_agent_id": "hospitality_agent",
+      "expected_zone_ids": [
+        "refreshment_zone"
+      ],
+      "expected_object_ids": [
+        "refreshment_counter",
+        "bar_stool_refreshment1",
+        "bar_stool_refreshment2",
+        "bar_stool_refreshment3",
+        "lounge_seating"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-RECEPTION_AGENT_TO_BENEFITS_EXPERT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 6245.925,
+      "session_id": "38d417a9-8233-4473-99c6-df5f9df9cc0a",
+      "active_agent_id": "reception_agent",
+      "response_active_agent_id": "benefits_expert",
+      "event_count": 2,
+      "say_event_count": 2,
+      "answer_char_count": 994,
+      "answer_preview": "Gerne! Ich leite Sie direkt an unseren Benefits Information Specialist weiter, der Ihnen detaillierte Informationen zu unseren Unternehmensleistungen und unserer Unternehmenskultur geben kann.\n{\n  \"antwort\": \"Herzlich willkommen! Ich bin der Benefits Information Specialist und genau für diese Themen zuständig. Gerne gebe ich Ihnen einen Überblick: Unsere Benefits umfassen umfassende Gesundheitspläne, attraktive Altersvorsorgeoptionen und verschiedene Wellness-Programme. Besonders hervorzuheben i",
+      "expected_handoff": true,
+      "expected_handoff_to": "benefits_expert",
+      "observed_handoff": true,
+      "observed_handoff_to": "benefits_expert",
+      "expected_agent_id": "benefits_expert",
+      "expected_zone_ids": [
+        "benefits_info_zone"
+      ],
+      "expected_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-RECEPTION_AGENT_TO_RECRUITING_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 4782.816,
+      "session_id": "f029d9e6-8d6a-42a5-878c-b2a63273cfb7",
+      "active_agent_id": "reception_agent",
+      "response_active_agent_id": "recruiting_agent",
+      "event_count": 2,
+      "say_event_count": 2,
+      "answer_char_count": 754,
+      "answer_preview": "Gerne! Ich leite Sie direkt an unseren Recruiting Agenten weiter, der alle Fragen zu Stellenangeboten und dem Bewerbungsprozess beantworten kann.\n{\n  \"response\": \"Willkommen! Ich bin der richtige Ansprechpartner für Ihre Fragen zu offenen Stellen und dem Bewerbungsprozess. Unsere aktuellen Jobangebote finden Sie an den Recruiting-Terminals oder auf den ausgehängten Postern im Recruiting-Bereich. Dort erhalten Sie auch Informationen zu den verschiedenen Unternehmensbereichen und Karrieremöglichke",
+      "expected_handoff": true,
+      "expected_handoff_to": "recruiting_agent",
+      "observed_handoff": true,
+      "observed_handoff_to": "recruiting_agent",
+      "expected_agent_id": "recruiting_agent",
+      "expected_zone_ids": [
+        "recruiting_zone"
+      ],
+      "expected_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-RECEPTION_AGENT_TO_DEMO_TECHNICIAN",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 4282.612,
+      "session_id": "4a159ca7-0d7f-47dd-b89c-adac22a4f697",
+      "active_agent_id": "reception_agent",
+      "response_active_agent_id": "demo_technician",
+      "event_count": 2,
+      "say_event_count": 2,
+      "answer_char_count": 602,
+      "answer_preview": "Gerne! Ich verbinde Sie direkt mit unserem Demo Technician, der Ihnen bei Produktdemos und VR/AR-Erlebnissen weiterhilft.\n{\n  \"antwort\": \"Willkommen! Ich bin genau der richtige Ansprechpartner für Produktdemos und VR/AR-Erfahrungen. Wir haben zwei VR/AR-Stationen, an denen Sie immersive Simulationen ausprobieren können, sowie interaktive Kioske mit Produktvideos und Infos. Möchten Sie lieber direkt eine VR/AR-Demo testen oder sich zuerst an einem interaktiven Kiosk informieren?\",\n  \"rueckfrage\":",
+      "expected_handoff": true,
+      "expected_handoff_to": "demo_technician",
+      "observed_handoff": true,
+      "observed_handoff_to": "demo_technician",
+      "expected_agent_id": "demo_technician",
+      "expected_zone_ids": [
+        "showcase_zone",
+        "demo_kiosk_zone"
+      ],
+      "expected_object_ids": [
+        "showcase_equipment_treadmill",
+        "showcase_equipment_weights_rack",
+        "vr_ar_station1",
+        "vr_ar_station2",
+        "kiosk_demo1",
+        "kiosk_demo2",
+        "kiosk_demo3",
+        "info_stele_studio1"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-RECEPTION_AGENT_TO_HOSPITALITY_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 4346.482,
+      "session_id": "e8af1ecc-2015-4e27-8b28-579afcb570a9",
+      "active_agent_id": "reception_agent",
+      "response_active_agent_id": "hospitality_agent",
+      "event_count": 2,
+      "say_event_count": 2,
+      "answer_char_count": 514,
+      "answer_preview": "Gerne! Für Informationen zu Erfrischungen oder einem Ruhebereich leite ich Sie direkt an unseren Hospitality Agent weiter.\n{\n  \"response\": \"Herzlich willkommen! Sie sind genau richtig bei mir. In unserer Lounge finden Sie einen modernen Erfrischungstresen mit verschiedenen Getränken und Snacks. Bequeme Lounge-Sitzplätze und Barhocker laden zum Entspannen und zu informellen Gesprächen ein. Möchten Sie lieber ein bestimmtes Getränk oder einen Snack? Oder suchen Sie einen besonders ruhigen Platz zu",
+      "expected_handoff": true,
+      "expected_handoff_to": "hospitality_agent",
+      "observed_handoff": true,
+      "observed_handoff_to": "hospitality_agent",
+      "expected_agent_id": "hospitality_agent",
+      "expected_zone_ids": [
+        "refreshment_zone"
+      ],
+      "expected_object_ids": [
+        "refreshment_counter",
+        "bar_stool_refreshment1",
+        "bar_stool_refreshment2",
+        "bar_stool_refreshment3",
+        "lounge_seating"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-BENEFITS_EXPERT_TO_RECRUITING_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 4944.564,
+      "session_id": "4d5f835f-2930-4b36-bfae-d36a481dbf7f",
+      "active_agent_id": "benefits_expert",
+      "response_active_agent_id": "recruiting_agent",
+      "event_count": 2,
+      "say_event_count": 2,
+      "answer_char_count": 568,
+      "answer_preview": "Gerne! Für alle Fragen rund um Bewerbungen und offene Stellen leite ich Sie direkt an unseren Recruiting-Experten weiter.\n{\n  \"role\": \"recruiting_agent\",\n  \"answer\": \"Willkommen! Ich bin genau der richtige Ansprechpartner für Fragen rund um Bewerbungen und offene Stellen. Der Bewerbungsprozess läuft bei uns so ab: Sie können an unseren Recruiting-Terminals aktuelle Stellenangebote einsehen und direkt Ihre Bewerbung einreichen. Bei Fragen unterstütze ich Sie gerne persönlich. Möchten Sie mehr übe",
+      "expected_handoff": true,
+      "expected_handoff_to": "recruiting_agent",
+      "observed_handoff": true,
+      "observed_handoff_to": "recruiting_agent",
+      "expected_agent_id": "recruiting_agent",
+      "expected_zone_ids": [
+        "recruiting_zone"
+      ],
+      "expected_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-BENEFITS_EXPERT_TO_RECEPTION_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 5220.88,
+      "session_id": "4d3511cc-dd37-48d9-ad64-75049a5d03bc",
+      "active_agent_id": "benefits_expert",
+      "response_active_agent_id": "reception_agent",
+      "event_count": 2,
+      "say_event_count": 2,
+      "answer_char_count": 628,
+      "answer_preview": "Ich leite Sie gerne an unseren Empfangsagenten weiter, der Ihnen bei Orientierung und Navigation im Unternehmen helfen kann.\n{\n  \"role\": \"Reception Agent\",\n  \"response\": \"Herzlich willkommen! Ich bin Ihr Ansprechpartner für allgemeine Orientierung und Navigation am Stand. Sie finden hier im Empfangsbereich einen gebrandeten Totem und ein interaktives Kiosk, die Ihnen einen Überblick über das Unternehmen und den Stand geben. Gerne helfe ich Ihnen, bestimmte Bereiche wie Benefits, Recruiting, Demo",
+      "expected_handoff": true,
+      "expected_handoff_to": "reception_agent",
+      "observed_handoff": true,
+      "observed_handoff_to": "reception_agent",
+      "expected_agent_id": "reception_agent",
+      "expected_zone_ids": [
+        "reception_zone"
+      ],
+      "expected_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-RECRUITING_AGENT_TO_BENEFITS_EXPERT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 6924.636,
+      "session_id": "93e6e8c1-3809-4806-9c95-5a4202fb4345",
+      "active_agent_id": "recruiting_agent",
+      "response_active_agent_id": "benefits_expert",
+      "event_count": 2,
+      "say_event_count": 2,
+      "answer_char_count": 739,
+      "answer_preview": "Gerne! Für Fragen zu Unternehmenskultur oder Benefits leite ich Sie direkt an unseren Benefits Information Specialist weiter.\n{\n  \"role\": \"Benefits Information Specialist\",\n  \"response\": \"Gerne gebe ich Ihnen einen Überblick! Unsere Unternehmenskultur ist geprägt von Offenheit, Teamgeist und einer starken Unterstützung der Mitarbeitenden. In der Benefits-Zone finden Sie interaktive Terminals, an denen Sie Details zu unseren Leistungen wie Gesundheitsplänen, Altersvorsorge und Wellness-Programmen",
+      "expected_handoff": true,
+      "expected_handoff_to": "benefits_expert",
+      "observed_handoff": true,
+      "observed_handoff_to": "benefits_expert",
+      "expected_agent_id": "benefits_expert",
+      "expected_zone_ids": [
+        "benefits_info_zone"
+      ],
+      "expected_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-RECRUITING_AGENT_TO_RECEPTION_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 3822.237,
+      "session_id": "3435786f-b9b7-4a36-941c-8e843c526227",
+      "active_agent_id": "recruiting_agent",
+      "response_active_agent_id": "reception_agent",
+      "event_count": 2,
+      "say_event_count": 2,
+      "answer_char_count": 488,
+      "answer_preview": "Ich leite Sie gerne an unseren Empfang weiter, dort erhalten Sie allgemeine Informationen und Orientierung.\n{\n  \"role\": \"Reception Agent\",\n  \"response\": \"Herzlich willkommen! Ich bin Ihr Ansprechpartner für allgemeine Informationen und Orientierung. Sie erhalten bei mir einen Überblick über unser Unternehmen, unsere Mission und die wichtigsten Bereiche des Messestands. Gibt es einen bestimmten Bereich, zu dem Sie mehr wissen möchten, oder soll ich Ihnen eine kurze Übersicht geben?\"\n}",
+      "expected_handoff": true,
+      "expected_handoff_to": "reception_agent",
+      "observed_handoff": true,
+      "observed_handoff_to": "reception_agent",
+      "expected_agent_id": "reception_agent",
+      "expected_zone_ids": [
+        "reception_zone"
+      ],
+      "expected_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-DEMO_TECHNICIAN_TO_RECRUITING_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 4345.933,
+      "session_id": "f8c6f1cc-5dc5-4246-8372-0be33ca9337c",
+      "active_agent_id": "demo_technician",
+      "response_active_agent_id": "recruiting_agent",
+      "event_count": 2,
+      "say_event_count": 2,
+      "answer_char_count": 609,
+      "answer_preview": "Gerne! Für Informationen zu Jobmöglichkeiten nach den Produktdemos leite ich Sie an unseren Recruiting Agent weiter.\n{\n  \"role\": \"recruiting_agent\",\n  \"response\": \"Willkommen! Nach unseren Produktdemos gibt es verschiedene Jobmöglichkeiten bei uns. Sie finden aktuelle Stellenangebote an den Recruiting-Terminals oder auf unseren Jobpostern hier im Bereich. Gerne erkläre ich Ihnen auch den Bewerbungsprozess und informiere über Karrierewege und Entwicklungschancen im Unternehmen. Haben Sie Interess",
+      "expected_handoff": true,
+      "expected_handoff_to": "recruiting_agent",
+      "observed_handoff": true,
+      "observed_handoff_to": "recruiting_agent",
+      "expected_agent_id": "recruiting_agent",
+      "expected_zone_ids": [
+        "recruiting_zone"
+      ],
+      "expected_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-DEMO_TECHNICIAN_TO_BENEFITS_EXPERT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 3285.288,
+      "session_id": "050a5687-c09a-46da-b15e-552bed051128",
+      "active_agent_id": "demo_technician",
+      "response_active_agent_id": "benefits_expert",
+      "event_count": 2,
+      "say_event_count": 2,
+      "answer_char_count": 626,
+      "answer_preview": "Gerne! Für Fragen zur Unternehmenskultur oder zu Benefits leite ich Sie direkt an unseren Benefits Information Specialist weiter.\n{\n  \"role\": \"Benefits Information Specialist\",\n  \"response\": \"Hallo! Ich bin genau der richtige Ansprechpartner für Fragen rund um Unternehmenskultur und Benefits. Unsere Informationszone bietet viele Details zu Themen wie Gesundheitsleistungen, Altersvorsorge und Wohlfühlprogrammen. Außerdem legen wir großen Wert auf eine unterstützende Unternehmenskultur mit flexibl",
+      "expected_handoff": true,
+      "expected_handoff_to": "benefits_expert",
+      "observed_handoff": true,
+      "observed_handoff_to": "benefits_expert",
+      "expected_agent_id": "benefits_expert",
+      "expected_zone_ids": [
+        "benefits_info_zone"
+      ],
+      "expected_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-DEMO_TECHNICIAN_TO_RECEPTION_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 4929.955,
+      "session_id": "022b0ca4-2fe0-4f91-b645-791f9dfc4ba2",
+      "active_agent_id": "demo_technician",
+      "response_active_agent_id": "reception_agent",
+      "event_count": 2,
+      "say_event_count": 2,
+      "answer_char_count": 425,
+      "answer_preview": "Ich leite Sie gern an unseren Empfang weiter, der Ihnen bei allgemeinen Fragen und Orientierung hilft.\n{\n  \"antwort\": \"Willkommen am Empfang! Ich bin der richtige Ansprechpartner für allgemeine Orientierung und Unterstützung am Messestand. Möchten Sie mehr über unser Unternehmen, den Standaufbau oder bestimmte Bereiche wie Recruiting, Demos oder Verpflegung erfahren? Lassen Sie mich wissen, wobei ich Ihnen helfen kann.\"\n}",
+      "expected_handoff": true,
+      "expected_handoff_to": "reception_agent",
+      "observed_handoff": true,
+      "observed_handoff_to": "reception_agent",
+      "expected_agent_id": "reception_agent",
+      "expected_zone_ids": [
+        "reception_zone"
+      ],
+      "expected_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ]
+    },
+    {
+      "question_id": "EQ-BESTFIT_CAREER_FAIR-HANDOFF-HOSPITALITY_AGENT_TO_RECEPTION_AGENT",
+      "case_id": "bestfit_career_fair",
+      "kind": "handoff_decision",
+      "success": true,
+      "errors": [],
+      "http_status": 200,
+      "duration_ms": 3879.66,
+      "session_id": "008466b9-bd9a-4a94-9139-7f9e09bf208c",
+      "active_agent_id": "hospitality_agent",
+      "response_active_agent_id": "reception_agent",
+      "event_count": 2,
+      "say_event_count": 2,
+      "answer_char_count": 368,
+      "answer_preview": "Gerne leite ich Sie an unsere Rezeption weiter, die Ihnen bei allgemeinen Fragen oder Orientierung am Stand weiterhelfen kann.\n{\n  \"antwort\": \"Willkommen am Empfang! Ich helfe Ihnen gern weiter. Damit ich Sie bestmöglich unterstützen kann: Zu welchem Thema suchen Sie Informationen? Geht es um allgemeine Unternehmensinfos, Orientierung am Stand oder etwas anderes?\"\n}",
+      "expected_handoff": true,
+      "expected_handoff_to": "reception_agent",
+      "observed_handoff": true,
+      "observed_handoff_to": "reception_agent",
+      "expected_agent_id": "reception_agent",
+      "expected_zone_ids": [
+        "reception_zone"
+      ],
+      "expected_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ]
+    }
+  ]
+}

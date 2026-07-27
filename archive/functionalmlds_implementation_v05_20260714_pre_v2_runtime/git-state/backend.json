@@ -1,0 +1,21 @@
+{
+  "branch": "main",
+  "changedEntryCount": 12,
+  "head": "ec9bd4f15a6fd49ba1bce9c517f36f1a5adda7db",
+  "remotes": [
+    {
+      "direction": "fetch",
+      "name": "origin",
+      "url": "https://git.informatik.fh-nuernberg.de/jobboerse/forschung/doktoranden/interactiveworlds/interactiveagentsbackend.git"
+    },
+    {
+      "direction": "push",
+      "name": "origin",
+      "url": "https://git.informatik.fh-nuernberg.de/jobboerse/forschung/doktoranden/interactiveworlds/interactiveagentsbackend.git"
+    }
+  ],
+  "statusEntryCount": 134,
+  "trackedFileCount": 152,
+  "untrackedEntryCount": 122,
+  "workspacePath": "InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents"
+}

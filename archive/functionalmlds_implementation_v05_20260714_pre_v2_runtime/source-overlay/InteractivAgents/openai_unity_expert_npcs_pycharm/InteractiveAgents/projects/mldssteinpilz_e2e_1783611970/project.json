@@ -1,0 +1,12 @@
+{
+  "id": "mldssteinpilz_e2e_1783611970",
+  "display_name": "Codex E2E FunctionalMLDS Steinpilz",
+  "description": "End-to-end verification project generated from existing MLDS via FunctionalMLDS wizard path.",
+  "created_ms": 1783612042301,
+  "updated_ms": 1783612042943,
+  "generation_mode": "functionalmlds",
+  "functionalmlds_trace_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\mldssteinpilz_e2e_1783611970\\functionalmlds\\functionalmlds.instance.generated.json",
+  "functionalmlds_case_dir": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\mldssteinpilz_e2e_1783611970",
+  "source_mlds_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\mldssteinpilz_e2e_1783611970\\input\\source_mlds.json",
+  "metamodelVersion": "v0.5"
+}

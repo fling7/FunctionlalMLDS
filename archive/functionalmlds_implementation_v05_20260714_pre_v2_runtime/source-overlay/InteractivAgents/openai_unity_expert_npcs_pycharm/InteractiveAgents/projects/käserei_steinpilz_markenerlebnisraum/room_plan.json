@@ -1,0 +1,691 @@
+{
+  "pipelineHints": {
+    "schemaReady": true,
+    "skipJsonConverter": true,
+    "reducedRetry": true,
+    "reducedRetryQualityCompletion": true
+  },
+  "scene": {
+    "sceneName": "kaeserei_steinpilz_markenerlebnisraum",
+    "environment": {
+      "roomDimensions": {
+        "width": 12,
+        "depth": 9,
+        "height": 4.2
+      },
+      "style": "warm_modern_family_cheesery",
+      "palette": [
+        "warm_cream",
+        "light_oak",
+        "brushed_stainless",
+        "honey_gold",
+        "steinpilz_taupe"
+      ],
+      "floorTop": 0.05,
+      "lighting": [
+        {
+          "lightType": "ambient",
+          "intensity": 0.42,
+          "color": "#F7F0DE"
+        },
+        {
+          "lightType": "directional",
+          "intensity": 0.5,
+          "color": "#FFFFFF"
+        }
+      ],
+      "dimensions": {
+        "width": 12.45,
+        "height": 3.6,
+        "depth": 9.895
+      }
+    },
+    "objectGroups": {
+      "shell": {
+        "color": "#E9E2D2"
+      },
+      "arrival": {
+        "color": "#D8CBB6"
+      },
+      "production_left": {
+        "color": "#D8CBB6"
+      },
+      "tradition_back": {
+        "color": "#D8CBB6"
+      },
+      "tasting_right": {
+        "color": "#D8CBB6"
+      },
+      "lighting": {
+        "color": "#FFE08A"
+      }
+    },
+    "objects": [
+      {
+        "objectId": "floor",
+        "objectType": "floor",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "dimensions": {
+          "width": 12.45,
+          "height": 0.1,
+          "depth": 9.895
+        },
+        "group": "shell",
+        "specification": "Heller Mineralterrazzo-Boden als ruhige, saubere Basis des Markenraums."
+      },
+      {
+        "objectId": "front_wall",
+        "objectType": "wall",
+        "position": {
+          "x": 0.0,
+          "y": 1.85,
+          "z": 5.0075
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0.0,
+          "z": 0
+        },
+        "dimensions": {
+          "width": 12.45,
+          "height": 3.6,
+          "depth": 0.12
+        },
+        "group": "shell",
+        "specification": "Warmweiße Frontwand mit zentrierter Eingangsoeffnung 2.4m x 2.8m und subtiler Käserei Steinpilz Beschriftung oberhalb des Zugangs."
+      },
+      {
+        "objectId": "back_wall",
+        "objectType": "wall",
+        "position": {
+          "x": 0.0,
+          "y": 1.85,
+          "z": -5.0075
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0.0,
+          "z": 0
+        },
+        "dimensions": {
+          "width": 12.45,
+          "height": 3.6,
+          "depth": 0.12
+        },
+        "group": "shell",
+        "specification": "Backwand als ruhige Geschichts- und Reifeflaeche mit Platz fuer Tradition und Herkunft."
+      },
+      {
+        "objectId": "left_wall",
+        "objectType": "wall",
+        "position": {
+          "x": -6.285,
+          "y": 1.85,
+          "z": 0.0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 90.0,
+          "z": 0
+        },
+        "dimensions": {
+          "width": 9.895,
+          "height": 3.6,
+          "depth": 0.12
+        },
+        "group": "shell",
+        "specification": "Linke Wand in warmem Kalkputzton als Kulisse fuer Herstellung und Handwerk."
+      },
+      {
+        "objectId": "right_wall",
+        "objectType": "wall",
+        "position": {
+          "x": 6.285,
+          "y": 1.85,
+          "z": 0.0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 90.0,
+          "z": 0
+        },
+        "dimensions": {
+          "width": 9.895,
+          "height": 3.6,
+          "depth": 0.12
+        },
+        "group": "shell",
+        "specification": "Rechte Wand als helle, einladende Kulisse der Verkostung und Präsentation."
+      },
+      {
+        "objectId": "ceiling",
+        "objectType": "ceiling",
+        "position": {
+          "x": 0.0,
+          "y": 3.7,
+          "z": 0.0
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "dimensions": {
+          "width": 12.45,
+          "height": 0.1,
+          "depth": 9.895
+        },
+        "group": "shell",
+        "specification": "Helle Decke als ruhige Lichtfläche für die warm-modernen Akzente des Raums.",
+        "children": [
+          {
+            "objectId": "ceiling_spotlight_1",
+            "objectType": "spotlight",
+            "rotation": {
+              "x": 90,
+              "y": 0,
+              "z": 0
+            },
+            "dimensions": {
+              "width": 0.25,
+              "height": 0.12,
+              "depth": 0.25
+            },
+            "group": "lighting",
+            "relativePositioning": {
+              "referenceObject": "ceiling",
+              "relation": "below",
+              "offset": {
+                "x": -1.0,
+                "y": 0,
+                "z": -1
+              }
+            },
+            "offset": {
+              "x": -1.0,
+              "y": 0,
+              "z": -1
+            },
+            "specification": "Warmweißer Spot fuer den Produktionsbereich links."
+          },
+          {
+            "objectId": "ceiling_spotlight_2",
+            "objectType": "spotlight",
+            "rotation": {
+              "x": 90,
+              "y": 0,
+              "z": 0
+            },
+            "dimensions": {
+              "width": 0.25,
+              "height": 0.12,
+              "depth": 0.25
+            },
+            "group": "lighting",
+            "relativePositioning": {
+              "referenceObject": "ceiling",
+              "relation": "below",
+              "offset": {
+                "x": 0.0,
+                "y": 0,
+                "z": 0.0
+              }
+            },
+            "offset": {
+              "x": 0.0,
+              "y": 0,
+              "z": 0.0
+            },
+            "specification": "Warmweißer Spot fuer den zentralen Besucherweg."
+          },
+          {
+            "objectId": "ceiling_spotlight_3",
+            "objectType": "spotlight",
+            "rotation": {
+              "x": 90,
+              "y": 0,
+              "z": 0
+            },
+            "dimensions": {
+              "width": 0.25,
+              "height": 0.12,
+              "depth": 0.25
+            },
+            "group": "lighting",
+            "relativePositioning": {
+              "referenceObject": "ceiling",
+              "relation": "below",
+              "offset": {
+                "x": 1.0,
+                "y": 0,
+                "z": 1
+              }
+            },
+            "offset": {
+              "x": 1.0,
+              "y": 0,
+              "z": 1
+            },
+            "specification": "Warmweißer Spot fuer die Verkostungs- und Praesentationszone rechts."
+          }
+        ]
+      },
+      {
+        "objectId": "visitor_path_runner",
+        "objectType": "runner",
+        "position": {
+          "x": 0,
+          "y": 0.055,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "dimensions": {
+          "width": 0.65,
+          "height": 0.01,
+          "depth": 7.4
+        },
+        "group": "arrival",
+        "specification": "Dünner Besucherpfad-Runner als klare, freie Orientierungsachse durch die Raummitte."
+      },
+      {
+        "objectId": "brand_monolith",
+        "objectType": "brand_monolith",
+        "position": {
+          "x": -4.95,
+          "y": 1.15,
+          "z": -3
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "dimensions": {
+          "width": 1,
+          "height": 2.2,
+          "depth": 0.35
+        },
+        "group": "arrival",
+        "specification": "Schlanker Markenmonolith mit goldgelbem Schriftzug Käserei Steinpilz als sichtbarer Anker am Eingang."
+      },
+      {
+        "objectId": "craft_production_table",
+        "objectType": "craft_production_table",
+        "position": {
+          "x": -3.35,
+          "y": 0.51,
+          "z": -0.9
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "dimensions": {
+          "width": 2.4,
+          "height": 0.92,
+          "depth": 1.3
+        },
+        "group": "production_left",
+        "specification": "Linke Produktionsinsel aus Eiche und Edelstahl fuer handwerkliche Kaeseproduktion und klar lesbaren Herstellungsprozess.",
+        "children": [
+          {
+            "objectId": "copper_kettle_model",
+            "objectType": "copper_kettle_model",
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "dimensions": {
+              "width": 0.45,
+              "height": 0.5,
+              "depth": 0.45
+            },
+            "group": "production_left",
+            "relativePositioning": {
+              "referenceObject": "craft_production_table",
+              "relation": "on_top_of",
+              "offset": {
+                "x": -0.55,
+                "y": 0,
+                "z": -0.15
+              }
+            },
+            "offset": {
+              "x": -0.55,
+              "y": 0,
+              "z": -0.15
+            },
+            "specification": "Kleines Kupferkesselmodell als Zeichen fuer traditionelle Käseherstellung."
+          },
+          {
+            "objectId": "curd_board",
+            "objectType": "curd_board",
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "dimensions": {
+              "width": 0.5,
+              "height": 0.08,
+              "depth": 0.35
+            },
+            "group": "production_left",
+            "relativePositioning": {
+              "referenceObject": "craft_production_table",
+              "relation": "on_top_of",
+              "offset": {
+                "x": 0,
+                "y": 0,
+                "z": 0.12
+              }
+            },
+            "offset": {
+              "x": 0,
+              "y": 0,
+              "z": 0.12
+            },
+            "specification": "Gerinnungs- und Bruchbrett zur Erklärung des Produktionsschritts."
+          },
+          {
+            "objectId": "cheese_press",
+            "objectType": "cheese_press",
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "dimensions": {
+              "width": 0.4,
+              "height": 0.55,
+              "depth": 0.4
+            },
+            "group": "production_left",
+            "relativePositioning": {
+              "referenceObject": "craft_production_table",
+              "relation": "on_top_of",
+              "offset": {
+                "x": 0.55,
+                "y": 0,
+                "z": -0.05
+              }
+            },
+            "offset": {
+              "x": 0.55,
+              "y": 0,
+              "z": -0.05
+            },
+            "specification": "Kompakte Käsepresse als klar lesbares Handwerksdetail."
+          }
+        ]
+      },
+      {
+        "objectId": "copper_milk_kettle",
+        "objectType": "copper_milk_kettle",
+        "position": {
+          "x": -4.95,
+          "y": 0.8,
+          "z": 1.55
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "dimensions": {
+          "width": 0.9,
+          "height": 1.5,
+          "depth": 0.9
+        },
+        "group": "production_left",
+        "specification": "Frei stehender Kupfer-Milchkessel als warmer Blickfang der Produktionszone."
+      },
+      {
+        "objectId": "heritage_process_wall_panel",
+        "objectType": "heritage_process_wall_panel",
+        "position": {
+          "x": -3.45,
+          "y": 1.25,
+          "z": -4.8075
+        },
+        "rotation": {
+          "x": 0,
+          "y": 180.0,
+          "z": 0
+        },
+        "dimensions": {
+          "width": 2.8,
+          "height": 2.4,
+          "depth": 0.12
+        },
+        "group": "tradition_back",
+        "specification": "Prominentes Heritage- und Prozesspanel mit Familienchronik, regionaler Herkunft und Tradition seit Generationen."
+      },
+      {
+        "objectId": "maturation_story_display",
+        "objectType": "maturation_story_display",
+        "position": {
+          "x": 1.7,
+          "y": 0.9,
+          "z": 3.62
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "dimensions": {
+          "width": 2.4,
+          "height": 1.7,
+          "depth": 0.35
+        },
+        "group": "tradition_back",
+        "specification": "Kompakte Reife- und Qualitätsstation mit dunklem Holz, Glas und Nachhaltigkeitsnotizen zur Reifekompetenz."
+      },
+      {
+        "objectId": "tasting_table",
+        "objectType": "tasting_table",
+        "position": {
+          "x": 4.05,
+          "y": 0.425,
+          "z": 1.55
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "dimensions": {
+          "width": 1.1,
+          "height": 0.75,
+          "depth": 1.1
+        },
+        "group": "tasting_right",
+        "specification": "Einladende Verkostungstafel rechts mit hellem Eichenholz und ruhiger Präsentationsfläche.",
+        "children": [
+          {
+            "objectId": "cheese_board",
+            "objectType": "cheese_board",
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "dimensions": {
+              "width": 0.45,
+              "height": 0.05,
+              "depth": 0.35
+            },
+            "group": "tasting_right",
+            "relativePositioning": {
+              "referenceObject": "tasting_table",
+              "relation": "on_top_of",
+              "offset": {
+                "x": -0.15,
+                "y": 0,
+                "z": 0
+              }
+            },
+            "offset": {
+              "x": -0.15,
+              "y": 0,
+              "z": 0
+            },
+            "specification": "Kleine Käseplatte fuer die Degustation."
+          },
+          {
+            "objectId": "small_label_card",
+            "objectType": "label_card",
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "dimensions": {
+              "width": 0.18,
+              "height": 0.12,
+              "depth": 0.12
+            },
+            "group": "tasting_right",
+            "relativePositioning": {
+              "referenceObject": "tasting_table",
+              "relation": "on_top_of",
+              "offset": {
+                "x": 0.32,
+                "y": 0,
+                "z": 0.08
+              }
+            },
+            "offset": {
+              "x": 0.32,
+              "y": 0,
+              "z": 0.08
+            },
+            "specification": "Kleine Beschriftungskarte mit Produkt- und Herkunftshinweis."
+          }
+        ]
+      },
+      {
+        "objectId": "hero_cheese_podium",
+        "objectType": "hero_cheese_podium",
+        "position": {
+          "x": 3.35,
+          "y": 0.225,
+          "z": -1.55
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "dimensions": {
+          "width": 1.6,
+          "height": 0.35,
+          "depth": 1.6
+        },
+        "group": "tasting_right",
+        "specification": "Produkt-Podest als helles Hero-Element fuer den Steinpilz-Kaese.",
+        "children": [
+          {
+            "objectId": "cheese_wheel",
+            "objectType": "cheese_wheel",
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "dimensions": {
+              "width": 0.7,
+              "height": 0.25,
+              "depth": 0.7
+            },
+            "group": "tasting_right",
+            "relativePositioning": {
+              "referenceObject": "hero_cheese_podium",
+              "relation": "on_top_of",
+              "offset": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            "offset": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "specification": "Einzelner Kaeselaib als qualitaetsstarkes Hero-Produkt."
+          }
+        ]
+      },
+      {
+        "objectId": "premium_cheese_plinth",
+        "objectType": "display_plinth",
+        "position": {
+          "x": 0.8203,
+          "y": 0.55,
+          "z": -1.65
+        },
+        "rotation": {
+          "x": 0,
+          "y": -15,
+          "z": 0
+        },
+        "dimensions": {
+          "width": 0.62,
+          "height": 1.0,
+          "depth": 0.62
+        },
+        "group": "tasting",
+        "specification": "Small hero plinth for the finished Steinpilz cheese product.",
+        "children": [
+          {
+            "objectId": "hero_cheese_wheel",
+            "objectType": "cheese_wheel_model",
+            "group": "tasting",
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "dimensions": {
+              "width": 0.38,
+              "height": 0.18,
+              "depth": 0.38
+            },
+            "relativePositioning": {
+              "referenceObject": "premium_cheese_plinth",
+              "relation": "on_top_of",
+              "offset": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            "offset": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "specification": "Single premium Steinpilz cheese wheel with embossed rind pattern."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "agent_count": 5,
+    "placement_count": 5,
+    "out_of_bounds_count": 0,
+    "obstacle_overlap_count": 0,
+    "minimum_agent_distance": 0.7536
+  }
+}

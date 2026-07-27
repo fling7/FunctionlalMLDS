@@ -1,0 +1,14 @@
+{
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "session_id_present": true,
+    "expected_agent_count": 4,
+    "actual_agent_count": 4,
+    "agents_with_position_and_forward": 4,
+    "backend_setup_event_count": 1,
+    "runtime_event_validation_error_count": 0
+  },
+  "event_errors": []
+}

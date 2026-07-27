@@ -1,0 +1,3676 @@
+{
+  "schema": "dynamic_functional_mlds_v2_instance",
+  "id": "DFM-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709",
+  "metamodelVersion": "2.0.0-model",
+  "serializationVersion": "1.0",
+  "caseId": "mldssteinpilz_uidiag_abs_repair_1783611709",
+  "profile": "executable",
+  "fixture_profile": "executable",
+  "sourceContract": {
+    "schema": "functionalmlds_case_study",
+    "metamodelVersion": "v0.5",
+    "semanticProjectionSha256": "5e9583c5afac709359e40fd350591c643226912d300fb56d9ee6d8f5a2213483"
+  },
+  "objects": [
+    {
+      "id": "DFM-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709",
+      "type": "DynamicFunctionalModel",
+      "requirementsModel": [
+        "RM-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "verificationValidation": [
+        "VV-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "actor": [
+        "ACT-CASE-STUDY-ENGINEER",
+        "ACT-VISITOR",
+        "ACT-ROOM-GUIDE"
+      ],
+      "scenario": [
+        "SC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MAIN"
+      ],
+      "scenarioEvent": [
+        "EV-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-PROVIDED",
+        "EV-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-VISITOR-QUESTION",
+        "EV-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-NEEDED"
+      ],
+      "scenarioCondition": [
+        "COND-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-VALID-INPUT",
+        "COND-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-AGENTS-AVAILABLE",
+        "COND-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TARGET-AVAILABLE"
+      ],
+      "assertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-NORMALIZED-SCENE-VALID",
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SCENE-SEMANTICS-VALID",
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-AGENT-ROLES-VALID",
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-KNOWLEDGE-VALID",
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PLACEMENT-VALID",
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-FUNCTIONALMLDS-VALID",
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZED",
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-VALID",
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-GROUNDED",
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-VALID",
+        "AST-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVED-EVENT",
+        "AST-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVED-OUTPUT",
+        "AST-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVED-GROUNDING",
+        "AST-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVED-RELATION"
+      ],
+      "entity": [
+        "ENT-ZONE-ENTRANCE_ZONE",
+        "ENT-ZONE-PRODUCT_DISPLAY_ZONE",
+        "ENT-ZONE-PRODUCTION_MODEL_ZONE",
+        "ENT-ZONE-INTERACTIVE_ZONE",
+        "ENT-ZONE-CAREER_ZONE",
+        "ENT-ZONE-LOUNGE_ZONE",
+        "ENT-ZONE-ENERGY_MONITORING_ZONE",
+        "ENT-GROUP-BRANDING",
+        "ENT-GROUP-CAREER",
+        "ENT-GROUP-ENERGY",
+        "ENT-GROUP-ENTRANCE",
+        "ENT-GROUP-INTERACTIVE",
+        "ENT-GROUP-LOUNGE",
+        "ENT-GROUP-PRODUCT_COUNTERS",
+        "ENT-GROUP-PRODUCT_PEDESTALS",
+        "ENT-GROUP-PRODUCTION_MODELS",
+        "ENT-ASSET-BRAND_PANEL1",
+        "ENT-ASSET-BRAND_PANEL2",
+        "ENT-ASSET-BRAND_PANEL3",
+        "ENT-ASSET-BRAND_PANEL4",
+        "ENT-ASSET-CHAIR1",
+        "ENT-ASSET-CHAIR2",
+        "ENT-ASSET-ENERGY_STATION1",
+        "ENT-ASSET-ENERGY_STATION2",
+        "ENT-ASSET-LOUNGE_TABLE",
+        "ENT-ASSET-MEETING_POD1",
+        "ENT-ASSET-MEETING_POD2",
+        "ENT-ASSET-MEETING_POD3",
+        "ENT-ASSET-PRODUCT_PEDESTAL1",
+        "ENT-ASSET-PRODUCT_PEDESTAL2",
+        "ENT-ASSET-PRODUCT_PEDESTAL3",
+        "ENT-ASSET-PRODUCT_PEDESTAL4",
+        "ENT-ASSET-PRODUCT_PEDESTAL5",
+        "ENT-ASSET-PRODUCT_PEDESTAL6",
+        "ENT-ASSET-PRODUCTION_MODEL1",
+        "ENT-ASSET-PRODUCTION_MODEL2",
+        "ENT-ASSET-RECEPTION_DESK",
+        "ENT-ASSET-REFRIGERATED_COUNTER1",
+        "ENT-ASSET-REFRIGERATED_COUNTER2",
+        "ENT-ASSET-REFRIGERATED_COUNTER3",
+        "ENT-ASSET-REFRIGERATED_COUNTER4",
+        "ENT-ASSET-SOFA1",
+        "ENT-ASSET-TOUCH_KIOSK1",
+        "ENT-ASSET-TOUCH_KIOSK2",
+        "ENT-ASSET-TRAINING_BOARD1",
+        "ENT-ASSET-TRAINING_BOARD2",
+        "ENT-AGENT-RECEPTION_AGENT",
+        "ENT-AGENT-PRODUCT_SPECIALIST_AGENT",
+        "ENT-AGENT-PRODUCTION_EXPERT_AGENT",
+        "ENT-AGENT-DIGITAL_INTERACTION_AGENT",
+        "ENT-AGENT-CAREER_CONSULTANT_AGENT",
+        "ENT-AGENT-LOUNGE_HOST_AGENT",
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709",
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "capability": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANALYZE-MLDS-SCENE",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVE-SPATIAL-AGENT-ROLES",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-GENERATE-ROOM-KNOWLEDGE",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PLACE-AGENTS-IN-SCENE",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ASSEMBLE-FUNCTIONAL-MLDS",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-INTERACTIVE-SESSION",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "runtimeBinding": [
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANALYZE-MLDS-SCENE",
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVE-SPATIAL-AGENT-ROLES",
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-GENERATE-ROOM-KNOWLEDGE",
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PLACE-AGENTS-IN-SCENE",
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ASSEMBLE-FUNCTIONAL-MLDS",
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-INTERACTIVE-SESSION",
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "ownedRelationship": [
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01-ACTOR-1",
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01-ACTOR-2",
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01-ACTOR-3",
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01-SPEC-SC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MAIN",
+        "SAT-REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-001",
+        "SAT-REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-002",
+        "SAT-REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-003",
+        "SAT-REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-004",
+        "SAT-REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-005",
+        "SAT-REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-006",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-USECASE-1",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-USECASE-1",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-USECASE-1",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-USECASE-1",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-USECASE-1",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-USECASE-1"
+      ]
+    },
+    {
+      "id": "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-001",
+      "type": "Requirement",
+      "text": "The pipeline shall ingest an MLDS scene and preserve stable object identities."
+    },
+    {
+      "id": "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-002",
+      "type": "Requirement",
+      "text": "The pipeline shall derive room semantics grounded in existing MLDS objects."
+    },
+    {
+      "id": "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-003",
+      "type": "Requirement",
+      "text": "The pipeline shall synthesize backend-compatible spatial agent roles."
+    },
+    {
+      "id": "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-004",
+      "type": "Requirement",
+      "text": "Every generated agent knowledge tag shall be covered by materialized knowledge."
+    },
+    {
+      "id": "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-005",
+      "type": "Requirement",
+      "text": "Every generated agent shall be placed inside the room without obstacle overlap."
+    },
+    {
+      "id": "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-006",
+      "type": "Requirement",
+      "text": "The generated behavior shall be traceable from requirements to runtime actions and validation cases."
+    },
+    {
+      "id": "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01",
+      "type": "UseCase",
+      "extensionPoint": [],
+      "include": [],
+      "extend": [],
+      "name": "Generate and use spatially grounded multi-agent guide"
+    },
+    {
+      "id": "RM-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709",
+      "type": "RequirementsModel",
+      "requirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-001",
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-002",
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-003",
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-004",
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-005",
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-006"
+      ],
+      "useCase": [
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01"
+      ]
+    },
+    {
+      "id": "ACT-CASE-STUDY-ENGINEER",
+      "type": "Actor",
+      "name": "Case Study Engineer",
+      "text": "Provides MLDS input and runs the validation pipeline."
+    },
+    {
+      "id": "ACT-VISITOR",
+      "type": "Actor",
+      "name": "Visitor",
+      "text": "Asks room-related questions in the generated immersive environment."
+    },
+    {
+      "id": "ACT-ROOM-GUIDE",
+      "type": "Actor",
+      "name": "Room Guide",
+      "text": "Role played by generated interactive agents."
+    },
+    {
+      "id": "ENT-ZONE-ENTRANCE_ZONE",
+      "type": "Entity",
+      "name": "Entrance and Reception",
+      "kind": "zone",
+      "sourceId": "entrance_zone",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "reception_desk",
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "purpose": "Welcome visitors, provide initial information and guidance"
+    },
+    {
+      "id": "ENT-ZONE-PRODUCT_DISPLAY_ZONE",
+      "type": "Entity",
+      "name": "Cheese Product Display",
+      "kind": "zone",
+      "sourceId": "product_display_zone",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ],
+      "purpose": "Showcase and sample cheese products in refrigerated counters and pedestals"
+    },
+    {
+      "id": "ENT-ZONE-PRODUCTION_MODEL_ZONE",
+      "type": "Entity",
+      "name": "Cheese Production Models",
+      "kind": "zone",
+      "sourceId": "production_model_zone",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "production_model1",
+        "production_model2"
+      ],
+      "purpose": "Display detailed models of cheese manufacturing equipment to educate visitors"
+    },
+    {
+      "id": "ENT-ZONE-INTERACTIVE_ZONE",
+      "type": "Entity",
+      "name": "Interactive Information Kiosks",
+      "kind": "zone",
+      "sourceId": "interactive_zone",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "purpose": "Provide digital interactive content about products and production"
+    },
+    {
+      "id": "ENT-ZONE-CAREER_ZONE",
+      "type": "Entity",
+      "name": "Career and Business Meeting Area",
+      "kind": "zone",
+      "sourceId": "career_zone",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "purpose": "Facilitate business discussions, career talks and training sessions"
+    },
+    {
+      "id": "ENT-ZONE-LOUNGE_ZONE",
+      "type": "Entity",
+      "name": "Lounge and Networking Area",
+      "kind": "zone",
+      "sourceId": "lounge_zone",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "purpose": "Provide comfortable seating for relaxation and informal networking"
+    },
+    {
+      "id": "ENT-ZONE-ENERGY_MONITORING_ZONE",
+      "type": "Entity",
+      "name": "Energy Measurement Stations",
+      "kind": "zone",
+      "sourceId": "energy_monitoring_zone",
+      "entityRole": "semanticZone",
+      "sourceObjectId": [
+        "energy_station1",
+        "energy_station2"
+      ],
+      "purpose": "Showcase energy measurement technology related to production"
+    },
+    {
+      "id": "ENT-GROUP-BRANDING",
+      "type": "Entity",
+      "name": "Object group: branding",
+      "kind": "asset",
+      "sourceId": "group:branding",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "sourceGroup": "branding"
+    },
+    {
+      "id": "ENT-GROUP-CAREER",
+      "type": "Entity",
+      "name": "Object group: career",
+      "kind": "asset",
+      "sourceId": "group:career",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "sourceGroup": "career"
+    },
+    {
+      "id": "ENT-GROUP-ENERGY",
+      "type": "Entity",
+      "name": "Object group: energy",
+      "kind": "asset",
+      "sourceId": "group:energy",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "energy_station1",
+        "energy_station2"
+      ],
+      "sourceGroup": "energy"
+    },
+    {
+      "id": "ENT-GROUP-ENTRANCE",
+      "type": "Entity",
+      "name": "Object group: entrance",
+      "kind": "asset",
+      "sourceId": "group:entrance",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "reception_desk"
+      ],
+      "sourceGroup": "entrance"
+    },
+    {
+      "id": "ENT-GROUP-INTERACTIVE",
+      "type": "Entity",
+      "name": "Object group: interactive",
+      "kind": "asset",
+      "sourceId": "group:interactive",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "sourceGroup": "interactive"
+    },
+    {
+      "id": "ENT-GROUP-LOUNGE",
+      "type": "Entity",
+      "name": "Object group: lounge",
+      "kind": "asset",
+      "sourceId": "group:lounge",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "sourceGroup": "lounge"
+    },
+    {
+      "id": "ENT-GROUP-PRODUCT_COUNTERS",
+      "type": "Entity",
+      "name": "Object group: product_counters",
+      "kind": "asset",
+      "sourceId": "group:product_counters",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4"
+      ],
+      "sourceGroup": "product_counters"
+    },
+    {
+      "id": "ENT-GROUP-PRODUCT_PEDESTALS",
+      "type": "Entity",
+      "name": "Object group: product_pedestals",
+      "kind": "asset",
+      "sourceId": "group:product_pedestals",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ],
+      "sourceGroup": "product_pedestals"
+    },
+    {
+      "id": "ENT-GROUP-PRODUCTION_MODELS",
+      "type": "Entity",
+      "name": "Object group: production_models",
+      "kind": "asset",
+      "sourceId": "group:production_models",
+      "entityRole": "objectGroup",
+      "sourceObjectId": [
+        "production_model1",
+        "production_model2"
+      ],
+      "sourceGroup": "production_models"
+    },
+    {
+      "id": "ENT-ASSET-BRAND_PANEL1",
+      "type": "Entity",
+      "name": "brand_panel",
+      "kind": "asset",
+      "sourceId": "brand_panel1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "branding",
+      "objectType": "brand_panel",
+      "objectGroup": [
+        "ENT-GROUP-BRANDING"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-BRAND_PANEL2",
+      "type": "Entity",
+      "name": "brand_panel",
+      "kind": "asset",
+      "sourceId": "brand_panel2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "branding",
+      "objectType": "brand_panel",
+      "objectGroup": [
+        "ENT-GROUP-BRANDING"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-BRAND_PANEL3",
+      "type": "Entity",
+      "name": "brand_panel",
+      "kind": "asset",
+      "sourceId": "brand_panel3",
+      "entityRole": "sceneObject",
+      "sourceGroup": "branding",
+      "objectType": "brand_panel",
+      "objectGroup": [
+        "ENT-GROUP-BRANDING"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-BRAND_PANEL4",
+      "type": "Entity",
+      "name": "brand_panel",
+      "kind": "asset",
+      "sourceId": "brand_panel4",
+      "entityRole": "sceneObject",
+      "sourceGroup": "branding",
+      "objectType": "brand_panel",
+      "objectGroup": [
+        "ENT-GROUP-BRANDING"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-CHAIR1",
+      "type": "Entity",
+      "name": "chair",
+      "kind": "asset",
+      "sourceId": "chair1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "lounge",
+      "objectType": "chair",
+      "objectGroup": [
+        "ENT-GROUP-LOUNGE"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-CHAIR2",
+      "type": "Entity",
+      "name": "chair",
+      "kind": "asset",
+      "sourceId": "chair2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "lounge",
+      "objectType": "chair",
+      "objectGroup": [
+        "ENT-GROUP-LOUNGE"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-ENERGY_STATION1",
+      "type": "Entity",
+      "name": "energy_station",
+      "kind": "asset",
+      "sourceId": "energy_station1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "energy",
+      "objectType": "energy_station",
+      "objectGroup": [
+        "ENT-GROUP-ENERGY"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-ENERGY_STATION2",
+      "type": "Entity",
+      "name": "energy_station",
+      "kind": "asset",
+      "sourceId": "energy_station2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "energy",
+      "objectType": "energy_station",
+      "objectGroup": [
+        "ENT-GROUP-ENERGY"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-LOUNGE_TABLE",
+      "type": "Entity",
+      "name": "lounge_table",
+      "kind": "asset",
+      "sourceId": "lounge_table",
+      "entityRole": "sceneObject",
+      "sourceGroup": "lounge",
+      "objectType": "lounge_table",
+      "objectGroup": [
+        "ENT-GROUP-LOUNGE"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-MEETING_POD1",
+      "type": "Entity",
+      "name": "meeting_pod",
+      "kind": "asset",
+      "sourceId": "meeting_pod1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "career",
+      "objectType": "meeting_pod",
+      "objectGroup": [
+        "ENT-GROUP-CAREER"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-MEETING_POD2",
+      "type": "Entity",
+      "name": "meeting_pod",
+      "kind": "asset",
+      "sourceId": "meeting_pod2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "career",
+      "objectType": "meeting_pod",
+      "objectGroup": [
+        "ENT-GROUP-CAREER"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-MEETING_POD3",
+      "type": "Entity",
+      "name": "meeting_pod",
+      "kind": "asset",
+      "sourceId": "meeting_pod3",
+      "entityRole": "sceneObject",
+      "sourceGroup": "career",
+      "objectType": "meeting_pod",
+      "objectGroup": [
+        "ENT-GROUP-CAREER"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-PRODUCT_PEDESTAL1",
+      "type": "Entity",
+      "name": "product_pedestal",
+      "kind": "asset",
+      "sourceId": "product_pedestal1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "product_pedestals",
+      "objectType": "product_pedestal",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCT_PEDESTALS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-PRODUCT_PEDESTAL2",
+      "type": "Entity",
+      "name": "product_pedestal",
+      "kind": "asset",
+      "sourceId": "product_pedestal2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "product_pedestals",
+      "objectType": "product_pedestal",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCT_PEDESTALS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-PRODUCT_PEDESTAL3",
+      "type": "Entity",
+      "name": "product_pedestal",
+      "kind": "asset",
+      "sourceId": "product_pedestal3",
+      "entityRole": "sceneObject",
+      "sourceGroup": "product_pedestals",
+      "objectType": "product_pedestal",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCT_PEDESTALS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-PRODUCT_PEDESTAL4",
+      "type": "Entity",
+      "name": "product_pedestal",
+      "kind": "asset",
+      "sourceId": "product_pedestal4",
+      "entityRole": "sceneObject",
+      "sourceGroup": "product_pedestals",
+      "objectType": "product_pedestal",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCT_PEDESTALS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-PRODUCT_PEDESTAL5",
+      "type": "Entity",
+      "name": "product_pedestal",
+      "kind": "asset",
+      "sourceId": "product_pedestal5",
+      "entityRole": "sceneObject",
+      "sourceGroup": "product_pedestals",
+      "objectType": "product_pedestal",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCT_PEDESTALS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-PRODUCT_PEDESTAL6",
+      "type": "Entity",
+      "name": "product_pedestal",
+      "kind": "asset",
+      "sourceId": "product_pedestal6",
+      "entityRole": "sceneObject",
+      "sourceGroup": "product_pedestals",
+      "objectType": "product_pedestal",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCT_PEDESTALS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-PRODUCTION_MODEL1",
+      "type": "Entity",
+      "name": "production_model",
+      "kind": "asset",
+      "sourceId": "production_model1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "production_models",
+      "objectType": "production_model",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCTION_MODELS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-PRODUCTION_MODEL2",
+      "type": "Entity",
+      "name": "production_model",
+      "kind": "asset",
+      "sourceId": "production_model2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "production_models",
+      "objectType": "production_model",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCTION_MODELS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-RECEPTION_DESK",
+      "type": "Entity",
+      "name": "reception_desk",
+      "kind": "asset",
+      "sourceId": "reception_desk",
+      "entityRole": "sceneObject",
+      "sourceGroup": "entrance",
+      "objectType": "reception_desk",
+      "objectGroup": [
+        "ENT-GROUP-ENTRANCE"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-REFRIGERATED_COUNTER1",
+      "type": "Entity",
+      "name": "refrigerated_counter",
+      "kind": "asset",
+      "sourceId": "refrigerated_counter1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "product_counters",
+      "objectType": "refrigerated_counter",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCT_COUNTERS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-REFRIGERATED_COUNTER2",
+      "type": "Entity",
+      "name": "refrigerated_counter",
+      "kind": "asset",
+      "sourceId": "refrigerated_counter2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "product_counters",
+      "objectType": "refrigerated_counter",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCT_COUNTERS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-REFRIGERATED_COUNTER3",
+      "type": "Entity",
+      "name": "refrigerated_counter",
+      "kind": "asset",
+      "sourceId": "refrigerated_counter3",
+      "entityRole": "sceneObject",
+      "sourceGroup": "product_counters",
+      "objectType": "refrigerated_counter",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCT_COUNTERS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-REFRIGERATED_COUNTER4",
+      "type": "Entity",
+      "name": "refrigerated_counter",
+      "kind": "asset",
+      "sourceId": "refrigerated_counter4",
+      "entityRole": "sceneObject",
+      "sourceGroup": "product_counters",
+      "objectType": "refrigerated_counter",
+      "objectGroup": [
+        "ENT-GROUP-PRODUCT_COUNTERS"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-SOFA1",
+      "type": "Entity",
+      "name": "sofa",
+      "kind": "asset",
+      "sourceId": "sofa1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "lounge",
+      "objectType": "sofa",
+      "objectGroup": [
+        "ENT-GROUP-LOUNGE"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-TOUCH_KIOSK1",
+      "type": "Entity",
+      "name": "touch_kiosk",
+      "kind": "asset",
+      "sourceId": "touch_kiosk1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "interactive",
+      "objectType": "touch_kiosk",
+      "objectGroup": [
+        "ENT-GROUP-INTERACTIVE"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-TOUCH_KIOSK2",
+      "type": "Entity",
+      "name": "touch_kiosk",
+      "kind": "asset",
+      "sourceId": "touch_kiosk2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "interactive",
+      "objectType": "touch_kiosk",
+      "objectGroup": [
+        "ENT-GROUP-INTERACTIVE"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-TRAINING_BOARD1",
+      "type": "Entity",
+      "name": "training_board",
+      "kind": "asset",
+      "sourceId": "training_board1",
+      "entityRole": "sceneObject",
+      "sourceGroup": "career",
+      "objectType": "training_board",
+      "objectGroup": [
+        "ENT-GROUP-CAREER"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-TRAINING_BOARD2",
+      "type": "Entity",
+      "name": "training_board",
+      "kind": "asset",
+      "sourceId": "training_board2",
+      "entityRole": "sceneObject",
+      "sourceGroup": "career",
+      "objectType": "training_board",
+      "objectGroup": [
+        "ENT-GROUP-CAREER"
+      ]
+    },
+    {
+      "id": "ENT-AGENT-RECEPTION_AGENT",
+      "type": "Agent",
+      "name": "Reception Agent",
+      "kind": "agent",
+      "sourceId": "reception_agent",
+      "entityRole": "interactiveAgent",
+      "sourceAgentId": "reception_agent",
+      "displayName": "Reception Agent",
+      "persona": "Friendly and welcoming guide who provides visitors with initial information about the cheese brand and directs them to relevant zones.",
+      "expertise": [
+        "visitor assistance",
+        "brand knowledge",
+        "navigation guidance"
+      ],
+      "knowledgeTag": [
+        "visitor_assistance",
+        "brand_knowledge",
+        "navigation_guidance"
+      ],
+      "voice": "ash",
+      "voiceGender": "weiblich",
+      "voiceStyle": "freundlich",
+      "ttsModel": "gpt-4o-mini-tts",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapability": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "responsibleZone": [
+        "ENT-ZONE-ENTRANCE_ZONE"
+      ],
+      "groundedAsset": [
+        "ENT-ASSET-RECEPTION_DESK",
+        "ENT-ASSET-BRAND_PANEL1",
+        "ENT-ASSET-BRAND_PANEL2",
+        "ENT-ASSET-BRAND_PANEL3",
+        "ENT-ASSET-BRAND_PANEL4"
+      ],
+      "groundedObjectGroup": [
+        "ENT-GROUP-ENTRANCE",
+        "ENT-GROUP-BRANDING"
+      ],
+      "handoffTarget": [
+        "ENT-AGENT-PRODUCT_SPECIALIST_AGENT",
+        "ENT-AGENT-PRODUCTION_EXPERT_AGENT",
+        "ENT-AGENT-DIGITAL_INTERACTION_AGENT",
+        "ENT-AGENT-CAREER_CONSULTANT_AGENT",
+        "ENT-AGENT-LOUNGE_HOST_AGENT"
+      ]
+    },
+    {
+      "id": "ENT-AGENT-PRODUCT_SPECIALIST_AGENT",
+      "type": "Agent",
+      "name": "Product Specialist Agent",
+      "kind": "agent",
+      "sourceId": "product_specialist_agent",
+      "entityRole": "interactiveAgent",
+      "sourceAgentId": "product_specialist_agent",
+      "displayName": "Product Specialist Agent",
+      "persona": "Knowledgeable cheese expert passionate about explaining product details, assisting with sampling, and answering product-related questions.",
+      "expertise": [
+        "product knowledge",
+        "customer interaction",
+        "sampling guidance"
+      ],
+      "knowledgeTag": [
+        "cheese_products",
+        "sampling",
+        "customer_interaction"
+      ],
+      "voice": "coral",
+      "voiceGender": "maennlich",
+      "voiceStyle": "kompetent",
+      "ttsModel": "gpt-4o-mini-tts",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapability": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "responsibleZone": [
+        "ENT-ZONE-PRODUCT_DISPLAY_ZONE"
+      ],
+      "groundedAsset": [
+        "ENT-ASSET-REFRIGERATED_COUNTER1",
+        "ENT-ASSET-REFRIGERATED_COUNTER2",
+        "ENT-ASSET-REFRIGERATED_COUNTER3",
+        "ENT-ASSET-REFRIGERATED_COUNTER4",
+        "ENT-ASSET-PRODUCT_PEDESTAL1",
+        "ENT-ASSET-PRODUCT_PEDESTAL2",
+        "ENT-ASSET-PRODUCT_PEDESTAL3",
+        "ENT-ASSET-PRODUCT_PEDESTAL4",
+        "ENT-ASSET-PRODUCT_PEDESTAL5",
+        "ENT-ASSET-PRODUCT_PEDESTAL6"
+      ],
+      "groundedObjectGroup": [
+        "ENT-GROUP-PRODUCT_COUNTERS",
+        "ENT-GROUP-PRODUCT_PEDESTALS"
+      ],
+      "handoffTarget": [
+        "ENT-AGENT-RECEPTION_AGENT",
+        "ENT-AGENT-PRODUCTION_EXPERT_AGENT"
+      ]
+    },
+    {
+      "id": "ENT-AGENT-PRODUCTION_EXPERT_AGENT",
+      "type": "Agent",
+      "name": "Production Expert Agent",
+      "kind": "agent",
+      "sourceId": "production_expert_agent",
+      "entityRole": "interactiveAgent",
+      "sourceAgentId": "production_expert_agent",
+      "displayName": "Production Expert Agent",
+      "persona": "Technical specialist who educates visitors about cheese production technology and energy usage with clear and detailed explanations.",
+      "expertise": [
+        "production process",
+        "technical explanation",
+        "energy monitoring"
+      ],
+      "knowledgeTag": [
+        "production_process",
+        "energy_monitoring",
+        "technical_details"
+      ],
+      "voice": "nova",
+      "voiceGender": "maennlich",
+      "voiceStyle": "informativ",
+      "ttsModel": "gpt-4o-mini-tts",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapability": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "responsibleZone": [
+        "ENT-ZONE-PRODUCTION_MODEL_ZONE",
+        "ENT-ZONE-ENERGY_MONITORING_ZONE"
+      ],
+      "groundedAsset": [
+        "ENT-ASSET-PRODUCTION_MODEL1",
+        "ENT-ASSET-PRODUCTION_MODEL2",
+        "ENT-ASSET-ENERGY_STATION1",
+        "ENT-ASSET-ENERGY_STATION2"
+      ],
+      "groundedObjectGroup": [
+        "ENT-GROUP-PRODUCTION_MODELS",
+        "ENT-GROUP-ENERGY"
+      ],
+      "handoffTarget": [
+        "ENT-AGENT-RECEPTION_AGENT",
+        "ENT-AGENT-PRODUCT_SPECIALIST_AGENT"
+      ]
+    },
+    {
+      "id": "ENT-AGENT-DIGITAL_INTERACTION_AGENT",
+      "type": "Agent",
+      "name": "Digital Interaction Agent",
+      "kind": "agent",
+      "sourceId": "digital_interaction_agent",
+      "entityRole": "interactiveAgent",
+      "sourceAgentId": "digital_interaction_agent",
+      "displayName": "Digital Interaction Agent",
+      "persona": "Helpful digital guide assisting visitors with interactive kiosks and navigating digital content smoothly and engagingly.",
+      "expertise": [
+        "digital interfaces",
+        "content guidance",
+        "visitor engagement"
+      ],
+      "knowledgeTag": [
+        "digital_content",
+        "interactive_kiosks",
+        "visitor_engagement"
+      ],
+      "voice": "fable",
+      "voiceGender": "weiblich",
+      "voiceStyle": "hilfsbereit",
+      "ttsModel": "gpt-4o-mini-tts",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapability": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "responsibleZone": [
+        "ENT-ZONE-INTERACTIVE_ZONE"
+      ],
+      "groundedAsset": [
+        "ENT-ASSET-TOUCH_KIOSK1",
+        "ENT-ASSET-TOUCH_KIOSK2"
+      ],
+      "groundedObjectGroup": [
+        "ENT-GROUP-INTERACTIVE"
+      ],
+      "handoffTarget": [
+        "ENT-AGENT-RECEPTION_AGENT"
+      ]
+    },
+    {
+      "id": "ENT-AGENT-CAREER_CONSULTANT_AGENT",
+      "type": "Agent",
+      "name": "Career Consultant Agent",
+      "kind": "agent",
+      "sourceId": "career_consultant_agent",
+      "entityRole": "interactiveAgent",
+      "sourceAgentId": "career_consultant_agent",
+      "displayName": "Career Consultant Agent",
+      "persona": "Professional and approachable consultant facilitating career discussions, training sessions, and business meetings with expertise and empathy.",
+      "expertise": [
+        "career counseling",
+        "business communication",
+        "training facilitation"
+      ],
+      "knowledgeTag": [
+        "career_opportunities",
+        "business_discussions",
+        "training"
+      ],
+      "voice": "sage",
+      "voiceGender": "weiblich",
+      "voiceStyle": "professionell",
+      "ttsModel": "gpt-4o-mini-tts",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapability": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "responsibleZone": [
+        "ENT-ZONE-CAREER_ZONE"
+      ],
+      "groundedAsset": [
+        "ENT-ASSET-MEETING_POD1",
+        "ENT-ASSET-MEETING_POD2",
+        "ENT-ASSET-MEETING_POD3",
+        "ENT-ASSET-TRAINING_BOARD1",
+        "ENT-ASSET-TRAINING_BOARD2"
+      ],
+      "groundedObjectGroup": [
+        "ENT-GROUP-CAREER"
+      ],
+      "handoffTarget": [
+        "ENT-AGENT-RECEPTION_AGENT"
+      ]
+    },
+    {
+      "id": "ENT-AGENT-LOUNGE_HOST_AGENT",
+      "type": "Agent",
+      "name": "Lounge Host Agent",
+      "kind": "agent",
+      "sourceId": "lounge_host_agent",
+      "entityRole": "interactiveAgent",
+      "sourceAgentId": "lounge_host_agent",
+      "displayName": "Lounge Host Agent",
+      "persona": "Warm and attentive host ensuring visitor comfort and facilitating informal networking in the lounge area.",
+      "expertise": [
+        "visitor comfort",
+        "networking facilitation",
+        "hospitality"
+      ],
+      "knowledgeTag": [
+        "visitor_comfort",
+        "networking",
+        "hospitality"
+      ],
+      "voice": "shimmer",
+      "voiceGender": "weiblich",
+      "voiceStyle": "entspannt",
+      "ttsModel": "gpt-4o-mini-tts",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapability": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "responsibleZone": [
+        "ENT-ZONE-LOUNGE_ZONE"
+      ],
+      "groundedAsset": [
+        "ENT-ASSET-SOFA1",
+        "ENT-ASSET-LOUNGE_TABLE",
+        "ENT-ASSET-CHAIR1",
+        "ENT-ASSET-CHAIR2"
+      ],
+      "groundedObjectGroup": [
+        "ENT-GROUP-LOUNGE"
+      ],
+      "handoffTarget": [
+        "ENT-AGENT-RECEPTION_AGENT"
+      ]
+    },
+    {
+      "id": "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709",
+      "type": "Entity",
+      "name": "Case study validation state",
+      "kind": "stateObject",
+      "sourceId": "validation_state"
+    },
+    {
+      "id": "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR",
+      "type": "Entity",
+      "name": "Runtime Orchestrator",
+      "sourceId": "runtime-orchestrator",
+      "entityRole": "runtimeOrchestrator",
+      "purpose": "Explicit executable provider for projected runtime capability uses.",
+      "providedCapability": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANALYZE-MLDS-SCENE",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVE-SPATIAL-AGENT-ROLES",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-GENERATE-ROOM-KNOWLEDGE",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PLACE-AGENTS-IN-SCENE",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ASSEMBLE-FUNCTIONAL-MLDS",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-INTERACTIVE-SESSION",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ]
+    },
+    {
+      "id": "EV-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-PROVIDED",
+      "type": "ScenarioExternalEvent",
+      "kind": "environment",
+      "expressionText": "source_mlds.json available",
+      "mixedStringContent": "source_mlds.json available"
+    },
+    {
+      "id": "EV-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-VISITOR-QUESTION",
+      "type": "ScenarioExternalEvent",
+      "kind": "user",
+      "expressionText": "visitor asks a room-related question",
+      "mixedStringContent": "visitor asks a room-related question"
+    },
+    {
+      "id": "EV-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-NEEDED",
+      "type": "ScenarioExternalEvent",
+      "kind": "user",
+      "expressionText": "visitor question belongs to another agent expertise",
+      "mixedStringContent": "visitor question belongs to another agent expertise"
+    },
+    {
+      "id": "COND-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-VALID-INPUT",
+      "type": "ScenarioCondition",
+      "kind": "precondition",
+      "datatype": "EABoolean",
+      "expressionText": "MLDS input parses successfully",
+      "mixedStringContent": "MLDS input parses successfully"
+    },
+    {
+      "id": "COND-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-AGENTS-AVAILABLE",
+      "type": "ScenarioCondition",
+      "kind": "guard",
+      "datatype": "EABoolean",
+      "expressionText": "at least two valid agents exist",
+      "mixedStringContent": "at least two valid agents exist"
+    },
+    {
+      "id": "COND-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TARGET-AVAILABLE",
+      "type": "ScenarioCondition",
+      "kind": "guard",
+      "datatype": "EABoolean",
+      "expressionText": "handoff target exists and is not the source agent",
+      "mixedStringContent": "handoff target exists and is not the source agent"
+    },
+    {
+      "id": "EXPR-SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-NORMALIZED-SCENE-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "Normalized MLDS scene is valid and object IDs are unique."
+    },
+    {
+      "id": "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-NORMALIZED-SCENE-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "expression": [
+        "EXPR-SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-NORMALIZED-SCENE-VALID"
+      ],
+      "expressionText": "Normalized MLDS scene is valid and object IDs are unique.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SCENE-SEMANTICS-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "Scene semantics are grounded in existing object IDs."
+    },
+    {
+      "id": "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SCENE-SEMANTICS-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "expression": [
+        "EXPR-SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SCENE-SEMANTICS-VALID"
+      ],
+      "expressionText": "Scene semantics are grounded in existing object IDs.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-AGENT-ROLES-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "Generated agents have valid zones, objects, knowledge tags and handoff targets."
+    },
+    {
+      "id": "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-AGENT-ROLES-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "expression": [
+        "EXPR-SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-AGENT-ROLES-VALID"
+      ],
+      "expressionText": "Generated agents have valid zones, objects, knowledge tags and handoff targets.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-KNOWLEDGE-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "Every agent knowledge tag has at least one materialized knowledge entry."
+    },
+    {
+      "id": "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-KNOWLEDGE-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "expression": [
+        "EXPR-SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-KNOWLEDGE-VALID"
+      ],
+      "expressionText": "Every agent knowledge tag has at least one materialized knowledge entry.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PLACEMENT-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "Every generated agent has a valid room position and forward vector."
+    },
+    {
+      "id": "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PLACEMENT-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "expression": [
+        "EXPR-SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PLACEMENT-VALID"
+      ],
+      "expressionText": "Every generated agent has a valid room position and forward vector.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-FUNCTIONALMLDS-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "FunctionalMLDS instance satisfies all core invariants."
+    },
+    {
+      "id": "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-FUNCTIONALMLDS-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "expression": [
+        "EXPR-SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-FUNCTIONALMLDS-VALID"
+      ],
+      "expressionText": "FunctionalMLDS instance satisfies all core invariants.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZED",
+      "type": "EAExpression",
+      "mixedStringContent": "Interactive Agents project files are present and backend-readable."
+    },
+    {
+      "id": "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZED",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "expression": [
+        "EXPR-SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZED"
+      ],
+      "expressionText": "Interactive Agents project files are present and backend-readable.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "Interactive Agents backend setup returns a valid session with all agents."
+    },
+    {
+      "id": "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "expression": [
+        "EXPR-SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-VALID"
+      ],
+      "expressionText": "Interactive Agents backend setup returns a valid session with all agents.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-GROUNDED",
+      "type": "EAExpression",
+      "mixedStringContent": "A visitor question is answered using room-grounded agent knowledge."
+    },
+    {
+      "id": "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-GROUNDED",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "expression": [
+        "EXPR-SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-GROUNDED"
+      ],
+      "expressionText": "A visitor question is answered using room-grounded agent knowledge.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-VALID",
+      "type": "EAExpression",
+      "mixedStringContent": "A specialist handoff targets an existing responsible agent when needed."
+    },
+    {
+      "id": "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-VALID",
+      "type": "StateAssertion",
+      "subject": [
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "expression": [
+        "EXPR-SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-VALID"
+      ],
+      "expressionText": "A specialist handoff targets an existing responsible agent when needed.",
+      "severity": "error"
+    },
+    {
+      "id": "EFF-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANALYZE-MLDS-SCENE-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-NORMALIZED-SCENE-VALID"
+      ],
+      "text": "Effect of ANALYZE-MLDS-SCENE: normalized scene valid."
+    },
+    {
+      "id": "EFF-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANALYZE-MLDS-SCENE-02",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SCENE-SEMANTICS-VALID"
+      ],
+      "text": "Effect of ANALYZE-MLDS-SCENE: scene semantics valid."
+    },
+    {
+      "id": "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANALYZE-MLDS-SCENE",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANALYZE-MLDS-SCENE-01",
+        "EFF-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANALYZE-MLDS-SCENE-02"
+      ],
+      "name": "Analyze Mlds Scene",
+      "text": "Analyze MLDS scene structure and normalize room objects."
+    },
+    {
+      "id": "EFF-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVE-SPATIAL-AGENT-ROLES-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-AGENT-ROLES-VALID"
+      ],
+      "text": "Effect of DERIVE-SPATIAL-AGENT-ROLES: agent roles valid."
+    },
+    {
+      "id": "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVE-SPATIAL-AGENT-ROLES",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVE-SPATIAL-AGENT-ROLES-01"
+      ],
+      "name": "Derive Spatial Agent Roles",
+      "text": "Derive agent roles grounded in semantic zones and objects."
+    },
+    {
+      "id": "EFF-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-GENERATE-ROOM-KNOWLEDGE-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-KNOWLEDGE-VALID"
+      ],
+      "text": "Effect of GENERATE-ROOM-KNOWLEDGE: knowledge valid."
+    },
+    {
+      "id": "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-GENERATE-ROOM-KNOWLEDGE",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-GENERATE-ROOM-KNOWLEDGE-01"
+      ],
+      "name": "Generate Room Knowledge",
+      "text": "Generate local knowledge entries for all agent knowledge tags."
+    },
+    {
+      "id": "EFF-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PLACE-AGENTS-IN-SCENE-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PLACEMENT-VALID"
+      ],
+      "text": "Effect of PLACE-AGENTS-IN-SCENE: placement valid."
+    },
+    {
+      "id": "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PLACE-AGENTS-IN-SCENE",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PLACE-AGENTS-IN-SCENE-01"
+      ],
+      "name": "Place Agents In Scene",
+      "text": "Place agents in valid positions near their responsible zones."
+    },
+    {
+      "id": "EFF-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ASSEMBLE-FUNCTIONAL-MLDS-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-FUNCTIONALMLDS-VALID"
+      ],
+      "text": "Effect of ASSEMBLE-FUNCTIONAL-MLDS: functionalmlds valid."
+    },
+    {
+      "id": "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ASSEMBLE-FUNCTIONAL-MLDS",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ASSEMBLE-FUNCTIONAL-MLDS-01"
+      ],
+      "name": "Assemble Functional Mlds",
+      "text": "Assemble a valid FunctionalMLDS instance for the case study."
+    },
+    {
+      "id": "EFF-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZED"
+      ],
+      "text": "Effect of MATERIALIZE-INTERACTIVE-AGENTS-PROJECT: project materialized."
+    },
+    {
+      "id": "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT-01"
+      ],
+      "name": "Materialize Interactive Agents Project",
+      "text": "Write backend-compatible Interactive Agents project files."
+    },
+    {
+      "id": "EFF-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-INTERACTIVE-SESSION-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-VALID"
+      ],
+      "text": "Effect of SETUP-INTERACTIVE-SESSION: setup valid."
+    },
+    {
+      "id": "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-INTERACTIVE-SESSION",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-INTERACTIVE-SESSION-01"
+      ],
+      "name": "Setup Interactive Session",
+      "text": "Initialize the runtime session for the generated project."
+    },
+    {
+      "id": "EFF-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-ROOM-GROUNDED-QUESTION-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-GROUNDED"
+      ],
+      "text": "Effect of ANSWER-ROOM-GROUNDED-QUESTION: answer grounded."
+    },
+    {
+      "id": "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-ROOM-GROUNDED-QUESTION",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-ROOM-GROUNDED-QUESTION-01"
+      ],
+      "name": "Answer Room Grounded Question",
+      "text": "Answer visitor questions using room-grounded agent knowledge."
+    },
+    {
+      "id": "EFF-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TO-RESPONSIBLE-AGENT-01",
+      "type": "Effect",
+      "specifiedBy": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-VALID"
+      ],
+      "text": "Effect of HANDOFF-TO-RESPONSIBLE-AGENT: handoff valid."
+    },
+    {
+      "id": "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "type": "Capability",
+      "precondition": [],
+      "effect": [
+        "EFF-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TO-RESPONSIBLE-AGENT-01"
+      ],
+      "name": "Handoff To Responsible Agent",
+      "text": "Forward a question to an existing responsible specialist agent."
+    },
+    {
+      "id": "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-MLDS-INGESTION",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.mlds_ingestion.run_ingestion_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-MLDS-INGESTION-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-MLDS-INGESTION-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-MLDS-INGESTION",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-MLDS-INGESTION"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-MLDS-INGESTION-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-MLDS-INGESTION-OUTPUT"
+      ]
+    },
+    {
+      "id": "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-SCENE-SEMANTICS",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.scene_semantics.run_scene_semantics_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-SCENE-SEMANTICS-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-SCENE-SEMANTICS-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-SCENE-SEMANTICS",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-SCENE-SEMANTICS"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-SCENE-SEMANTICS-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-SCENE-SEMANTICS-OUTPUT"
+      ]
+    },
+    {
+      "id": "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ARROW-ANALYZE",
+      "type": "RuntimeActionLocator",
+      "kind": "endpoint",
+      "value": "POST /projects/arrow/analyze"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ARROW-ANALYZE-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ARROW-ANALYZE-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ARROW-ANALYZE",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ARROW-ANALYZE"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ARROW-ANALYZE-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ARROW-ANALYZE-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANALYZE-MLDS-SCENE",
+      "type": "RuntimeBinding",
+      "targetPlatform": "CaseStudyPipeline",
+      "capability": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANALYZE-MLDS-SCENE"
+      ],
+      "runtimeAction": [
+        "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-MLDS-INGESTION",
+        "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-SCENE-SEMANTICS",
+        "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ARROW-ANALYZE"
+      ]
+    },
+    {
+      "id": "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-AGENT-ROLES",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.agent_roles.run_agent_roles_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-AGENT-ROLES-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-AGENT-ROLES-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-AGENT-ROLES",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-AGENT-ROLES"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-AGENT-ROLES-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-AGENT-ROLES-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVE-SPATIAL-AGENT-ROLES",
+      "type": "RuntimeBinding",
+      "targetPlatform": "CaseStudyPipeline",
+      "capability": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVE-SPATIAL-AGENT-ROLES"
+      ],
+      "runtimeAction": [
+        "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-AGENT-ROLES"
+      ]
+    },
+    {
+      "id": "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-KNOWLEDGE-SYNTHESIS",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.knowledge_synthesis.run_knowledge_synthesis_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-KNOWLEDGE-SYNTHESIS-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-KNOWLEDGE-SYNTHESIS-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-KNOWLEDGE-SYNTHESIS",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-KNOWLEDGE-SYNTHESIS"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-KNOWLEDGE-SYNTHESIS-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-KNOWLEDGE-SYNTHESIS-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-GENERATE-ROOM-KNOWLEDGE",
+      "type": "RuntimeBinding",
+      "targetPlatform": "CaseStudyPipeline",
+      "capability": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-GENERATE-ROOM-KNOWLEDGE"
+      ],
+      "runtimeAction": [
+        "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-KNOWLEDGE-SYNTHESIS"
+      ]
+    },
+    {
+      "id": "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-AGENT-PLACEMENT",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.agent_placement.run_agent_placement_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-AGENT-PLACEMENT-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-AGENT-PLACEMENT-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-AGENT-PLACEMENT",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-AGENT-PLACEMENT"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-AGENT-PLACEMENT-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-AGENT-PLACEMENT-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PLACE-AGENTS-IN-SCENE",
+      "type": "RuntimeBinding",
+      "targetPlatform": "CaseStudyPipeline",
+      "capability": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PLACE-AGENTS-IN-SCENE"
+      ],
+      "runtimeAction": [
+        "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-AGENT-PLACEMENT"
+      ]
+    },
+    {
+      "id": "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-FUNCTIONALMLDS-ASSEMBLER",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.functionalmlds_assembler.run_functionalmlds_assembly_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-FUNCTIONALMLDS-ASSEMBLER-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-FUNCTIONALMLDS-ASSEMBLER-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-FUNCTIONALMLDS-ASSEMBLER",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-FUNCTIONALMLDS-ASSEMBLER"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-FUNCTIONALMLDS-ASSEMBLER-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-FUNCTIONALMLDS-ASSEMBLER-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ASSEMBLE-FUNCTIONAL-MLDS",
+      "type": "RuntimeBinding",
+      "targetPlatform": "CaseStudyPipeline",
+      "capability": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "runtimeAction": [
+        "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-FUNCTIONALMLDS-ASSEMBLER"
+      ]
+    },
+    {
+      "id": "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ARROW-COMMIT",
+      "type": "RuntimeActionLocator",
+      "kind": "endpoint",
+      "value": "POST /projects/arrow/commit"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ARROW-COMMIT-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ARROW-COMMIT-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ARROW-COMMIT",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ARROW-COMMIT"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ARROW-COMMIT-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ARROW-COMMIT-OUTPUT"
+      ]
+    },
+    {
+      "id": "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-WRITE-PROJECT-FILES",
+      "type": "RuntimeActionLocator",
+      "kind": "tool",
+      "value": "tools.case_study_pipeline.project_materializer.run_project_materializer_for_case"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-WRITE-PROJECT-FILES-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"runtime\"}"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-WRITE-PROJECT-FILES-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-WRITE-PROJECT-FILES",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-WRITE-PROJECT-FILES"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-WRITE-PROJECT-FILES-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-WRITE-PROJECT-FILES-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "type": "RuntimeBinding",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "capability": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "runtimeAction": [
+        "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ARROW-COMMIT",
+        "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-WRITE-PROJECT-FILES"
+      ]
+    },
+    {
+      "id": "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-SETUP",
+      "type": "RuntimeActionLocator",
+      "kind": "endpoint",
+      "value": "POST /setup"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-SETUP-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"setup\"}"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-SETUP-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-SETUP",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-SETUP"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-SETUP-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-SETUP-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-INTERACTIVE-SESSION",
+      "type": "RuntimeBinding",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "capability": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-INTERACTIVE-SESSION"
+      ],
+      "runtimeAction": [
+        "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-SETUP"
+      ]
+    },
+    {
+      "id": "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-CHAT",
+      "type": "RuntimeActionLocator",
+      "kind": "endpoint",
+      "value": "POST /chat"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-CHAT-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"chat\"}"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-CHAT-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-CHAT",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-CHAT"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-CHAT-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-CHAT-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-ROOM-GROUNDED-QUESTION",
+      "type": "RuntimeBinding",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "capability": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "runtimeAction": [
+        "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-CHAT"
+      ]
+    },
+    {
+      "id": "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-CHAT-HANDOFF",
+      "type": "RuntimeActionLocator",
+      "kind": "endpoint",
+      "value": "POST /chat"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-CHAT-HANDOFF-INPUT",
+      "type": "SchemaReference",
+      "uri": "json",
+      "text": "{\"applicationActionKind\":\"handoff\"}"
+    },
+    {
+      "id": "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-CHAT-HANDOFF-OUTPUT",
+      "type": "SchemaReference",
+      "uri": "json"
+    },
+    {
+      "id": "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-CHAT-HANDOFF",
+      "type": "RuntimeAction",
+      "locator": [
+        "LOC-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-CHAT-HANDOFF"
+      ],
+      "runtimeParameter": [],
+      "inputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-CHAT-HANDOFF-INPUT"
+      ],
+      "outputSchema": [
+        "SCHEMA-RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-CHAT-HANDOFF-OUTPUT"
+      ]
+    },
+    {
+      "id": "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "type": "RuntimeBinding",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "capability": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "runtimeAction": [
+        "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-BACKEND-CHAT-HANDOFF"
+      ]
+    },
+    {
+      "id": "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S01-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S01",
+      "type": "ScenarioStep",
+      "kind": "actorIntent",
+      "actorRole": [
+        "ACT-CASE-STUDY-ENGINEER"
+      ],
+      "performedBy": [],
+      "triggeredBy": [
+        "EV-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-PROVIDED"
+      ],
+      "resultingAssertion": [],
+      "capabilityUse": [],
+      "text": "Provide an MLDS file as case-study input.",
+      "guard": [
+        "COND-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-VALID-INPUT"
+      ],
+      "occurrenceProbability": [
+        "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S01-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S02-ANALYZE-MLDS-SCENE",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANALYZE-MLDS-SCENE"
+      ],
+      "provider": [
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S02-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S02",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-NORMALIZED-SCENE-VALID"
+      ],
+      "capabilityUse": [
+        "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S02-ANALYZE-MLDS-SCENE"
+      ],
+      "text": "Load and normalize the MLDS scene.",
+      "occurrenceProbability": [
+        "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S02-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S03-ANALYZE-MLDS-SCENE",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANALYZE-MLDS-SCENE"
+      ],
+      "provider": [
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S03-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S03",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SCENE-SEMANTICS-VALID"
+      ],
+      "capabilityUse": [
+        "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S03-ANALYZE-MLDS-SCENE"
+      ],
+      "text": "Derive semantic zones, visitor goals and interaction topics.",
+      "occurrenceProbability": [
+        "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S03-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S04-DERIVE-SPATIAL-AGENT-ROLES",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVE-SPATIAL-AGENT-ROLES"
+      ],
+      "provider": [
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S04-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S04",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-AGENT-ROLES-VALID"
+      ],
+      "capabilityUse": [
+        "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S04-DERIVE-SPATIAL-AGENT-ROLES"
+      ],
+      "text": "Generate spatially grounded agent roles and handoff rules.",
+      "occurrenceProbability": [
+        "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S04-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S05-GENERATE-ROOM-KNOWLEDGE",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-GENERATE-ROOM-KNOWLEDGE"
+      ],
+      "provider": [
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S05-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S05",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-KNOWLEDGE-VALID"
+      ],
+      "capabilityUse": [
+        "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S05-GENERATE-ROOM-KNOWLEDGE"
+      ],
+      "text": "Generate materialized knowledge entries for all agent knowledge tags.",
+      "occurrenceProbability": [
+        "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S05-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S06-PLACE-AGENTS-IN-SCENE",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PLACE-AGENTS-IN-SCENE"
+      ],
+      "provider": [
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S06-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S06",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PLACEMENT-VALID"
+      ],
+      "capabilityUse": [
+        "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S06-PLACE-AGENTS-IN-SCENE"
+      ],
+      "text": "Place generated agents inside the room near their responsibilities.",
+      "occurrenceProbability": [
+        "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S06-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S07-ASSEMBLE-FUNCTIONAL-MLDS",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "provider": [
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S07-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S07",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-FUNCTIONALMLDS-VALID"
+      ],
+      "capabilityUse": [
+        "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S07-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "text": "Assemble and validate the FunctionalMLDS trace instance.",
+      "occurrenceProbability": [
+        "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S07-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S08-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "provider": [
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S08-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S08",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZED"
+      ],
+      "capabilityUse": [
+        "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S08-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "text": "Materialize the Interactive Agents project files.",
+      "occurrenceProbability": [
+        "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S08-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S09-SETUP-INTERACTIVE-SESSION",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-INTERACTIVE-SESSION"
+      ],
+      "provider": [
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S09-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S09",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-VALID"
+      ],
+      "capabilityUse": [
+        "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S09-SETUP-INTERACTIVE-SESSION"
+      ],
+      "text": "Set up an Interactive Agents runtime session.",
+      "guard": [
+        "COND-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-AGENTS-AVAILABLE"
+      ],
+      "occurrenceProbability": [
+        "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S09-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S10-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S10",
+      "type": "ScenarioStep",
+      "kind": "actorIntent",
+      "actorRole": [
+        "ACT-VISITOR"
+      ],
+      "performedBy": [],
+      "triggeredBy": [
+        "EV-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-VISITOR-QUESTION"
+      ],
+      "resultingAssertion": [],
+      "capabilityUse": [],
+      "text": "Ask a room-related question to an agent.",
+      "occurrenceProbability": [
+        "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S10-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S11-ANSWER-ROOM-GROUNDED-QUESTION",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "provider": [
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S11-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S11",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-GROUNDED"
+      ],
+      "capabilityUse": [
+        "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S11-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "text": "Answer the visitor question using grounded room knowledge.",
+      "occurrenceProbability": [
+        "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S11-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "provider": [
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "target": [
+        "ENT-STATE-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709"
+      ],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S12-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S12",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUNTIME-ORCHESTRATOR"
+      ],
+      "triggeredBy": [
+        "EV-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-NEEDED"
+      ],
+      "resultingAssertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-VALID"
+      ],
+      "capabilityUse": [
+        "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S12-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "text": "Optionally hand off to the responsible specialist agent.",
+      "guard": [
+        "COND-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TARGET-AVAILABLE"
+      ],
+      "occurrenceProbability": [
+        "PV-STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S12-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01-02",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S01"
+      ],
+      "targetStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S02"
+      ],
+      "source": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S01"
+      ],
+      "target": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S02"
+      ]
+    },
+    {
+      "id": "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-02-03",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S02"
+      ],
+      "targetStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S03"
+      ],
+      "source": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S02"
+      ],
+      "target": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S03"
+      ]
+    },
+    {
+      "id": "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-03-04",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S03"
+      ],
+      "targetStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S04"
+      ],
+      "source": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S03"
+      ],
+      "target": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S04"
+      ]
+    },
+    {
+      "id": "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-04-05",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S04"
+      ],
+      "targetStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S05"
+      ],
+      "source": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S04"
+      ],
+      "target": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S05"
+      ]
+    },
+    {
+      "id": "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-05-06",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S05"
+      ],
+      "targetStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S06"
+      ],
+      "source": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S05"
+      ],
+      "target": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S06"
+      ]
+    },
+    {
+      "id": "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-06-07",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S06"
+      ],
+      "targetStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S07"
+      ],
+      "source": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S06"
+      ],
+      "target": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S07"
+      ]
+    },
+    {
+      "id": "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-07-08",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S07"
+      ],
+      "targetStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S08"
+      ],
+      "source": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S07"
+      ],
+      "target": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S08"
+      ]
+    },
+    {
+      "id": "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-08-09",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S08"
+      ],
+      "targetStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S09"
+      ],
+      "source": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S08"
+      ],
+      "target": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S09"
+      ]
+    },
+    {
+      "id": "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-09-10",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S09"
+      ],
+      "targetStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S10"
+      ],
+      "source": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S09"
+      ],
+      "target": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S10"
+      ]
+    },
+    {
+      "id": "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-10-11",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S10"
+      ],
+      "targetStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S11"
+      ],
+      "source": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S10"
+      ],
+      "target": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S11"
+      ]
+    },
+    {
+      "id": "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-11-12",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S11"
+      ],
+      "targetStep": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S12"
+      ],
+      "source": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S11"
+      ],
+      "target": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S12"
+      ]
+    },
+    {
+      "id": "SC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MAIN",
+      "type": "Scenario",
+      "kind": "main",
+      "precondition": [
+        "COND-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-VALID-INPUT"
+      ],
+      "postcondition": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-GROUNDED"
+      ],
+      "step": [
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S01",
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S02",
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S03",
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S04",
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S05",
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S06",
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S07",
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S08",
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S09",
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S10",
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S11",
+        "STEP-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S12"
+      ],
+      "stepRelation": [
+        "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01-02",
+        "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-02-03",
+        "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-03-04",
+        "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-04-05",
+        "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-05-06",
+        "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-06-07",
+        "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-07-08",
+        "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-08-09",
+        "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-09-10",
+        "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-10-11",
+        "REL-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-11-12"
+      ],
+      "parallelGroup": [],
+      "text": "Main scenario for generating and using a spatially grounded multi-agent room guide."
+    },
+    {
+      "id": "EXPR-AST-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVED-EVENT",
+      "type": "EAExpression",
+      "mixedStringContent": "The projected runtime trigger is observable."
+    },
+    {
+      "id": "AST-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVED-EVENT",
+      "type": "EventAssertion",
+      "subject": [
+        "EV-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-PROVIDED"
+      ],
+      "expression": [
+        "EXPR-AST-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVED-EVENT"
+      ],
+      "expressionText": "The projected runtime trigger is observable.",
+      "severity": "warning"
+    },
+    {
+      "id": "EXPR-AST-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVED-OUTPUT",
+      "type": "EAExpression",
+      "mixedStringContent": "The bound runtime action produces an observable output."
+    },
+    {
+      "id": "AST-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVED-OUTPUT",
+      "type": "OutputAssertion",
+      "subject": [
+        "RA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-RUN-MLDS-INGESTION"
+      ],
+      "expression": [
+        "EXPR-AST-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVED-OUTPUT"
+      ],
+      "expressionText": "The bound runtime action produces an observable output.",
+      "severity": "error"
+    },
+    {
+      "id": "EXPR-AST-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVED-GROUNDING",
+      "type": "EAExpression",
+      "mixedStringContent": "The runtime participant remains grounded in an identifiable model entity."
+    },
+    {
+      "id": "AST-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVED-GROUNDING",
+      "type": "GroundingAssertion",
+      "subject": [
+        "ENT-ZONE-ENTRANCE_ZONE"
+      ],
+      "expression": [
+        "EXPR-AST-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVED-GROUNDING"
+      ],
+      "expressionText": "The runtime participant remains grounded in an identifiable model entity.",
+      "severity": "warning"
+    },
+    {
+      "id": "EXPR-AST-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVED-RELATION",
+      "type": "EAExpression",
+      "mixedStringContent": "The capability occurrence is linked to its explicit provider and targets."
+    },
+    {
+      "id": "AST-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVED-RELATION",
+      "type": "RelationAssertion",
+      "subject": [
+        "CU-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-S02-ANALYZE-MLDS-SCENE"
+      ],
+      "expression": [
+        "EXPR-AST-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-DERIVED-RELATION"
+      ],
+      "expressionText": "The capability occurrence is linked to its explicit provider and targets.",
+      "severity": "critical"
+    },
+    {
+      "id": "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01-ACTOR-1",
+      "type": "ActorParticipation",
+      "actor": [
+        "ACT-CASE-STUDY-ENGINEER"
+      ],
+      "useCase": [
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01"
+      ]
+    },
+    {
+      "id": "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01-ACTOR-2",
+      "type": "ActorParticipation",
+      "actor": [
+        "ACT-VISITOR"
+      ],
+      "useCase": [
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01"
+      ]
+    },
+    {
+      "id": "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01-ACTOR-3",
+      "type": "ActorParticipation",
+      "actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "useCase": [
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01"
+      ]
+    },
+    {
+      "id": "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01-SPEC-SC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MAIN",
+      "type": "UseCaseScenarioSpecification",
+      "useCase": [
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01"
+      ],
+      "scenario": [
+        "SC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MAIN"
+      ]
+    },
+    {
+      "id": "SAT-REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-001",
+      "type": "Satisfy",
+      "satisfiedRequirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-001"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-002",
+      "type": "Satisfy",
+      "satisfiedRequirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-002"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-003",
+      "type": "Satisfy",
+      "satisfiedRequirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-003"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-004",
+      "type": "Satisfy",
+      "satisfiedRequirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-004"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-005",
+      "type": "Satisfy",
+      "satisfiedRequirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-005"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-006",
+      "type": "Satisfy",
+      "satisfiedRequirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-006"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-TARGET-1",
+      "type": "RuntimeValidationTarget",
+      "platform": "CaseStudyPipeline",
+      "environmentRef": "case:mldssteinpilz_uidiag_abs_repair_1783611709",
+      "element": [
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANALYZE-MLDS-SCENE"
+      ],
+      "runtimeBinding": [
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANALYZE-MLDS-SCENE"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-TARGET-1",
+      "type": "RuntimeValidationTarget",
+      "platform": "CaseStudyPipeline",
+      "environmentRef": "case:mldssteinpilz_uidiag_abs_repair_1783611709",
+      "element": [
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "runtimeBinding": [
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ASSEMBLE-FUNCTIONAL-MLDS"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-TARGET-1",
+      "type": "RuntimeValidationTarget",
+      "platform": "InteractiveAgentsBackend",
+      "environmentRef": "case:mldssteinpilz_uidiag_abs_repair_1783611709",
+      "element": [
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "runtimeBinding": [
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-TARGET-1",
+      "type": "RuntimeValidationTarget",
+      "platform": "InteractiveAgentsBackend",
+      "environmentRef": "case:mldssteinpilz_uidiag_abs_repair_1783611709",
+      "element": [
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-INTERACTIVE-SESSION"
+      ],
+      "runtimeBinding": [
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-INTERACTIVE-SESSION"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-TARGET-1",
+      "type": "RuntimeValidationTarget",
+      "platform": "InteractiveAgentsBackend",
+      "environmentRef": "case:mldssteinpilz_uidiag_abs_repair_1783611709",
+      "element": [
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "runtimeBinding": [
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-ROOM-GROUNDED-QUESTION"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TARGET-1",
+      "type": "RuntimeValidationTarget",
+      "platform": "InteractiveAgentsBackend",
+      "environmentRef": "case:mldssteinpilz_uidiag_abs_repair_1783611709",
+      "element": [
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "runtimeBinding": [
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-STIMULUS-1",
+      "type": "RuntimeStimulus",
+      "scenarioEvent": [
+        "EV-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-PROVIDED"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-OUTCOME-1",
+      "type": "StateAssertionOutcome",
+      "assertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-NORMALIZED-SCENE-VALID"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-PROCEDURE",
+      "type": "RuntimeValidationProcedure",
+      "vvStimuli": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-STIMULUS-1"
+      ],
+      "vvIntendedOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-OUTCOME-1"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1",
+      "type": "AssertionResult",
+      "assertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-NORMALIZED-SCENE-VALID"
+      ],
+      "verdict": "inconclusive",
+      "evidenceRef": "pending://mldssteinpilz_uidiag_abs_repair_1783611709/VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION/SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-NORMALIZED-SCENE-VALID"
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-PROCEDURE-LOG-PENDING-ACTUAL-1",
+      "type": "RuntimeActualOutcome",
+      "intendedOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-OUTCOME-1"
+      ],
+      "result": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-PROCEDURE-LOG-PENDING",
+      "type": "RuntimeValidationLog",
+      "date": "1970-01-01T00:00:00Z",
+      "performedVVProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-PROCEDURE"
+      ],
+      "vvActualOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ],
+      "actualOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION",
+      "type": "ValidationCase",
+      "vvSubject": [
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANALYZE-MLDS-SCENE"
+      ],
+      "vvTarget": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-TARGET-1"
+      ],
+      "vvProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-PROCEDURE"
+      ],
+      "vvLog": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-PROCEDURE-LOG-PENDING"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-OUTCOME-1",
+      "type": "StateAssertionOutcome",
+      "assertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-FUNCTIONALMLDS-VALID"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-PROCEDURE",
+      "type": "RuntimeValidationProcedure",
+      "vvStimuli": [],
+      "vvIntendedOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-OUTCOME-1"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1",
+      "type": "AssertionResult",
+      "assertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-FUNCTIONALMLDS-VALID"
+      ],
+      "verdict": "inconclusive",
+      "evidenceRef": "pending://mldssteinpilz_uidiag_abs_repair_1783611709/VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS/SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-FUNCTIONALMLDS-VALID"
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING-ACTUAL-1",
+      "type": "RuntimeActualOutcome",
+      "intendedOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-OUTCOME-1"
+      ],
+      "result": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING",
+      "type": "RuntimeValidationLog",
+      "date": "1970-01-01T00:00:00Z",
+      "performedVVProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-PROCEDURE"
+      ],
+      "vvActualOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ],
+      "actualOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS",
+      "type": "ValidationCase",
+      "vvSubject": [
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "vvTarget": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-TARGET-1"
+      ],
+      "vvProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-PROCEDURE"
+      ],
+      "vvLog": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-PROCEDURE-LOG-PENDING"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-OUTCOME-1",
+      "type": "StateAssertionOutcome",
+      "assertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZED"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-PROCEDURE",
+      "type": "RuntimeValidationProcedure",
+      "vvStimuli": [],
+      "vvIntendedOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-OUTCOME-1"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1",
+      "type": "AssertionResult",
+      "assertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZED"
+      ],
+      "verdict": "inconclusive",
+      "evidenceRef": "pending://mldssteinpilz_uidiag_abs_repair_1783611709/VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION/SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZED"
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING-ACTUAL-1",
+      "type": "RuntimeActualOutcome",
+      "intendedOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-OUTCOME-1"
+      ],
+      "result": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING",
+      "type": "RuntimeValidationLog",
+      "date": "1970-01-01T00:00:00Z",
+      "performedVVProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-PROCEDURE"
+      ],
+      "vvActualOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ],
+      "actualOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION",
+      "type": "ValidationCase",
+      "vvSubject": [
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "vvTarget": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-TARGET-1"
+      ],
+      "vvProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-PROCEDURE"
+      ],
+      "vvLog": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-PROCEDURE-LOG-PENDING"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-OUTCOME-1",
+      "type": "StateAssertionOutcome",
+      "assertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-VALID"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-PROCEDURE",
+      "type": "RuntimeValidationProcedure",
+      "vvStimuli": [],
+      "vvIntendedOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-OUTCOME-1"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1",
+      "type": "AssertionResult",
+      "assertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-VALID"
+      ],
+      "verdict": "inconclusive",
+      "evidenceRef": "pending://mldssteinpilz_uidiag_abs_repair_1783611709/VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP/SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-VALID"
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-PROCEDURE-LOG-PENDING-ACTUAL-1",
+      "type": "RuntimeActualOutcome",
+      "intendedOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-OUTCOME-1"
+      ],
+      "result": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-PROCEDURE-LOG-PENDING",
+      "type": "RuntimeValidationLog",
+      "date": "1970-01-01T00:00:00Z",
+      "performedVVProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-PROCEDURE"
+      ],
+      "vvActualOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ],
+      "actualOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP",
+      "type": "ValidationCase",
+      "vvSubject": [
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-INTERACTIVE-SESSION"
+      ],
+      "vvTarget": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-TARGET-1"
+      ],
+      "vvProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-PROCEDURE"
+      ],
+      "vvLog": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-PROCEDURE-LOG-PENDING"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-STIMULUS-1",
+      "type": "RuntimeStimulus",
+      "scenarioEvent": [
+        "EV-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-VISITOR-QUESTION"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-OUTCOME-1",
+      "type": "StateAssertionOutcome",
+      "assertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-GROUNDED"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-PROCEDURE",
+      "type": "RuntimeValidationProcedure",
+      "vvStimuli": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-STIMULUS-1"
+      ],
+      "vvIntendedOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-OUTCOME-1"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1",
+      "type": "AssertionResult",
+      "assertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-GROUNDED"
+      ],
+      "verdict": "inconclusive",
+      "evidenceRef": "pending://mldssteinpilz_uidiag_abs_repair_1783611709/VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING/SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-GROUNDED"
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-PROCEDURE-LOG-PENDING-ACTUAL-1",
+      "type": "RuntimeActualOutcome",
+      "intendedOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-OUTCOME-1"
+      ],
+      "result": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-PROCEDURE-LOG-PENDING",
+      "type": "RuntimeValidationLog",
+      "date": "1970-01-01T00:00:00Z",
+      "performedVVProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-PROCEDURE"
+      ],
+      "vvActualOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ],
+      "actualOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING",
+      "type": "ValidationCase",
+      "vvSubject": [
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "vvTarget": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-TARGET-1"
+      ],
+      "vvProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-PROCEDURE"
+      ],
+      "vvLog": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-PROCEDURE-LOG-PENDING"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-STIMULUS-1",
+      "type": "RuntimeStimulus",
+      "scenarioEvent": [
+        "EV-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-NEEDED"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-OUTCOME-1",
+      "type": "StateAssertionOutcome",
+      "assertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-VALID"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-PROCEDURE",
+      "type": "RuntimeValidationProcedure",
+      "vvStimuli": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-STIMULUS-1"
+      ],
+      "vvIntendedOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-OUTCOME-1"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1",
+      "type": "AssertionResult",
+      "assertion": [
+        "SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-VALID"
+      ],
+      "verdict": "inconclusive",
+      "evidenceRef": "pending://mldssteinpilz_uidiag_abs_repair_1783611709/VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF/SA-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-VALID"
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-PROCEDURE-LOG-PENDING-ACTUAL-1",
+      "type": "RuntimeActualOutcome",
+      "intendedOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-OUTCOME-1"
+      ],
+      "result": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-PROCEDURE-LOG-PENDING-ACTUAL-1-RESULT-1"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-PROCEDURE-LOG-PENDING",
+      "type": "RuntimeValidationLog",
+      "date": "1970-01-01T00:00:00Z",
+      "performedVVProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-PROCEDURE"
+      ],
+      "vvActualOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ],
+      "actualOutcome": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-PROCEDURE-LOG-PENDING-ACTUAL-1"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF",
+      "type": "ValidationCase",
+      "vvSubject": [
+        "RB-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "vvTarget": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TARGET-1"
+      ],
+      "vvProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-PROCEDURE"
+      ],
+      "vvLog": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-PROCEDURE-LOG-PENDING"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-VERIFY-1",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-001"
+      ],
+      "verifiedByCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION"
+      ],
+      "verifiedByProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-001"
+      ],
+      "vvCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-VERIFY-1",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-006"
+      ],
+      "verifiedByCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS"
+      ],
+      "verifiedByProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-006"
+      ],
+      "vvCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-VERIFY-1",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-004"
+      ],
+      "verifiedByCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION"
+      ],
+      "verifiedByProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-004"
+      ],
+      "vvCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-VERIFY-2",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-005"
+      ],
+      "verifiedByCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION"
+      ],
+      "verifiedByProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-005"
+      ],
+      "vvCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-VERIFY-1",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-003"
+      ],
+      "verifiedByCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP"
+      ],
+      "verifiedByProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-003"
+      ],
+      "vvCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-VERIFY-2",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-005"
+      ],
+      "verifiedByCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP"
+      ],
+      "verifiedByProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-005"
+      ],
+      "vvCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-VERIFY-1",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-002"
+      ],
+      "verifiedByCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING"
+      ],
+      "verifiedByProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-002"
+      ],
+      "vvCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-VERIFY-2",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-004"
+      ],
+      "verifiedByCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING"
+      ],
+      "verifiedByProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-004"
+      ],
+      "vvCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-VERIFY-3",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-006"
+      ],
+      "verifiedByCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING"
+      ],
+      "verifiedByProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-006"
+      ],
+      "vvCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-VERIFY-1",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-003"
+      ],
+      "verifiedByCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF"
+      ],
+      "verifiedByProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-003"
+      ],
+      "vvCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-VERIFY-2",
+      "type": "Verify",
+      "verifiedRequirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-006"
+      ],
+      "verifiedByCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF"
+      ],
+      "verifiedByProcedure": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-PROCEDURE"
+      ],
+      "requirement": [
+        "REQ-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-006"
+      ],
+      "vvCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-USECASE-1",
+      "type": "ValidationCaseUseCaseBinding",
+      "validationCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION"
+      ],
+      "useCase": [
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-USECASE-1",
+      "type": "ValidationCaseUseCaseBinding",
+      "validationCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS"
+      ],
+      "useCase": [
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-USECASE-1",
+      "type": "ValidationCaseUseCaseBinding",
+      "validationCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION"
+      ],
+      "useCase": [
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-USECASE-1",
+      "type": "ValidationCaseUseCaseBinding",
+      "validationCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP"
+      ],
+      "useCase": [
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-USECASE-1",
+      "type": "ValidationCaseUseCaseBinding",
+      "validationCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING"
+      ],
+      "useCase": [
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01"
+      ]
+    },
+    {
+      "id": "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-USECASE-1",
+      "type": "ValidationCaseUseCaseBinding",
+      "validationCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF"
+      ],
+      "useCase": [
+        "UC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-01"
+      ]
+    },
+    {
+      "id": "VV-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709",
+      "type": "VerificationValidation",
+      "vvTarget": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-TARGET-1",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-TARGET-1",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-TARGET-1",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-TARGET-1",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-TARGET-1",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-TARGET-1"
+      ],
+      "vvCase": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF"
+      ],
+      "verify": [
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MLDS-INGESTION-VERIFY-1",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-MODEL-INVARIANTS-VERIFY-1",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-VERIFY-1",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-PROJECT-MATERIALIZATION-VERIFY-2",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-VERIFY-1",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-SETUP-VERIFY-2",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-VERIFY-1",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-VERIFY-2",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-CHAT-GROUNDING-VERIFY-3",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-VERIFY-1",
+        "VC-MLDSSTEINPILZ_UIDIAG_ABS_REPAIR_1783611709-HANDOFF-VERIFY-2"
+      ]
+    }
+  ]
+}

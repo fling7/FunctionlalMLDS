@@ -1,0 +1,73 @@
+{
+  "case_id": "mldssteinpilz_e2e_1783611970",
+  "session_id": "f9428b5c-77b3-4898-8fea-74a9ee8334dc",
+  "analyze": {
+    "generation_mode": "functionalmlds",
+    "validation_summary": {
+      "status": "valid",
+      "schema_status": "valid",
+      "invariant_status": "valid",
+      "materialization_status": "not_run",
+      "traceability_status": "not_run",
+      "handoff_status": "valid",
+      "error_count": 0,
+      "warning_count": 0,
+      "traceability_average_coverage": 0.0,
+      "handoff_decision_accuracy": 0.0,
+      "errors": [],
+      "warnings": []
+    },
+    "functionalmlds_summary": {
+      "case_id": "mldssteinpilz_e2e_1783611970",
+      "schema": "functionalmlds_case_study",
+      "metamodel_version": "v0.5",
+      "use_case_id": "UC-MLDSSTEINPILZ_E2E_1783611970-01",
+      "main_scenario_id": "SC-MLDSSTEINPILZ_E2E_1783611970-MAIN",
+      "actor_count": 3,
+      "entity_count": 53,
+      "agent_count": 6,
+      "capability_count": 9,
+      "runtime_binding_count": 9,
+      "validation_case_count": 6,
+      "satisfy_relationship_count": 6
+    },
+    "functionalmlds_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\mldssteinpilz_e2e_1783611970\\functionalmlds\\functionalmlds.instance.generated.json"
+  },
+  "commit": {
+    "status": "ok",
+    "generation_mode": "functionalmlds",
+    "project": {
+      "id": "mldssteinpilz_e2e_1783611970",
+      "display_name": "Codex E2E FunctionalMLDS Steinpilz",
+      "description": "End-to-end verification project generated from existing MLDS via FunctionalMLDS wizard path.",
+      "created_ms": 1783612042301,
+      "updated_ms": 1783612042943,
+      "generation_mode": "functionalmlds",
+      "functionalmlds_trace_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\mldssteinpilz_e2e_1783611970\\functionalmlds\\functionalmlds.instance.generated.json",
+      "functionalmlds_case_dir": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\mldssteinpilz_e2e_1783611970",
+      "source_mlds_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\mldssteinpilz_e2e_1783611970\\input\\source_mlds.json",
+      "metamodelVersion": "v0.5"
+    },
+    "validation_summary": {
+      "status": "valid",
+      "schema_status": "valid",
+      "invariant_status": "valid",
+      "materialization_status": "valid",
+      "traceability_status": "valid",
+      "handoff_status": "valid",
+      "error_count": 0,
+      "warning_count": 4,
+      "traceability_average_coverage": 0.805555,
+      "handoff_decision_accuracy": 0.0,
+      "errors": [],
+      "warnings": [
+        "schema_validation: Runtime-Log fehlt: C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\mldssteinpilz_e2e_1783611970\\runtime_logs\\events.jsonl",
+        "traceability_metrics: scenario_step_to_capability_coverage coverage is 0.833333 (10/12).",
+        "traceability_metrics: runtime_action_to_log_coverage coverage is 0.0 (0/12).",
+        "handoff_metrics: No handoff decision test results found yet; handoff_decision_accuracy is not evaluated."
+      ]
+    },
+    "functionalmlds_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\mldssteinpilz_e2e_1783611970\\functionalmlds\\functionalmlds.instance.generated.json",
+    "trace_map_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\mldssteinpilz_e2e_1783611970\\trace_map.json"
+  }
+}

@@ -1,0 +1,10 @@
+flowchart TB
+  R["Room bounds: x=[-5.0, 5.0], z=[-7.0, 7.0]"]
+  R --> A1["teacher_agent (0.996, -0.287)"]
+  A1 --> Z1["responsible zone: instruction_zone"]
+  R --> A2["reading_area_guide (-0.149, 2.989)"]
+  A2 --> Z2["responsible zone: reading_area"]
+  R --> A3["exhibit_interpreter (2.433, 4.362)"]
+  A3 --> Z3["responsible zone: dinosaur_display_zone"]
+  R --> A4["decorative_zone_ambassador (0.995, -1.575)"]
+  A4 --> Z4["responsible zone: decorative_zone"]

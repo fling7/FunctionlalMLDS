@@ -1,0 +1,341 @@
+{
+  "acceptance_thresholds": {
+    "diagonal_segments": 0,
+    "foreign_card_hits": 0,
+    "label_card_overlaps": 0,
+    "overlapping_segments": 0,
+    "proper_crossings": 0
+  },
+  "model_version": "2.0.0-model",
+  "status": "PASS",
+  "totals": {
+    "diagonal_segments": 0,
+    "foreign_card_hits": 0,
+    "label_card_overlaps": 0,
+    "overlapping_segments": 0,
+    "proper_crossings": 0
+  },
+  "view_count": 8,
+  "views": {
+    "01_east_adl_infrastructure": {
+      "formats": {
+        "checks": {
+          "mermaid_has_no_note_for": true,
+          "overview_mermaid_contains_model_nodes": true,
+          "png_dimensions_match_scene": true,
+          "svg_dimensions_match_scene": true,
+          "svg_is_xml": true
+        },
+        "png_dimensions": [
+          2186,
+          1742
+        ],
+        "status": "PASS",
+        "svg_dimensions": [
+          2186,
+          1742
+        ]
+      },
+      "geometry": {
+        "counts": {
+          "diagonal_segments": 0,
+          "foreign_card_hits": 0,
+          "label_card_overlaps": 0,
+          "overlapping_segments": 0,
+          "proper_crossings": 0
+        },
+        "edge_count": 5,
+        "incidents": {
+          "diagonal_segments": [],
+          "foreign_card_hits": [],
+          "label_card_overlaps": [],
+          "overlapping_segments": [],
+          "proper_crossings": []
+        },
+        "status": "PASS"
+      },
+      "status": "PASS",
+      "title": "EAST-ADL V2.1.12 – verwendeter Infrastruktur-Ausschnitt"
+    },
+    "02_east_adl_requirements_usecases": {
+      "formats": {
+        "checks": {
+          "mermaid_has_no_note_for": true,
+          "overview_mermaid_contains_model_nodes": true,
+          "png_dimensions_match_scene": true,
+          "svg_dimensions_match_scene": true,
+          "svg_is_xml": true
+        },
+        "png_dimensions": [
+          2186,
+          1576
+        ],
+        "status": "PASS",
+        "svg_dimensions": [
+          2186,
+          1576
+        ]
+      },
+      "geometry": {
+        "counts": {
+          "diagonal_segments": 0,
+          "foreign_card_hits": 0,
+          "label_card_overlaps": 0,
+          "overlapping_segments": 0,
+          "proper_crossings": 0
+        },
+        "edge_count": 5,
+        "incidents": {
+          "diagonal_segments": [],
+          "foreign_card_hits": [],
+          "label_card_overlaps": [],
+          "overlapping_segments": [],
+          "proper_crossings": []
+        },
+        "status": "PASS"
+      },
+      "status": "PASS",
+      "title": "EAST-ADL Requirements/UseCases – verwendeter Ausschnitt"
+    },
+    "03_east_adl_function_system_behavior": {
+      "formats": {
+        "checks": {
+          "mermaid_has_no_note_for": true,
+          "overview_mermaid_contains_model_nodes": true,
+          "png_dimensions_match_scene": true,
+          "svg_dimensions_match_scene": true,
+          "svg_is_xml": true
+        },
+        "png_dimensions": [
+          2506,
+          1576
+        ],
+        "status": "PASS",
+        "svg_dimensions": [
+          2506,
+          1576
+        ]
+      },
+      "geometry": {
+        "counts": {
+          "diagonal_segments": 0,
+          "foreign_card_hits": 0,
+          "label_card_overlaps": 0,
+          "overlapping_segments": 0,
+          "proper_crossings": 0
+        },
+        "edge_count": 8,
+        "incidents": {
+          "diagonal_segments": [],
+          "foreign_card_hits": [],
+          "label_card_overlaps": [],
+          "overlapping_segments": [],
+          "proper_crossings": []
+        },
+        "status": "PASS"
+      },
+      "status": "PASS",
+      "title": "EAST-ADL Function/System/Behavior – verwendeter Ausschnitt"
+    },
+    "04_dfmlds_scenario_flow": {
+      "formats": {
+        "checks": {
+          "mermaid_has_no_note_for": true,
+          "overview_mermaid_contains_model_nodes": true,
+          "png_dimensions_match_scene": true,
+          "svg_dimensions_match_scene": true,
+          "svg_is_xml": true
+        },
+        "png_dimensions": [
+          2506,
+          2622
+        ],
+        "status": "PASS",
+        "svg_dimensions": [
+          2506,
+          2622
+        ]
+      },
+      "geometry": {
+        "counts": {
+          "diagonal_segments": 0,
+          "foreign_card_hits": 0,
+          "label_card_overlaps": 0,
+          "overlapping_segments": 0,
+          "proper_crossings": 0
+        },
+        "edge_count": 9,
+        "incidents": {
+          "diagonal_segments": [],
+          "foreign_card_hits": [],
+          "label_card_overlaps": [],
+          "overlapping_segments": [],
+          "proper_crossings": []
+        },
+        "status": "PASS"
+      },
+      "status": "PASS",
+      "title": "DFMLDS V2 – konservativer Szenario- und Ablaufkern"
+    },
+    "05_dfmlds_capability_runtime": {
+      "formats": {
+        "checks": {
+          "mermaid_has_no_note_for": true,
+          "overview_mermaid_contains_model_nodes": true,
+          "png_dimensions_match_scene": true,
+          "svg_dimensions_match_scene": true,
+          "svg_is_xml": true
+        },
+        "png_dimensions": [
+          2700,
+          2223
+        ],
+        "status": "PASS",
+        "svg_dimensions": [
+          2700,
+          2223
+        ]
+      },
+      "geometry": {
+        "counts": {
+          "diagonal_segments": 0,
+          "foreign_card_hits": 0,
+          "label_card_overlaps": 0,
+          "overlapping_segments": 0,
+          "proper_crossings": 0
+        },
+        "edge_count": 11,
+        "incidents": {
+          "diagonal_segments": [],
+          "foreign_card_hits": [],
+          "label_card_overlaps": [],
+          "overlapping_segments": [],
+          "proper_crossings": []
+        },
+        "status": "PASS"
+      },
+      "status": "PASS",
+      "title": "DFMLDS V2 – Capability-, Function- und Runtime-Bridge"
+    },
+    "06_east_adl_dfmlds_verification_validation": {
+      "formats": {
+        "checks": {
+          "mermaid_has_no_note_for": true,
+          "overview_mermaid_contains_model_nodes": true,
+          "png_dimensions_match_scene": true,
+          "svg_dimensions_match_scene": true,
+          "svg_is_xml": true
+        },
+        "png_dimensions": [
+          2826,
+          2009
+        ],
+        "status": "PASS",
+        "svg_dimensions": [
+          2826,
+          2009
+        ]
+      },
+      "geometry": {
+        "counts": {
+          "diagonal_segments": 0,
+          "foreign_card_hits": 0,
+          "label_card_overlaps": 0,
+          "overlapping_segments": 0,
+          "proper_crossings": 0
+        },
+        "edge_count": 11,
+        "incidents": {
+          "diagonal_segments": [],
+          "foreign_card_hits": [],
+          "label_card_overlaps": [],
+          "overlapping_segments": [],
+          "proper_crossings": []
+        },
+        "status": "PASS"
+      },
+      "status": "PASS",
+      "title": "EAST-ADL / DFMLDS V2 – Verification & Validation"
+    },
+    "07_optional_annex_feature_knowledge": {
+      "formats": {
+        "checks": {
+          "mermaid_has_no_note_for": true,
+          "overview_mermaid_contains_model_nodes": true,
+          "png_dimensions_match_scene": true,
+          "svg_dimensions_match_scene": true,
+          "svg_is_xml": true
+        },
+        "png_dimensions": [
+          3000,
+          1788
+        ],
+        "status": "PASS",
+        "svg_dimensions": [
+          3000,
+          1788
+        ]
+      },
+      "geometry": {
+        "counts": {
+          "diagonal_segments": 0,
+          "foreign_card_hits": 0,
+          "label_card_overlaps": 0,
+          "overlapping_segments": 0,
+          "proper_crossings": 0
+        },
+        "edge_count": 10,
+        "incidents": {
+          "diagonal_segments": [],
+          "foreign_card_hits": [],
+          "label_card_overlaps": [],
+          "overlapping_segments": [],
+          "proper_crossings": []
+        },
+        "status": "PASS"
+      },
+      "status": "PASS",
+      "title": "DFMLDS V2 – optionale Annex-C-, Feature- und Wissensmodule"
+    },
+    "dynamic_functional_mlds_v2_metamodel": {
+      "formats": {
+        "checks": {
+          "mermaid_has_no_note_for": true,
+          "overview_mermaid_contains_model_nodes": true,
+          "png_dimensions_match_scene": true,
+          "svg_dimensions_match_scene": true,
+          "svg_is_xml": true
+        },
+        "png_dimensions": [
+          3200,
+          2520
+        ],
+        "status": "PASS",
+        "svg_dimensions": [
+          3200,
+          2520
+        ]
+      },
+      "geometry": {
+        "counts": {
+          "diagonal_segments": 0,
+          "foreign_card_hits": 0,
+          "label_card_overlaps": 0,
+          "overlapping_segments": 0,
+          "proper_crossings": 0
+        },
+        "edge_count": 40,
+        "incidents": {
+          "diagonal_segments": [],
+          "foreign_card_hits": [],
+          "label_card_overlaps": [],
+          "overlapping_segments": [],
+          "proper_crossings": []
+        },
+        "status": "PASS"
+      },
+      "status": "PASS",
+      "title": "Kompaktes Metamodell für Dynamic Functional MLDS (V2.0)"
+    }
+  }
+}

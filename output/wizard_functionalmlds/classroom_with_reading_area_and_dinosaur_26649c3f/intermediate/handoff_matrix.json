@@ -1,0 +1,46 @@
+{
+  "handoffs": [
+    {
+      "source_agent_id": "teacher_agent",
+      "target_agent_id": "librarian_agent",
+      "condition": "When students need assistance accessing books or quiet reading spaces",
+      "reason": "Librarian Agent specializes in resource management and reading promotion"
+    },
+    {
+      "source_agent_id": "teacher_agent",
+      "target_agent_id": "museum_guide_agent",
+      "condition": "When students or visitors show interest in the dinosaur exhibit",
+      "reason": "Museum Guide Agent provides detailed educational content about the exhibit"
+    },
+    {
+      "source_agent_id": "librarian_agent",
+      "target_agent_id": "teacher_agent",
+      "condition": "When instructional support or classroom activity coordination is required",
+      "reason": "Teacher Agent manages lessons and student engagement"
+    },
+    {
+      "source_agent_id": "librarian_agent",
+      "target_agent_id": "museum_guide_agent",
+      "condition": "When visitors inquire about the dinosaur skeleton or related displays",
+      "reason": "Museum Guide Agent is expert in educational exhibits and visitor engagement"
+    },
+    {
+      "source_agent_id": "museum_guide_agent",
+      "target_agent_id": "teacher_agent",
+      "condition": "When exhibit-related questions relate to classroom lessons or activities",
+      "reason": "Teacher Agent facilitates learning and lesson delivery"
+    },
+    {
+      "source_agent_id": "museum_guide_agent",
+      "target_agent_id": "librarian_agent",
+      "condition": "When visitors seek additional educational materials or reading resources",
+      "reason": "Librarian Agent manages educational materials and reading promotion"
+    },
+    {
+      "source_agent_id": "plant_decorator_agent",
+      "target_agent_id": "teacher_agent",
+      "condition": "When plant-related information connects to classroom environment or activities",
+      "reason": "Teacher Agent coordinates classroom learning and environment"
+    }
+  ]
+}

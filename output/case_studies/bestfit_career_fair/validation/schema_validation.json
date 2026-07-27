@@ -1,0 +1,80 @@
+{
+  "case_id": "bestfit_career_fair",
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "artifact_count": 7,
+    "valid_artifact_count": 7,
+    "invalid_artifact_count": 0,
+    "schema_count": 7,
+    "runtime_event_count": 64
+  },
+  "artifacts": [
+    {
+      "artifact_id": "normalized_scene",
+      "schema": "normalized_scene.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_graph.normalized.json",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "artifact_id": "scene_semantics",
+      "schema": "scene_semantics.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_semantics.json",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "artifact_id": "knowledge",
+      "schema": "knowledge.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\knowledge.generated.json",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "artifact_id": "functionalmlds_instance",
+      "schema": "functionalmlds_case_study.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\functionalmlds\\functionalmlds.instance.generated.json",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "artifact_id": "agent_roles",
+      "schema": "agent_roles.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "artifact_id": "interactive_agents_project",
+      "schema": "interactive_agents_project.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "artifact_id": "runtime_events",
+      "schema": "runtime_event.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\runtime_logs\\events.jsonl",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    }
+  ],
+  "schemas": [
+    "agent_roles.schema.json",
+    "functionalmlds_case_study.schema.json",
+    "interactive_agents_project.schema.json",
+    "knowledge.schema.json",
+    "normalized_scene.schema.json",
+    "runtime_event.schema.json",
+    "scene_semantics.schema.json"
+  ]
+}

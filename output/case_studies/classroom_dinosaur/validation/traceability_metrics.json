@@ -1,0 +1,245 @@
+{
+  "status": "valid",
+  "errors": [],
+  "warnings": [
+    "scenario_step_to_capability_coverage coverage is 0.833333 (10/12).",
+    "runtime_action_to_log_coverage coverage is 0.25 (3/12)."
+  ],
+  "metrics": {
+    "metric_count": 6,
+    "full_coverage_metric_count": 4,
+    "partial_coverage_metric_count": 2,
+    "average_coverage": 0.847222
+  },
+  "traceability_metrics": [
+    {
+      "metric_id": "requirement_to_validation_coverage",
+      "description": "Share of Requirements referenced by at least one ValidationCase.",
+      "numerator": 6,
+      "denominator": 6,
+      "coverage": 1.0,
+      "covered_ids": [
+        "REQ-CLASSROOM_DINOSAUR-001",
+        "REQ-CLASSROOM_DINOSAUR-002",
+        "REQ-CLASSROOM_DINOSAUR-003",
+        "REQ-CLASSROOM_DINOSAUR-004",
+        "REQ-CLASSROOM_DINOSAUR-005",
+        "REQ-CLASSROOM_DINOSAUR-006"
+      ],
+      "uncovered_ids": [],
+      "details": {
+        "validation_cases_by_requirement": {
+          "REQ-CLASSROOM_DINOSAUR-001": [
+            "VC-CLASSROOM_DINOSAUR-MLDS-INGESTION"
+          ],
+          "REQ-CLASSROOM_DINOSAUR-002": [
+            "VC-CLASSROOM_DINOSAUR-CHAT-GROUNDING"
+          ],
+          "REQ-CLASSROOM_DINOSAUR-006": [
+            "VC-CLASSROOM_DINOSAUR-MODEL-INVARIANTS",
+            "VC-CLASSROOM_DINOSAUR-CHAT-GROUNDING",
+            "VC-CLASSROOM_DINOSAUR-HANDOFF"
+          ],
+          "REQ-CLASSROOM_DINOSAUR-004": [
+            "VC-CLASSROOM_DINOSAUR-PROJECT-MATERIALIZATION",
+            "VC-CLASSROOM_DINOSAUR-CHAT-GROUNDING"
+          ],
+          "REQ-CLASSROOM_DINOSAUR-005": [
+            "VC-CLASSROOM_DINOSAUR-PROJECT-MATERIALIZATION",
+            "VC-CLASSROOM_DINOSAUR-SETUP"
+          ],
+          "REQ-CLASSROOM_DINOSAUR-003": [
+            "VC-CLASSROOM_DINOSAUR-SETUP",
+            "VC-CLASSROOM_DINOSAUR-HANDOFF"
+          ]
+        }
+      }
+    },
+    {
+      "metric_id": "scenario_step_to_capability_coverage",
+      "description": "Share of ScenarioSteps operationalized by at least one existing CapabilityUse.",
+      "numerator": 10,
+      "denominator": 12,
+      "coverage": 0.833333,
+      "covered_ids": [
+        "STEP-CLASSROOM_DINOSAUR-S02",
+        "STEP-CLASSROOM_DINOSAUR-S03",
+        "STEP-CLASSROOM_DINOSAUR-S04",
+        "STEP-CLASSROOM_DINOSAUR-S05",
+        "STEP-CLASSROOM_DINOSAUR-S06",
+        "STEP-CLASSROOM_DINOSAUR-S07",
+        "STEP-CLASSROOM_DINOSAUR-S08",
+        "STEP-CLASSROOM_DINOSAUR-S09",
+        "STEP-CLASSROOM_DINOSAUR-S11",
+        "STEP-CLASSROOM_DINOSAUR-S12"
+      ],
+      "uncovered_ids": [
+        "STEP-CLASSROOM_DINOSAUR-S01",
+        "STEP-CLASSROOM_DINOSAUR-S10"
+      ],
+      "details": {
+        "invalid_capability_use_refs": {},
+        "uncovered_step_kinds": {
+          "STEP-CLASSROOM_DINOSAUR-S01": "actorIntent",
+          "STEP-CLASSROOM_DINOSAUR-S10": "actorIntent"
+        }
+      }
+    },
+    {
+      "metric_id": "capability_to_runtime_binding_coverage",
+      "description": "Share of Capabilities with at least one RuntimeBinding.",
+      "numerator": 9,
+      "denominator": 9,
+      "coverage": 1.0,
+      "covered_ids": [
+        "CAP-CLASSROOM_DINOSAUR-ANALYZE-MLDS-SCENE",
+        "CAP-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-CLASSROOM_DINOSAUR-ASSEMBLE-FUNCTIONAL-MLDS",
+        "CAP-CLASSROOM_DINOSAUR-DERIVE-SPATIAL-AGENT-ROLES",
+        "CAP-CLASSROOM_DINOSAUR-GENERATE-ROOM-KNOWLEDGE",
+        "CAP-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT",
+        "CAP-CLASSROOM_DINOSAUR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+        "CAP-CLASSROOM_DINOSAUR-PLACE-AGENTS-IN-SCENE",
+        "CAP-CLASSROOM_DINOSAUR-SETUP-INTERACTIVE-SESSION"
+      ],
+      "uncovered_ids": [],
+      "details": {}
+    },
+    {
+      "metric_id": "runtime_action_to_log_coverage",
+      "description": "Share of RuntimeActions observed in runtime_logs/events.jsonl.",
+      "numerator": 3,
+      "denominator": 12,
+      "coverage": 0.25,
+      "covered_ids": [
+        "RA-CLASSROOM_DINOSAUR-BACKEND-CHAT",
+        "RA-CLASSROOM_DINOSAUR-BACKEND-CHAT-HANDOFF",
+        "RA-CLASSROOM_DINOSAUR-BACKEND-SETUP"
+      ],
+      "uncovered_ids": [
+        "RA-CLASSROOM_DINOSAUR-ARROW-ANALYZE",
+        "RA-CLASSROOM_DINOSAUR-ARROW-COMMIT",
+        "RA-CLASSROOM_DINOSAUR-RUN-AGENT-PLACEMENT",
+        "RA-CLASSROOM_DINOSAUR-RUN-AGENT-ROLES",
+        "RA-CLASSROOM_DINOSAUR-RUN-FUNCTIONALMLDS-ASSEMBLER",
+        "RA-CLASSROOM_DINOSAUR-RUN-KNOWLEDGE-SYNTHESIS",
+        "RA-CLASSROOM_DINOSAUR-RUN-MLDS-INGESTION",
+        "RA-CLASSROOM_DINOSAUR-RUN-SCENE-SEMANTICS",
+        "RA-CLASSROOM_DINOSAUR-WRITE-PROJECT-FILES"
+      ],
+      "details": {
+        "runtime_log_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\runtime_logs\\events.jsonl",
+        "logged_runtime_action_ids": [
+          "RA-CLASSROOM_DINOSAUR-BACKEND-CHAT",
+          "RA-CLASSROOM_DINOSAUR-BACKEND-CHAT-HANDOFF",
+          "RA-CLASSROOM_DINOSAUR-BACKEND-SETUP"
+        ]
+      }
+    },
+    {
+      "metric_id": "agent_to_knowledge_tag_coverage",
+      "description": "Share of Agents whose knowledge_tags are fully backed by generated knowledge entries.",
+      "numerator": 4,
+      "denominator": 4,
+      "coverage": 1.0,
+      "covered_ids": [
+        "decorative_zone_ambassador",
+        "exhibit_interpreter",
+        "reading_area_guide",
+        "teacher_agent"
+      ],
+      "uncovered_ids": [],
+      "details": {
+        "available_knowledge_tags": [
+          "chalkboard_usage",
+          "decorative_zone",
+          "dinosaur_display_zone",
+          "dinosaur_education",
+          "instruction_zone",
+          "reading_area",
+          "reading_area_usage",
+          "student_seating_arrangement"
+        ],
+        "missing_tags_by_agent": {}
+      }
+    },
+    {
+      "metric_id": "object_group_to_agent_role_grounding",
+      "description": "Share of semantic MLDS object groups grounded by at least one AgentRole grounded_object_id.",
+      "numerator": 5,
+      "denominator": 5,
+      "coverage": 1.0,
+      "covered_ids": [
+        "decor",
+        "equipment",
+        "furniture",
+        "plants",
+        "seating"
+      ],
+      "uncovered_ids": [],
+      "details": {
+        "all_object_groups": [
+          "decor",
+          "equipment",
+          "floor",
+          "furniture",
+          "plants",
+          "seating",
+          "structural"
+        ],
+        "excluded_structural_groups": [
+          "floor",
+          "structural"
+        ],
+        "grounded_objects_by_group": {
+          "furniture": [
+            "bookcase",
+            "reading_table",
+            "student_desk1",
+            "student_desk10",
+            "student_desk11",
+            "student_desk12",
+            "student_desk13",
+            "student_desk14",
+            "student_desk15",
+            "student_desk16",
+            "student_desk17",
+            "student_desk18",
+            "student_desk19",
+            "student_desk2",
+            "student_desk20",
+            "student_desk3",
+            "student_desk4",
+            "student_desk5",
+            "student_desk6",
+            "student_desk7",
+            "student_desk8",
+            "student_desk9",
+            "teacher_desk"
+          ],
+          "decor": [
+            "dinosaur_skeleton",
+            "picture1",
+            "picture2"
+          ],
+          "equipment": [
+            "chalkboard"
+          ],
+          "plants": [
+            "plant1",
+            "plant2",
+            "plant3",
+            "plant4",
+            "plant5"
+          ],
+          "seating": [
+            "beanbag1",
+            "beanbag2",
+            "beanbag3",
+            "beanbag4"
+          ]
+        }
+      }
+    }
+  ]
+}

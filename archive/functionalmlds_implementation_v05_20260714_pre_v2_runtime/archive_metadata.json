@@ -1,0 +1,119 @@
+{
+  "archiveFormat": "functionalmlds-source-overlay/1",
+  "archiveId": "functionalmlds_implementation_v05_20260714_pre_v2_runtime",
+  "backend": {
+    "branch": "main",
+    "changedEntryCount": 12,
+    "head": "ec9bd4f15a6fd49ba1bce9c517f36f1a5adda7db",
+    "remotes": [
+      {
+        "direction": "fetch",
+        "name": "origin",
+        "url": "https://git.informatik.fh-nuernberg.de/jobboerse/forschung/doktoranden/interactiveworlds/interactiveagentsbackend.git"
+      },
+      {
+        "direction": "push",
+        "name": "origin",
+        "url": "https://git.informatik.fh-nuernberg.de/jobboerse/forschung/doktoranden/interactiveworlds/interactiveagentsbackend.git"
+      }
+    ],
+    "statusEntryCount": 134,
+    "trackedFileCount": 152,
+    "untrackedEntryCount": 122,
+    "workspacePath": "InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents"
+  },
+  "contract": "v0.5",
+  "deterministicZipTimestamp": "1980-01-01T00:00:00",
+  "externalImplementationBaseline": {
+    "excludedRows": 32,
+    "exclusionPolicy": "Credential-, cache-, log-, IDE- and generated-user-state paths are omitted.",
+    "originalRows": 1715,
+    "originalSHA256": "1709BC7BE285D8DE88A8D0312CF529D81660473152EDA1E8DBBCF061B521F69F",
+    "originalWorkspacePath": "output/metamodel_v2/implementation_baseline.sha256.csv",
+    "sanitizedRows": 1683
+  },
+  "goldenFixtureCount": 7,
+  "largeAssetRestore": {
+    "exportedUnityPackageArchived": false,
+    "unityGitLfsRequired": true,
+    "unityLibraryArchived": false
+  },
+  "payloadCategoryCounts": {
+    "backend": 12,
+    "backend-examples": 3,
+    "backend-kb": 6,
+    "backend-projects": 213,
+    "backend-tests": 2,
+    "evidence": 10,
+    "evidence-projections": 14,
+    "model": 2,
+    "pipeline": 51,
+    "unity": 22,
+    "unity-dirty-material": 10,
+    "unity-environment": 3,
+    "unity-source-copy": 9,
+    "v05-fixture": 7,
+    "verification": 1
+  },
+  "payloadSourceFileCount": 365,
+  "purpose": "Immutable restore source for the FunctionalMLDS v0.5 Unity/backend/pipeline implementation.",
+  "pythonVersionAtCreation": "3.12.8",
+  "secretPolicy": {
+    "concreteCredentialSignatureFindings": 0,
+    "excludedDirectoryNames": [
+      ".git",
+      ".idea",
+      ".pytest_cache",
+      ".vs",
+      ".vscode",
+      "__pycache__",
+      "build",
+      "builds",
+      "library",
+      "logs",
+      "memorycaptures",
+      "obj",
+      "recordings",
+      "runtime_logs",
+      "temp",
+      "usersettings"
+    ],
+    "excludedNames": [
+      ".env",
+      "config.json"
+    ],
+    "status": "enforced"
+  },
+  "snapshotLabel": "2026-07-14-pre-v2-runtime",
+  "unity": {
+    "branch": "main",
+    "changedEntryCount": 7,
+    "head": "c5bc0804de3ad834f7d4f033a172b2efa3d408b8",
+    "remotes": [
+      {
+        "direction": "fetch",
+        "name": "github",
+        "url": "https://github.com/fling7/InteractiveAgentsUnity.git"
+      },
+      {
+        "direction": "push",
+        "name": "github",
+        "url": "https://github.com/fling7/InteractiveAgentsUnity.git"
+      },
+      {
+        "direction": "fetch",
+        "name": "origin",
+        "url": "https://git.informatik.fh-nuernberg.de/jobboerse/forschung/doktoranden/interactiveworlds/interactiveagentsfrontendunity.git"
+      },
+      {
+        "direction": "push",
+        "name": "origin",
+        "url": "https://git.informatik.fh-nuernberg.de/jobboerse/forschung/doktoranden/interactiveworlds/interactiveagentsfrontendunity.git"
+      }
+    ],
+    "statusEntryCount": 9,
+    "trackedFileCount": 1375,
+    "untrackedEntryCount": 2,
+    "workspacePath": "InteractivAgents/InteractiveAgents2"
+  }
+}

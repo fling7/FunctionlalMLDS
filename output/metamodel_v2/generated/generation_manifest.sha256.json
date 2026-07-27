@@ -1,0 +1,178 @@
+{
+  "artifact_set_sha256": "AF6B248D133F41583B3EE0644825B96B1BF0F913168F5B3499BD3B3457B7F5F8",
+  "artifacts": [
+    {
+      "bytes": 2906,
+      "path": "01_east_adl_infrastructure.mmd",
+      "sha256": "A98193049F2014EFA16D5E0C0DDD7BA7EA87084BFE441BCB5BE616D84150735F"
+    },
+    {
+      "bytes": 124027,
+      "path": "01_east_adl_infrastructure.png",
+      "sha256": "37AB2757307873D1DACF629153805A58D8FDC6BD7A71B699E1C571797473AC0D"
+    },
+    {
+      "bytes": 24398,
+      "path": "01_east_adl_infrastructure.svg",
+      "sha256": "FD840A669B60895DE5D06E27BF59BA2FA85863984088FFB95E05AA31088CADA4"
+    },
+    {
+      "bytes": 2810,
+      "path": "02_east_adl_requirements_usecases.mmd",
+      "sha256": "068EE2D4BC818EC5A21377E314B5C4AB3A6F741822478D3863056AA5AC75C94A"
+    },
+    {
+      "bytes": 125669,
+      "path": "02_east_adl_requirements_usecases.png",
+      "sha256": "B2D318E4E92B9E1F6E764CE626A5C902AF7B2324188E7BF0DA03C530A2FF8098"
+    },
+    {
+      "bytes": 22524,
+      "path": "02_east_adl_requirements_usecases.svg",
+      "sha256": "98C22E100EB23359645D3A3A8D1ED40809657DF803F9FE7117D2BD3B3507F351"
+    },
+    {
+      "bytes": 4019,
+      "path": "03_east_adl_function_system_behavior.mmd",
+      "sha256": "DAAA01F55C9B02F0ED260B379476963DED46B9D95187C1956B0469C2CD4CF45C"
+    },
+    {
+      "bytes": 129934,
+      "path": "03_east_adl_function_system_behavior.png",
+      "sha256": "6BBC15B52BDD4459019B48794CE66539F8887F84F8552D46D2D2CF97C952BF66"
+    },
+    {
+      "bytes": 27500,
+      "path": "03_east_adl_function_system_behavior.svg",
+      "sha256": "B066CD893316E79CDFBE01CBC64DFC64707562BAAFE33B3C2FE6283D6817810B"
+    },
+    {
+      "bytes": 4844,
+      "path": "04_dfmlds_scenario_flow.mmd",
+      "sha256": "C93D076C008C1D0CD3C9F15531AC81CCC25FCF7416FAA07C8C3A06E5CB6B4800"
+    },
+    {
+      "bytes": 232941,
+      "path": "04_dfmlds_scenario_flow.png",
+      "sha256": "DEA1F489ACA13460EF22DC1611C747600BF64C0E9E608BFF6F3493DE542B693E"
+    },
+    {
+      "bytes": 41716,
+      "path": "04_dfmlds_scenario_flow.svg",
+      "sha256": "9708E0BC42083C62FC44CD5A870CF41B7B7CC3AD0AF209F3D11689C1F030A24D"
+    },
+    {
+      "bytes": 5156,
+      "path": "05_dfmlds_capability_runtime.mmd",
+      "sha256": "05113E4F44BD7F6F679C7CCF3806F7A8E945BF174EE0F03F0401891606C49105"
+    },
+    {
+      "bytes": 222654,
+      "path": "05_dfmlds_capability_runtime.png",
+      "sha256": "472CC9D9540CE04E2F60C7937DCF6C4B361EBC3DD4B315B74FDE90623F2D93F6"
+    },
+    {
+      "bytes": 39414,
+      "path": "05_dfmlds_capability_runtime.svg",
+      "sha256": "7DBD2BA4688BC9C76BB85C7DD61AEA6E8059423B350DB202BECF5D66C3163C8F"
+    },
+    {
+      "bytes": 5690,
+      "path": "06_east_adl_dfmlds_verification_validation.mmd",
+      "sha256": "25843D9630E35532697BF3A546B4D48CEDCE9E776274D3E47200580E36AF13A6"
+    },
+    {
+      "bytes": 220287,
+      "path": "06_east_adl_dfmlds_verification_validation.png",
+      "sha256": "5C329CFB92A1633AFC3CEC301BE6916CF297FFA4D2224F728C8514D4FE57FAE4"
+    },
+    {
+      "bytes": 40291,
+      "path": "06_east_adl_dfmlds_verification_validation.svg",
+      "sha256": "D4A72F23247D03B75A6770978BE25C09D461B073FD3DECD57E7CBD435870456B"
+    },
+    {
+      "bytes": 4945,
+      "path": "07_optional_annex_feature_knowledge.mmd",
+      "sha256": "FE925BF91C7453EC0629345854E8244E05AB219B628EE8ECF62041FA03F9BB44"
+    },
+    {
+      "bytes": 223876,
+      "path": "07_optional_annex_feature_knowledge.png",
+      "sha256": "883235C558B66521D80C0BD3C390123046A7BAA27C502445670C408F20150241"
+    },
+    {
+      "bytes": 40553,
+      "path": "07_optional_annex_feature_knowledge.svg",
+      "sha256": "520BD13BC2B157DCC7A27CB06A6F86A66FDC18810E078D1ADE7528E6C805B0B0"
+    },
+    {
+      "bytes": 189343,
+      "path": "dynamic_functional_mlds_v2.model.json",
+      "sha256": "32149B858C9E2DF44FA62093745796E86E4A8A778F3F67AD4C22A53E37116566"
+    },
+    {
+      "bytes": 3284,
+      "path": "dynamic_functional_mlds_v2_metamodel.mmd",
+      "sha256": "845507F8396FB7AAB6AE26B1DED3D6AF2F415BDCD70888DCBF74DDD83AAF2A8F"
+    },
+    {
+      "bytes": 346957,
+      "path": "dynamic_functional_mlds_v2_metamodel.png",
+      "sha256": "BB6274A05CA7966A1969D705070AC35CA0FD59FB6375D614E6C9C41F330DA556"
+    },
+    {
+      "bytes": 58810,
+      "path": "dynamic_functional_mlds_v2_metamodel.svg",
+      "sha256": "3D14A7AA651F8710224286139DE48DDF38C3E7511603C7D26CDD03D53813433D"
+    },
+    {
+      "bytes": 76973,
+      "path": "dynamic_functional_mlds_v2_specification.md",
+      "sha256": "417A6875E1FD51D4966F238EB38671F90DDFBB828EB5047AAADE31356C4FDD6B"
+    }
+  ],
+  "format": "DFMLDS-V2-deterministic-generation-manifest/1",
+  "managed_files": [
+    "01_east_adl_infrastructure.mmd",
+    "01_east_adl_infrastructure.png",
+    "01_east_adl_infrastructure.svg",
+    "02_east_adl_requirements_usecases.mmd",
+    "02_east_adl_requirements_usecases.png",
+    "02_east_adl_requirements_usecases.svg",
+    "03_east_adl_function_system_behavior.mmd",
+    "03_east_adl_function_system_behavior.png",
+    "03_east_adl_function_system_behavior.svg",
+    "04_dfmlds_scenario_flow.mmd",
+    "04_dfmlds_scenario_flow.png",
+    "04_dfmlds_scenario_flow.svg",
+    "05_dfmlds_capability_runtime.mmd",
+    "05_dfmlds_capability_runtime.png",
+    "05_dfmlds_capability_runtime.svg",
+    "06_east_adl_dfmlds_verification_validation.mmd",
+    "06_east_adl_dfmlds_verification_validation.png",
+    "06_east_adl_dfmlds_verification_validation.svg",
+    "07_optional_annex_feature_knowledge.mmd",
+    "07_optional_annex_feature_knowledge.png",
+    "07_optional_annex_feature_knowledge.svg",
+    "dynamic_functional_mlds_v2.model.json",
+    "dynamic_functional_mlds_v2_metamodel.mmd",
+    "dynamic_functional_mlds_v2_metamodel.png",
+    "dynamic_functional_mlds_v2_metamodel.svg",
+    "dynamic_functional_mlds_v2_specification.md",
+    "generation_manifest.sha256.json"
+  ],
+  "model_version": "2.0.0-model",
+  "source_files": [
+    {
+      "bytes": 111599,
+      "path": "tools/dynamic_functional_mlds_v2_model.py",
+      "sha256": "0710B7353459FE64DE0692D18AC904B930D07161F6782544AC48D3D4DBAA8DD7"
+    },
+    {
+      "bytes": 46123,
+      "path": "tools/generate_dynamic_functional_mlds_v2.py",
+      "sha256": "D0BF65D9EA1214D8E231D03302A6AD51DBC2CC82E459274BEBDF0512E4B6671D"
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "schema": "functionalmlds_stage_completion_report",
+  "schema_version": "1.0",
+  "case_id": "classroom_dinosaur",
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "required_stage_count": 18,
+    "present_stage_count": 18,
+    "successful_stage_count": 18,
+    "required_artifact_count": 2,
+    "present_artifact_count": 2,
+    "required_validation_report_count": 16,
+    "valid_validation_report_count": 16,
+    "completion_ratio": 1.0
+  },
+  "required_stages": [
+    "case_initialization",
+    "mlds_ingestion",
+    "scene_semantics",
+    "agent_roles",
+    "knowledge_synthesis",
+    "agent_placement",
+    "functionalmlds_assembly",
+    "project_materialization",
+    "runtime_setup",
+    "schema_validation",
+    "functionalmlds_invariants",
+    "traceability_metrics",
+    "placement_metrics",
+    "handoff_metrics",
+    "evaluation_questions",
+    "chat_tests",
+    "handoff_tests",
+    "answer_grounding"
+  ],
+  "stage_statuses": {
+    "scene_semantics": "success",
+    "agent_roles": "success",
+    "knowledge_synthesis": "success",
+    "agent_placement": "success",
+    "functionalmlds_assembly": "success",
+    "project_materialization": "success",
+    "runtime_setup": "success",
+    "case_initialization": "success",
+    "mlds_ingestion": "success",
+    "schema_validation": "success",
+    "functionalmlds_invariants": "success",
+    "placement_metrics": "success",
+    "evaluation_questions": "success",
+    "chat_tests": "success",
+    "traceability_metrics": "success",
+    "handoff_tests": "success",
+    "handoff_metrics": "success",
+    "answer_grounding": "success"
+  },
+  "missing_stages": [],
+  "non_success_stages": {},
+  "required_artifacts": [
+    {
+      "path": "stage_manifest.json",
+      "exists": true
+    },
+    {
+      "path": "functionalmlds\\functionalmlds.instance.generated.json",
+      "exists": true
+    }
+  ],
+  "validation_reports": [
+    {
+      "path": "validation\\mlds_ingestion_validation.json",
+      "exists": true,
+      "valid": true
+    },
+    {
+      "path": "validation\\scene_semantics_validation.json",
+      "exists": true,
+      "valid": true
+    },
+    {
+      "path": "validation\\agent_roles_validation.json",
+      "exists": true,
+      "valid": true
+    },
+    {
+      "path": "validation\\knowledge_synthesis_validation.json",
+      "exists": true,
+      "valid": true
+    },
+    {
+      "path": "validation\\agent_placement_validation.json",
+      "exists": true,
+      "valid": true
+    },
+    {
+      "path": "validation\\functionalmlds_invariants_validation.json",
+      "exists": true,
+      "valid": true
+    },
+    {
+      "path": "validation\\project_materialization_validation.json",
+      "exists": true,
+      "valid": true
+    },
+    {
+      "path": "validation\\runtime_setup_validation.json",
+      "exists": true,
+      "valid": true
+    },
+    {
+      "path": "validation\\schema_validation.json",
+      "exists": true,
+      "valid": true
+    },
+    {
+      "path": "validation\\traceability_metrics.json",
+      "exists": true,
+      "valid": true
+    },
+    {
+      "path": "validation\\placement_metrics.json",
+      "exists": true,
+      "valid": true
+    },
+    {
+      "path": "validation\\handoff_metrics.json",
+      "exists": true,
+      "valid": true
+    },
+    {
+      "path": "validation\\evaluation_questions.json",
+      "exists": true,
+      "valid": true
+    },
+    {
+      "path": "validation\\chat_test_results.json",
+      "exists": true,
+      "valid": true
+    },
+    {
+      "path": "validation\\handoff_test_results.json",
+      "exists": true,
+      "valid": true
+    },
+    {
+      "path": "validation\\answer_grounding_results.json",
+      "exists": true,
+      "valid": true
+    }
+  ]
+}

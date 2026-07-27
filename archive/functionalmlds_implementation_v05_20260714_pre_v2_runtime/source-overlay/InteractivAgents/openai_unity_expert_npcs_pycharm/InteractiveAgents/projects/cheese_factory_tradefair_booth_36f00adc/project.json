@@ -1,0 +1,12 @@
+{
+  "id": "cheese_factory_tradefair_booth_36f00adc",
+  "display_name": "Cheese Factory Tradefair Booth 36F00Adc",
+  "description": "Generated FunctionalMLDS preview project for Interactive Agents.",
+  "created_ms": 1783613122677,
+  "updated_ms": 1783613122994,
+  "generation_mode": "functionalmlds",
+  "functionalmlds_trace_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\functionalmlds\\functionalmlds.instance.generated.json",
+  "functionalmlds_case_dir": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc",
+  "source_mlds_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\input\\source_mlds.json",
+  "metamodelVersion": "v0.5"
+}

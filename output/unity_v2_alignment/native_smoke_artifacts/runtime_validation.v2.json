@@ -1,0 +1,97 @@
+{
+  "schema": "dynamic_functional_mlds_v2_runtime_validation",
+  "schema_version": "2.0",
+  "model_version": "2.0.0-model",
+  "model_sha256": "47594E9D1168DEE1B9DA1CB05B04A552BA5D7D3231F2A915151AFB2FDDCB10FD",
+  "case_id": "unity_v2_native_smoke",
+  "session_id": "unity-v2-smoke-session",
+  "validation_case_ids": [
+    "validation-case"
+  ],
+  "runtime_validation_target_ids": [
+    "validation-target"
+  ],
+  "runtimeValidationLog": {
+    "id": "runtime-validation-log-5f75f4c13b3f4c61a9e4c67c8f4272c1",
+    "type": "RuntimeValidationLog",
+    "actualOutcome": [
+      "runtime-actual-outcome-2872a2f1a9a741c1befb9888c19f5d0f"
+    ]
+  },
+  "runtimeActualOutcome": {
+    "id": "runtime-actual-outcome-2872a2f1a9a741c1befb9888c19f5d0f",
+    "type": "RuntimeActualOutcome",
+    "result": [
+      {
+        "id": "assertion-result-9eb35eebacb9434b9b3038c4c5bcfe6d",
+        "type": "AssertionResult",
+        "assertion": [
+          "assert-state"
+        ],
+        "verdict": "pass",
+        "observedValue": {
+          "type": "EAExpression",
+          "mixedStringContent": "ready"
+        },
+        "evidenceRef": "smoke://state",
+        "timestamp": "2026-07-14T13:12:46Z"
+      },
+      {
+        "id": "assertion-result-fab9c0d1d7ab4aef8be4e06bd4edb498",
+        "type": "AssertionResult",
+        "assertion": [
+          "assert-event"
+        ],
+        "verdict": "fail",
+        "observedValue": {
+          "type": "EAExpression",
+          "mixedStringContent": "different-event"
+        },
+        "evidenceRef": "smoke://event",
+        "timestamp": "2026-07-14T13:12:46Z"
+      },
+      {
+        "id": "assertion-result-8111c0d851a043feb4672cb7049bdd87",
+        "type": "AssertionResult",
+        "assertion": [
+          "assert-output"
+        ],
+        "verdict": "inconclusive",
+        "observedValue": {
+          "type": "EAExpression",
+          "mixedStringContent": ""
+        },
+        "evidenceRef": "unity-assertion-evaluator://assert-output",
+        "timestamp": "2026-07-14T13:12:46Z"
+      },
+      {
+        "id": "assertion-result-b586d9dc91b145f9a7c117a22c703393",
+        "type": "AssertionResult",
+        "assertion": [
+          "assert-grounding"
+        ],
+        "verdict": "pass",
+        "observedValue": {
+          "type": "EANumericalValue",
+          "value": 5.0
+        },
+        "evidenceRef": "smoke://grounding",
+        "timestamp": "2026-07-14T13:12:46Z"
+      },
+      {
+        "id": "assertion-result-bfe751362f584c88aa9d5e15fed98e29",
+        "type": "AssertionResult",
+        "assertion": [
+          "assert-relation"
+        ],
+        "verdict": "error",
+        "observedValue": {
+          "type": "EAExpression",
+          "mixedStringContent": "relation"
+        },
+        "evidenceRef": "smoke://relation",
+        "timestamp": "2026-07-14T13:12:46Z"
+      }
+    ]
+  }
+}

@@ -1,0 +1,299 @@
+{
+  "domain": "education",
+  "room_purpose": "classroom for teaching and learning with a dedicated reading and display area",
+  "visitor_goals": [
+    "attend lessons and participate in class activities",
+    "use desks for writing and studying",
+    "interact with teacher and peers",
+    "access educational materials and books",
+    "engage in quiet reading and group discussions",
+    "explore and learn about the dinosaur skeleton exhibit",
+    "appreciate decorative and natural elements for a pleasant environment"
+  ],
+  "semantic_zones": [
+    {
+      "zone_id": "teaching_zone",
+      "name": "Teaching and Instruction Zone",
+      "purpose": "Primary area for teacher-led instruction and student learning",
+      "object_ids": [
+        "chalkboard",
+        "teacher_desk",
+        "student_desk1",
+        "student_desk2",
+        "student_desk3",
+        "student_desk4",
+        "student_desk5",
+        "student_desk6",
+        "student_desk7",
+        "student_desk8",
+        "student_desk9",
+        "student_desk10",
+        "student_desk11",
+        "student_desk12",
+        "student_desk13",
+        "student_desk14",
+        "student_desk15",
+        "student_desk16",
+        "student_desk17",
+        "student_desk18",
+        "student_desk19",
+        "student_desk20"
+      ],
+      "centroid_xz": {
+        "x": 0.0,
+        "z": -3.5
+      },
+      "visitor_goals_supported": [
+        "attend lessons and participate in class activities",
+        "use desks for writing and studying",
+        "interact with teacher and peers"
+      ]
+    },
+    {
+      "zone_id": "reading_area",
+      "name": "Reading and Relaxation Area",
+      "purpose": "Space for quiet reading, group discussions, and informal seating",
+      "object_ids": [
+        "reading_table",
+        "beanbag1",
+        "beanbag2",
+        "beanbag3",
+        "beanbag4"
+      ],
+      "centroid_xz": {
+        "x": 0.0,
+        "z": 4.375
+      },
+      "visitor_goals_supported": [
+        "engage in quiet reading and group discussions",
+        "use desks for writing and studying"
+      ]
+    },
+    {
+      "zone_id": "educational_display_zone",
+      "name": "Dinosaur Exhibit and Decor Zone",
+      "purpose": "Area showcasing the dinosaur skeleton and decorative artworks for educational enrichment",
+      "object_ids": [
+        "dinosaur_skeleton",
+        "picture1",
+        "picture2"
+      ],
+      "centroid_xz": {
+        "x": 2.5,
+        "z": 1.8333
+      },
+      "visitor_goals_supported": [
+        "explore and learn about the dinosaur skeleton exhibit",
+        "appreciate decorative and natural elements for a pleasant environment"
+      ]
+    },
+    {
+      "zone_id": "book_storage_zone",
+      "name": "Bookcase and Resource Zone",
+      "purpose": "Storage and access point for books and educational materials",
+      "object_ids": [
+        "bookcase"
+      ],
+      "centroid_xz": {
+        "x": 4.7,
+        "z": 3.0
+      },
+      "visitor_goals_supported": [
+        "access educational materials and books"
+      ]
+    },
+    {
+      "zone_id": "plant_decor_zone",
+      "name": "Plant Decoration Zone",
+      "purpose": "Natural elements enhancing room ambiance and comfort",
+      "object_ids": [
+        "plant1",
+        "plant2",
+        "plant3",
+        "plant4",
+        "plant5"
+      ],
+      "centroid_xz": {
+        "x": 0.56,
+        "z": -2.18
+      },
+      "visitor_goals_supported": [
+        "appreciate decorative and natural elements for a pleasant environment"
+      ]
+    }
+  ],
+  "important_objects": [
+    {
+      "object_id": "chalkboard",
+      "reason": "Central teaching tool for instruction and visual explanations"
+    },
+    {
+      "object_id": "teacher_desk",
+      "reason": "Primary workspace for the teacher to organize materials and lead the class"
+    },
+    {
+      "object_id": "student_desk1",
+      "reason": "Representative student desk for study and participation"
+    },
+    {
+      "object_id": "reading_table",
+      "reason": "Focal point for reading activities and group discussions"
+    },
+    {
+      "object_id": "dinosaur_skeleton",
+      "reason": "Key educational exhibit attracting curiosity and learning"
+    },
+    {
+      "object_id": "bookcase",
+      "reason": "Storage and access to educational resources"
+    },
+    {
+      "object_id": "beanbag1",
+      "reason": "Comfortable seating supporting informal learning and relaxation"
+    }
+  ],
+  "interaction_topics": [
+    {
+      "topic_id": "chalkboard_use",
+      "title": "Using the Chalkboard for Teaching",
+      "description": "How the teacher uses the chalkboard to present lessons, write notes, and engage students visually.",
+      "related_object_ids": [
+        "chalkboard"
+      ]
+    },
+    {
+      "topic_id": "student_desk_arrangement",
+      "title": "Student Desk Layout and Usage",
+      "description": "Organization of student desks to facilitate learning, collaboration, and classroom management.",
+      "related_object_ids": [
+        "student_desk1",
+        "student_desk2",
+        "student_desk3",
+        "student_desk4",
+        "student_desk5",
+        "student_desk6",
+        "student_desk7",
+        "student_desk8",
+        "student_desk9",
+        "student_desk10",
+        "student_desk11",
+        "student_desk12",
+        "student_desk13",
+        "student_desk14",
+        "student_desk15",
+        "student_desk16",
+        "student_desk17",
+        "student_desk18",
+        "student_desk19",
+        "student_desk20"
+      ]
+    },
+    {
+      "topic_id": "reading_area_function",
+      "title": "Reading Area and Informal Learning",
+      "description": "Use of beanbags and reading table to support quiet reading, group discussions, and relaxed learning environments.",
+      "related_object_ids": [
+        "reading_table",
+        "beanbag1",
+        "beanbag2",
+        "beanbag3",
+        "beanbag4"
+      ]
+    },
+    {
+      "topic_id": "dinosaur_exhibit",
+      "title": "Dinosaur Skeleton Exhibit",
+      "description": "Educational significance and details of the dinosaur skeleton model as a learning aid and decoration.",
+      "related_object_ids": [
+        "dinosaur_skeleton"
+      ]
+    },
+    {
+      "topic_id": "bookcase_resources",
+      "title": "Bookcase and Educational Materials",
+      "description": "Access and organization of books and resources stored in the bookcase for student use.",
+      "related_object_ids": [
+        "bookcase"
+      ]
+    }
+  ],
+  "agent_role_candidates": [
+    {
+      "role_id": "teacher_agent",
+      "display_name": "Teacher Agent",
+      "mission": "Facilitate learning by delivering lessons, managing classroom activities, and assisting students.",
+      "expertise": [
+        "instruction",
+        "classroom management",
+        "student engagement"
+      ],
+      "responsible_zone_ids": [
+        "teaching_zone"
+      ],
+      "grounded_object_ids": [
+        "chalkboard",
+        "teacher_desk",
+        "student_desk1",
+        "student_desk2",
+        "student_desk3",
+        "student_desk4",
+        "student_desk5",
+        "student_desk6",
+        "student_desk7",
+        "student_desk8",
+        "student_desk9",
+        "student_desk10",
+        "student_desk11",
+        "student_desk12",
+        "student_desk13",
+        "student_desk14",
+        "student_desk15",
+        "student_desk16",
+        "student_desk17",
+        "student_desk18",
+        "student_desk19",
+        "student_desk20"
+      ]
+    },
+    {
+      "role_id": "librarian_agent",
+      "display_name": "Librarian Agent",
+      "mission": "Manage and assist with access to educational materials and promote reading activities.",
+      "expertise": [
+        "resource management",
+        "reading promotion",
+        "student support"
+      ],
+      "responsible_zone_ids": [
+        "book_storage_zone",
+        "reading_area"
+      ],
+      "grounded_object_ids": [
+        "bookcase",
+        "reading_table",
+        "beanbag1",
+        "beanbag2",
+        "beanbag3",
+        "beanbag4"
+      ]
+    },
+    {
+      "role_id": "museum_guide_agent",
+      "display_name": "Museum Guide Agent",
+      "mission": "Provide information and engage visitors with the dinosaur skeleton exhibit and related educational content.",
+      "expertise": [
+        "educational exhibits",
+        "interactive learning",
+        "visitor engagement"
+      ],
+      "responsible_zone_ids": [
+        "educational_display_zone"
+      ],
+      "grounded_object_ids": [
+        "dinosaur_skeleton",
+        "picture1",
+        "picture2"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "agents": [
+    {
+      "id": "teacher_agent",
+      "display_name": "Teacher Agent",
+      "persona": "A knowledgeable and patient educator who guides students through lessons, encourages participation, and manages classroom activities with clarity and enthusiasm.",
+      "expertise": [
+        "instruction",
+        "classroom management",
+        "student engagement"
+      ],
+      "knowledge_tags": [
+        "teaching_zone",
+        "chalkboard",
+        "teacher_desk",
+        "student_desks",
+        "classroom_management",
+        "lesson_planning"
+      ],
+      "responsible_zone_ids": [
+        "teaching_zone"
+      ],
+      "grounded_object_ids": [
+        "chalkboard",
+        "teacher_desk",
+        "student_desk1",
+        "student_desk2",
+        "student_desk3",
+        "student_desk4",
+        "student_desk5",
+        "student_desk6",
+        "student_desk7",
+        "student_desk8",
+        "student_desk9",
+        "student_desk10",
+        "student_desk11",
+        "student_desk12",
+        "student_desk13",
+        "student_desk14",
+        "student_desk15",
+        "student_desk16",
+        "student_desk17",
+        "student_desk18",
+        "student_desk19",
+        "student_desk20"
+      ],
+      "handoff_targets": [
+        "librarian_agent",
+        "museum_guide_agent"
+      ],
+      "voice": "sage",
+      "voice_gender": "weiblich",
+      "voice_style": "freundlich und klar",
+      "tts_model": "gpt-4o-mini-tts"
+    },
+    {
+      "id": "librarian_agent",
+      "display_name": "Librarian Agent",
+      "persona": "A helpful and resourceful assistant who supports students in finding educational materials, promotes reading, and fosters a quiet, welcoming atmosphere in the reading and book storage areas.",
+      "expertise": [
+        "resource management",
+        "reading promotion",
+        "student support"
+      ],
+      "knowledge_tags": [
+        "reading_area",
+        "book_storage_zone",
+        "bookcase",
+        "reading_table",
+        "beanbags",
+        "literacy_support"
+      ],
+      "responsible_zone_ids": [
+        "reading_area",
+        "book_storage_zone"
+      ],
+      "grounded_object_ids": [
+        "bookcase",
+        "reading_table",
+        "beanbag1",
+        "beanbag2",
+        "beanbag3",
+        "beanbag4"
+      ],
+      "handoff_targets": [
+        "teacher_agent",
+        "museum_guide_agent"
+      ],
+      "voice": "fable",
+      "voice_gender": "weiblich",
+      "voice_style": "ruhig und unterstützend",
+      "tts_model": "gpt-4o-mini-tts"
+    },
+    {
+      "id": "museum_guide_agent",
+      "display_name": "Museum Guide Agent",
+      "persona": "An engaging and informative guide who captivates visitors with detailed knowledge about the dinosaur skeleton exhibit and related educational displays, encouraging curiosity and exploration.",
+      "expertise": [
+        "educational exhibits",
+        "interactive learning",
+        "visitor engagement"
+      ],
+      "knowledge_tags": [
+        "educational_display_zone",
+        "dinosaur_skeleton",
+        "decorative_art",
+        "visitor_engagement"
+      ],
+      "responsible_zone_ids": [
+        "educational_display_zone"
+      ],
+      "grounded_object_ids": [
+        "dinosaur_skeleton",
+        "picture1",
+        "picture2"
+      ],
+      "handoff_targets": [
+        "teacher_agent",
+        "librarian_agent"
+      ],
+      "voice": "coral",
+      "voice_gender": "maennlich",
+      "voice_style": "lebhaft und enthusiastisch",
+      "tts_model": "gpt-4o-mini-tts"
+    },
+    {
+      "id": "plant_decorator_agent",
+      "display_name": "Plant Decorator Agent",
+      "persona": "A calm and soothing presence who provides information about the natural plant decorations, enhancing the ambiance and comfort of the classroom environment.",
+      "expertise": [
+        "plant care",
+        "environmental comfort",
+        "decorative elements"
+      ],
+      "knowledge_tags": [
+        "plant_decor_zone",
+        "plants",
+        "natural_ambiance"
+      ],
+      "responsible_zone_ids": [
+        "plant_decor_zone"
+      ],
+      "grounded_object_ids": [
+        "plant1",
+        "plant2",
+        "plant3",
+        "plant4",
+        "plant5"
+      ],
+      "handoff_targets": [
+        "teacher_agent"
+      ],
+      "voice": "ash",
+      "voice_gender": "weiblich",
+      "voice_style": "sanft und beruhigend",
+      "tts_model": "gpt-4o-mini-tts"
+    }
+  ],
+  "handoffs": [
+    {
+      "source_agent_id": "teacher_agent",
+      "target_agent_id": "librarian_agent",
+      "condition": "When students need assistance accessing books or quiet reading spaces",
+      "reason": "Librarian Agent specializes in resource management and reading promotion"
+    },
+    {
+      "source_agent_id": "teacher_agent",
+      "target_agent_id": "museum_guide_agent",
+      "condition": "When students or visitors show interest in the dinosaur exhibit",
+      "reason": "Museum Guide Agent provides detailed educational content about the exhibit"
+    },
+    {
+      "source_agent_id": "librarian_agent",
+      "target_agent_id": "teacher_agent",
+      "condition": "When instructional support or classroom activity coordination is required",
+      "reason": "Teacher Agent manages lessons and student engagement"
+    },
+    {
+      "source_agent_id": "librarian_agent",
+      "target_agent_id": "museum_guide_agent",
+      "condition": "When visitors inquire about the dinosaur skeleton or related displays",
+      "reason": "Museum Guide Agent is expert in educational exhibits and visitor engagement"
+    },
+    {
+      "source_agent_id": "museum_guide_agent",
+      "target_agent_id": "teacher_agent",
+      "condition": "When exhibit-related questions relate to classroom lessons or activities",
+      "reason": "Teacher Agent facilitates learning and lesson delivery"
+    },
+    {
+      "source_agent_id": "museum_guide_agent",
+      "target_agent_id": "librarian_agent",
+      "condition": "When visitors seek additional educational materials or reading resources",
+      "reason": "Librarian Agent manages educational materials and reading promotion"
+    },
+    {
+      "source_agent_id": "plant_decorator_agent",
+      "target_agent_id": "teacher_agent",
+      "condition": "When plant-related information connects to classroom environment or activities",
+      "reason": "Teacher Agent coordinates classroom learning and environment"
+    }
+  ]
+}

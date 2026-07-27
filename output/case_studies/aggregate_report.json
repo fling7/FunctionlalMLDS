@@ -1,0 +1,3599 @@
+{
+  "stage": "paper_artifacts",
+  "case_count": 3,
+  "success_count": 3,
+  "failure_count": 0,
+  "llm_enabled": true,
+  "runtime_enabled": false,
+  "max_repair_attempts": 1,
+  "cases": [
+    {
+      "case_id": "steinpilz_brand_room",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "object_count": 36,
+          "non_structural_group_count": 10
+        }
+      },
+      "normalized_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_graph.normalized.json",
+      "group_summary_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\object_group_summary.json"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "object_count": 42,
+          "non_structural_group_count": 5
+        }
+      },
+      "normalized_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\scene_graph.normalized.json",
+      "group_summary_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\object_group_summary.json"
+    },
+    {
+      "case_id": "bestfit_career_fair",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "object_count": 34,
+          "non_structural_group_count": 14
+        }
+      },
+      "normalized_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_graph.normalized.json",
+      "group_summary_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\object_group_summary.json"
+    }
+  ],
+  "scene_semantics": [
+    {
+      "case_id": "steinpilz_brand_room",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "visitor_goal_count": 6,
+          "semantic_zone_count": 8,
+          "important_object_count": 11,
+          "interaction_topic_count": 4,
+          "agent_role_candidate_count": 6,
+          "covered_object_count": 31
+        }
+      },
+      "semantics_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_semantics.json",
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\scene_semantics_validation.json",
+      "model": "reused",
+      "attempts_used": 0
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "visitor_goal_count": 8,
+          "semantic_zone_count": 4,
+          "important_object_count": 6,
+          "interaction_topic_count": 4,
+          "agent_role_candidate_count": 3,
+          "covered_object_count": 36
+        }
+      },
+      "semantics_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\scene_semantics.json",
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\scene_semantics_validation.json",
+      "model": "reused",
+      "attempts_used": 0
+    },
+    {
+      "case_id": "bestfit_career_fair",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "visitor_goal_count": 5,
+          "semantic_zone_count": 6,
+          "important_object_count": 11,
+          "interaction_topic_count": 3,
+          "agent_role_candidate_count": 5,
+          "covered_object_count": 27
+        }
+      },
+      "semantics_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_semantics.json",
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\scene_semantics_validation.json",
+      "model": "reused",
+      "attempts_used": 0
+    }
+  ],
+  "agent_roles": [
+    {
+      "case_id": "steinpilz_brand_room",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "agent_count": 6,
+          "knowledge_tag_count": 18,
+          "handoff_count": 15,
+          "grounded_object_count": 30
+        }
+      },
+      "agent_roles_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\agent_roles.generated.json",
+      "handoff_matrix_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\handoff_matrix.json",
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\agent_roles_validation.json",
+      "model": "reused",
+      "attempts_used": 0
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "agent_count": 4,
+          "knowledge_tag_count": 8,
+          "handoff_count": 6,
+          "grounded_object_count": 36
+        }
+      },
+      "agent_roles_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\agent_roles.generated.json",
+      "handoff_matrix_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\handoff_matrix.json",
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\agent_roles_validation.json",
+      "model": "reused",
+      "attempts_used": 0
+    },
+    {
+      "case_id": "bestfit_career_fair",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "agent_count": 5,
+          "knowledge_tag_count": 15,
+          "handoff_count": 12,
+          "grounded_object_count": 27
+        }
+      },
+      "agent_roles_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\agent_roles.generated.json",
+      "handoff_matrix_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\handoff_matrix.json",
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\agent_roles_validation.json",
+      "model": "reused",
+      "attempts_used": 0
+    }
+  ],
+  "knowledge_synthesis": [
+    {
+      "case_id": "steinpilz_brand_room",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "knowledge_entry_count": 18,
+          "required_tag_count": 18,
+          "covered_tag_count": 18,
+          "referenced_object_count": 31
+        }
+      },
+      "knowledge_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\knowledge.generated.json",
+      "kb_root": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\interactive_agents_project\\kb",
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\knowledge_synthesis_validation.json",
+      "model": "reused",
+      "attempts_used": 0
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "knowledge_entry_count": 8,
+          "required_tag_count": 8,
+          "covered_tag_count": 8,
+          "referenced_object_count": 36
+        }
+      },
+      "knowledge_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\knowledge.generated.json",
+      "kb_root": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\interactive_agents_project\\kb",
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\knowledge_synthesis_validation.json",
+      "model": "reused",
+      "attempts_used": 0
+    },
+    {
+      "case_id": "bestfit_career_fair",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "knowledge_entry_count": 15,
+          "required_tag_count": 15,
+          "covered_tag_count": 15,
+          "referenced_object_count": 27
+        }
+      },
+      "knowledge_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\knowledge.generated.json",
+      "kb_root": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\interactive_agents_project\\kb",
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\knowledge_synthesis_validation.json",
+      "model": "reused",
+      "attempts_used": 0
+    }
+  ],
+  "agent_placement": [
+    {
+      "case_id": "steinpilz_brand_room",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "agent_count": 6,
+          "placement_count": 6,
+          "out_of_bounds_count": 0,
+          "obstacle_overlap_count": 0,
+          "minimum_agent_distance": 0.9851
+        }
+      },
+      "placements_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\agent_placements.json",
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\agent_placement_validation.json"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "agent_count": 4,
+          "placement_count": 4,
+          "out_of_bounds_count": 0,
+          "obstacle_overlap_count": 0,
+          "minimum_agent_distance": 1.288
+        }
+      },
+      "placements_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\agent_placements.json",
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\agent_placement_validation.json"
+    },
+    {
+      "case_id": "bestfit_career_fair",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "agent_count": 5,
+          "placement_count": 5,
+          "out_of_bounds_count": 0,
+          "obstacle_overlap_count": 0,
+          "minimum_agent_distance": 0.7536
+        }
+      },
+      "placements_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\agent_placements.json",
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\agent_placement_validation.json"
+    }
+  ],
+  "functionalmlds_assembly": [
+    {
+      "case_id": "steinpilz_brand_room",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "requirement_count": 6,
+          "use_case_count": 1,
+          "capability_count": 9,
+          "capability_use_count": 10,
+          "runtime_binding_count": 9,
+          "validation_case_count": 6,
+          "capability_use_coverage": 9,
+          "runtime_capability_coverage": 9
+        }
+      },
+      "functionalmlds_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\functionalmlds\\functionalmlds.instance.generated.json",
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\functionalmlds_invariant_validation.json"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "requirement_count": 6,
+          "use_case_count": 1,
+          "capability_count": 9,
+          "capability_use_count": 10,
+          "runtime_binding_count": 9,
+          "validation_case_count": 6,
+          "capability_use_coverage": 9,
+          "runtime_capability_coverage": 9
+        }
+      },
+      "functionalmlds_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.instance.generated.json",
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\functionalmlds_invariant_validation.json"
+    },
+    {
+      "case_id": "bestfit_career_fair",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "requirement_count": 6,
+          "use_case_count": 1,
+          "capability_count": 9,
+          "capability_use_count": 10,
+          "runtime_binding_count": 9,
+          "validation_case_count": 6,
+          "capability_use_coverage": 9,
+          "runtime_capability_coverage": 9
+        }
+      },
+      "functionalmlds_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\functionalmlds\\functionalmlds.instance.generated.json",
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\functionalmlds_invariant_validation.json"
+    }
+  ],
+  "project_materialization": [
+    {
+      "case_id": "steinpilz_brand_room",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "agent_count": 6,
+          "kb_file_count": 18,
+          "trace_step_count": 12,
+          "trace_runtime_action_count": 12,
+          "trace_validation_case_count": 6
+        }
+      },
+      "project_dir": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room",
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\project_materialization_validation.json"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "agent_count": 4,
+          "kb_file_count": 8,
+          "trace_step_count": 12,
+          "trace_runtime_action_count": 12,
+          "trace_validation_case_count": 6
+        }
+      },
+      "project_dir": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur",
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\project_materialization_validation.json"
+    },
+    {
+      "case_id": "bestfit_career_fair",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "agent_count": 5,
+          "kb_file_count": 15,
+          "trace_step_count": 12,
+          "trace_runtime_action_count": 12,
+          "trace_validation_case_count": 6
+        }
+      },
+      "project_dir": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair",
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\project_materialization_validation.json"
+    }
+  ],
+  "schema_validation": [
+    {
+      "case_id": "steinpilz_brand_room",
+      "status": "success",
+      "validation": {
+        "case_id": "steinpilz_brand_room",
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "artifact_count": 7,
+          "valid_artifact_count": 7,
+          "invalid_artifact_count": 0,
+          "schema_count": 7,
+          "runtime_event_count": 4
+        },
+        "artifacts": [
+          {
+            "artifact_id": "normalized_scene",
+            "schema": "normalized_scene.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_graph.normalized.json",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "artifact_id": "scene_semantics",
+            "schema": "scene_semantics.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_semantics.json",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "artifact_id": "knowledge",
+            "schema": "knowledge.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\knowledge.generated.json",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "artifact_id": "functionalmlds_instance",
+            "schema": "functionalmlds_case_study.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\functionalmlds\\functionalmlds.instance.generated.json",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "artifact_id": "agent_roles",
+            "schema": "agent_roles.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "artifact_id": "interactive_agents_project",
+            "schema": "interactive_agents_project.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "artifact_id": "runtime_events",
+            "schema": "runtime_event.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\runtime_logs\\events.jsonl",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          }
+        ],
+        "schemas": [
+          "agent_roles.schema.json",
+          "functionalmlds_case_study.schema.json",
+          "interactive_agents_project.schema.json",
+          "knowledge.schema.json",
+          "normalized_scene.schema.json",
+          "runtime_event.schema.json",
+          "scene_semantics.schema.json"
+        ]
+      },
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\schema_validation.json"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "status": "success",
+      "validation": {
+        "case_id": "classroom_dinosaur",
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "artifact_count": 7,
+          "valid_artifact_count": 7,
+          "invalid_artifact_count": 0,
+          "schema_count": 7,
+          "runtime_event_count": 1
+        },
+        "artifacts": [
+          {
+            "artifact_id": "normalized_scene",
+            "schema": "normalized_scene.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\scene_graph.normalized.json",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "artifact_id": "scene_semantics",
+            "schema": "scene_semantics.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\scene_semantics.json",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "artifact_id": "knowledge",
+            "schema": "knowledge.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\knowledge.generated.json",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "artifact_id": "functionalmlds_instance",
+            "schema": "functionalmlds_case_study.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.instance.generated.json",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "artifact_id": "agent_roles",
+            "schema": "agent_roles.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "artifact_id": "interactive_agents_project",
+            "schema": "interactive_agents_project.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "artifact_id": "runtime_events",
+            "schema": "runtime_event.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\runtime_logs\\events.jsonl",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          }
+        ],
+        "schemas": [
+          "agent_roles.schema.json",
+          "functionalmlds_case_study.schema.json",
+          "interactive_agents_project.schema.json",
+          "knowledge.schema.json",
+          "normalized_scene.schema.json",
+          "runtime_event.schema.json",
+          "scene_semantics.schema.json"
+        ]
+      },
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\schema_validation.json"
+    },
+    {
+      "case_id": "bestfit_career_fair",
+      "status": "success",
+      "validation": {
+        "case_id": "bestfit_career_fair",
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "artifact_count": 7,
+          "valid_artifact_count": 7,
+          "invalid_artifact_count": 0,
+          "schema_count": 7,
+          "runtime_event_count": 1
+        },
+        "artifacts": [
+          {
+            "artifact_id": "normalized_scene",
+            "schema": "normalized_scene.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_graph.normalized.json",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "artifact_id": "scene_semantics",
+            "schema": "scene_semantics.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_semantics.json",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "artifact_id": "knowledge",
+            "schema": "knowledge.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\knowledge.generated.json",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "artifact_id": "functionalmlds_instance",
+            "schema": "functionalmlds_case_study.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\functionalmlds\\functionalmlds.instance.generated.json",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "artifact_id": "agent_roles",
+            "schema": "agent_roles.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "artifact_id": "interactive_agents_project",
+            "schema": "interactive_agents_project.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "artifact_id": "runtime_events",
+            "schema": "runtime_event.schema.json",
+            "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\runtime_logs\\events.jsonl",
+            "status": "valid",
+            "error_count": 0,
+            "errors": []
+          }
+        ],
+        "schemas": [
+          "agent_roles.schema.json",
+          "functionalmlds_case_study.schema.json",
+          "interactive_agents_project.schema.json",
+          "knowledge.schema.json",
+          "normalized_scene.schema.json",
+          "runtime_event.schema.json",
+          "scene_semantics.schema.json"
+        ]
+      },
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\schema_validation.json"
+    }
+  ],
+  "functionalmlds_invariants": [
+    {
+      "case_id": "steinpilz_brand_room",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "invariant_count": 7,
+          "passed_invariant_count": 7,
+          "failed_invariant_count": 0,
+          "checked_element_count": 48,
+          "error_count": 0
+        },
+        "invariants": [
+          {
+            "invariant_id": "UC_MAIN_SCENARIO_EXACTLY_ONE",
+            "description": "Every UseCase owns exactly one Scenario with kind=main.",
+            "status": "valid",
+            "checked_count": 1,
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "invariant_id": "SCENARIO_HAS_STEP",
+            "description": "Every Scenario contains at least one ScenarioStep.",
+            "status": "valid",
+            "checked_count": 1,
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "invariant_id": "SCENARIO_STEP_NO_DIRECT_RUNTIME_ACTION",
+            "description": "ScenarioStep instances do not directly reference RuntimeAction instances.",
+            "status": "valid",
+            "checked_count": 12,
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "invariant_id": "CAPABILITY_USE_REFERENCES_EXACTLY_ONE_CAPABILITY",
+            "description": "Every CapabilityUse references exactly one existing Capability.",
+            "status": "valid",
+            "checked_count": 10,
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "invariant_id": "CAPABILITY_HAS_EFFECT",
+            "description": "Every Capability owns at least one Effect.",
+            "status": "valid",
+            "checked_count": 9,
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "invariant_id": "RUNTIME_BINDING_HAS_RUNTIME_ACTION",
+            "description": "Every RuntimeBinding owns at least one RuntimeAction.",
+            "status": "valid",
+            "checked_count": 9,
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "invariant_id": "VALIDATION_CASE_REFERENCES_TESTABLE_ELEMENT",
+            "description": "Every ValidationCase references at least one existing StateAssertion or RuntimeBinding.",
+            "status": "valid",
+            "checked_count": 6,
+            "error_count": 0,
+            "errors": []
+          }
+        ]
+      },
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\functionalmlds_invariants_validation.json"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "invariant_count": 7,
+          "passed_invariant_count": 7,
+          "failed_invariant_count": 0,
+          "checked_element_count": 48,
+          "error_count": 0
+        },
+        "invariants": [
+          {
+            "invariant_id": "UC_MAIN_SCENARIO_EXACTLY_ONE",
+            "description": "Every UseCase owns exactly one Scenario with kind=main.",
+            "status": "valid",
+            "checked_count": 1,
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "invariant_id": "SCENARIO_HAS_STEP",
+            "description": "Every Scenario contains at least one ScenarioStep.",
+            "status": "valid",
+            "checked_count": 1,
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "invariant_id": "SCENARIO_STEP_NO_DIRECT_RUNTIME_ACTION",
+            "description": "ScenarioStep instances do not directly reference RuntimeAction instances.",
+            "status": "valid",
+            "checked_count": 12,
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "invariant_id": "CAPABILITY_USE_REFERENCES_EXACTLY_ONE_CAPABILITY",
+            "description": "Every CapabilityUse references exactly one existing Capability.",
+            "status": "valid",
+            "checked_count": 10,
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "invariant_id": "CAPABILITY_HAS_EFFECT",
+            "description": "Every Capability owns at least one Effect.",
+            "status": "valid",
+            "checked_count": 9,
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "invariant_id": "RUNTIME_BINDING_HAS_RUNTIME_ACTION",
+            "description": "Every RuntimeBinding owns at least one RuntimeAction.",
+            "status": "valid",
+            "checked_count": 9,
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "invariant_id": "VALIDATION_CASE_REFERENCES_TESTABLE_ELEMENT",
+            "description": "Every ValidationCase references at least one existing StateAssertion or RuntimeBinding.",
+            "status": "valid",
+            "checked_count": 6,
+            "error_count": 0,
+            "errors": []
+          }
+        ]
+      },
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\functionalmlds_invariants_validation.json"
+    },
+    {
+      "case_id": "bestfit_career_fair",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "invariant_count": 7,
+          "passed_invariant_count": 7,
+          "failed_invariant_count": 0,
+          "checked_element_count": 48,
+          "error_count": 0
+        },
+        "invariants": [
+          {
+            "invariant_id": "UC_MAIN_SCENARIO_EXACTLY_ONE",
+            "description": "Every UseCase owns exactly one Scenario with kind=main.",
+            "status": "valid",
+            "checked_count": 1,
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "invariant_id": "SCENARIO_HAS_STEP",
+            "description": "Every Scenario contains at least one ScenarioStep.",
+            "status": "valid",
+            "checked_count": 1,
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "invariant_id": "SCENARIO_STEP_NO_DIRECT_RUNTIME_ACTION",
+            "description": "ScenarioStep instances do not directly reference RuntimeAction instances.",
+            "status": "valid",
+            "checked_count": 12,
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "invariant_id": "CAPABILITY_USE_REFERENCES_EXACTLY_ONE_CAPABILITY",
+            "description": "Every CapabilityUse references exactly one existing Capability.",
+            "status": "valid",
+            "checked_count": 10,
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "invariant_id": "CAPABILITY_HAS_EFFECT",
+            "description": "Every Capability owns at least one Effect.",
+            "status": "valid",
+            "checked_count": 9,
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "invariant_id": "RUNTIME_BINDING_HAS_RUNTIME_ACTION",
+            "description": "Every RuntimeBinding owns at least one RuntimeAction.",
+            "status": "valid",
+            "checked_count": 9,
+            "error_count": 0,
+            "errors": []
+          },
+          {
+            "invariant_id": "VALIDATION_CASE_REFERENCES_TESTABLE_ELEMENT",
+            "description": "Every ValidationCase references at least one existing StateAssertion or RuntimeBinding.",
+            "status": "valid",
+            "checked_count": 6,
+            "error_count": 0,
+            "errors": []
+          }
+        ]
+      },
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\functionalmlds_invariants_validation.json"
+    }
+  ],
+  "traceability_metrics": [
+    {
+      "case_id": "steinpilz_brand_room",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [
+          "scenario_step_to_capability_coverage coverage is 0.833333 (10/12).",
+          "runtime_action_to_log_coverage coverage is 0.166667 (2/12)."
+        ],
+        "metrics": {
+          "metric_count": 6,
+          "full_coverage_metric_count": 4,
+          "partial_coverage_metric_count": 2,
+          "average_coverage": 0.833333
+        },
+        "traceability_metrics": [
+          {
+            "metric_id": "requirement_to_validation_coverage",
+            "description": "Share of Requirements referenced by at least one ValidationCase.",
+            "numerator": 6,
+            "denominator": 6,
+            "coverage": 1.0,
+            "covered_ids": [
+              "REQ-STEINPILZ_BRAND_ROOM-001",
+              "REQ-STEINPILZ_BRAND_ROOM-002",
+              "REQ-STEINPILZ_BRAND_ROOM-003",
+              "REQ-STEINPILZ_BRAND_ROOM-004",
+              "REQ-STEINPILZ_BRAND_ROOM-005",
+              "REQ-STEINPILZ_BRAND_ROOM-006"
+            ],
+            "uncovered_ids": [],
+            "details": {
+              "validation_cases_by_requirement": {
+                "REQ-STEINPILZ_BRAND_ROOM-005": [
+                  "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION",
+                  "VC-STEINPILZ_BRAND_ROOM-SETUP"
+                ],
+                "REQ-STEINPILZ_BRAND_ROOM-003": [
+                  "VC-STEINPILZ_BRAND_ROOM-SETUP",
+                  "VC-STEINPILZ_BRAND_ROOM-HANDOFF"
+                ],
+                "REQ-STEINPILZ_BRAND_ROOM-001": [
+                  "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION"
+                ],
+                "REQ-STEINPILZ_BRAND_ROOM-004": [
+                  "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION",
+                  "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING"
+                ],
+                "REQ-STEINPILZ_BRAND_ROOM-006": [
+                  "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS",
+                  "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING",
+                  "VC-STEINPILZ_BRAND_ROOM-HANDOFF"
+                ],
+                "REQ-STEINPILZ_BRAND_ROOM-002": [
+                  "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING"
+                ]
+              }
+            }
+          },
+          {
+            "metric_id": "scenario_step_to_capability_coverage",
+            "description": "Share of ScenarioSteps operationalized by at least one existing CapabilityUse.",
+            "numerator": 10,
+            "denominator": 12,
+            "coverage": 0.833333,
+            "covered_ids": [
+              "STEP-STEINPILZ_BRAND_ROOM-S02",
+              "STEP-STEINPILZ_BRAND_ROOM-S03",
+              "STEP-STEINPILZ_BRAND_ROOM-S04",
+              "STEP-STEINPILZ_BRAND_ROOM-S05",
+              "STEP-STEINPILZ_BRAND_ROOM-S06",
+              "STEP-STEINPILZ_BRAND_ROOM-S07",
+              "STEP-STEINPILZ_BRAND_ROOM-S08",
+              "STEP-STEINPILZ_BRAND_ROOM-S09",
+              "STEP-STEINPILZ_BRAND_ROOM-S11",
+              "STEP-STEINPILZ_BRAND_ROOM-S12"
+            ],
+            "uncovered_ids": [
+              "STEP-STEINPILZ_BRAND_ROOM-S01",
+              "STEP-STEINPILZ_BRAND_ROOM-S10"
+            ],
+            "details": {
+              "invalid_capability_use_refs": {},
+              "uncovered_step_kinds": {
+                "STEP-STEINPILZ_BRAND_ROOM-S01": "actorIntent",
+                "STEP-STEINPILZ_BRAND_ROOM-S10": "actorIntent"
+              }
+            }
+          },
+          {
+            "metric_id": "capability_to_runtime_binding_coverage",
+            "description": "Share of Capabilities with at least one RuntimeBinding.",
+            "numerator": 9,
+            "denominator": 9,
+            "coverage": 1.0,
+            "covered_ids": [
+              "CAP-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE",
+              "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+              "CAP-STEINPILZ_BRAND_ROOM-ASSEMBLE-FUNCTIONAL-MLDS",
+              "CAP-STEINPILZ_BRAND_ROOM-DERIVE-SPATIAL-AGENT-ROLES",
+              "CAP-STEINPILZ_BRAND_ROOM-GENERATE-ROOM-KNOWLEDGE",
+              "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT",
+              "CAP-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+              "CAP-STEINPILZ_BRAND_ROOM-PLACE-AGENTS-IN-SCENE",
+              "CAP-STEINPILZ_BRAND_ROOM-SETUP-INTERACTIVE-SESSION"
+            ],
+            "uncovered_ids": [],
+            "details": {}
+          },
+          {
+            "metric_id": "runtime_action_to_log_coverage",
+            "description": "Share of RuntimeActions observed in runtime_logs/events.jsonl.",
+            "numerator": 2,
+            "denominator": 12,
+            "coverage": 0.166667,
+            "covered_ids": [
+              "RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT",
+              "RA-STEINPILZ_BRAND_ROOM-BACKEND-SETUP"
+            ],
+            "uncovered_ids": [
+              "RA-STEINPILZ_BRAND_ROOM-ARROW-ANALYZE",
+              "RA-STEINPILZ_BRAND_ROOM-ARROW-COMMIT",
+              "RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT-HANDOFF",
+              "RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-PLACEMENT",
+              "RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-ROLES",
+              "RA-STEINPILZ_BRAND_ROOM-RUN-FUNCTIONALMLDS-ASSEMBLER",
+              "RA-STEINPILZ_BRAND_ROOM-RUN-KNOWLEDGE-SYNTHESIS",
+              "RA-STEINPILZ_BRAND_ROOM-RUN-MLDS-INGESTION",
+              "RA-STEINPILZ_BRAND_ROOM-RUN-SCENE-SEMANTICS",
+              "RA-STEINPILZ_BRAND_ROOM-WRITE-PROJECT-FILES"
+            ],
+            "details": {
+              "runtime_log_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\runtime_logs\\events.jsonl",
+              "logged_runtime_action_ids": [
+                "RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT",
+                "RA-STEINPILZ_BRAND_ROOM-BACKEND-SETUP"
+              ]
+            }
+          },
+          {
+            "metric_id": "agent_to_knowledge_tag_coverage",
+            "description": "Share of Agents whose knowledge_tags are fully backed by generated knowledge entries.",
+            "numerator": 6,
+            "denominator": 6,
+            "coverage": 1.0,
+            "covered_ids": [
+              "career_advisor_agent",
+              "digital_interaction_agent",
+              "lounge_host_agent",
+              "product_specialist_agent",
+              "production_expert_agent",
+              "reception_agent"
+            ],
+            "uncovered_ids": [],
+            "details": {
+              "available_knowledge_tags": [
+                "booth_navigation",
+                "career_opportunities",
+                "cheese_products",
+                "company_culture",
+                "company_overview",
+                "content_navigation",
+                "customer_engagement",
+                "digital_interaction",
+                "energy_management",
+                "hospitality",
+                "networking",
+                "product_sampling",
+                "production_process",
+                "sustainability",
+                "technical_support",
+                "training_programs",
+                "visitor_comfort",
+                "visitor_orientation"
+              ],
+              "missing_tags_by_agent": {}
+            }
+          },
+          {
+            "metric_id": "object_group_to_agent_role_grounding",
+            "description": "Share of semantic MLDS object groups grounded by at least one AgentRole grounded_object_id.",
+            "numerator": 9,
+            "denominator": 9,
+            "coverage": 1.0,
+            "covered_ids": [
+              "branding",
+              "career",
+              "energy",
+              "entrance",
+              "interactive",
+              "lounge",
+              "product_counters",
+              "product_pedestals",
+              "production_models"
+            ],
+            "uncovered_ids": [],
+            "details": {
+              "all_object_groups": [
+                "branding",
+                "career",
+                "energy",
+                "entrance",
+                "floor",
+                "floor_markings",
+                "interactive",
+                "lounge",
+                "product_counters",
+                "product_pedestals",
+                "production_models",
+                "walls"
+              ],
+              "excluded_structural_groups": [
+                "floor",
+                "floor_markings",
+                "walls"
+              ],
+              "grounded_objects_by_group": {
+                "career": [
+                  "meeting_pod1",
+                  "meeting_pod2",
+                  "meeting_pod3",
+                  "training_board1",
+                  "training_board2"
+                ],
+                "product_pedestals": [
+                  "product_pedestal1",
+                  "product_pedestal2",
+                  "product_pedestal3",
+                  "product_pedestal4",
+                  "product_pedestal5",
+                  "product_pedestal6"
+                ],
+                "energy": [
+                  "energy_station1",
+                  "energy_station2"
+                ],
+                "entrance": [
+                  "reception_desk"
+                ],
+                "product_counters": [
+                  "refrigerated_counter1",
+                  "refrigerated_counter2",
+                  "refrigerated_counter3",
+                  "refrigerated_counter4"
+                ],
+                "lounge": [
+                  "chair1",
+                  "chair2",
+                  "lounge_table",
+                  "sofa1"
+                ],
+                "interactive": [
+                  "touch_kiosk1",
+                  "touch_kiosk2"
+                ],
+                "production_models": [
+                  "production_model1",
+                  "production_model2"
+                ],
+                "branding": [
+                  "brand_panel1",
+                  "brand_panel2",
+                  "brand_panel3",
+                  "brand_panel4"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\traceability_metrics.json"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [
+          "scenario_step_to_capability_coverage coverage is 0.833333 (10/12).",
+          "runtime_action_to_log_coverage coverage is 0.083333 (1/12)."
+        ],
+        "metrics": {
+          "metric_count": 6,
+          "full_coverage_metric_count": 4,
+          "partial_coverage_metric_count": 2,
+          "average_coverage": 0.819444
+        },
+        "traceability_metrics": [
+          {
+            "metric_id": "requirement_to_validation_coverage",
+            "description": "Share of Requirements referenced by at least one ValidationCase.",
+            "numerator": 6,
+            "denominator": 6,
+            "coverage": 1.0,
+            "covered_ids": [
+              "REQ-CLASSROOM_DINOSAUR-001",
+              "REQ-CLASSROOM_DINOSAUR-002",
+              "REQ-CLASSROOM_DINOSAUR-003",
+              "REQ-CLASSROOM_DINOSAUR-004",
+              "REQ-CLASSROOM_DINOSAUR-005",
+              "REQ-CLASSROOM_DINOSAUR-006"
+            ],
+            "uncovered_ids": [],
+            "details": {
+              "validation_cases_by_requirement": {
+                "REQ-CLASSROOM_DINOSAUR-001": [
+                  "VC-CLASSROOM_DINOSAUR-MLDS-INGESTION"
+                ],
+                "REQ-CLASSROOM_DINOSAUR-006": [
+                  "VC-CLASSROOM_DINOSAUR-MODEL-INVARIANTS",
+                  "VC-CLASSROOM_DINOSAUR-CHAT-GROUNDING",
+                  "VC-CLASSROOM_DINOSAUR-HANDOFF"
+                ],
+                "REQ-CLASSROOM_DINOSAUR-004": [
+                  "VC-CLASSROOM_DINOSAUR-PROJECT-MATERIALIZATION",
+                  "VC-CLASSROOM_DINOSAUR-CHAT-GROUNDING"
+                ],
+                "REQ-CLASSROOM_DINOSAUR-002": [
+                  "VC-CLASSROOM_DINOSAUR-CHAT-GROUNDING"
+                ],
+                "REQ-CLASSROOM_DINOSAUR-005": [
+                  "VC-CLASSROOM_DINOSAUR-PROJECT-MATERIALIZATION",
+                  "VC-CLASSROOM_DINOSAUR-SETUP"
+                ],
+                "REQ-CLASSROOM_DINOSAUR-003": [
+                  "VC-CLASSROOM_DINOSAUR-SETUP",
+                  "VC-CLASSROOM_DINOSAUR-HANDOFF"
+                ]
+              }
+            }
+          },
+          {
+            "metric_id": "scenario_step_to_capability_coverage",
+            "description": "Share of ScenarioSteps operationalized by at least one existing CapabilityUse.",
+            "numerator": 10,
+            "denominator": 12,
+            "coverage": 0.833333,
+            "covered_ids": [
+              "STEP-CLASSROOM_DINOSAUR-S02",
+              "STEP-CLASSROOM_DINOSAUR-S03",
+              "STEP-CLASSROOM_DINOSAUR-S04",
+              "STEP-CLASSROOM_DINOSAUR-S05",
+              "STEP-CLASSROOM_DINOSAUR-S06",
+              "STEP-CLASSROOM_DINOSAUR-S07",
+              "STEP-CLASSROOM_DINOSAUR-S08",
+              "STEP-CLASSROOM_DINOSAUR-S09",
+              "STEP-CLASSROOM_DINOSAUR-S11",
+              "STEP-CLASSROOM_DINOSAUR-S12"
+            ],
+            "uncovered_ids": [
+              "STEP-CLASSROOM_DINOSAUR-S01",
+              "STEP-CLASSROOM_DINOSAUR-S10"
+            ],
+            "details": {
+              "invalid_capability_use_refs": {},
+              "uncovered_step_kinds": {
+                "STEP-CLASSROOM_DINOSAUR-S01": "actorIntent",
+                "STEP-CLASSROOM_DINOSAUR-S10": "actorIntent"
+              }
+            }
+          },
+          {
+            "metric_id": "capability_to_runtime_binding_coverage",
+            "description": "Share of Capabilities with at least one RuntimeBinding.",
+            "numerator": 9,
+            "denominator": 9,
+            "coverage": 1.0,
+            "covered_ids": [
+              "CAP-CLASSROOM_DINOSAUR-ANALYZE-MLDS-SCENE",
+              "CAP-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+              "CAP-CLASSROOM_DINOSAUR-ASSEMBLE-FUNCTIONAL-MLDS",
+              "CAP-CLASSROOM_DINOSAUR-DERIVE-SPATIAL-AGENT-ROLES",
+              "CAP-CLASSROOM_DINOSAUR-GENERATE-ROOM-KNOWLEDGE",
+              "CAP-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT",
+              "CAP-CLASSROOM_DINOSAUR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+              "CAP-CLASSROOM_DINOSAUR-PLACE-AGENTS-IN-SCENE",
+              "CAP-CLASSROOM_DINOSAUR-SETUP-INTERACTIVE-SESSION"
+            ],
+            "uncovered_ids": [],
+            "details": {}
+          },
+          {
+            "metric_id": "runtime_action_to_log_coverage",
+            "description": "Share of RuntimeActions observed in runtime_logs/events.jsonl.",
+            "numerator": 1,
+            "denominator": 12,
+            "coverage": 0.083333,
+            "covered_ids": [
+              "RA-CLASSROOM_DINOSAUR-BACKEND-SETUP"
+            ],
+            "uncovered_ids": [
+              "RA-CLASSROOM_DINOSAUR-ARROW-ANALYZE",
+              "RA-CLASSROOM_DINOSAUR-ARROW-COMMIT",
+              "RA-CLASSROOM_DINOSAUR-BACKEND-CHAT",
+              "RA-CLASSROOM_DINOSAUR-BACKEND-CHAT-HANDOFF",
+              "RA-CLASSROOM_DINOSAUR-RUN-AGENT-PLACEMENT",
+              "RA-CLASSROOM_DINOSAUR-RUN-AGENT-ROLES",
+              "RA-CLASSROOM_DINOSAUR-RUN-FUNCTIONALMLDS-ASSEMBLER",
+              "RA-CLASSROOM_DINOSAUR-RUN-KNOWLEDGE-SYNTHESIS",
+              "RA-CLASSROOM_DINOSAUR-RUN-MLDS-INGESTION",
+              "RA-CLASSROOM_DINOSAUR-RUN-SCENE-SEMANTICS",
+              "RA-CLASSROOM_DINOSAUR-WRITE-PROJECT-FILES"
+            ],
+            "details": {
+              "runtime_log_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\runtime_logs\\events.jsonl",
+              "logged_runtime_action_ids": [
+                "RA-CLASSROOM_DINOSAUR-BACKEND-SETUP"
+              ]
+            }
+          },
+          {
+            "metric_id": "agent_to_knowledge_tag_coverage",
+            "description": "Share of Agents whose knowledge_tags are fully backed by generated knowledge entries.",
+            "numerator": 4,
+            "denominator": 4,
+            "coverage": 1.0,
+            "covered_ids": [
+              "decorative_zone_ambassador",
+              "exhibit_interpreter",
+              "reading_area_guide",
+              "teacher_agent"
+            ],
+            "uncovered_ids": [],
+            "details": {
+              "available_knowledge_tags": [
+                "chalkboard_usage",
+                "decorative_zone",
+                "dinosaur_display_zone",
+                "dinosaur_education",
+                "instruction_zone",
+                "reading_area",
+                "reading_area_usage",
+                "student_seating_arrangement"
+              ],
+              "missing_tags_by_agent": {}
+            }
+          },
+          {
+            "metric_id": "object_group_to_agent_role_grounding",
+            "description": "Share of semantic MLDS object groups grounded by at least one AgentRole grounded_object_id.",
+            "numerator": 5,
+            "denominator": 5,
+            "coverage": 1.0,
+            "covered_ids": [
+              "decor",
+              "equipment",
+              "furniture",
+              "plants",
+              "seating"
+            ],
+            "uncovered_ids": [],
+            "details": {
+              "all_object_groups": [
+                "decor",
+                "equipment",
+                "floor",
+                "furniture",
+                "plants",
+                "seating",
+                "structural"
+              ],
+              "excluded_structural_groups": [
+                "floor",
+                "structural"
+              ],
+              "grounded_objects_by_group": {
+                "furniture": [
+                  "bookcase",
+                  "reading_table",
+                  "student_desk1",
+                  "student_desk10",
+                  "student_desk11",
+                  "student_desk12",
+                  "student_desk13",
+                  "student_desk14",
+                  "student_desk15",
+                  "student_desk16",
+                  "student_desk17",
+                  "student_desk18",
+                  "student_desk19",
+                  "student_desk2",
+                  "student_desk20",
+                  "student_desk3",
+                  "student_desk4",
+                  "student_desk5",
+                  "student_desk6",
+                  "student_desk7",
+                  "student_desk8",
+                  "student_desk9",
+                  "teacher_desk"
+                ],
+                "equipment": [
+                  "chalkboard"
+                ],
+                "decor": [
+                  "dinosaur_skeleton",
+                  "picture1",
+                  "picture2"
+                ],
+                "seating": [
+                  "beanbag1",
+                  "beanbag2",
+                  "beanbag3",
+                  "beanbag4"
+                ],
+                "plants": [
+                  "plant1",
+                  "plant2",
+                  "plant3",
+                  "plant4",
+                  "plant5"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\traceability_metrics.json"
+    },
+    {
+      "case_id": "bestfit_career_fair",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [
+          "scenario_step_to_capability_coverage coverage is 0.833333 (10/12).",
+          "runtime_action_to_log_coverage coverage is 0.083333 (1/12)."
+        ],
+        "metrics": {
+          "metric_count": 6,
+          "full_coverage_metric_count": 4,
+          "partial_coverage_metric_count": 2,
+          "average_coverage": 0.819444
+        },
+        "traceability_metrics": [
+          {
+            "metric_id": "requirement_to_validation_coverage",
+            "description": "Share of Requirements referenced by at least one ValidationCase.",
+            "numerator": 6,
+            "denominator": 6,
+            "coverage": 1.0,
+            "covered_ids": [
+              "REQ-BESTFIT_CAREER_FAIR-001",
+              "REQ-BESTFIT_CAREER_FAIR-002",
+              "REQ-BESTFIT_CAREER_FAIR-003",
+              "REQ-BESTFIT_CAREER_FAIR-004",
+              "REQ-BESTFIT_CAREER_FAIR-005",
+              "REQ-BESTFIT_CAREER_FAIR-006"
+            ],
+            "uncovered_ids": [],
+            "details": {
+              "validation_cases_by_requirement": {
+                "REQ-BESTFIT_CAREER_FAIR-002": [
+                  "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING"
+                ],
+                "REQ-BESTFIT_CAREER_FAIR-003": [
+                  "VC-BESTFIT_CAREER_FAIR-SETUP",
+                  "VC-BESTFIT_CAREER_FAIR-HANDOFF"
+                ],
+                "REQ-BESTFIT_CAREER_FAIR-001": [
+                  "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION"
+                ],
+                "REQ-BESTFIT_CAREER_FAIR-006": [
+                  "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS",
+                  "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING",
+                  "VC-BESTFIT_CAREER_FAIR-HANDOFF"
+                ],
+                "REQ-BESTFIT_CAREER_FAIR-005": [
+                  "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION",
+                  "VC-BESTFIT_CAREER_FAIR-SETUP"
+                ],
+                "REQ-BESTFIT_CAREER_FAIR-004": [
+                  "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION",
+                  "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING"
+                ]
+              }
+            }
+          },
+          {
+            "metric_id": "scenario_step_to_capability_coverage",
+            "description": "Share of ScenarioSteps operationalized by at least one existing CapabilityUse.",
+            "numerator": 10,
+            "denominator": 12,
+            "coverage": 0.833333,
+            "covered_ids": [
+              "STEP-BESTFIT_CAREER_FAIR-S02",
+              "STEP-BESTFIT_CAREER_FAIR-S03",
+              "STEP-BESTFIT_CAREER_FAIR-S04",
+              "STEP-BESTFIT_CAREER_FAIR-S05",
+              "STEP-BESTFIT_CAREER_FAIR-S06",
+              "STEP-BESTFIT_CAREER_FAIR-S07",
+              "STEP-BESTFIT_CAREER_FAIR-S08",
+              "STEP-BESTFIT_CAREER_FAIR-S09",
+              "STEP-BESTFIT_CAREER_FAIR-S11",
+              "STEP-BESTFIT_CAREER_FAIR-S12"
+            ],
+            "uncovered_ids": [
+              "STEP-BESTFIT_CAREER_FAIR-S01",
+              "STEP-BESTFIT_CAREER_FAIR-S10"
+            ],
+            "details": {
+              "invalid_capability_use_refs": {},
+              "uncovered_step_kinds": {
+                "STEP-BESTFIT_CAREER_FAIR-S01": "actorIntent",
+                "STEP-BESTFIT_CAREER_FAIR-S10": "actorIntent"
+              }
+            }
+          },
+          {
+            "metric_id": "capability_to_runtime_binding_coverage",
+            "description": "Share of Capabilities with at least one RuntimeBinding.",
+            "numerator": 9,
+            "denominator": 9,
+            "coverage": 1.0,
+            "covered_ids": [
+              "CAP-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE",
+              "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+              "CAP-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS",
+              "CAP-BESTFIT_CAREER_FAIR-DERIVE-SPATIAL-AGENT-ROLES",
+              "CAP-BESTFIT_CAREER_FAIR-GENERATE-ROOM-KNOWLEDGE",
+              "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT",
+              "CAP-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+              "CAP-BESTFIT_CAREER_FAIR-PLACE-AGENTS-IN-SCENE",
+              "CAP-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION"
+            ],
+            "uncovered_ids": [],
+            "details": {}
+          },
+          {
+            "metric_id": "runtime_action_to_log_coverage",
+            "description": "Share of RuntimeActions observed in runtime_logs/events.jsonl.",
+            "numerator": 1,
+            "denominator": 12,
+            "coverage": 0.083333,
+            "covered_ids": [
+              "RA-BESTFIT_CAREER_FAIR-BACKEND-SETUP"
+            ],
+            "uncovered_ids": [
+              "RA-BESTFIT_CAREER_FAIR-ARROW-ANALYZE",
+              "RA-BESTFIT_CAREER_FAIR-ARROW-COMMIT",
+              "RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT",
+              "RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT-HANDOFF",
+              "RA-BESTFIT_CAREER_FAIR-RUN-AGENT-PLACEMENT",
+              "RA-BESTFIT_CAREER_FAIR-RUN-AGENT-ROLES",
+              "RA-BESTFIT_CAREER_FAIR-RUN-FUNCTIONALMLDS-ASSEMBLER",
+              "RA-BESTFIT_CAREER_FAIR-RUN-KNOWLEDGE-SYNTHESIS",
+              "RA-BESTFIT_CAREER_FAIR-RUN-MLDS-INGESTION",
+              "RA-BESTFIT_CAREER_FAIR-RUN-SCENE-SEMANTICS",
+              "RA-BESTFIT_CAREER_FAIR-WRITE-PROJECT-FILES"
+            ],
+            "details": {
+              "runtime_log_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\runtime_logs\\events.jsonl",
+              "logged_runtime_action_ids": [
+                "RA-BESTFIT_CAREER_FAIR-BACKEND-SETUP"
+              ]
+            }
+          },
+          {
+            "metric_id": "agent_to_knowledge_tag_coverage",
+            "description": "Share of Agents whose knowledge_tags are fully backed by generated knowledge entries.",
+            "numerator": 5,
+            "denominator": 5,
+            "coverage": 1.0,
+            "covered_ids": [
+              "benefits_expert",
+              "demo_technician",
+              "hospitality_agent",
+              "reception_agent",
+              "recruiting_agent"
+            ],
+            "uncovered_ids": [],
+            "details": {
+              "available_knowledge_tags": [
+                "application_process",
+                "career_opportunities",
+                "company_basics",
+                "company_benefits",
+                "employee_wellbeing",
+                "interactive_kiosks",
+                "interactive_terminals",
+                "job_recruiting",
+                "lounge_services",
+                "navigation",
+                "product_demos",
+                "refreshments",
+                "visitor_comfort",
+                "visitor_orientation",
+                "vr_ar_technology"
+              ],
+              "missing_tags_by_agent": {}
+            }
+          },
+          {
+            "metric_id": "object_group_to_agent_role_grounding",
+            "description": "Share of semantic MLDS object groups grounded by at least one AgentRole grounded_object_id.",
+            "numerator": 12,
+            "denominator": 12,
+            "coverage": 1.0,
+            "covered_ids": [
+              "demo_kiosks",
+              "kiosks",
+              "lounge",
+              "panels",
+              "reception",
+              "recruiting",
+              "refreshment",
+              "showcase",
+              "steles",
+              "stools",
+              "terminals",
+              "vr_stations"
+            ],
+            "uncovered_ids": [],
+            "details": {
+              "all_object_groups": [
+                "demo_kiosks",
+                "floor",
+                "kiosks",
+                "lights",
+                "lounge",
+                "overhead_lights",
+                "panels",
+                "reception",
+                "recruiting",
+                "refreshment",
+                "showcase",
+                "steles",
+                "stools",
+                "terminals",
+                "vr_stations",
+                "walls"
+              ],
+              "excluded_structural_groups": [
+                "floor",
+                "lights",
+                "overhead_lights",
+                "walls"
+              ],
+              "grounded_objects_by_group": {
+                "kiosks": [
+                  "kiosk_reception"
+                ],
+                "steles": [
+                  "info_stele_studio1",
+                  "info_stele_studio2",
+                  "info_stele_studio3"
+                ],
+                "stools": [
+                  "bar_stool_refreshment1",
+                  "bar_stool_refreshment2",
+                  "bar_stool_refreshment3"
+                ],
+                "recruiting": [
+                  "chair_recruiting",
+                  "poster_recruiting1",
+                  "poster_recruiting2",
+                  "touch_terminal_recruiting1",
+                  "touch_terminal_recruiting2"
+                ],
+                "showcase": [
+                  "showcase_equipment_treadmill",
+                  "showcase_equipment_weights_rack"
+                ],
+                "refreshment": [
+                  "refreshment_counter"
+                ],
+                "panels": [
+                  "benefits_panel1",
+                  "benefits_panel2",
+                  "benefits_panel3"
+                ],
+                "reception": [
+                  "totem_reception"
+                ],
+                "demo_kiosks": [
+                  "kiosk_demo1",
+                  "kiosk_demo2",
+                  "kiosk_demo3"
+                ],
+                "lounge": [
+                  "lounge_seating"
+                ],
+                "terminals": [
+                  "interactive_terminal_benefits1",
+                  "interactive_terminal_benefits2"
+                ],
+                "vr_stations": [
+                  "vr_ar_station1",
+                  "vr_ar_station2"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\traceability_metrics.json"
+    }
+  ],
+  "placement_metrics": [
+    {
+      "case_id": "steinpilz_brand_room",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "agent_count": 6,
+          "placement_count": 6,
+          "valid_position_count": 6,
+          "valid_position_ratio": 1.0,
+          "out_of_bounds_count": 0,
+          "obstacle_overlap_count": 0,
+          "minimum_agent_distance": 0.985146,
+          "minimum_agent_distance_threshold": 0.75,
+          "average_distance_to_target_xz": 1.424488,
+          "max_distance_to_target_xz": 1.904608,
+          "average_nearest_responsible_group_distance": 1.872293,
+          "max_nearest_responsible_group_distance": 5.310176,
+          "average_nearest_responsible_zone_distance": 2.137813,
+          "max_nearest_responsible_zone_distance": 5.310176
+        },
+        "per_agent": [
+          {
+            "agent_id": "reception_agent",
+            "valid_position": true,
+            "position": {
+              "x": -1.111,
+              "z": 2.286
+            },
+            "inside_room_bounds": true,
+            "overlaps_obstacle": false,
+            "valid_forward": true,
+            "distance_to_target_xz": 1.904608,
+            "responsible_group_count": 2,
+            "distance_to_responsible_object_groups": {
+              "count": 2,
+              "nearest": 1.877902,
+              "average": 1.960239,
+              "maximum": 2.042576
+            },
+            "responsible_zone_count": 1,
+            "distance_to_responsible_zones": {
+              "count": 1,
+              "nearest": 1.877902,
+              "average": 1.877902,
+              "maximum": 1.877902
+            }
+          },
+          {
+            "agent_id": "product_specialist_agent",
+            "valid_position": true,
+            "position": {
+              "x": -3.818,
+              "z": 0.021
+            },
+            "inside_room_bounds": true,
+            "overlaps_obstacle": false,
+            "valid_forward": true,
+            "distance_to_target_xz": 1.700011,
+            "responsible_group_count": 2,
+            "distance_to_responsible_object_groups": {
+              "count": 2,
+              "nearest": 0.948899,
+              "average": 1.865489,
+              "maximum": 2.782079
+            },
+            "responsible_zone_count": 1,
+            "distance_to_responsible_zones": {
+              "count": 1,
+              "nearest": 1.902568,
+              "average": 1.902568,
+              "maximum": 1.902568
+            }
+          },
+          {
+            "agent_id": "production_expert_agent",
+            "valid_position": true,
+            "position": {
+              "x": 1.142,
+              "z": 0.152
+            },
+            "inside_room_bounds": true,
+            "overlaps_obstacle": false,
+            "valid_forward": true,
+            "distance_to_target_xz": 1.743156,
+            "responsible_group_count": 2,
+            "distance_to_responsible_object_groups": {
+              "count": 2,
+              "nearest": 5.310176,
+              "average": 6.746251,
+              "maximum": 8.182327
+            },
+            "responsible_zone_count": 2,
+            "distance_to_responsible_zones": {
+              "count": 2,
+              "nearest": 5.310176,
+              "average": 6.746251,
+              "maximum": 8.182327
+            }
+          },
+          {
+            "agent_id": "digital_interaction_agent",
+            "valid_position": true,
+            "position": {
+              "x": 5.2,
+              "z": 0.0
+            },
+            "inside_room_bounds": true,
+            "overlaps_obstacle": false,
+            "valid_forward": true,
+            "distance_to_target_xz": 0.25,
+            "responsible_group_count": 1,
+            "distance_to_responsible_object_groups": {
+              "count": 1,
+              "nearest": 0.25,
+              "average": 0.25,
+              "maximum": 0.25
+            },
+            "responsible_zone_count": 1,
+            "distance_to_responsible_zones": {
+              "count": 1,
+              "nearest": 0.25,
+              "average": 0.25,
+              "maximum": 0.25
+            }
+          },
+          {
+            "agent_id": "career_advisor_agent",
+            "valid_position": true,
+            "position": {
+              "x": 1.759,
+              "z": 0.92
+            },
+            "inside_room_bounds": true,
+            "overlaps_obstacle": false,
+            "valid_forward": true,
+            "distance_to_target_xz": 1.250625,
+            "responsible_group_count": 1,
+            "distance_to_responsible_object_groups": {
+              "count": 1,
+              "nearest": 1.148251,
+              "average": 1.148251,
+              "maximum": 1.148251
+            },
+            "responsible_zone_count": 1,
+            "distance_to_responsible_zones": {
+              "count": 1,
+              "nearest": 1.787703,
+              "average": 1.787703,
+              "maximum": 1.787703
+            }
+          },
+          {
+            "agent_id": "lounge_host_agent",
+            "valid_position": true,
+            "position": {
+              "x": 1.15,
+              "z": -1.375
+            },
+            "inside_room_bounds": true,
+            "overlaps_obstacle": false,
+            "valid_forward": true,
+            "distance_to_target_xz": 1.698529,
+            "responsible_group_count": 1,
+            "distance_to_responsible_object_groups": {
+              "count": 1,
+              "nearest": 1.698529,
+              "average": 1.698529,
+              "maximum": 1.698529
+            },
+            "responsible_zone_count": 1,
+            "distance_to_responsible_zones": {
+              "count": 1,
+              "nearest": 1.698529,
+              "average": 1.698529,
+              "maximum": 1.698529
+            }
+          }
+        ]
+      },
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\placement_metrics.json"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "agent_count": 4,
+          "placement_count": 4,
+          "valid_position_count": 4,
+          "valid_position_ratio": 1.0,
+          "out_of_bounds_count": 0,
+          "obstacle_overlap_count": 0,
+          "minimum_agent_distance": 1.288,
+          "minimum_agent_distance_threshold": 0.75,
+          "average_distance_to_target_xz": 1.395665,
+          "max_distance_to_target_xz": 2.079096,
+          "average_nearest_responsible_group_distance": 1.463051,
+          "max_nearest_responsible_group_distance": 1.862968,
+          "average_nearest_responsible_zone_distance": 1.971276,
+          "max_nearest_responsible_zone_distance": 3.363835
+        },
+        "per_agent": [
+          {
+            "agent_id": "teacher_agent",
+            "valid_position": true,
+            "position": {
+              "x": 0.996,
+              "z": -0.287
+            },
+            "inside_room_bounds": true,
+            "overlaps_obstacle": false,
+            "valid_forward": true,
+            "distance_to_target_xz": 2.079096,
+            "responsible_group_count": 2,
+            "distance_to_responsible_object_groups": {
+              "count": 2,
+              "nearest": 1.827344,
+              "average": 4.245104,
+              "maximum": 6.662864
+            },
+            "responsible_zone_count": 1,
+            "distance_to_responsible_zones": {
+              "count": 1,
+              "nearest": 3.363835,
+              "average": 3.363835,
+              "maximum": 3.363835
+            }
+          },
+          {
+            "agent_id": "reading_area_guide",
+            "valid_position": true,
+            "position": {
+              "x": -0.149,
+              "z": 2.989
+            },
+            "inside_room_bounds": true,
+            "overlaps_obstacle": false,
+            "valid_forward": true,
+            "distance_to_target_xz": 1.467556,
+            "responsible_group_count": 3,
+            "distance_to_responsible_object_groups": {
+              "count": 3,
+              "nearest": 1.021921,
+              "average": 2.313284,
+              "maximum": 3.118801
+            },
+            "responsible_zone_count": 1,
+            "distance_to_responsible_zones": {
+              "count": 1,
+              "nearest": 1.518329,
+              "average": 1.518329,
+              "maximum": 1.518329
+            }
+          },
+          {
+            "agent_id": "exhibit_interpreter",
+            "valid_position": true,
+            "position": {
+              "x": 2.433,
+              "z": 4.362
+            },
+            "inside_room_bounds": true,
+            "overlaps_obstacle": false,
+            "valid_forward": true,
+            "distance_to_target_xz": 1.139971,
+            "responsible_group_count": 1,
+            "distance_to_responsible_object_groups": {
+              "count": 1,
+              "nearest": 1.139971,
+              "average": 1.139971,
+              "maximum": 1.139971
+            },
+            "responsible_zone_count": 1,
+            "distance_to_responsible_zones": {
+              "count": 1,
+              "nearest": 1.139971,
+              "average": 1.139971,
+              "maximum": 1.139971
+            }
+          },
+          {
+            "agent_id": "decorative_zone_ambassador",
+            "valid_position": true,
+            "position": {
+              "x": 0.995,
+              "z": -1.575
+            },
+            "inside_room_bounds": true,
+            "overlaps_obstacle": false,
+            "valid_forward": true,
+            "distance_to_target_xz": 0.896037,
+            "responsible_group_count": 2,
+            "distance_to_responsible_object_groups": {
+              "count": 2,
+              "nearest": 1.862968,
+              "average": 2.232099,
+              "maximum": 2.60123
+            },
+            "responsible_zone_count": 1,
+            "distance_to_responsible_zones": {
+              "count": 1,
+              "nearest": 1.862968,
+              "average": 1.862968,
+              "maximum": 1.862968
+            }
+          }
+        ]
+      },
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\placement_metrics.json"
+    },
+    {
+      "case_id": "bestfit_career_fair",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "agent_count": 5,
+          "placement_count": 5,
+          "valid_position_count": 5,
+          "valid_position_ratio": 1.0,
+          "out_of_bounds_count": 0,
+          "obstacle_overlap_count": 0,
+          "minimum_agent_distance": 0.753558,
+          "minimum_agent_distance_threshold": 0.75,
+          "average_distance_to_target_xz": 1.871651,
+          "max_distance_to_target_xz": 2.741989,
+          "average_nearest_responsible_group_distance": 1.175277,
+          "max_nearest_responsible_group_distance": 1.625316,
+          "average_nearest_responsible_zone_distance": 1.941798,
+          "max_nearest_responsible_zone_distance": 2.596624
+        },
+        "per_agent": [
+          {
+            "agent_id": "reception_agent",
+            "valid_position": true,
+            "position": {
+              "x": -5.348,
+              "z": -5.134
+            },
+            "inside_room_bounds": true,
+            "overlaps_obstacle": false,
+            "valid_forward": true,
+            "distance_to_target_xz": 1.250424,
+            "responsible_group_count": 2,
+            "distance_to_responsible_object_groups": {
+              "count": 2,
+              "nearest": 0.879238,
+              "average": 1.372231,
+              "maximum": 1.865224
+            },
+            "responsible_zone_count": 1,
+            "distance_to_responsible_zones": {
+              "count": 1,
+              "nearest": 1.250424,
+              "average": 1.250424,
+              "maximum": 1.250424
+            }
+          },
+          {
+            "agent_id": "benefits_expert",
+            "valid_position": true,
+            "position": {
+              "x": 3.119,
+              "z": -0.964
+            },
+            "inside_room_bounds": true,
+            "overlaps_obstacle": false,
+            "valid_forward": true,
+            "distance_to_target_xz": 2.741989,
+            "responsible_group_count": 2,
+            "distance_to_responsible_object_groups": {
+              "count": 2,
+              "nearest": 1.381469,
+              "average": 2.593183,
+              "maximum": 3.804896
+            },
+            "responsible_zone_count": 1,
+            "distance_to_responsible_zones": {
+              "count": 1,
+              "nearest": 2.596624,
+              "average": 2.596624,
+              "maximum": 2.596624
+            }
+          },
+          {
+            "agent_id": "recruiting_agent",
+            "valid_position": true,
+            "position": {
+              "x": 4.876,
+              "z": 3.226
+            },
+            "inside_room_bounds": true,
+            "overlaps_obstacle": false,
+            "valid_forward": true,
+            "distance_to_target_xz": 1.625316,
+            "responsible_group_count": 1,
+            "distance_to_responsible_object_groups": {
+              "count": 1,
+              "nearest": 1.625316,
+              "average": 1.625316,
+              "maximum": 1.625316
+            },
+            "responsible_zone_count": 1,
+            "distance_to_responsible_zones": {
+              "count": 1,
+              "nearest": 1.625316,
+              "average": 1.625316,
+              "maximum": 1.625316
+            }
+          },
+          {
+            "agent_id": "demo_technician",
+            "valid_position": true,
+            "position": {
+              "x": 1.725,
+              "z": -0.674
+            },
+            "inside_room_bounds": true,
+            "overlaps_obstacle": false,
+            "valid_forward": true,
+            "distance_to_target_xz": 2.048969,
+            "responsible_group_count": 4,
+            "distance_to_responsible_object_groups": {
+              "count": 4,
+              "nearest": 0.696348,
+              "average": 3.391368,
+              "maximum": 7.306155
+            },
+            "responsible_zone_count": 2,
+            "distance_to_responsible_zones": {
+              "count": 2,
+              "nearest": 2.378929,
+              "average": 4.842542,
+              "maximum": 7.306155
+            }
+          },
+          {
+            "agent_id": "hospitality_agent",
+            "valid_position": true,
+            "position": {
+              "x": 2.534,
+              "z": -1.439
+            },
+            "inside_room_bounds": true,
+            "overlaps_obstacle": false,
+            "valid_forward": true,
+            "distance_to_target_xz": 1.691557,
+            "responsible_group_count": 3,
+            "distance_to_responsible_object_groups": {
+              "count": 3,
+              "nearest": 1.294016,
+              "average": 1.988163,
+              "maximum": 2.529007
+            },
+            "responsible_zone_count": 1,
+            "distance_to_responsible_zones": {
+              "count": 1,
+              "nearest": 1.857697,
+              "average": 1.857697,
+              "maximum": 1.857697
+            }
+          }
+        ]
+      },
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\placement_metrics.json"
+    }
+  ],
+  "handoff_metrics": [
+    {
+      "case_id": "steinpilz_brand_room",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [
+          "No handoff decision test results found yet; handoff_decision_accuracy is not evaluated."
+        ],
+        "metrics": {
+          "agent_count": 6,
+          "declared_agent_handoff_target_count": 15,
+          "declared_matrix_handoff_count": 15,
+          "unique_handoff_pair_count": 15,
+          "valid_agent_handoff_target_ratio": 1.0,
+          "valid_handoff_matrix_ratio": 1.0,
+          "valid_handoff_target_ratio": 1.0,
+          "self_handoff_count": 0,
+          "duplicate_agent_handoff_target_count": 0,
+          "duplicate_matrix_handoff_count": 0,
+          "missing_matrix_pair_count": 0,
+          "extra_matrix_pair_count": 0,
+          "handoff_chain_limit": 1,
+          "observed_handoff_event_count": 0,
+          "observed_valid_handoff_event_count": 0,
+          "observed_invalid_handoff_event_count": 0,
+          "observed_max_handoffs_per_logged_session": 0,
+          "runtime_chain_limit_evaluation": "per_request_not_evaluable_without_request_id",
+          "decision_test_count": 0,
+          "correct_handoff_decision_count": 0,
+          "handoff_decision_accuracy": null,
+          "invalid_observed_decision_count": 0
+        },
+        "invalid_agent_handoff_targets": [],
+        "invalid_matrix_handoffs": [],
+        "missing_matrix_pairs": [],
+        "extra_matrix_pairs": [],
+        "observed_invalid_handoff_pairs": [],
+        "handoff_decision_tests": []
+      },
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\handoff_metrics.json"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [
+          "No handoff decision test results found yet; handoff_decision_accuracy is not evaluated."
+        ],
+        "metrics": {
+          "agent_count": 4,
+          "declared_agent_handoff_target_count": 6,
+          "declared_matrix_handoff_count": 6,
+          "unique_handoff_pair_count": 6,
+          "valid_agent_handoff_target_ratio": 1.0,
+          "valid_handoff_matrix_ratio": 1.0,
+          "valid_handoff_target_ratio": 1.0,
+          "self_handoff_count": 0,
+          "duplicate_agent_handoff_target_count": 0,
+          "duplicate_matrix_handoff_count": 0,
+          "missing_matrix_pair_count": 0,
+          "extra_matrix_pair_count": 0,
+          "handoff_chain_limit": 1,
+          "observed_handoff_event_count": 0,
+          "observed_valid_handoff_event_count": 0,
+          "observed_invalid_handoff_event_count": 0,
+          "observed_max_handoffs_per_logged_session": 0,
+          "runtime_chain_limit_evaluation": "per_request_not_evaluable_without_request_id",
+          "decision_test_count": 0,
+          "correct_handoff_decision_count": 0,
+          "handoff_decision_accuracy": null,
+          "invalid_observed_decision_count": 0
+        },
+        "invalid_agent_handoff_targets": [],
+        "invalid_matrix_handoffs": [],
+        "missing_matrix_pairs": [],
+        "extra_matrix_pairs": [],
+        "observed_invalid_handoff_pairs": [],
+        "handoff_decision_tests": []
+      },
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\handoff_metrics.json"
+    },
+    {
+      "case_id": "bestfit_career_fair",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [
+          "No handoff decision test results found yet; handoff_decision_accuracy is not evaluated."
+        ],
+        "metrics": {
+          "agent_count": 5,
+          "declared_agent_handoff_target_count": 12,
+          "declared_matrix_handoff_count": 12,
+          "unique_handoff_pair_count": 12,
+          "valid_agent_handoff_target_ratio": 1.0,
+          "valid_handoff_matrix_ratio": 1.0,
+          "valid_handoff_target_ratio": 1.0,
+          "self_handoff_count": 0,
+          "duplicate_agent_handoff_target_count": 0,
+          "duplicate_matrix_handoff_count": 0,
+          "missing_matrix_pair_count": 0,
+          "extra_matrix_pair_count": 0,
+          "handoff_chain_limit": 1,
+          "observed_handoff_event_count": 0,
+          "observed_valid_handoff_event_count": 0,
+          "observed_invalid_handoff_event_count": 0,
+          "observed_max_handoffs_per_logged_session": 0,
+          "runtime_chain_limit_evaluation": "per_request_not_evaluable_without_request_id",
+          "decision_test_count": 0,
+          "correct_handoff_decision_count": 0,
+          "handoff_decision_accuracy": null,
+          "invalid_observed_decision_count": 0
+        },
+        "invalid_agent_handoff_targets": [],
+        "invalid_matrix_handoffs": [],
+        "missing_matrix_pairs": [],
+        "extra_matrix_pairs": [],
+        "observed_invalid_handoff_pairs": [],
+        "handoff_decision_tests": []
+      },
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\handoff_metrics.json"
+    }
+  ],
+  "evaluation_questions": [
+    {
+      "case_id": "steinpilz_brand_room",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "question_count": 29,
+          "zone_question_count": 8,
+          "semantic_zone_count": 8,
+          "agent_responsibility_question_count": 6,
+          "agent_count": 6,
+          "handoff_question_count": 15,
+          "declared_handoff_pair_count": 15,
+          "zone_question_coverage": 1.0,
+          "agent_question_coverage": 1.0,
+          "handoff_pair_question_coverage": 1.0
+        }
+      },
+      "questions_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\evaluation_questions.json"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "question_count": 14,
+          "zone_question_count": 4,
+          "semantic_zone_count": 4,
+          "agent_responsibility_question_count": 4,
+          "agent_count": 4,
+          "handoff_question_count": 6,
+          "declared_handoff_pair_count": 6,
+          "zone_question_coverage": 1.0,
+          "agent_question_coverage": 1.0,
+          "handoff_pair_question_coverage": 1.0
+        }
+      },
+      "questions_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\evaluation_questions.json"
+    },
+    {
+      "case_id": "bestfit_career_fair",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "question_count": 23,
+          "zone_question_count": 6,
+          "semantic_zone_count": 6,
+          "agent_responsibility_question_count": 5,
+          "agent_count": 5,
+          "handoff_question_count": 12,
+          "declared_handoff_pair_count": 12,
+          "zone_question_coverage": 1.0,
+          "agent_question_coverage": 1.0,
+          "handoff_pair_question_coverage": 1.0
+        }
+      },
+      "questions_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\evaluation_questions.json"
+    }
+  ],
+  "chat_tests": [
+    {
+      "case_id": "bestfit_career_fair",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "selected_question_count": 23,
+          "executed_chat_count": 23,
+          "successful_chat_count": 23,
+          "failed_chat_count": 0,
+          "http_200_count": 23,
+          "say_event_coverage": 1.0,
+          "nonempty_answer_coverage": 1.0,
+          "handoff_question_count": 12,
+          "observed_handoff_count": 12,
+          "isolated_session_per_question": true
+        }
+      },
+      "validation_path": "output\\case_studies\\bestfit_career_fair\\validation\\chat_test_results.json",
+      "raw_output_path": "output\\case_studies\\bestfit_career_fair\\runtime_logs\\chat_responses.json"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "selected_question_count": 14,
+          "executed_chat_count": 14,
+          "successful_chat_count": 14,
+          "failed_chat_count": 0,
+          "http_200_count": 14,
+          "say_event_coverage": 1.0,
+          "nonempty_answer_coverage": 1.0,
+          "handoff_question_count": 6,
+          "observed_handoff_count": 6,
+          "isolated_session_per_question": true
+        }
+      },
+      "validation_path": "output\\case_studies\\classroom_dinosaur\\validation\\chat_test_results.json",
+      "raw_output_path": "output\\case_studies\\classroom_dinosaur\\runtime_logs\\chat_responses.json"
+    },
+    {
+      "case_id": "steinpilz_brand_room",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "selected_question_count": 29,
+          "executed_chat_count": 29,
+          "successful_chat_count": 29,
+          "failed_chat_count": 0,
+          "http_200_count": 29,
+          "say_event_coverage": 1.0,
+          "nonempty_answer_coverage": 1.0,
+          "handoff_question_count": 15,
+          "observed_handoff_count": 15,
+          "isolated_session_per_question": true
+        }
+      },
+      "validation_path": "output\\case_studies\\steinpilz_brand_room\\validation\\chat_test_results.json",
+      "raw_output_path": "output\\case_studies\\steinpilz_brand_room\\runtime_logs\\chat_responses.json"
+    }
+  ],
+  "handoff_tests": [
+    {
+      "case_id": "bestfit_career_fair",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "declared_handoff_pair_count": 12,
+          "handoff_test_count": 12,
+          "passed_handoff_test_count": 12,
+          "failed_handoff_test_count": 0,
+          "handoff_test_success_rate": 1.0,
+          "declared_pair_test_coverage": 1.0,
+          "observed_declared_pair_count": 12,
+          "observed_pair_coverage": 1.0
+        }
+      },
+      "validation_path": "output\\case_studies\\bestfit_career_fair\\validation\\handoff_test_results.json"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "declared_handoff_pair_count": 6,
+          "handoff_test_count": 6,
+          "passed_handoff_test_count": 6,
+          "failed_handoff_test_count": 0,
+          "handoff_test_success_rate": 1.0,
+          "declared_pair_test_coverage": 1.0,
+          "observed_declared_pair_count": 6,
+          "observed_pair_coverage": 1.0
+        }
+      },
+      "validation_path": "output\\case_studies\\classroom_dinosaur\\validation\\handoff_test_results.json"
+    },
+    {
+      "case_id": "steinpilz_brand_room",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "declared_handoff_pair_count": 15,
+          "handoff_test_count": 15,
+          "passed_handoff_test_count": 15,
+          "failed_handoff_test_count": 0,
+          "handoff_test_success_rate": 1.0,
+          "declared_pair_test_coverage": 1.0,
+          "observed_declared_pair_count": 15,
+          "observed_pair_coverage": 1.0
+        }
+      },
+      "validation_path": "output\\case_studies\\steinpilz_brand_room\\validation\\handoff_test_results.json"
+    }
+  ],
+  "answer_grounding": [
+    {
+      "case_id": "bestfit_career_fair",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "answer_count": 23,
+          "grounded_answer_count": 23,
+          "ungrounded_answer_count": 0,
+          "grounded_answer_ratio": 1.0,
+          "agent_grounding_coverage": 1.0,
+          "context_grounding_coverage": 1.0,
+          "negative_marker_count": 0,
+          "llm_judge_used": false
+        }
+      },
+      "validation_path": "output\\case_studies\\bestfit_career_fair\\validation\\answer_grounding_results.json"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "answer_count": 14,
+          "grounded_answer_count": 14,
+          "ungrounded_answer_count": 0,
+          "grounded_answer_ratio": 1.0,
+          "agent_grounding_coverage": 1.0,
+          "context_grounding_coverage": 1.0,
+          "negative_marker_count": 0,
+          "llm_judge_used": false
+        }
+      },
+      "validation_path": "output\\case_studies\\classroom_dinosaur\\validation\\answer_grounding_results.json"
+    },
+    {
+      "case_id": "steinpilz_brand_room",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "answer_count": 29,
+          "grounded_answer_count": 29,
+          "ungrounded_answer_count": 0,
+          "grounded_answer_ratio": 1.0,
+          "agent_grounding_coverage": 1.0,
+          "context_grounding_coverage": 1.0,
+          "negative_marker_count": 0,
+          "llm_judge_used": false
+        }
+      },
+      "validation_path": "output\\case_studies\\steinpilz_brand_room\\validation\\answer_grounding_results.json"
+    }
+  ],
+  "stage_completion": [
+    {
+      "case_id": "bestfit_career_fair",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "required_stage_count": 18,
+          "present_stage_count": 18,
+          "successful_stage_count": 18,
+          "required_artifact_count": 2,
+          "present_artifact_count": 2,
+          "required_validation_report_count": 16,
+          "valid_validation_report_count": 16,
+          "completion_ratio": 1.0
+        }
+      },
+      "validation_path": "output\\case_studies\\bestfit_career_fair\\validation\\stage_completion_report.json"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "required_stage_count": 18,
+          "present_stage_count": 18,
+          "successful_stage_count": 18,
+          "required_artifact_count": 2,
+          "present_artifact_count": 2,
+          "required_validation_report_count": 16,
+          "valid_validation_report_count": 16,
+          "completion_ratio": 1.0
+        }
+      },
+      "validation_path": "output\\case_studies\\classroom_dinosaur\\validation\\stage_completion_report.json"
+    },
+    {
+      "case_id": "steinpilz_brand_room",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "required_stage_count": 18,
+          "present_stage_count": 18,
+          "successful_stage_count": 18,
+          "required_artifact_count": 2,
+          "present_artifact_count": 2,
+          "required_validation_report_count": 16,
+          "valid_validation_report_count": 16,
+          "completion_ratio": 1.0
+        }
+      },
+      "validation_path": "output\\case_studies\\steinpilz_brand_room\\validation\\stage_completion_report.json"
+    }
+  ],
+  "cross_case_metrics": {
+    "schema": "functionalmlds_cross_case_metrics",
+    "schema_version": "1.0",
+    "status": "valid",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "case_count": 3,
+      "average_trace_coverage": 0.847222,
+      "average_requirement_to_validation_coverage": 1.0,
+      "average_runtime_action_to_log_coverage": 0.25,
+      "average_handoff_accuracy": 1.0,
+      "average_object_group_coverage": 1.0,
+      "average_answer_grounding_ratio": 1.0,
+      "average_stage_completion_ratio": 1.0,
+      "total_chat_tests": 66,
+      "successful_chat_tests": 66,
+      "total_handoff_decision_tests": 66
+    },
+    "case_summaries": [
+      {
+        "case_id": "bestfit_career_fair",
+        "domain": "Career Fair / Recruiting Event",
+        "room_purpose": "To showcase company culture, benefits, and job opportunities to attract and engage potential candidates.",
+        "object_count": 34,
+        "semantic_zone_count": 6,
+        "agent_count": 5,
+        "question_count": 23,
+        "chat_success_count": 23,
+        "chat_count": 23,
+        "trace_average_coverage": 0.847222,
+        "requirement_to_validation_coverage": 1.0,
+        "runtime_action_to_log_coverage": 0.25,
+        "object_group_coverage": 1.0,
+        "object_group_covered": 12,
+        "object_group_total": 12,
+        "handoff_accuracy": 1.0,
+        "handoff_decision_test_count": 23,
+        "answer_grounding_ratio": 1.0,
+        "stage_completion_ratio": 1.0,
+        "stage_errors": {
+          "scene_semantics": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 1
+          },
+          "agent_roles": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 1
+          },
+          "knowledge_synthesis": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 1
+          },
+          "agent_placement": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "functionalmlds_assembly": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "project_materialization": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "runtime_setup": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "case_initialization": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "mlds_ingestion": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "schema_validation": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "functionalmlds_invariants": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "placement_metrics": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "evaluation_questions": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "chat_tests": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "traceability_metrics": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 2,
+            "attempts_used": 0
+          },
+          "handoff_tests": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "handoff_metrics": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "answer_grounding": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "stage_completion": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          }
+        }
+      },
+      {
+        "case_id": "classroom_dinosaur",
+        "domain": "education",
+        "room_purpose": "classroom for teaching and learning with a dedicated reading and display area",
+        "object_count": 42,
+        "semantic_zone_count": 4,
+        "agent_count": 4,
+        "question_count": 14,
+        "chat_success_count": 14,
+        "chat_count": 14,
+        "trace_average_coverage": 0.847222,
+        "requirement_to_validation_coverage": 1.0,
+        "runtime_action_to_log_coverage": 0.25,
+        "object_group_coverage": 1.0,
+        "object_group_covered": 5,
+        "object_group_total": 5,
+        "handoff_accuracy": 1.0,
+        "handoff_decision_test_count": 14,
+        "answer_grounding_ratio": 1.0,
+        "stage_completion_ratio": 1.0,
+        "stage_errors": {
+          "scene_semantics": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 1
+          },
+          "agent_roles": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 1
+          },
+          "knowledge_synthesis": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 1
+          },
+          "agent_placement": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "functionalmlds_assembly": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "project_materialization": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "runtime_setup": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "case_initialization": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "mlds_ingestion": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "schema_validation": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "functionalmlds_invariants": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "placement_metrics": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "evaluation_questions": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "chat_tests": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "traceability_metrics": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 2,
+            "attempts_used": 0
+          },
+          "handoff_tests": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "handoff_metrics": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "answer_grounding": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "stage_completion": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          }
+        }
+      },
+      {
+        "case_id": "steinpilz_brand_room",
+        "domain": "Food Industry Trade Fair",
+        "room_purpose": "Exhibition booth for showcasing cheese products, production technology, and company branding at a trade fair",
+        "object_count": 36,
+        "semantic_zone_count": 8,
+        "agent_count": 6,
+        "question_count": 29,
+        "chat_success_count": 29,
+        "chat_count": 29,
+        "trace_average_coverage": 0.847222,
+        "requirement_to_validation_coverage": 1.0,
+        "runtime_action_to_log_coverage": 0.25,
+        "object_group_coverage": 1.0,
+        "object_group_covered": 9,
+        "object_group_total": 9,
+        "handoff_accuracy": 1.0,
+        "handoff_decision_test_count": 29,
+        "answer_grounding_ratio": 1.0,
+        "stage_completion_ratio": 1.0,
+        "stage_errors": {
+          "agent_roles": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 1
+          },
+          "knowledge_synthesis": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 1
+          },
+          "scene_semantics": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "agent_placement": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "functionalmlds_assembly": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "project_materialization": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "runtime_setup": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "case_initialization": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "mlds_ingestion": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "schema_validation": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "functionalmlds_invariants": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "placement_metrics": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "evaluation_questions": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "chat_tests": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "traceability_metrics": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 2,
+            "attempts_used": 0
+          },
+          "handoff_tests": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "handoff_metrics": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "answer_grounding": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          },
+          "stage_completion": {
+            "status": "success",
+            "error_count": 0,
+            "warning_count": 0,
+            "attempts_used": 0
+          }
+        }
+      }
+    ],
+    "stage_error_summary": {
+      "agent_placement": {
+        "case_count": 3,
+        "success_count": 3,
+        "error_count": 0,
+        "warning_count": 0,
+        "repair_attempt_count": 0
+      },
+      "agent_roles": {
+        "case_count": 3,
+        "success_count": 3,
+        "error_count": 0,
+        "warning_count": 0,
+        "repair_attempt_count": 3
+      },
+      "answer_grounding": {
+        "case_count": 3,
+        "success_count": 3,
+        "error_count": 0,
+        "warning_count": 0,
+        "repair_attempt_count": 0
+      },
+      "case_initialization": {
+        "case_count": 3,
+        "success_count": 3,
+        "error_count": 0,
+        "warning_count": 0,
+        "repair_attempt_count": 0
+      },
+      "chat_tests": {
+        "case_count": 3,
+        "success_count": 3,
+        "error_count": 0,
+        "warning_count": 0,
+        "repair_attempt_count": 0
+      },
+      "evaluation_questions": {
+        "case_count": 3,
+        "success_count": 3,
+        "error_count": 0,
+        "warning_count": 0,
+        "repair_attempt_count": 0
+      },
+      "functionalmlds_assembly": {
+        "case_count": 3,
+        "success_count": 3,
+        "error_count": 0,
+        "warning_count": 0,
+        "repair_attempt_count": 0
+      },
+      "functionalmlds_invariants": {
+        "case_count": 3,
+        "success_count": 3,
+        "error_count": 0,
+        "warning_count": 0,
+        "repair_attempt_count": 0
+      },
+      "handoff_metrics": {
+        "case_count": 3,
+        "success_count": 3,
+        "error_count": 0,
+        "warning_count": 0,
+        "repair_attempt_count": 0
+      },
+      "handoff_tests": {
+        "case_count": 3,
+        "success_count": 3,
+        "error_count": 0,
+        "warning_count": 0,
+        "repair_attempt_count": 0
+      },
+      "knowledge_synthesis": {
+        "case_count": 3,
+        "success_count": 3,
+        "error_count": 0,
+        "warning_count": 0,
+        "repair_attempt_count": 3
+      },
+      "mlds_ingestion": {
+        "case_count": 3,
+        "success_count": 3,
+        "error_count": 0,
+        "warning_count": 0,
+        "repair_attempt_count": 0
+      },
+      "placement_metrics": {
+        "case_count": 3,
+        "success_count": 3,
+        "error_count": 0,
+        "warning_count": 0,
+        "repair_attempt_count": 0
+      },
+      "project_materialization": {
+        "case_count": 3,
+        "success_count": 3,
+        "error_count": 0,
+        "warning_count": 0,
+        "repair_attempt_count": 0
+      },
+      "runtime_setup": {
+        "case_count": 3,
+        "success_count": 3,
+        "error_count": 0,
+        "warning_count": 0,
+        "repair_attempt_count": 0
+      },
+      "scene_semantics": {
+        "case_count": 3,
+        "success_count": 3,
+        "error_count": 0,
+        "warning_count": 0,
+        "repair_attempt_count": 2
+      },
+      "schema_validation": {
+        "case_count": 3,
+        "success_count": 3,
+        "error_count": 0,
+        "warning_count": 0,
+        "repair_attempt_count": 0
+      },
+      "stage_completion": {
+        "case_count": 3,
+        "success_count": 3,
+        "error_count": 0,
+        "warning_count": 0,
+        "repair_attempt_count": 0
+      },
+      "traceability_metrics": {
+        "case_count": 3,
+        "success_count": 3,
+        "error_count": 0,
+        "warning_count": 6,
+        "repair_attempt_count": 0
+      }
+    },
+    "handoff_accuracy_by_domain": {
+      "Career Fair / Recruiting Event": 1.0,
+      "education": 1.0,
+      "Food Industry Trade Fair": 1.0
+    },
+    "object_group_coverage_by_domain": {
+      "Career Fair / Recruiting Event": {
+        "coverage": 1.0,
+        "covered": 12,
+        "total": 12
+      },
+      "education": {
+        "coverage": 1.0,
+        "covered": 5,
+        "total": 5
+      },
+      "Food Industry Trade Fair": {
+        "coverage": 1.0,
+        "covered": 9,
+        "total": 9
+      }
+    }
+  },
+  "generalizability_assessment": {
+    "schema": "functionalmlds_generalizability_assessment",
+    "schema_version": "1.0",
+    "status": "valid",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "check_count": 5,
+      "passed_check_count": 5,
+      "generalizability_score": 1.0,
+      "case_count": 3,
+      "domain_count": 3
+    },
+    "checks": [
+      {
+        "check_id": "multi_domain_corpus",
+        "passed": true,
+        "evidence": {
+          "case_count": 3,
+          "domain_count": 3,
+          "domains": [
+            "Career Fair / Recruiting Event",
+            "Food Industry Trade Fair",
+            "education"
+          ]
+        }
+      },
+      {
+        "check_id": "same_pipeline_stages",
+        "passed": true,
+        "evidence": {
+          "same_stage_set_for_all_cases": true,
+          "per_case_stage_count": {
+            "bestfit_career_fair": 19,
+            "classroom_dinosaur": 19,
+            "steinpilz_brand_room": 19
+          },
+          "stage_ids": [
+            "agent_placement",
+            "agent_roles",
+            "answer_grounding",
+            "case_initialization",
+            "chat_tests",
+            "evaluation_questions",
+            "functionalmlds_assembly",
+            "functionalmlds_invariants",
+            "handoff_metrics",
+            "handoff_tests",
+            "knowledge_synthesis",
+            "mlds_ingestion",
+            "placement_metrics",
+            "project_materialization",
+            "runtime_setup",
+            "scene_semantics",
+            "schema_validation",
+            "stage_completion",
+            "traceability_metrics"
+          ]
+        }
+      },
+      {
+        "check_id": "no_failed_cases",
+        "passed": true,
+        "evidence": {
+          "success_count": 3,
+          "failure_count": 0
+        }
+      },
+      {
+        "check_id": "domain_terms_externalized",
+        "passed": true,
+        "evidence": {
+          "status": "clean",
+          "scanned_file_count": 25,
+          "finding_count": 0,
+          "findings": []
+        }
+      },
+      {
+        "check_id": "runtime_behavior_cross_domain",
+        "passed": true,
+        "evidence": {
+          "average_handoff_accuracy": 1.0,
+          "average_answer_grounding_ratio": 1.0,
+          "successful_chat_tests": 66,
+          "total_chat_tests": 66
+        }
+      }
+    ]
+  },
+  "paper_artifacts": {
+    "schema": "functionalmlds_paper_artifacts",
+    "schema_version": "1.0",
+    "status": "valid",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "case_count": 3,
+      "table_count": 4,
+      "figure_count": 3,
+      "example_count": 1,
+      "document_count": 11,
+      "output_count": 25
+    },
+    "outputs": [
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\tables\\case_corpus.csv",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\tables\\case_corpus.md",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\tables\\metamodel_coverage.csv",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\tables\\metamodel_coverage.md",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\tables\\validation_repair.csv",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\tables\\validation_repair.md",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\tables\\runtime_test_results.csv",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\tables\\runtime_test_results.md",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\examples\\trace_chain_example.md",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\figures\\pipeline_architecture.mmd",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\figures\\trace_chain_example.mmd",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\figures\\agent_placement_classroom_dinosaur.mmd",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\paper_artifacts_index.md",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\paper_artifacts_manifest.json",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\research_questions.md",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\baseline_definition.md",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\baseline_definition.json",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\comparison_metrics.md",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\comparison_metrics.json",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\repair_prompt_registry.md",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\repair_prompt_registry.json",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\deterministic_repair_policy.md",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\deterministic_repair_policy_report.md",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\threats_to_validity.md",
+      "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\threats_to_validity.json"
+    ]
+  },
+  "threats_to_validity": {
+    "status": "valid",
+    "markdown_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\threats_to_validity.md",
+    "json_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\threats_to_validity.json"
+  },
+  "repair_log": {
+    "schema": "functionalmlds_repair_log_aggregate",
+    "schema_version": "1.0",
+    "status": "valid",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "case_count": 3,
+      "entry_count": 12,
+      "llm_generation_attempt_count": 8,
+      "llm_repair_attempt_count": 0,
+      "deterministic_recovery_count": 1,
+      "accepted_warning_count": 3
+    },
+    "case_results": [
+      {
+        "case_id": "bestfit_career_fair",
+        "status": "success",
+        "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\repair_log.jsonl",
+        "metrics": {
+          "entry_count": 4,
+          "llm_generation_attempt_count": 3,
+          "llm_repair_attempt_count": 0,
+          "deterministic_recovery_count": 0,
+          "accepted_warning_count": 1
+        }
+      },
+      {
+        "case_id": "classroom_dinosaur",
+        "status": "success",
+        "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\repair_log.jsonl",
+        "metrics": {
+          "entry_count": 4,
+          "llm_generation_attempt_count": 3,
+          "llm_repair_attempt_count": 0,
+          "deterministic_recovery_count": 0,
+          "accepted_warning_count": 1
+        }
+      },
+      {
+        "case_id": "steinpilz_brand_room",
+        "status": "success",
+        "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\repair_log.jsonl",
+        "metrics": {
+          "entry_count": 4,
+          "llm_generation_attempt_count": 2,
+          "llm_repair_attempt_count": 0,
+          "deterministic_recovery_count": 1,
+          "accepted_warning_count": 1
+        }
+      }
+    ],
+    "aggregate_jsonl_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\repair_log.jsonl"
+  },
+  "deterministic_repair_policy": {
+    "schema": "functionalmlds_deterministic_repair_policy_report",
+    "schema_version": "1.0",
+    "status": "valid",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "rule_count": 7,
+      "deterministic_rule_count": 6,
+      "llm_escalation_rule_count": 1,
+      "repair_log_entry_count": 12,
+      "llm_generation_attempt_count": 8,
+      "llm_repair_attempt_count": 0,
+      "deterministic_repair_evidence_count": 4,
+      "deterministic_first_policy_satisfied": true
+    },
+    "policy_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\config\\deterministic_repair_policy.json",
+    "repair_log_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\repair_log.jsonl",
+    "rules": [
+      {
+        "rule_id": "DR-001",
+        "name": "Normalize identifiers",
+        "priority": 1,
+        "repair_type": "deterministic_normalization",
+        "applies_to": [
+          "mlds_ingestion",
+          "agent_roles",
+          "functionalmlds_assembly"
+        ],
+        "handles": [
+          "missing IDs",
+          "duplicate IDs",
+          "invalid identifier characters",
+          "unstable casing"
+        ],
+        "evidence": [
+          "common.slugify",
+          "mlds_ingestion._unique_id",
+          "agent_roles.normalize_agent_roles_output"
+        ],
+        "llm_allowed": false
+      },
+      {
+        "rule_id": "DR-002",
+        "name": "Recompute manifest hashes",
+        "priority": 2,
+        "repair_type": "deterministic_manifest_rebuild",
+        "applies_to": [
+          "all_stages"
+        ],
+        "handles": [
+          "missing sha256",
+          "stale manifest hash",
+          "manifest reconstruction for existing valid artefacts"
+        ],
+        "evidence": [
+          "common.update_manifest",
+          "common.sha256_file"
+        ],
+        "llm_allowed": false
+      },
+      {
+        "rule_id": "DR-003",
+        "name": "Normalize TTS model aliases",
+        "priority": 3,
+        "repair_type": "deterministic_value_mapping",
+        "applies_to": [
+          "project_materialization"
+        ],
+        "handles": [
+          "tts_model=standard"
+        ],
+        "evidence": [
+          "project_materializer.materialize_project",
+          "project_materializer.validate_materialized_project"
+        ],
+        "llm_allowed": false
+      },
+      {
+        "rule_id": "DR-004",
+        "name": "Regenerate agent placements",
+        "priority": 4,
+        "repair_type": "deterministic_geometry_recompute",
+        "applies_to": [
+          "agent_placement"
+        ],
+        "handles": [
+          "missing placements",
+          "out-of-bounds placements",
+          "obstacle overlap",
+          "invalid forward vector"
+        ],
+        "evidence": [
+          "agent_placement.generate_agent_placements",
+          "agent_placement.validate_agent_placements"
+        ],
+        "llm_allowed": false
+      },
+      {
+        "rule_id": "DR-005",
+        "name": "Recover existing valid artefacts without rerun",
+        "priority": 5,
+        "repair_type": "deterministic_recovery",
+        "applies_to": [
+          "scene_semantics",
+          "agent_roles",
+          "knowledge_synthesis",
+          "agent_placement",
+          "functionalmlds_assembly",
+          "project_materialization"
+        ],
+        "handles": [
+          "valid artefact exists but manifest/stage status is missing or stale"
+        ],
+        "evidence": [
+          "run_batch_case_study._recover_scene_semantics_if_possible",
+          "run_batch_case_study._recover_agent_roles_if_possible",
+          "run_batch_case_study._recover_knowledge_if_possible",
+          "run_batch_case_study._recover_agent_placement_if_possible",
+          "run_batch_case_study._recover_functionalmlds_if_possible",
+          "run_batch_case_study._recover_project_materialization_if_possible"
+        ],
+        "llm_allowed": false
+      },
+      {
+        "rule_id": "DR-006",
+        "name": "Regenerate deterministic derived artefacts",
+        "priority": 6,
+        "repair_type": "deterministic_regeneration",
+        "applies_to": [
+          "evaluation_questions",
+          "functionalmlds_assembly",
+          "schema_validation",
+          "traceability_metrics",
+          "placement_metrics",
+          "handoff_metrics",
+          "answer_grounding",
+          "paper_artifacts",
+          "repair_log"
+        ],
+        "handles": [
+          "missing deterministic report",
+          "stale deterministic report",
+          "derived artefact inconsistent with current inputs"
+        ],
+        "evidence": [
+          "evaluation_questions.generate_deterministic_questions",
+          "functionalmlds_assembler.run_functionalmlds_assembly_for_case",
+          "validators",
+          "paper_artifacts.generate_paper_artifacts",
+          "repair_log.run_repair_log"
+        ],
+        "llm_allowed": false
+      },
+      {
+        "rule_id": "LR-001",
+        "name": "Escalate semantic repairs to LLM",
+        "priority": 99,
+        "repair_type": "llm_repair",
+        "applies_to": [
+          "scene_semantics",
+          "agent_roles",
+          "knowledge_synthesis",
+          "future_functionalmlds_capability_repair"
+        ],
+        "handles": [
+          "ambiguous room semantics",
+          "invalid role responsibility requiring domain judgement",
+          "missing knowledge content requiring textual synthesis",
+          "missing capability coverage requiring scenario interpretation"
+        ],
+        "evidence": [
+          "prompts/repair_invalid_object_refs_v1.md",
+          "prompts/repair_invalid_handoff_targets_v1.md",
+          "prompts/repair_missing_knowledge_entries_v1.md",
+          "prompts/repair_missing_capabilities_v1.md"
+        ],
+        "llm_allowed": true
+      }
+    ]
+  }
+}

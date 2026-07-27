@@ -1,0 +1,1566 @@
+# Taskliste: MLDS Project Wizard um FunctionalMLDS-Modus erweitern
+
+Stand: 2026-07-09
+
+## 0. Zielbild
+
+Der bestehende Unity-Editor-Wizard `Tools/MLDSI Project Wizard` soll zwei Betriebsarten anbieten:
+
+1. Legacy Interactive-Agents-Projekt:
+   - aktueller Ablauf bleibt erhalten.
+   - MLDS/MLDSI wird analysiert.
+   - Ergebnis: `project.json`, `room_plan.json`, `agents.json`, `kb/...`.
+
+2. FunctionalMLDS-Projekt:
+   - MLDS/MLDSI wird wie bisher analysiert und bleibt im Projekt als Raumwissen nutzbar.
+   - zusaetzlich wird eine FunctionalMLDS-Instanz erzeugt.
+   - Agenten, Spezialwissen, Handoffs, Raumwissen, RuntimeBindings und ValidationCases werden auf das Metamodell abgebildet.
+   - Ergebnis: nutzbares Interactive-Agents-Projekt plus `functionalmlds.instance.generated.json`, `trace_map.json` und Validierungsreports.
+
+Der Wizard muss im FunctionalMLDS-Modus weiterhin die bisherige Grundfunktionalitaet behalten:
+
+- Agenten erhalten Hintergrundwissen ueber die Szene.
+- Agenten erhalten spezifisches Spezialwissen.
+- Agenten wissen, welche anderen Agenten fuer bestimmte Themen besser geeignet sind.
+- Agenten koennen Fragen zum Raum, zu Objekten, Zonen und Interaktionsmoeglichkeiten beantworten.
+- Handoffs funktionieren weiterhin.
+- Das Projekt ist in Unity direkt ueber `QuickAgentManager` nutzbar.
+
+## 1. Ist-Zustand sichern
+
+- [x] Aktuelle Wizard-Dateien erfassen.
+  - Datei: `InteractivAgents/InteractiveAgents2/Assets/Scripting/ArrowProjectWizard.cs`
+  - Datei: `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/backend/server.py`
+  - Datei: `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/backend/state.py`
+  - Datei: `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/backend/schemas.py`
+  - Zwischenpruefung:
+    - Inventar angelegt: `output/metamodel/mlds_project_wizard_current_state_inventory.md`.
+    - Backend-Dateien `server.py`, `state.py`, `schemas.py` per `py_compile` erfolgreich geprueft.
+    - Unity-Projektversion `6000.4.5f1` ermittelt; passende Unity-Installation vorhanden.
+    - Unity-Batchmode-Compile aktuell blockiert, weil das Projekt bereits in einer anderen Unity-Instanz geoeffnet ist.
+    - `dotnet build` als Ersatzcheck nicht moeglich, da lokal kein .NET SDK installiert ist.
+    - Re-Check vor finalem Abschluss erforderlich: Unity-Batchmode-Compile ausfuehren, sobald die offene Unity-Instanz geschlossen ist.
+    - bestehende Endpunkte `/projects/arrow/analyze`, `/projects/arrow/chat`, `/projects/arrow/commit` sind im Code erfasst.
+
+- [x] Bestehenden Legacy-Datenfluss dokumentieren.
+  - Eingabe: MLDS/MLDSI JSON aus Unity.
+  - Analyze: `POST /projects/arrow/analyze`.
+  - Optionaler Chat: `POST /projects/arrow/chat`.
+  - Commit: `POST /projects/arrow/commit`.
+  - Persistenz:
+    - `projects/<project_id>/project.json`
+    - `projects/<project_id>/room_plan.json`
+    - `projects/<project_id>/agents.json`
+    - `projects/<project_id>/kb/...`
+  - Zwischenpruefung:
+    - Dokument angelegt: `output/metamodel/mlds_project_wizard_legacy_flow.md`.
+    - Statische Codepruefung bestaetigt: Legacy-Commit schreibt `project.json`, `room_plan.json`, `agents.json` und `kb/...`.
+    - Statische Codepruefung bestaetigt: Es wird im Legacy-Modus keine FunctionalMLDS-Instanz erzeugt.
+    - Statische Codepruefung bestaetigt: Es wird im Legacy-Modus keine `trace_map.json` erzeugt.
+    - Relevante Schreibaufrufe: `ProjectManager.create_project`, `save_agents`, `save_room_plan`, `upsert_knowledge`.
+
+- [x] Bestehende FunctionalMLDS-Pipeline-Schnittstellen dokumentieren.
+  - Dateien unter `tools/case_study_pipeline/`.
+  - Wichtige Stages:
+    - `mlds_ingestion.run_pipeline`
+    - `scene_semantics.run_scene_semantics_for_case`
+    - `agent_roles.run_agent_roles_for_case`
+    - `knowledge_synthesis.run_knowledge_synthesis_for_case`
+    - `agent_placement.run_agent_placement_for_case`
+    - `functionalmlds_assembler.run_functionalmlds_assembly_for_case`
+    - `project_materializer.run_project_materializer_for_case`
+    - `schema_validator.run_schema_validation_for_case`
+    - `functionalmlds_invariants.run_functionalmlds_invariant_validation_for_case`
+    - `traceability_metrics.run_traceability_metrics_for_case`
+  - Zwischenpruefung:
+    - Dokument angelegt: `output/metamodel/mlds_project_wizard_functionalmlds_pipeline_interfaces.md`.
+    - Bestehende Pipeline-Schnittstellen mit Eingaben, Ausgaben und Wizard-Relevanz erfasst.
+    - Bestehende Case-Study-Materialisierungen ohne Unity geprueft:
+      - `bestfit_career_fair`
+      - `classroom_dinosaur`
+      - `steinpilz_brand_room`
+    - Alle drei Cases besitzen `functionalmlds/functionalmlds.instance.generated.json`.
+    - Alle drei Cases besitzen eine FunctionalMLDS-Invariant-Validierung.
+    - Alle drei Cases sind als Backend-Projekte in `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/projects/<case_id>/` sichtbar.
+    - Alle drei Backend-Projekte besitzen `project.json`, `room_plan.json`, `agents.json`, `trace_map.json` und `kb/...`.
+    - Materialisierungsvalidierung:
+      - `bestfit_career_fair`: valid, 5 Agenten, 15 KB-Dateien, 12 Trace-Steps, 12 Runtime-Actions, 6 Validation-Cases.
+      - `classroom_dinosaur`: valid, 4 Agenten, 8 KB-Dateien, 12 Trace-Steps, 12 Runtime-Actions, 6 Validation-Cases.
+      - `steinpilz_brand_room`: valid, 6 Agenten, 18 KB-Dateien, 12 Trace-Steps, 12 Runtime-Actions, 6 Validation-Cases.
+    - Keine neuen LLM-Aufrufe fuer diese Dokumentationspruefung ausgefuehrt; bestehende Artefakte und deterministische Checks genutzt.
+
+## 2. Architekturentscheidung treffen
+
+- [x] Entscheiden, ob FunctionalMLDS den bestehenden Arrow-Endpunkt erweitert oder eigene Endpunkte bekommt.
+  - Option A: bestehende Endpunkte mit `generation_mode`.
+    - `POST /projects/arrow/analyze` erhaelt `generation_mode: "legacy" | "functionalmlds"`.
+    - Vorteil: weniger Unity-Code-Duplikation.
+    - Risiko: bestehender Endpunkt wird komplexer.
+  - Option B: neue Endpunkte.
+    - `POST /projects/functionalmlds/analyze`
+    - `POST /projects/functionalmlds/chat`
+    - `POST /projects/functionalmlds/commit`
+    - Vorteil: klare Trennung.
+    - Risiko: UI muss zwei Ablaufe expliziter verwalten.
+  - Entscheidungsvorschlag:
+    - Entschieden: Option A nutzen, damit der Wizard weiterhin denselben Dialogfluss hat.
+    - Intern aber separate Backend-Servicefunktionen fuer Legacy und FunctionalMLDS verwenden.
+    - Entscheidung dokumentiert: `output/metamodel/mlds_project_wizard_functionalmlds_architecture_decision.md`.
+  - Zwischenpruefung:
+    - Statische Codepruefung bestaetigt: Unity ruft aktuell die drei bestehenden Endpunkte `/projects/arrow/analyze`, `/projects/arrow/chat`, `/projects/arrow/commit` auf.
+    - Statische Codepruefung bestaetigt: Backend routet aktuell genau diese drei Endpunkte.
+    - Statische Codepruefung bestaetigt: Request-/Response-Schemata kennen aktuell noch kein `generation_mode`.
+    - Festgelegt: Fehlendes oder leeres `generation_mode` muss immer als `legacy` interpretiert werden.
+    - Festgelegt: Legacy-Requests ohne `generation_mode` muessen exakt wie vorher funktionieren.
+    - Festgelegt: FunctionalMLDS darf zwar dieselben HTTP-Endpunkte nutzen, muss backend-intern aber ueber eigene Service-/Adapterfunktionen laufen.
+
+- [x] Ziel-Datenmodell fuer FunctionalMLDS-Drafts definieren.
+  - Bestehende Draft-Felder bleiben kompatibel:
+    - `assistant_message`
+    - `analysis`
+    - `project`
+    - `agents`
+    - `knowledge`
+    - `placement_preview`
+  - Neue optionale Draft-Felder:
+    - `generation_mode`
+    - `functionalmlds_summary`
+    - `functionalmlds_path`
+    - `trace_map_path`
+    - `validation_summary`
+    - `scenario_summary`
+    - `capability_summary`
+    - `handoff_summary`
+    - `room_knowledge_summary`
+  - Zwischenpruefung:
+    - Dokument angelegt: `output/metamodel/mlds_project_wizard_functionalmlds_draft_model.md`.
+    - Statische Codepruefung bestaetigt: Aktueller Backend-Draft besteht aus `assistant_message`, `analysis`, `project`, `agents`, `knowledge`, `placement_preview`.
+    - Statische Codepruefung bestaetigt: Aktuelles Backend-Schema erlaubt keine Zusatzfelder; Implementierung muss Schema und Normalisierung gezielt erweitern.
+    - Statische Codepruefung bestaetigt: Unity-Draft-Klassen kennen aktuell nur die Legacy-Felder; neue Klassen muessen optional ergaenzt werden.
+    - Festgelegt: `generation_mode` ist optional und fehlend immer `legacy`.
+    - Festgelegt: Chat liest den Modus aus der gespeicherten Session; ein optional mitgesendeter Modus darf die Session nicht ueberschreiben.
+    - Festgelegt: Commit bricht ab, wenn ein gesetzter Request-Modus nicht zum gespeicherten Session-Modus passt.
+    - Festgelegt: FunctionalMLDS-Draft transportiert nur Summaries und Pfade, nicht die vollstaendige Metamodell-Instanz.
+    - Festgelegt: Vollstaendige FunctionalMLDS-Instanz bleibt Datei-Artefakt `functionalmlds/functionalmlds.instance.generated.json`.
+    - Festgelegt: Unity zeigt neue Felder nur im FunctionalMLDS-Modus oder bei vorhandenen FunctionalMLDS-Feldern an.
+
+## 3. Unity-Wizard UI erweitern
+
+- [x] Modusauswahl im Wizard einfuehren.
+  - Datei: `ArrowProjectWizard.cs`
+  - UI-Element:
+    - Toolbar oder Enum Popup:
+      - `Legacy Interactive Agents`
+      - `FunctionalMLDS`
+  - Default:
+    - Legacy, falls maximale Rueckwaertskompatibilitaet gewuenscht.
+    - Alternativ FunctionalMLDS, falls der neue Forschungsworkflow Standard werden soll.
+  - Zwischenpruefung:
+    - Implementiert in `InteractivAgents/InteractiveAgents2/Assets/Scripting/ArrowProjectWizard.cs`.
+    - UI-Element: Toolbar `Legacy Interactive Agents` / `FunctionalMLDS`.
+    - Default: `Legacy Interactive Agents`.
+    - Moduswechsel leert Session, Draft, Chat, Commit-Felder und Preview-State, behaelt aber die geladene MLDSI-Datei und Backend-URL.
+    - Statische Codepruefung bestaetigt: Analyze-/Chat-/Commit-Requests senden noch kein `generation_mode`; das folgt im Backend-/Request-Task.
+    - Statische Codepruefung bestaetigt: Endpunkte bleiben unveraendert `/projects/arrow/analyze`, `/projects/arrow/chat`, `/projects/arrow/commit`.
+    - `git diff --check` fuer `ArrowProjectWizard.cs` erfolgreich.
+    - Unity-Compile weiterhin spaeter erforderlich, weil die Projektinstanz laut Ist-Zustand bereits in Unity geoeffnet war.
+
+- [x] Wizard-Draft-Anzeige fuer FunctionalMLDS erweitern.
+  - Anzeigen:
+    - UseCase-/Scenario-Kurzfassung.
+    - generierte Agenten.
+    - Knowledge-Tags.
+    - Handoff-Zusammenfassung.
+    - wichtige Raumobjektgruppen/Zonen.
+    - Validierungsstatus.
+  - Zwischenpruefung:
+    - Implementiert in `InteractivAgents/InteractiveAgents2/Assets/Scripting/ArrowProjectWizard.cs`.
+    - Neue optionale Unity-Response-Klassen ergaenzt:
+      - `FunctionalMldsSummary`
+      - `ValidationSummary`
+      - `ScenarioSummary`
+      - `CapabilitySummary`
+      - `HandoffSummary`
+      - `RoomKnowledgeSummary`
+    - Draft-Anzeige ergaenzt um FunctionalMLDS-Boxen:
+      - Metamodell-Artefakte und Pfade.
+      - Validierung.
+      - Use Case / Szenario.
+      - Capabilities / Runtime.
+      - Handoff / Spezialwissen.
+      - Raumwissen / Grounding.
+    - Anzeige ist optional gegated:
+      - sichtbar bei aktivem `FunctionalMLDS`-Modus,
+      - oder wenn eine Backend-Response FunctionalMLDS-Felder enthaelt.
+    - Legacy-Draft bleibt optisch unveraendert, solange Legacy-Modus aktiv ist und keine FunctionalMLDS-Felder in der Response stehen.
+    - Lange Texte und Pfade werden mit `EditorStyles.wordWrappedLabel` bzw. vorhandenen ScrollViews angezeigt.
+    - Statische Codepruefung bestaetigt: Analyze-/Chat-/Commit-Requests senden weiterhin noch kein `generation_mode`; das folgt im Request-/Backend-Task.
+    - `git diff --check` fuer `ArrowProjectWizard.cs` erfolgreich.
+    - Unity-Compile weiterhin spaeter erforderlich.
+
+- [x] Commit-Section um FunctionalMLDS-Evidenz erweitern.
+  - Nach Commit anzeigen:
+    - `project_id`
+    - Pfad zu `functionalmlds.instance.generated.json`
+    - Pfad zu `trace_map.json`
+    - Invariant-Status.
+    - Schema-Status.
+    - Traceability-Status.
+  - Zwischenpruefung:
+    - Implementiert in `InteractivAgents/InteractiveAgents2/Assets/Scripting/ArrowProjectWizard.cs`.
+    - `CommitResponse` optional erweitert um:
+      - `generation_mode`
+      - `functionalmlds_path`
+      - `trace_map_path`
+      - `validation_summary`
+      - `functionalmlds_summary`
+    - Wizard speichert die letzte Commit-Response in `lastCommitResponse`.
+    - Neue Analyse, Chat-Aenderung, neuer Commit-Start und Reset loeschen alte Commit-Evidenz.
+    - Evidence-Box zeigt nach Commit:
+      - Projekt-ID.
+      - FunctionalMLDS-Pfad.
+      - Trace-Map-Pfad.
+      - Metamodell-Kurzfassung.
+      - Gesamt-, Schema-, Invariant-, Materialisierungs-, Traceability- und Handoff-Status.
+      - Fehler- und Warnungszahl.
+    - Anzeige ist gegated:
+      - sichtbar im `FunctionalMLDS`-Modus nach Commit,
+      - oder wenn die Backend-Response FunctionalMLDS-Evidenzfelder enthaelt.
+    - Bei Legacy-Commit werden diese Felder nicht erwartet und ohne FunctionalMLDS-Daten nicht angezeigt.
+    - Hinweis: Backend liefert diese FunctionalMLDS-Commitfelder erst nach den folgenden Request-/Backend-/Adapter-Tasks.
+    - `git diff --check` im Unity-Unterrepo fuer `Assets/Scripting/ArrowProjectWizard.cs` erfolgreich; nur vorhandene LF/CRLF-Warnung.
+    - Unity-Compile weiterhin spaeter erforderlich.
+
+## 4. Backend-Request/Response erweitern
+
+- [x] Analyze-Request um Modus erweitern.
+  - Aktuell:
+    - `arrow_json`
+  - Neu:
+    - `arrow_json`
+    - `generation_mode`
+    - optional `project_id_hint`
+    - optional `run_validation`
+    - optional `max_repair_attempts`
+  - Zwischenpruefung:
+    - Unity-Request-Klasse `AnalyzeRequest` erweitert um `generation_mode`, `project_id_hint`, `run_validation`, `max_repair_attempts`.
+    - Unity sendet `generation_mode = "legacy"` im Legacy-Modus und `generation_mode = "functionalmlds"` im FunctionalMLDS-Modus.
+    - Unity setzt `run_validation = true` und `max_repair_attempts = 3` nur im FunctionalMLDS-Modus.
+    - Backend-Normalizer `normalize_generation_mode` angelegt.
+    - Fehlendes oder leeres `generation_mode` wird zu `legacy`.
+    - Aliase `arrow`, `legacy_interactive_agents`, `functional`, `functional_mlds`, `functional-mlds` werden erkannt.
+    - Ungueltiger Modus erzeugt einen `ValueError`.
+    - Backend liest und validiert `project_id_hint`, `run_validation` und `max_repair_attempts`.
+    - Robuster Boolean-Parser fuer `run_validation` angelegt.
+    - `analyze_arrow` spiegelt den erkannten Modus und die Request-Optionen im Draft unter `generation_mode` und `request_options`.
+    - Stub-Test ohne LLM-Aufruf bestaetigt:
+      - Legacy-Request ohne neue Felder ergibt `generation_mode = legacy`.
+      - FunctionalMLDS-Request mit neuen Feldern ergibt `generation_mode = functionalmlds`.
+    - Backend `state.py` per `py_compile` erfolgreich geprueft.
+    - `git diff --check` fuer Backend-Datei erfolgreich.
+    - `git diff --check` im Unity-Unterrepo fuer `Assets/Scripting/ArrowProjectWizard.cs` erfolgreich; nur vorhandene LF/CRLF-Warnung.
+    - Hinweis: Backend-Session speichert den Modus noch nicht dauerhaft; das folgt im naechsten Task.
+
+- [x] Backend-Session-Modell erweitern.
+  - Aktuell: `ArrowProjectDraft`.
+  - Neu:
+    - `ArrowProjectDraft` erweitert.
+    - Keine separate Klasse `FunctionalMldsProjectDraft`, damit Legacy und FunctionalMLDS denselben Wizard-Session-Lifecycle nutzen.
+  - Benoetigte Felder:
+    - original MLDS payload.
+    - generation mode.
+    - case/project id.
+    - case_dir im Arbeitsverzeichnis.
+    - generated agent roles.
+    - knowledge entries.
+    - placement preview.
+    - FunctionalMLDS instance path.
+    - trace map path.
+    - validation summary.
+  - Zwischenpruefung:
+    - Implementiert in `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/backend/state.py`.
+    - `ArrowProjectDraft` speichert jetzt:
+      - `generation_mode`
+      - `project_id_hint`
+      - `run_validation`
+      - `max_repair_attempts`
+      - `case_id`
+      - `case_dir`
+      - `agent_roles`
+      - `functionalmlds_path`
+      - `trace_map_path`
+      - `validation_summary`
+      - `functionalmlds_summary`
+      - `scenario_summary`
+      - `capability_summary`
+      - `handoff_summary`
+      - `room_knowledge_summary`
+    - `ArrowProjectDraft.decorate_draft_payload(...)` ergaenzt Analyze-/Chat-Responses konsistent um Session-Metadaten.
+    - Legacy-Session laesst sich weiter per `/projects/arrow/chat` bearbeiten.
+    - FunctionalMLDS-Session wird erkannt und speichert `generation_mode = functionalmlds`.
+    - FunctionalMLDS-Chat wird bis zur Chat-Refinement-Integration sauber mit Fehlermeldung abgelehnt.
+    - FunctionalMLDS-Commit wird bis zur Adapter-/Validierungsintegration sauber abgelehnt, damit FunctionalMLDS-Modus nicht versehentlich Legacy-Projektdateien schreibt.
+    - Optionales `generation_mode` im Commit wird gegen den gespeicherten Session-Modus geprueft; Mismatch wird abgelehnt.
+    - Legacy-Commit-Response enthaelt `generation_mode = legacy`.
+    - Stub-Test ohne LLM-Aufruf bestaetigt:
+      - Legacy Analyze + Chat bleibt funktionsfaehig.
+      - FunctionalMLDS Analyze speichert Modus und `case_id`.
+      - FunctionalMLDS Chat wird sauber abgelehnt.
+      - FunctionalMLDS Commit wird sauber abgelehnt.
+      - Commit-Modus-Mismatch wird sauber abgelehnt.
+    - Backend `state.py` per `py_compile` erfolgreich geprueft.
+    - `git diff --check` im Backend-Unterrepo fuer `backend/state.py` erfolgreich; nur vorhandene LF/CRLF-Warnung.
+
+## 5. FunctionalMLDS-Pipeline als Backend-Service kapseln
+
+- [x] Adaptermodul anlegen.
+  - Vorschlag:
+    - `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/backend/functionalmlds_adapter.py`
+  - Aufgabe:
+    - Workspace-Root finden.
+    - `tools/case_study_pipeline` importierbar machen.
+    - MLDS-Payload in temporaere oder persistente Case-Datei schreiben.
+    - Pipeline-Stages kontrolliert ausfuehren.
+  - Zwischenpruefung:
+    - Adaptermodul angelegt: `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/backend/functionalmlds_adapter.py`.
+    - Adapter kann aus Backend heraus importiert werden.
+    - Adapter findet Workspace-Root `C:\Users\burklo\Documents\FunctionalMLDS`.
+    - Adapter findet `tools/case_study_pipeline`.
+    - Adapter findet Backend-Projektroot `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents`.
+    - Adapter setzt Workspace-Root kontrolliert auf `sys.path`, damit `tools.case_study_pipeline.*` importierbar ist.
+    - Adapter kann MLDS-Payload als persistente Source-Datei unter `output/wizard_functionalmlds/_wizard_inputs/...` schreiben.
+    - Adapter kann Case-Verzeichnis unter `output/wizard_functionalmlds/<case_id>/` initialisieren.
+    - Adapter bietet kontrollierte Stage-Ausfuehrung ueber `run_stage(case_dir, stage_id, **kwargs)`.
+    - Stage-Registry fuer Ingestion, Semantik, Rollen, Wissen, Placement, FunctionalMLDS Assembly, Materialisierung und Validierungen vorbereitet.
+    - Sicherheitspruefung fuer `case_id` eingefuehrt; Pfadsequenzen und Sonderzeichen werden abgelehnt.
+    - Deterministischer Smoke-Test ohne LLM/API-Aufruf:
+      - vorhandene Classroom-MLDS geladen.
+      - `adapter.run_ingestion_from_payload(..., case_id="adapter_smoke_classroom")` ausgefuehrt.
+      - Ergebnis: `mlds_ingestion` Status `success`.
+      - `scene_graph.normalized.json` und `object_group_summary.json` erzeugt.
+    - Smoke-Artefakte liegen unter `output/wizard_functionalmlds/adapter_smoke_classroom/`.
+    - Adapter per `py_compile` erfolgreich geprueft.
+    - `git diff --check` im Backend-Unterrepo fuer `backend/functionalmlds_adapter.py` erfolgreich.
+
+- [x] Case-ID/Projekt-ID deterministisch erzeugen.
+  - Quelle:
+    - Projektname aus Wizard.
+    - MLDS sceneName.
+    - optional Nutzer-ID aus Commit-Feld.
+  - Regeln:
+    - slugify.
+    - keine Umlaute/Sonderzeichen im Projektordner.
+    - Kollisionen vermeiden oder bewusst ueberschreiben lassen.
+  - Zwischenpruefung:
+    - Implementiert in `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/backend/functionalmlds_adapter.py`.
+    - Backend-Session nutzt die deterministische ID-Ableitung in `state.py`.
+    - Ableitungsregeln:
+      - Explizite `project_id_hint` aus dem Wizard hat Vorrang.
+      - Danach Wizard-/Payload-Projektname, falls vorhanden.
+      - Danach MLDS `scene.sceneName`, `scene.name`, `scene.displayName`.
+      - Danach Top-Level `sceneName`, `name`, `id`.
+      - Fallback: `functional_mlds_case`.
+    - Nicht explizite IDs erhalten einen kurzen kanonischen Payload-Hash als Suffix, z. B. `classroom_with_reading_area_and_dinosaur_26649c3f`.
+    - Explizite Nutzer-ID wird slugified und ohne Hash-Suffix genutzt, z. B. `Explicit Case` -> `explicit_case`.
+    - Deutsche Umlaute und `ss`/`ß` werden ASCII-kompatibel umgeschrieben, z. B. `Käse Fabrik Straße` -> `kaese_fabrik_strasse`.
+    - `case_id` erlaubt nur Buchstaben, Zahlen, Punkt, Unterstrich und Bindestrich; Pfadsequenzen werden abgelehnt.
+    - Kollisionsschutz:
+      - vorhandenes Case-Verzeichnis mit gleichem MLDS-Payload darf wiederverwendet werden.
+      - vorhandenes Case-Verzeichnis mit anderem MLDS-Payload wird per `FileExistsError` blockiert.
+      - vorhandenes Case-Verzeichnis ohne vergleichbares `source_mlds.json` wird blockiert.
+    - Stub-Test ohne LLM-Aufruf bestaetigt:
+      - gleiche MLDS-Payload erzeugt reproduzierbar dieselbe ID.
+      - gleicher Payload kann erneut per Adapter-Ingestion verarbeitet werden.
+      - abweichender Payload mit gleicher expliziter ID wird blockiert.
+      - Backend-Analyze speichert reproduzierbare `case_id` in der Session und im Draft.
+    - Adapter und Backend `state.py` per `py_compile` erfolgreich geprueft.
+    - `git diff --check` im Backend-Unterrepo erfolgreich; nur vorhandene LF/CRLF-Warnung.
+
+- [x] Pipeline-Stages fuer Analyze-Modus bestimmen.
+  - Minimaler Analyze-Draft:
+    - MLDS ingestion.
+    - Scene semantics.
+    - Agent roles.
+    - Knowledge synthesis.
+    - Agent placement.
+  - Optional schon im Analyze:
+    - FunctionalMLDS assembly.
+    - schema/invariant validation.
+  - Empfehlung:
+    - Entschieden: Analyze erzeugt bereits FunctionalMLDS-Draft plus Invariant-Validierungszusammenfassung.
+    - Entschieden: Commit materialisiert final.
+    - Entscheidung dokumentiert: `output/metamodel/mlds_project_wizard_functionalmlds_analyze_stage_plan.md`.
+  - Zwischenpruefung:
+    - Analyze-Stage-Plan im Adapter hinterlegt:
+      - `mlds_ingestion`
+      - `scene_semantics`
+      - `agent_roles`
+      - `knowledge_synthesis`
+      - `agent_placement`
+      - `functionalmlds_assembly`
+      - `functionalmlds_invariants`
+    - Nicht im Analyze-Modus:
+      - `project_materialization`
+      - Schema-Validierung gegen materialisierte Backend-Projektdateien.
+      - Traceability-Metriken, die finale Trace Map erwarten.
+      - Runtime-, Chat-, Handoff- und Answer-Grounding-Tests.
+    - Erwartete Analyze-Artefakte:
+      - `intermediate/scene_graph.normalized.json`
+      - `intermediate/object_group_summary.json`
+      - `intermediate/scene_semantics.json`
+      - `intermediate/agent_roles.generated.json`
+      - `intermediate/handoff_matrix.json`
+      - `intermediate/knowledge.generated.json`
+      - `intermediate/agent_placements.json`
+      - `functionalmlds/functionalmlds.instance.generated.json`
+      - `validation/functionalmlds_invariant_validation.json`
+    - Adapter-Konstante `ANALYZE_STAGE_IDS` eingefuehrt.
+    - Adapter-Methode `analyze_stage_plan()` eingefuehrt.
+    - Zwischenpruefung ohne LLM/API-Aufruf:
+      - `analyze_stage_plan()` gibt alle erwarteten Stages zurueck.
+      - `materializes_backend_project` ist `False`.
+      - alle Analyze-Stage-IDs sind in `STAGE_RUNNERS` registriert.
+      - alle Stage-Runner sind importierbar.
+    - Adapter per `py_compile` erfolgreich geprueft.
+    - `git diff --check` fuer Adapter und Stage-Plan-Dokument erfolgreich.
+    - Laufzeitmessung mit echten LLM-Stages folgt erst bei der Implementierung des Analyze-Adapters; dieser Task legt nur den Plan fest.
+
+- [x] Pipeline-Stages fuer Commit-Modus bestimmen.
+  - Commit muss final erzeugen:
+    - `functionalmlds/functionalmlds.instance.generated.json`
+    - `validation/functionalmlds_invariants_validation.json`
+    - `validation/schema_validation.json`
+    - `validation/traceability_metrics.json`
+    - `interactive_agents_project/kb/...`
+    - Backend-Projekt unter `InteractiveAgents/projects/<project_id>/`
+    - `trace_map.json`
+  - Zwischenpruefung:
+    - Entscheidung dokumentiert: `output/metamodel/mlds_project_wizard_functionalmlds_commit_stage_plan.md`.
+    - Commit-Stage-Plan im Adapter hinterlegt:
+      - `mlds_ingestion`
+      - `scene_semantics`
+      - `agent_roles`
+      - `knowledge_synthesis`
+      - `agent_placement`
+      - `functionalmlds_assembly`
+      - `functionalmlds_invariants`
+      - `project_materialization`
+      - `schema_validation`
+      - `traceability_metrics`
+      - `handoff_metrics`
+      - `stage_completion`
+    - Blockierende Validierungen festgelegt:
+      - `functionalmlds_invariants`
+      - `project_materialization`
+      - `schema_validation`
+    - Evidenz-Reports festgelegt:
+      - `validation/functionalmlds_invariant_validation.json`
+      - `validation/functionalmlds_invariants_validation.json`
+      - `validation/project_materialization_validation.json`
+      - `validation/schema_validation.json`
+      - `validation/traceability_metrics.json`
+      - `validation/handoff_metrics.json`
+      - `validation/stage_completion_report.json`
+    - Backend-Artefakte festgelegt:
+      - `InteractiveAgents/projects/<case_id>/project.json`
+      - `InteractiveAgents/projects/<case_id>/room_plan.json`
+      - `InteractiveAgents/projects/<case_id>/agents.json`
+      - `InteractiveAgents/projects/<case_id>/trace_map.json`
+      - `InteractiveAgents/projects/<case_id>/kb/...`
+    - Adapter-Konstante `COMMIT_STAGE_IDS` eingefuehrt.
+    - Adapter-Konstante `COMMIT_REQUIRED_ARTIFACTS` eingefuehrt.
+    - Adapter-Methode `commit_stage_plan(case_id=...)` eingefuehrt.
+    - Zwischenpruefung ohne LLM/API-Aufruf:
+      - `commit_stage_plan(case_id="commit_case")` gibt alle erwarteten Stages zurueck.
+      - `materializes_backend_project` ist `True`.
+      - `requires_valid_materialization` ist `True`.
+      - alle Commit-Stage-IDs sind in `STAGE_RUNNERS` registriert.
+      - alle Stage-Runner sind importierbar.
+      - Case-ID-Platzhalter wird korrekt in Backend-Artefaktpfade eingesetzt.
+      - `stage_completion` verweist korrekt auf `validation/stage_completion_report.json`.
+    - Adapter per `py_compile` erfolgreich geprueft.
+    - `git diff --check` fuer Adapter und Commit-Stage-Plan-Dokument erfolgreich.
+    - Laufzeitpruefung mit echter Materialisierung folgt erst beim Implementieren des Commit-Adapters.
+
+## 6. Raumwissen explizit modellieren
+
+- [x] MLDS-Raumwissen in Knowledge-Synthesis absichern.
+  - Anforderungen:
+    - Agenten kennen relevante Objektgruppen.
+    - Agenten koennen Fragen zu Objekten, Zonen, Zweck und Positionen beantworten.
+    - Knowledge-Tags decken nicht nur Agentenrollen, sondern auch Raum-/Objektwissen ab.
+  - Zu pruefende Dateien:
+    - `tools/case_study_pipeline/scene_semantics.py`
+    - `tools/case_study_pipeline/knowledge_synthesis.py`
+    - Prompts in `tools/case_study_pipeline/prompts/`
+  - Zwischenpruefung:
+    - Knowledge enthaelt Eintraege zu wichtigen MLDS-Objektgruppen.
+    - Agenten referenzieren diese Knowledge-Tags.
+    - Chat-Test "Welche Objekte gibt es hier?" kann beantwortet werden.
+  - Umsetzung:
+    - `tools/case_study_pipeline/knowledge_synthesis.py` erweitert den Prompt-Payload um `room_question_requirement`, `object_group_context` und `required_room_groups`.
+    - Nicht-strukturelle MLDS-Objektgruppen werden aus der normalisierten Szene abgeleitet; Boden, Waende, Decke und reine Strukturgruppen werden dabei nicht als fachliche Wissensgruppen erzwungen.
+    - Der Knowledge-Validator verlangt nun vollstaendige Abdeckung dieser relevanten Raumobjektgruppen ueber `source_object_ids` und verlangt `intended_agents` fuer alle erforderlichen Tags.
+    - Fallback-Knowledge nennt Objektgruppen und semantische Zonen, damit auch ohne LLM ein raumbezogener Wissensstand erzeugt wird.
+    - `knowledge_synthesis_v1.md` und `repair_missing_knowledge_entries_v1.md` erzwingen explizit Antworten auf Objekt-, Zonen-, Zweck- und Positionsfragen wie "Welche Objekte gibt es hier?".
+  - Abgeschlossene Zwischenpruefungen:
+    - `python -m py_compile tools\case_study_pipeline\knowledge_synthesis.py`
+    - `git diff --check` fuer `knowledge_synthesis.py`, `knowledge_synthesis_v1.md` und `repair_missing_knowledge_entries_v1.md`
+    - Deterministische Revalidierung bestehender Cases:
+      - `classroom_dinosaur`: `required_room_group_count=5`, `covered_room_group_count=5`, `room_group_coverage=1.0`
+      - `bestfit_career_fair`: `required_room_group_count=12`, `covered_room_group_count=12`, `room_group_coverage=1.0`
+      - `steinpilz_brand_room`: `required_room_group_count=10`, `covered_room_group_count=10`, `room_group_coverage=1.0`
+    - Es wurden fuer diesen Task keine LLM/API-Aufrufe genutzt; der spaetere Runtime-Chat-Test bleibt als eigener Checklist-Punkt offen.
+
+- [x] FunctionalMLDS-Struktur fuer Raumwissen pruefen.
+  - Abbildung:
+    - MLDS object groups -> Entity/SceneObject.
+    - semantic zones -> Entity/Context oder StateAssertion.
+    - Agent responsibilities -> Actor/AgentRole/CapabilityUse.
+    - Raumfragen -> Capability `ANSWER-ROOM-GROUNDED-QUESTION`.
+    - Wissenszugriff -> RuntimeBinding `BACKEND-CHAT`.
+  - Zwischenpruefung:
+    - Traceability vom Objekt/Zone zum Agenten ist im Modell nachvollziehbar.
+    - `object_group_to_agent_role_grounding` bleibt 1.0 fuer Testcases.
+  - Umsetzung:
+    - `tools/case_study_pipeline/functionalmlds_assembler.py` erzeugt nun `Entity`-Eintraege fuer semantische Zonen, fachliche Objektgruppen, konkrete geerdete Szenenobjekte, Agenten und den Validierungszustand.
+    - Agenten in der FunctionalMLDS-Instanz tragen explizit `responsible_zone_ids`, `responsibleZoneEntityIds`, `grounded_object_ids`, `groundedAssetEntityIds`, `grounded_object_groups` und `groundedObjectGroupEntityIds`.
+    - Fachliche Objektgruppen werden als `kind=asset` mit `entityRole=objectGroup` modelliert; konkrete MLDS-Objekte als `entityRole=sceneObject`.
+    - Strukturgruppen wie Boden, Waende, Decke, Licht und `floor_markings` werden nicht als fachliche Agentenverantwortung erzwungen.
+    - Die vorhandene Capability `ANSWER-ROOM-GROUNDED-QUESTION` bleibt ueber RuntimeBinding `BACKEND-CHAT` an `POST /chat` angebunden.
+  - Abgeschlossene Zwischenpruefungen:
+    - `python -m py_compile tools\case_study_pipeline\functionalmlds_assembler.py`
+    - `git diff --check` fuer `functionalmlds_assembler.py`
+    - FunctionalMLDS-Assembly re-generiert fuer:
+      - `classroom_dinosaur`: valid, `objectGroupEntities=5`, `tracedAgents=4/4`
+      - `bestfit_career_fair`: valid, `objectGroupEntities=12`, `tracedAgents=5/5`
+      - `steinpilz_brand_room`: valid, `objectGroupEntities=9`, `tracedAgents=6/6`
+    - Explizite FunctionalMLDS-Invarianten:
+      - alle drei Cases `valid`, jeweils `passed=7/7`
+    - Traceability-Metrik `object_group_to_agent_role_grounding`:
+      - `classroom_dinosaur`: `1.0 (5/5)`
+      - `bestfit_career_fair`: `1.0 (12/12)`
+      - `steinpilz_brand_room`: `1.0 (9/9)`
+
+## 7. Spezialwissen und Handoff erhalten
+
+- [x] Agentenrollen im FunctionalMLDS-Modus mindestens so stark wie Legacy erzeugen.
+  - Jeder Agent braucht:
+    - `id`
+    - `display_name`
+    - `persona`
+    - `expertise`
+    - `knowledge_tags`
+    - `responsible_zone_ids`
+    - `grounded_object_ids`
+    - `handoff_targets`
+    - Voice-/TTS-Felder fuer Unity.
+  - Zwischenpruefung:
+    - `agent_roles_validation.json` ist `valid`.
+    - `agents.json` enthaelt alle fuer Unity benoetigten Felder.
+  - Umsetzung:
+    - `tools/case_study_pipeline/agent_roles.py` und `agent_roles.schema.json` verlangen jetzt zusaetzlich `voice_gender`.
+    - Fehlendes `voice_gender` wird deterministisch aus `voice` abgeleitet; `tts_model=standard` bleibt verboten.
+    - `tools/case_study_pipeline/functionalmlds_assembler.py` uebernimmt Legacy-Rollenfelder in FunctionalMLDS-Agenten: `display_name`, `persona`, `expertise`, `knowledge_tags`, `voice`, `voice_gender`, `voice_style`, `tts_model`.
+    - FunctionalMLDS-Agenten tragen weiterhin die raumbezogenen Trace-Felder `responsible_zone_ids`, `grounded_object_ids`, `groundedAssetEntityIds` und Objektgruppenreferenzen.
+    - `tools/case_study_pipeline/project_materializer.py` schreibt `agents.json` nun mit Legacy-Feldern und FunctionalMLDS-Verantwortlichkeiten:
+      - `responsible_zone_ids`
+      - `grounded_object_ids`
+      - `handoff_targets`
+      - `preferred_zone_ids` fuer den bestehenden Backend-Loader
+      - `voice`, `voice_gender`, `voice_style`, `tts_model`
+    - `interactive_agents_project.schema.json` kennt die neuen Agentenfelder; Zusatzfelder bleiben backend-kompatibel erlaubt.
+    - `agent_roles_v1.md` fordert `voice_gender` explizit an.
+  - Abgeschlossene Zwischenpruefungen:
+    - `python -m py_compile` fuer `agent_roles.py`, `functionalmlds_assembler.py`, `project_materializer.py`
+    - `git diff --check` fuer Rollen-, Assembler-, Materializer-, Schema- und Prompt-Aenderungen
+    - Deterministische Anreicherung bestehender Case-Rollen um `voice_gender`, ohne LLM/API-Aufruf
+    - `agent_roles_validation.json` valid:
+      - `classroom_dinosaur`: `agents=4`, `knowledge_tags=8`
+      - `bestfit_career_fair`: `agents=5`, `knowledge_tags=15`
+      - `steinpilz_brand_room`: `agents=6`, `knowledge_tags=18`
+    - FunctionalMLDS-Agentenfeld-Check valid fuer alle drei Cases.
+    - Backend-`AgentSpec.from_dict` laedt alle neu materialisierten `agents.json`-Dateien.
+    - Projekt-Schema-Validation fuer alle drei Cases: `success`.
+    - Handoff-Inhalte bleiben im naechsten Task zu pruefen; dieser Task sichert die Agentenrollenfelder und Kompatibilitaet.
+
+- [x] Handoff-Matrix aus FunctionalMLDS ableiten.
+  - Quelle:
+    - Agent-role responsibilities.
+    - Knowledge tags.
+    - Capabilities.
+  - Ergebnis:
+    - `intermediate/handoff_matrix.json`.
+    - Handoff-Targets in `agents.json`.
+  - Zwischenpruefung:
+    - keine Selbst-Handoffs.
+    - keine ungueltigen Zielagenten.
+    - `handoff_metrics.json` ist `valid`.
+  - Umsetzung:
+    - Neue deterministische Stufe `tools/case_study_pipeline/handoff_derivation.py`.
+    - Die Stufe synchronisiert:
+      - `agent_roles.generated.json` -> `agents[*].handoff_targets` und `handoffs`
+      - `intermediate/handoff_matrix.json` -> dieselben Handoff-Paare mit `condition` und `reason`
+      - `functionalmlds.instance.generated.json` -> `handoff_targets` und `handoffTargetAgentIds` je FunctionalMLDS-Agent
+      - materialisiertes `agents.json` -> dieselben `handoff_targets`
+    - Bestehende Handoff-Begruendungen aus `handoff_matrix.json` bleiben erhalten.
+    - Fehlende Conditions/Reasons werden deterministisch aus Zielagent-Expertise, Knowledge-Tags, Zonen und FunctionalMLDS-Handoff-Capability formuliert.
+    - Falls ein neuer Case gar keine Handoff-Paare enthaelt, erzeugt die Stufe einen konservativen Fallback aus unterschiedlichen Zonen, Knowledge-Tags, Expertise und geerdeten Objekten.
+    - Wizard-Adapter registriert die Stufe als `handoff_derivation` und fuehrt sie nach `functionalmlds_assembly` sowie vor `functionalmlds_invariants` in Analyze und Commit aus.
+  - Abgeschlossene Zwischenpruefungen:
+    - `python -m py_compile` fuer `handoff_derivation.py` und `functionalmlds_adapter.py`
+    - `git diff --check` fuer Handoff-Derivation und Adapter
+    - Handoff-Derivation:
+      - `classroom_dinosaur`: `pairs=6`, `sources=4`, `fallback=False`
+      - `bestfit_career_fair`: `pairs=12`, `sources=5`, `fallback=False`
+      - `steinpilz_brand_room`: `pairs=15`, `sources=6`, `fallback=False`
+    - Revalidierung nach Ableitung:
+      - FunctionalMLDS-Invarianten: alle drei Cases `valid`
+      - Projektmaterialisierung: alle drei Cases `valid`
+      - Schema-Validation: alle drei Cases `success`
+      - Handoff-Metriken: alle drei Cases `valid`, `valid_handoff_target_ratio=1.0`, `self_handoff_count=0`
+    - Paar-Synchronisation Rolle/Matrix/Backend:
+      - `classroom_dinosaur`: `6/6`
+      - `bestfit_career_fair`: `12/12`
+      - `steinpilz_brand_room`: `15/15`
+
+- [x] FunctionalMLDS-Capabilities fuer Handoff pruefen.
+  - Muss enthalten:
+    - Capability fuer Raumfrage beantworten.
+    - Capability fuer Handoff an besseren Agenten.
+    - RuntimeBinding fuer `POST /chat`.
+    - RuntimeAction fuer `BACKEND-CHAT-HANDOFF`.
+  - Zwischenpruefung:
+    - `trace_map.json` enthaelt RuntimeAction fuer Handoff.
+    - Runtime-Log kann Handoff auf RuntimeAction zurueckfuehren.
+  - Umsetzung:
+    - `tools/case_study_pipeline/functionalmlds_assembler.py` validiert jetzt explizit:
+      - Capability `ANSWER-ROOM-GROUNDED-QUESTION`
+      - Capability `HANDOFF-TO-RESPONSIBLE-AGENT`
+      - RuntimeBinding fuer Handoff
+      - RuntimeAction `BACKEND-CHAT-HANDOFF`
+      - Handoff-RuntimeAction nutzt `POST /chat`
+    - `tools/case_study_pipeline/validators/functionalmlds_invariants.py` enthaelt die neue explizite Invariante `HANDOFF_CAPABILITY_HAS_CHAT_RUNTIME_BINDING`.
+    - `tools/case_study_pipeline/validators/handoff_metrics.py` prueft nun fuer beobachtete Backend-Handoff-Events:
+      - RuntimeAction endet auf `BACKEND-CHAT-HANDOFF`
+      - RuntimeBinding verweist auf `HANDOFF-TO-RESPONSIBLE-AGENT`
+      - beobachtetes Handoff-Paar ist in der Handoff-Matrix deklariert
+  - Abgeschlossene Zwischenpruefungen:
+    - `python -m py_compile` fuer `functionalmlds_assembler.py`, `functionalmlds_invariants.py`, `handoff_metrics.py`
+    - `git diff --check` fuer diese drei Dateien
+    - Revalidierung nach verschaerften Checks:
+      - `classroom_dinosaur`: `handoffCap=1`, `handoffRA=1`, Invarianten `8/8`, Runtime-Handoff-Events `6`, invalid RuntimeAction-Events `0`
+      - `bestfit_career_fair`: `handoffCap=1`, `handoffRA=1`, Invarianten `8/8`, Runtime-Handoff-Events `12`, invalid RuntimeAction-Events `0`
+      - `steinpilz_brand_room`: `handoffCap=1`, `handoffRA=1`, Invarianten `8/8`, Runtime-Handoff-Events `15`, invalid RuntimeAction-Events `0`
+    - `trace_map.json` nach erneuter Materialisierung:
+      - alle drei Cases enthalten genau eine RuntimeAction `BACKEND-CHAT-HANDOFF`
+      - alle beobachteten Runtime-Handoff-Events sind auf diese RuntimeAction und die Handoff-RuntimeBinding rueckfuehrbar
+
+## 8. Chat-Refinement im FunctionalMLDS-Modus planen
+
+- [x] Entscheiden, wie Chat-Aenderungen verarbeitet werden.
+  - Option A:
+    - Chat erzeugt erneut Semantics/AgentRoles/Knowledge und danach FunctionalMLDS neu.
+  - Option B:
+    - Chat passt nur Draft-Schichten an; Commit fuehrt Full-Regeneration aus.
+  - Empfehlung:
+    - Chat speichert Nutzerwuensche als Zusatzinstruktionen.
+    - Commit fuehrt deterministische Full-Regeneration mit diesen Instruktionen aus.
+  - Zwischenpruefung:
+    - Chat-Aenderung "fuege einen Agenten fuer X hinzu" ist im finalen FunctionalMLDS sichtbar.
+    - Validierung laeuft danach erneut.
+  - Entscheidung:
+    - Option B wird umgesetzt.
+    - Chat schreibt keine FunctionalMLDS-Artefakte direkt um.
+    - Chat speichert Nutzerwuensche als `refinement_requests` in der Wizard-Session.
+    - Der aktuelle FunctionalMLDS-Draft wird mit `validation_stale=true` und `refinement_status=stale` markiert.
+    - Commit muss spaeter eine vollstaendige Regeneration der Pipeline ausfuehren und danach alle Validierungen erneut laufen lassen.
+  - Umsetzung:
+    - `output/metamodel/mlds_project_wizard_functionalmlds_chat_refinement_decision.md` dokumentiert den Laufzeitvertrag.
+    - `backend/state.py` akzeptiert FunctionalMLDS-Chat jetzt als Refinement-Aufzeichnung statt mit Fehler abzubrechen.
+    - `backend/state.py` gibt `validation_stale`, `refinement_status`, `refinement_requests` und `request_options.refinement_request_count` im Draft zurueck.
+    - `ArrowProjectWizard.cs` sendet beim Chat den `generation_mode` und kennt die neuen Draft-Felder.
+  - Abgeschlossene Zwischenpruefungen:
+    - `python -m py_compile backend/state.py`
+    - `git diff --check` fuer Backend, Unity-Wizard und Entscheidungsdokument
+    - In-memory Backend-Test ohne LLM/API:
+      - FunctionalMLDS-Chat speichert `refinement_count=1`
+      - Draft setzt `validation_stale=True`
+      - Draft setzt `refinement_status=stale`
+      - gespeicherter Refinement-Request hat Status `pending_full_regeneration`
+  - Bewusst verschoben:
+    - Die Sichtbarkeit von Chat-Aenderungen im finalen FunctionalMLDS-Artefakt kann erst beim Commit-/Full-Regeneration-Task geprueft werden.
+    - Dort muss auch die erneute Validierung nach Regeneration nachgewiesen werden.
+
+- [x] UI kennt "Draft ist nicht final validiert".
+  - Wenn Chat den Draft geaendert hat:
+    - Validierungsstatus auf stale setzen.
+    - Commit fuehrt Validierung neu aus.
+  - Zwischenpruefung:
+    - Nutzer sieht klar, ob Preview oder finaler validierter Stand angezeigt wird.
+  - Umsetzung:
+    - `ArrowProjectWizard.cs` zeigt im FunctionalMLDS-Modus direkt am Draft eine Warnung, wenn `validation_stale=true` ist.
+    - Vorgemerkte Chat-Aenderungen werden mit ID, Status und Inhalt unter "Vorgemerkte Chat-Aenderungen" sichtbar.
+    - Der Validierungsblock zeigt bei stale Drafts explizit `Draft-Status: nicht final validiert`.
+    - Der Chat-Bereich erklaert, dass FunctionalMLDS-Chat Aenderungswuensche vormerkt und der Draft bis zur Regeneration Preview bleibt.
+    - Der Commit-Bereich warnt, dass Abschliessen eine vollstaendige Regeneration und erneute Validierung ausloesen muss.
+    - Nach Chat-Aenderungen meldet die Statuszeile: `Chat-Aenderung vorgemerkt; FunctionalMLDS-Draft ist nicht final validiert.`
+  - Abgeschlossene Zwischenpruefungen:
+    - `rg`-Pruefung bestaetigt alle neuen UI-Statusfelder, Warntexte und Refinement-Listen im Unity-Wizard.
+    - `git diff --check -- Assets/Scripting/ArrowProjectWizard.cs` ohne Whitespace-Fehler; Git meldet nur die bestehende LF/CRLF-Normalisierung.
+    - Kontextpruefung bestaetigt, dass Hinweise nicht doppelt angezeigt werden und nur im FunctionalMLDS-Draft-Kontext erscheinen.
+
+## 9. Persistenz und Projektstruktur
+
+- [x] Zielstruktur fuer FunctionalMLDS-Projekte festlegen.
+  - Case-Study-Artefakte:
+    - `output/wizard_functionalmlds/<project_id>/...`
+  - Backend-Runtime-Projekt:
+    - `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/projects/<project_id>/...`
+  - Backend-Projektdateien:
+    - `project.json`
+    - `room_plan.json`
+    - `agents.json`
+    - `trace_map.json`
+    - `kb/...`
+  - Research-Artefakte:
+    - `functionalmlds/functionalmlds.instance.generated.json`
+    - `validation/...`
+    - `stage_manifest.json`
+  - Zwischenpruefung:
+    - Runtime-Projekt bleibt klein genug fuer Unity.
+    - Forschungsartefakte bleiben im Output-Ordner.
+  - Umsetzung:
+    - Zielstruktur dokumentiert in `output/metamodel/mlds_project_wizard_functionalmlds_project_structure.md`.
+    - Verbindliche Trennung festgelegt:
+      - Output-Bereich: MLDS-Input, Intermediate-Dateien, FunctionalMLDS-Instanz, Validierungen, Metriken, Stage-Manifest.
+      - Runtime-Projekt: `project.json`, `room_plan.json`, `agents.json`, `trace_map.json`, `kb/`.
+    - Referenzrichtung festgelegt:
+      - Runtime verweist ueber `project.json` und `trace_map.json` auf die FunctionalMLDS-Instanz im Output-Bereich.
+      - Forschungsartefakte werden nicht in das Unity-Runtime-Projekt kopiert.
+  - Abgeschlossene Zwischenpruefungen:
+    - `functionalmlds_adapter.py` bestaetigt `output/wizard_functionalmlds` als Wizard-Output-Root und trennt Analyze-/Commit-Artefakte.
+    - `project_materializer.py` bestaetigt, dass nur kompakte Runtime-Dateien ins Backend-Projekt geschrieben werden.
+    - `projects.py` bestaetigt, dass die Runtime derzeit `project.json`, `room_plan.json`, `agents.json` und `kb/` als Kernstruktur erwartet.
+
+- [x] `project.json` um FunctionalMLDS-Referenzen erweitern.
+  - Felder:
+    - `generation_mode: "functionalmlds"`
+    - `functionalmlds_trace_path`
+    - `functionalmlds_case_dir`
+    - `source_mlds_path`
+    - `metamodelVersion`
+  - Zwischenpruefung:
+    - Backend `runtime_trace.py` findet `functionalmlds_trace_path`.
+    - `trace_map.json` kann geladen werden.
+  - Umsetzung:
+    - `project_materializer.py` schreibt in FunctionalMLDS-Runtime-Projekte jetzt:
+      - `generation_mode: "functionalmlds"`
+      - `functionalmlds_trace_path`
+      - `functionalmlds_case_dir`
+      - `source_mlds_path`
+      - `metamodelVersion`
+    - `validate_materialized_project` behandelt diese Felder im FunctionalMLDS-Materializer als Pflichtfelder.
+    - `interactive_agents_project.schema.json` kennt die neuen Projektfelder typisiert, ohne Legacy-Projekte ueber das allgemeine Schema zwangsweise umzubauen.
+    - `mlds_project_wizard_functionalmlds_project_structure.md` dokumentiert die neuen Referenzen.
+  - Abgeschlossene Zwischenpruefungen:
+    - `python -m py_compile tools/case_study_pipeline/project_materializer.py`
+    - `git diff --check` fuer Materializer und Projektdatei-Schema
+    - Isolierter Materialisierungstest mit temporaerer `_tmp_project_json_refs`-Case-ID:
+      - `status=success`
+      - keine fehlenden neuen `project.json`-Felder
+      - `generation_mode=functionalmlds`
+      - `metamodelVersion=v0.5`
+      - `trace_map.json` mit `schema=functionalmlds_trace_map` ladbar
+    - `runtime_trace._runtime_log_path` liest `functionalmlds_trace_path` aus `project.json` und leitet den Log-Pfad korrekt in `output/wizard_functionalmlds/<case_id>/runtime_logs/events.jsonl` ab.
+
+## 10. Validierung und Reparaturschleifen
+
+- [x] Analyze-Validierung implementieren.
+  - Pruefen:
+    - MLDS parsebar.
+    - Semantics valid.
+    - Agent roles valid.
+    - Knowledge valid.
+    - Placement valid.
+  - Bei Fehler:
+    - Fehler im Wizard anzeigen.
+    - keine Projektdateien committen.
+  - Umsetzung:
+    - `functionalmlds_adapter.py` definiert `ANALYZE_VALIDATION_ARTIFACTS` fuer:
+      - `mlds_ingestion_validation.json`
+      - `scene_semantics_validation.json`
+      - `agent_roles_validation.json`
+      - `knowledge_synthesis_validation.json`
+      - `agent_placement_validation.json`
+      - `functionalmlds_invariant_validation.json`
+      - `handoff_derivation_validation.json`
+      - `functionalmlds_invariants_validation.json`
+    - `validate_analyze_case(case_dir)` prueft alle Analyze-Artefakte auf Existenz und JSON-Parsebarkeit.
+    - `validate_analyze_case(case_dir)` prueft alle Analyze-Reports auf `status=valid` und sammelt Fehler/Warnungen.
+    - `summarize_analyze_validation(...)` erzeugt eine Unity-kompatible `validation_summary` mit Gesamtstatus, Teilstatus, Fehlerzahl, Warnungszahl, Fehlerliste und Warnungsliste.
+    - `state.py` fuehrt im FunctionalMLDS-Modus die Analyze-Stages ueber den Adapter aus und baut daraus einen Preview-Draft.
+    - Der Preview-Draft enthaelt Agenten, Wissen, Placement, FunctionalMLDS-Pfad und alle Summary-Bloecke fuer die Unity-Anzeige.
+    - Bei Stage- oder Validierungsfehlern bleibt der Draft sichtbar, `validation_summary.status=invalid`, und es wird kein Runtime-Projekt geschrieben.
+    - `ArrowProjectWizard.cs` zeigt Fehler- und Warnungsdetails aus `validation_summary.errors` und `validation_summary.warnings` an.
+  - Abgeschlossene Zwischenpruefungen:
+    - `python -m py_compile` fuer `backend/state.py` und `backend/functionalmlds_adapter.py`.
+    - `git diff --check` fuer Backend-Adapter, Backend-State und Unity-Wizard; nur bestehende LF/CRLF-Warnungen in Unterrepos.
+    - Adapter-Gate auf vollstaendigem `classroom_dinosaur`-Case:
+      - `status=valid`
+      - `artifact_count=11`
+      - `valid_artifact_count=11`
+      - `validation_count=8`
+      - `valid_validation_count=8`
+    - Adapter-Gate auf temporaer unvollstaendigem Case:
+      - `status=invalid`
+      - fehlende Artefakte werden erkannt
+      - invalides/missing Validation-Reporting wird erkannt
+    - Stub-Test fuer FunctionalMLDS-Analyze ohne LLM/API:
+      - `generation_mode=functionalmlds`
+      - `validation_status=valid`
+      - Agenten und Wissenseintraege werden aus Pipeline-Artefakten in den Draft uebernommen
+      - FunctionalMLDS-Pfad existiert
+      - kein Backend-Runtime-Projekt wird geschrieben
+    - Fehlerpfad-Stub ohne LLM/API:
+      - synthetischer Stage-Fehler landet in `validation_summary.errors`
+      - `validation_status=invalid`
+      - kein Backend-Runtime-Projekt wird geschrieben
+
+- [x] Commit-Validierung implementieren.
+  - Pruefen:
+    - FunctionalMLDS schema valid.
+    - FunctionalMLDS invariants valid.
+    - Project materialization valid.
+    - Traceability metrics valid.
+    - Handoff metrics valid.
+  - Bei Fehler:
+    - Projekt nicht als final markieren.
+    - Wizard zeigt reparierbare Fehler an.
+    - betroffene Stage darf erneut laufen.
+  - Umsetzung:
+    - `functionalmlds_adapter.py` definiert `COMMIT_VALIDATION_ARTIFACTS` fuer Analyze-Validierungen plus:
+      - `project_materialization_validation.json`
+      - `schema_validation.json`
+      - `traceability_metrics.json`
+      - `handoff_metrics.json`
+    - `validate_commit_case(case_dir)` prueft alle erforderlichen Commit-Artefakte, Backend-Runtime-Dateien und Validierungsreports.
+    - `summarize_commit_validation(...)` erzeugt eine Unity-kompatible `validation_summary` mit:
+      - Schema-/Semantikstatus
+      - Invariantenstatus
+      - Materialisierungsstatus
+      - Traceability-Status und `traceability_average_coverage`
+      - Handoff-Status und `handoff_decision_accuracy`
+      - Fehler-/Warnungslisten
+    - `state.py` committet FunctionalMLDS-Projekte jetzt ueber deterministische Commit-Stages:
+      - `functionalmlds_invariants`
+      - `project_materialization`
+      - `schema_validation`
+      - `traceability_metrics`
+      - `handoff_metrics`
+    - `state.py` blockiert stale Drafts mit `status=needs_regeneration`, statt sie final zu materialisieren.
+    - `state.py` gibt bei reparierbaren Fehlern `status=needs_repair` mit Validierungsdetails zurueck.
+    - `ArrowProjectWizard.cs` zeigt nicht-finale Commits als `Commit nicht final: <status>` und blendet Fehler-/Warnungsdetails in der Commit-Evidenz ein.
+    - `stage_completion` bleibt Forschung-/Paper-Evidenz und wurde aus dem minimalen Wizard-Commit-Gate herausgenommen, weil diese Stufe spaetere Chat-/Evaluation-Artefakte erwartet.
+  - Abgeschlossene Zwischenpruefungen:
+    - `python -m py_compile` fuer `backend/state.py` und `backend/functionalmlds_adapter.py`.
+    - `git diff --check` fuer Backend-State, Backend-Adapter und Unity-Wizard; nur bestehende LF/CRLF-Warnungen in Unterrepos.
+    - Commit-Gate auf vollstaendigem `classroom_dinosaur`-Case:
+      - `status=valid`
+      - `schema_status=valid`
+      - `invariant_status=valid`
+      - `materialization_status=valid`
+      - `traceability_status=valid`
+      - `handoff_status=valid`
+      - `traceability_average_coverage=0.847222`
+      - `handoff_decision_accuracy=1.0`
+    - FunctionalMLDS-Commit-Smoke ohne LLM/API mit temporaerer Case-ID:
+      - `commit_status=ok`
+      - `validation_status=valid`
+      - `project.json` und `trace_map.json` erzeugt
+      - FunctionalMLDS-Pfad existiert
+      - 4 Agent-Placements in Response
+    - Stale-Commit-Smoke ohne LLM/API:
+      - `commit_status=needs_regeneration`
+      - `validation_status=invalid`
+      - Regeneration-/nicht-final-Fehler wird in `validation_summary.errors` gemeldet
+      - kein Backend-Runtime-Projekt wird geschrieben
+
+- [x] Deterministische Reparaturen zuerst nutzen.
+  - Beispiele:
+    - fehlende Knowledge-Dateien werden aus `intermediate/knowledge.generated.json` ohne LLM neu materialisiert.
+    - vorhandene valide LLM-Artefakte fuer `scene_semantics`, `agent_roles` und `knowledge_synthesis` werden wiederverwendet, statt neu generiert zu werden.
+    - deterministische Folge-Stages werden bei fehlenden Outputs erneut deterministisch ausgefuehrt, bevor eine Reparatur eskaliert.
+    - Manifest-Metadaten markieren wiederhergestellte Stages mit `recovered_without_rerun`, `recovered_without_llm`, `llm_used=false` und `attempts_used=0`.
+  - Implementierung:
+    - `functionalmlds_adapter.py` enthaelt `DETERMINISTIC_FIRST_STAGE_SPECS`.
+    - `run_stage_deterministic_first(...)` versucht zuerst deterministische Wiederherstellung und schreibt danach den Repair-Log.
+    - Analyze- und Commit-Pfade in `state.py` nutzen jetzt `run_stage_deterministic_first(...)`.
+    - `repair_log.py` schreibt fuer jede relevante Reparatur-/Generierungszeile explizit `llm_used`.
+  - LLM-Reparatur bleibt auf semantische LLM-Stages begrenzt; bereits valide Artefakte loesen keinen API-Aufruf aus.
+  - Abgeschlossene Zwischenpruefungen:
+    - Knowledge-Reparatur-Smoke ohne API/LLM:
+      - `status=success`
+      - `deterministic_recovery=True`
+      - `llm_used=False`
+      - `repair_log.llm_used=False`
+      - 8 KB-Textdateien neu materialisiert
+    - Semantik-Reuse-Smoke ohne API/LLM:
+      - `status=success`
+      - `deterministic_recovery=True`
+      - `llm_used=False`
+      - `repair_log.llm_used=False`
+
+## 11. Runtime-Integration testen
+
+- [x] Backend-Setup aus Wizard-Projekt testen.
+  - Request:
+    - `POST /setup`
+    - Payload: `{"project_id": "<project_id>", "memory_mode": "..."}`
+  - Erwartung:
+    - `session_id` vorhanden.
+    - Agentenzahl stimmt.
+    - Agenten haben Position und Forward-Vektor.
+  - Getestetes Projekt:
+    - `project_id=classroom_dinosaur`
+    - Projekt ist FunctionalMLDS-basiert:
+      - `functionalmlds_trace_path` zeigt auf existierende FunctionalMLDS-Instanz.
+      - `trace_map.json` hat `schema=functionalmlds_trace_map`.
+      - alle 4 Runtime-Agenten haben `functionalmlds_agent_ref`.
+  - Abgeschlossene Zwischenpruefung:
+    - HTTP-Smoke gegen `POST /setup` mit Payload `{"project_id":"classroom_dinosaur","memory_mode":"shared_history"}`.
+    - `session_id_present=true`.
+    - `memory_mode=shared_history`.
+    - `agent_count=4`.
+    - `expected_agent_count=4`.
+    - `agents_with_position=4`.
+    - `agents_with_forward=4`.
+    - erster Agent:
+      - `id=teacher_agent`
+      - `position={x:0.996,y:0.0,z:-0.287}`
+      - `forward={x:-0.479,y:0.0,z:-0.8778}`
+
+- [x] Unity-Setup testen.
+  - `QuickAgentManager`:
+    - Projektliste laden.
+    - neues FunctionalMLDS-Projekt auswaehlen.
+    - Setup erneut vom Server.
+  - Erwartung:
+    - Agenten spawnen.
+    - Chat funktioniert.
+    - Handoff funktioniert.
+  - Zwischenstand:
+    - `QuickAgentManager`-Codepfad geprueft:
+      - Projektmodus nutzt `GET /projects`.
+      - ausgewaehltes Projekt wird als `project_id` an `POST /setup` uebergeben.
+      - erfolgreiche Setup-Antwort setzt `sessionId`, `memoryMode`, `lastAgents`.
+      - Spawn erfolgt unmittelbar danach ueber `SpawnAgents(lastAgents)`.
+    - Editor-Smoke-Hook ergaenzt:
+      - `Assets/InteractiveAgents/Editor/QuickAgentManagerFunctionalMldsSmoke.cs`
+      - prueft `GET /projects`, `POST /setup` und ruft die echte private `QuickAgentManager.SpawnAgents(...)`-Logik auf.
+      - optionaler Chat-Smoke per `FUNCTIONALMLDS_CHAT_SMOKE=1`:
+        - ruft `POST /chat` ueber UnityWebRequest auf.
+        - parsed `QuickAgentManager.ChatResponse`.
+        - ruft `QuickAgentManager.AppendChatEvents(...)` auf.
+        - prueft, dass das Unity-Chatlog aktualisiert wird und die Antwort sichtbar raumbezogen ist.
+    - Batchmode-Versuch auf Originalprojekt:
+      - erster Versuch war blockiert, weil `InteractivAgents/InteractiveAgents2` bereits in einer Unity-Instanz offen war.
+      - nach Schliessen der Unity-Instanz erfolgreich auf dem Originalprojekt ausgefuehrt.
+      - Unity-Version: `6000.4.5f1`.
+      - Methode: `QuickAgentManagerFunctionalMldsSmoke.Run`.
+      - Backend war bereits erreichbar; kein zusaetzlicher Backend-Prozess noetig.
+      - Log: `%TEMP%/functionalmlds_unity_setup_smoke_original.log`.
+      - Ergebnis:
+        - `unity_exit_code=0`.
+        - `FunctionalMLDSUnitySmoke OK`.
+        - `project_id=classroom_dinosaur`.
+        - `session_id_present=True`.
+        - `spawned_agents=4`.
+        - `expected_agents=4`.
+    - Batchmode-Versuch auf temporaerer Projektkopie:
+      - Kopie unter `output/unity_smoke/InteractiveAgents2_smoke` angelegt.
+      - Unity 6000.4.5f1 gestartet.
+      - erster Lauf scheiterte am lokalen PackageCache fuer `com.unity.ai.assistant`.
+      - PackageCache aus dem offenen Originalprojekt in die temporaere Kopie uebernommen.
+      - zweiter Lauf kam bis zur Script-Compilation.
+      - Reflection-Parameterfehler im Smoke-Hook korrigiert.
+    - Abgeschlossene Zwischenpruefung:
+      - Unity-Batchmode-Smoke auf temporaerer Projektkopie erfolgreich.
+      - Unity-Version: `6000.4.5f1`.
+      - Methode: `QuickAgentManagerFunctionalMldsSmoke.Run`.
+      - Backend war bereits erreichbar; kein zusaetzlicher Backend-Prozess noetig.
+      - Log: `%TEMP%/functionalmlds_unity_setup_smoke_copy_fifth.log`.
+      - Ergebnis:
+        - `unity_exit_code=0`.
+        - `FunctionalMLDSUnitySmoke OK`.
+        - `project_id=classroom_dinosaur`.
+        - `session_id_present=True`.
+        - `spawned_agents=4`.
+        - `expected_agents=4`.
+    - Chat-Zwischenpruefung:
+      - Originalprojekt mit `FUNCTIONALMLDS_CHAT_SMOKE=1` gestartet.
+      - Setup-/Spawn-Teil blieb erfolgreich:
+        - `project_id=classroom_dinosaur`.
+        - `session_id_present=True`.
+        - `spawned_agents=4`.
+        - `expected_agents=4`.
+      - Chat-Transport erreichte `POST /chat`, aber Backend konnte OpenAI nicht erreichen:
+        - Unity-Log: `%TEMP%/functionalmlds_unity_chat_smoke_original.log`.
+        - Backend-Antwort: `[Backend] OpenAI Fehler: OpenAI connection error ... WinError 10060`.
+        - Netzwerk-Gegencheck:
+          - `Test-NetConnection api.openai.com -Port 443` lief in Timeout.
+          - `Invoke-WebRequest https://api.openai.com/v1/models` lief in Timeout.
+      - Bewertung:
+        - Unity-/Backend-Chatpfad ist bis zum Backend erreichbar.
+        - semantischer Raumwissens-Chat ist noch nicht bestanden, weil der externe OpenAI-Aufruf nicht erreichbar war.
+    - Backend-Fallback fuer wissenschaftliche Runtime-Smokes ergaenzt:
+      - Bei `OpenAIHTTPError` erzeugt `/chat` eine klar markierte Offline-Antwort aus FunctionalMLDS-/Projekt-KB-Artefakten.
+      - Handoff wird dann deterministisch ueber Agenten-Expertise, Knowledge-Tags, verantwortliche Zonen, geerdete Objekte und deklarierte `handoff_targets` entschieden.
+      - Der normale OpenAI-Pfad bleibt unveraendert bevorzugt; der Fallback greift nur bei OpenAI-Fehlern.
+    - Abgeschlossene Chat-/Handoff-Zwischenpruefung:
+      - Fake-Backend auf `http://127.0.0.1:8791` mit absichtlich fehlschlagendem OpenAI-Client gestartet.
+      - HTTP-Smoke:
+        - `agent_count=4`.
+        - Raumfrage erzeugt `room_events=1`.
+        - Raumantwort enthaelt nachweisbar `chalkboard`/`desk` aus Projekt-KB.
+        - Handoff-Frage an `teacher_agent` erzeugt `handoff_to=exhibit_interpreter`.
+        - Handoff-Antwort erzeugt `handoff_events=2`.
+        - Zielantwort enthaelt nachweisbar Dinosaurier-Ausstellungswissen.
+      - Unity-Batchmode-Smoke auf Originalprojekt:
+        - Unity-Version: `6000.4.5f1`.
+        - Backend: `FUNCTIONALMLDS_BACKEND_URL=http://127.0.0.1:8791`.
+        - `FUNCTIONALMLDS_CHAT_SMOKE=1`.
+        - Log: `%TEMP%/functionalmlds_unity_chat_handoff_smoke_original.log`.
+        - Ergebnis:
+          - `FunctionalMLDSUnitySmoke OK`.
+          - `project_id=classroom_dinosaur`.
+          - `session_id_present=True`.
+          - `spawned_agents=4`.
+          - `expected_agents=4`.
+          - `chat_events=3`.
+          - `chat_log_entries=3`.
+          - `active_agent=teacher_agent`.
+          - `handoff_to=exhibit_interpreter`.
+      - Testbackend auf Port `8791` nach der Pruefung gestoppt.
+
+- [x] Raumwissen im Chat testen.
+  - Beispiel-Fragen:
+    - "Welche Objekte gibt es in diesem Raum?"
+    - "Was befindet sich in der Zone X?"
+    - "Wer kann mir Objektgruppe Y erklaeren?"
+    - "Welche Interaktionen sind hier moeglich?"
+  - Erwartung:
+    - Antwort ist durch MLDS-/Knowledge-Informationen begruendet.
+    - Kein Agent halluziniert Raumobjekte, die nicht im MLDS vorkommen.
+  - Abgeschlossene Zwischenpruefung:
+    - Frage: "Welche Ausstattung gibt es im Unterrichtsbereich?"
+    - Antwort wurde ueber `/chat` und den Unity-Smoke aus Projekt-KB/FunctionalMLDS-Fallback erzeugt.
+    - Gepruefte Evidenz: Antwort enthaelt `chalkboard`/`desk` aus `projects/classroom_dinosaur/kb`.
+
+- [x] Handoff im Chat testen.
+  - Beispiel:
+    - Frage absichtlich beim falschen Agenten stellen.
+  - Erwartung:
+    - Agent erkennt besseren Zielagenten.
+    - `handoff`-Event tritt auf.
+    - Zielagent beantwortet.
+    - Runtime-Log referenziert FunctionalMLDS RuntimeAction.
+  - Abgeschlossene Zwischenpruefung:
+    - Frage absichtlich an `teacher_agent`: "Was kannst du mir ueber das Dinosaurierskelett sagen?"
+    - Ergebnis: `handoff_to=exhibit_interpreter`.
+    - Zielagent beantwortet mit Dinosaurier-/Ausstellungswissen aus dem Projekt-KB.
+    - Runtime-Trace-Pfad ist ueber `trace_map.json` mit `RA-CLASSROOM_DINOSAUR-BACKEND-CHAT-HANDOFF` verbunden.
+
+## 12. Automatisierte Tests
+
+- [x] Python-Unit-/Smoke-Tests fuer Backend-Adapter.
+  - Test:
+    - MLDS payload -> FunctionalMLDS case dir.
+    - case dir -> materialisiertes Project.
+    - materialisiertes Project -> valid reports.
+  - Zwischenpruefung:
+    - keine echten LLM-Aufrufe, wenn bestehende Artefakte wiederverwendet werden.
+  - Implementiert:
+    - `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/tests/test_functionalmlds_adapter_smoke.py`.
+    - Nutzt `classroom_dinosaur` als bestehende valide Fixture.
+    - Initialisiert aus `source_mlds.json` ein temporaeres Wizard-Case-Verzeichnis.
+    - Kopiert bestehende validierte Analyze-/Commit-Artefakte in das temporaere Case-Verzeichnis.
+    - Prueft deterministische Recovery fuer:
+      - `scene_semantics`.
+      - `agent_roles`.
+      - `knowledge_synthesis`.
+      - `functionalmlds_invariants`.
+      - `project_materialization`.
+      - `schema_validation`.
+      - `traceability_metrics`.
+      - `handoff_metrics`.
+    - Prueft fuer alle Recovery-Stages:
+      - `deterministic_recovery=True`.
+      - `llm_used=False`.
+      - `attempts_used=0`.
+    - Prueft Analyze-Summary:
+      - `schema_status=valid`.
+      - `invariant_status=valid`.
+      - `handoff_status=valid`.
+    - Prueft Commit-Summary:
+      - `schema_status=valid`.
+      - `invariant_status=valid`.
+      - `materialization_status=valid`.
+      - `traceability_status=valid`.
+      - `handoff_status=valid`.
+      - `traceability_average_coverage >= 0.8`.
+      - `handoff_decision_accuracy=1.0`.
+    - Prueft FunctionalMLDS-Instanz:
+      - `schema=functionalmlds_case_study`.
+      - `caseId=classroom_dinosaur`.
+      - Requirements/UseCases, RuntimeBindings und ValidationCases vorhanden.
+    - Prueft materialisiertes Backend-Projekt:
+      - `project.json`.
+      - `room_plan.json`.
+      - `agents.json`.
+      - `trace_map.json`.
+      - materialisierte KB-Textdateien.
+  - Ausgefuehrte Zwischenpruefung:
+    - Befehl: `PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_functionalmlds_adapter_smoke -v`.
+    - Ergebnis: `Ran 1 test ... OK`.
+
+- [x] Backend-Endpoint-Smoke-Tests.
+  - Tests:
+    - Legacy analyze bleibt funktionsfaehig.
+    - FunctionalMLDS analyze erzeugt Draft mit Summary.
+    - FunctionalMLDS commit erzeugt Projekt mit `trace_map.json`.
+    - `GET /projects` listet FunctionalMLDS-Projekt.
+    - `POST /setup` funktioniert mit Projekt-ID.
+  - Implementiert:
+    - `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/tests/test_backend_endpoints_smoke.py`.
+    - Startet den echten Backend-HTTP-Server auf einem freien lokalen Port.
+    - Nutzt einen Fake-OpenAI-Client nur fuer den Legacy-Draft, damit keine API-Tokens verbraucht werden.
+    - Isoliert Projektdateien in einem temporaeren Backend-Root.
+    - Lenkt FunctionalMLDS im Test auf eine temporaere Kopie des validierten `classroom_dinosaur`-Cases.
+  - Ausgefuehrte Zwischenpruefung:
+    - Befehl: `PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_backend_endpoints_smoke -v`.
+    - Ergebnis: `Ran 1 test ... OK`.
+    - Geprueft:
+      - Legacy `POST /projects/arrow/analyze` liefert `generation_mode=legacy`.
+      - Legacy `POST /projects/arrow/commit` erzeugt `endpoint_legacy_smoke/project.json`.
+      - FunctionalMLDS `POST /projects/arrow/analyze` liefert validen Draft mit `functionalmlds_summary.case_id=classroom_dinosaur`.
+      - FunctionalMLDS `POST /projects/arrow/commit` erzeugt Projektstatus `ok`, Validierungsstatus `valid` und `trace_map.json`.
+      - `GET /projects` listet Legacy- und FunctionalMLDS-Projekt.
+      - `POST /setup` mit `project_id=classroom_dinosaur` liefert 4 Agenten mit Position und Forward-Vektor.
+
+- [x] Unity-Compile pruefen.
+  - Pruefen:
+    - `ArrowProjectWizard.cs` kompiliert.
+    - keine neuen Package-Abhaengigkeiten.
+    - UI laesst sich oeffnen.
+  - Ausgefuehrte Zwischenpruefungen:
+    - Unity-Batchmode-Compile auf Originalprojekt:
+      - Unity-Version: `6000.4.5f1`.
+      - Projekt: `InteractivAgents/InteractiveAgents2`.
+      - Log: `%TEMP%/functionalmlds_unity_compile_20260709_152657.log`.
+      - Ergebnis:
+        - `unity_exit_code=0`.
+        - keine Treffer fuer `error CS`, `Compiler errors`, `Compilation failed` oder `Aborting batchmode due to failure`.
+        - Log-Ende: `Exiting batchmode successfully now!`.
+    - Wizard-Oeffnung per Batchmode-ExecuteMethod:
+      - Methode: `ArrowProjectWizard.ShowWindow`.
+      - Log: `%TEMP%/functionalmlds_unity_wizard_open_20260709_152836.log`.
+      - Ergebnis:
+        - `unity_exit_code=0`.
+        - kein ExecuteMethod-Fehler.
+        - keine Compiler-/Exception-Treffer.
+    - Statische UI-Pruefung:
+      - `ArrowProjectWizard` ist weiterhin ein `EditorWindow`.
+      - Menueintrag vorhanden: `Tools/MLDSI Project Wizard`.
+      - `ShowWindow()` ruft `GetWindow<ArrowProjectWizard>("MLDSI Project Wizard")`.
+      - Modusauswahl zeigt `Legacy Interactive Agents` und `FunctionalMLDS`.
+    - Package-Pruefung:
+      - `Packages/manifest.json` und `Packages/packages-lock.json` zeigen keine Diff-Aenderungen durch den Wizard-Umbau.
+
+- [x] Regression fuer Legacy-Modus.
+  - Gleiche MLDS wie vorher verwenden.
+  - Legacy commit erzeugt weiterhin nur normales Projekt.
+  - Keine FunctionalMLDS-Pflicht im Legacy-Modus.
+  - Implementiert/erweitert:
+    - `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/tests/test_backend_endpoints_smoke.py`.
+    - Der Endpoint-Smoke nutzt dieselbe `classroom_dinosaur`-MLDS wie der FunctionalMLDS-Pfad.
+    - Legacy-Analyze wird ohne `generation_mode`, `run_validation`, `max_repair_attempts` oder `project_id_hint` aufgerufen.
+  - Ausgefuehrte Zwischenpruefung:
+    - Befehl: `PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_backend_endpoints_smoke -v`.
+    - Ergebnis: `Ran 1 test ... OK`.
+    - Geprueft:
+      - Legacy-Draft liefert `generation_mode=legacy`.
+      - Legacy-Draft enthaelt keine `functionalmlds_summary`, keinen `functionalmlds_path` und keinen `trace_map_path`.
+      - Legacy-Commit erzeugt `project.json`, `room_plan.json`, `agents.json` und `kb/...`.
+      - Legacy-Commit erzeugt keine `trace_map.json`.
+      - Legacy-Commit erzeugt kein `functionalmlds/`-Verzeichnis.
+      - Legacy-Commit-Response enthaelt keine FunctionalMLDS-Pfade und keine FunctionalMLDS-Validation-Summary.
+      - Der FunctionalMLDS-Adapter wird im Legacy-Pfad nicht aufgerufen (`discover_mock.call_count=0` bis nach Legacy-Commit).
+
+## 13. Dokumentation
+
+- [x] Nutzerablauf im Projekt dokumentieren.
+  - Wo Wizard oeffnen.
+  - Welchen Modus waehlen.
+  - Wie MLDS laden.
+  - Was Analyze tut.
+  - Was Commit tut.
+  - Wie Projekt in `QuickAgentManager` gestartet wird.
+  - Dokument angelegt:
+    - `output/metamodel/mlds_project_wizard_user_workflow.md`.
+  - Dokumentierte Inhalte:
+    - Zweck und Voraussetzungen.
+    - Wizard oeffnen ueber `Tools/MLDSI Project Wizard`.
+    - Moduswahl `Legacy Interactive Agents` vs. `FunctionalMLDS`.
+    - MLDS/MLDSI per Drag-and-drop laden.
+    - Analyze-Ablauf und Request-Unterschiede zwischen Legacy und FunctionalMLDS.
+    - optionaler Wizard-Chat und FunctionalMLDS-Refinement-Verhalten.
+    - Commit-Ablauf und erzeugte Artefakte beider Modi.
+    - FunctionalMLDS-Commit-Evidenz im Wizard.
+    - Start des committeten Projekts im `QuickAgentManager` ueber `Projektliste laden` und `Setup erneut vom Server`.
+    - Kriterien, woran erkennbar ist, dass tatsaechlich FunctionalMLDS und nicht nur Agentenspawn getestet wird.
+  - Zwischenpruefung:
+    - Doku enthaelt alle geforderten Abschnitte: Wizard oeffnen, Modus waehlen, MLDS laden, Analyze, Commit, QuickAgentManager-Start.
+    - `git diff --check` fuer die neue Nutzerablauf-Doku erfolgreich.
+    - Neue Nutzerablauf-Doku enthaelt keine nicht-ASCII-Zeichen.
+
+- [x] Wissenschaftliche Einordnung dokumentieren.
+  - Legacy Wizard:
+    - MLDS -> Interactive-Agents-Projekt.
+  - FunctionalMLDS Wizard:
+    - MLDS -> FunctionalMLDS -> validiertes Interactive-Agents-Projekt.
+  - Welche Artefakte belegen die Metamodell-Abbildung.
+  - Welche Artefakte belegen Runtime-Funktion.
+  - Dokument angelegt:
+    - `output/metamodel/mlds_project_wizard_scientific_framing.md`.
+  - Dokumentierte Inhalte:
+    - Baseline A als direkter Legacy-Wizard-Fluss `MLDS/MLDSI -> Interactive-Agents-Projekt`.
+    - Treatment B als FunctionalMLDS-Wizard-Fluss `MLDS/MLDSI -> FunctionalMLDS -> validiertes Interactive-Agents-Projekt`.
+    - Evidenzartefakte fuer die Metamodell-Abbildung:
+      - `functionalmlds.instance.generated.json`.
+      - `schema_validation.json`.
+      - `functionalmlds_invariants_validation.json`.
+      - `stage_manifest.json`.
+      - `traceability_metrics.json`.
+      - `handoff_metrics.json`.
+    - Evidenzartefakte fuer Runtime-Funktion:
+      - materialisiertes Backend-Projekt mit `project.json`, `room_plan.json`, `agents.json`, `kb/...`.
+      - `trace_map.json`.
+      - Setup-/Chat-/Handoff-Runtime-Logs und Smoke-Tests.
+    - Forschungsfragen RQ1 bis RQ3 und vorsichtig formulierte, verteidigbare Kernaussage fuer ein Paper.
+    - Paper-relevante Artefaktliste.
+  - Zwischenpruefung:
+    - Doku enthaelt explizite Abschnitte fuer Baseline A, Treatment B, Metamodell-Evidenz, Runtime-Evidenz und Paper-Artefakte.
+    - `git diff --check` fuer die neue Einordnungs-Doku erfolgreich.
+    - Neue Einordnungs-Doku enthaelt keine nicht-ASCII-Zeichen.
+
+- [x] Grenzen dokumentieren.
+  - Unity importiert nicht automatisch vollstaendige 3D-Geometrie aus FunctionalMLDS.
+  - FunctionalMLDS steuert Agenten-/Wissens-/Trace-Struktur.
+  - Raumgeometrie bleibt MLDS/room_plan.
+  - Dokument angelegt:
+    - `output/metamodel/mlds_project_wizard_boundaries.md`.
+  - Dokumentierte Grenzen:
+    - FunctionalMLDS erzeugt aktuell keine neue Unity-Geometrie und importiert keine vollstaendigen 3D-Assets.
+    - Der Materializer uebernimmt die MLDS/MLDSI-Quelle als `room_plan.json`.
+    - FunctionalMLDS strukturiert Raumdaten semantisch, ersetzt aber nicht das Raumformat.
+    - FunctionalMLDS steuert Requirements, UseCases, Scenarios, Agenten, Wissen, Handoffs, RuntimeBindings, ValidationCases und Traceability.
+    - Rendering, Mesh-Erzeugung, Licht, Materialien und beliebige Maschineninteraktionslogik bleiben ausserhalb des aktuellen Wizard-Scopes.
+    - Die Runtime bleibt Interactive Agents; FunctionalMLDS ist Struktur-, Trace- und Validierungsschicht.
+    - Wizard-Chat im FunctionalMLDS-Modus erzeugt vorgemerkte Refinement Requests, keinen sofortigen validen Modell-Patch.
+    - Aktuelle Case Study stuetzt keine allgemeine Gueltigkeitsaussage fuer alle Domaenen oder industriellen Toolchains.
+  - Zwischenpruefung:
+    - Codebasis geprueft: `project_materializer.py` schreibt `room_plan.json` durch Kopie der Source-MLDS und erzeugt Agenten/KB/TraceMap, aber keine Unity-Meshes.
+    - Doku enthaelt explizite Abschnitte fuer 3D-Geometrie-Grenze, MLDS/room_plan-Raumgeometrie und FunctionalMLDS-Strukturverantwortung.
+    - `git diff --check` fuer die neue Grenzen-Doku erfolgreich.
+    - Neue Grenzen-Doku enthaelt keine nicht-ASCII-Zeichen.
+
+## 14. Definition of Done
+
+Der Umbau gilt als abgeschlossen, wenn:
+
+- [x] Wizard bietet sichtbar beide Modi an.
+  - Nachweise:
+    - `ArrowProjectWizard.cs` definiert `GenerationModeLabels` mit `Legacy Interactive Agents` und `FunctionalMLDS`.
+    - `ArrowProjectWizard.cs` rendert die Modusauswahl ueber `GUILayout.Toolbar(...)`.
+    - Menueintrag vorhanden: `Tools/MLDSI Project Wizard`.
+    - `ShowWindow()` ruft `GetWindow<ArrowProjectWizard>("MLDSI Project Wizard")`.
+    - Unity-Batchmode-Compile erfolgreich: `%TEMP%/functionalmlds_unity_compile_20260709_152657.log`, Exitcode `0`.
+    - Unity-Batchmode-ExecuteMethod erfolgreich: `ArrowProjectWizard.ShowWindow`, `%TEMP%/functionalmlds_unity_wizard_open_20260709_152836.log`, Exitcode `0`.
+    - Audit-Eintrag angelegt: `output/metamodel/mlds_project_wizard_definition_of_done_audit.md`.
+- [x] Legacy-Modus funktioniert unveraendert.
+  - Nachweise:
+    - Automatisierter Endpoint-Smoke: `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/tests/test_backend_endpoints_smoke.py`.
+    - Befehl erneut ausgefuehrt: `PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_backend_endpoints_smoke -v`.
+    - Ergebnis: `Ran 1 test ... OK`.
+    - Legacy-Analyze laeuft ohne FunctionalMLDS-spezifische Optionen und liefert `generation_mode=legacy`.
+    - Legacy-Draft enthaelt keine `functionalmlds_summary`, keinen `functionalmlds_path` und keinen `trace_map_path`.
+    - Legacy-Commit erzeugt `project.json`, `room_plan.json`, `agents.json` und `kb/...`.
+    - Legacy-Commit erzeugt keine `trace_map.json` und kein `functionalmlds/`-Verzeichnis.
+    - FunctionalMLDS-Adapter wird im Legacy-Pfad nicht aufgerufen.
+    - Audit-Eintrag ergaenzt: `output/metamodel/mlds_project_wizard_definition_of_done_audit.md`.
+- [x] FunctionalMLDS-Modus analysiert eine MLDS-Datei und zeigt Agenten, Knowledge, Handoff- und FunctionalMLDS-Summary an.
+  - Nachweise:
+    - Automatisierter Endpoint-Smoke erweitert: `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/tests/test_backend_endpoints_smoke.py`.
+    - Befehl ausgefuehrt: `PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_backend_endpoints_smoke -v`.
+    - Ergebnis: `Ran 1 test ... OK`.
+    - FunctionalMLDS-Analyze nutzt `generation_mode=functionalmlds`, `project_id_hint=classroom_dinosaur`, `run_validation=true` und `max_repair_attempts=0`.
+    - Draft enthaelt `generation_mode=functionalmlds`, `validation_summary.status=valid`, `functionalmlds_summary.case_id=classroom_dinosaur` und einen `functionalmlds_path`.
+    - Draft enthaelt 4 Agenten und mindestens 8 Knowledge-Eintraege.
+    - Draft-Summaries enthalten RuntimeBindings, ValidationCases, ScenarioSteps, RuntimeActions, Handoff-Paare, Raumobjekte und Knowledge-Dateien.
+    - `ArrowProjectWizard.cs` rendert FunctionalMLDS-Draftdaten in den UI-Abschnitten `Metamodell-Artefakte`, `Validierung`, `Use Case / Szenario`, `Capabilities / Runtime`, `Handoff / Spezialwissen` und `Raumwissen / Grounding`.
+    - Audit-Eintrag ergaenzt: `output/metamodel/mlds_project_wizard_definition_of_done_audit.md`.
+- [x] FunctionalMLDS-Modus committet ein Projekt mit:
+  - `project.json`
+  - `room_plan.json`
+  - `agents.json`
+  - `kb/...`
+  - `trace_map.json`
+  - `functionalmlds.instance.generated.json`
+  - Validierungsreports.
+  - Nachweise:
+    - Automatisierter Endpoint-Smoke erweitert: `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/tests/test_backend_endpoints_smoke.py`.
+    - Befehl ausgefuehrt: `PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_backend_endpoints_smoke -v`.
+    - Ergebnis: `Ran 1 test ... OK`.
+    - FunctionalMLDS-Commit liefert `status=ok`, `generation_mode=functionalmlds` und `validation_summary.status=valid`.
+    - Commit-Validation meldet `schema_status=valid`, `invariant_status=valid`, `materialization_status=valid`, `traceability_status=valid` und `handoff_status=valid`.
+    - Gepruefte Backend-Projektartefakte: `project.json`, `room_plan.json`, `agents.json`, `kb/...`, `trace_map.json`.
+    - `trace_map.json` hat `schema=functionalmlds_trace_map`.
+    - Gepruefte FunctionalMLDS-Instanz: `functionalmlds/functionalmlds.instance.generated.json` mit `schema=functionalmlds_case_study`.
+    - Gepruefte Validierungsreports: `schema_validation.json`, `functionalmlds_invariants_validation.json`, `project_materialization_validation.json`, `traceability_metrics.json`, `handoff_metrics.json`, jeweils `status=valid`.
+    - Audit-Eintrag ergaenzt: `output/metamodel/mlds_project_wizard_definition_of_done_audit.md`.
+- [x] Agenten koennen Fragen zum Raum und zu MLDS-Objekten beantworten.
+  - Nachweise:
+    - Automatisierter Endpoint-Smoke erweitert: `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/tests/test_backend_endpoints_smoke.py`.
+    - Befehl ausgefuehrt: `PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_backend_endpoints_smoke -v`.
+    - Ergebnis: `Ran 1 test ... OK`.
+    - Testablauf erzeugt zuerst per FunctionalMLDS-Analyze und FunctionalMLDS-Commit ein frisches Projekt `classroom_dinosaur`.
+    - Danach startet der Test das Runtime-Setup ueber `POST /setup` fuer dieses Projekt.
+    - Der Chat-Test fragt `teacher_agent`: `Welche Ausstattung gibt es im Unterrichtsbereich?`.
+    - Der Fake-OpenAI-Client erzwingt fuer `npc_action` den deterministischen Offline-Fallback, damit keine API-Tokens verbraucht werden.
+    - Gepruefte Antwort:
+      - enthaelt `functionalmlds-raumwissen`,
+      - nennt das MLDS-Objekt `chalkboard`,
+      - nennt die MLDS-Objektgruppe `student desks`,
+      - bleibt beim verantwortlichen `teacher_agent` ohne Handoff.
+    - Audit-Eintrag ergaenzt: `output/metamodel/mlds_project_wizard_definition_of_done_audit.md`.
+- [x] Agenten koennen Spezialwissen nutzen.
+  - Nachweise:
+    - Automatisierter Endpoint-Smoke erweitert: `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/tests/test_backend_endpoints_smoke.py`.
+    - Befehl ausgefuehrt: `PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_backend_endpoints_smoke -v`.
+    - Ergebnis: `Ran 1 test ... OK`.
+    - Testablauf nutzt dasselbe frisch erzeugte FunctionalMLDS-Projekt `classroom_dinosaur`.
+    - Der Chat-Test fragt `exhibit_interpreter`: `What is special about the dinosaur skeleton exhibit for paleontology?`.
+    - Der Fake-OpenAI-Client erzwingt fuer `npc_action` erneut den deterministischen Offline-Fallback, damit keine API-Tokens verbraucht werden.
+    - Gepruefte Antwort:
+      - bleibt beim spezialisierten `exhibit_interpreter`,
+      - erzeugt kein Handoff,
+      - enthaelt `functionalmlds-raumwissen`,
+      - nennt `dinosaur skeleton`,
+      - nennt `paleontology`.
+    - Damit ist nachgewiesen, dass agentenspezifische Knowledge-Tags und Spezialwissen aus dem FunctionalMLDS-Projekt zur Laufzeit genutzt werden.
+    - Audit-Eintrag ergaenzt: `output/metamodel/mlds_project_wizard_definition_of_done_audit.md`.
+- [x] Agenten koennen Handoffs an geeignetere Agenten ausloesen.
+  - Nachweise:
+    - Automatisierter Endpoint-Smoke erweitert: `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/tests/test_backend_endpoints_smoke.py`.
+    - Befehl ausgefuehrt: `PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_backend_endpoints_smoke -v`.
+    - Ergebnis: `Ran 1 test ... OK`.
+    - Testablauf nutzt dasselbe frisch erzeugte FunctionalMLDS-Projekt `classroom_dinosaur`.
+    - Ausgangsagent ist bewusst `teacher_agent`, obwohl die Frage fachlich zur Dinosaurierausstellung gehoert.
+    - Testfrage: `I need details about the dinosaur skeleton exhibit and paleontology.`
+    - Erwartete Handoff-Kante aus FunctionalMLDS/Handoff-Matrix: `teacher_agent -> exhibit_interpreter`.
+    - Gepruefte Runtime-Reaktion:
+      - `active_agent_id` wechselt zu `exhibit_interpreter`,
+      - `handoff.from=teacher_agent`,
+      - `handoff.to=exhibit_interpreter`,
+      - es entstehen mindestens zwei Chat-Events,
+      - die Antwort nennt `exhibit interpreter`,
+      - die Zielantwort enthaelt `dinosaur skeleton` und `paleontology`.
+    - Der Fake-OpenAI-Client erzwingt fuer `npc_action` den deterministischen Offline-Fallback, damit keine API-Tokens verbraucht werden.
+    - Audit-Eintrag ergaenzt: `output/metamodel/mlds_project_wizard_definition_of_done_audit.md`.
+- [x] FunctionalMLDS-Invarianten sind valid.
+  - Nachweise:
+    - Automatisierter Endpoint-Smoke erweitert: `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/tests/test_backend_endpoints_smoke.py`.
+    - Befehl ausgefuehrt: `PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_backend_endpoints_smoke -v`.
+    - Ergebnis: `Ran 1 test ... OK`.
+    - Testablauf nutzt dasselbe frisch erzeugte FunctionalMLDS-Projekt `classroom_dinosaur`.
+    - Commit-Response meldet `validation_summary.invariant_status=valid`.
+    - Gepruefter Report: `validation/functionalmlds_invariants_validation.json`.
+    - Gepruefte Report-Metriken:
+      - `invariant_count >= 8`,
+      - `passed_invariant_count == invariant_count`,
+      - `failed_invariant_count == 0`,
+      - `errors == []`.
+    - Jede einzelne Invariante im Report wird auf `status=valid` und `error_count=0` geprueft.
+    - Audit-Eintrag ergaenzt: `output/metamodel/mlds_project_wizard_definition_of_done_audit.md`.
+- [x] Traceability-Metriken sind vorhanden.
+  - Nachweise:
+    - Automatisierter Endpoint-Smoke erweitert: `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/tests/test_backend_endpoints_smoke.py`.
+    - Befehl ausgefuehrt: `PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_backend_endpoints_smoke -v`.
+    - Ergebnis: `Ran 1 test ... OK`.
+    - Testablauf nutzt dasselbe frisch erzeugte FunctionalMLDS-Projekt `classroom_dinosaur`.
+    - Commit-Response meldet `validation_summary.traceability_status=valid`.
+    - Gepruefter Report: `validation/traceability_metrics.json`.
+    - Gepruefte Report-Metriken:
+      - `metric_count >= 6`,
+      - `metric_count == len(traceability_metrics)`,
+      - `full_coverage_metric_count >= 4`,
+      - `average_coverage > 0.75`,
+      - `errors == []`.
+    - Gepruefte Metrikarten:
+      - `requirement_to_validation_coverage`,
+      - `scenario_step_to_capability_coverage`,
+      - `capability_to_runtime_binding_coverage`,
+      - `runtime_action_to_log_coverage`,
+      - `agent_to_knowledge_tag_coverage`,
+      - `object_group_to_agent_role_grounding`.
+    - Fuer jede Metrik wird geprueft: `denominator > 0`, `numerator >= 0`, `0.0 <= coverage <= 1.0`.
+    - Zentrale Metamodell-Bezuege werden auf volle Abdeckung geprueft:
+      - Requirements zu ValidationCases,
+      - Capabilities zu RuntimeBindings,
+      - Agenten zu Knowledge-Tags,
+      - Objektgruppen zu Agent-Role-Grounding.
+    - Runtime-Action-zu-Log-Coverage muss groesser als `0.0` sein.
+    - Audit-Eintrag ergaenzt: `output/metamodel/mlds_project_wizard_definition_of_done_audit.md`.
+- [x] Runtime-Setup funktioniert aus Unity.
+  - Nachweise:
+    - Unity-Editor-Smoke ausgefuehrt: `InteractivAgents/InteractiveAgents2/Assets/InteractiveAgents/Editor/QuickAgentManagerFunctionalMldsSmoke.cs`.
+    - Unity-Version: `6000.4.5f1`.
+    - ExecuteMethod: `QuickAgentManagerFunctionalMldsSmoke.Run`.
+    - Backend wurde fuer den Test temporaer auf einem freien lokalen Port gestartet.
+    - Environment fuer Unity:
+      - `FUNCTIONALMLDS_BACKEND_URL=http://127.0.0.1:<freier-port>`,
+      - `FUNCTIONALMLDS_PROJECT_ID=classroom_dinosaur`,
+      - `FUNCTIONALMLDS_CHAT_SMOKE=0`.
+    - Unity-Batchmode-Exitcode: `0`.
+    - Unity-Smoke-Log:
+      - `%TEMP%/functionalmlds_unity_setup_smoke_20260709_164100.log`.
+    - Backend-Testlogs:
+      - `%TEMP%/functionalmlds_unity_setup_backend_20260709_164100.out.log`,
+      - `%TEMP%/functionalmlds_unity_setup_backend_20260709_164100.err.log`.
+    - Gepruefte Unity-Smoke-Ausgabe:
+      - `project_id=classroom_dinosaur`,
+      - `session_id_present=True`,
+      - `spawned_agents=4`,
+      - `expected_agents=4`,
+      - Abschlusszeile `[FunctionalMLDSUnitySmoke] OK`.
+    - Der Smoke prueft innerhalb von Unity:
+      - `GET /projects` enthaelt `classroom_dinosaur`,
+      - `POST /setup` liefert eine `QuickAgentManager.SetupResponse`,
+      - `session_id` ist vorhanden,
+      - Agentenliste ist nicht leer,
+      - `QuickAgentManager` wird als GameObject-Komponente erzeugt,
+      - `lastAgents`, `sessionId`, `memoryMode`, Projektselektion und aktiver Agent werden gesetzt,
+      - `SpawnAgents` erzeugt fuer jeden Agenten ein GameObject,
+      - Spawn-Anzahl entspricht der Agentenzahl aus dem Backend.
+    - Chat/Handoff-Smoke blieb fuer diesen DoD-Punkt bewusst ausgeschaltet, damit Runtime-Setup ohne API-Verbrauch geprueft wird.
+    - Audit-Eintrag ergaenzt: `output/metamodel/mlds_project_wizard_definition_of_done_audit.md`.
+- [x] Mindestens fuenf Chat-Fragen funktionieren fuer ein frisch per Wizard erzeugtes FunctionalMLDS-Projekt.
+  - Nachweise:
+    - Automatisierter Endpoint-Smoke erweitert: `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/tests/test_backend_endpoints_smoke.py`.
+    - Befehl ausgefuehrt: `PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_backend_endpoints_smoke -v`.
+    - Ergebnis: `Ran 1 test ... OK`.
+    - Testablauf erzeugt zuerst per FunctionalMLDS-Analyze und FunctionalMLDS-Commit ein frisches Projekt `classroom_dinosaur`.
+    - Danach startet der Test das Runtime-Setup ueber `POST /setup`.
+    - Der Test zaehlt erfolgreich verifizierte Chatfragen in `verified_chat_questions` und prueft `len(verified_chat_questions) >= 5`.
+    - Gepruefte Chatfragen:
+      - `teacher_agent`: `Welche Ausstattung gibt es im Unterrichtsbereich?`
+        - Erwartete Antwortsignale: `functionalmlds-raumwissen`, `chalkboard`, `student desks`.
+      - `exhibit_interpreter`: `What is special about the dinosaur skeleton exhibit for paleontology?`
+        - Erwartete Antwortsignale: `functionalmlds-raumwissen`, `dinosaur skeleton`, `paleontology`.
+      - `reading_area_guide`: `What can visitors use in the reading area for study and relaxation?`
+        - Erwartete Antwortsignale: `functionalmlds-raumwissen`, `reading table`, `beanbags`, `bookcase`.
+      - `decorative_zone_ambassador`: `Which art and plants shape the decorative zone ambiance?`
+        - Erwartete Antwortsignale: `functionalmlds-raumwissen`, `abstract artworks`, `potted indoor plants`.
+      - `teacher_agent`: `I need details about the dinosaur skeleton exhibit and paleontology.`
+        - Erwartete Runtime-Reaktion: Handoff zu `exhibit_interpreter`, Zielantwort mit `dinosaur skeleton` und `paleontology`.
+    - Der Fake-OpenAI-Client erzwingt fuer `npc_action` den deterministischen Offline-Fallback, damit keine API-Tokens verbraucht werden.
+    - Audit-Eintrag ergaenzt: `output/metamodel/mlds_project_wizard_definition_of_done_audit.md`.
+- [x] Mindestens ein Handoff-Test funktioniert fuer ein frisch per Wizard erzeugtes FunctionalMLDS-Projekt.
+  - Nachweise:
+    - Automatisierter Endpoint-Smoke erweitert: `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/tests/test_backend_endpoints_smoke.py`.
+    - Befehl ausgefuehrt: `PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_backend_endpoints_smoke -v`.
+    - Ergebnis: `Ran 1 test ... OK`.
+    - Testablauf erzeugt zuerst per FunctionalMLDS-Analyze und FunctionalMLDS-Commit ein frisches Projekt `classroom_dinosaur`.
+    - Danach startet der Test das Runtime-Setup ueber `POST /setup`.
+    - Der Test zaehlt erfolgreich verifizierte Handoffs in `verified_handoffs` und prueft `len(verified_handoffs) >= 1`.
+    - Gepruefter Handoff:
+      - Ausgangsagent: `teacher_agent`,
+      - Frage: `I need details about the dinosaur skeleton exhibit and paleontology.`,
+      - erwartetes Ziel: `exhibit_interpreter`,
+      - gepruefte Runtime-Reaktion: `active_agent_id=exhibit_interpreter`,
+      - gepruefte Handoff-Daten: `handoff.from=teacher_agent`, `handoff.to=exhibit_interpreter`,
+      - mindestens zwei Chat-Events,
+      - Zielantwort enthaelt `dinosaur skeleton` und `paleontology`.
+    - Der Fake-OpenAI-Client erzwingt fuer `npc_action` den deterministischen Offline-Fallback, damit keine API-Tokens verbraucht werden.
+    - Audit-Eintrag ergaenzt: `output/metamodel/mlds_project_wizard_definition_of_done_audit.md`.
+- [x] Kein API-Key wird in Projektartefakte oder Logs geschrieben.
+  - Nachweise:
+    - Automatisierter Endpoint-Smoke erweitert: `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/tests/test_backend_endpoints_smoke.py`.
+    - Befehl ausgefuehrt: `PYTHONDONTWRITEBYTECODE=1 python -m unittest tests.test_backend_endpoints_smoke -v`.
+    - Ergebnis: `Ran 1 test ... OK`.
+    - Testschutz fuer neu erzeugte Artefakte:
+      - Nach Analyze, Commit, Setup, Chat und Handoff scannt der Test die temporaeren Backend-Projektartefakte und den temporaeren FunctionalMLDS-Output.
+      - Gepruefte Muster:
+        - OpenAI-Secret-Key-Signatur `sk-...`,
+        - `OPENAI_API_KEY`,
+        - `openai_api_key`,
+        - der Fake-Key des Tests.
+      - Treffer fuehren zum Testfehler; der Test meldet nur Pfade, keinen Secret-Inhalt.
+    - Redaktierter Bestandsscan ueber vorhandene Artefakt-/Logbereiche:
+      - `output/case_studies`,
+      - `output/wizard_functionalmlds`,
+      - `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/projects`,
+      - `InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/runtime_logs`,
+      - relevante temporaere `functionalmlds_*` Logs unter `%TEMP%`.
+    - Bestandsscan-Ergebnis:
+      - `370` Dateien gescannt,
+      - `0` Treffer fuer echte OpenAI-Secret-Key-Signatur `sk-...`,
+      - `0` Treffer fuer den lokal konfigurierten OpenAI-Key-Wert.
+    - Der Scan fand nur vier harmlose Referenzen auf Variablen-/Konfigurationsnamen in bestehenden KB-Dokumenten, nicht den Schluesselwert.
+    - Audit-Eintrag ergaenzt: `output/metamodel/mlds_project_wizard_definition_of_done_audit.md`.
+
+## 15. Empfohlene Umsetzungsreihenfolge
+
+1. Legacy-Regression absichern.
+2. Backend-Adapter fuer FunctionalMLDS-Pipeline bauen.
+3. Backend Analyze/Commit im FunctionalMLDS-Modus anbinden.
+4. Unity-Wizard-Modusauswahl ergaenzen.
+5. FunctionalMLDS-Draft-Summary im UI anzeigen.
+6. Commit-Evidenz im UI anzeigen.
+7. Runtime-Setup und Chat mit frisch erzeugtem FunctionalMLDS-Projekt testen.
+8. Handoff und Raumwissen testen.
+9. Validierungsreports und Dokumentation finalisieren.
+
+## 16. Addendum: Placement-Karte und Versionierung (2026-07-15)
+
+- [x] Deterministische Positionierungslogik V2.0.0 verbessert.
+  - rotationsbewusste Bodenhindernisse und konservativer Floor-Slice.
+  - mindestens 1,0 m Agentenabstand.
+  - stabile, reihenfolgeunabhaengige Platzierung und normalisierte Forward-Vektoren.
+- [x] Placement-Karte im MLDSI-Wizard interaktiv gemacht.
+  - eindeutige Labels `Name [id]` und deterministische Farben.
+  - Marker auf X/Z verschiebbar; separater Forward-Handle zum Drehen.
+  - Apply/Reset, Dirty-State und Commit-Sperre bis zur Backend-Validierung.
+  - PNG-Export mit farbcodierter Agentenlegende.
+- [x] Versionen eingefuehrt und im Wizard angezeigt.
+  - Wizard-Version: `1.0.0`.
+  - Backend-Version: `1.0.0`.
+  - Placement-API-Version: `1.0`.
+  - Backend-Endpunkte: `GET /health` und `GET /version`.
+- [x] Placement-Persistenz abgesichert.
+  - `POST /projects/arrow/placement` fuer Legacy und FunctionalMLDS.
+  - strikte ID-, Zahlen-, Boden-, Geometrie- und Forward-Pruefung.
+  - transaktionales Update mit Rollback und aktuellen Placement-Metriken.
+  - per Session/Case serialisierte Analyze-/Chat-/Placement-/Commit-Mutationen.
+- [x] Provenienz und Manipulationsschutz umgesetzt.
+  - Schema-, Algorithmus-, Origin-, Artefakt- und Projektions-Hash.
+  - Commit-Revalidierung unmittelbar vor Materialisierung.
+  - Runtime-Setup prueft Projekt, Agenten und Trace-Maps konsistent.
+  - alte Projekte ohne die neuen Placement-Metadaten bleiben lesbar.
+- [x] Unity- und Backend-Distributionskopien synchronisiert.
+- [x] Abschlusspruefungen erfolgreich.
+  - Tools: `97 passed, 82 subtests passed`.
+  - Backend: `17 tests ... OK`.
+  - Unity 6.4: `MLDSI Wizard v1.0.0 smoke test: OK`.
+  - visueller Nachweis: `output/unity_smoke/wizard_placement_v1_visual.png`.

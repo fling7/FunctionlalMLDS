@@ -1,0 +1,54 @@
+{
+  "schema": "functionalmlds_repair_log_aggregate",
+  "schema_version": "1.0",
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "case_count": 3,
+    "entry_count": 12,
+    "llm_generation_attempt_count": 8,
+    "llm_repair_attempt_count": 0,
+    "deterministic_recovery_count": 1,
+    "accepted_warning_count": 3
+  },
+  "case_results": [
+    {
+      "case_id": "bestfit_career_fair",
+      "status": "success",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\repair_log.jsonl",
+      "metrics": {
+        "entry_count": 4,
+        "llm_generation_attempt_count": 3,
+        "llm_repair_attempt_count": 0,
+        "deterministic_recovery_count": 0,
+        "accepted_warning_count": 1
+      }
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "status": "success",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\repair_log.jsonl",
+      "metrics": {
+        "entry_count": 4,
+        "llm_generation_attempt_count": 3,
+        "llm_repair_attempt_count": 0,
+        "deterministic_recovery_count": 0,
+        "accepted_warning_count": 1
+      }
+    },
+    {
+      "case_id": "steinpilz_brand_room",
+      "status": "success",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\repair_log.jsonl",
+      "metrics": {
+        "entry_count": 4,
+        "llm_generation_attempt_count": 2,
+        "llm_repair_attempt_count": 0,
+        "deterministic_recovery_count": 1,
+        "accepted_warning_count": 1
+      }
+    }
+  ],
+  "aggregate_jsonl_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\repair_log.jsonl"
+}

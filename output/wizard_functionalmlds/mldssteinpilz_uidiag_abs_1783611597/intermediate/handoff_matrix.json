@@ -1,0 +1,88 @@
+{
+  "handoffs": [
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "product_expert_agent",
+      "condition": "Visitor wants detailed information or sampling guidance about cheese products.",
+      "reason": "Product Expert Agent specializes in cheese product details and sampling assistance."
+    },
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "production_technology_agent",
+      "condition": "Visitor is interested in cheese production process or technical questions.",
+      "reason": "Production Technology Agent covers manufacturing and energy measurement explanations."
+    },
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "digital_interaction_agent",
+      "condition": "Visitor wants help using interactive digital kiosks or multimedia content.",
+      "reason": "Digital Interaction Agent assists with kiosk navigation and digital engagement."
+    },
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "career_consultant_agent",
+      "condition": "Visitor seeks career or business meeting information.",
+      "reason": "Career Consultant Agent facilitates career discussions and meetings."
+    },
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "lounge_host_agent",
+      "condition": "Visitor wants to relax or network in the lounge area.",
+      "reason": "Lounge Host Agent manages visitor comfort and networking in lounge."
+    },
+    {
+      "source_agent_id": "product_expert_agent",
+      "target_agent_id": "production_technology_agent",
+      "condition": "Visitor asks technical questions beyond product details or wants to understand production process.",
+      "reason": "Production Technology Agent has deeper technical expertise."
+    },
+    {
+      "source_agent_id": "product_expert_agent",
+      "target_agent_id": "digital_interaction_agent",
+      "condition": "Visitor wants to explore digital content related to products or production.",
+      "reason": "Digital Interaction Agent supports interactive digital exploration."
+    },
+    {
+      "source_agent_id": "product_expert_agent",
+      "target_agent_id": "career_consultant_agent",
+      "condition": "Visitor expresses interest in career or business opportunities after product discussion.",
+      "reason": "Career Consultant Agent handles career and business discussions."
+    },
+    {
+      "source_agent_id": "product_expert_agent",
+      "target_agent_id": "lounge_host_agent",
+      "condition": "Visitor wants to relax or network after product exploration.",
+      "reason": "Lounge Host Agent facilitates comfort and networking."
+    },
+    {
+      "source_agent_id": "production_technology_agent",
+      "target_agent_id": "digital_interaction_agent",
+      "condition": "Visitor wants to interact with digital kiosks for more production information.",
+      "reason": "Digital Interaction Agent provides digital content navigation."
+    },
+    {
+      "source_agent_id": "production_technology_agent",
+      "target_agent_id": "career_consultant_agent",
+      "condition": "Visitor is interested in career or business discussions related to production technology.",
+      "reason": "Career Consultant Agent supports career and business talks."
+    },
+    {
+      "source_agent_id": "digital_interaction_agent",
+      "target_agent_id": "career_consultant_agent",
+      "condition": "Visitor wants to discuss career or business opportunities after digital interaction.",
+      "reason": "Career Consultant Agent specializes in career and business facilitation."
+    },
+    {
+      "source_agent_id": "digital_interaction_agent",
+      "target_agent_id": "lounge_host_agent",
+      "condition": "Visitor wants to relax or network after digital kiosk interaction.",
+      "reason": "Lounge Host Agent manages lounge comfort and networking."
+    },
+    {
+      "source_agent_id": "career_consultant_agent",
+      "target_agent_id": "lounge_host_agent",
+      "condition": "Visitor wants to relax or network after career or business discussions.",
+      "reason": "Lounge Host Agent provides lounge area support and networking."
+    }
+  ]
+}

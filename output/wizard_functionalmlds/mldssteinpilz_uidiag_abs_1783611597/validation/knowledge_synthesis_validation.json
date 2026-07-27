@@ -1,0 +1,16 @@
+{
+  "status": "invalid",
+  "errors": [
+    "Knowledge entries do not cover important room object groups: floor_markings"
+  ],
+  "warnings": [],
+  "metrics": {
+    "knowledge_entry_count": 27,
+    "required_tag_count": 27,
+    "covered_tag_count": 27,
+    "referenced_object_count": 30,
+    "required_room_group_count": 10,
+    "covered_room_group_count": 9,
+    "room_group_coverage": 0.9
+  }
+}

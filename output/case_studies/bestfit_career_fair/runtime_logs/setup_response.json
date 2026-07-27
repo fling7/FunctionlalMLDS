@@ -1,0 +1,106 @@
+{
+  "session_id": "27fe21b6-b9d9-4669-a807-bf9be18f84e3",
+  "memory_mode": "agent_private_history",
+  "agents": [
+    {
+      "id": "reception_agent",
+      "display_name": "Reception Agent",
+      "voice": "sage",
+      "voice_style": "warm and clear",
+      "tts_model": "gpt-4o-mini-tts",
+      "position": {
+        "x": -5.348,
+        "y": 0.0,
+        "z": -5.134
+      },
+      "forward": {
+        "x": -0.7214,
+        "y": 0.0,
+        "z": -0.6925
+      },
+      "spawn_point_id": null,
+      "zone_id": null,
+      "tags": []
+    },
+    {
+      "id": "benefits_expert",
+      "display_name": "Benefits Information Specialist",
+      "voice": "coral",
+      "voice_style": "informative and friendly",
+      "tts_model": "gpt-4o-mini-tts",
+      "position": {
+        "x": 3.119,
+        "y": 0.0,
+        "z": -0.964
+      },
+      "forward": {
+        "x": 0.8988,
+        "y": 0.0,
+        "z": -0.4385
+      },
+      "spawn_point_id": null,
+      "zone_id": null,
+      "tags": []
+    },
+    {
+      "id": "recruiting_agent",
+      "display_name": "Recruiting Agent",
+      "voice": "onyx",
+      "voice_style": "professional and clear",
+      "tts_model": "gpt-4o-mini-tts",
+      "position": {
+        "x": 4.876,
+        "y": 0.0,
+        "z": 3.226
+      },
+      "forward": {
+        "x": 0.6917,
+        "y": 0.0,
+        "z": 0.7222
+      },
+      "spawn_point_id": null,
+      "zone_id": null,
+      "tags": []
+    },
+    {
+      "id": "demo_technician",
+      "display_name": "Demo Technician",
+      "voice": "fable",
+      "voice_style": "enthusiastic and engaging",
+      "tts_model": "gpt-4o-mini-tts",
+      "position": {
+        "x": 1.725,
+        "y": 0.0,
+        "z": -0.674
+      },
+      "forward": {
+        "x": 0.7416,
+        "y": 0.0,
+        "z": 0.6708
+      },
+      "spawn_point_id": null,
+      "zone_id": null,
+      "tags": []
+    },
+    {
+      "id": "hospitality_agent",
+      "display_name": "Hospitality Agent",
+      "voice": "ash",
+      "voice_style": "warm and caring",
+      "tts_model": "gpt-4o-mini-tts",
+      "position": {
+        "x": 2.534,
+        "y": 0.0,
+        "z": -1.439
+      },
+      "forward": {
+        "x": 0.8175,
+        "y": 0.0,
+        "z": -0.5759
+      },
+      "spawn_point_id": null,
+      "zone_id": null,
+      "tags": []
+    }
+  ]
+}

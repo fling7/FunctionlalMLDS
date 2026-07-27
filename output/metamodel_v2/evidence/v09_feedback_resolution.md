@@ -1,0 +1,57 @@
+# Auflösung des v0.9-Feedbacks
+
+## Zweck und Entscheidungsregeln
+
+Diese Matrix dokumentiert die fachliche Entscheidung zu allen sieben Änderungspunkten und den zwei kleineren Hinweisen des v0.9-Reviews. Maßgeblich ist das kanonische V2-Metamodell in `tools/dynamic_functional_mlds_v2_model.py`.
+
+Die Statusangaben bedeuten:
+
+- **Übernommen:** Der Vorschlag wurde inhaltlich unverändert in das normative V2-Modell aufgenommen.
+- **Angepasst:** Das Ziel des Vorschlags wurde übernommen, die konkrete Lösung aber wegen EAST-ADL-Konformität oder verlustfreier v0.5-Kompatibilität präzisiert.
+- **Bereits erfüllt:** Die geforderte Semantik war im kanonischen Modell schon vorhanden; gegebenenfalls wurde nur ihre Darstellung oder Dokumentation präzisiert.
+
+Die Entscheidungen ändern weder die vorhandene Unity-Funktionalität noch das v0.5-Austauschformat. Nicht eindeutig in V2 überführbare Altwerte werden nicht geraten, sondern unverändert im `V05ProjectionLedger` erhalten.
+
+## Entscheidungsmatrix
+
+| Nr. | Kritik bzw. Vorschlag | Entscheidung | Konkrete Modelllösung | Begründung und Kompatibilität |
+|---:|---|---|---|---|
+| 1 | Geerbte Eigenschaften im EAST-ADL-Kern korrekt kennzeichnen; zweite `Satisfy`-Regel ergänzen. | **Bereits erfüllt; Darstellung angepasst** | `Requirement.text` und `UseCase.text` bleiben ausschließlich von `TraceableSpecification.text: String [0..1]` geerbt. `ExtensionPoint.name: String [0..1]` bleibt indirekt von `EAElement` geerbt. `UseCase` erhält keine lokalen Attribute. In Diagrammen werden solche Merkmale als `{inherited}` gekennzeichnet oder ausgelassen. `INV-004` erhält das XOR zwischen `satisfiedRequirement` und `satisfiedUseCase`; `INV-005` verbietet in `satisfiedBy` Instanzen von `Requirement` und `RequirementContainer`. | Damit wird der EAST-ADL-Kern nicht dupliziert oder verändert. Die Regeln folgen `TraceableSpecification` auf S. 195, `UseCase` auf S. 103 und `Satisfy` auf S. 98–99 der EAST-ADL-Spezifikation V2.1.12. |
+| 2 | Generalisierungen müssen im normativen Modell echte UML-Generalisierungen sein. | **Bereits erfüllt; Darstellung angepasst** | Die Vererbungen sind im kanonischen Modell als echte Generalisierungen (`bases`) definiert. Das umfasst insbesondere `Scenario` und `ScenarioStep → TraceableSpecification`, die Relationship-Spezialisierungen, `Capability → EAType + TraceableSpecification`, `CapabilityUse → EAPrototype + EAElement`, `ValidationCase → VVCase` sowie die übrigen V&V-Spezialisierungen. Fachsichten stellen diese mit UML-Generalisierungspfeilen dar; eine kompakte Gesamtansicht darf sie nur mit einem ausdrücklichen Verweis auf die normativen Fachsichten verkürzen. | Stereotyp- oder Textangaben sind nur Darstellungshilfen und ersetzen im normativen Modell keine Generalisierung. Transitiver Bezug, etwa `Entity → TraceableSpecification → … → EAElement` oder `RuntimeBinding → Relationship → EAElement`, bleibt dabei formal erhalten. |
+| 3 | `CapabilityUse` benötigt einen eindeutigen `provider` und optionale `target`s. | **Angepasst** | Der kompatible Core definiert `CapabilityUse.provider: Entity [0..1]` und `CapabilityUse.target: Identifiable [0..*]`. `INV-064` fordert für einen vorhandenen Provider, dass er den besitzenden `ScenarioStep` ausführt und den referenzierten Capability-Typ bereitstellt. Das ausführbare Authoring-Profil fordert mit `INV-065` genau einen Provider (`[1]`). | Die Zielsemantik des Reviews ist für neue ausführbare Modelle vollständig umgesetzt. Eine obligatorische Core-Multiplizität würde jedoch bestehende Daten verfälschen: Von **70** Legacy-`CapabilityUse`s besitzen **56 keinen** ableitbaren Providerkandidaten, **14 mehrere** Kandidaten und **0 genau einen** Kandidaten. Deshalb darf die Migration keinen Provider erfinden. Die ursprünglichen Legacy-Inhalte bleiben unverändert im `V05ProjectionLedger`; ein v0.5-Roundtrip bleibt damit verlustfrei. |
+| 4 | `StateAssertion` zu einem allgemeinen Assertion-Modell verbreitern. | **Übernommen; kompatibel ergänzt** | `Assertion` ist abstrakt und besitzt `subject: Identifiable [1]`, `expression: EAExpression [1]` und `severity: AssertionSeverity [0..1]`; `INV-066` erzwingt konkrete Instanzen und beide Pflichtbezüge. Spezialisierungen sind `StateAssertion`, `EventAssertion`, `OutputAssertion`, `GroundingAssertion` und `RelationAssertion`. `Effect.specifiedBy: Assertion [1..*]` ersetzt die missverständliche Evidenzsemantik. `AssertionOutcome.assertion: Assertion [1..*]` verbindet erwartete V&V-Ergebnisse mit wiederverwendbaren Assertions. | Assertions beschreiben prüfbare Erwartungen und noch keinen Beweis. `StateAssertion`, `StateAssertionOutcome` und die abgeleitete Anzeige-/Kompatibilitätsprojektion `expressionText` bleiben erhalten, sodass vorhandene Geräte- und Unity-Fälle weiter abbildbar sind. |
+| 5 | Das tatsächliche Runtime-Ergebnis muss strukturiert auswertbar sein. | **Übernommen** | `AssertionResult` enthält `assertion: Assertion [1]`, `verdict: AssertionVerdict [1]` mit `pass`, `fail`, `inconclusive`, `error`, ferner `observedValue: EAValue [0..1]`, `evidenceRef: String [0..1]` und `timestamp: String [0..1]`. `RuntimeActualOutcome.result: AssertionResult [1..*]` ist eine Komposition. `INV-067` und `INV-068` sichern die Pflichtbezüge. | Die EAST-ADL-Spezialisierung `RuntimeActualOutcome → VVActualOutcome` bleibt unverändert; die DFMLDS-Erweiterung ergänzt maschinenlesbare Resultate, ohne geerbten Freitext zu entfernen. Erwartung, Beobachtung und Verdict können dadurch automatisiert verglichen werden. |
+| 6 | V&V-Subject und Test-Target müssen sichtbar und getrennt bleiben. | **Übernommen; EAST-ADL-konform präzisiert** | `RuntimeValidationTarget → VVTarget` besitzt `platform: String [1]`, `runtimeBinding: RuntimeBinding [0..*]` und `environmentRef: String [0..1]`. Nach `INV-069` ist jedes dort konfigurierte RuntimeBinding zugleich über die geerbte Rolle `VVTarget.element` sichtbar. `ValidationCase` nutzt ausschließlich das geerbte `VVCase.vvSubject: Identifiable [0..*]`; `INV-070` beschränkt zulässige DFMLDS-Subjects auf `ScenarioStep`, `Capability`, `RuntimeBinding` oder `Entity`. Eine zusätzliche spezialisierte Direktkante `ValidationCase → RuntimeBinding` wird nicht eingeführt. | So bleiben „was wird geprüft?“ (`vvSubject`) und „in welcher Umgebung?“ (`vvTarget`/`VVTarget.element`) getrennt. Das folgt der V&V-Struktur auf S. 108 sowie S. 110–111 der EAST-ADL-Spezifikation. Bestehende RuntimeBindings bleiben weiterhin nutzbar, ohne den EAST-ADL-`VVCase` zu verändern. |
+| 7 | Ablaufreihenfolge, Parallelität und Wahrscheinlichkeiten brauchen eine eindeutige normative Semantik. | **Übernommen; Legacy-Werte konservativ behandelt** | `StepRelation` ist gemäß `INV-011` die einzige normative Quelle der Kontrollflusssemantik; `Scenario.step` ist nur Containment und `ScenarioStep.stepNumber` gemäß `INV-012` nur eine abgeleitete Anzeigeordnung. `INV-071` fordert Quell- und Zielschritt im selben `Scenario`. `ParallelGroup` enthält mindestens zwei Schritte desselben Szenarios und muss gemäß `INV-013`/`INV-072` zwischen einem passenden `fork` und `join` liegen. Eine normative **Verzweigungswahrscheinlichkeit** auf `StepRelation` ist nach `INV-073` nur für `alternative` oder `exception` zulässig. Sind alle relevanten ausgehenden Kanten eines solchen Branches annotiert, fordert `INV-074` eine Summe von 1 (Toleranz `< 0,000001`). | Damit existiert keine konkurrierende Ausführungsreihenfolge. Nicht passende v0.5-`StepRelation.probability`-Werte, etwa auf `sequence`, `fork`, `join` oder `loop`, werden nicht in die normative V2-Wahrscheinlichkeit umgedeutet, sondern im `V05ProjectionLedger` bewahrt. Die separat erhaltene `ScenarioStep.occurrenceProbability` ist keine Quelle der Kontrollflussreihenfolge oder Branch-Auswahl. |
+| H1 | `ScenarioEvent` gegebenenfalls als `ExternalEvent` mit `detectionCondition` modellieren. | **Angepasst** | Das allgemeine `ScenarioEvent` bleibt eine Spezialisierung von `Timing::Event` und `EAExpression`. Für Benutzer-, Umgebungs-, räumliche und sonstige externe Ereignisse existiert bereits `ScenarioExternalEvent`, das sowohl `ScenarioEvent` als auch das exakte EAST-ADL-`ExternalEvent` spezialisiert. Es wird **kein** erfundenes Attribut oder keine erfundene Assoziation `detectionCondition` ergänzt. | Nicht jedes Szenarioereignis ist extern; deshalb wäre `ScenarioEvent → ExternalEvent` für alle Ereignisse zu eng. EAST-ADL V2.1.12 definiert `ExternalEvent` auf S. 139 als Spezialisierung von `Event`, aber ohne ein Merkmal `detectionCondition`. Die vorhandene `EAExpression`-Semantik des `ScenarioEvent` deckt die maschinenlesbare Erkennung bereits ab. |
+| H2 | Jedes vollständige `DynamicFunctionalModel` soll genau einen Requirements- und einen V&V-Container besitzen. | **Bereits erfüllt; explizit als Profilregel dokumentiert** | Die Root-Kompositionen sind `requirementsModel: RequirementsModel [1]` und `verificationValidation: VerificationValidation [1]`. `INV-063` sichert genau ein `RequirementsModel`, `INV-034` genau einen `VerificationValidation`-Container. | Diese Kardinalitäten sind bewusst eine strengere DFMLDS-Anwendungsprofilregel und werden nicht als allgemeine EAST-ADL-Vorgabe ausgegeben. Sie schaffen einen eindeutigen Einstiegspunkt, ohne die enthaltenen EAST-ADL-Metaklassen zu verändern. |
+
+## Verbindliche Kompatibilitätsentscheidungen
+
+### Provider
+
+Die Multiplizität ist bewusst zweistufig:
+
+- kompatibler Core: `CapabilityUse.provider [0..1]`;
+- ausführbares Authoring-Profil: `CapabilityUse.provider [1]` durch `INV-065`.
+
+Die Abweichung vom direkten Reviewvorschlag `[1]` im Core ist keine fachliche Lockerung für neue ausführbare Modelle. Sie verhindert ausschließlich eine nicht belegbare Migration der 70 vorhandenen CapabilityUses. Da kein einziger Legacy-Fall genau einen Providerkandidaten liefert, wäre jede automatische Belegung eine neue, potenziell falsche Aussage. Der Ledger bleibt die unveränderte Quelle für die v0.5-Rekonstruktion.
+
+### Wahrscheinlichkeiten
+
+Normative Branch-Wahrscheinlichkeit ist ausschließlich `StepRelation.probability` für `alternative`- und `exception`-Kanten. Vollständig annotierte Branches müssen sich zu 1 summieren. Ein Legacy-Wert auf einer anderen Relationsart wird weder gelöscht noch semantisch umetikettiert, sondern nur im `V05ProjectionLedger` erhalten. Dadurch werden V2-Modelle eindeutig, während alte Unity-/v0.5-Inhalte exakt roundtrip-fähig bleiben.
+
+## Normative EAST-ADL-Bezugspunkte
+
+| Bezug | EAST-ADL V2.1.12 | Verwendung in der Entscheidung |
+|---|---:|---|
+| `TraceableSpecification` | S. 195 | Ursprung des geerbten optionalen `text`-Merkmals |
+| `UseCase` | S. 103 | Keine lokalen UseCase-Attribute; geerbte Traceability |
+| `Satisfy` | S. 98–99 | XOR der Supplier-Rollen und Ausschluss von Requirement/RequirementContainer bei `satisfiedBy` |
+| V&V: `VVCase` / Intended Outcome | S. 108 | Trennung von Case, Subject und erwarteten Ergebnissen |
+| V&V: `VVTarget` | S. 110–111 | Testumgebung und `element`-Bezug |
+| `ExternalEvent` | S. 139 | Spezialisierung von `Event` ohne erfundenes `detectionCondition` |
+
+## Ergebnis
+
+Alle neun Reviewpunkte sind entweder übernommen, EAST-ADL-konform angepasst oder nachweislich bereits erfüllt. Die Anpassungen erweitern das normative V2-Modell, ohne bestehende Unity-Fähigkeiten zu entfernen, den EAST-ADL-Kern umzudefinieren oder uneindeutige v0.5-Daten durch Annahmen anzureichern.

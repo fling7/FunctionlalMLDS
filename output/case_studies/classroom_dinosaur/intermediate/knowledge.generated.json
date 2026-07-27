@@ -1,0 +1,148 @@
+{
+  "knowledge_entries": [
+    {
+      "tag": "instruction_zone",
+      "name": "classroom_instruction_zone_overview",
+      "source_object_ids": [
+        "chalkboard",
+        "teacher_desk",
+        "student_desk1",
+        "student_desk2",
+        "student_desk3",
+        "student_desk4",
+        "student_desk5",
+        "student_desk6",
+        "student_desk7",
+        "student_desk8",
+        "student_desk9",
+        "student_desk10",
+        "student_desk11",
+        "student_desk12",
+        "student_desk13",
+        "student_desk14",
+        "student_desk15",
+        "student_desk16",
+        "student_desk17",
+        "student_desk18",
+        "student_desk19",
+        "student_desk20"
+      ],
+      "text": "The instruction zone is the primary teaching area featuring a large chalkboard for lesson presentation, a teacher's desk for managing class activities, and twenty modern student desks arranged to support individual and group learning.",
+      "intended_agents": [
+        "teacher_agent"
+      ]
+    },
+    {
+      "tag": "chalkboard_usage",
+      "name": "effective_chalkboard_use_in_lessons",
+      "source_object_ids": [
+        "chalkboard"
+      ],
+      "text": "The chalkboard provides a large, matte dark green writing surface framed by a slim metallic frame, ideal for clear, visible instruction. Teachers use it to illustrate concepts, write notes, and engage students during lessons.",
+      "intended_agents": [
+        "teacher_agent"
+      ]
+    },
+    {
+      "tag": "student_seating_arrangement",
+      "name": "student_desk_arrangement_for_learning",
+      "source_object_ids": [
+        "student_desk1",
+        "student_desk2",
+        "student_desk3",
+        "student_desk4",
+        "student_desk5",
+        "student_desk6",
+        "student_desk7",
+        "student_desk8",
+        "student_desk9",
+        "student_desk10",
+        "student_desk11",
+        "student_desk12",
+        "student_desk13",
+        "student_desk14",
+        "student_desk15",
+        "student_desk16",
+        "student_desk17",
+        "student_desk18",
+        "student_desk19",
+        "student_desk20"
+      ],
+      "text": "The classroom contains twenty modern student desks with light oak laminate tops and powder-coated metal legs, arranged to facilitate both individual focus and group collaboration during class activities.",
+      "intended_agents": [
+        "teacher_agent"
+      ]
+    },
+    {
+      "tag": "reading_area",
+      "name": "reading_area_setup",
+      "source_object_ids": [
+        "reading_table",
+        "beanbag1",
+        "beanbag2",
+        "beanbag3",
+        "beanbag4",
+        "bookcase",
+        "plant5"
+      ],
+      "text": "The reading area offers a cozy environment with a small rectangular reading table, four plush beanbags for casual seating, a dark wood open-shelf bookcase stocked with books, and a potted plant to enhance ambiance.",
+      "intended_agents": [
+        "reading_area_guide"
+      ]
+    },
+    {
+      "tag": "reading_area_usage",
+      "name": "using_the_reading_area_for_study_and_relaxation",
+      "source_object_ids": [
+        "reading_table",
+        "beanbag1",
+        "beanbag2",
+        "beanbag3",
+        "beanbag4",
+        "bookcase"
+      ],
+      "text": "Visitors can use the reading table for focused study or group reading, relax comfortably on the vibrant beanbags, and select books from the accessible bookcase to enjoy quiet reading time.",
+      "intended_agents": [
+        "reading_area_guide"
+      ]
+    },
+    {
+      "tag": "dinosaur_display_zone",
+      "name": "dinosaur_skeleton_exhibit_zone",
+      "source_object_ids": [
+        "dinosaur_skeleton"
+      ],
+      "text": "The dinosaur display zone features a detailed museum-quality dinosaur skeleton model mounted on a minimal metal base, serving as an educational exhibit to engage visitors in paleontology.",
+      "intended_agents": [
+        "exhibit_interpreter"
+      ]
+    },
+    {
+      "tag": "dinosaur_education",
+      "name": "educational_insights_on_the_dinosaur_skeleton",
+      "source_object_ids": [
+        "dinosaur_skeleton"
+      ],
+      "text": "The dinosaur skeleton model provides a tangible learning opportunity about prehistoric life, illustrating bone structure and anatomy, and sparking interest in natural history and paleontology.",
+      "intended_agents": [
+        "exhibit_interpreter"
+      ]
+    },
+    {
+      "tag": "decorative_zone",
+      "name": "decorative_art_and_plants_for_ambiance",
+      "source_object_ids": [
+        "picture1",
+        "picture2",
+        "plant1",
+        "plant2",
+        "plant3",
+        "plant4"
+      ],
+      "text": "The decorative zone enhances the classroom atmosphere with two framed abstract artworks featuring modern design, complemented by four potted indoor plants with lush green foliage, creating a pleasant and inviting environment.",
+      "intended_agents": [
+        "decorative_zone_ambassador"
+      ]
+    }
+  ]
+}

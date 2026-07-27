@@ -1,0 +1,293 @@
+{
+  "agents": [
+    {
+      "id": "receptionist_agent",
+      "display_name": "Receptionist",
+      "persona": "Friendly and welcoming guide who provides visitors with brand information and directions to explore the booth.",
+      "voice": "alloy",
+      "voice_gender": "weiblich",
+      "voice_style": "freundlich",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "visitor assistance",
+        "brand information",
+        "navigation guidance"
+      ],
+      "knowledge_tags": [
+        "brand_information",
+        "visitor_assistance",
+        "navigation_guidance"
+      ],
+      "responsible_zone_ids": [
+        "entrance_zone"
+      ],
+      "grounded_object_ids": [
+        "reception_desk",
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "handoff_targets": [
+        "product_specialist_agent",
+        "production_expert_agent",
+        "digital_interaction_agent",
+        "career_consultant_agent",
+        "lounge_host_agent"
+      ],
+      "preferred_zone_ids": [
+        "entrance_zone"
+      ],
+      "position": {
+        "x": -1.111,
+        "y": 0.0,
+        "z": 2.286
+      },
+      "forward": {
+        "x": 0.5831,
+        "y": 0.0,
+        "z": 0.8124
+      },
+      "functionalmlds_agent_ref": "receptionist_agent"
+    },
+    {
+      "id": "product_specialist_agent",
+      "display_name": "Product Specialist",
+      "persona": "Knowledgeable cheese expert who explains products, assists with sampling, and answers detailed product questions.",
+      "voice": "coral",
+      "voice_gender": "maennlich",
+      "voice_style": "kompetent",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "product knowledge",
+        "sampling facilitation",
+        "customer interaction"
+      ],
+      "knowledge_tags": [
+        "cheese_products",
+        "sampling",
+        "customer_interaction"
+      ],
+      "responsible_zone_ids": [
+        "product_display_zone"
+      ],
+      "grounded_object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ],
+      "handoff_targets": [
+        "production_expert_agent",
+        "digital_interaction_agent",
+        "receptionist_agent"
+      ],
+      "preferred_zone_ids": [
+        "product_display_zone"
+      ],
+      "position": {
+        "x": -3.818,
+        "y": 0.0,
+        "z": 0.042
+      },
+      "forward": {
+        "x": -1.0,
+        "y": 0.0,
+        "z": 0.0073
+      },
+      "functionalmlds_agent_ref": "product_specialist_agent"
+    },
+    {
+      "id": "production_expert_agent",
+      "display_name": "Production Expert",
+      "persona": "Technical specialist explaining cheese production technology and energy efficiency with clear and precise details.",
+      "voice": "sage",
+      "voice_gender": "maennlich",
+      "voice_style": "präzise",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "production technology",
+        "energy management",
+        "technical explanation"
+      ],
+      "knowledge_tags": [
+        "production_technology",
+        "energy_efficiency",
+        "technical_details"
+      ],
+      "responsible_zone_ids": [
+        "production_model_zone",
+        "energy_monitoring_zone"
+      ],
+      "grounded_object_ids": [
+        "production_model1",
+        "production_model2",
+        "energy_station1",
+        "energy_station2"
+      ],
+      "handoff_targets": [
+        "digital_interaction_agent",
+        "product_specialist_agent",
+        "receptionist_agent"
+      ],
+      "preferred_zone_ids": [
+        "production_model_zone",
+        "energy_monitoring_zone"
+      ],
+      "position": {
+        "x": 1.142,
+        "y": 0.0,
+        "z": 0.152
+      },
+      "forward": {
+        "x": -0.6981,
+        "y": 0.0,
+        "z": 0.716
+      },
+      "functionalmlds_agent_ref": "production_expert_agent"
+    },
+    {
+      "id": "digital_interaction_agent",
+      "display_name": "Digital Interaction Guide",
+      "persona": "Helpful digital assistant guiding visitors through interactive kiosks and providing digital content support.",
+      "voice": "nova",
+      "voice_gender": "weiblich",
+      "voice_style": "hilfsbereit",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "digital interfaces",
+        "visitor engagement",
+        "content navigation"
+      ],
+      "knowledge_tags": [
+        "digital_interaction",
+        "content_navigation",
+        "visitor_support"
+      ],
+      "responsible_zone_ids": [
+        "interactive_zone"
+      ],
+      "grounded_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "handoff_targets": [
+        "product_specialist_agent",
+        "production_expert_agent",
+        "receptionist_agent"
+      ],
+      "preferred_zone_ids": [
+        "interactive_zone"
+      ],
+      "position": {
+        "x": 5.2,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "forward": {
+        "x": -1.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "functionalmlds_agent_ref": "digital_interaction_agent"
+    },
+    {
+      "id": "career_consultant_agent",
+      "display_name": "Career Consultant",
+      "persona": "Professional and approachable consultant facilitating career discussions, business meetings, and training sessions.",
+      "voice": "echo",
+      "voice_gender": "weiblich",
+      "voice_style": "professionell",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "career counseling",
+        "business communication",
+        "training facilitation"
+      ],
+      "knowledge_tags": [
+        "career_opportunities",
+        "business_discussions",
+        "training"
+      ],
+      "responsible_zone_ids": [
+        "career_zone"
+      ],
+      "grounded_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "handoff_targets": [
+        "receptionist_agent",
+        "digital_interaction_agent"
+      ],
+      "preferred_zone_ids": [
+        "career_zone"
+      ],
+      "position": {
+        "x": 1.653,
+        "y": 0.0,
+        "z": 0.901
+      },
+      "forward": {
+        "x": 0.8779,
+        "y": 0.0,
+        "z": 0.4789
+      },
+      "functionalmlds_agent_ref": "career_consultant_agent"
+    },
+    {
+      "id": "lounge_host_agent",
+      "display_name": "Lounge Host",
+      "persona": "Warm and friendly host ensuring visitor comfort and encouraging informal networking in the lounge area.",
+      "voice": "fable",
+      "voice_gender": "weiblich",
+      "voice_style": "entspannt",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "hospitality",
+        "visitor comfort",
+        "networking facilitation"
+      ],
+      "knowledge_tags": [
+        "visitor_comfort",
+        "networking",
+        "hospitality"
+      ],
+      "responsible_zone_ids": [
+        "lounge_zone"
+      ],
+      "grounded_object_ids": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "handoff_targets": [
+        "receptionist_agent"
+      ],
+      "preferred_zone_ids": [
+        "lounge_zone"
+      ],
+      "position": {
+        "x": 1.15,
+        "y": 0.0,
+        "z": -1.375
+      },
+      "forward": {
+        "x": -0.6771,
+        "y": 0.0,
+        "z": -0.7359
+      },
+      "functionalmlds_agent_ref": "lounge_host_agent"
+    }
+  ]
+}

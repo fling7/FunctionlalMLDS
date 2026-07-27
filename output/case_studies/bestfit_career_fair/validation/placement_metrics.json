@@ -1,0 +1,153 @@
+{
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "agent_count": 5,
+    "placement_count": 5,
+    "valid_position_count": 5,
+    "valid_position_ratio": 1.0,
+    "out_of_bounds_count": 0,
+    "obstacle_overlap_count": 0,
+    "minimum_agent_distance": 0.753558,
+    "minimum_agent_distance_threshold": 0.75,
+    "average_distance_to_target_xz": 1.871651,
+    "max_distance_to_target_xz": 2.741989,
+    "average_nearest_responsible_group_distance": 1.175277,
+    "max_nearest_responsible_group_distance": 1.625316,
+    "average_nearest_responsible_zone_distance": 1.941798,
+    "max_nearest_responsible_zone_distance": 2.596624
+  },
+  "per_agent": [
+    {
+      "agent_id": "reception_agent",
+      "valid_position": true,
+      "position": {
+        "x": -5.348,
+        "z": -5.134
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 1.250424,
+      "responsible_group_count": 2,
+      "distance_to_responsible_object_groups": {
+        "count": 2,
+        "nearest": 0.879238,
+        "average": 1.372231,
+        "maximum": 1.865224
+      },
+      "responsible_zone_count": 1,
+      "distance_to_responsible_zones": {
+        "count": 1,
+        "nearest": 1.250424,
+        "average": 1.250424,
+        "maximum": 1.250424
+      }
+    },
+    {
+      "agent_id": "benefits_expert",
+      "valid_position": true,
+      "position": {
+        "x": 3.119,
+        "z": -0.964
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 2.741989,
+      "responsible_group_count": 2,
+      "distance_to_responsible_object_groups": {
+        "count": 2,
+        "nearest": 1.381469,
+        "average": 2.593183,
+        "maximum": 3.804896
+      },
+      "responsible_zone_count": 1,
+      "distance_to_responsible_zones": {
+        "count": 1,
+        "nearest": 2.596624,
+        "average": 2.596624,
+        "maximum": 2.596624
+      }
+    },
+    {
+      "agent_id": "recruiting_agent",
+      "valid_position": true,
+      "position": {
+        "x": 4.876,
+        "z": 3.226
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 1.625316,
+      "responsible_group_count": 1,
+      "distance_to_responsible_object_groups": {
+        "count": 1,
+        "nearest": 1.625316,
+        "average": 1.625316,
+        "maximum": 1.625316
+      },
+      "responsible_zone_count": 1,
+      "distance_to_responsible_zones": {
+        "count": 1,
+        "nearest": 1.625316,
+        "average": 1.625316,
+        "maximum": 1.625316
+      }
+    },
+    {
+      "agent_id": "demo_technician",
+      "valid_position": true,
+      "position": {
+        "x": 1.725,
+        "z": -0.674
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 2.048969,
+      "responsible_group_count": 4,
+      "distance_to_responsible_object_groups": {
+        "count": 4,
+        "nearest": 0.696348,
+        "average": 3.391368,
+        "maximum": 7.306155
+      },
+      "responsible_zone_count": 2,
+      "distance_to_responsible_zones": {
+        "count": 2,
+        "nearest": 2.378929,
+        "average": 4.842542,
+        "maximum": 7.306155
+      }
+    },
+    {
+      "agent_id": "hospitality_agent",
+      "valid_position": true,
+      "position": {
+        "x": 2.534,
+        "z": -1.439
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 1.691557,
+      "responsible_group_count": 3,
+      "distance_to_responsible_object_groups": {
+        "count": 3,
+        "nearest": 1.294016,
+        "average": 1.988163,
+        "maximum": 2.529007
+      },
+      "responsible_zone_count": 1,
+      "distance_to_responsible_zones": {
+        "count": 1,
+        "nearest": 1.857697,
+        "average": 1.857697,
+        "maximum": 1.857697
+      }
+    }
+  ]
+}

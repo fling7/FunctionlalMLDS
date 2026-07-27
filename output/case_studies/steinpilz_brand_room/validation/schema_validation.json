@@ -1,0 +1,80 @@
+{
+  "case_id": "steinpilz_brand_room",
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "artifact_count": 7,
+    "valid_artifact_count": 7,
+    "invalid_artifact_count": 0,
+    "schema_count": 7,
+    "runtime_event_count": 77
+  },
+  "artifacts": [
+    {
+      "artifact_id": "normalized_scene",
+      "schema": "normalized_scene.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_graph.normalized.json",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "artifact_id": "scene_semantics",
+      "schema": "scene_semantics.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_semantics.json",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "artifact_id": "knowledge",
+      "schema": "knowledge.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\knowledge.generated.json",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "artifact_id": "functionalmlds_instance",
+      "schema": "functionalmlds_case_study.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\functionalmlds\\functionalmlds.instance.generated.json",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "artifact_id": "agent_roles",
+      "schema": "agent_roles.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "artifact_id": "interactive_agents_project",
+      "schema": "interactive_agents_project.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "artifact_id": "runtime_events",
+      "schema": "runtime_event.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\runtime_logs\\events.jsonl",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    }
+  ],
+  "schemas": [
+    "agent_roles.schema.json",
+    "functionalmlds_case_study.schema.json",
+    "interactive_agents_project.schema.json",
+    "knowledge.schema.json",
+    "normalized_scene.schema.json",
+    "runtime_event.schema.json",
+    "scene_semantics.schema.json"
+  ]
+}

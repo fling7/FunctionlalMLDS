@@ -1,0 +1,153 @@
+{
+  "room_bounds": {
+    "min_x": -10.0,
+    "max_x": 10.0,
+    "min_z": -7.5,
+    "max_z": 7.5
+  },
+  "agent_placements": [
+    {
+      "id": "reception_agent",
+      "display_name": "Reception Agent",
+      "position": {
+        "x": -5.348,
+        "y": 0.0,
+        "z": -5.134
+      },
+      "forward": {
+        "x": -0.7214,
+        "y": 0.0,
+        "z": -0.6925
+      },
+      "target_xz": {
+        "x": -6.25,
+        "z": -6.0
+      },
+      "responsible_zone_ids": [
+        "reception_zone"
+      ],
+      "grounded_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ]
+    },
+    {
+      "id": "benefits_expert",
+      "display_name": "Benefits Information Specialist",
+      "position": {
+        "x": 3.119,
+        "y": 0.0,
+        "z": -0.964
+      },
+      "forward": {
+        "x": 0.8988,
+        "y": 0.0,
+        "z": -0.4385
+      },
+      "target_xz": {
+        "x": 5.583,
+        "z": -2.167
+      },
+      "responsible_zone_ids": [
+        "benefits_info_zone"
+      ],
+      "grounded_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ]
+    },
+    {
+      "id": "recruiting_agent",
+      "display_name": "Recruiting Agent",
+      "position": {
+        "x": 4.876,
+        "y": 0.0,
+        "z": 3.226
+      },
+      "forward": {
+        "x": 0.6917,
+        "y": 0.0,
+        "z": 0.7222
+      },
+      "target_xz": {
+        "x": 6.0,
+        "z": 4.4
+      },
+      "responsible_zone_ids": [
+        "recruiting_zone"
+      ],
+      "grounded_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ]
+    },
+    {
+      "id": "demo_technician",
+      "display_name": "Demo Technician",
+      "position": {
+        "x": 1.725,
+        "y": 0.0,
+        "z": -0.674
+      },
+      "forward": {
+        "x": 0.7416,
+        "y": 0.0,
+        "z": 0.6708
+      },
+      "target_xz": {
+        "x": 3.245,
+        "z": 0.7
+      },
+      "responsible_zone_ids": [
+        "showcase_zone",
+        "demo_kiosk_zone"
+      ],
+      "grounded_object_ids": [
+        "showcase_equipment_treadmill",
+        "showcase_equipment_weights_rack",
+        "vr_ar_station1",
+        "vr_ar_station2",
+        "kiosk_demo1",
+        "kiosk_demo2",
+        "kiosk_demo3",
+        "info_stele_studio1",
+        "info_stele_studio2",
+        "info_stele_studio3"
+      ]
+    },
+    {
+      "id": "hospitality_agent",
+      "display_name": "Hospitality Agent",
+      "position": {
+        "x": 2.534,
+        "y": 0.0,
+        "z": -1.439
+      },
+      "forward": {
+        "x": 0.8175,
+        "y": 0.0,
+        "z": -0.5759
+      },
+      "target_xz": {
+        "x": 3.917,
+        "z": -2.413
+      },
+      "responsible_zone_ids": [
+        "refreshment_zone"
+      ],
+      "grounded_object_ids": [
+        "refreshment_counter",
+        "bar_stool_refreshment1",
+        "bar_stool_refreshment2",
+        "bar_stool_refreshment3",
+        "lounge_seating"
+      ]
+    }
+  ]
+}
