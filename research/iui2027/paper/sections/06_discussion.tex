@@ -1,0 +1,49 @@
+\section{Discussion}
+
+\subsection{Implications for intelligent-interface authoring}
+
+The central design proposition is that agent behavior in a spatial interface
+should not begin at the chat endpoint. It begins with a user-facing task and a
+referent in the environment. Making this path explicit gives an author a place
+to inspect responsibility, permitted behavior, and expected outcomes before a
+visitor encounters the interface.
+
+The model-grounded approach is most useful when the same spatial content evolves
+or when several agents divide responsibility. For a single static chatbot, the
+additional representation may not be justified. For a scene in which objects,
+zones, and agents are regenerated or reassigned, explicit relationships can
+turn otherwise implicit breakage into a validation error.
+
+\subsection{Control and failure recovery}
+
+An intelligent interface should communicate when it cannot ground a request or
+when no agent has the required capability. Silent fallback to a generic agent
+can produce a fluent but misleading response. The interaction chain supports
+three recoverable outcomes: ask for clarification, offer a transparent handoff,
+or abstain with the unresolved target identified. The current prototype exposes
+these states to developers; future work should study how they should be
+communicated to end users.
+
+\subsection{Practical and societal considerations}
+
+Spatial agent systems can encode sensitive information about rooms, user
+locations, speech, and interaction histories. A trace that improves debugging
+can also increase surveillance risk. Deployments should minimize retained
+location and conversation data, separate technical identifiers from personal
+identities, and make retention visible to users.
+
+Agent roles and knowledge assignments can reproduce organizational bias. A
+model makes assignments inspectable but does not make them fair. Authors still
+need procedures for reviewing who is represented, which agent is considered
+authoritative, and which requests are refused or redirected. Likewise,
+language-model safeguards and knowledge provenance remain necessary even when
+the surrounding configuration is valid.
+
+\subsection{When a model helps—and when it does not}
+
+The approach trades additional authoring structure for validation and runtime
+evidence. The trade is favorable only if the model stays synchronized with the
+runtime and if authors can understand its errors. A generated model that merely
+duplicates configuration without changing authoring or diagnosis would add
+cost without improving the interface. The baseline and change-task evaluation
+are therefore central to the contribution.

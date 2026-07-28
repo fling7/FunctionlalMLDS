@@ -4,6 +4,8 @@
 config.json
 *.pem
 *.key
+research/iui2027/reviewer/*.token
+research/iui2027/reviewer/private/
 
 # Python caches and test artifacts
 __pycache__/
@@ -58,3 +60,4 @@ runtime_logs/
 .DS_Store
 Thumbs.db
 desktop.ini
+research/iui2027/paper/build/

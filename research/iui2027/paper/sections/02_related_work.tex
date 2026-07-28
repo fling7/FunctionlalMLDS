@@ -1,0 +1,58 @@
+\section{Related Work}
+
+\subsection{Intelligent interfaces and human--AI interaction}
+
+Intelligent user interfaces combine computational adaptation or inference with
+an interaction that people can understand and influence. Prior work provides
+guidelines for communicating system status, supporting correction, and
+calibrating expectations. These principles motivate our emphasis on explicit
+agent responsibility, observable routing, and recoverable failure. Our
+contribution is narrower than a general guideline set: we instantiate these
+properties in the authoring and runtime structure of a spatial multi-agent
+interface.
+
+\subsection{Embodied and situated agents}
+
+Embodied conversational agents connect language behavior with a visible,
+spatially situated representation. Research has studied embodiment, social
+behavior, multimodal interaction, and virtual humans. Recent language-model
+agents add flexible conversation and agent-to-agent delegation, but their
+runtime frameworks commonly treat the surrounding scene and the provenance of
+routing decisions as application-specific configuration. We focus on the
+boundary between a spatial scene and the agent runtime: which scene entity a
+request concerns, which agent has authority to answer, and how that decision can
+be traced.
+
+\subsection{Spatial reference grounding}
+
+Situated language systems must connect expressions such as ``this object'' or
+``the display near the entrance'' to entities in a shared environment. Existing
+work addresses referring-expression resolution, grounded language learning,
+scene representations, and multimodal reference. We do not propose a new
+general-purpose language-grounding model. Instead, we provide an authoring and
+evaluation layer in which spatial candidates, zones, agent responsibilities,
+and expected outcomes are explicit. This lets us test the behavior of a chosen
+grounding component under controlled scene changes and ambiguous inputs.
+
+\subsection{Model-based authoring of interactive systems}
+
+Model-based user-interface development separates interaction concepts from
+platform-specific realization. Model-driven approaches have also been used for
+adaptive interfaces, multimodal systems, and virtual environments. Their main
+advantage is not that a model automatically produces a usable interface, but
+that relationships can be transformed and checked before deployment. Our work
+extends this idea to a contemporary Unity and language-agent stack and closes a
+runtime loop from generated artifacts back to interaction-level evidence.
+
+\subsection{Positioning}
+
+The closest bodies of work each cover part of the problem: embodied-agent
+systems realize interaction, grounding methods associate language with scene
+entities, and model-based approaches structure authoring. \systemname{} combines
+these concerns around a single testable interaction chain. The empirical
+question is whether this explicit chain improves measurable consistency,
+diagnosability, and robustness over direct wiring while preserving the same
+user-facing behavior.
+
+\resultpending{Add verified primary citations and sharpen the comparison after
+the structured literature search.}

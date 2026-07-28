@@ -1,0 +1,86 @@
+\section{System}
+
+\subsection{Interaction model}
+
+\systemname{} represents an interaction at several linked levels. A
+\emph{scenario step} captures a user-visible action, such as asking an exhibit
+agent to describe a dinosaur skeleton. A \emph{capability use} identifies the
+operation, the responsible provider, and the spatial targets. The capability is
+connected through a \emph{runtime binding} to a concrete backend action. An
+\emph{assertion} describes the outcome that should be observable, and a
+\emph{validation case} links a stimulus to that expected outcome.
+
+The required execution path is:
+
+\begin{quote}
+\texttt{ScenarioStep $\rightarrow$ CapabilityUse $\rightarrow$ Capability
+$\rightarrow$ RuntimeBinding $\rightarrow$ RuntimeAction}.
+\end{quote}
+
+This path intentionally prevents a scenario step from invoking an endpoint
+without an explicit agent capability. Agents additionally reference their
+responsible zones and grounded assets. These relationships allow validators to
+reject a capability use whose provider is not responsible for its spatial
+target.
+
+\subsection{Generation pipeline}
+
+The pipeline starts from a structured room description. It normalizes scene
+entities, derives scene semantics, proposes agent roles and capabilities,
+materializes knowledge resources, and computes agent placement. A native
+\systemname{} instance then connects these products to interaction scenarios and
+runtime bindings. Deterministic validators check schemas and cross-reference
+invariants before artifacts are made available to Unity or the backend.
+
+The implementation separates probabilistic and deterministic stages. Language
+models can propose semantic labels, roles, knowledge, and evaluation utterances.
+Identifiers, geometric placement, relationship validation, artifact
+materialization, and metric computation are deterministic. Each stage records
+its inputs, configuration, outputs, and hashes so that a result can be
+invalidated when a relevant upstream artifact changes.
+
+\subsection{Unity/WebXR client}
+
+The Unity client imports room assets and agent configurations, places embodied
+agents in their assigned zones, and supports first-person and proximity-based
+interaction. A visitor can communicate by text or speech. The client sends the
+active project, agent, user utterance, and interaction context to the backend.
+WebXR and the XR Interaction Toolkit provide the browser and immersive runtime,
+while the same scene can be exercised in a desktop mode for deterministic
+testing.
+
+\subsection{Agent backend and handoffs}
+
+The backend exposes setup, chat, speech, and project-management endpoints. Each
+agent has a persona, knowledge scope, capabilities, and permitted handoff
+targets. A request can be answered by the active agent, delegated to a more
+appropriate agent, or rejected when no grounded target or responsible
+capability exists. Runtime actions carry the interaction-model identifiers
+needed to distinguish a successful HTTP request from a semantically correct
+interaction.
+
+\subsection{Runtime validation}
+
+Events are written against the originating scenario, capability use, binding,
+agent, and spatial target. Validation separates four questions:
+
+\begin{enumerate}
+  \item Was a syntactically valid runtime operation invoked?
+  \item Was the intended spatial entity resolved?
+  \item Was the responsible agent and capability selected?
+  \item Did the observable response satisfy the case-specific assertion?
+\end{enumerate}
+
+This separation avoids treating network success or a single token overlap as
+evidence of grounded interaction. It also provides a failure location that can
+be surfaced in authoring tools or logs.
+
+\subsection{Use of machine intelligence}
+
+The system uses language models for semantic scene interpretation, agent-role
+proposal, knowledge synthesis, conversational responses, and, in an explicitly
+reported condition, semantic response assessment. Prompts, model identifiers,
+sampling parameters, and repair attempts are versioned with the evaluation.
+No language-model output is accepted as structurally valid without schema and
+invariant checks. The Stanford Agentic Reviewer is not part of the system or the
+scientific evaluation.

@@ -1,0 +1,26 @@
+\section{Limitations and Threats to Validity}
+
+The evaluated environments form a small convenience corpus. Two are
+exhibition-like spaces, and all are implemented with the same Unity and backend
+stack. Results therefore demonstrate behavior in these cases rather than broad
+generalization to arbitrary virtual environments.
+
+Language-model responses can vary even when prompts and scenes are held
+constant. We record model settings and repeated trials, but provider-side model
+changes may remain outside our control. Structural grounding and semantic
+response quality are reported separately because a correct route does not
+guarantee a correct answer.
+
+The direct-wiring baseline may favor developers familiar with the existing
+implementation, while the model-grounded condition benefits from automated
+validators created by the authors. We reduce this threat by scripting
+reproducible change tasks, preserving complete patches, and reporting concrete
+edited artifacts and failures rather than subjective effort estimates.
+
+Fault injection establishes whether known inconsistency classes are detected;
+it cannot prove the absence of unknown faults. Similarly, complete trace
+coverage means that an evaluated runtime event is connected to model elements,
+not that the model captures every aspect of the user's intent.
+
+\resultpending{Update this section with all observed failures, excluded runs,
+model-judge limitations, and the final human-participant boundary.}

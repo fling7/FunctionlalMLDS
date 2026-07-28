@@ -1,0 +1,70 @@
+\documentclass[manuscript,review,anonymous]{acmart}
+
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    Bib\TeX}}}
+
+\setcopyright{none}
+\settopmatter{printacmref=false}
+\renewcommand\footnotetextcopyrightpermission[1]{}
+
+\newcommand{\systemname}{FunctionalMLDS}
+\newcommand{\resultpending}[1]{\textbf{[RESULT PENDING: #1]}}
+
+\title{From Spatial Scenes to Traceable Agent Interactions:
+Model-Grounded Authoring of Embodied Multi-Agent Interfaces in Unity}
+
+\author{Anonymous Author(s)}
+\affiliation{%
+  \institution{Anonymous Institution}
+  \country{Anonymous}}
+
+\begin{abstract}
+People in interactive three-dimensional environments increasingly communicate
+with embodied agents about objects that they can see, approach, or point to.
+Implementing such an interface requires developers to keep spatial entities,
+agent responsibilities, knowledge, prompts, runtime actions, and observable
+outcomes consistent. These relationships are commonly distributed across a
+scene editor and an agent backend, which makes interaction failures difficult
+to explain and changes difficult to validate. We present \systemname{}, a
+model-grounded authoring and runtime layer for embodied multi-agent interfaces
+implemented in Unity/WebXR and a conversational-agent backend. The layer makes
+the path from a user-facing scenario and spatial target to an agent capability,
+runtime action, and validation assertion explicit and executable. We evaluate
+the approach against direct artifact wiring in three spatial environments using
+held-out reference and routing tasks, controlled authoring changes, and
+systematic fault injection. \resultpending{Insert the principal comparative
+results after the clean evaluation run.} The contribution is a technical and
+interaction-oriented account of how explicit model grounding can make spatial
+agent behavior controllable, traceable, and reproducibly testable; it does not
+claim improvements in subjective user experience without a human-participant
+study.
+\end{abstract}
+
+\ccsdesc[500]{Human-centered computing~Intelligent user interfaces}
+\ccsdesc[300]{Human-centered computing~Virtual reality}
+\ccsdesc[300]{Computing methodologies~Intelligent agents}
+
+\keywords{intelligent user interfaces, embodied agents, spatial grounding,
+model-driven authoring, runtime traceability, Unity, WebXR}
+
+\begin{document}
+
+\maketitle
+
+\input{sections/01_introduction}
+\input{sections/02_related_work}
+\input{sections/03_system}
+\input{sections/04_method}
+\input{sections/05_results}
+\input{sections/06_discussion}
+\input{sections/07_limitations}
+\input{sections/08_conclusion}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\appendix
+\input{sections/appendix}
+
+\end{document}

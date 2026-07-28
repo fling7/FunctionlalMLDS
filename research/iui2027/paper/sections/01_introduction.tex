@@ -1,0 +1,69 @@
+\section{Introduction}
+
+Imagine a visitor standing in a virtual classroom and asking an embodied agent,
+``What can you tell me about this dinosaur?'' The visible object, the visitor's
+position, the responsible agent, and the relevant knowledge are all part of the
+interaction. A conversational response is useful only if the system resolves
+the intended object, selects an agent that is responsible for it, applies an
+appropriate capability, and makes failures recoverable. The same requirement
+holds when the object is moved, renamed, or assigned to another agent.
+
+This apparently simple interaction crosses two development worlds. Unity
+contains rooms, zones, assets, colliders, avatars, and interaction components.
+The agent backend contains personas, prompts, knowledge, routing rules, and
+language-model calls. In a directly wired prototype, the relationships between
+these elements are encoded in several files and pieces of code. A response may
+be technically successful while being grounded in the wrong object or produced
+by the wrong agent. When the scene changes, stale relationships can remain
+hidden until a person encounters a failure at runtime.
+
+We investigate whether an explicit model-grounding layer can make these
+relationships executable and observable. Our system, \systemname{}, represents
+user-facing scenarios, spatial targets, embodied agents, capabilities, runtime
+bindings, expected assertions, and observed outcomes in a shared interaction
+model. A generation pipeline materializes this model in a Unity/WebXR client and
+a multi-agent backend. Runtime events carry model identifiers back into a
+validation layer, allowing a developer to follow an interaction from a user
+request to its outcome.
+
+The model is not presented as an end in itself. It is infrastructure for an
+intelligent user interface: it determines what a spatial request refers to,
+which embodied agent may act, which operation is invoked, and what evidence can
+explain the result. This focus distinguishes the work from a general-purpose
+software architecture or metamodel contribution.
+
+We ask three questions:
+
+\begin{description}
+  \item[RQ1: Interaction correctness.] How accurately does model-grounded
+  execution resolve spatial targets and route requests across heterogeneous
+  scenes, including ambiguous, negative, and changed-scene cases?
+
+  \item[RQ2: Robust authoring and evolution.] Compared with direct artifact
+  wiring, how does the model-grounded workflow affect consistency, detected
+  faults, and the number of artifacts that must be edited when an interaction
+  changes?
+
+  \item[RQ3: Runtime accountability.] To what extent can an interaction be
+  traced from intent and spatial target through agent capability and runtime
+  action to a validated outcome?
+\end{description}
+
+This paper makes four contributions:
+
+\begin{enumerate}
+  \item a model-grounded authoring architecture for spatial embodied-agent
+  interfaces, implemented across Unity/WebXR and a conversational-agent backend;
+  \item an executable interaction chain linking scenarios, targets, agents,
+  capabilities, runtime actions, assertions, and evidence;
+  \item a reproducible benchmark over multiple environments covering reference
+  resolution, routing, authoring changes, trace completeness, and injected
+  faults; and
+  \item a controlled comparison with direct artifact wiring, with claims bounded
+  to the measured interaction and engineering outcomes.
+\end{enumerate}
+
+Our current evaluation is a system and computational evaluation, not a claim
+about preference, trust, workload, or perceived usability. We make this boundary
+explicit because technical observability can support a human-centered interface
+without, by itself, proving a better user experience.

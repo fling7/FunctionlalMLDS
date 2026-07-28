@@ -1,0 +1,92 @@
+\section{Evaluation Method}
+
+\subsection{Study design}
+
+We use a paired system evaluation. The \emph{direct-wiring} condition expresses
+the scene-to-agent relationships in the Unity and backend artifacts used by the
+existing implementation. The \emph{model-grounded} condition represents the
+same relationships in \systemname{} and generates or validates the runtime
+artifacts. Both conditions use identical scenes, agents, knowledge, language
+model, prompts, user utterances, and runtime environment. The independent
+variable is therefore the authoring and execution structure, not the
+conversational model.
+
+\subsection{Cases}
+
+The corpus contains a classroom with a dinosaur exhibit, a career-fair
+environment, and a food or trade-fair environment. They differ in object count,
+zone structure, agent roles, and knowledge domains. We use all three cases for
+interaction and trace tests and a stratified subset for controlled authoring
+changes.
+
+\resultpending{Insert regenerated per-case counts and justify the corpus after
+the native V2 instances are rebuilt.}
+
+\subsection{Interaction tasks}
+
+The benchmark contains four kinds of end-user utterance:
+
+\begin{enumerate}
+  \item direct descriptions of a visible object;
+  \item held-out paraphrases that require the same object and agent;
+  \item ambiguous or unknown references for which the system should clarify or
+  abstain; and
+  \item requests outside the active agent's responsibility that require a
+  handoff.
+\end{enumerate}
+
+Expected targets and agents are stored separately from the utterances. In
+particular, handoff questions do not name the correct target agent. This avoids
+encoding the answer in the input being evaluated. We report the benchmark
+construction procedure and release the items in the anonymous supplement.
+
+\subsection{Authoring change tasks}
+
+We apply the same controlled changes in each condition: rename, move, and delete
+an object; change its zone; reassign the responsible agent; change a capability;
+and alter a runtime endpoint. For each change we count deliberately edited
+artifacts, remaining inconsistent references, faults detected before execution,
+successful regeneration, and final task success. Scripts start from clean
+snapshots and record every patch so the comparison does not rely on expected or
+manually estimated values.
+
+\subsection{Fault injection}
+
+The mutation suite removes providers, creates dangling asset and zone
+references, deletes bindings, changes endpoints, and corrupts trace
+identifiers. Mutations are deterministic and use recorded seeds. We measure
+detection and false-positive rates, localization to the responsible model or
+runtime element, and repair success. Detection and repair are reported
+separately.
+
+\subsection{Measures}
+
+For RQ1 we measure spatial-target accuracy, agent-routing accuracy, task
+success, false handoffs, and appropriate abstention. For RQ2 we measure edited
+artifacts, inconsistent references after a change, pre-runtime fault detection,
+regeneration success, and execution success. For RQ3 we measure complete
+scenario-to-outcome traces, runtime-action log coverage, and fault localization.
+Semantic response quality is reported separately from structural grounding.
+
+All proportions include their numerator and denominator and an interval estimate.
+Paired binary outcomes are compared with an appropriate paired test; continuous
+change-task measures are described with paired differences and robust summaries.
+We avoid significance testing where the number of independent cases is too
+small to support it.
+
+\subsection{Human-participant boundary}
+
+\resultpending{Insert the institutionally correct ethics determination.} The
+reported system benchmark does not by itself support conclusions about user
+preference, trust, workload, or usability. If a participant study is completed
+under the applicable approval process, its protocol and results will be reported
+as a separate method subsection. Otherwise those outcomes remain explicitly
+outside the paper's claims.
+
+\subsection{Reproducibility}
+
+The evaluation is executed from immutable case inputs with recorded software
+versions, model and prompt identifiers, random seeds, environment metadata, and
+content hashes. A single command regenerates machine-readable results and all
+paper tables. Private service credentials and raw personal data are not part of
+the artifact.
