@@ -189,10 +189,12 @@ every reported value traceable to raw events and hashes.
       disclose model judging in Methods.
 - [ ] **MUST P9.5** Define end-user tasks and interaction breakdowns before
       interpreting system measurements.
-- [ ] **MUST P9.6** State the institution-specific ethics determination accurately.
+- [x] **MUST P9.6** State that the current software-only evaluation has no human
+      participants or personal data; do not imply an institutional determination
+      for a study that is not being conducted.
 - [ ] **SHOULD P9.7** Run a preregistered comparative study only if approval,
       recruitment, and the deadline permit it.
-- [ ] **MUST P9.8** Without an approved study, remove subjective claims and
+- [x] **MUST P9.8** Without an approved study, remove subjective claims and
       present a system/computational evaluation.
 
 Acceptance: every quality claim names its evidence source; no usability, trust,

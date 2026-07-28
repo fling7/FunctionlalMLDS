@@ -5,44 +5,45 @@ task can be advanced without inventing unavailable results.
 
 ## A — Submission scaffold
 
-- [ ] **A1** Obtain the latest official `acmart` template and record its version.
-- [ ] **A2** Create the anonymous one-column review manuscript using
+- [x] **A1** Obtain the latest official `acmart` template and record its version.
+- [x] **A2** Create the anonymous one-column review manuscript using
       `\documentclass[manuscript,review,anonymous]{acmart}`.
-- [ ] **A3** Add ACM CCS concepts and author keywords relevant to IUI.
-- [ ] **A4** Establish a reproducible local PDF build.
-- [ ] **A5** Add word-count, anonymity, broken-reference, and PDF-metadata checks.
+- [x] **A3** Add ACM CCS concepts and author keywords relevant to IUI.
+- [x] **A4** Establish a reproducible local PDF build.
+- [x] **A5** Add word-count, anonymity, broken-reference, and PDF-metadata checks.
 
 ## B — Evidence-first outline
 
-- [ ] **B1** Create a claim-to-evidence matrix.
+- [x] **B1** Create a claim-to-evidence matrix.
 - [ ] **B2** Freeze the title and abstract before abstract registration.
 - [ ] **B3** Map each research question to method, metric, result, and limitation.
 - [ ] **B4** Remove claims that cannot be supported by the submission deadline.
 
 ## C — Related work
 
-- [ ] **C1** Review primary literature on intelligent and multimodal interfaces.
-- [ ] **C2** Review embodied and situated conversational agents.
-- [ ] **C3** Review spatial reference resolution and scene grounding.
-- [ ] **C4** Review model-based UI and interactive-system authoring.
-- [ ] **C5** Review agent orchestration, tracing, and human control.
-- [ ] **C6** Verify every BibTeX record against a publisher or DOI source.
-- [ ] **C7** State the precise gap without claiming that no prior system exists.
+- [x] **C1** Review primary literature on intelligent and multimodal interfaces.
+- [x] **C2** Review embodied and situated conversational agents.
+- [x] **C3** Review spatial reference resolution and scene grounding.
+- [x] **C4** Review model-based UI and interactive-system authoring.
+- [x] **C5** Review agent orchestration, tracing, and human control.
+- [x] **C6** Verify every BibTeX record against a publisher or DOI source.
+- [x] **C7** State the precise gap without claiming that no prior system exists.
 
 ## D — Manuscript sections
 
 - [ ] **D1 Abstract:** problem, gap, approach, evaluation, measured results, boundary.
-- [ ] **D2 Introduction:** motivating user interaction, challenge, contributions.
-- [ ] **D3 Related Work:** synthesis and gap, not a catalogue.
+- [x] **D2 Introduction:** motivating user interaction, challenge, contributions.
+- [x] **D3 Related Work:** synthesis and gap, not a catalogue.
 - [ ] **D4 System:** interaction model, generation, Unity/WebXR, agents, traces.
 - [ ] **D5 Method:** cases, tasks, baselines, mutations, metrics, statistics.
 - [ ] **D6 Results:** answer each RQ using generated evidence only.
-- [ ] **D7 Discussion:** human-centric implications, control, failure recovery,
+- [x] **D7 Discussion:** human-centric implications, control, failure recovery,
       practical use, societal impact.
 - [ ] **D8 Limitations and threats:** no hidden limitations or overgeneralization.
 - [ ] **D9 Conclusion:** concise contribution and bounded findings.
 - [ ] **D10 AI methods:** describe every LLM role, prompt, model, and judge affecting results.
-- [ ] **D11 Ethics statement:** accurate approval/exemption/no-participant context.
+- [x] **D11 Ethics statement:** accurately state that the present software-only
+      evaluation contains no human participants or personal data.
 
 ## E — Visual material
 
@@ -55,8 +56,8 @@ task can be advanced without inventing unavailable results.
 
 ## F — Quality and compliance
 
-- [ ] **F1** Keep main text at or below 8,000 words.
-- [ ] **F2** Use direct, human-readable prose and define unavoidable terminology.
+- [x] **F1** Keep main text at or below 8,000 words.
+- [x] **F2** Use direct, human-readable prose and define unavoidable terminology.
 - [ ] **F3** Audit citations, quotations, numbers, cross-references, and captions.
 - [ ] **F4** Audit anonymity in source, PDF, metadata, figures, links, and supplements.
 - [ ] **F5** Run accessibility checks and inspect every rendered PDF page.

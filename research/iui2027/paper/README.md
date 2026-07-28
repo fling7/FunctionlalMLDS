@@ -14,6 +14,9 @@ The target is at most 8,000 words, excluding references, captions, and
 appendices. Results marked with `\resultpending{...}` are deliberately
 unresolved and must never remain in a reviewer submission.
 
+The current local build uses `acmart` 2.19 (2026-06-27), installed from the
+MiKTeX package repository and recorded by the LaTeX build log.
+
 ## Build on Windows
 
 MiKTeX is installed per user. Run:
@@ -35,3 +38,14 @@ Before any external upload:
 5. PDF and supplements contain no identifying metadata;
 6. file size below 10 MB and essential content within the first 15 pages for
    the Stanford review service.
+
+During development, run:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\build.ps1
+python .\check_submission.py --allow-pending
+```
+
+Before any external upload, omit `--allow-pending`. The strict check fails if a
+result marker, obvious identity leak, undefined citation, overfull box, format
+deviation, or reviewer upload-limit violation remains.

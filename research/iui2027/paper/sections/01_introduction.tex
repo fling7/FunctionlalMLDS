@@ -1,8 +1,8 @@
 \section{Introduction}
 
-Imagine a visitor standing in a virtual classroom and asking an embodied agent,
-``What can you tell me about this dinosaur?'' The visible object, the visitor's
-position, the responsible agent, and the relevant knowledge are all part of the
+Imagine a visitor standing in a virtual classroom, pointing at a skeleton, and
+asking an embodied agent, ``What is this?'' The visible object, the visitor's
+selection, the responsible agent, and the relevant knowledge are all part of the
 interaction. A conversational response is useful only if the system resolves
 the intended object, selects an agent that is responsible for it, applies an
 appropriate capability, and makes failures recoverable. The same requirement
@@ -25,6 +25,20 @@ model. A generation pipeline materializes this model in a Unity/WebXR client and
 a multi-agent backend. Runtime events carry model identifiers back into a
 validation layer, allowing a developer to follow an interaction from a user
 request to its outcome.
+
+This problem sits at a junction that prior systems usually address in parts.
+Embodied agents make language and social behavior visible
+\cite{cassell1999embodiment,kopp2005museum}; situated-language work grounds
+references in shared environments
+\cite{gorniak2005grounding,lemaignan2012grounding}; conversational XR tools
+support agent integration or end-user authoring
+\cite{delatorre2024llmr,carcangiu2025tellxr,buldu2025cuify,liu2026agenthands};
+and model-based interface engineering separates interaction concepts from
+platform realizations
+\cite{puerta1999framework,calvary2003cameleon,paterno2009maria}. Our question is
+not whether any one of these ingredients is new. It is whether explicitly
+connecting them provides a useful control and evidence boundary for a modern
+spatial multi-agent interface.
 
 The model is not presented as an end in itself. It is infrastructure for an
 intelligent user interface: it determines what a spatial request refers to,
@@ -53,7 +67,8 @@ This paper makes four contributions:
 
 \begin{enumerate}
   \item a model-grounded authoring architecture for spatial embodied-agent
-  interfaces, implemented across Unity/WebXR and a conversational-agent backend;
+  interfaces, implemented as a Unity desktop prototype with a WebXR deployment
+  path and a conversational-agent backend;
   \item an executable interaction chain linking scenarios, targets, agents,
   capabilities, runtime actions, assertions, and evidence;
   \item a reproducible benchmark over multiple environments covering reference

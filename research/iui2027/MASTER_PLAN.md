@@ -48,6 +48,7 @@ References:
 
 - [Conference requirements](CONFERENCE_REQUIREMENTS.md)
 - [Framing and research questions](FRAMING.md)
+- [Claim-to-evidence matrix](CLAIM_EVIDENCE_MATRIX.md)
 
 ## Phase 2 — prototype and evaluation
 

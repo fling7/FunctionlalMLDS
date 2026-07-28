@@ -39,15 +39,22 @@ materialization, and metric computation are deterministic. Each stage records
 its inputs, configuration, outputs, and hashes so that a result can be
 invalidated when a relevant upstream artifact changes.
 
-\subsection{Unity/WebXR client}
+\subsection{Unity client and WebXR path}
 
 The Unity client imports room assets and agent configurations, places embodied
 agents in their assigned zones, and supports first-person and proximity-based
-interaction. A visitor can communicate by text or speech. The client sends the
-active project, agent, user utterance, and interaction context to the backend.
-WebXR and the XR Interaction Toolkit provide the browser and immersive runtime,
-while the same scene can be exercised in a desktop mode for deterministic
-testing.
+interaction. A scene-object component binds a collider to a stable model entity
+rather than relying on its GameObject name. In the evaluated desktop path, a
+camera ray selects that component, the object is highlighted, and the resolved
+target remains stable while a text or voice request is composed. The client
+sends the pinned model hash, entity and source identifiers, ray-hit metadata,
+input modality, active agent, and utterance to the backend. No-target and
+ambiguous states are explicit and do not silently fall through to an LLM call.
+
+The project includes WebXR and XR Interaction Toolkit dependencies. Controller
+rays can use the same selection interface, but immersive interaction is
+described as a deployment path rather than an evaluated condition unless a
+physical-headset test is reported.
 
 \subsection{Agent backend and handoffs}
 
@@ -55,9 +62,13 @@ The backend exposes setup, chat, speech, and project-management endpoints. Each
 agent has a persona, knowledge scope, capabilities, and permitted handoff
 targets. A request can be answered by the active agent, delegated to a more
 appropriate agent, or rejected when no grounded target or responsible
-capability exists. Runtime actions carry the interaction-model identifiers
-needed to distinguish a successful HTTP request from a semantically correct
-interaction.
+capability exists. The backend validates the model hash and entity before
+mutating session state. It derives the entity's group and zone from the pinned
+model rather than trusting client-supplied responsibility fields. Routing gives
+an explicit asset binding precedence over group and zone responsibility; any
+handoff is limited to the source agent's modeled targets. Runtime actions carry
+the interaction-model identifiers needed to distinguish a successful HTTP
+request from a semantically correct interaction.
 
 \subsection{Runtime validation}
 
