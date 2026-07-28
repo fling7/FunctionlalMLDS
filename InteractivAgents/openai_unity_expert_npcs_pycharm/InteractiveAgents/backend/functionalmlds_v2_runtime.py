@@ -13,6 +13,27 @@ V2_MODEL_VERSION = "2.0.0-model"
 V2_TRACE_SCHEMA = "functionalmlds_trace_map_v2"
 V2_TRACE_VERSION = "2.0"
 RUNTIME_CONTEXT_SCHEMA = "functionalmlds_runtime_context_v2"
+WIRE_CONTRACT_VERSION = "2.0"
+WIRE_SCHEMA_DIALECT = "https://json-schema.org/draft/2020-12/schema"
+INTERACTION_MODES = ("deictic", "non_deictic")
+SPATIAL_ID_MAX_LENGTH = 256
+SPATIAL_CANDIDATE_LIMIT = 16
+SPATIAL_REASON_MAX_LENGTH = 512
+SPATIAL_DISTANCE_LIMIT_METERS = 1_000_000
+SPATIAL_COORDINATE_LIMIT = 1_000_000
+SPATIAL_SELECTION_MODALITIES = frozenset(
+    {
+        "desktop_ray",
+        "mouse_ray",
+        "keyboard_mouse",
+        "xr_controller_ray",
+        "controller_ray",
+        "gaze",
+        "touch",
+        "direct",
+        "programmatic",
+    }
+)
 PLACEMENT_ARTIFACT_SCHEMA = "functionalmlds_agent_placements"
 PLACEMENT_ARTIFACT_SCHEMA_VERSION = "2.0"
 PLACEMENT_ALGORITHM_VERSION = "2.0.0"
@@ -222,6 +243,46 @@ def _validate_v2_instance(instance: Mapping[str, Any]) -> Dict[str, Dict[str, An
         if object_type == "Assertion":
             raise FunctionalMldsContractError("Abstract Assertion cannot be instantiated.")
 
+    source_entities: Dict[str, str] = {}
+    source_agents: Dict[str, str] = {}
+    for item in by_id.values():
+        object_type = str(item.get("type") or "")
+        if object_type not in {"Entity", "Agent"}:
+            continue
+        source_id = _required_text(
+            item.get("sourceId"),
+            f"{object_type} {item.get('id')!r}.sourceId",
+        )
+        if len(source_id) > SPATIAL_ID_MAX_LENGTH:
+            raise FunctionalMldsContractError(
+                f"{object_type} {item.get('id')!r}.sourceId exceeds "
+                f"{SPATIAL_ID_MAX_LENGTH} characters."
+            )
+        previous = source_entities.get(source_id)
+        if previous is not None:
+            raise FunctionalMldsContractError(
+                f"Duplicate V2 sourceId {source_id!r} on {previous!r} and "
+                f"{item.get('id')!r}."
+            )
+        source_entities[source_id] = str(item.get("id"))
+        if object_type == "Agent":
+            source_agent_id = _required_text(
+                item.get("sourceAgentId"),
+                f"Agent {item.get('id')!r}.sourceAgentId",
+            )
+            if len(source_agent_id) > SPATIAL_ID_MAX_LENGTH:
+                raise FunctionalMldsContractError(
+                    f"Agent {item.get('id')!r}.sourceAgentId exceeds "
+                    f"{SPATIAL_ID_MAX_LENGTH} characters."
+                )
+            previous_agent = source_agents.get(source_agent_id)
+            if previous_agent is not None:
+                raise FunctionalMldsContractError(
+                    f"Duplicate V2 sourceAgentId {source_agent_id!r} on "
+                    f"{previous_agent!r} and {item.get('id')!r}."
+                )
+            source_agents[source_agent_id] = str(item.get("id"))
+
     roots = [item for item in by_id.values() if item.get("type") == "DynamicFunctionalModel"]
     if len(roots) != 1:
         raise FunctionalMldsContractError("Native V2 instance requires exactly one DynamicFunctionalModel root.")
@@ -281,6 +342,84 @@ def _validate_v2_instance(instance: Mapping[str, Any]) -> Dict[str, Dict[str, An
                     f"RuntimeValidationTarget {item['id']!r} runtimeBinding must be a subset of element."
                 )
             _require_refs(item, "element", by_id, minimum=1)
+        elif object_type == "Entity":
+            object_groups = _require_refs(
+                item,
+                "objectGroup",
+                by_id,
+                minimum=0,
+                maximum=1,
+                expected_type="Entity",
+            )
+            entity_role = str(item.get("entityRole") or "").strip()
+            entity_kind = str(item.get("kind") or "").strip()
+            if object_groups:
+                if entity_role != "sceneObject" or entity_kind != "asset":
+                    raise FunctionalMldsContractError(
+                        f"Entity {item['id']!r}.objectGroup is only valid for "
+                        "asset/sceneObject entities."
+                    )
+                target = by_id[object_groups[0]]
+                if (
+                    str(target.get("entityRole") or "").strip() != "objectGroup"
+                    or str(target.get("kind") or "").strip() != "asset"
+                ):
+                    raise FunctionalMldsContractError(
+                        f"Entity {item['id']!r}.objectGroup must reference an "
+                        "asset/objectGroup Entity."
+                    )
+            if entity_role == "objectGroup":
+                if entity_kind != "asset":
+                    raise FunctionalMldsContractError(
+                        f"Object-group Entity {item['id']!r} must have kind 'asset'."
+                    )
+                if object_groups:
+                    raise FunctionalMldsContractError(
+                        f"Object-group Entity {item['id']!r} cannot itself reference "
+                        "objectGroup."
+                    )
+            if entity_role == "sceneObject" and entity_kind != "asset":
+                raise FunctionalMldsContractError(
+                    f"Scene-object Entity {item['id']!r} must have kind 'asset'."
+                )
+        elif object_type == "Agent":
+            _require_refs(item, "handoffTarget", by_id, minimum=0, expected_type="Agent")
+            responsible_zones = _require_refs(
+                item,
+                "responsibleZone",
+                by_id,
+                minimum=0,
+                expected_type="Entity",
+            )
+            grounded_assets = _require_refs(
+                item,
+                "groundedAsset",
+                by_id,
+                minimum=0,
+                expected_type="Entity",
+            )
+            grounded_groups = _require_refs(
+                item,
+                "groundedObjectGroup",
+                by_id,
+                minimum=0,
+                expected_type="Entity",
+            )
+            if any(str(by_id[ref].get("kind") or "") != "zone" for ref in responsible_zones):
+                raise FunctionalMldsContractError(
+                    f"Agent {item['id']!r} responsibleZone must reference zone Entities."
+                )
+            if any(str(by_id[ref].get("kind") or "") != "asset" for ref in grounded_assets):
+                raise FunctionalMldsContractError(
+                    f"Agent {item['id']!r} groundedAsset must reference asset Entities."
+                )
+            if any(
+                str(by_id[ref].get("entityRole") or "") != "objectGroup"
+                for ref in grounded_groups
+            ):
+                raise FunctionalMldsContractError(
+                    f"Agent {item['id']!r} groundedObjectGroup must reference object-group Entities."
+                )
         elif object_type == "ValidationCase":
             _require_refs(item, "vvSubject", by_id, minimum=1)
             _require_refs(
@@ -314,6 +453,7 @@ def _validate_v2_instance(instance: Mapping[str, Any]) -> Dict[str, Dict[str, An
                 raise FunctionalMldsContractError(
                     f"ScenarioStep {step['id']!r} must include its CapabilityUse provider in performedBy."
                 )
+    _validate_runtime_wire_contracts(by_id)
     return by_id
 
 
@@ -524,10 +664,27 @@ def _build_v2_runtime_context(
     unity_target = next((item for item in targets if "unity" in str(item.get("platform") or "").lower()), None)
     if unity_target is None and targets:
         unity_target = targets[0]
+    spatial_entities = []
+    for item in objects:
+        if item.get("type") != "Entity":
+            continue
+        spatial_entities.append(
+            {
+                "entity_id": item.get("id"),
+                "kind": item.get("kind"),
+                "entity_role": item.get("entityRole"),
+                "name": item.get("name"),
+                "source_id": item.get("sourceId"),
+                "source_object_ids": _refs(item.get("sourceObjectId")),
+                "source_group": item.get("sourceGroup"),
+                "object_group_ids": _refs(item.get("objectGroup")),
+            }
+        )
     agents = []
     for item in objects:
         if item.get("type") != "Agent":
             continue
+        handoff_target_ids = _refs(item.get("handoffTarget"))
         agents.append(
             {
                 "functionalmlds_agent_id": item.get("id"),
@@ -538,8 +695,38 @@ def _build_v2_runtime_context(
                 "responsible_zone_ids": _refs(item.get("responsibleZone")),
                 "grounded_asset_ids": _refs(item.get("groundedAsset")),
                 "grounded_object_group_ids": _refs(item.get("groundedObjectGroup")),
+                "handoff_target_ids": handoff_target_ids,
+                "handoff_target_source_agent_ids": [
+                    by_id[target_id].get("sourceAgentId")
+                    for target_id in handoff_target_ids
+                    if target_id in by_id
+                ],
             }
         )
+    runtime_actions: List[Dict[str, Any]] = []
+    for raw_action in trace.get("runtime_actions", []):
+        if not isinstance(raw_action, Mapping):
+            continue
+        action = by_id.get(str(raw_action.get("runtime_action_id") or ""))
+        if action is None:
+            continue
+        action_kind = str(raw_action.get("action_kind") or "").strip().lower()
+        request_schema = _wire_schema_document(
+            action,
+            by_id,
+            "inputSchema",
+            required=True,
+        )
+        response_schema = _wire_schema_document(
+            action,
+            by_id,
+            "outputSchema",
+            required=action_kind in {"chat", "handoff"},
+        )
+        runtime_action = dict(raw_action)
+        runtime_action["request_wire_schema"] = request_schema
+        runtime_action["response_wire_schema"] = response_schema
+        runtime_actions.append(runtime_action)
     return {
         "schema": RUNTIME_CONTEXT_SCHEMA,
         "case_id": trace.get("case_id"),
@@ -549,8 +736,9 @@ def _build_v2_runtime_context(
         "trace_schema_version": V2_TRACE_VERSION,
         "main_scenario_id": trace.get("main_scenario_id"),
         "runtime_validation_target_id": unity_target.get("id") if unity_target else None,
-        "runtime_actions": [dict(item) for item in trace.get("runtime_actions", [])],
+        "runtime_actions": runtime_actions,
         "assertions": assertions,
+        "spatial_entities": spatial_entities,
         "agents": agents,
     }
 
@@ -692,6 +880,326 @@ def _runtime_action_kind(
             f"applicationActionKind in {sorted(allowed)!r}; found {markers!r}."
         )
     return markers[0]
+
+
+def _wire_schema_document(
+    action: Mapping[str, Any],
+    by_id: Mapping[str, Mapping[str, Any]],
+    field_name: str,
+    *,
+    required: bool,
+) -> Optional[Dict[str, Any]]:
+    schema_ids = _refs(action.get(field_name))
+    if not schema_ids:
+        if required:
+            raise FunctionalMldsContractError(
+                f"RuntimeAction {action.get('id')!r} requires a modeled "
+                f"{field_name} SchemaReference."
+            )
+        return None
+    if len(schema_ids) != 1:
+        raise FunctionalMldsContractError(
+            f"RuntimeAction {action.get('id')!r}.{field_name} must contain "
+            "exactly one SchemaReference."
+        )
+    schema_reference = by_id.get(schema_ids[0])
+    if not schema_reference or schema_reference.get("type") != "SchemaReference":
+        raise FunctionalMldsContractError(
+            f"RuntimeAction {action.get('id')!r}.{field_name} is not a "
+            "SchemaReference."
+        )
+    raw = schema_reference.get("text")
+    if not isinstance(raw, str) or not raw.strip():
+        raise FunctionalMldsContractError(
+            f"SchemaReference {schema_ids[0]!r} requires an executable JSON "
+            "Schema document in text."
+        )
+    try:
+        payload = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        raise FunctionalMldsContractError(
+            f"SchemaReference {schema_ids[0]!r}.text is not valid JSON: {exc}."
+        ) from exc
+    if not isinstance(payload, dict):
+        raise FunctionalMldsContractError(
+            f"SchemaReference {schema_ids[0]!r}.text must encode a JSON object."
+        )
+    return payload
+
+
+def _wire_condition(
+    schema: Mapping[str, Any],
+    interaction_mode: str,
+) -> Optional[Mapping[str, Any]]:
+    for condition in schema.get("allOf") or []:
+        if not isinstance(condition, Mapping):
+            continue
+        predicate = condition.get("if")
+        if not isinstance(predicate, Mapping):
+            continue
+        properties = predicate.get("properties")
+        if not isinstance(properties, Mapping):
+            continue
+        mode_schema = properties.get("interaction_mode")
+        if (
+            isinstance(mode_schema, Mapping)
+            and mode_schema.get("const") == interaction_mode
+        ):
+            then = condition.get("then")
+            return then if isinstance(then, Mapping) else None
+    return None
+
+
+def _validate_chat_request_wire_schema(
+    action_id: str,
+    schema: Mapping[str, Any],
+) -> None:
+    required = set(schema.get("required") or [])
+    expected_required = {
+        "session_id",
+        "active_agent_id",
+        "user_text",
+        "interaction_mode",
+    }
+    if not expected_required.issubset(required):
+        raise FunctionalMldsContractError(
+            f"RuntimeAction {action_id!r} request schema must require "
+            f"{sorted(expected_required)!r}."
+        )
+    properties = schema.get("properties")
+    if not isinstance(properties, Mapping):
+        raise FunctionalMldsContractError(
+            f"RuntimeAction {action_id!r} request schema requires properties."
+        )
+    interaction_mode = properties.get("interaction_mode")
+    if (
+        not isinstance(interaction_mode, Mapping)
+        or interaction_mode.get("type") != "string"
+        or list(interaction_mode.get("enum") or []) != list(INTERACTION_MODES)
+    ):
+        raise FunctionalMldsContractError(
+            f"RuntimeAction {action_id!r} must model interaction_mode as "
+            f"{list(INTERACTION_MODES)!r}."
+        )
+    spatial = properties.get("spatial_context")
+    if not isinstance(spatial, Mapping) or spatial.get("type") != "object":
+        raise FunctionalMldsContractError(
+            f"RuntimeAction {action_id!r} must model spatial_context as an object."
+        )
+    spatial_required = set(spatial.get("required") or [])
+    if not {
+        "model_sha256",
+        "state",
+        "hit_position",
+        "distance_m",
+        "selection_modality",
+    }.issubset(spatial_required):
+        raise FunctionalMldsContractError(
+            f"RuntimeAction {action_id!r} spatial_context omits required "
+            "grounding observations."
+        )
+    spatial_properties = spatial.get("properties")
+    if not isinstance(spatial_properties, Mapping):
+        raise FunctionalMldsContractError(
+            f"RuntimeAction {action_id!r} spatial_context requires properties."
+        )
+    candidates = spatial_properties.get("candidate_entity_ids")
+    if (
+        not isinstance(candidates, Mapping)
+        or candidates.get("maxItems") != SPATIAL_CANDIDATE_LIMIT
+    ):
+        raise FunctionalMldsContractError(
+            f"RuntimeAction {action_id!r} must enforce the modeled spatial "
+            f"candidate limit {SPATIAL_CANDIDATE_LIMIT}."
+        )
+    reason = spatial_properties.get("ambiguity_reason")
+    if (
+        not isinstance(reason, Mapping)
+        or reason.get("maxLength") != SPATIAL_REASON_MAX_LENGTH
+    ):
+        raise FunctionalMldsContractError(
+            f"RuntimeAction {action_id!r} must enforce the modeled ambiguity "
+            f"reason limit {SPATIAL_REASON_MAX_LENGTH}."
+        )
+    deictic = _wire_condition(schema, "deictic")
+    if (
+        not isinstance(deictic, Mapping)
+        or "spatial_context" not in set(deictic.get("required") or [])
+    ):
+        raise FunctionalMldsContractError(
+            f"RuntimeAction {action_id!r} must require spatial_context when "
+            "interaction_mode is deictic."
+        )
+    non_deictic = _wire_condition(schema, "non_deictic")
+    if (
+        not isinstance(non_deictic, Mapping)
+        or dict(non_deictic.get("not") or {})
+        != {"required": ["spatial_context"]}
+    ):
+        raise FunctionalMldsContractError(
+            f"RuntimeAction {action_id!r} must forbid spatial_context when "
+            "interaction_mode is non_deictic."
+        )
+
+
+def _validate_chat_response_wire_schema(
+    action_id: str,
+    schema: Mapping[str, Any],
+) -> None:
+    grounding_fields = {
+        "grounded_entity_ids",
+        "grounding_evidence",
+        "routing_reason",
+        "grounding",
+        "routing",
+    }
+    required = set(schema.get("required") or [])
+    expected_required = {
+        "session_id",
+        "active_agent_id",
+        "memory_mode",
+        "handoff",
+        "events",
+        "interaction_mode",
+        "model_binding",
+    }
+    if not expected_required.issubset(required):
+        raise FunctionalMldsContractError(
+            f"RuntimeAction {action_id!r} response schema must require "
+            f"{sorted(expected_required)!r}."
+        )
+    properties = schema.get("properties")
+    if not isinstance(properties, Mapping):
+        raise FunctionalMldsContractError(
+            f"RuntimeAction {action_id!r} response schema requires properties."
+        )
+    mode_schema = properties.get("interaction_mode")
+    if (
+        not isinstance(mode_schema, Mapping)
+        or list(mode_schema.get("enum") or []) != list(INTERACTION_MODES)
+    ):
+        raise FunctionalMldsContractError(
+            f"RuntimeAction {action_id!r} response schema has no exact "
+            "interaction_mode contract."
+        )
+    if not grounding_fields.issubset(set(properties)):
+        raise FunctionalMldsContractError(
+            f"RuntimeAction {action_id!r} response schema does not model all "
+            "grounding and routing evidence fields."
+        )
+    deictic = _wire_condition(schema, "deictic")
+    if not isinstance(deictic, Mapping) or not grounding_fields.issubset(
+        set(deictic.get("required") or [])
+    ):
+        raise FunctionalMldsContractError(
+            f"RuntimeAction {action_id!r} response schema must require "
+            "grounding and routing evidence for deictic interaction."
+        )
+    non_deictic = _wire_condition(schema, "non_deictic")
+    forbidden = (
+        (non_deictic or {}).get("not", {}).get("anyOf", [])
+        if isinstance(non_deictic, Mapping)
+        else []
+    )
+    forbidden_fields = {
+        str(next(iter(item.get("required") or []), ""))
+        for item in forbidden
+        if isinstance(item, Mapping)
+    }
+    if forbidden_fields != grounding_fields:
+        raise FunctionalMldsContractError(
+            f"RuntimeAction {action_id!r} response schema must forbid every "
+            "grounding field for non_deictic interaction."
+        )
+
+
+def _validate_runtime_wire_contracts(
+    by_id: Mapping[str, Mapping[str, Any]],
+) -> None:
+    bindings_by_action: Dict[str, List[Mapping[str, Any]]] = {}
+    uses_by_capability: Dict[str, List[str]] = {}
+    for item in by_id.values():
+        if item.get("type") == "RuntimeBinding":
+            for action_id in _refs(item.get("runtimeAction")):
+                bindings_by_action.setdefault(action_id, []).append(item)
+        elif item.get("type") == "CapabilityUse":
+            for capability_id in _refs(item.get("typeRef") or item.get("capability")):
+                uses_by_capability.setdefault(capability_id, []).append(
+                    str(item.get("id"))
+                )
+
+    for action in by_id.values():
+        if action.get("type") != "RuntimeAction":
+            continue
+        action_id = str(action.get("id"))
+        action_kind = _runtime_action_kind(action, by_id)
+        input_schema = _wire_schema_document(
+            action,
+            by_id,
+            "inputSchema",
+            required=True,
+        )
+        assert input_schema is not None
+        output_schema = _wire_schema_document(
+            action,
+            by_id,
+            "outputSchema",
+            required=action_kind in {"chat", "handoff"},
+        )
+        schemas = [input_schema]
+        if output_schema is not None:
+            schemas.append(output_schema)
+        bindings = bindings_by_action.get(action_id, [])
+        if len(bindings) != 1:
+            raise FunctionalMldsContractError(
+                f"RuntimeAction {action_id!r} must belong to exactly one "
+                "RuntimeBinding for executable wire binding."
+            )
+        binding = bindings[0]
+        binding_id = str(binding.get("id"))
+        capability_ids = _refs(binding.get("capability"))
+        if len(capability_ids) != 1:
+            raise FunctionalMldsContractError(
+                f"RuntimeBinding {binding_id!r} must bind exactly one Capability."
+            )
+        capability_use_ids = [
+            use_id
+            for capability_id in capability_ids
+            for use_id in uses_by_capability.get(capability_id, [])
+        ]
+        expected_binding = {
+            "runtimeBindingId": binding_id,
+            "runtimeActionId": action_id,
+            "capabilityIds": capability_ids,
+            "capabilityUseIds": capability_use_ids,
+        }
+        for schema in schemas:
+            if schema.get("$schema") != WIRE_SCHEMA_DIALECT:
+                raise FunctionalMldsContractError(
+                    f"RuntimeAction {action_id!r} wire schema must use "
+                    f"{WIRE_SCHEMA_DIALECT!r}."
+                )
+            if schema.get("type") != "object":
+                raise FunctionalMldsContractError(
+                    f"RuntimeAction {action_id!r} wire schema root must be object."
+                )
+            if schema.get("wireContractVersion") != WIRE_CONTRACT_VERSION:
+                raise FunctionalMldsContractError(
+                    f"RuntimeAction {action_id!r} wire contract version mismatch."
+                )
+            if schema.get("applicationActionKind") != action_kind:
+                raise FunctionalMldsContractError(
+                    f"RuntimeAction {action_id!r} wire action kind mismatch."
+                )
+            if schema.get("modelBinding") != expected_binding:
+                raise FunctionalMldsContractError(
+                    f"RuntimeAction {action_id!r} wire modelBinding does not "
+                    "exactly match RuntimeBinding/CapabilityUse relations."
+                )
+        if action_kind in {"chat", "handoff"}:
+            _validate_chat_request_wire_schema(action_id, input_schema)
+            assert output_schema is not None
+            _validate_chat_response_wire_schema(action_id, output_schema)
 
 
 def _placement_projection_sha256(agents: Any) -> str:

@@ -1,7 +1,7 @@
 {
   "schema": "functionalmlds_trace_map",
   "case_id": "classroom_dinosaur",
-  "functionalmlds_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.instance.generated.json",
+  "functionalmlds_path": "C:\\Users\\burklo\\AppData\\Local\\Temp\\functionalmlds-wire-f9829e999e4648b9bd6e82c5a45e901c\\classroom_dinosaur\\functionalmlds\\functionalmlds.instance.generated.json",
   "project_files": {
     "project": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\project.json",
     "room_plan": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\room_plan.json",
@@ -384,5 +384,11 @@
         "decorative_zone"
       ]
     }
-  ]
+  ],
+  "placement_schema": "functionalmlds_agent_placements",
+  "placement_schema_version": "2.0",
+  "placement_algorithm_version": "2.0.0",
+  "placement_origin": "deterministic",
+  "placement_artifact_sha256": "912a1402c31dab88fa598c62422595c6e073993d9b2af3d3e629f039dfa48367",
+  "placement_projection_sha256": "171957335bd83fd1db6e5116e69c81b8153266627d226a0621b73616b6101a49"
 }

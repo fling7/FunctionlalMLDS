@@ -64,10 +64,118 @@ public static class FunctionalMldsV2QuickAgentBridgeSmoke
                 new { ok = true });
         }
 
+        var partialTarget = ValidObservation(loaded.Sha256);
+        partialTarget.ResponseObserved = false;
+        partialTarget.RoutedAgentId = null;
+        partialTarget.ResponseSelectedEntityId = null;
+        partialTarget.ResponseGroundedEntityIds.Clear();
+        var partialAssessment = bridge.RecordInteraction(
+            "chat",
+            "unity_target_selection_resolved",
+            "runtime-agent",
+            partialTarget,
+            new { target = "target-asset" },
+            new { state = "resolved" });
+        Require(
+            partialAssessment.Verdict == "inconclusive" && !partialAssessment.CompletionSatisfied,
+            "Target-only evidence must remain inconclusive until routing and response are observed.");
+
+        var validAssessment = bridge.RecordInteraction(
+            "chat",
+            "unity_grounded_chat_observed",
+            "runtime-agent",
+            ValidObservation(loaded.Sha256),
+            new { interaction_mode = "deictic", target = "target-asset" },
+            new { routed_agent_id = "runtime-agent", grounded_entity_id = "target-asset" });
+        Require(validAssessment.Verdict == "pass", "A valid grounded trace must pass.");
+        Require(validAssessment.TargetResolved, "A valid grounded trace must resolve its target.");
+        Require(validAssessment.RouteResolved, "A valid grounded trace must resolve its route.");
+        Require(validAssessment.CompletionSatisfied, "A valid grounded trace must satisfy completion.");
+        Require(validAssessment.ScenarioStepCompleted, "Scenario completion must be evidence-gated.");
+        Require(
+            validAssessment.Probe("model_binding").Passed
+            && validAssessment.Probe("target_resolution").Passed
+            && validAssessment.Probe("entity_capability_agreement").Passed
+            && validAssessment.Probe("agent_responsibility").Passed
+            && validAssessment.Probe("response_entity").Passed,
+            "The valid trace must pass all required grounding/routing probes.");
+
+        var handoffObservation = ValidObservation(loaded.Sha256);
+        handoffObservation.RoutedAgentId = "specialist-agent";
+        handoffObservation.HandoffObserved = true;
+        handoffObservation.HandoffFromAgentId = "runtime-agent";
+        handoffObservation.HandoffToAgentId = "specialist-agent";
+        handoffObservation.ModeledHandoff = true;
+        var handoffAssessment = bridge.RecordInteraction(
+            "handoff",
+            "unity_handoff_observed",
+            "runtime-agent",
+            handoffObservation,
+            new { from = "runtime-agent" },
+            new { to = "specialist-agent", modeled_handoff = true });
+        Require(handoffAssessment.Verdict == "pass", "A modeled handoff trace must pass.");
+        Require(
+            handoffAssessment.Probe("handoff_permission").Passed,
+            "A modeled handoff must pass the handoff-permission probe.");
+
+        var brokenObservation = ValidObservation(loaded.Sha256);
+        brokenObservation.ResponseSelectedEntityId = "provider-agent";
+        var brokenAssessment = bridge.RecordInteraction(
+            "chat",
+            "unity_grounded_chat_observed",
+            "runtime-agent",
+            brokenObservation,
+            new { target = "target-asset" },
+            new { selected_entity_id = "provider-agent" });
+        Require(brokenAssessment.Verdict == "fail", "An injected entity mismatch must fail.");
+        Require(!brokenAssessment.CompletionSatisfied, "A broken trace must fail closed.");
+        Require(!brokenAssessment.ScenarioStepCompleted, "A broken trace must not complete its scenario step.");
+
+        var nonDeicticWithGrounding = ValidObservation(loaded.Sha256);
+        nonDeicticWithGrounding.InteractionMode =
+            FunctionalMldsV2InteractionEvidenceEvaluator.NonDeicticMode;
+        nonDeicticWithGrounding.SelectionObserved = false;
+        nonDeicticWithGrounding.SelectionState = "none";
+        nonDeicticWithGrounding.SelectedEntityId = null;
+        nonDeicticWithGrounding.SelectedSourceObjectId = null;
+        var nonDeicticAssessment = bridge.RecordInteraction(
+            "chat",
+            "unity_non_deictic_with_grounding_smoke",
+            "runtime-agent",
+            nonDeicticWithGrounding,
+            new { interaction_mode = "non_deictic" },
+            new { grounded_entity_id = "target-asset" });
+        Require(
+            nonDeicticAssessment.Verdict == "fail",
+            "A non_deictic response must not receive success from grounding evidence.");
+
+        ExpectFailure(
+            () => QuickAgentManager.SerializeChatRequest(new QuickAgentManager.ChatRequest
+            {
+                session_id = "session",
+                active_agent_id = "runtime-agent",
+                user_text = "Describe this.",
+                interaction_mode = FunctionalMldsV2InteractionEvidenceEvaluator.DeicticMode,
+                spatial_context = null
+            }),
+            "A deictic request without spatial_context must not be serialized.");
+        ExpectFailure(
+            () => QuickAgentManager.ResolveV2InteractionMode(
+                true,
+                FunctionalMldsSpatialTargetStates.Ambiguous,
+                null),
+            "An ambiguous selection must not fall back to non_deictic mode.");
+        Require(
+            QuickAgentManager.ResolveV2InteractionMode(
+                true,
+                FunctionalMldsSpatialTargetStates.None,
+                null) == FunctionalMldsV2InteractionEvidenceEvaluator.NonDeicticMode,
+            "A generic V2 chat without a selection must use explicit non_deictic mode.");
+
         var events = File.ReadAllLines(Path.Combine(root, "events.v2.jsonl"));
         var validations = File.ReadAllLines(Path.Combine(root, "runtime_validation.v2.jsonl"));
-        Require(events.Length == 3, "Bridge must write three runtime events.");
-        Require(validations.Length == 3, "Bridge must write three validation records.");
+        Require(events.Length == 8, "Bridge must write all transport and interaction events.");
+        Require(validations.Length == 8, "Bridge must write one validation record per runtime event.");
         foreach (var line in events)
         {
             var payload = JObject.Parse(line);
@@ -75,7 +183,7 @@ public static class FunctionalMldsV2QuickAgentBridgeSmoke
             Require((string)payload["model_sha256"] == loaded.Sha256, "Runtime hash mismatch.");
             Require((payload["assertion_ids"] as JArray)?.Count == 5, "Runtime assertion trace is incomplete.");
         }
-        foreach (var line in validations)
+        foreach (var line in validations.Take(3))
         {
             var payload = JObject.Parse(line);
             Require(
@@ -85,6 +193,16 @@ public static class FunctionalMldsV2QuickAgentBridgeSmoke
                 (string)payload["runtimeActualOutcome"]?["result"]?[0]?["verdict"] == "inconclusive",
                 "Transport success must remain semantically inconclusive without a domain probe.");
         }
+        var eventPayloads = events.Select(JObject.Parse).ToList();
+        var validationPayloads = validations.Select(JObject.Parse).ToList();
+        Require(
+            (string)eventPayloads[4]["status"] == "success"
+            && (string)validationPayloads[4]["runtimeActualOutcome"]?["result"]?[0]?["verdict"] == "pass",
+            "Real valid interaction evidence must produce pass, not transport-only success.");
+        Require(
+            (string)eventPayloads[6]["status"] == "failed"
+            && (string)validationPayloads[6]["runtimeActualOutcome"]?["result"]?[0]?["verdict"] == "fail",
+            "The injected broken trace must be persisted as failed evidence.");
 
         var badSetup = (JObject)setup.DeepClone();
         badSetup["model_sha256"] = new string('0', 64);
@@ -141,6 +259,26 @@ public static class FunctionalMldsV2QuickAgentBridgeSmoke
                 modelJson,
                 root),
             "Missing runtime chain must fail closed.");
+    }
+
+    private static FunctionalMldsV2InteractionObservation ValidObservation(string modelSha256)
+    {
+        return new FunctionalMldsV2InteractionObservation
+        {
+            InteractionMode = FunctionalMldsV2InteractionEvidenceEvaluator.DeicticMode,
+            ModelSha256 = modelSha256,
+            BindingRegistryValid = true,
+            SelectionObserved = true,
+            SelectionState = FunctionalMldsV2InteractionEvidenceEvaluator.ResolvedSelectionState,
+            SelectedEntityId = "target-asset",
+            SelectedSourceObjectId = "target-asset-source",
+            RequestedAgentId = "runtime-agent",
+            RoutedAgentId = "runtime-agent",
+            ResponseObserved = true,
+            ResponseSelectedEntityId = "target-asset",
+            ResponseGroundedEntityIds = new System.Collections.Generic.List<string> { "target-asset" },
+            HandoffObserved = false
+        };
     }
 
     private static JObject BuildSetup(FunctionalMldsV2LoadResult loaded)

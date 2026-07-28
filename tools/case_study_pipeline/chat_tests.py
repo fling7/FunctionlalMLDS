@@ -13,6 +13,18 @@ from .common import read_json, update_manifest, write_json
 
 SCHEMA = "functionalmlds_chat_test_results"
 SCHEMA_VERSION = "1.0"
+REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
+BACKEND_ROOT = (
+    REPOSITORY_ROOT
+    / "InteractivAgents"
+    / "openai_unity_expert_npcs_pycharm"
+    / "InteractiveAgents"
+)
+BACKEND_IMPLEMENTATION_PATHS = [
+    BACKEND_ROOT / "backend" / "app.py",
+    BACKEND_ROOT / "backend" / "state.py",
+    BACKEND_ROOT / "backend" / "functionalmlds_v2_runtime.py",
+]
 
 
 def backend_url_from_config(config_path: Path) -> str:
@@ -194,10 +206,17 @@ def run_chat_tests_for_case(
             session_id = str(setup_response.get("session_id") or "").strip()
             agent_ids = set(_agent_ids_from_setup(setup_response)) or reused_agent_ids
             active_agent_id = str(question.get("active_agent_id") or "").strip()
+            expected = (
+                dict(question.get("expected"))
+                if isinstance(question.get("expected"), Mapping)
+                else {}
+            )
             request_payload = {
                 "session_id": session_id,
                 "active_agent_id": active_agent_id,
-                "user_text": str(question.get("text") or "").strip(),
+                "user_text": str(
+                    question.get("utterance") or question.get("text") or ""
+                ).strip(),
             }
             if not session_id:
                 response_status = 0
@@ -249,6 +268,7 @@ def run_chat_tests_for_case(
                     "question_id": question_id,
                     "case_id": case_id,
                     "kind": question.get("kind"),
+                    "benchmark_class": question.get("benchmark_class"),
                     "success": not test_errors,
                     "errors": test_errors,
                     "http_status": response_status,
@@ -265,6 +285,16 @@ def run_chat_tests_for_case(
                     "observed_handoff": bool(observed_handoff),
                     "observed_handoff_to": observed_handoff_to,
                     "expected_agent_id": question.get("expected_agent_id"),
+                    "expected_resolution": (
+                        question.get("expected_resolution")
+                        or expected.get("resolution")
+                    ),
+                    "expected_rationale": expected.get("rationale"),
+                    "candidate_agent_ids": (
+                        question.get("candidate_agent_ids")
+                        or expected.get("candidate_agent_ids")
+                        or []
+                    ),
                     "expected_zone_ids": question.get("expected_zone_ids") or [],
                     "expected_object_ids": question.get("expected_object_ids") or [],
                 }
@@ -294,6 +324,15 @@ def run_chat_tests_for_case(
         if chat_tests
         else 0.0,
         "handoff_question_count": sum(1 for test in chat_tests if test["kind"] == "handoff_decision"),
+        "handoff_negative_question_count": sum(
+            1 for test in chat_tests if test["kind"] == "handoff_negative"
+        ),
+        "handoff_ambiguous_question_count": sum(
+            1 for test in chat_tests if test["kind"] == "handoff_ambiguous"
+        ),
+        "handoff_unknown_question_count": sum(
+            1 for test in chat_tests if test["kind"] == "handoff_unknown"
+        ),
         "observed_handoff_count": sum(1 for test in chat_tests if test["observed_handoff"]),
         "isolated_session_per_question": bool(isolate_questions),
     }
@@ -321,7 +360,15 @@ def run_chat_tests_for_case(
         case_dir,
         stage_id="chat_tests",
         status="success" if payload["status"] == "valid" else "failed",
-        input_paths=[questions_path],
+        input_paths=[
+            questions_path,
+            Path(__file__).resolve(),
+            BACKEND_ROOT / "projects" / case_id / "project.json",
+            BACKEND_ROOT / "projects" / case_id / "agents.json",
+            BACKEND_ROOT / "projects" / case_id / "trace_map.v2.json",
+            BACKEND_ROOT / "projects" / case_id / "functionalmlds.v2.instance.json",
+            *BACKEND_IMPLEMENTATION_PATHS,
+        ],
         output_paths=[validation_path, raw_output_path],
         errors=payload["errors"],
         warnings=payload["warnings"],

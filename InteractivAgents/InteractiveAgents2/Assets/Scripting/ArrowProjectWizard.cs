@@ -97,6 +97,107 @@ public class ArrowProjectWizard : EditorWindow
     }
 
     [Serializable]
+    public class PlacementAuthoringInspectRequest
+    {
+        public string session_id;
+        public string generation_mode;
+    }
+
+    [Serializable]
+    public class PlacementAuthoringChangeInput
+    {
+        public string kind;
+        public string rationale;
+        public PlacementUpdateItem[] agent_placements;
+    }
+
+    [Serializable]
+    public class PlacementAuthoringPreviewRequest
+    {
+        public string session_id;
+        public string generation_mode;
+        public string expected_revision;
+        public PlacementAuthoringChangeInput change;
+    }
+
+    [Serializable]
+    public class PlacementAuthoringDecisionRequest
+    {
+        public string session_id;
+        public string generation_mode;
+        public string expected_revision;
+        public string change_id;
+    }
+
+    [Serializable]
+    public class PlacementAuthoringValue
+    {
+        public Vector3Data position;
+        public Vector3Data forward;
+    }
+
+    [Serializable]
+    public class PlacementAuthoringDiff
+    {
+        public string target_id;
+        public string target_display_name;
+        public PlacementAuthoringValue before;
+        public PlacementAuthoringValue after;
+        public string explanation;
+    }
+
+    [Serializable]
+    public class PlacementAuthoringChange
+    {
+        public string change_id;
+        public string kind;
+        public string lifecycle;
+        public string rationale;
+        public string revision_before;
+        public string revision_after;
+        public string[] target_ids;
+        public PlacementAuthoringDiff[] diffs;
+        public string[] affected_artifacts;
+        public PlacementValidation validation;
+        public ValidationSummary analysis_validation_summary;
+    }
+
+    [Serializable]
+    public class PlacementAuthoringState
+    {
+        public string scope;
+        public string session_id;
+        public string case_id;
+        public string revision;
+        public string lifecycle;
+        public PlacementSummary[] editable_placements;
+        public PlacementAuthoringChange pending_change;
+        public PlacementAuthoringChange last_accepted_change;
+        public bool can_undo;
+    }
+
+    [Serializable]
+    public class PlacementAuthoringResponse
+    {
+        public string status;
+        public string generation_mode;
+        public bool mutation_applied;
+        public PlacementAuthoringState authoring_state;
+        public PlacementAuthoringChange change;
+        public PlacementValidation validation;
+        public DraftResponse draft;
+        public string[] errors;
+    }
+
+    [Serializable]
+    public class AuthoringChatStatus
+    {
+        public string status;
+        public bool model_mutated;
+        public string message;
+    }
+
+    [Serializable]
     public class DraftProject
     {
         public string display_name;
@@ -299,6 +400,7 @@ public class ArrowProjectWizard : EditorWindow
     public class ChatResponse
     {
         public DraftResponse draft;
+        public AuthoringChatStatus chat_status;
     }
 
     [Serializable]
@@ -427,6 +529,9 @@ public class ArrowProjectWizard : EditorWindow
     private string selectedPlacementId = "";
     private string draggingPlacementId = "";
     private PlacementDragMode placementDragMode = PlacementDragMode.None;
+    private PlacementAuthoringState placementAuthoringState;
+    private PlacementAuthoringChange placementAuthoringChange;
+    private string placementAuthoringRationale = "";
 
     private static readonly Dictionary<char, string[]> ExportGlyphs = new Dictionary<char, string[]>
     {
@@ -769,8 +874,8 @@ public class ArrowProjectWizard : EditorWindow
         {
             var count = draft.refinement_requests != null ? draft.refinement_requests.Length : 0;
             var message = count > 0
-                ? $"Dieser FunctionalMLDS-Draft ist eine Preview und nicht final validiert. {count} vorgemerkte Chat-Aenderung(en) muessen beim Commit durch eine vollstaendige Regeneration und erneute Validierung laufen."
-                : "Dieser FunctionalMLDS-Draft ist eine Preview und nicht final validiert. Beim Commit muss die Pipeline erneut validieren.";
+                ? $"Diese ältere Session enthält {count} nicht ausführbare Freitext-Refinement(s). Bitte neu analysieren; Freitext wird nicht automatisch angewendet."
+                : "Dieser FunctionalMLDS-Draft ist nicht validiert. Bitte neu analysieren.";
             EditorGUILayout.HelpBox(message, MessageType.Warning);
             DrawRefinementRequests();
             return;
@@ -1078,8 +1183,10 @@ public class ArrowProjectWizard : EditorWindow
         if (ShouldDrawFunctionalMldsDraft() && draft != null)
         {
             EditorGUILayout.HelpBox(
-                "FunctionalMLDS-Chat merkt Aenderungswuensche vor. Der angezeigte Draft bleibt Preview, bis Commit/Regeneration die Aenderungen validiert.",
-                draft.validation_stale ? MessageType.Warning : MessageType.Info
+                "Freitext verändert das FunctionalMLDS-Modell nicht. "
+                + "Platzierungen werden ausschließlich über den strukturierten "
+                + "Prüfen-Anwenden-Akzeptieren-Loop geändert.",
+                MessageType.Info
             );
         }
 
@@ -1099,6 +1206,23 @@ public class ArrowProjectWizard : EditorWindow
         EditorGUILayout.EndHorizontal();
     }
 
+    private bool UsesPlacementAuthoringLoop()
+    {
+        return generationMode == GenerationMode.FunctionalMLDS
+            || string.Equals(
+                draft?.generation_mode,
+                "functionalmlds",
+                StringComparison.OrdinalIgnoreCase
+            );
+    }
+
+    private bool HasOpenPlacementAuthoringChange()
+    {
+        var lifecycle = placementAuthoringState?.lifecycle;
+        return !string.IsNullOrEmpty(lifecycle)
+            && !string.Equals(lifecycle, "idle", StringComparison.OrdinalIgnoreCase);
+    }
+
     private void DrawCommitSection()
     {
         if (draft == null)
@@ -1116,7 +1240,8 @@ public class ArrowProjectWizard : EditorWindow
         if (ShouldDrawFunctionalMldsDraft() && draft.validation_stale)
         {
             EditorGUILayout.HelpBox(
-                "Dieser FunctionalMLDS-Draft enthaelt vorgemerkte Chat-Aenderungen und ist nicht final validiert. Abschliessen darf erst eine vollstaendige Regeneration und erneute Validierung ausloesen.",
+                "Dieser ältere FunctionalMLDS-Draft ist nicht validiert. "
+                + "Bitte neu analysieren; ein Commit führt Freitext nicht automatisch aus.",
                 MessageType.Warning
             );
         }
@@ -1128,8 +1253,20 @@ public class ArrowProjectWizard : EditorWindow
                 MessageType.Warning
             );
         }
+        if (HasOpenPlacementAuthoringChange())
+        {
+            EditorGUILayout.HelpBox(
+                "Eine strukturierte Placement-Änderung ist offen. "
+                + "Vor dem Abschließen bitte akzeptieren oder verwerfen.",
+                MessageType.Warning
+            );
+        }
 
-        using (new EditorGUI.DisabledScope(placementDirty || isApplyingPlacement || isCommitting))
+        using (new EditorGUI.DisabledScope(
+            placementDirty
+            || HasOpenPlacementAuthoringChange()
+            || isApplyingPlacement
+            || isCommitting))
         {
             if (GUILayout.Button("Abschließen", GUILayout.Height(28)))
             {
@@ -1249,6 +1386,9 @@ public class ArrowProjectWizard : EditorWindow
         selectedPlacementId = "";
         draggingPlacementId = "";
         placementDragMode = PlacementDragMode.None;
+        placementAuthoringState = null;
+        placementAuthoringChange = null;
+        placementAuthoringRationale = "";
         statusMessage = message ?? "";
     }
 
@@ -1380,9 +1520,9 @@ public class ArrowProjectWizard : EditorWindow
             statusMessage = "Keine aktive Session.";
             return;
         }
-        if (placementDirty || isApplyingPlacement)
+        if (placementDirty || HasOpenPlacementAuthoringChange() || isApplyingPlacement)
         {
-            statusMessage = "Commit blockiert: Platzierung zuerst uebernehmen oder zuruecksetzen.";
+            statusMessage = "Commit blockiert: Placement-Änderung zuerst akzeptieren oder verwerfen.";
             return;
         }
 
@@ -1440,16 +1580,11 @@ public class ArrowProjectWizard : EditorWindow
             return;
         }
 
-        var requestPlacements = new PlacementUpdateItem[placements.Length];
-        for (int i = 0; i < placements.Length; i++)
+        var requestPlacements = BuildPlacementUpdateItems(placements);
+        if (UsesPlacementAuthoringLoop())
         {
-            var placement = placements[i];
-            requestPlacements[i] = new PlacementUpdateItem
-            {
-                id = placement?.id,
-                position = CloneVector(placement?.position),
-                forward = NormalizeForward(CloneVector(placement?.forward)),
-            };
+            PreviewPlacementAuthoring(requestPlacements);
+            return;
         }
 
         var payload = new PlacementUpdateRequest
@@ -1463,6 +1598,22 @@ public class ArrowProjectWizard : EditorWindow
         placementStatusType = MessageType.Info;
         var url = backendBaseUrl.TrimEnd('/') + "/projects/arrow/placement";
         ActiveCoroutines.Add(new EditorCoroutine(SendPlacementUpdateRequest(url, JsonUtility.ToJson(payload))));
+    }
+
+    private static PlacementUpdateItem[] BuildPlacementUpdateItems(PlacementSummary[] placements)
+    {
+        var requestPlacements = new PlacementUpdateItem[placements?.Length ?? 0];
+        for (int i = 0; i < requestPlacements.Length; i++)
+        {
+            var placement = placements[i];
+            requestPlacements[i] = new PlacementUpdateItem
+            {
+                id = placement?.id,
+                position = CloneVector(placement?.position),
+                forward = NormalizeForward(CloneVector(placement?.forward)),
+            };
+        }
+        return requestPlacements;
     }
 
     private IEnumerator SendPlacementUpdateRequest(string url, string jsonBody)
@@ -1523,6 +1674,204 @@ public class ArrowProjectWizard : EditorWindow
         statusMessage = "Platzierung gespeichert.";
     }
 
+    private void InspectPlacementAuthoring()
+    {
+        if (!UsesPlacementAuthoringLoop() || string.IsNullOrWhiteSpace(sessionId))
+        {
+            return;
+        }
+        var payload = new PlacementAuthoringInspectRequest
+        {
+            session_id = sessionId,
+            generation_mode = "functionalmlds",
+        };
+        BeginPlacementAuthoringRequest(
+            "inspect",
+            JsonUtility.ToJson(payload),
+            "Strukturierter Placement-Stand wird geladen..."
+        );
+    }
+
+    private void PreviewPlacementAuthoring(PlacementUpdateItem[] placements)
+    {
+        var revision = placementAuthoringState?.revision;
+        if (string.IsNullOrWhiteSpace(revision))
+        {
+            placementStatus = "Authoring-Revision fehlt. Stand wird neu geladen; danach erneut prüfen.";
+            placementStatusType = MessageType.Warning;
+            InspectPlacementAuthoring();
+            return;
+        }
+        var payload = new PlacementAuthoringPreviewRequest
+        {
+            session_id = sessionId,
+            generation_mode = "functionalmlds",
+            expected_revision = revision,
+            change = new PlacementAuthoringChangeInput
+            {
+                kind = "agent_placement",
+                rationale = string.IsNullOrWhiteSpace(placementAuthoringRationale)
+                    ? "Manuelle Platzierungsänderung im Unity-Wizard."
+                    : placementAuthoringRationale.Trim(),
+                agent_placements = placements,
+            },
+        };
+        BeginPlacementAuthoringRequest(
+            "preview",
+            JsonUtility.ToJson(payload),
+            "Placement-Änderung wird geprüft; das Modell bleibt unverändert..."
+        );
+    }
+
+    private void RunPlacementAuthoringDecision(string action)
+    {
+        var revision = placementAuthoringState?.revision;
+        var change = placementAuthoringState?.pending_change
+            ?? placementAuthoringState?.last_accepted_change
+            ?? placementAuthoringChange;
+        if (string.IsNullOrWhiteSpace(revision))
+        {
+            placementStatus = "Authoring-Revision fehlt. Bitte Stand neu laden.";
+            placementStatusType = MessageType.Error;
+            return;
+        }
+        if (!string.Equals(action, "undo", StringComparison.OrdinalIgnoreCase)
+            && string.IsNullOrWhiteSpace(change?.change_id))
+        {
+            placementStatus = "Keine offene Placement-Änderung gefunden.";
+            placementStatusType = MessageType.Error;
+            return;
+        }
+        var payload = new PlacementAuthoringDecisionRequest
+        {
+            session_id = sessionId,
+            generation_mode = "functionalmlds",
+            expected_revision = revision,
+            change_id = change?.change_id,
+        };
+        BeginPlacementAuthoringRequest(
+            action,
+            JsonUtility.ToJson(payload),
+            PlacementAuthoringActionLabel(action) + "..."
+        );
+    }
+
+    private void BeginPlacementAuthoringRequest(
+        string action,
+        string jsonBody,
+        string progressMessage
+    )
+    {
+        if (isApplyingPlacement)
+        {
+            return;
+        }
+        isApplyingPlacement = true;
+        placementStatus = progressMessage;
+        placementStatusType = MessageType.Info;
+        var url = backendBaseUrl.TrimEnd('/') + "/projects/arrow/authoring/" + action;
+        ActiveCoroutines.Add(
+            new EditorCoroutine(
+                SendRequest(
+                    url,
+                    jsonBody,
+                    OnPlacementAuthoringResponse,
+                    () =>
+                    {
+                        isApplyingPlacement = false;
+                        Repaint();
+                    }
+                )
+            )
+        );
+    }
+
+    private static string PlacementAuthoringActionLabel(string action)
+    {
+        switch ((action ?? "").ToLowerInvariant())
+        {
+            case "apply": return "Placement wird angewendet, regeneriert und validiert";
+            case "accept": return "Validierte Placement-Änderung wird akzeptiert";
+            case "discard": return "Placement-Änderung wird verworfen";
+            case "undo": return "Letzte akzeptierte Placement-Änderung wird rückgängig gemacht";
+            default: return "Placement-Authoring";
+        }
+    }
+
+    private void OnPlacementAuthoringResponse(string json)
+    {
+        var response = JsonUtility.FromJson<PlacementAuthoringResponse>(json);
+        if (response == null)
+        {
+            placementStatus = "Authoring-Antwort konnte nicht gelesen werden.";
+            placementStatusType = MessageType.Error;
+            return;
+        }
+
+        placementAuthoringState = response.authoring_state;
+        placementAuthoringChange = placementAuthoringState?.pending_change
+            ?? placementAuthoringState?.last_accepted_change
+            ?? response.change;
+        var status = response.status ?? "";
+        var replacesDraft = string.Equals(status, "applied_pending_accept", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(status, "accepted", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(status, "discarded", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(status, "undone", StringComparison.OrdinalIgnoreCase);
+        if (replacesDraft && response.draft != null)
+        {
+            draft = response.draft;
+            committedProjectId = "";
+            lastCommitResponse = null;
+            SyncDraftFields();
+            InitializePlacementEditing(draft.placement_preview);
+        }
+
+        if (string.Equals(status, "preview_ready", StringComparison.OrdinalIgnoreCase))
+        {
+            placementStatus = "Strukturierte Before/After-Preview ist gültig. "
+                + "Noch wurden keine Dateien verändert.";
+            placementStatusType = MessageType.Info;
+        }
+        else if (string.Equals(status, "applied_pending_accept", StringComparison.OrdinalIgnoreCase))
+        {
+            placementStatus = "Placement wurde regeneriert und validiert. "
+                + "Bitte jetzt akzeptieren oder bytegenau verwerfen.";
+            placementStatusType = MessageType.Warning;
+        }
+        else if (string.Equals(status, "accepted", StringComparison.OrdinalIgnoreCase))
+        {
+            placementStatus = "Validierte Placement-Änderung akzeptiert. Undo ist bis zum Commit möglich.";
+            placementStatusType = MessageType.Info;
+            placementAuthoringRationale = "";
+        }
+        else if (string.Equals(status, "discarded", StringComparison.OrdinalIgnoreCase))
+        {
+            placementStatus = "Placement-Änderung verworfen; der Ausgangsstand wurde wiederhergestellt.";
+            placementStatusType = MessageType.Info;
+        }
+        else if (string.Equals(status, "undone", StringComparison.OrdinalIgnoreCase))
+        {
+            placementStatus = "Letzte akzeptierte Placement-Änderung wurde rückgängig gemacht.";
+            placementStatusType = MessageType.Info;
+        }
+        else if (string.Equals(status, "ok", StringComparison.OrdinalIgnoreCase))
+        {
+            placementStatus = "Strukturierter Placement-Stand geladen.";
+            placementStatusType = MessageType.Info;
+        }
+        else
+        {
+            var errorText = response.errors != null && response.errors.Length > 0
+                ? string.Join(" | ", response.errors)
+                : response.validation?.errors != null
+                    ? string.Join(" | ", response.validation.errors)
+                    : status;
+            placementStatus = FirstNonEmpty(errorText, "Placement-Authoring wurde abgelehnt.");
+            placementStatusType = MessageType.Error;
+        }
+        statusMessage = placementStatus;
+    }
+
     private static bool IsSuccessStatus(string value)
     {
         return string.Equals(value, "ok", StringComparison.OrdinalIgnoreCase)
@@ -1551,6 +1900,8 @@ public class ArrowProjectWizard : EditorWindow
         draft = response.draft;
         committedProjectId = "";
         lastCommitResponse = null;
+        placementAuthoringState = null;
+        placementAuthoringChange = null;
         SyncDraftFields();
         InitializePlacementEditing(draft?.placement_preview);
         if (generationMode == GenerationMode.FunctionalMLDS && !HasFunctionalMldsData(draft))
@@ -1566,6 +1917,10 @@ public class ArrowProjectWizard : EditorWindow
         {
             chatLog.Add("Assistent: " + draft.assistant_message);
         }
+        if (UsesPlacementAuthoringLoop())
+        {
+            InspectPlacementAuthoring();
+        }
     }
 
     private void OnChatResponse(string json)
@@ -1577,13 +1932,26 @@ public class ArrowProjectWizard : EditorWindow
             return;
         }
 
+        var localPreview = draft?.placement_preview;
         draft = response.draft;
+        if (response.chat_status != null
+            && string.Equals(response.chat_status.status, "not_applied", StringComparison.OrdinalIgnoreCase)
+            && draft != null
+            && localPreview != null)
+        {
+            draft.placement_preview = localPreview;
+        }
         committedProjectId = "";
         lastCommitResponse = null;
         SyncDraftFields();
-        InitializePlacementEditing(draft?.placement_preview);
-        statusMessage = draft != null && draft.validation_stale
-            ? "Chat-Aenderung vorgemerkt; FunctionalMLDS-Draft ist nicht final validiert."
+        if (response.chat_status == null
+            || !string.Equals(response.chat_status.status, "not_applied", StringComparison.OrdinalIgnoreCase))
+        {
+            InitializePlacementEditing(draft?.placement_preview);
+        }
+        statusMessage = response.chat_status != null
+            && string.Equals(response.chat_status.status, "not_applied", StringComparison.OrdinalIgnoreCase)
+            ? "Freitext protokolliert, aber nicht auf das FunctionalMLDS-Modell angewendet."
             : "Chat aktualisiert.";
         if (!string.IsNullOrEmpty(draft?.assistant_message))
         {
@@ -1617,6 +1985,11 @@ public class ArrowProjectWizard : EditorWindow
         }
         if (commitOk)
         {
+            if (placementAuthoringState != null)
+            {
+                placementAuthoringState.can_undo = false;
+                placementAuthoringState.last_accepted_change = null;
+            }
             EditorUtility.DisplayDialog("Projekt gespeichert", "Alles wurde gespeichert.", "OK");
         }
     }
@@ -2200,7 +2573,10 @@ public class ArrowProjectWizard : EditorWindow
                     worldBounds
                 );
                 DrawPlacementOverlay(placements, mapTransform);
-                HandlePlacementMapInput(placements, roomBounds, mapTransform);
+                if (!HasOpenPlacementAuthoringChange())
+                {
+                    HandlePlacementMapInput(placements, roomBounds, mapTransform);
+                }
             }
         }
         else
@@ -2228,22 +2604,29 @@ public class ArrowProjectWizard : EditorWindow
             EditorGUILayout.HelpBox(placementStatus, placementStatusType);
         }
 
-        EditorGUILayout.BeginHorizontal();
-        using (new EditorGUI.DisabledScope(!placementDirty || isApplyingPlacement || string.IsNullOrEmpty(sessionId)))
+        if (UsesPlacementAuthoringLoop())
         {
-            if (GUILayout.Button(isApplyingPlacement ? "Wird validiert..." : "Platzierung uebernehmen"))
-            {
-                ApplyPlacementChanges();
-            }
+            DrawPlacementAuthoringControls();
         }
-        using (new EditorGUI.DisabledScope(!placementDirty || isApplyingPlacement))
+        else
         {
-            if (GUILayout.Button("Aenderungen verwerfen"))
+            EditorGUILayout.BeginHorizontal();
+            using (new EditorGUI.DisabledScope(!placementDirty || isApplyingPlacement || string.IsNullOrEmpty(sessionId)))
             {
-                ResetPlacementChanges();
+                if (GUILayout.Button(isApplyingPlacement ? "Wird validiert..." : "Platzierung uebernehmen"))
+                {
+                    ApplyPlacementChanges();
+                }
             }
+            using (new EditorGUI.DisabledScope(!placementDirty || isApplyingPlacement))
+            {
+                if (GUILayout.Button("Aenderungen verwerfen"))
+                {
+                    ResetPlacementChanges();
+                }
+            }
+            EditorGUILayout.EndHorizontal();
         }
-        EditorGUILayout.EndHorizontal();
 
         if (_previewTex != null && GUILayout.Button("Vorschau mit Agenten-Legende als PNG speichern"))
         {
@@ -2259,6 +2642,168 @@ public class ArrowProjectWizard : EditorWindow
                 }
             }
         }
+    }
+
+    private void DrawPlacementAuthoringControls()
+    {
+        EditorGUILayout.BeginVertical("box");
+        EditorGUILayout.LabelField("Strukturiertes Placement-Authoring", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField(
+            "Scope: nur Agentenposition und Blickrichtung; keine Responsibility-Änderung.",
+            EditorStyles.wordWrappedMiniLabel
+        );
+        if (placementAuthoringState == null)
+        {
+            EditorGUILayout.HelpBox(
+                "Authoring-Revision wird benötigt, bevor eine Änderung geprüft werden kann.",
+                MessageType.Info
+            );
+            using (new EditorGUI.DisabledScope(isApplyingPlacement))
+            {
+                if (GUILayout.Button("Authoring-Stand laden"))
+                {
+                    InspectPlacementAuthoring();
+                }
+            }
+            EditorGUILayout.EndVertical();
+            return;
+        }
+
+        EditorGUILayout.LabelField(
+            "Revision",
+            placementAuthoringState.revision ?? "-",
+            EditorStyles.wordWrappedMiniLabel
+        );
+        var lifecycle = placementAuthoringState.lifecycle ?? "idle";
+        EditorGUILayout.LabelField("Status", lifecycle, EditorStyles.wordWrappedLabel);
+        var pending = placementAuthoringState.pending_change ?? placementAuthoringChange;
+        if (pending?.diffs != null && pending.diffs.Length > 0
+            && !string.Equals(lifecycle, "idle", StringComparison.OrdinalIgnoreCase))
+        {
+            EditorGUILayout.LabelField("Before/After", EditorStyles.miniBoldLabel);
+            foreach (var diff in pending.diffs)
+            {
+                if (diff == null)
+                {
+                    continue;
+                }
+                EditorGUILayout.BeginVertical("box");
+                EditorGUILayout.LabelField(
+                    FirstNonEmpty(diff.target_display_name, diff.target_id, "Agent"),
+                    EditorStyles.wordWrappedLabel
+                );
+                DrawPlacementAuthoringValue("Vorher", diff.before);
+                DrawPlacementAuthoringValue("Nachher", diff.after);
+                if (!string.IsNullOrEmpty(diff.explanation))
+                {
+                    EditorGUILayout.LabelField(diff.explanation, EditorStyles.wordWrappedMiniLabel);
+                }
+                EditorGUILayout.EndVertical();
+            }
+        }
+
+        if (string.Equals(lifecycle, "previewed", StringComparison.OrdinalIgnoreCase))
+        {
+            EditorGUILayout.BeginHorizontal();
+            using (new EditorGUI.DisabledScope(isApplyingPlacement))
+            {
+                if (GUILayout.Button("Anwenden, regenerieren, validieren"))
+                {
+                    RunPlacementAuthoringDecision("apply");
+                }
+                if (GUILayout.Button("Preview verwerfen"))
+                {
+                    RunPlacementAuthoringDecision("discard");
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        else if (string.Equals(lifecycle, "applied_pending_accept", StringComparison.OrdinalIgnoreCase))
+        {
+            var validationStatus = pending?.analysis_validation_summary?.status;
+            EditorGUILayout.HelpBox(
+                "Pipeline-Validierung: " + FirstNonEmpty(validationStatus, "unbekannt"),
+                string.Equals(validationStatus, "valid", StringComparison.OrdinalIgnoreCase)
+                    ? MessageType.Info
+                    : MessageType.Warning
+            );
+            EditorGUILayout.BeginHorizontal();
+            using (new EditorGUI.DisabledScope(isApplyingPlacement))
+            {
+                if (GUILayout.Button("Validierte Änderung akzeptieren"))
+                {
+                    RunPlacementAuthoringDecision("accept");
+                }
+                if (GUILayout.Button("Bytegenau verwerfen"))
+                {
+                    RunPlacementAuthoringDecision("discard");
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        else
+        {
+            placementAuthoringRationale = EditorGUILayout.TextField(
+                "Begründung",
+                placementAuthoringRationale
+            );
+            EditorGUILayout.BeginHorizontal();
+            using (new EditorGUI.DisabledScope(
+                !placementDirty
+                || isApplyingPlacement
+                || string.IsNullOrEmpty(sessionId)))
+            {
+                if (GUILayout.Button("Änderung prüfen"))
+                {
+                    ApplyPlacementChanges();
+                }
+            }
+            using (new EditorGUI.DisabledScope(!placementDirty || isApplyingPlacement))
+            {
+                if (GUILayout.Button("Lokale Änderung verwerfen"))
+                {
+                    ResetPlacementChanges();
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+
+            if (placementAuthoringState.can_undo)
+            {
+                using (new EditorGUI.DisabledScope(isApplyingPlacement || placementDirty))
+                {
+                    if (GUILayout.Button("Letzte akzeptierte Änderung rückgängig machen"))
+                    {
+                        RunPlacementAuthoringDecision("undo");
+                    }
+                }
+            }
+        }
+        EditorGUILayout.EndVertical();
+    }
+
+    private static void DrawPlacementAuthoringValue(
+        string label,
+        PlacementAuthoringValue value
+    )
+    {
+        if (value == null)
+        {
+            EditorGUILayout.LabelField(label, "-", EditorStyles.wordWrappedMiniLabel);
+            return;
+        }
+        var position = value.position;
+        var forward = value.forward;
+        var positionText = position == null
+            ? "-"
+            : $"({position.x:0.###}, {position.y:0.###}, {position.z:0.###})";
+        var forwardText = forward == null
+            ? "-"
+            : $"({forward.x:0.###}, {forward.y:0.###}, {forward.z:0.###})";
+        EditorGUILayout.LabelField(
+            label,
+            $"Position {positionText}; Forward {forwardText}",
+            EditorStyles.wordWrappedMiniLabel
+        );
     }
 
     private void DrawPlacementOverlay(PlacementSummary[] placements, PlacementMapTransform mapTransform)
@@ -2851,6 +3396,53 @@ public class ArrowProjectWizard : EditorWindow
         SmokeAssert(json.Contains("\"agent_placements\""), "Placement-Vertragsfeld agent_placements fehlt.");
         SmokeAssert(json.Contains("\"position\"") && json.Contains("\"forward\""), "Position/Forward fehlen im Placement-Vertrag.");
         SmokeAssert(!json.Contains("display_name") && !json.Contains("spawn_point_id") && !json.Contains("zone_id"), "Placement-Patch enthaelt verbotene Semantikfelder.");
+
+        var authoringPreviewRequest = new PlacementAuthoringPreviewRequest
+        {
+            session_id = "session-smoke",
+            generation_mode = "functionalmlds",
+            expected_revision = "sha256:0123456789",
+            change = new PlacementAuthoringChangeInput
+            {
+                kind = "agent_placement",
+                rationale = "Blickrichtung pruefen.",
+                agent_placements = request.agent_placements,
+            },
+        };
+        var authoringJson = JsonUtility.ToJson(authoringPreviewRequest);
+        SmokeAssert(
+            authoringJson.Contains("\"expected_revision\":\"sha256:0123456789\""),
+            "Authoring-Revision fehlt im Preview-Vertrag."
+        );
+        SmokeAssert(
+            authoringJson.Contains("\"kind\":\"agent_placement\""),
+            "Placement-only Authoring-Kind fehlt."
+        );
+        SmokeAssert(
+            !authoringJson.Contains("responsibility"),
+            "Placement-Preview darf keinen Responsibility-Override enthalten."
+        );
+        var authoringResponseJson =
+            "{\"status\":\"preview_ready\",\"mutation_applied\":false,"
+            + "\"authoring_state\":{\"scope\":\"placement_only\",\"revision\":\"sha256:abc\","
+            + "\"lifecycle\":\"previewed\",\"can_undo\":false},"
+            + "\"change\":{\"change_id\":\"PLC-SMOKE\",\"kind\":\"agent_placement\","
+            + "\"lifecycle\":\"previewed\",\"diffs\":[{\"target_id\":\"agent-a\","
+            + "\"target_display_name\":\"Agent A\",\"before\":{\"position\":{\"x\":0,\"y\":0,\"z\":0},"
+            + "\"forward\":{\"x\":0,\"y\":0,\"z\":1}},\"after\":{\"position\":{\"x\":1,\"y\":0,\"z\":2},"
+            + "\"forward\":{\"x\":1,\"y\":0,\"z\":0}}}]}}";
+        var parsedAuthoring = JsonUtility.FromJson<PlacementAuthoringResponse>(
+            authoringResponseJson
+        );
+        SmokeAssert(
+            parsedAuthoring != null
+            && parsedAuthoring.authoring_state != null
+            && parsedAuthoring.authoring_state.lifecycle == "previewed"
+            && parsedAuthoring.change != null
+            && parsedAuthoring.change.diffs != null
+            && parsedAuthoring.change.diffs.Length == 1,
+            "Authoring-Response mit Lifecycle und Before/After-Diff kann nicht gelesen werden."
+        );
         SmokeAssert(
             string.Equals(
                 PlacementLabel(new PlacementSummary { id = "agent-a", display_name = "Name" }),
@@ -2873,7 +3465,7 @@ public class ArrowProjectWizard : EditorWindow
         }
         SmokeAssert(legendHasText, "PNG-Bitmaplegende rendert keinen Text.");
 
-        return "MLDSI Wizard v1.0.0 smoke test: OK (version, contract, ScaleToFit, X/Z roundtrip, Z inversion, wall margin, forward, labels/colors, PNG legend).";
+        return "MLDSI Wizard v1.0.0 smoke test: OK (version, placement-authoring contract, ScaleToFit, X/Z roundtrip, Z inversion, wall margin, forward, labels/colors, PNG legend).";
     }
 
     private static void SmokeAssert(bool condition, string message)

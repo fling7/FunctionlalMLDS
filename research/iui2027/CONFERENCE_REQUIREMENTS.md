@@ -79,10 +79,13 @@ determination.
 
 ## Generative AI
 
-IUI 2027 does not require disclosure when AI only assists with wording. AI used
-in the research itself must be described in detail in the methods. This paper
-therefore has to document LLM-based generation, agent responses, prompts,
-repair, evaluation, and any AI-based judge that affects reported results.
+The manuscript must contain a `GenAI Usage Disclosure` immediately before the
+references. It must cover use throughout the research, including code, data,
+evaluation, and writing. Text generated beyond editing the authors' own prose
+must be disclosed in accordance with the ACM policy. The Methods section must
+separately document every use that affects scientific results: LLM-based scene
+semantics, agent roles, knowledge, responses, prompts, sampling settings,
+repair, and any AI-based judge.
 
 The Stanford Agentic Reviewer is used only as editorial feedback and is not a
 scientific evaluator in the paper.
@@ -110,6 +113,8 @@ scientific evaluator in the paper.
 - [ ] Human-subject note is accurate, or the paper clearly states that no human
       participants were involved.
 - [ ] Machine intelligence used in the research is reproducibly documented.
+- [ ] The mandatory GenAI Usage Disclosure covers research, code, data,
+      evaluation, and writing.
 - [ ] Practical and societal impact, limitations, privacy, bias, and user control
       are discussed.
 - [ ] Accessibility check passes; all figures have descriptions and videos have captions.

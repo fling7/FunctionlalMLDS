@@ -66,20 +66,23 @@ are implementation work, not pre-existing results.
 
 ## Research questions
 
-**RQ1 — Interaction correctness.**  
-How accurately does model-grounded execution resolve spatial targets and route
-requests to appropriate embodied agents across heterogeneous scenes, including
-ambiguous, negative, and changed-scene cases?
+**RQ1 — Interaction representation and execution.**
 
-**RQ2 — Robust authoring and evolution.**  
-Compared with direct artifact wiring, how does the model-grounded workflow
-affect consistency, detected configuration faults, and the artifacts that must
-be edited when an interaction changes?
+Can assets in heterogeneous scenes be represented as provider-coherent
+interaction chains and resolved to responsible agents under explicit asset,
+group, and zone rules?
 
-**RQ3 — Runtime accountability.**  
-To what extent can a user-facing interaction be traced from intent and selected
-target through agent capability and runtime action to a validated outcome, and
-which failure classes remain observable?
+**RQ2 — Comparative structural robustness.**
+
+Under semantically matched executable adapters, how do direct wiring and the
+model-grounded representation compare in routing parity, detection and
+localization of common faults, representation edits, and local execution time?
+
+**RQ3 — Runtime accountability and author control.**
+
+Which invalid selections, routes, and traces are rejected before state
+mutation, and can an author preview, validate, discard, or undo a placement
+change without breaking the model-to-runtime chain?
 
 The paper does not claim improved subjective user experience unless a valid
 human-participant study is completed. Without such a study, human-centric value
@@ -93,12 +96,14 @@ mechanisms, and observable system behavior.
    path and a multi-agent backend.
 2. An executable interaction chain from scenario and selected spatial target to
    responsible agent, capability, runtime action, assertion, and evidence.
-3. An author-facing inspection and repair loop for generated object, agent,
-   placement, responsibility, and handoff relationships.
-4. A reproducible benchmark over multiple spatial environments covering target
-   resolution, routing, change tasks, trace completeness, and injected faults.
-5. Empirical comparison with direct artifact wiring, bounded to measured
-   engineering and interaction outcomes.
+3. An author-facing inspect, preview, validate, discard, and undo loop for
+   generated agent placements. Responsibility editing remains outside the
+   current prototype.
+4. A reproducible, API-free structural benchmark over multiple spatial
+   environments, plus positive and deliberately broken Unity/backend traces.
+5. An executable comparison with direct artifact wiring, bounded to measured
+   routing parity, synthetic faults, representation edits, and descriptive
+   local runtime.
 
 ## Defensible novelty
 

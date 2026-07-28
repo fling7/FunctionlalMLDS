@@ -14,7 +14,13 @@ from .agent_roles import (
 )
 from .answer_grounding import run_answer_grounding_for_case
 from .chat_tests import backend_url_from_config, run_chat_tests_for_case
-from .common import load_manifest, read_json, sha256_file, update_manifest, write_json
+from .common import (
+    manifest_stage_inputs_match,
+    manifest_stage_metadata_matches,
+    read_json,
+    update_manifest,
+    write_json,
+)
 from .cross_case_metrics import run_cross_case_metrics
 from .deterministic_repair_policy import run_policy_report
 from .evaluation_questions import run_evaluation_questions_for_case
@@ -53,6 +59,12 @@ from .validators.traceability_metrics import run_traceability_metrics_for_case
 
 
 CONFIG_DIR = Path(__file__).resolve().parent / "config"
+FUNCTIONALMLDS_IMPLEMENTATION_PATH = (
+    Path(__file__).resolve().parent / "functionalmlds_assembler.py"
+)
+PROJECT_MATERIALIZER_IMPLEMENTATION_PATH = (
+    Path(__file__).resolve().parent / "project_materializer.py"
+)
 
 
 def _load_default_inputs() -> List[Path]:
@@ -78,22 +90,12 @@ def _validation_is_valid(path: Path) -> bool:
 
 
 def _manifest_inputs_match(case_dir: Path, stage_id: str, input_paths: List[Path]) -> bool:
-    manifest = load_manifest(case_dir)
-    stage = None
-    for entry in manifest.get("stages", []):
-        if entry.get("stage_id") == stage_id:
-            stage = entry
-            break
-    if not stage or stage.get("status") != "success":
-        return False
-    recorded = {str(Path(item.get("path", ""))): item.get("sha256") for item in stage.get("inputs", [])}
-    for path in input_paths:
-        path = Path(path)
-        if not path.exists() or not path.is_file():
-            return False
-        if recorded.get(str(path)) != sha256_file(path):
-            return False
-    return True
+    return manifest_stage_inputs_match(
+        case_dir,
+        stage_id,
+        input_paths,
+        exact=True,
+    )
 
 
 def _can_reuse_stage(
@@ -103,11 +105,20 @@ def _can_reuse_stage(
     validation_path: Path,
     output_paths: List[Path],
     input_paths: List[Path],
+    expected_metadata: Dict[str, Any] | None = None,
 ) -> bool:
     return (
         _validation_is_valid(validation_path)
         and all(path.exists() for path in output_paths)
         and _manifest_inputs_match(case_dir, stage_id, input_paths)
+        and (
+            not expected_metadata
+            or manifest_stage_metadata_matches(
+                case_dir,
+                stage_id,
+                expected_metadata,
+            )
+        )
     )
 
 
@@ -229,7 +240,14 @@ def _recover_functionalmlds_if_possible(case_dir: Path) -> None:
             case_dir,
             stage_id="functionalmlds_assembly",
             status="success",
-            input_paths=[normalized_path, semantics_path, agent_roles_path, placements_path, FUNCTIONALMLDS_PROMPT_PATH],
+            input_paths=[
+                normalized_path,
+                semantics_path,
+                agent_roles_path,
+                placements_path,
+                FUNCTIONALMLDS_PROMPT_PATH,
+                FUNCTIONALMLDS_IMPLEMENTATION_PATH,
+            ],
             output_paths=[instance_path, validation_path],
             metadata={"recovered_without_rerun": True, "metrics": validation.get("metrics", {})},
         )
@@ -272,6 +290,7 @@ def _recover_project_materialization_if_possible(case_dir: Path, backend_root: P
                 knowledge_path,
                 functionalmlds_path,
                 functionalmlds_v2_path,
+                PROJECT_MATERIALIZER_IMPLEMENTATION_PATH,
             ],
             output_paths=[
                 project_paths["project_json"],
@@ -447,7 +466,15 @@ def main() -> int:
                 stage_id="scene_semantics",
                 validation_path=semantics_validation_path,
                 output_paths=[semantics_path, semantics_validation_path],
-                input_paths=[normalized_path, group_summary_path, SCENE_SEMANTICS_PROMPT_PATH],
+                input_paths=[
+                    normalized_path,
+                    group_summary_path,
+                    SCENE_SEMANTICS_PROMPT_PATH,
+                    SCENE_SEMANTICS_REPAIR_PROMPT_PATH,
+                ],
+                expected_metadata=(
+                    {"llm.model": args.model} if args.model else None
+                ),
             ):
                 semantics_results.append(_existing_scene_semantics_result(case_dir))
             else:
@@ -488,7 +515,16 @@ def main() -> int:
                 stage_id="agent_roles",
                 validation_path=agent_roles_validation_path,
                 output_paths=[agent_roles_path, handoff_path, agent_roles_validation_path],
-                input_paths=[normalized_path, group_summary_path, semantics_path, AGENT_ROLES_PROMPT_PATH],
+                input_paths=[
+                    normalized_path,
+                    group_summary_path,
+                    semantics_path,
+                    AGENT_ROLES_PROMPT_PATH,
+                    AGENT_ROLES_REPAIR_PROMPT_PATH,
+                ],
+                expected_metadata=(
+                    {"llm.model": args.model} if args.model else None
+                ),
             ):
                 agent_role_results.append(_existing_agent_roles_result(case_dir))
             else:
@@ -529,7 +565,16 @@ def main() -> int:
                 stage_id="knowledge_synthesis",
                 validation_path=knowledge_validation_path,
                 output_paths=[knowledge_path, knowledge_validation_path, kb_root],
-                input_paths=[normalized_path, semantics_path, agent_roles_path, KNOWLEDGE_PROMPT_PATH],
+                input_paths=[
+                    normalized_path,
+                    semantics_path,
+                    agent_roles_path,
+                    KNOWLEDGE_PROMPT_PATH,
+                    KNOWLEDGE_REPAIR_PROMPT_PATH,
+                ],
+                expected_metadata=(
+                    {"llm.model": args.model} if args.model else None
+                ),
             ):
                 knowledge_results.append(_existing_knowledge_result(case_dir))
             else:
@@ -601,7 +646,14 @@ def main() -> int:
                 stage_id="functionalmlds_assembly",
                 validation_path=validation_path,
                 output_paths=[instance_path, validation_path],
-                input_paths=[normalized_path, semantics_path, agent_roles_path, placements_path, FUNCTIONALMLDS_PROMPT_PATH],
+                input_paths=[
+                    normalized_path,
+                    semantics_path,
+                    agent_roles_path,
+                    placements_path,
+                    FUNCTIONALMLDS_PROMPT_PATH,
+                    FUNCTIONALMLDS_IMPLEMENTATION_PATH,
+                ],
             ):
                 functionalmlds_results.append(_existing_functionalmlds_result(case_dir))
             else:
@@ -697,6 +749,7 @@ def main() -> int:
                     knowledge_path,
                     functionalmlds_path,
                     functionalmlds_v2_path,
+                    PROJECT_MATERIALIZER_IMPLEMENTATION_PATH,
                 ],
             ):
                 materialization_results.append(_existing_project_materialization_result(case_dir, DEFAULT_BACKEND_ROOT))

@@ -86,9 +86,18 @@ class FunctionalMldsV2RuntimeAssemblerTests(unittest.TestCase):
                 self.assertEqual(instance["id"], roots[0]["id"])
 
     def test_complete_executable_capability_and_assertion_semantics(self) -> None:
-        for instance in self.instances:
+        for document, instance in zip(self.v05_documents, self.instances):
             with self.subTest(caseId=instance["caseId"]):
                 by_id = object_index(instance)
+                preferred_provider_by_use = {
+                    item["id"]: item.get("preferred_provider_entity_id")
+                    for item in document.get("capabilityUses") or []
+                    if item.get("preferred_provider_entity_id")
+                }
+                agent_provider_ids = {}
+                for agent in objects_by_type(instance, "Agent"):
+                    for capability_id in agent.get("providedCapability") or []:
+                        agent_provider_ids.setdefault(capability_id, []).append(agent["id"])
                 observed_assertion_types = {
                     item["type"] for item in instance["objects"] if item["type"] in ASSERTION_TYPES
                 }
@@ -106,6 +115,18 @@ class FunctionalMldsV2RuntimeAssemblerTests(unittest.TestCase):
                     self.assertIn(provider["type"], {"Entity", "Agent"})
                     self.assertIn(capability_use["typeRef"][0], provider["providedCapability"])
                     self.assertIn(provider_id, step_for_use[capability_use["id"]]["performedBy"])
+                    domain_providers = agent_provider_ids.get(capability_use["typeRef"][0], [])
+                    if domain_providers:
+                        self.assertEqual("Agent", provider["type"])
+                        self.assertEqual(
+                            preferred_provider_by_use.get(
+                                capability_use["id"],
+                                domain_providers[0],
+                            ),
+                            provider_id,
+                        )
+                    else:
+                        self.assertEqual("runtimeOrchestrator", provider.get("entityRole"))
 
                 self.assertTrue(objects_by_type(instance, "RuntimeValidationTarget"))
                 self.assertTrue(objects_by_type(instance, "RuntimeValidationLog"))
@@ -122,8 +143,46 @@ class FunctionalMldsV2RuntimeAssemblerTests(unittest.TestCase):
                     self.assertEqual(1, len(action["inputSchema"]))
                     schema_reference = by_id[action["inputSchema"][0]]
                     mapping = json.loads(schema_reference["text"])
-                    self.assertEqual(["applicationActionKind"], list(mapping))
+                    self.assertEqual(
+                        "https://json-schema.org/draft/2020-12/schema",
+                        mapping["$schema"],
+                    )
+                    self.assertEqual("2.0", mapping["wireContractVersion"])
+                    self.assertEqual(
+                        action["id"],
+                        mapping["modelBinding"]["runtimeActionId"],
+                    )
                     counts[mapping["applicationActionKind"]] += 1
+                    if mapping["applicationActionKind"] in {"chat", "handoff"}:
+                        self.assertIn("interaction_mode", mapping["required"])
+                        self.assertEqual(
+                            ["deictic", "non_deictic"],
+                            mapping["properties"]["interaction_mode"]["enum"],
+                        )
+                        deictic_condition = next(
+                            condition
+                            for condition in mapping["allOf"]
+                            if condition["if"]["properties"]["interaction_mode"].get(
+                                "const"
+                            )
+                            == "deictic"
+                        )
+                        self.assertIn(
+                            "spatial_context",
+                            deictic_condition["then"]["required"],
+                        )
+                        self.assertEqual(1, len(action["outputSchema"]))
+                        response_mapping = json.loads(
+                            by_id[action["outputSchema"][0]]["text"]
+                        )
+                        self.assertEqual(
+                            mapping["modelBinding"],
+                            response_mapping["modelBinding"],
+                        )
+                        self.assertIn(
+                            "grounding_evidence",
+                            response_mapping["properties"],
+                        )
                 self.assertEqual(1, counts["setup"])
                 self.assertEqual(1, counts["chat"])
                 self.assertEqual(1, counts["handoff"])
@@ -181,6 +240,37 @@ class FunctionalMldsV2RuntimeAssemblerTests(unittest.TestCase):
         mutated = copy.deepcopy(self.instances[0])
         objects_by_type(mutated, "CapabilityUse")[0]["provider"] = []
         self.assertIn("ICAP002", canonical_codes(mutated))
+
+    def test_pipeline_validation_rejects_orchestrator_for_agent_owned_capability(self) -> None:
+        mutated = copy.deepcopy(self.instances[0])
+        by_id = object_index(mutated)
+        domain_use = next(
+            item
+            for item in objects_by_type(mutated, "CapabilityUse")
+            if by_id[item["provider"][0]].get("type") == "Agent"
+        )
+        capability_id = domain_use["typeRef"][0]
+        orchestrator = next(
+            item
+            for item in objects_by_type(mutated, "Entity")
+            if item.get("entityRole") == "runtimeOrchestrator"
+        )
+        orchestrator.setdefault("providedCapability", []).append(capability_id)
+        domain_use["provider"] = [orchestrator["id"]]
+        owner = next(
+            step
+            for step in objects_by_type(mutated, "ScenarioStep")
+            if domain_use["id"] in step["capabilityUse"]
+        )
+        owner["performedBy"] = [orchestrator["id"]]
+
+        report = validate_functionalmlds_v2_instance(mutated)
+
+        self.assertEqual("invalid", report["status"])
+        self.assertIn(
+            "IUI-DOMAIN-PROVIDER",
+            {issue.get("code") for issue in report["errors"]},
+        )
 
     def test_negative_assertion_without_subject(self) -> None:
         mutated = copy.deepcopy(self.instances[0])

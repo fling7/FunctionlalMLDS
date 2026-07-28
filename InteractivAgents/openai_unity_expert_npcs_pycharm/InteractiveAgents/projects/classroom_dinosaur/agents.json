@@ -1,4 +1,10 @@
 {
+  "placement_schema": "functionalmlds_agent_placements",
+  "placement_schema_version": "2.0",
+  "placement_algorithm_version": "2.0.0",
+  "placement_origin": "deterministic",
+  "placement_artifact_sha256": "912a1402c31dab88fa598c62422595c6e073993d9b2af3d3e629f039dfa48367",
+  "placement_projection_sha256": "171957335bd83fd1db6e5116e69c81b8153266627d226a0621b73616b6101a49",
   "agents": [
     {
       "id": "teacher_agent",
@@ -53,14 +59,14 @@
         "instruction_zone"
       ],
       "position": {
-        "x": 0.996,
+        "x": 1.0,
         "y": 0.0,
-        "z": -0.287
+        "z": -1.15
       },
       "forward": {
-        "x": -0.479,
+        "x": -0.6246950475544243,
         "y": 0.0,
-        "z": -0.8778
+        "z": -0.7808688094430304
       },
       "functionalmlds_agent_ref": "ENT-AGENT-TEACHER_AGENT",
       "functionalmlds_entity_ref": "ENT-AGENT-TEACHER_AGENT",
@@ -108,14 +114,14 @@
         "reading_area"
       ],
       "position": {
-        "x": -0.149,
+        "x": 0.272,
         "y": 0.0,
-        "z": 2.989
+        "z": 2.657
       },
       "forward": {
-        "x": 0.3741,
+        "x": 0.10243498137307994,
         "y": 0.0,
-        "z": 0.9274
+        "z": 0.9947397019276433
       },
       "functionalmlds_agent_ref": "ENT-AGENT-READING_AREA_GUIDE",
       "functionalmlds_entity_ref": "ENT-AGENT-READING_AREA_GUIDE",
@@ -157,14 +163,14 @@
         "dinosaur_display_zone"
       ],
       "position": {
-        "x": 2.433,
+        "x": 2.337,
         "y": 0.0,
-        "z": 4.362
+        "z": 4.008
       },
       "forward": {
-        "x": 0.059,
+        "x": 0.10860314034209603,
         "y": 0.0,
-        "z": 0.9983
+        "z": 0.9940851864442176
       },
       "functionalmlds_agent_ref": "ENT-AGENT-EXHIBIT_INTERPRETER",
       "functionalmlds_entity_ref": "ENT-AGENT-EXHIBIT_INTERPRETER",
@@ -211,14 +217,14 @@
         "decorative_zone"
       ],
       "position": {
-        "x": 0.995,
+        "x": 1.0,
         "y": 0.0,
-        "z": -1.575
+        "z": -3.95
       },
       "forward": {
-        "x": -0.4255,
+        "x": -0.6246950475544243,
         "y": 0.0,
-        "z": -0.905
+        "z": -0.7808688094430304
       },
       "functionalmlds_agent_ref": "ENT-AGENT-DECORATIVE_ZONE_AMBASSADOR",
       "functionalmlds_entity_ref": "ENT-AGENT-DECORATIVE_ZONE_AMBASSADOR",

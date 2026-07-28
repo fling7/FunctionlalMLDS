@@ -2,11 +2,11 @@
   "schema": "functionalmlds_trace_map_v2",
   "schema_version": "2.0",
   "model_version": "2.0.0-model",
-  "model_sha256": "5FE7E33D91933A87DCB25539F68EC34B6751950216BB121DFBE83EE61066451C",
+  "model_sha256": "9E78A4F4397C0049D02893E017640B1BC18BC1982C2113F2300453B178DF3638",
   "profile": "executable",
   "case_id": "classroom_dinosaur",
-  "functionalmlds_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.instance.generated.json",
-  "functionalmlds_v2_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.v2.instance.json",
+  "functionalmlds_path": "C:\\Users\\burklo\\AppData\\Local\\Temp\\functionalmlds-wire-f9829e999e4648b9bd6e82c5a45e901c\\classroom_dinosaur\\functionalmlds\\functionalmlds.instance.generated.json",
+  "functionalmlds_v2_path": "C:\\Users\\burklo\\AppData\\Local\\Temp\\functionalmlds-wire-f9829e999e4648b9bd6e82c5a45e901c\\classroom_dinosaur\\functionalmlds\\functionalmlds.v2.instance.json",
   "project_files": {
     "project": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\project.json",
     "room_plan": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\room_plan.json",
@@ -167,7 +167,7 @@
         "CU-CLASSROOM_DINOSAUR-S11-ANSWER-ROOM-GROUNDED-QUESTION"
       ],
       "provider_entity_ids": [
-        "ENT-CLASSROOM_DINOSAUR-RUNTIME-ORCHESTRATOR"
+        "ENT-AGENT-TEACHER_AGENT"
       ],
       "resulting_assertion_ids": [
         "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED"
@@ -183,7 +183,7 @@
         "CU-CLASSROOM_DINOSAUR-S12-HANDOFF-TO-RESPONSIBLE-AGENT"
       ],
       "provider_entity_ids": [
-        "ENT-CLASSROOM_DINOSAUR-RUNTIME-ORCHESTRATOR"
+        "ENT-AGENT-TEACHER_AGENT"
       ],
       "resulting_assertion_ids": [
         "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
@@ -853,7 +853,7 @@
       "scenario_step_id": "STEP-CLASSROOM_DINOSAUR-S11",
       "capability_use_id": "CU-CLASSROOM_DINOSAUR-S11-ANSWER-ROOM-GROUNDED-QUESTION",
       "capability_id": "CAP-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
-      "provider_entity_id": "ENT-CLASSROOM_DINOSAUR-RUNTIME-ORCHESTRATOR",
+      "provider_entity_id": "ENT-AGENT-TEACHER_AGENT",
       "target_ids": [
         "ENT-STATE-CLASSROOM_DINOSAUR"
       ],
@@ -881,7 +881,7 @@
       "scenario_step_id": "STEP-CLASSROOM_DINOSAUR-S12",
       "capability_use_id": "CU-CLASSROOM_DINOSAUR-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
       "capability_id": "CAP-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT",
-      "provider_entity_id": "ENT-CLASSROOM_DINOSAUR-RUNTIME-ORCHESTRATOR",
+      "provider_entity_id": "ENT-AGENT-TEACHER_AGENT",
       "target_ids": [
         "ENT-STATE-CLASSROOM_DINOSAUR"
       ],
@@ -1184,5 +1184,11 @@
         "decorative_zone"
       ]
     }
-  ]
+  ],
+  "placement_schema": "functionalmlds_agent_placements",
+  "placement_schema_version": "2.0",
+  "placement_algorithm_version": "2.0.0",
+  "placement_origin": "deterministic",
+  "placement_artifact_sha256": "912a1402c31dab88fa598c62422595c6e073993d9b2af3d3e629f039dfa48367",
+  "placement_projection_sha256": "171957335bd83fd1db6e5116e69c81b8153266627d226a0621b73616b6101a49"
 }

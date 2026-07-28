@@ -40,6 +40,32 @@ V2_FIXTURE_PROFILE = "executable"
 V2_FILENAME = "functionalmlds.v2.instance.json"
 V2_VALIDATION_FILENAME = "functionalmlds.v2.assembly_report.json"
 V2_SCHEMA_PATH = Path(__file__).resolve().parent / "schemas" / "dynamic_functional_mlds_v2_instance.schema.json"
+WIRE_CONTRACT_VERSION = "2.0"
+WIRE_SCHEMA_DIALECT = "https://json-schema.org/draft/2020-12/schema"
+INTERACTION_MODES = ("deictic", "non_deictic")
+SPATIAL_ID_MAX_LENGTH = 256
+SPATIAL_CANDIDATE_LIMIT = 16
+SPATIAL_REASON_MAX_LENGTH = 512
+SPATIAL_DISTANCE_LIMIT_METERS = 1_000_000
+SPATIAL_COORDINATE_LIMIT = 1_000_000
+SPATIAL_SELECTION_MODALITIES = (
+    "desktop_ray",
+    "mouse_ray",
+    "keyboard_mouse",
+    "xr_controller_ray",
+    "controller_ray",
+    "gaze",
+    "touch",
+    "direct",
+    "programmatic",
+)
+V2_IMPLEMENTATION_INPUTS = [
+    Path(__file__).resolve(),
+    REPOSITORY_ROOT / "tools" / "dynamic_functional_mlds_v2_compat.py",
+    REPOSITORY_ROOT / "tools" / "dynamic_functional_mlds_v2_model.py",
+    REPOSITORY_ROOT / "tools" / "validate_dynamic_functional_mlds_v2.py",
+    V2_SCHEMA_PATH,
+]
 
 ASSERTION_TYPES = {
     "StateAssertion",
@@ -180,6 +206,166 @@ def _resolve_agent_handoffs(entities: Sequence[Mapping[str, Any]]) -> dict[str, 
     return resolved
 
 
+def _domain_capability_providers(
+    entities: Sequence[Mapping[str, Any]],
+) -> dict[str, list[str]]:
+    """Index concrete Agent providers in stable source order.
+
+    A projected capability is a domain-facing capability when at least one
+    modeled Agent declares it in ``providedCapabilityRefs``.  New user-facing
+    v0.5 CapabilityUses carry an explicit ``preferredProviderRef`` and never
+    depend on this ordering.  Stable source order remains only as a backwards-
+    compatibility fallback for historical v0.5 fixtures.
+    """
+
+    providers: dict[str, list[str]] = {}
+    for record in entities:
+        if _text(record.get("@type")) != "Agent":
+            continue
+        provider_id = _id(record)
+        if not provider_id:
+            continue
+        for capability_id in _refs(record.get("providedCapabilityRefs")):
+            capability_providers = providers.setdefault(capability_id, [])
+            if provider_id not in capability_providers:
+                capability_providers.append(provider_id)
+    return providers
+
+
+def _domain_provider_semantic_errors(instance: Mapping[str, Any]) -> list[dict[str, str]]:
+    """Return executable-profile errors not expressible by the core metamodel.
+
+    The canonical V2 invariant verifies that a provider advertises a
+    Capability.  It cannot distinguish a concrete Domain Agent from an
+    orchestration service, though.  This pipeline-level invariant closes that
+    gap for capabilities explicitly advertised by one or more Agent objects.
+    """
+
+    objects = [
+        item for item in instance.get("objects") or [] if isinstance(item, Mapping)
+    ]
+    by_id = {
+        _text(item.get("id")): item for item in objects if _text(item.get("id"))
+    }
+    agent_ids = {
+        object_id
+        for object_id, item in by_id.items()
+        if _text(item.get("type")) == "Agent"
+    }
+    agent_providers_by_capability: dict[str, set[str]] = {}
+    for agent_id in agent_ids:
+        for capability_id in _refs(by_id[agent_id].get("providedCapability")):
+            agent_providers_by_capability.setdefault(capability_id, set()).add(agent_id)
+
+    errors: list[dict[str, str]] = []
+    for capability_use in (
+        item for item in objects if _text(item.get("type")) == "CapabilityUse"
+    ):
+        use_id = _text(capability_use.get("id"))
+        capability_ids = _refs(
+            capability_use.get("typeRef") or capability_use.get("capability")
+        )
+        provider_ids = _refs(capability_use.get("provider"))
+        if len(capability_ids) != 1 or len(provider_ids) != 1:
+            continue
+        capability_id = capability_ids[0]
+        domain_provider_ids = agent_providers_by_capability.get(capability_id, set())
+        if domain_provider_ids and provider_ids[0] not in domain_provider_ids:
+            errors.append(
+                {
+                    "code": "IUI-DOMAIN-PROVIDER",
+                    "severity": "error",
+                    "path": f"objects.{use_id}.provider",
+                    "message": (
+                        f"CapabilityUse {use_id} references domain Capability "
+                        f"{capability_id}, but provider {provider_ids[0]} is not one "
+                        "of its modeled Agent providers."
+                    ),
+                }
+            )
+            continue
+        if not domain_provider_ids:
+            continue
+
+        provider = by_id.get(provider_ids[0], {})
+        has_explicit_grounded_target = any(
+            _text(by_id.get(parameter_id, {}).get("key")) == "modelGroundedTarget"
+            for parameter_id in _refs(capability_use.get("parameter"))
+        )
+        if not has_explicit_grounded_target:
+            # Historical v0.5 fixtures did not encode provider/target intent.
+            # They remain importable, but only newly explicit interactions are
+            # eligible for the stronger spatial responsibility invariant.
+            continue
+        target_ids = _refs(capability_use.get("target"))
+        grounded_assets = set(_refs(provider.get("groundedAsset")))
+        grounded_groups = set(_refs(provider.get("groundedObjectGroup")))
+        responsible_zones = set(_refs(provider.get("responsibleZone")))
+        asset_targets = [
+            target_id
+            for target_id in target_ids
+            if _text(by_id.get(target_id, {}).get("entityRole")) == "sceneObject"
+        ]
+        if len(asset_targets) != 1 or asset_targets[0] not in grounded_assets:
+            errors.append(
+                {
+                    "code": "IUI-DOMAIN-TARGET",
+                    "severity": "error",
+                    "path": f"objects.{use_id}.target",
+                    "message": (
+                        f"CapabilityUse {use_id} must target exactly one sceneObject "
+                        f"grounded by provider {provider_ids[0]}."
+                    ),
+                }
+            )
+            continue
+
+        asset = by_id[asset_targets[0]]
+        expected_groups = set(_refs(asset.get("objectGroup")))
+        actual_groups = {
+            target_id
+            for target_id in target_ids
+            if _text(by_id.get(target_id, {}).get("entityRole")) == "objectGroup"
+        }
+        if actual_groups != expected_groups or not actual_groups.issubset(grounded_groups):
+            errors.append(
+                {
+                    "code": "IUI-DOMAIN-GROUP",
+                    "severity": "error",
+                    "path": f"objects.{use_id}.target",
+                    "message": (
+                        f"CapabilityUse {use_id} has object-group targets inconsistent "
+                        f"with asset {asset_targets[0]} and provider {provider_ids[0]}."
+                    ),
+                }
+            )
+
+        source_object_id = _text(asset.get("sourceId"))
+        expected_zones = {
+            zone_id
+            for zone_id in responsible_zones
+            if source_object_id in _refs(by_id.get(zone_id, {}).get("sourceObjectId"))
+        }
+        actual_zones = {
+            target_id
+            for target_id in target_ids
+            if _text(by_id.get(target_id, {}).get("entityRole")) == "semanticZone"
+        }
+        if actual_zones != expected_zones:
+            errors.append(
+                {
+                    "code": "IUI-DOMAIN-ZONE",
+                    "severity": "error",
+                    "path": f"objects.{use_id}.target",
+                    "message": (
+                        f"CapabilityUse {use_id} has zone targets inconsistent with "
+                        f"asset {asset_targets[0]} and provider {provider_ids[0]}."
+                    ),
+                }
+            )
+    return errors
+
+
 def _application_action_kind(
     binding_source: Mapping[str, Any],
     action_source: Mapping[str, Any],
@@ -209,6 +395,293 @@ def _application_action_kind(
         ).casefold()
         return "handoff" if "handoff" in semantic_hint else "chat"
     return "runtime"
+
+
+def _model_binding_descriptor(
+    *,
+    runtime_binding_id: str,
+    runtime_action_id: str,
+    capability_ids: Sequence[str],
+    capability_use_ids: Sequence[str],
+) -> dict[str, Any]:
+    return {
+        "runtimeBindingId": runtime_binding_id,
+        "runtimeActionId": runtime_action_id,
+        "capabilityIds": list(capability_ids),
+        "capabilityUseIds": list(capability_use_ids),
+    }
+
+
+def _bounded_id_schema() -> dict[str, Any]:
+    return {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": SPATIAL_ID_MAX_LENGTH,
+    }
+
+
+def _spatial_context_wire_schema() -> dict[str, Any]:
+    coordinate = {
+        "type": "number",
+        "minimum": -SPATIAL_COORDINATE_LIMIT,
+        "maximum": SPATIAL_COORDINATE_LIMIT,
+    }
+    return {
+        "type": "object",
+        "additionalProperties": False,
+        "required": [
+            "model_sha256",
+            "state",
+            "hit_position",
+            "distance_m",
+            "selection_modality",
+        ],
+        "properties": {
+            "model_sha256": {
+                "type": "string",
+                "pattern": "^[0-9A-Fa-f]{64}$",
+            },
+            "state": {"const": "resolved"},
+            "entity_id": _bounded_id_schema(),
+            "source_object_id": _bounded_id_schema(),
+            "source_id": _bounded_id_schema(),
+            "object_group_id": _bounded_id_schema(),
+            "zone_id": _bounded_id_schema(),
+            "hit_position": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["x", "y", "z"],
+                "properties": {
+                    "x": coordinate,
+                    "y": coordinate,
+                    "z": coordinate,
+                },
+            },
+            "distance_m": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": SPATIAL_DISTANCE_LIMIT_METERS,
+            },
+            "selection_modality": {
+                "type": "string",
+                "enum": list(SPATIAL_SELECTION_MODALITIES),
+            },
+            "modality": {
+                "type": "string",
+                "enum": list(SPATIAL_SELECTION_MODALITIES),
+            },
+            "candidate_entity_ids": {
+                "type": "array",
+                "maxItems": SPATIAL_CANDIDATE_LIMIT,
+                "uniqueItems": True,
+                "items": _bounded_id_schema(),
+            },
+            "ambiguous": {"type": "boolean"},
+            "ambiguity": {
+                "oneOf": [
+                    {"type": "boolean"},
+                    {
+                        "type": "object",
+                        "additionalProperties": True,
+                        "maxProperties": 8,
+                    },
+                ]
+            },
+            "ambiguity_reason": {
+                "type": "string",
+                "maxLength": SPATIAL_REASON_MAX_LENGTH,
+            },
+        },
+        "anyOf": [
+            {"required": ["entity_id"]},
+            {"required": ["source_object_id"]},
+            {"required": ["source_id"]},
+        ],
+    }
+
+
+def _request_wire_schema(
+    *,
+    application_action_kind: str,
+    model_binding: Mapping[str, Any],
+) -> dict[str, Any]:
+    schema: dict[str, Any] = {
+        "$schema": WIRE_SCHEMA_DIALECT,
+        "$id": (
+            "urn:functionalmlds:wire:"
+            f"{application_action_kind}:request:{WIRE_CONTRACT_VERSION}"
+        ),
+        "title": f"Interactive Agents {application_action_kind} request",
+        "type": "object",
+        "additionalProperties": True,
+        "applicationActionKind": application_action_kind,
+        "wireContractVersion": WIRE_CONTRACT_VERSION,
+        "modelBinding": dict(model_binding),
+    }
+    if application_action_kind not in {"chat", "handoff"}:
+        return schema
+    schema.update(
+        {
+            "required": [
+                "session_id",
+                "active_agent_id",
+                "user_text",
+                "interaction_mode",
+            ],
+            "properties": {
+                "session_id": _bounded_id_schema(),
+                "active_agent_id": _bounded_id_schema(),
+                "user_text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 32_768,
+                },
+                "interaction_mode": {
+                    "type": "string",
+                    "enum": list(INTERACTION_MODES),
+                },
+                "spatial_context": _spatial_context_wire_schema(),
+            },
+            "allOf": [
+                {
+                    "if": {
+                        "properties": {
+                            "interaction_mode": {"const": "deictic"}
+                        },
+                        "required": ["interaction_mode"],
+                    },
+                    "then": {"required": ["spatial_context"]},
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "interaction_mode": {"const": "non_deictic"}
+                        },
+                        "required": ["interaction_mode"],
+                    },
+                    "then": {"not": {"required": ["spatial_context"]}},
+                },
+            ],
+        }
+    )
+    return schema
+
+
+def _response_wire_schema(
+    *,
+    application_action_kind: str,
+    model_binding: Mapping[str, Any],
+) -> dict[str, Any]:
+    schema: dict[str, Any] = {
+        "$schema": WIRE_SCHEMA_DIALECT,
+        "$id": (
+            "urn:functionalmlds:wire:"
+            f"{application_action_kind}:response:{WIRE_CONTRACT_VERSION}"
+        ),
+        "title": f"Interactive Agents {application_action_kind} response",
+        "type": "object",
+        "additionalProperties": True,
+        "applicationActionKind": application_action_kind,
+        "wireContractVersion": WIRE_CONTRACT_VERSION,
+        "modelBinding": dict(model_binding),
+    }
+    if application_action_kind not in {"chat", "handoff"}:
+        return schema
+    grounding_fields = [
+        "grounded_entity_ids",
+        "grounding_evidence",
+        "routing_reason",
+        "grounding",
+        "routing",
+    ]
+    schema.update(
+        {
+            "required": [
+                "session_id",
+                "active_agent_id",
+                "memory_mode",
+                "handoff",
+                "events",
+                "interaction_mode",
+                "model_binding",
+            ],
+            "properties": {
+                "session_id": _bounded_id_schema(),
+                "active_agent_id": _bounded_id_schema(),
+                "memory_mode": {"type": "string"},
+                "handoff": {"type": ["object", "null"]},
+                "events": {"type": "array"},
+                "interaction_mode": {
+                    "type": "string",
+                    "enum": list(INTERACTION_MODES),
+                },
+                "model_binding": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": [
+                        "runtime_binding_id",
+                        "runtime_action_id",
+                        "capability_id",
+                        "capability_use_id",
+                    ],
+                    "properties": {
+                        "runtime_binding_id": _bounded_id_schema(),
+                        "runtime_action_id": _bounded_id_schema(),
+                        "capability_id": _bounded_id_schema(),
+                        "capability_use_id": _bounded_id_schema(),
+                    },
+                },
+                "grounded_entity_ids": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 64,
+                    "uniqueItems": True,
+                    "items": _bounded_id_schema(),
+                },
+                "grounding_evidence": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 128,
+                    "items": {"type": "object"},
+                },
+                "routing_reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 2_048,
+                },
+                "grounding": {"type": "object"},
+                "routing": {"type": "object"},
+            },
+            "allOf": [
+                {
+                    "if": {
+                        "properties": {
+                            "interaction_mode": {"const": "deictic"}
+                        },
+                        "required": ["interaction_mode"],
+                    },
+                    "then": {"required": grounding_fields},
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "interaction_mode": {"const": "non_deictic"}
+                        },
+                        "required": ["interaction_mode"],
+                    },
+                    "then": {
+                        "not": {
+                            "anyOf": [
+                                {"required": [field_name]}
+                                for field_name in grounding_fields
+                            ]
+                        }
+                    },
+                },
+            ],
+        }
+    )
+    return schema
 
 
 def _build_native_instance(projection: Mapping[str, Any]) -> dict[str, Any]:
@@ -270,6 +743,7 @@ def _build_native_instance(projection: Mapping[str, Any]) -> dict[str, Any]:
 
     entity_sources = [item for item in semantic.get("entities") or [] if isinstance(item, Mapping)]
     handoff_targets = _resolve_agent_handoffs(entity_sources)
+    domain_capability_providers = _domain_capability_providers(entity_sources)
     entity_ids: list[str] = []
     for source in entity_sources:
         entity_id = _id(source)
@@ -329,8 +803,12 @@ def _build_native_instance(projection: Mapping[str, Any]) -> dict[str, Any]:
             "name": "Runtime Orchestrator",
             "sourceId": "runtime-orchestrator",
             "entityRole": "runtimeOrchestrator",
-            "purpose": "Explicit executable provider for projected runtime capability uses.",
-            "providedCapability": capability_ids,
+            "purpose": "Executable provider for pipeline and runtime-infrastructure capability uses.",
+            "providedCapability": [
+                capability_id
+                for capability_id in capability_ids
+                if capability_id not in domain_capability_providers
+            ],
         }
     )
 
@@ -419,6 +897,18 @@ def _build_native_instance(projection: Mapping[str, Any]) -> dict[str, Any]:
         _optional(capability, "text", source.get("text"))
         store.add(capability)
 
+    capability_use_sources = {
+        _id(source): source
+        for source in semantic.get("capabilityUses") or []
+        if isinstance(source, Mapping)
+    }
+    capability_use_ids_by_capability: dict[str, list[str]] = {}
+    for use_id, source in capability_use_sources.items():
+        for capability_id in _refs(source.get("typeRef")):
+            capability_use_ids_by_capability.setdefault(capability_id, []).append(
+                use_id
+            )
+
     runtime_binding_ids: list[str] = []
     runtime_action_ids: list[str] = []
     runtime_binding_platform: dict[str, str] = {}
@@ -451,6 +941,21 @@ def _build_native_instance(projection: Mapping[str, Any]) -> dict[str, Any]:
                 "locator": [locator_id],
                 "runtimeParameter": [],
             }
+            binding_capability_ids = _refs(source.get("capabilityRef"))
+            binding_capability_use_ids = [
+                use_id
+                for capability_id in binding_capability_ids
+                for use_id in capability_use_ids_by_capability.get(
+                    capability_id,
+                    [],
+                )
+            ]
+            model_binding = _model_binding_descriptor(
+                runtime_binding_id=binding_id,
+                runtime_action_id=action_id,
+                capability_ids=binding_capability_ids,
+                capability_use_ids=binding_capability_use_ids,
+            )
             input_schema = _text(action_source.get("inputSchemaRef"))
             schema_id = f"SCHEMA-{action_id}-INPUT"
             store.add(
@@ -459,8 +964,12 @@ def _build_native_instance(projection: Mapping[str, Any]) -> dict[str, Any]:
                     "type": "SchemaReference",
                     "uri": input_schema or "urn:functionalmlds:schema:unspecified",
                     "text": json.dumps(
-                        {"applicationActionKind": application_action_kind},
+                        _request_wire_schema(
+                            application_action_kind=application_action_kind,
+                            model_binding=model_binding,
+                        ),
                         ensure_ascii=True,
+                        sort_keys=True,
                         separators=(",", ":"),
                     ),
                 }
@@ -469,7 +978,22 @@ def _build_native_instance(projection: Mapping[str, Any]) -> dict[str, Any]:
             output_schema = _text(action_source.get("outputSchemaRef"))
             if output_schema:
                 schema_id = f"SCHEMA-{action_id}-OUTPUT"
-                store.add({"id": schema_id, "type": "SchemaReference", "uri": output_schema})
+                store.add(
+                    {
+                        "id": schema_id,
+                        "type": "SchemaReference",
+                        "uri": output_schema,
+                        "text": json.dumps(
+                            _response_wire_schema(
+                                application_action_kind=application_action_kind,
+                                model_binding=model_binding,
+                            ),
+                            ensure_ascii=True,
+                            sort_keys=True,
+                            separators=(",", ":"),
+                        ),
+                    }
+                )
                 action["outputSchema"] = [schema_id]
             store.add(action)
         if not action_ids:
@@ -493,11 +1017,6 @@ def _build_native_instance(projection: Mapping[str, Any]) -> dict[str, Any]:
             f"application action; got {invalid_application_counts}"
         )
 
-    capability_use_sources = {
-        _id(source): source
-        for source in semantic.get("capabilityUses") or []
-        if isinstance(source, Mapping)
-    }
     scenario_step_sources = {
         _id(source): source
         for source in semantic.get("scenarioSteps") or []
@@ -516,6 +1035,7 @@ def _build_native_instance(projection: Mapping[str, Any]) -> dict[str, Any]:
             if step_source is None:
                 raise V2AssemblyError(f"Scenario {scenario_id} references missing projected step {step_id}")
             use_ids = _refs(step_source.get("capabilityUseRefs"))
+            step_provider_ids: list[str] = []
             for use_id in use_ids:
                 if use_id in capability_use_ids:
                     raise V2AssemblyError(f"CapabilityUse {use_id} is composed by more than one ScenarioStep")
@@ -525,7 +1045,45 @@ def _build_native_instance(projection: Mapping[str, Any]) -> dict[str, Any]:
                 type_refs = _refs(source.get("typeRef"))
                 if len(type_refs) != 1:
                     raise V2AssemblyError(f"CapabilityUse {use_id} needs exactly one Capability type")
+                domain_providers = domain_capability_providers.get(type_refs[0], [])
+                preferred_provider_refs = _refs(source.get("preferredProviderRef"))
+                if len(preferred_provider_refs) > 1:
+                    raise V2AssemblyError(
+                        f"CapabilityUse {use_id} has more than one preferred provider"
+                    )
+                if preferred_provider_refs:
+                    provider_id = preferred_provider_refs[0]
+                    if provider_id not in domain_providers:
+                        raise V2AssemblyError(
+                            f"CapabilityUse {use_id} prefers {provider_id}, which does "
+                            f"not provide Capability {type_refs[0]}"
+                        )
+                else:
+                    provider_id = domain_providers[0] if domain_providers else orchestrator_id
+                explicit_target_refs = _refs(source.get("targetRefs"))
+                unknown_target_refs = [
+                    target_id
+                    for target_id in explicit_target_refs
+                    if target_id not in entity_ids
+                ]
+                if unknown_target_refs:
+                    raise V2AssemblyError(
+                        f"CapabilityUse {use_id} references unknown explicit targets: "
+                        + ", ".join(unknown_target_refs)
+                    )
                 parameter_refs: list[str] = []
+                if explicit_target_refs:
+                    explicit_target_parameter_id = (
+                        f"PARAM-{use_id}-MODEL-GROUNDED-TARGET"
+                    )
+                    store.add(
+                        {
+                            "id": explicit_target_parameter_id,
+                            "type": "KeyValueParameter",
+                            "key": "modelGroundedTarget",
+                        }
+                    )
+                    parameter_refs.append(explicit_target_parameter_id)
                 parameters = source.get("parameters") or []
                 if parameters not in ([], {}):
                     iterable: Iterable[Any] = parameters.items() if isinstance(parameters, Mapping) else parameters
@@ -562,18 +1120,24 @@ def _build_native_instance(projection: Mapping[str, Any]) -> dict[str, Any]:
                         "id": use_id,
                         "type": "CapabilityUse",
                         "typeRef": type_refs,
-                        "provider": [orchestrator_id],
-                        "target": capability_targets.get(type_refs[0], [orchestrator_id]),
+                        "provider": [provider_id],
+                        "target": (
+                            explicit_target_refs
+                            if explicit_target_refs
+                            else capability_targets.get(type_refs[0], [orchestrator_id])
+                        ),
                         "parameter": parameter_refs,
                     }
                 )
                 capability_use_ids.append(use_id)
+                if provider_id not in step_provider_ids:
+                    step_provider_ids.append(provider_id)
             step: dict[str, Any] = {
                 "id": step_id,
                 "type": "ScenarioStep",
                 "kind": _text(step_source.get("kind")),
                 "actorRole": _refs(step_source.get("actorRoleRefs")),
-                "performedBy": [orchestrator_id] if use_ids else [],
+                "performedBy": step_provider_ids,
                 "triggeredBy": _refs(step_source.get("eventRefs")),
                 "resultingAssertion": _refs(step_source.get("resultingAssertionRefs")),
                 "capabilityUse": use_ids,
@@ -959,6 +1523,10 @@ def assemble_functionalmlds_v2_instance(v05_document: Mapping[str, Any]) -> dict
 
     projection = import_v05(v05_document)
     instance = _build_native_instance(projection)
+    semantic_errors = _domain_provider_semantic_errors(instance)
+    if semantic_errors:
+        details = "; ".join(item["message"] for item in semantic_errors[:12])
+        raise V2AssemblyError(f"Domain-provider validation failed: {details}")
     report = validate_instance(MODEL, instance, subject=f"native V2 runtime instance {instance['caseId']}")
     if not report.ok:
         details = "; ".join(f"{issue.code}: {issue.message}" for issue in report.issues[:12])
@@ -974,12 +1542,15 @@ def validate_functionalmlds_v2_instance(instance: Mapping[str, Any]) -> dict[str
         instance,
         subject=f"native V2 runtime instance {instance.get('caseId')}",
     ).to_dict()
-    issues = list(canonical.get("issues") or [])
+    issues = [
+        *list(canonical.get("issues") or []),
+        *_domain_provider_semantic_errors(instance),
+    ]
     errors = [issue for issue in issues if str(issue.get("severity") or "error") == "error"]
     warnings = [issue for issue in issues if str(issue.get("severity") or "") == "warning"]
     object_count = len(instance.get("objects") or [])
     return {
-        "status": "valid" if canonical.get("ok") else "invalid",
+        "status": "valid" if canonical.get("ok") and not errors else "invalid",
         "errors": errors,
         "warnings": warnings,
         "metrics": {
@@ -988,6 +1559,8 @@ def validate_functionalmlds_v2_instance(instance: Mapping[str, Any]) -> dict[str
             "warning_count": len(warnings),
         },
         **canonical,
+        "ok": bool(canonical.get("ok")) and not errors,
+        "issues": issues,
     }
 
 
@@ -1052,7 +1625,7 @@ def run_functionalmlds_v2_assembly_for_case(case_dir: Path) -> dict[str, Any]:
             case_dir,
             stage_id="functionalmlds_v2_assembly",
             status="failed",
-            input_paths=[input_path],
+            input_paths=[input_path, *V2_IMPLEMENTATION_INPUTS],
             output_paths=[output_path, validation_path],
             errors=[str(exc)],
             metadata={"deterministic": True, "metamodel_version": V2_METAMODEL_VERSION},
@@ -1064,7 +1637,7 @@ def run_functionalmlds_v2_assembly_for_case(case_dir: Path) -> dict[str, Any]:
         case_dir,
         stage_id="functionalmlds_v2_assembly",
         status="success" if report["status"] == "valid" else "failed",
-        input_paths=[input_path],
+        input_paths=[input_path, *V2_IMPLEMENTATION_INPUTS],
         output_paths=[output_path, validation_path],
         errors=[str(item) for item in report.get("errors") or []],
         warnings=[str(item) for item in report.get("warnings") or []],

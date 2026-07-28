@@ -3,6 +3,9 @@
 Service: <https://paperreview.ai/>  
 Status endpoint documentation: <https://paperreview.ai/docs>
 
+The local secret-safe API client is in `reviewer/paperreview_client.py`. It
+refuses an upload unless the strict paper check succeeds.
+
 ## Privacy boundary
 
 The service does not publish a dedicated privacy, retention, deletion, or

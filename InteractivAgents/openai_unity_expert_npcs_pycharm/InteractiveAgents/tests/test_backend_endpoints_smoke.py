@@ -1,7 +1,9 @@
 from __future__ import annotations
 
-import json
 import hashlib
+import http.client
+import io
+import json
 import re
 import shutil
 import socket
@@ -21,7 +23,13 @@ from backend.kb import KnowledgeBase
 from backend.openai_client import OpenAIHTTPError
 from backend.placement import normalize_placement_preview
 from backend.projects import ProjectManager
-from backend.server import start_http_server
+from backend.server import (
+    MAX_JSON_BODY_BYTES,
+    MAX_MULTIPART_BODY_BYTES,
+    _read_json,
+    _read_multipart,
+    start_http_server,
+)
 from backend.state import SessionStore
 from backend.version import BACKEND_VERSION, backend_version_payload
 
@@ -119,6 +127,141 @@ class EndpointSmokeSessionStore(SessionStore):
 
 
 class BackendEndpointSmokeTest(unittest.TestCase):
+    def test_request_body_readers_accept_payloads_within_limits(self) -> None:
+        json_body = b'{"status":"ok"}'
+        json_handler = mock.Mock()
+        json_handler.headers = {"Content-Length": str(len(json_body))}
+        json_handler.rfile = io.BytesIO(json_body)
+        self.assertEqual({"status": "ok"}, _read_json(json_handler))
+
+        boundary = "request-limit-smoke"
+        multipart_body = (
+            f"--{boundary}\r\n"
+            'Content-Disposition: form-data; name="session_id"\r\n'
+            "\r\n"
+            "session-1\r\n"
+            f"--{boundary}\r\n"
+            'Content-Disposition: form-data; name="audio"; filename="sample.wav"\r\n'
+            "Content-Type: audio/wav\r\n"
+            "\r\n"
+            "audio-bytes\r\n"
+            f"--{boundary}--\r\n"
+        ).encode("utf-8")
+        multipart_handler = mock.Mock()
+        multipart_handler.headers = {
+            "Content-Type": f"multipart/form-data; boundary={boundary}",
+            "Content-Length": str(len(multipart_body)),
+        }
+        multipart_handler.rfile = io.BytesIO(multipart_body)
+
+        fields, files = _read_multipart(multipart_handler)
+
+        self.assertEqual("session-1", fields["session_id"])
+        self.assertEqual("sample.wav", files["audio"]["filename"])
+        self.assertEqual(b"audio-bytes", files["audio"]["content"])
+
+    def test_request_body_readers_reject_oversized_bodies_before_reading(self) -> None:
+        cases = [
+            (
+                "json",
+                _read_json,
+                {"Content-Length": str(MAX_JSON_BODY_BYTES + 1)},
+                "JSON-Body ist zu groß",
+            ),
+            (
+                "multipart",
+                _read_multipart,
+                {
+                    "Content-Type": "multipart/form-data; boundary=boundary",
+                    "Content-Length": str(MAX_MULTIPART_BODY_BYTES + 1),
+                },
+                "Multipart-Body ist zu groß",
+            ),
+        ]
+
+        for name, reader, headers, expected_error in cases:
+            with self.subTest(body_kind=name):
+                handler = mock.Mock()
+                handler.headers = headers
+                handler.rfile.read.side_effect = AssertionError(
+                    "Oversized request body must not be read."
+                )
+
+                with self.assertRaisesRegex(ValueError, expected_error):
+                    reader(handler)
+
+                handler.rfile.read.assert_not_called()
+
+    def test_http_rejects_oversized_json_and_multipart_requests(self) -> None:
+        store = mock.Mock()
+        base_url = self._start_server(store)
+        cases = [
+            (
+                "/setup",
+                "application/json",
+                MAX_JSON_BODY_BYTES + 1,
+                "JSON-Body ist zu groß",
+            ),
+            (
+                "/stt",
+                "multipart/form-data; boundary=boundary",
+                MAX_MULTIPART_BODY_BYTES + 1,
+                "Multipart-Body ist zu groß",
+            ),
+        ]
+
+        for path, content_type, declared_length, expected_error in cases:
+            with self.subTest(path=path):
+                status, response = self._post_headers_only(
+                    base_url,
+                    path,
+                    content_type=content_type,
+                    content_length=declared_length,
+                )
+                self.assertEqual(400, status)
+                self.assertIn(expected_error, response["error"])
+
+        store.setup_from_request.assert_not_called()
+        store.stt.assert_not_called()
+
+    def test_placement_authoring_http_routes_forward_exact_payloads(self) -> None:
+        route_store = mock.Mock()
+        route_methods = {
+            "inspect": "inspect_arrow_authoring",
+            "preview": "preview_arrow_authoring",
+            "apply": "apply_arrow_authoring",
+            "accept": "accept_arrow_authoring",
+            "discard": "discard_arrow_authoring",
+            "undo": "undo_arrow_authoring",
+        }
+        for action, method_name in route_methods.items():
+            setattr(
+                route_store,
+                method_name,
+                mock.Mock(return_value={"status": action, "route": method_name}),
+            )
+
+        base_url = self._start_server(route_store)
+        advertised = self._get_json(base_url, "/")["endpoints"]
+        payload = {
+            "session_id": "authoring-http-smoke",
+            "expected_revision": "sha256:" + ("1" * 64),
+        }
+        for action, method_name in route_methods.items():
+            with self.subTest(action=action):
+                response = self._post_json(
+                    base_url,
+                    f"/projects/arrow/authoring/{action}",
+                    payload,
+                )
+                self.assertEqual(action, response["status"])
+                self.assertEqual(method_name, response["route"])
+                getattr(route_store, method_name).assert_called_once_with(payload)
+                self.assertIn(
+                    f"POST /projects/arrow/authoring/{action}",
+                    advertised,
+                )
+
     def test_legacy_and_functionalmlds_endpoints(self) -> None:
         backend_root = Path(__file__).resolve().parents[1]
         workspace_root = self._find_workspace_root(backend_root)
@@ -659,6 +802,7 @@ class BackendEndpointSmokeTest(unittest.TestCase):
                     {
                         "session_id": setup["session_id"],
                         "active_agent_id": "teacher_agent",
+                        "interaction_mode": "non_deictic",
                         "user_text": "Welche Ausstattung gibt es im Unterrichtsbereich?",
                     },
                 )
@@ -678,6 +822,7 @@ class BackendEndpointSmokeTest(unittest.TestCase):
                     {
                         "session_id": setup["session_id"],
                         "active_agent_id": "exhibit_interpreter",
+                        "interaction_mode": "non_deictic",
                         "user_text": "What is special about the dinosaur skeleton exhibit for paleontology?",
                     },
                 )
@@ -697,6 +842,7 @@ class BackendEndpointSmokeTest(unittest.TestCase):
                     {
                         "session_id": setup["session_id"],
                         "active_agent_id": "reading_area_guide",
+                        "interaction_mode": "non_deictic",
                         "user_text": "What can visitors use in the reading area for study and relaxation?",
                     },
                 )
@@ -717,6 +863,7 @@ class BackendEndpointSmokeTest(unittest.TestCase):
                     {
                         "session_id": setup["session_id"],
                         "active_agent_id": "decorative_zone_ambassador",
+                        "interaction_mode": "non_deictic",
                         "user_text": "Which art and plants shape the decorative zone ambiance?",
                     },
                 )
@@ -736,6 +883,7 @@ class BackendEndpointSmokeTest(unittest.TestCase):
                     {
                         "session_id": setup["session_id"],
                         "active_agent_id": "teacher_agent",
+                        "interaction_mode": "non_deictic",
                         "user_text": "I need details about the dinosaur skeleton exhibit and paleontology.",
                     },
                 )
@@ -823,6 +971,27 @@ class BackendEndpointSmokeTest(unittest.TestCase):
         except urllib.error.HTTPError as exc:
             body = exc.read().decode("utf-8", errors="replace")
             raise AssertionError(f"HTTP {exc.code} for {path}: {body}") from exc
+
+    @staticmethod
+    def _post_headers_only(
+        base_url: str,
+        path: str,
+        *,
+        content_type: str,
+        content_length: int,
+    ) -> tuple[int, Dict[str, Any]]:
+        port = int(base_url.rsplit(":", 1)[1])
+        connection = http.client.HTTPConnection("127.0.0.1", port, timeout=20)
+        try:
+            connection.putrequest("POST", path)
+            connection.putheader("Content-Type", content_type)
+            connection.putheader("Content-Length", str(content_length))
+            connection.endheaders()
+            response = connection.getresponse()
+            payload = json.loads(response.read().decode("utf-8"))
+            return response.status, payload
+        finally:
+            connection.close()
 
     @staticmethod
     def _find_workspace_root(start: Path) -> Path:

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
 import math
 import os
@@ -17,6 +18,14 @@ from .kb import KnowledgeBase
 from .functionalmlds_adapter import ANALYZE_STAGE_IDS, COMMIT_STAGE_IDS, FunctionalMldsAdapter, derive_case_id
 from .functionalmlds_v2_runtime import (
     FunctionalMldsContractError,
+    INTERACTION_MODES,
+    SPATIAL_CANDIDATE_LIMIT,
+    SPATIAL_COORDINATE_LIMIT,
+    SPATIAL_DISTANCE_LIMIT_METERS,
+    SPATIAL_ID_MAX_LENGTH,
+    SPATIAL_REASON_MAX_LENGTH,
+    SPATIAL_SELECTION_MODALITIES,
+    WIRE_CONTRACT_VERSION,
     load_project_contract,
     load_v2_document,
     select_runtime_action,
@@ -64,6 +73,20 @@ FUNCTIONALMLDS_PLACEMENT_DEPENDENT_STAGES = (
     "handoff_derivation",
     "functionalmlds_v2_assembly",
     "functionalmlds_invariants",
+)
+ARROW_AUTHORING_SESSION_FIELDS = (
+    "placement_preview",
+    "agent_roles",
+    "functionalmlds_path",
+    "trace_map_path",
+    "validation_summary",
+    "functionalmlds_summary",
+    "scenario_summary",
+    "capability_summary",
+    "handoff_summary",
+    "room_knowledge_summary",
+    "placement_manually_updated",
+    "updated_ms",
 )
 _GENERATION_MODE_ALIASES = {
     "": GENERATION_MODE_LEGACY,
@@ -293,6 +316,58 @@ class ArrowProjectDraft:
 
 
 @dataclass
+class ArrowPlacementAuthoringChange:
+    """One explicit, reviewable placement change in the Unity authoring loop.
+
+    File and session snapshots intentionally stay server-side.  Only
+    ``public_payload`` crosses the HTTP boundary, so local paths and rollback
+    bytes never leak into the Unity client or a paper artifact.
+    """
+
+    change_id: str
+    session_id: str
+    case_id: str
+    rationale: str
+    revision_before: str
+    placements: List[Dict[str, Any]]
+    updated_preview: Dict[str, Any]
+    diffs: List[Dict[str, Any]]
+    validation: Dict[str, Any]
+    affected_artifacts: List[str]
+    lifecycle: str = "previewed"
+    revision_after: str = ""
+    analysis_validation_summary: Dict[str, Any] = field(default_factory=dict)
+    files_before: Dict[Path, Optional[bytes]] = field(default_factory=dict, repr=False)
+    files_after: Dict[Path, Optional[bytes]] = field(default_factory=dict, repr=False)
+    session_before: Dict[str, Any] = field(default_factory=dict, repr=False)
+    session_after: Dict[str, Any] = field(default_factory=dict, repr=False)
+    created_ms: int = field(default_factory=_now_ms)
+    applied_ms: Optional[int] = None
+    accepted_ms: Optional[int] = None
+
+    def public_payload(self) -> Dict[str, Any]:
+        target_ids = [str(item.get("target_id") or "") for item in self.diffs]
+        return {
+            "change_id": self.change_id,
+            "kind": "agent_placement",
+            "lifecycle": self.lifecycle,
+            "rationale": self.rationale,
+            "revision_before": self.revision_before,
+            "revision_after": self.revision_after or None,
+            "target_ids": target_ids,
+            "diffs": copy.deepcopy(self.diffs),
+            "affected_artifacts": list(self.affected_artifacts),
+            "validation": copy.deepcopy(self.validation),
+            "analysis_validation_summary": copy.deepcopy(
+                self.analysis_validation_summary
+            ),
+            "created_ms": self.created_ms,
+            "applied_ms": self.applied_ms,
+            "accepted_ms": self.accepted_ms,
+        }
+
+
+@dataclass
 class SessionStore:
     max_history_turns: int
     max_handoffs: int
@@ -311,6 +386,11 @@ class SessionStore:
     sessions: Dict[str, SessionState] = field(default_factory=dict)
     kb_cache: Dict[str, KnowledgeBase] = field(default_factory=dict)
     arrow_sessions: Dict[str, ArrowProjectDraft] = field(default_factory=dict)
+    arrow_authoring_changes: Dict[str, ArrowPlacementAuthoringChange] = field(
+        default_factory=dict
+    )
+    arrow_authoring_pending: Dict[str, str] = field(default_factory=dict)
+    arrow_authoring_undo: Dict[str, str] = field(default_factory=dict)
     _arrow_mutation_locks: Dict[str, threading.RLock] = field(
         default_factory=dict,
         init=False,
@@ -388,6 +468,59 @@ class SessionStore:
 
         agents_list: List[AgentSpec] = [AgentSpec.from_dict(d, i) for i, d in enumerate(agent_dicts)]
         agents_map = {a.id: a for a in agents_list}
+        contract_kind = str((functionalmlds_contract or {}).get("kind") or "")
+        runtime_context = copy.deepcopy(
+            (functionalmlds_contract or {}).get("runtime_context") or {}
+        )
+        if contract_kind == "v2":
+            contract_agents = [
+                item
+                for item in runtime_context.get("agents", [])
+                if isinstance(item, dict)
+            ]
+            contract_agents_by_source: Dict[str, Dict[str, Any]] = {}
+            contract_agents_by_entity: Dict[str, Dict[str, Any]] = {}
+            for item in contract_agents:
+                source_id = str(item.get("source_agent_id") or "").strip()
+                entity_id = str(item.get("functionalmlds_agent_id") or "").strip()
+                if (
+                    not source_id
+                    or not entity_id
+                    or source_id in contract_agents_by_source
+                    or entity_id in contract_agents_by_entity
+                ):
+                    raise FunctionalMldsContractError(
+                        "Pinned V2 runtime context requires unique, non-empty agent "
+                        "source and entity identifiers."
+                    )
+                contract_agents_by_source[source_id] = item
+                contract_agents_by_entity[entity_id] = item
+            if set(contract_agents_by_source) != set(agents_map):
+                raise FunctionalMldsContractError(
+                    "Materialized agents do not exactly match the agents in the "
+                    "pinned FunctionalMLDS V2 model."
+                )
+            for agent in agents_list:
+                contract_agent = contract_agents_by_source[agent.id]
+                modeled_targets: List[str] = []
+                for target_entity_id in contract_agent.get("handoff_target_ids") or []:
+                    target = contract_agents_by_entity.get(str(target_entity_id))
+                    target_source_id = str((target or {}).get("source_agent_id") or "").strip()
+                    if not target_source_id or target_source_id not in agents_map:
+                        raise FunctionalMldsContractError(
+                            f"Agent {agent.id!r} has an unresolved modeled handoff target "
+                            f"{target_entity_id!r}."
+                        )
+                    if target_source_id == agent.id:
+                        raise FunctionalMldsContractError(
+                            f"Agent {agent.id!r} cannot hand off to itself."
+                        )
+                    if target_source_id not in modeled_targets:
+                        modeled_targets.append(target_source_id)
+                # The executable model, not agents.json, is authoritative for online
+                # handoffs.  This also prevents a stale/tampered client projection
+                # from silently widening the handoff graph.
+                agent.handoff_targets = modeled_targets
 
         agent_inputs = []
         for idx, agent in enumerate(agents_list):
@@ -417,7 +550,7 @@ class SessionStore:
             history=[],
             agent_histories={a.id: [] for a in agents_list},
             project_id=project_id,
-            functionalmlds_contract_kind=str((functionalmlds_contract or {}).get("kind") or ""),
+            functionalmlds_contract_kind=contract_kind,
             functionalmlds_model_version=str((functionalmlds_contract or {}).get("model_version") or ""),
             functionalmlds_model_sha256=str((functionalmlds_contract or {}).get("model_sha256") or ""),
             functionalmlds_profile=str((functionalmlds_contract or {}).get("profile") or "none"),
@@ -427,7 +560,7 @@ class SessionStore:
                 else ""
             ),
             functionalmlds_runtime_context=copy.deepcopy(
-                (functionalmlds_contract or {}).get("runtime_context")
+                runtime_context or None
             ),
         )
         self.sessions[session_id] = st
@@ -497,7 +630,7 @@ class SessionStore:
             for item in agent_dicts
             if isinstance(item, dict) and str(item.get("id") or "")
         }
-        runtime_context = (functionalmlds_contract or {}).get("runtime_context") or {}
+        runtime_context = copy.deepcopy(st.functionalmlds_runtime_context or {})
         contract_agents_by_source = {
             str(item.get("source_agent_id") or ""): item
             for item in runtime_context.get("agents", [])
@@ -530,6 +663,7 @@ class SessionStore:
                     "responsible_zone_ids": contract_agent.get("responsible_zone_ids") or [],
                     "grounded_asset_ids": contract_agent.get("grounded_asset_ids") or [],
                     "grounded_object_group_ids": contract_agent.get("grounded_object_group_ids") or [],
+                    "handoff_target_ids": contract_agent.get("handoff_target_source_agent_ids") or [],
                 }
             )
 
@@ -539,7 +673,7 @@ class SessionStore:
             "model_sha256": "",
             "runtime_context": None,
         }
-        context = contract.get("runtime_context") or {}
+        context = copy.deepcopy(st.functionalmlds_runtime_context or {})
         return {
             "session_id": st.session_id,
             "memory_mode": st.memory_mode,
@@ -554,7 +688,8 @@ class SessionStore:
                 else None
             ),
             "runtime_validation_target_id": context.get("runtime_validation_target_id"),
-            "functionalmlds": context or None,
+            "spatial_entities": copy.deepcopy(context.get("spatial_entities") or []),
+            "functionalmlds": copy.deepcopy(context) if context else None,
         }
 
     def preflight_runtime_action(self, session_id: str, action_kind: str) -> Dict[str, Any]:
@@ -728,6 +863,639 @@ class SessionStore:
 
     # -------------------- Chat orchestration --------------------
 
+    @staticmethod
+    def _bounded_spatial_text(
+        value: Any,
+        field_name: str,
+        *,
+        maximum: int = SPATIAL_ID_MAX_LENGTH,
+        required: bool = False,
+    ) -> str:
+        if value is None:
+            text = ""
+        elif not isinstance(value, str):
+            raise ValueError(f"spatial_context.{field_name} muss ein String sein.")
+        else:
+            text = value.strip()
+        if required and not text:
+            raise ValueError(f"spatial_context.{field_name} fehlt.")
+        if len(text) > maximum:
+            raise ValueError(
+                f"spatial_context.{field_name} ueberschreitet das Limit "
+                f"von {maximum} Zeichen."
+            )
+        return text
+
+    @staticmethod
+    def _finite_spatial_number(
+        value: Any,
+        field_name: str,
+        *,
+        absolute_limit: float = SPATIAL_COORDINATE_LIMIT,
+    ) -> float:
+        if (
+            isinstance(value, bool)
+            or not isinstance(value, (int, float))
+            or not math.isfinite(float(value))
+        ):
+            raise ValueError(f"spatial_context.{field_name} muss eine endliche JSON-Zahl sein.")
+        number = float(value)
+        if abs(number) > absolute_limit:
+            raise ValueError(
+                f"spatial_context.{field_name} liegt ausserhalb des Limits "
+                f"+/-{absolute_limit:g}."
+            )
+        return number
+
+    @staticmethod
+    def _v2_interaction_mode(
+        action: Dict[str, Any],
+        payload: Dict[str, Any],
+    ) -> str:
+        request_schema = action.get("request_wire_schema")
+        if not isinstance(request_schema, dict):
+            raise FunctionalMldsContractError(
+                "Pinned V2 chat action has no executable request wire schema."
+            )
+        if request_schema.get("wireContractVersion") != WIRE_CONTRACT_VERSION:
+            raise FunctionalMldsContractError(
+                "Pinned V2 chat action has an unsupported wire contract version."
+            )
+        properties = request_schema.get("properties")
+        mode_schema = (
+            properties.get("interaction_mode")
+            if isinstance(properties, dict)
+            else None
+        )
+        modeled_modes = (
+            list(mode_schema.get("enum") or [])
+            if isinstance(mode_schema, dict)
+            else []
+        )
+        if modeled_modes != list(INTERACTION_MODES):
+            raise FunctionalMldsContractError(
+                "Pinned V2 chat action does not model the exact interaction modes."
+            )
+        raw_mode = payload.get("interaction_mode")
+        if not isinstance(raw_mode, str) or not raw_mode.strip():
+            raise ValueError(
+                "interaction_mode fehlt fuer FunctionalMLDS V2; erlaubt sind "
+                "'deictic' und 'non_deictic'."
+            )
+        mode = raw_mode.strip().lower()
+        if mode not in modeled_modes:
+            raise ValueError(
+                f"Ungueltiger interaction_mode {mode!r}; erlaubt sind "
+                + ", ".join(modeled_modes)
+                + "."
+            )
+        return mode
+
+    @staticmethod
+    def _v2_model_binding(action: Dict[str, Any]) -> Dict[str, str]:
+        fields = (
+            "runtime_binding_id",
+            "runtime_action_id",
+            "capability_id",
+            "capability_use_id",
+        )
+        binding = {
+            field_name: str(action.get(field_name) or "").strip()
+            for field_name in fields
+        }
+        missing = [
+            field_name
+            for field_name, value in binding.items()
+            if not value
+        ]
+        if missing:
+            raise FunctionalMldsContractError(
+                "Pinned V2 chat action has an incomplete model binding: "
+                + ", ".join(missing)
+                + "."
+            )
+        return binding
+
+    def _validate_spatial_context(
+        self,
+        st: SessionState,
+        raw_context: Any,
+    ) -> Optional[Dict[str, Any]]:
+        """Validate and resolve an optional client selection against the pinned V2 model.
+
+        The client supplies observation data only.  Entity, group, zone, and routing
+        claims are reconstructed from the immutable runtime context pinned at setup.
+        """
+
+        if raw_context is None:
+            return None
+        if not isinstance(raw_context, dict):
+            raise ValueError("spatial_context muss ein JSON-Objekt sein.")
+        if st.functionalmlds_contract_kind != "v2":
+            raise ValueError(
+                "spatial_context wird nur fuer eine gepinnte FunctionalMLDS-V2-Session akzeptiert."
+            )
+        allowed_fields = {
+            "model_sha256",
+            "state",
+            "entity_id",
+            "source_object_id",
+            "source_id",
+            "object_group_id",
+            "zone_id",
+            "hit_position",
+            "distance_m",
+            "selection_modality",
+            "modality",
+            "candidate_entity_ids",
+            "ambiguous",
+            "ambiguity",
+            "ambiguity_reason",
+        }
+        unknown_fields = sorted(set(raw_context) - allowed_fields)
+        if unknown_fields:
+            raise ValueError(
+                "spatial_context enthaelt unbekannte Felder: "
+                + ", ".join(unknown_fields)
+                + "."
+            )
+
+        supplied_hash = self._bounded_spatial_text(
+            raw_context.get("model_sha256"),
+            "model_sha256",
+            maximum=64,
+            required=True,
+        ).upper()
+        expected_hash = str(st.functionalmlds_model_sha256 or "").strip().upper()
+        if not expected_hash or supplied_hash != expected_hash:
+            raise FunctionalMldsContractError(
+                "Stale spatial_context: model_sha256 stimmt nicht mit dem "
+                "bei /setup gepinnten FunctionalMLDS-V2-Modell ueberein."
+            )
+
+        state = self._bounded_spatial_text(
+            raw_context.get("state"),
+            "state",
+            maximum=16,
+            required=True,
+        ).lower()
+        ambiguity = raw_context.get("ambiguity")
+        ambiguous_value = raw_context.get("ambiguous")
+        if ambiguous_value is not None and not isinstance(ambiguous_value, bool):
+            raise ValueError("spatial_context.ambiguous muss ein Boolean sein.")
+        ambiguity_flag = bool(ambiguous_value)
+        if isinstance(ambiguity, bool):
+            ambiguity_flag = ambiguity_flag or ambiguity
+        elif isinstance(ambiguity, dict):
+            if len(ambiguity) > 8:
+                raise ValueError(
+                    "spatial_context.ambiguity enthaelt zu viele Felder."
+                )
+            for ambiguity_key, ambiguity_value in ambiguity.items():
+                if len(str(ambiguity_key)) > 64 or len(str(ambiguity_value)) > SPATIAL_REASON_MAX_LENGTH:
+                    raise ValueError(
+                        "spatial_context.ambiguity enthaelt einen zu langen Wert."
+                    )
+            ambiguity_flag = ambiguity_flag or bool(
+                ambiguity.get("ambiguous")
+                or ambiguity.get("is_ambiguous")
+                or ambiguity.get("reason")
+            )
+        elif ambiguity is not None:
+            raise ValueError(
+                "spatial_context.ambiguity muss ein Boolean oder Objekt sein."
+            )
+        ambiguity_reason = self._bounded_spatial_text(
+            raw_context.get("ambiguity_reason"),
+            "ambiguity_reason",
+            maximum=SPATIAL_REASON_MAX_LENGTH,
+        )
+        if state != "resolved":
+            raise ValueError(
+                "spatial_context.state muss 'resolved' sein; none/ambiguous wird fail-closed abgelehnt."
+            )
+        if ambiguity_flag or ambiguity_reason:
+            raise ValueError("Mehrdeutiger spatial_context wird fail-closed abgelehnt.")
+
+        runtime_context = st.functionalmlds_runtime_context or {}
+        spatial_entities = [
+            item
+            for item in runtime_context.get("spatial_entities", [])
+            if isinstance(item, dict)
+        ]
+        by_entity_id: Dict[str, Dict[str, Any]] = {}
+        for item in spatial_entities:
+            entity_id = str(item.get("entity_id") or "").strip()
+            if not entity_id or entity_id in by_entity_id:
+                raise FunctionalMldsContractError(
+                    "Pinned V2 runtime context contains ambiguous spatial entity identifiers."
+                )
+            by_entity_id[entity_id] = item
+
+        supplied_entity_id = self._bounded_spatial_text(
+            raw_context.get("entity_id"),
+            "entity_id",
+        )
+        supplied_source_id = self._bounded_spatial_text(
+            raw_context.get("source_object_id")
+            or raw_context.get("source_id")
+            or None,
+            "source_object_id",
+        )
+        if not supplied_entity_id and not supplied_source_id:
+            raise ValueError(
+                "spatial_context benoetigt entity_id oder source_object_id."
+            )
+
+        selected: Optional[Dict[str, Any]] = None
+        if supplied_entity_id:
+            selected = by_entity_id.get(supplied_entity_id)
+            if selected is None:
+                raise ValueError(
+                    f"Unbekannte spatial_context.entity_id: {supplied_entity_id!r}."
+                )
+        if supplied_source_id:
+            source_matches = [
+                item
+                for item in spatial_entities
+                if str(item.get("source_id") or "").strip() == supplied_source_id
+                and str(item.get("kind") or "").strip() == "asset"
+                and str(item.get("entity_role") or "").strip() == "sceneObject"
+            ]
+            if len(source_matches) != 1:
+                qualifier = "unbekannt" if not source_matches else "mehrdeutig"
+                raise ValueError(
+                    f"spatial_context.source_object_id ist im gepinnten Modell {qualifier}: "
+                    f"{supplied_source_id!r}."
+                )
+            if selected is not None and selected.get("entity_id") != source_matches[0].get("entity_id"):
+                raise ValueError(
+                    "spatial_context.entity_id und source_object_id bezeichnen "
+                    "unterschiedliche Modellobjekte."
+                )
+            selected = source_matches[0]
+
+        if selected is None:
+            raise ValueError("spatial_context konnte nicht aufgeloest werden.")
+        if (
+            str(selected.get("kind") or "").strip() != "asset"
+            or str(selected.get("entity_role") or "").strip() != "sceneObject"
+        ):
+            raise ValueError(
+                "spatial_context muss ein konkretes Szeneobjekt (asset/sceneObject) referenzieren."
+            )
+
+        selected_entity_id = str(selected.get("entity_id") or "")
+        selected_source_id = str(selected.get("source_id") or "")
+        candidate_ids_raw = raw_context.get("candidate_entity_ids")
+        if candidate_ids_raw is None:
+            candidate_ids: List[str] = []
+        elif not isinstance(candidate_ids_raw, list):
+            raise ValueError("spatial_context.candidate_entity_ids muss eine Liste sein.")
+        else:
+            if len(candidate_ids_raw) > SPATIAL_CANDIDATE_LIMIT:
+                raise ValueError(
+                    "spatial_context.candidate_entity_ids ueberschreitet das "
+                    f"Limit von {SPATIAL_CANDIDATE_LIMIT}."
+                )
+            candidate_ids = []
+            for candidate in candidate_ids_raw:
+                candidate_id = self._bounded_spatial_text(
+                    candidate,
+                    "candidate_entity_ids[]",
+                    required=True,
+                )
+                if not candidate_id or candidate_id not in by_entity_id:
+                    raise ValueError(
+                        f"spatial_context enthaelt unbekannten Kandidaten {candidate_id!r}."
+                    )
+                if candidate_id in candidate_ids:
+                    raise ValueError(
+                        "spatial_context.candidate_entity_ids enthaelt Duplikate."
+                    )
+                candidate_ids.append(candidate_id)
+        if len(candidate_ids) > 1 or (
+            candidate_ids and candidate_ids[0] != selected_entity_id
+        ):
+            raise ValueError("Mehrdeutige spatial_context-Kandidaten werden fail-closed abgelehnt.")
+
+        hit_position_raw = raw_context.get("hit_position")
+        if not isinstance(hit_position_raw, dict):
+            raise ValueError("spatial_context.hit_position muss ein Objekt mit x/y/z sein.")
+        if set(hit_position_raw) != {"x", "y", "z"}:
+            raise ValueError(
+                "spatial_context.hit_position darf nur x, y und z enthalten."
+            )
+        hit_position = {
+            axis: self._finite_spatial_number(
+                hit_position_raw.get(axis),
+                f"hit_position.{axis}",
+            )
+            for axis in ("x", "y", "z")
+        }
+        distance_m = self._finite_spatial_number(
+            raw_context.get("distance_m"),
+            "distance_m",
+            absolute_limit=SPATIAL_DISTANCE_LIMIT_METERS,
+        )
+        if distance_m < 0:
+            raise ValueError("spatial_context.distance_m darf nicht negativ sein.")
+        selection_modality = self._bounded_spatial_text(
+            raw_context.get("selection_modality"),
+            "selection_modality",
+            maximum=64,
+            required=True,
+        ).lower()
+        supplied_modality_alias = self._bounded_spatial_text(
+            raw_context.get("modality"),
+            "modality",
+            maximum=64,
+        ).lower()
+        if supplied_modality_alias and supplied_modality_alias != selection_modality:
+            raise ValueError(
+                "spatial_context.modality widerspricht selection_modality."
+            )
+        if selection_modality not in SPATIAL_SELECTION_MODALITIES:
+            raise ValueError(
+                "spatial_context.selection_modality ist unbekannt; erlaubt sind "
+                + ", ".join(sorted(SPATIAL_SELECTION_MODALITIES))
+                + "."
+            )
+
+        group_ids: List[str] = []
+        for group_id in selected.get("object_group_ids") or []:
+            group = by_entity_id.get(str(group_id))
+            if (
+                group is None
+                or str(group.get("entity_role") or "") != "objectGroup"
+                or str(group.get("kind") or "") != "asset"
+            ):
+                raise FunctionalMldsContractError(
+                    f"Szeneobjekt {selected_entity_id!r} referenziert eine ungueltige "
+                    f"Objektgruppe {group_id!r}."
+                )
+            if str(group_id) not in group_ids:
+                group_ids.append(str(group_id))
+        if not group_ids:
+            source_group = str(selected.get("source_group") or "").strip()
+            group_ids = [
+                str(item.get("entity_id"))
+                for item in spatial_entities
+                if source_group
+                and str(item.get("entity_role") or "") == "objectGroup"
+                and str(item.get("source_group") or "") == source_group
+            ]
+
+        zone_ids = [
+            str(item.get("entity_id"))
+            for item in spatial_entities
+            if str(item.get("kind") or "") == "zone"
+            and selected_source_id in {
+                str(source_object_id)
+                for source_object_id in item.get("source_object_ids") or []
+            }
+        ]
+
+        supplied_group_id = self._bounded_spatial_text(
+            raw_context.get("object_group_id"),
+            "object_group_id",
+        )
+        if supplied_group_id:
+            trusted_group_aliases = set(group_ids)
+            for group_id in group_ids:
+                group = by_entity_id[group_id]
+                trusted_group_aliases.update(
+                    {
+                        str(group.get("source_id") or "").strip(),
+                        str(group.get("source_group") or "").strip(),
+                    }
+                )
+            trusted_group_aliases.discard("")
+            if supplied_group_id not in trusted_group_aliases:
+                raise ValueError(
+                    "spatial_context.object_group_id widerspricht dem gepinnten V2-Modell."
+                )
+        supplied_zone_id = self._bounded_spatial_text(
+            raw_context.get("zone_id"),
+            "zone_id",
+        )
+        if supplied_zone_id:
+            trusted_zone_aliases = set(zone_ids)
+            trusted_zone_aliases.update(
+                str(by_entity_id[zone_id].get("source_id") or "").strip()
+                for zone_id in zone_ids
+            )
+            trusted_zone_aliases.discard("")
+            if supplied_zone_id not in trusted_zone_aliases:
+                raise ValueError(
+                    "spatial_context.zone_id widerspricht dem gepinnten V2-Modell."
+                )
+
+        grounded_entity_ids = [selected_entity_id]
+        for related_id in group_ids + zone_ids:
+            if related_id not in grounded_entity_ids:
+                grounded_entity_ids.append(related_id)
+        evidence: List[Dict[str, Any]] = [
+            {
+                "relation": "selected_scene_object",
+                "subject_id": selected_entity_id,
+                "source_object_id": selected_source_id,
+                "source": "pinned_functionalmlds_v2",
+            }
+        ]
+        evidence.extend(
+            {
+                "relation": "objectGroup",
+                "subject_id": selected_entity_id,
+                "object_id": group_id,
+                "source": "pinned_functionalmlds_v2",
+            }
+            for group_id in group_ids
+        )
+        evidence.extend(
+            {
+                "relation": "zone_contains_source_object",
+                "subject_id": zone_id,
+                "source_object_id": selected_source_id,
+                "source": "pinned_functionalmlds_v2",
+            }
+            for zone_id in zone_ids
+        )
+        return {
+            "status": "resolved",
+            "model_sha256": expected_hash,
+            "selected_entity_id": selected_entity_id,
+            "selected_source_object_id": selected_source_id,
+            "selected_name": str(selected.get("name") or selected_source_id),
+            "object_group_ids": group_ids,
+            "zone_ids": zone_ids,
+            "grounded_entity_ids": grounded_entity_ids,
+            "hit_position": hit_position,
+            "distance_m": distance_m,
+            "selection_modality": selection_modality,
+            "evidence": evidence,
+        }
+
+    @staticmethod
+    def _allowed_handoff_ids(st: SessionState, agent: AgentSpec) -> List[str]:
+        if st.functionalmlds_contract_kind != "v2" and not agent.handoff_targets:
+            # Preserve the pre-V2 contract: legacy agent projections without an
+            # explicit allow-list may hand off to any other materialized agent.
+            return [
+                agent_id
+                for agent_id in st.agents
+                if agent_id != agent.id
+            ]
+        allowed: List[str] = []
+        for target_id in agent.handoff_targets:
+            if target_id in st.agents and target_id != agent.id and target_id not in allowed:
+                allowed.append(target_id)
+        return allowed
+
+    def _resolve_spatial_route(
+        self,
+        st: SessionState,
+        requested_agent_id: str,
+        grounding: Dict[str, Any],
+    ) -> Dict[str, Any]:
+        runtime_agents = [
+            item
+            for item in (st.functionalmlds_runtime_context or {}).get("agents", [])
+            if isinstance(item, dict)
+        ]
+        selected_entity_id = grounding["selected_entity_id"]
+        group_ids = set(grounding.get("object_group_ids") or [])
+        zone_ids = set(grounding.get("zone_ids") or [])
+
+        levels = (
+            (
+                "asset",
+                [
+                    str(item.get("source_agent_id") or "")
+                    for item in runtime_agents
+                    if selected_entity_id in (item.get("grounded_asset_ids") or [])
+                ],
+            ),
+            (
+                "group",
+                [
+                    str(item.get("source_agent_id") or "")
+                    for item in runtime_agents
+                    if group_ids.intersection(item.get("grounded_object_group_ids") or [])
+                ],
+            ),
+            (
+                "zone",
+                [
+                    str(item.get("source_agent_id") or "")
+                    for item in runtime_agents
+                    if zone_ids.intersection(item.get("responsible_zone_ids") or [])
+                ],
+            ),
+        )
+        priority = ""
+        candidate_agent_ids: List[str] = []
+        for level, raw_candidates in levels:
+            candidates = [
+                candidate
+                for candidate in raw_candidates
+                if candidate in st.agents and candidate not in candidate_agent_ids
+            ]
+            if candidates:
+                priority = level
+                candidate_agent_ids = candidates
+                break
+        if not candidate_agent_ids:
+            raise FunctionalMldsContractError(
+                f"Das gepinnte V2-Modell weist dem Szeneobjekt "
+                f"{selected_entity_id!r} keinen verantwortlichen Agenten zu."
+            )
+
+        requested_agent = st.agents[requested_agent_id]
+        modeled_handoff = requested_agent_id not in candidate_agent_ids
+        if not modeled_handoff:
+            selected_agent_id = requested_agent_id
+        else:
+            if self.max_handoffs <= 0:
+                raise FunctionalMldsContractError(
+                    "Das raeumliche Routing erfordert einen Handoff, aber Handoffs sind deaktiviert."
+                )
+            allowed_targets = self._allowed_handoff_ids(st, requested_agent)
+            selected_agent_id = next(
+                (
+                    target_id
+                    for target_id in allowed_targets
+                    if target_id in candidate_agent_ids
+                ),
+                "",
+            )
+            if not selected_agent_id:
+                raise FunctionalMldsContractError(
+                    f"Kein modellierter Handoff von {requested_agent_id!r} erreicht "
+                    f"einen fuer {selected_entity_id!r} verantwortlichen Agenten."
+                )
+
+        relation_label = {
+            "asset": "groundedAsset",
+            "group": "groundedObjectGroup",
+            "zone": "responsibleZone",
+        }[priority]
+        if modeled_handoff:
+            reason = (
+                f"Spatial routing ({priority} priority): {selected_agent_id} is the "
+                f"first modeled handoff target of {requested_agent_id} whose "
+                f"{relation_label} covers {selected_entity_id}."
+            )
+        else:
+            reason = (
+                f"Spatial routing ({priority} priority): {requested_agent_id} already "
+                f"covers {selected_entity_id} through {relation_label}."
+            )
+        return {
+            "requested_agent_id": requested_agent_id,
+            "selected_agent_id": selected_agent_id,
+            "priority": priority,
+            "candidate_agent_ids": candidate_agent_ids,
+            "modeled_handoff": modeled_handoff,
+            "reason": reason,
+        }
+
+    @staticmethod
+    def _decorate_grounded_chat_response(
+        response: Dict[str, Any],
+        grounding: Optional[Dict[str, Any]],
+        routing: Optional[Dict[str, Any]],
+        *,
+        interaction_mode: Optional[str] = None,
+        model_binding: Optional[Dict[str, str]] = None,
+    ) -> Dict[str, Any]:
+        if interaction_mode is None:
+            return response
+        out = dict(response)
+        out["interaction_mode"] = interaction_mode
+        out["model_binding"] = copy.deepcopy(model_binding or {})
+        grounding_fields = (
+            "grounded_entity_ids",
+            "grounding_evidence",
+            "routing_reason",
+            "grounding",
+            "routing",
+        )
+        if interaction_mode == "non_deictic":
+            for field_name in grounding_fields:
+                out.pop(field_name, None)
+            return out
+        if grounding is None or routing is None:
+            raise FunctionalMldsContractError(
+                "A deictic V2 response requires validated grounding and routing."
+            )
+        out["grounded_entity_ids"] = list(grounding.get("grounded_entity_ids") or [])
+        out["grounding_evidence"] = copy.deepcopy(grounding.get("evidence") or [])
+        out["routing_reason"] = routing.get("reason")
+        out["grounding"] = copy.deepcopy(grounding)
+        out["routing"] = copy.deepcopy(routing)
+        return out
+
     def _trim_history(self, history: List[Dict[str, str]]) -> List[Dict[str, str]]:
         # keep last N turns (user+assistant pairs). A turn is a user message.
         max_user_msgs = max(1, int(self.max_history_turns))
@@ -766,7 +1534,14 @@ class SessionStore:
         lines.append(f"Aktuelle Nutzerfrage: {user_text}")
         return "\n".join(lines)
 
-    def _build_developer_prompt(self, agent: AgentSpec, others: List[AgentSpec], kb_snippets: List[Dict[str, Any]], allow_handoff: bool) -> str:
+    def _build_developer_prompt(
+        self,
+        agent: AgentSpec,
+        others: List[AgentSpec],
+        kb_snippets: List[Dict[str, Any]],
+        allow_handoff: bool,
+        grounding: Optional[Dict[str, Any]] = None,
+    ) -> str:
         lines: List[str] = []
         lines.append(f"Du bist ein virtueller Gesprächspartner (NPC) in Unity.")
         lines.append(f"Name: {agent.display_name} (id: {agent.id})")
@@ -793,6 +1568,31 @@ class SessionStore:
         else:
             lines.append("Handoff: deaktiviert. Antworte selbst so gut wie möglich oder bitte um Klärung.")
         lines.append("")
+        if grounding:
+            lines.append(
+                "Vertrauenswürdiger räumlicher Bezug "
+                "(serverseitig aus dem gepinnten FunctionalMLDS-V2-Modell):"
+            )
+            lines.append(
+                f"- Szeneobjekt: {grounding.get('selected_name')} "
+                f"(entity_id={grounding.get('selected_entity_id')}, "
+                f"source_object_id={grounding.get('selected_source_object_id')})"
+            )
+            if grounding.get("object_group_ids"):
+                lines.append(
+                    "- Modellierte Objektgruppen: "
+                    + ", ".join(grounding.get("object_group_ids") or [])
+                )
+            if grounding.get("zone_ids"):
+                lines.append(
+                    "- Modellierte Zonen: "
+                    + ", ".join(grounding.get("zone_ids") or [])
+                )
+            lines.append(
+                "- Löse Wörter wie 'dies', 'das' oder 'hier' auf dieses Szeneobjekt auf. "
+                "Erfinde keine abweichende Objektidentität."
+            )
+            lines.append("")
         if kb_snippets:
             lines.append("Lokale Wissensauszüge (nur nutzen, wenn relevant; nicht erfinden):")
             for s in kb_snippets:
@@ -839,37 +1639,59 @@ class SessionStore:
 
         query_tokens = _semantic_tokens(user_text)
         current_score = self._agent_match_score(agent, query_tokens)
-        allowed_ids = set(agent.handoff_targets or [])
+        allowed_ids = self._allowed_handoff_ids(st, agent)
 
-        candidates: List[Tuple[float, AgentSpec]] = []
-        for other in st.agents.values():
-            if other.id == agent.id:
-                continue
-            if allowed_ids and other.id not in allowed_ids:
-                continue
+        candidates: List[Tuple[float, int, AgentSpec]] = []
+        for modeled_order, other_id in enumerate(allowed_ids):
+            other = st.agents[other_id]
             score = self._agent_match_score(other, query_tokens)
             if score > 0:
-                candidates.append((score, other))
+                candidates.append((score, modeled_order, other))
 
         if not candidates:
             return None
-        candidates.sort(key=lambda item: item[0], reverse=True)
-        best_score, best_agent = candidates[0]
+        candidates.sort(key=lambda item: (-item[0], item[1], item[2].id))
+        best_score, _, best_agent = candidates[0]
         if best_score <= current_score:
             return None
         return best_agent
 
-    def _fallback_snippets(self, st: SessionState, agent: AgentSpec, user_text: str) -> List[Dict[str, Any]]:
-        snippets = st.kb.search(query=user_text, tags=agent.knowledge_tags, k=self.kb_max_snippets)
+    @staticmethod
+    def _grounded_query(user_text: str, grounding: Optional[Dict[str, Any]]) -> str:
+        if not grounding:
+            return user_text
+        additions = [
+            str(grounding.get("selected_source_object_id") or ""),
+            str(grounding.get("selected_name") or ""),
+            *[str(value) for value in grounding.get("object_group_ids") or []],
+            *[str(value) for value in grounding.get("zone_ids") or []],
+        ]
+        return " ".join([user_text] + [value for value in additions if value]).strip()
+
+    def _fallback_snippets(
+        self,
+        st: SessionState,
+        agent: AgentSpec,
+        user_text: str,
+        grounding: Optional[Dict[str, Any]] = None,
+    ) -> List[Dict[str, Any]]:
+        query = self._grounded_query(user_text, grounding)
+        snippets = st.kb.search(query=query, tags=agent.knowledge_tags, k=self.kb_max_snippets)
         if snippets:
             return snippets
-        snippets = st.kb.search(query=user_text, tags=[], k=self.kb_max_snippets)
+        snippets = st.kb.search(query=query, tags=[], k=self.kb_max_snippets)
         if snippets:
             return snippets
         return st.kb.snippets(tags=agent.knowledge_tags, k=self.kb_max_snippets)
 
-    def _fallback_room_answer(self, st: SessionState, agent: AgentSpec, user_text: str) -> str:
-        snippets = self._fallback_snippets(st, agent, user_text)
+    def _fallback_room_answer(
+        self,
+        st: SessionState,
+        agent: AgentSpec,
+        user_text: str,
+        grounding: Optional[Dict[str, Any]] = None,
+    ) -> str:
+        snippets = self._fallback_snippets(st, agent, user_text, grounding=grounding)
         if not snippets:
             return (
                 "Offline-Fallback aus FunctionalMLDS: Fuer diesen Agenten liegt kein "
@@ -902,6 +1724,7 @@ class SessionStore:
         allow_handoff: bool,
         error: OpenAIHTTPError,
         forwarded_from: Optional[AgentSpec] = None,
+        grounding: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         target = self._select_fallback_handoff_target(st, agent, user_text, allow_handoff)
         if target is not None:
@@ -919,7 +1742,12 @@ class SessionStore:
                 "_openai_error": str(error),
             }
 
-        answer = self._fallback_room_answer(st, agent, user_text)
+        answer = self._fallback_room_answer(
+            st,
+            agent,
+            user_text,
+            grounding=grounding,
+        )
         if forwarded_from is not None:
             answer = f"Uebernommen von {forwarded_from.display_name}. {answer}"
         return {
@@ -941,20 +1769,33 @@ class SessionStore:
         forwarded_from: Optional[AgentSpec] = None,
         forwarded_reason: Optional[str] = None,
         forwarded_brief: Optional[str] = None,
+        grounding: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
-        # Determine allowed handoff ids (excluding self)
-        allowed = [a.id for a in st.agents.values() if a.id != agent.id] if allow_handoff else []
+        # Handoffs are an executable model relation. Never widen this list to
+        # every session agent, including in the older JSON-mode fallback.
+        allowed = self._allowed_handoff_ids(st, agent) if allow_handoff else []
         schema = npc_action_schema(allowed_handoff_ids=allowed)
 
-        others = []
-        for aid, a in st.agents.items():
-            if aid != agent.id:
-                others.append(a)
+        others = [st.agents[agent_id] for agent_id in allowed]
 
         # KB retrieval
-        kb_snips = st.kb.search(query=history_with_user[-1]["content"], tags=agent.knowledge_tags, k=self.kb_max_snippets)
+        kb_query = self._grounded_query(
+            history_with_user[-1]["content"],
+            grounding,
+        )
+        kb_snips = st.kb.search(
+            query=kb_query,
+            tags=agent.knowledge_tags,
+            k=self.kb_max_snippets,
+        )
 
-        dev_prompt = self._build_developer_prompt(agent, others, kb_snips, allow_handoff=allow_handoff)
+        dev_prompt = self._build_developer_prompt(
+            agent,
+            others,
+            kb_snips,
+            allow_handoff=bool(allowed),
+            grounding=grounding,
+        )
 
         input_msgs: List[Dict[str, Any]] = [{"role": "developer", "content": dev_prompt}]
 
@@ -1015,6 +1856,18 @@ class SessionStore:
             result["handoff_reason"] = str(result["handoff_reason"]).strip() or None
         if result["handoff_brief"] is not None:
             result["handoff_brief"] = str(result["handoff_brief"]).strip() or None
+        handoff_to = result.get("handoff_to")
+        if handoff_to is not None:
+            handoff_to = str(handoff_to).strip()
+            if not handoff_to:
+                result["handoff_to"] = None
+                return result
+            if handoff_to not in allowed:
+                raise ValueError(
+                    f"Agent {agent.id!r} versuchte einen nicht modellierten Handoff "
+                    f"an {handoff_to!r}."
+                )
+            result["handoff_to"] = handoff_to
 
         return result
 
@@ -1028,7 +1881,12 @@ class SessionStore:
 
         active_agent_id = str(payload.get("active_agent_id") or "").strip()
         if not active_agent_id or active_agent_id not in st.agents:
-            # fallback to first agent
+            if st.functionalmlds_contract_kind == "v2":
+                raise ValueError(
+                    "active_agent_id fehlt oder ist nicht im gepinnten "
+                    "FunctionalMLDS-V2-Modell enthalten."
+                )
+            # Preserve the legacy endpoint contract.
             active_agent_id = next(iter(st.agents.keys()))
 
         user_text = str(payload.get("user_text") or "").strip()
@@ -1038,12 +1896,79 @@ class SessionStore:
         # This happens before an OpenAI call or any history mutation.  V2 therefore
         # fails closed if the model/trace changed after setup or chat has no exact
         # concrete action mapping.
-        self.preflight_runtime_action(session_id, "chat")
+        chat_preflight = self.preflight_runtime_action(session_id, "chat")
+        interaction_mode: Optional[str] = None
+        model_binding: Optional[Dict[str, str]] = None
+        if st.functionalmlds_contract_kind == "v2":
+            chat_action = chat_preflight.get("action")
+            if not isinstance(chat_action, dict):
+                raise FunctionalMldsContractError(
+                    "Pinned V2 session has no executable chat action."
+                )
+            interaction_mode = self._v2_interaction_mode(chat_action, payload)
+            model_binding = self._v2_model_binding(chat_action)
+            has_spatial_context = payload.get("spatial_context") is not None
+            if interaction_mode == "deictic" and not has_spatial_context:
+                raise ValueError(
+                    "interaction_mode 'deictic' erfordert einen validen "
+                    "spatial_context."
+                )
+            if interaction_mode == "non_deictic" and has_spatial_context:
+                raise ValueError(
+                    "interaction_mode 'non_deictic' darf keinen "
+                    "spatial_context enthalten."
+                )
 
-        agent_a = st.agents[active_agent_id]
+        grounding = self._validate_spatial_context(
+            st,
+            payload.get("spatial_context"),
+        )
+        routing = (
+            self._resolve_spatial_route(st, active_agent_id, grounding)
+            if grounding is not None
+            else None
+        )
+        if grounding is not None and model_binding is not None:
+            grounding["model_binding"] = copy.deepcopy(model_binding)
+        if routing is not None and model_binding is not None:
+            routing["model_binding"] = copy.deepcopy(model_binding)
+        requested_agent = st.agents[active_agent_id]
+        selected_agent_id = (
+            str((routing or {}).get("selected_agent_id") or active_agent_id)
+        )
+        agent_a = st.agents[selected_agent_id]
+        if routing and routing.get("modeled_handoff"):
+            # Validate the concrete handoff chain before the external model call
+            # and before any conversation state can be changed.
+            self.preflight_runtime_action(session_id, "handoff")
+
         if st.memory_mode == MEMORY_MODE_AGENT_PRIVATE:
-            return self._chat_agent_private(st, session_id, agent_a, user_text)
-        return self._chat_shared(st, session_id, agent_a, user_text)
+            response = self._chat_agent_private(
+                st,
+                session_id,
+                agent_a,
+                user_text,
+                requested_agent=requested_agent,
+                grounding=grounding,
+                routing=routing,
+            )
+        else:
+            response = self._chat_shared(
+                st,
+                session_id,
+                agent_a,
+                user_text,
+                requested_agent=requested_agent,
+                grounding=grounding,
+                routing=routing,
+            )
+        return self._decorate_grounded_chat_response(
+            response,
+            grounding,
+            routing,
+            interaction_mode=interaction_mode,
+            model_binding=model_binding,
+        )
 
     def _openai_error_chat_response(self, session_id: str, active_agent_id: str, error: OpenAIHTTPError) -> Dict[str, Any]:
         return {
@@ -1056,23 +1981,65 @@ class SessionStore:
             "error": {"status": error.status, "details": error.details},
         }
 
-    def _chat_shared(self, st: SessionState, session_id: str, agent_a: AgentSpec, user_text: str) -> Dict[str, Any]:
+    def _chat_shared(
+        self,
+        st: SessionState,
+        session_id: str,
+        agent_a: AgentSpec,
+        user_text: str,
+        *,
+        requested_agent: Optional[AgentSpec] = None,
+        grounding: Optional[Dict[str, Any]] = None,
+        routing: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
         history_with_user = st.history + [{"role": "user", "content": user_text}]
+        requested_agent = requested_agent or agent_a
+        spatial_handoff = bool(routing and routing.get("modeled_handoff"))
+        allow_agent_handoff = grounding is None
 
         try:
-            res_a = self._call_agent(st, agent_a, history_with_user, allow_handoff=True)
+            res_a = self._call_agent(
+                st,
+                agent_a,
+                history_with_user,
+                allow_handoff=allow_agent_handoff,
+                forwarded_from=requested_agent if spatial_handoff else None,
+                forwarded_reason=str((routing or {}).get("reason") or ""),
+                forwarded_brief=(
+                    f"Räumlich ausgewähltes Objekt: "
+                    f"{(grounding or {}).get('selected_source_object_id')}"
+                    if spatial_handoff
+                    else None
+                ),
+                grounding=grounding,
+            )
         except OpenAIHTTPError as e:
             res_a = self._fallback_agent_response(
                 st,
                 agent_a,
                 user_text,
-                allow_handoff=True,
+                allow_handoff=allow_agent_handoff,
                 error=e,
+                forwarded_from=requested_agent if spatial_handoff else None,
+                grounding=grounding,
             )
 
         events = [{"type": "say", "agent_id": agent_a.id, "text": res_a["say"]}]
         new_active = agent_a.id
-        handoff = None
+        handoff = (
+            {
+                "from": requested_agent.id,
+                "to": agent_a.id,
+                "reason": (routing or {}).get("reason"),
+                "brief": (
+                    f"Räumlich ausgewähltes Objekt: "
+                    f"{(grounding or {}).get('selected_source_object_id')}"
+                ),
+                "kind": "spatial_route",
+            }
+            if spatial_handoff
+            else None
+        )
 
         handoff_to = res_a.get("handoff_to", None)
         if handoff_to in st.agents and handoff_to != agent_a.id:
@@ -1125,23 +2092,65 @@ class SessionStore:
             "events": events,
         }
 
-    def _chat_agent_private(self, st: SessionState, session_id: str, agent_a: AgentSpec, user_text: str) -> Dict[str, Any]:
+    def _chat_agent_private(
+        self,
+        st: SessionState,
+        session_id: str,
+        agent_a: AgentSpec,
+        user_text: str,
+        *,
+        requested_agent: Optional[AgentSpec] = None,
+        grounding: Optional[Dict[str, Any]] = None,
+        routing: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
+        requested_agent = requested_agent or agent_a
+        spatial_handoff = bool(routing and routing.get("modeled_handoff"))
+        allow_agent_handoff = grounding is None
         history_a_with_user = list(self._agent_history(st, agent_a.id)) + [{"role": "user", "content": user_text}]
 
         try:
-            res_a = self._call_agent(st, agent_a, history_a_with_user, allow_handoff=True)
+            res_a = self._call_agent(
+                st,
+                agent_a,
+                history_a_with_user,
+                allow_handoff=allow_agent_handoff,
+                forwarded_from=requested_agent if spatial_handoff else None,
+                forwarded_reason=str((routing or {}).get("reason") or ""),
+                forwarded_brief=(
+                    f"Räumlich ausgewähltes Objekt: "
+                    f"{(grounding or {}).get('selected_source_object_id')}"
+                    if spatial_handoff
+                    else None
+                ),
+                grounding=grounding,
+            )
         except OpenAIHTTPError as e:
             res_a = self._fallback_agent_response(
                 st,
                 agent_a,
                 user_text,
-                allow_handoff=True,
+                allow_handoff=allow_agent_handoff,
                 error=e,
+                forwarded_from=requested_agent if spatial_handoff else None,
+                grounding=grounding,
             )
 
         events = [{"type": "say", "agent_id": agent_a.id, "text": res_a["say"]}]
         new_active = agent_a.id
-        handoff = None
+        handoff = (
+            {
+                "from": requested_agent.id,
+                "to": agent_a.id,
+                "reason": (routing or {}).get("reason"),
+                "brief": (
+                    f"Räumlich ausgewähltes Objekt: "
+                    f"{(grounding or {}).get('selected_source_object_id')}"
+                ),
+                "kind": "spatial_route",
+            }
+            if spatial_handoff
+            else None
+        )
 
         handoff_to = res_a.get("handoff_to", None)
         if handoff_to in st.agents and handoff_to != agent_a.id and self.max_handoffs > 0:
@@ -1287,6 +2296,19 @@ class SessionStore:
         self.arrow_sessions[session_id] = draft
         return {"session_id": session_id, "draft": draft.decorate_draft_payload(draft_payload)}
 
+    @staticmethod
+    def _current_arrow_draft_payload(session: ArrowProjectDraft) -> Dict[str, Any]:
+        return session.decorate_draft_payload(
+            {
+                "analysis": session.analysis,
+                "assistant_message": session.assistant_message,
+                "project": copy.deepcopy(session.project),
+                "agents": copy.deepcopy(session.agents),
+                "knowledge": copy.deepcopy(session.knowledge),
+                "placement_preview": copy.deepcopy(session.placement_preview),
+            }
+        )
+
     def arrow_chat(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         session_id = str(payload.get("session_id") or "").strip()
         if not session_id:
@@ -1309,20 +2331,10 @@ class SessionStore:
         if not user_text:
             raise ValueError("user_text ist leer.")
         if session.generation_mode == GENERATION_MODE_FUNCTIONALMLDS:
-            request = {
-                "id": f"REF-{len(session.refinement_requests) + 1:03d}",
-                "role": "user",
-                "content": user_text,
-                "created_ms": _now_ms(),
-                "status": "pending_full_regeneration",
-            }
-            session.refinement_requests.append(request)
-            session.validation_stale = True
             session.assistant_message = (
-                "Ich habe den Änderungswunsch für den FunctionalMLDS-Modus vorgemerkt. "
-                "Der aktuelle FunctionalMLDS-Stand bleibt unverändert und gilt jetzt als nicht final validiert; "
-                "beim Commit muss die Pipeline vollständig neu laufen, damit die Änderung im Metamodell sichtbar "
-                "und erneut validiert wird."
+                "Diese Freitextnachricht wurde nicht auf das FunctionalMLDS-Modell angewendet. "
+                "Nutze den strukturierten Platzierungseditor: Änderung prüfen, anwenden und "
+                "validieren, danach akzeptieren oder verwerfen."
             )
             session.history = self._trim_history(
                 session.history
@@ -1330,15 +2342,14 @@ class SessionStore:
                 + [{"role": "assistant", "content": session.assistant_message}]
             )
             session.touch()
-            draft_payload = {
-                "analysis": session.analysis,
-                "assistant_message": session.assistant_message,
-                "project": session.project,
-                "agents": session.agents,
-                "knowledge": session.knowledge,
-                "placement_preview": session.placement_preview,
+            return {
+                "draft": self._current_arrow_draft_payload(session),
+                "chat_status": {
+                    "status": "not_applied",
+                    "model_mutated": False,
+                    "message": session.assistant_message,
+                },
             }
-            return {"draft": session.decorate_draft_payload(draft_payload)}
 
         history = session.history + [{"role": "user", "content": user_text}]
         draft_payload = self._generate_arrow_draft(session.arrow_payload, history=history, current=session)
@@ -1359,6 +2370,741 @@ class SessionStore:
         session.touch()
 
         return {"draft": session.decorate_draft_payload(draft_payload)}
+
+    # -------------------- FunctionalMLDS placement authoring --------------------
+
+    def _arrow_authoring_session(self, payload: Dict[str, Any]) -> ArrowProjectDraft:
+        session_id = str(payload.get("session_id") or "").strip()
+        if not session_id:
+            raise ValueError("session_id fehlt.")
+        session = self.arrow_sessions.get(session_id)
+        if not session:
+            raise ValueError("Unbekannte session_id.")
+        if session.generation_mode != GENERATION_MODE_FUNCTIONALMLDS:
+            raise ValueError(
+                "Der strukturierte Authoring-Loop ist ausschließlich für "
+                "FunctionalMLDS-Platzierungen verfügbar."
+            )
+        requested_mode = payload.get("generation_mode")
+        if requested_mode not in (None, ""):
+            normalized_mode = normalize_generation_mode(requested_mode)
+            if normalized_mode != session.generation_mode:
+                raise ValueError(
+                    "generation_mode passt nicht zur Session: "
+                    f"{normalized_mode} != {session.generation_mode}."
+                )
+        if session.validation_stale:
+            raise ValueError(
+                "Der FunctionalMLDS-Draft ist nicht validiert. Bitte zuerst neu analysieren."
+            )
+        if not session.case_id or not session.case_dir:
+            raise ValueError("FunctionalMLDS-Case-Verzeichnis fehlt in der Session.")
+        return session
+
+    @staticmethod
+    def _authoring_session_snapshot(session: ArrowProjectDraft) -> Dict[str, Any]:
+        return {
+            field_name: copy.deepcopy(getattr(session, field_name))
+            for field_name in ARROW_AUTHORING_SESSION_FIELDS
+        }
+
+    @staticmethod
+    def _restore_authoring_session_snapshot(
+        session: ArrowProjectDraft,
+        snapshot: Dict[str, Any],
+    ) -> None:
+        for field_name in ARROW_AUTHORING_SESSION_FIELDS:
+            if field_name in snapshot:
+                setattr(session, field_name, copy.deepcopy(snapshot[field_name]))
+        session.touch()
+
+    @staticmethod
+    def _authoring_revision(case_dir: Path, paths: List[Path]) -> str:
+        """Hash every transactional file, including its relative name/existence."""
+
+        root = case_dir.resolve()
+        digest = hashlib.sha256()
+        for path in sorted((item.resolve() for item in paths), key=lambda item: str(item)):
+            try:
+                relative = path.relative_to(root).as_posix()
+            except ValueError as exc:
+                raise ValueError(
+                    "Authoring-Transaktionspfad liegt außerhalb des Case-Verzeichnisses."
+                ) from exc
+            digest.update(relative.encode("utf-8"))
+            digest.update(b"\0")
+            if path.exists() and path.is_file():
+                digest.update(b"file\0")
+                digest.update(path.read_bytes())
+            else:
+                digest.update(b"missing\0")
+            digest.update(b"\0")
+        return "sha256:" + digest.hexdigest()
+
+    def _authoring_paths(
+        self,
+        session: ArrowProjectDraft,
+    ) -> Tuple[Path, List[Path], List[str]]:
+        case_dir = Path(str(session.case_dir)).resolve()
+        paths = self._functionalmlds_placement_transaction_paths(case_dir)
+        relative_paths = []
+        for path in paths:
+            try:
+                relative_paths.append(path.resolve().relative_to(case_dir).as_posix())
+            except ValueError as exc:
+                raise ValueError(
+                    "Authoring-Transaktionspfad liegt außerhalb des Case-Verzeichnisses."
+                ) from exc
+        return case_dir, paths, relative_paths
+
+    def _pending_authoring_change(
+        self,
+        session_id: str,
+    ) -> Optional[ArrowPlacementAuthoringChange]:
+        change_id = self.arrow_authoring_pending.get(session_id)
+        return self.arrow_authoring_changes.get(change_id or "")
+
+    def _undo_authoring_change(
+        self,
+        session_id: str,
+    ) -> Optional[ArrowPlacementAuthoringChange]:
+        change_id = self.arrow_authoring_undo.get(session_id)
+        return self.arrow_authoring_changes.get(change_id or "")
+
+    def _authoring_state(self, session: ArrowProjectDraft) -> Dict[str, Any]:
+        case_dir, paths, _ = self._authoring_paths(session)
+        revision = self._authoring_revision(case_dir, paths)
+        pending = self._pending_authoring_change(session.session_id)
+        undo = self._undo_authoring_change(session.session_id)
+        can_undo = bool(
+            undo
+            and undo.lifecycle == "accepted"
+            and undo.revision_after
+            and revision == undo.revision_after
+        )
+        return {
+            "scope": "placement_only",
+            "session_id": session.session_id,
+            "case_id": session.case_id,
+            "revision": revision,
+            "lifecycle": pending.lifecycle if pending else "idle",
+            "editable_placements": copy.deepcopy(
+                (session.placement_preview or {}).get("agent_placements") or []
+            ),
+            "pending_change": pending.public_payload() if pending else None,
+            "last_accepted_change": undo.public_payload() if undo else None,
+            "can_undo": can_undo,
+        }
+
+    def _authoring_response(
+        self,
+        session: ArrowProjectDraft,
+        *,
+        status: str,
+        mutation_applied: bool = False,
+        change: Optional[ArrowPlacementAuthoringChange] = None,
+        validation: Optional[Dict[str, Any]] = None,
+        errors: Optional[List[str]] = None,
+    ) -> Dict[str, Any]:
+        draft_payload = self._current_arrow_draft_payload(session)
+        # Authoring endpoints expose artifact identities, never host-local paths.
+        draft_payload.pop("case_dir", None)
+        if draft_payload.get("functionalmlds_path"):
+            draft_payload["functionalmlds_path"] = (
+                "functionalmlds/" + Path(str(draft_payload["functionalmlds_path"])).name
+            )
+        if draft_payload.get("trace_map_path"):
+            draft_payload["trace_map_path"] = (
+                f"projects/{session.case_id}/"
+                + Path(str(draft_payload["trace_map_path"])).name
+            )
+        response = {
+            "status": status,
+            "generation_mode": session.generation_mode,
+            "mutation_applied": mutation_applied,
+            "authoring_state": self._authoring_state(session),
+            "draft": draft_payload,
+        }
+        if change is not None:
+            response["change"] = change.public_payload()
+        if validation is not None:
+            response["validation"] = copy.deepcopy(validation)
+        if errors:
+            response["errors"] = list(errors)
+        return response
+
+    @staticmethod
+    def _expected_authoring_revision(payload: Dict[str, Any]) -> str:
+        revision = str(payload.get("expected_revision") or "").strip()
+        if not revision:
+            raise ValueError("expected_revision fehlt. Bitte Authoring-Stand neu laden.")
+        return revision
+
+    def _authoring_conflict_response(
+        self,
+        session: ArrowProjectDraft,
+        *,
+        expected: str,
+        actual: str,
+        change: Optional[ArrowPlacementAuthoringChange] = None,
+    ) -> Dict[str, Any]:
+        return self._authoring_response(
+            session,
+            status="conflict",
+            change=change,
+            errors=[
+                "Der Authoring-Stand wurde zwischenzeitlich geändert. "
+                f"Erwartete Revision {expected}, aktuelle Revision {actual}. "
+                "Bitte den Stand neu laden."
+            ],
+        )
+
+    def inspect_arrow_authoring(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        session = self._arrow_authoring_session(payload)
+        with self._arrow_mutation_scope(
+            session_id=session.session_id,
+            case_id=session.case_id,
+        ):
+            return self._authoring_response(session, status="ok")
+
+    @staticmethod
+    def _compact_authoring_placement(item: Dict[str, Any]) -> Dict[str, Any]:
+        return {
+            "position": copy.deepcopy(item.get("position")),
+            "forward": copy.deepcopy(item.get("forward")),
+        }
+
+    def _authoring_placement_diffs(
+        self,
+        session: ArrowProjectDraft,
+        updated_preview: Dict[str, Any],
+    ) -> List[Dict[str, Any]]:
+        before_by_id = {
+            str(item.get("id") or ""): item
+            for item in (session.placement_preview or {}).get("agent_placements") or []
+            if isinstance(item, dict) and str(item.get("id") or "")
+        }
+        after_by_id = {
+            str(item.get("id") or ""): item
+            for item in updated_preview.get("agent_placements") or []
+            if isinstance(item, dict) and str(item.get("id") or "")
+        }
+        agent_by_id = {
+            str(item.get("id") or ""): item
+            for item in session.agents
+            if isinstance(item, dict) and str(item.get("id") or "")
+        }
+        diffs: List[Dict[str, Any]] = []
+        for agent_id in sorted(after_by_id):
+            before = before_by_id.get(agent_id) or {}
+            after = after_by_id[agent_id]
+            compact_before = self._compact_authoring_placement(before)
+            compact_after = self._compact_authoring_placement(after)
+            if compact_before == compact_after:
+                continue
+            display_name = str(
+                (agent_by_id.get(agent_id) or {}).get("display_name")
+                or after.get("display_name")
+                or agent_id
+            )
+            diffs.append(
+                {
+                    "target_id": agent_id,
+                    "target_display_name": display_name,
+                    "before": compact_before,
+                    "after": compact_after,
+                    "explanation": (
+                        f"Platzierung von {display_name} [{agent_id}] wird "
+                        "auf die angezeigte Position und Blickrichtung geändert."
+                    ),
+                }
+            )
+        return diffs
+
+    def _validate_authoring_placement_preview(
+        self,
+        session: ArrowProjectDraft,
+        placements: List[Dict[str, Any]],
+        *,
+        adapter: Optional[FunctionalMldsAdapter] = None,
+    ) -> Dict[str, Any]:
+        case_dir = Path(str(session.case_dir)).resolve()
+        adapter = adapter or FunctionalMldsAdapter.discover(
+            backend_root=self._project_root()
+        )
+        common = adapter.import_pipeline_module("common")
+        placement_module = adapter.import_pipeline_module("agent_placement")
+        normalized_path = case_dir / "intermediate" / "scene_graph.normalized.json"
+        roles_path = case_dir / "intermediate" / "agent_roles.generated.json"
+        placements_path = case_dir / "intermediate" / "agent_placements.json"
+        try:
+            normalized_scene = common.read_json(normalized_path)
+            agent_roles = common.read_json(roles_path)
+            existing_placements = common.read_json(placements_path)
+        except Exception as exc:
+            return {
+                "status": "invalid",
+                "errors": [f"Placement-Artefakte konnten nicht geladen werden: {exc}"],
+                "warnings": [],
+                "metrics": {},
+            }
+
+        existing_by_id = {
+            str(item.get("id") or ""): item
+            for item in existing_placements.get("agent_placements") or []
+            if isinstance(item, dict) and str(item.get("id") or "")
+        }
+        role_by_id = {
+            str(item.get("id") or ""): item
+            for item in agent_roles.get("agents") or []
+            if isinstance(item, dict) and str(item.get("id") or "")
+        }
+        artifact_entries = []
+        for placement in placements:
+            agent_id = placement["id"]
+            entry = copy.deepcopy(existing_by_id.get(agent_id) or {})
+            entry.update(copy.deepcopy(placement))
+            entry.setdefault(
+                "display_name",
+                (role_by_id.get(agent_id) or {}).get("display_name") or agent_id,
+            )
+            artifact_entries.append(entry)
+        placement_payload = {
+            "schema": placement_module.PLACEMENT_ARTIFACT_SCHEMA,
+            "schema_version": placement_module.PLACEMENT_ARTIFACT_SCHEMA_VERSION,
+            "placement_algorithm_version": placement_module.PLACEMENT_ALGORITHM_VERSION,
+            "origin": "wizard_manual",
+            "room_bounds": copy.deepcopy(
+                existing_placements.get("room_bounds")
+                or normalized_scene.get("room_bounds")
+                or {}
+            ),
+            "agent_placements": artifact_entries,
+        }
+        return placement_module.validate_agent_placements(
+            placement_payload,
+            normalized_scene=normalized_scene,
+            agent_roles=agent_roles,
+        )
+
+    def preview_arrow_authoring(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        session = self._arrow_authoring_session(payload)
+        with self._arrow_mutation_scope(
+            session_id=session.session_id,
+            case_id=session.case_id,
+        ):
+            return self._preview_arrow_authoring_unlocked(session, payload)
+
+    def _preview_arrow_authoring_unlocked(
+        self,
+        session: ArrowProjectDraft,
+        payload: Dict[str, Any],
+    ) -> Dict[str, Any]:
+        pending = self._pending_authoring_change(session.session_id)
+        if pending:
+            return self._authoring_response(
+                session,
+                status="conflict",
+                change=pending,
+                errors=[
+                    "Es gibt bereits eine offene Placement-Änderung. "
+                    "Bitte diese zuerst anwenden, akzeptieren oder verwerfen."
+                ],
+            )
+
+        case_dir, paths, affected_artifacts = self._authoring_paths(session)
+        current_revision = self._authoring_revision(case_dir, paths)
+        expected_revision = self._expected_authoring_revision(payload)
+        if expected_revision != current_revision:
+            return self._authoring_conflict_response(
+                session,
+                expected=expected_revision,
+                actual=current_revision,
+            )
+
+        change_payload = payload.get("change")
+        if not isinstance(change_payload, dict):
+            raise ValueError("change muss ein Objekt sein.")
+        unknown_fields = sorted(
+            set(change_payload) - {"kind", "rationale", "agent_placements"}
+        )
+        if unknown_fields:
+            raise ValueError(
+                "change enthält unbekannte Felder: " + ", ".join(unknown_fields) + "."
+            )
+        if str(change_payload.get("kind") or "").strip() != "agent_placement":
+            raise ValueError(
+                "Dieser Loop unterstützt ausschließlich kind='agent_placement'."
+            )
+        rationale = str(change_payload.get("rationale") or "").strip()
+        if len(rationale) > 500:
+            raise ValueError("change.rationale darf höchstens 500 Zeichen enthalten.")
+        if not rationale:
+            rationale = "Manuelle Platzierungsänderung im Unity-Wizard."
+
+        placements, shape_validation = self._validate_requested_arrow_placements(
+            session,
+            change_payload.get("agent_placements"),
+        )
+        if shape_validation.get("status") != "valid":
+            return self._authoring_response(
+                session,
+                status="invalid",
+                validation=shape_validation,
+                errors=list(shape_validation.get("errors") or []),
+            )
+        updated_preview = self._merge_placement_preview(session, placements)
+        diffs = self._authoring_placement_diffs(session, updated_preview)
+        if not diffs:
+            no_change_validation = {
+                "status": "invalid",
+                "errors": ["Die strukturierte Placement-Änderung enthält keinen Unterschied."],
+                "warnings": [],
+                "metrics": shape_validation.get("metrics") or {},
+            }
+            return self._authoring_response(
+                session,
+                status="invalid",
+                validation=no_change_validation,
+                errors=no_change_validation["errors"],
+            )
+
+        preview_validation = self._validate_authoring_placement_preview(
+            session,
+            placements,
+        )
+        if preview_validation.get("status") != "valid":
+            return self._authoring_response(
+                session,
+                status="invalid",
+                validation=preview_validation,
+                errors=list(preview_validation.get("errors") or []),
+            )
+
+        change = ArrowPlacementAuthoringChange(
+            change_id="PLC-" + uuid.uuid4().hex[:10].upper(),
+            session_id=session.session_id,
+            case_id=str(session.case_id),
+            rationale=rationale,
+            revision_before=current_revision,
+            placements=copy.deepcopy(placements),
+            updated_preview=copy.deepcopy(updated_preview),
+            diffs=diffs,
+            validation=copy.deepcopy(preview_validation),
+            affected_artifacts=affected_artifacts,
+        )
+        self.arrow_authoring_changes[change.change_id] = change
+        self.arrow_authoring_pending[session.session_id] = change.change_id
+        return self._authoring_response(
+            session,
+            status="preview_ready",
+            change=change,
+            validation=preview_validation,
+        )
+
+    def _required_pending_authoring_change(
+        self,
+        session: ArrowProjectDraft,
+        payload: Dict[str, Any],
+    ) -> ArrowPlacementAuthoringChange:
+        change_id = str(payload.get("change_id") or "").strip()
+        if not change_id:
+            raise ValueError("change_id fehlt.")
+        pending = self._pending_authoring_change(session.session_id)
+        if not pending or pending.change_id != change_id:
+            raise ValueError("Die angegebene Placement-Änderung ist nicht offen.")
+        return pending
+
+    def apply_arrow_authoring(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        session = self._arrow_authoring_session(payload)
+        with self._arrow_mutation_scope(
+            session_id=session.session_id,
+            case_id=session.case_id,
+        ):
+            change = self._required_pending_authoring_change(session, payload)
+            if change.lifecycle != "previewed":
+                raise ValueError("Nur eine geprüfte Preview kann angewendet werden.")
+            case_dir, paths, _ = self._authoring_paths(session)
+            current_revision = self._authoring_revision(case_dir, paths)
+            expected_revision = self._expected_authoring_revision(payload)
+            if (
+                expected_revision != current_revision
+                or current_revision != change.revision_before
+            ):
+                return self._authoring_conflict_response(
+                    session,
+                    expected=expected_revision,
+                    actual=current_revision,
+                    change=change,
+                )
+
+            adapter = FunctionalMldsAdapter.discover(backend_root=self._project_root())
+            files_before = self._snapshot_files(paths)
+            session_before = self._authoring_session_snapshot(session)
+            result = self._update_functionalmlds_placement(
+                session,
+                placements=copy.deepcopy(change.placements),
+                updated_preview=copy.deepcopy(change.updated_preview),
+                adapter=adapter,
+            )
+            if result.get("status") != "ok":
+                rollback_errors = self._restore_files(files_before)
+                self._restore_authoring_session_snapshot(session, session_before)
+                validation = copy.deepcopy(result.get("validation") or {})
+                if rollback_errors:
+                    validation.setdefault("errors", []).extend(
+                        "Authoring-Rollback: " + error for error in rollback_errors
+                    )
+                    validation["status"] = "invalid"
+                change.validation = validation
+                return self._authoring_response(
+                    session,
+                    status="invalid",
+                    change=change,
+                    validation=validation,
+                    errors=list(validation.get("errors") or []),
+                )
+
+            change.files_before = files_before
+            change.session_before = session_before
+            change.files_after = self._snapshot_files(paths)
+            change.session_after = self._authoring_session_snapshot(session)
+            change.revision_after = self._authoring_revision(case_dir, paths)
+            change.validation = copy.deepcopy(result.get("validation") or {})
+            change.analysis_validation_summary = copy.deepcopy(
+                result.get("analysis_validation_summary") or {}
+            )
+            change.lifecycle = "applied_pending_accept"
+            change.applied_ms = _now_ms()
+            return self._authoring_response(
+                session,
+                status="applied_pending_accept",
+                mutation_applied=True,
+                change=change,
+                validation=change.validation,
+            )
+
+    def accept_arrow_authoring(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        session = self._arrow_authoring_session(payload)
+        with self._arrow_mutation_scope(
+            session_id=session.session_id,
+            case_id=session.case_id,
+        ):
+            change = self._required_pending_authoring_change(session, payload)
+            if change.lifecycle != "applied_pending_accept":
+                raise ValueError(
+                    "Die Placement-Änderung muss vor dem Akzeptieren angewendet "
+                    "und validiert werden."
+                )
+            case_dir, paths, _ = self._authoring_paths(session)
+            current_revision = self._authoring_revision(case_dir, paths)
+            expected_revision = self._expected_authoring_revision(payload)
+            if (
+                expected_revision != current_revision
+                or current_revision != change.revision_after
+            ):
+                return self._authoring_conflict_response(
+                    session,
+                    expected=expected_revision,
+                    actual=current_revision,
+                    change=change,
+                )
+
+            old_undo_id = self.arrow_authoring_undo.pop(session.session_id, None)
+            if old_undo_id and old_undo_id != change.change_id:
+                self.arrow_authoring_changes.pop(old_undo_id, None)
+            self.arrow_authoring_pending.pop(session.session_id, None)
+            self.arrow_authoring_undo[session.session_id] = change.change_id
+            change.lifecycle = "accepted"
+            change.accepted_ms = _now_ms()
+            session.touch()
+            return self._authoring_response(
+                session,
+                status="accepted",
+                mutation_applied=True,
+                change=change,
+                validation=change.validation,
+            )
+
+    @staticmethod
+    def _restored_case_is_valid(
+        adapter: FunctionalMldsAdapter,
+        case_dir: Path,
+    ) -> Tuple[bool, Dict[str, Any]]:
+        report = adapter.validate_analyze_case(case_dir)
+        return report.get("status") == "valid", report
+
+    def _restore_authoring_change(
+        self,
+        session: ArrowProjectDraft,
+        change: ArrowPlacementAuthoringChange,
+        *,
+        applied_files: Dict[Path, Optional[bytes]],
+        applied_session: Dict[str, Any],
+    ) -> Tuple[bool, List[str]]:
+        errors = self._restore_files(change.files_before)
+        if not errors:
+            self._restore_authoring_session_snapshot(session, change.session_before)
+            adapter = FunctionalMldsAdapter.discover(backend_root=self._project_root())
+            valid, report = self._restored_case_is_valid(
+                adapter,
+                Path(str(session.case_dir)).resolve(),
+            )
+            if not valid:
+                errors.extend(
+                    "Validierung nach Wiederherstellung: " + str(error)
+                    for error in report.get("errors") or ["Analyze-Status ist nicht valid."]
+                )
+        if errors:
+            recovery_errors = self._restore_files(applied_files)
+            self._restore_authoring_session_snapshot(session, applied_session)
+            errors.extend(
+                "Wiederherstellung des angewendeten Stands: " + error
+                for error in recovery_errors
+            )
+            return False, errors
+        return True, []
+
+    def discard_arrow_authoring(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        session = self._arrow_authoring_session(payload)
+        with self._arrow_mutation_scope(
+            session_id=session.session_id,
+            case_id=session.case_id,
+        ):
+            change = self._required_pending_authoring_change(session, payload)
+            case_dir, paths, _ = self._authoring_paths(session)
+            current_revision = self._authoring_revision(case_dir, paths)
+            expected_revision = self._expected_authoring_revision(payload)
+            expected_change_revision = (
+                change.revision_after
+                if change.lifecycle == "applied_pending_accept"
+                else change.revision_before
+            )
+            if (
+                expected_revision != current_revision
+                or current_revision != expected_change_revision
+            ):
+                return self._authoring_conflict_response(
+                    session,
+                    expected=expected_revision,
+                    actual=current_revision,
+                    change=change,
+                )
+
+            mutation_was_applied = change.lifecycle == "applied_pending_accept"
+            if mutation_was_applied:
+                applied_files = self._snapshot_files(paths)
+                applied_session = self._authoring_session_snapshot(session)
+                restored, errors = self._restore_authoring_change(
+                    session,
+                    change,
+                    applied_files=applied_files,
+                    applied_session=applied_session,
+                )
+                if not restored:
+                    return self._authoring_response(
+                        session,
+                        status="invalid",
+                        mutation_applied=True,
+                        change=change,
+                        errors=errors,
+                    )
+                restored_revision = self._authoring_revision(case_dir, paths)
+                if restored_revision != change.revision_before:
+                    self._restore_files(applied_files)
+                    self._restore_authoring_session_snapshot(session, applied_session)
+                    return self._authoring_response(
+                        session,
+                        status="invalid",
+                        mutation_applied=True,
+                        change=change,
+                        errors=[
+                            "Discard konnte den bytegenauen Ausgangsstand nicht wiederherstellen."
+                        ],
+                    )
+
+            self.arrow_authoring_pending.pop(session.session_id, None)
+            change.lifecycle = "discarded"
+            response = self._authoring_response(
+                session,
+                status="discarded",
+                mutation_applied=False,
+                change=change,
+            )
+            self.arrow_authoring_changes.pop(change.change_id, None)
+            return response
+
+    def undo_arrow_authoring(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        session = self._arrow_authoring_session(payload)
+        with self._arrow_mutation_scope(
+            session_id=session.session_id,
+            case_id=session.case_id,
+        ):
+            if self._pending_authoring_change(session.session_id):
+                raise ValueError(
+                    "Eine offene Placement-Änderung muss zuerst akzeptiert oder verworfen werden."
+                )
+            change = self._undo_authoring_change(session.session_id)
+            if not change or change.lifecycle != "accepted":
+                raise ValueError("Es gibt keine akzeptierte Placement-Änderung zum Rückgängigmachen.")
+            requested_change_id = str(payload.get("change_id") or "").strip()
+            if requested_change_id and requested_change_id != change.change_id:
+                raise ValueError("change_id bezeichnet nicht die letzte akzeptierte Änderung.")
+
+            case_dir, paths, _ = self._authoring_paths(session)
+            current_revision = self._authoring_revision(case_dir, paths)
+            expected_revision = self._expected_authoring_revision(payload)
+            if (
+                expected_revision != current_revision
+                or current_revision != change.revision_after
+            ):
+                return self._authoring_conflict_response(
+                    session,
+                    expected=expected_revision,
+                    actual=current_revision,
+                    change=change,
+                )
+
+            applied_files = self._snapshot_files(paths)
+            applied_session = self._authoring_session_snapshot(session)
+            restored, errors = self._restore_authoring_change(
+                session,
+                change,
+                applied_files=applied_files,
+                applied_session=applied_session,
+            )
+            if not restored:
+                return self._authoring_response(
+                    session,
+                    status="invalid",
+                    mutation_applied=True,
+                    change=change,
+                    errors=errors,
+                )
+            restored_revision = self._authoring_revision(case_dir, paths)
+            if restored_revision != change.revision_before:
+                self._restore_files(applied_files)
+                self._restore_authoring_session_snapshot(session, applied_session)
+                return self._authoring_response(
+                    session,
+                    status="invalid",
+                    mutation_applied=True,
+                    change=change,
+                    errors=[
+                        "Undo konnte den bytegenauen Ausgangsstand nicht wiederherstellen."
+                    ],
+                )
+
+            self.arrow_authoring_undo.pop(session.session_id, None)
+            change.lifecycle = "undone"
+            response = self._authoring_response(
+                session,
+                status="undone",
+                mutation_applied=False,
+                change=change,
+            )
+            self.arrow_authoring_changes.pop(change.change_id, None)
+            return response
 
     def update_arrow_placement(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         session_id = str(payload.get("session_id") or "").strip()
@@ -1391,6 +3137,22 @@ class SessionStore:
         functional_placement_module: Any = None
         planar_tolerance = PLACEMENT_PLANAR_TOLERANCE
         if session.generation_mode == GENERATION_MODE_FUNCTIONALMLDS:
+            pending_change = self._pending_authoring_change(session.session_id)
+            if pending_change:
+                invalid = {
+                    "status": "invalid",
+                    "errors": [
+                        "Es gibt eine offene strukturierte Placement-Änderung. "
+                        "Bitte diese zuerst akzeptieren oder verwerfen."
+                    ],
+                    "warnings": [],
+                    "metrics": {},
+                }
+                return self._placement_update_response(
+                    session,
+                    validation=invalid,
+                    status="invalid",
+                )
             try:
                 functional_adapter = FunctionalMldsAdapter.discover(backend_root=self._project_root())
                 functional_placement_module = functional_adapter.import_pipeline_module("agent_placement")
@@ -1446,13 +3208,18 @@ class SessionStore:
             }
             return self._placement_update_response(session, validation=invalid, status="invalid")
 
-        return self._update_functionalmlds_placement(
+        result = self._update_functionalmlds_placement(
             session,
             placements=placements,
             updated_preview=updated_preview,
             adapter=functional_adapter,
             placement_module=functional_placement_module,
         )
+        if result.get("status") == "ok":
+            stale_undo_id = self.arrow_authoring_undo.pop(session.session_id, None)
+            if stale_undo_id:
+                self.arrow_authoring_changes.pop(stale_undo_id, None)
+        return result
 
     @staticmethod
     def _validate_requested_arrow_placements(
@@ -2136,6 +3903,17 @@ class SessionStore:
                     f"Commit-ID '{project_id}' passt nicht zur Case-ID '{session.case_id}'."
                 ),
             )
+        pending_change = self._pending_authoring_change(session.session_id)
+        if pending_change:
+            return self._functionalmlds_commit_response(
+                session,
+                status="needs_authoring_decision",
+                validation_summary=self._commit_error_summary(
+                    "Es gibt eine offene strukturierte Placement-Änderung "
+                    f"({pending_change.change_id}, Status {pending_change.lifecycle}). "
+                    "Bitte die Änderung zuerst akzeptieren oder verwerfen."
+                ),
+            )
         if session.validation_stale:
             return self._functionalmlds_commit_response(
                 session,
@@ -2215,12 +3993,16 @@ class SessionStore:
 
         meta = self.project_manager.update_metadata(case_dir.name, display_name=display_name, description=description)
         self.refresh_project_kb(case_dir.name)
-        return self._functionalmlds_commit_response(
+        committed = self._functionalmlds_commit_response(
             session,
             status="ok",
             project=meta,
             validation_summary=validation_summary,
         )
+        stale_undo_id = self.arrow_authoring_undo.pop(session.session_id, None)
+        if stale_undo_id:
+            self.arrow_authoring_changes.pop(stale_undo_id, None)
+        return committed
 
     @staticmethod
     def _commit_error_summary(message: str) -> Dict[str, Any]:

@@ -1,0 +1,178 @@
+{
+  "benchmark_mode": "check",
+  "canonical_demonstrator": "steinpilz_brand_room",
+  "checks": [
+    {
+      "facts": {
+        "canonical_demonstrator": "steinpilz_brand_room",
+        "case_count": 3,
+        "cases": [
+          {
+            "case_id": "bestfit_career_fair",
+            "required_input_count": 8,
+            "source_sha256": "b749a695fa7cc7307db08217f88fdc587780d14e5096e7e06a43f0d3a4f0ece3"
+          },
+          {
+            "case_id": "classroom_dinosaur",
+            "required_input_count": 8,
+            "source_sha256": "a5327d5d506a691fe1ec8a9e0b88bea791f8cbc8244219033b7f5031d9606761"
+          },
+          {
+            "case_id": "steinpilz_brand_room",
+            "required_input_count": 8,
+            "source_sha256": "be5f3a875eea8557012abaeba060a9dad6496884e7e1e1d1b52ce20195f22e78"
+          }
+        ]
+      },
+      "id": "case_inputs",
+      "issues": [],
+      "label": "Case inputs and source hashes",
+      "mandatory": true,
+      "status": "pass"
+    },
+    {
+      "facts": {
+        "case_count": 3,
+        "cases": [
+          {
+            "case_id": "bestfit_career_fair",
+            "fresh_v2_sha256": "3269feca4e864a23787570f0a8eead492b1b2d44bdc517dd690662ac7d1ce2ad",
+            "object_count": 293,
+            "validation_error_count": 0,
+            "validation_status": "valid"
+          },
+          {
+            "case_id": "classroom_dinosaur",
+            "fresh_v2_sha256": "38254442a4a349d92cd8f831a1fcbdaa651fdf95d9630bede355c6c9d6421aa2",
+            "object_count": 292,
+            "validation_error_count": 0,
+            "validation_status": "valid"
+          },
+          {
+            "case_id": "steinpilz_brand_room",
+            "fresh_v2_sha256": "9ad7d28c76167fec61f08437ccb4591a1150a53100515c1e14eada337fe31772",
+            "object_count": 296,
+            "validation_error_count": 0,
+            "validation_status": "valid"
+          }
+        ]
+      },
+      "id": "fresh_v2",
+      "issues": [],
+      "label": "Fresh deterministic V2 assembly",
+      "mandatory": true,
+      "status": "pass"
+    },
+    {
+      "facts": {},
+      "id": "benchmark",
+      "issues": [
+        "Checked-in V2 inputs are stale for 3/3 cases; regenerate them before release."
+      ],
+      "label": "IUI structural benchmark",
+      "mandatory": true,
+      "status": "fail"
+    },
+    {
+      "facts": {
+        "exit_code": 0,
+        "module_count": 1,
+        "modules": [
+          "tools.tests.test_v2_materializer_backend_contract"
+        ]
+      },
+      "id": "materialization_contract",
+      "issues": [],
+      "label": "Materialization/backend contract tests",
+      "mandatory": true,
+      "status": "pass"
+    },
+    {
+      "facts": {
+        "exit_code": 0,
+        "module_count": 3,
+        "modules": [
+          "tools.tests.test_iui2027_artifact",
+          "tools.tests.test_iui2027_system_benchmark",
+          "InteractivAgents.openai_unity_expert_npcs_pycharm.InteractiveAgents.tests.test_spatial_chat_contract"
+        ]
+      },
+      "id": "submission_tests",
+      "issues": [],
+      "label": "Targeted IUI submission tests",
+      "mandatory": true,
+      "status": "pass"
+    },
+    {
+      "facts": {
+        "batch_smoke_count_available": 3,
+        "class_file_count": 6,
+        "required_packages": {
+          "com.de-panther.webxr": "0.23.0",
+          "com.de-panther.webxr-interactions": "0.23.0",
+          "com.unity.inputsystem": "1.19.0",
+          "com.unity.nuget.newtonsoft-json": "3.2.2",
+          "com.unity.test-framework": "1.6.0",
+          "com.unity.xr.interaction.toolkit": "3.5.0"
+        },
+        "unity_version": "6000.4.5f1"
+      },
+      "id": "unity_static",
+      "issues": [],
+      "label": "Unity version, packages and smoke sources",
+      "mandatory": true,
+      "status": "pass"
+    },
+    {
+      "facts": {
+        "editor_started": false
+      },
+      "id": "unity_batch_smokes",
+      "issues": [
+        "No Unity editor was supplied; static Unity checks still ran."
+      ],
+      "label": "Optional real Unity batch smokes",
+      "mandatory": false,
+      "status": "not_run"
+    },
+    {
+      "facts": {},
+      "id": "paper",
+      "issues": [
+        "Strict paper checker failed: Approximate main-text words: 3524 PDF: 11 pages, 490025 bytes WARNING: PDF is not tagged; perform the SIGCHI accessibility workflow before final submission. ERROR: 7 RESULT PENDING marker(s) remain."
+      ],
+      "label": "Strict anonymous paper checker",
+      "mandatory": true,
+      "status": "fail"
+    },
+    {
+      "facts": {
+        "file_count": 68,
+        "finding_count": 0,
+        "patterns": [
+          "email_address",
+          "local_user_path",
+          "private_key",
+          "high_confidence_api_or_access_secret"
+        ],
+        "scan_scope": "documented anonymous review bundle"
+      },
+      "id": "anonymity",
+      "issues": [],
+      "label": "Secret, identity and local-path scan",
+      "mandatory": true,
+      "status": "pass"
+    }
+  ],
+  "failed_mandatory_check_ids": [
+    "benchmark",
+    "paper"
+  ],
+  "interpretation": "A pass establishes artifact integrity and executable structural contracts only; it is not evidence of answer quality, usability, trust, or population-level effects.",
+  "model_api_used": false,
+  "network_used": false,
+  "overall_status": "fail",
+  "schema": "iui2027_artifact_verification",
+  "schema_version": "1.0.0",
+  "unity_started": false
+}

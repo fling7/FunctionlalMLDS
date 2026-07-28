@@ -34,6 +34,79 @@ def _agent_name(agent: Mapping[str, Any], fallback: str) -> str:
     return _clean_text(agent.get("display_name")) or fallback
 
 
+def _expected_block(
+    *,
+    agent_id: Optional[str],
+    handoff: bool,
+    handoff_to: Optional[str],
+    resolution: str,
+    rationale: str,
+    candidate_agent_ids: Optional[Sequence[str]] = None,
+) -> Dict[str, Any]:
+    """Keep evaluation-only labels separate from the user utterance."""
+
+    return {
+        "agent_id": agent_id,
+        "handoff": handoff,
+        "handoff_to": handoff_to,
+        "resolution": resolution,
+        "rationale": _clean_text(rationale),
+        "candidate_agent_ids": list(candidate_agent_ids or []),
+    }
+
+
+def _topic_terms(
+    agent: Mapping[str, Any],
+    *,
+    agent_id: str,
+    limit: int = 4,
+) -> List[str]:
+    forbidden = {
+        _clean_text(agent_id).casefold(),
+        _agent_name(agent, agent_id).casefold(),
+    }
+    terms: List[str] = []
+    for value in [
+        *(agent.get("expertise") or []),
+        *(agent.get("knowledge_tags") or []),
+        *(agent.get("responsible_zone_ids") or []),
+        *(agent.get("grounded_object_ids") or []),
+    ]:
+        term = _clean_text(value).replace("_", " ").replace("-", " ")
+        if (
+            term
+            and term.casefold() not in forbidden
+            and term.casefold() not in {item.casefold() for item in terms}
+        ):
+            terms.append(term)
+        if len(terms) >= limit:
+            break
+    return terms
+
+
+def _agent_reference_forms(agent_id: str, agent: Mapping[str, Any]) -> Set[str]:
+    forms = {
+        _clean_text(agent_id),
+        _clean_text(agent_id).replace("_", " ").replace("-", " "),
+        _agent_name(agent, agent_id),
+    }
+    return {" ".join(form.casefold().split()) for form in forms if len(form.strip()) >= 4}
+
+
+def _contains_agent_reference(
+    utterance: str,
+    *,
+    agent_id: str,
+    agent: Mapping[str, Any],
+) -> bool:
+    normalized = " ".join(_clean_text(utterance).casefold().split())
+    normalized_spaced = normalized.replace("_", " ").replace("-", " ")
+    return any(
+        form in normalized or form in normalized_spaced
+        for form in _agent_reference_forms(agent_id, agent)
+    )
+
+
 def _first_agent_id(agent_by_id: Mapping[str, Any]) -> Optional[str]:
     return next(iter(agent_by_id), None)
 
@@ -85,6 +158,8 @@ def _zone_question(
         "case_id": case_id,
         "kind": "zone_grounding",
         "text": text,
+        "utterance": text,
+        "benchmark_class": "positive",
         "active_agent_id": active_agent_id,
         "expected_agent_id": expected_agent_id,
         "expected_handoff": False,
@@ -95,6 +170,13 @@ def _zone_question(
         "target_agent_id": None,
         "handoff_condition": None,
         "handoff_reason": None,
+        "expected": _expected_block(
+            agent_id=expected_agent_id,
+            handoff=False,
+            handoff_to=None,
+            resolution="answer",
+            rationale=f"The active agent is responsible for zone {zone_id}.",
+        ),
         "provenance": {
             "source": "scene_semantics.semantic_zones",
             "zone_id": zone_id,
@@ -115,6 +197,8 @@ def _agent_question(*, case_id: str, agent_id: str, agent: Mapping[str, Any]) ->
         "case_id": case_id,
         "kind": "agent_responsibility",
         "text": text,
+        "utterance": text,
+        "benchmark_class": "positive",
         "active_agent_id": agent_id,
         "expected_agent_id": agent_id,
         "expected_handoff": False,
@@ -125,6 +209,13 @@ def _agent_question(*, case_id: str, agent_id: str, agent: Mapping[str, Any]) ->
         "target_agent_id": None,
         "handoff_condition": None,
         "handoff_reason": None,
+        "expected": _expected_block(
+            agent_id=agent_id,
+            handoff=False,
+            handoff_to=None,
+            resolution="answer",
+            rationale="The question concerns the active agent's own modeled responsibility.",
+        ),
         "provenance": {
             "source": "agent_roles.agents",
             "agent_id": agent_id,
@@ -144,16 +235,19 @@ def _handoff_question(
     target = str(handoff.get("target_agent_id") or "").strip()
     condition = _clean_text(handoff.get("condition"))
     reason = _clean_text(handoff.get("reason"))
-    target_name = _agent_name(target_agent, target)
+    target_terms = _topic_terms(target_agent, agent_id=target, limit=4)
+    topic = ", ".join(target_terms) or "a responsibility outside your assigned room area"
     text = (
-        f"I am asking you, but my topic is this: {condition}. "
-        f"Please connect me to the right expert if {target_name} should handle it."
+        f"I have a question about {topic}. "
+        "Please help directly or connect me to the appropriate room expert."
     )
     return {
         "question_id": _question_id(case_id, "HANDOFF", f"{source}_TO_{target}"),
         "case_id": case_id,
         "kind": "handoff_decision",
         "text": text,
+        "utterance": text,
+        "benchmark_class": "positive",
         "active_agent_id": source,
         "expected_agent_id": target,
         "expected_handoff": True,
@@ -164,10 +258,161 @@ def _handoff_question(
         "target_agent_id": target,
         "handoff_condition": condition,
         "handoff_reason": reason,
+        "expected": _expected_block(
+            agent_id=target,
+            handoff=True,
+            handoff_to=target,
+            resolution="route",
+            rationale=reason or condition,
+            candidate_agent_ids=[target],
+        ),
         "provenance": {
             "source": "handoff_matrix.handoffs",
             "source_agent_id": source,
             "target_agent_id": target,
+        },
+    }
+
+
+def _handoff_negative_question(
+    *,
+    case_id: str,
+    source_agent_id: str,
+    source_agent: Mapping[str, Any],
+) -> Dict[str, Any]:
+    terms = _topic_terms(source_agent, agent_id=source_agent_id, limit=3)
+    topic = ", ".join(terms) or "your own responsibilities in this room"
+    text = f"What should a visitor know about {topic}?"
+    return {
+        "question_id": _question_id(case_id, "HANDOFF_NEGATIVE", source_agent_id),
+        "case_id": case_id,
+        "kind": "handoff_negative",
+        "text": text,
+        "utterance": text,
+        "benchmark_class": "negative",
+        "active_agent_id": source_agent_id,
+        "expected_agent_id": source_agent_id,
+        "expected_handoff": False,
+        "expected_handoff_to": None,
+        "expected_zone_ids": [
+            str(zone_id)
+            for zone_id in source_agent.get("responsible_zone_ids") or []
+            if str(zone_id).strip()
+        ],
+        "expected_object_ids": [
+            str(object_id)
+            for object_id in source_agent.get("grounded_object_ids") or []
+            if str(object_id).strip()
+        ][:8],
+        "source_agent_id": source_agent_id,
+        "target_agent_id": None,
+        "candidate_agent_ids": [],
+        "handoff_condition": None,
+        "handoff_reason": "The topic belongs to the active agent's modeled responsibility.",
+        "expected_resolution": "answer",
+        "expected": _expected_block(
+            agent_id=source_agent_id,
+            handoff=False,
+            handoff_to=None,
+            resolution="answer",
+            rationale="The topic belongs to the active agent's modeled responsibility.",
+        ),
+        "provenance": {
+            "source": "agent_roles.agents",
+            "source_agent_id": source_agent_id,
+            "benchmark_case": "negative_handoff",
+        },
+    }
+
+
+def _handoff_ambiguous_question(
+    *,
+    case_id: str,
+    source_agent_id: str,
+    candidates: Sequence[Tuple[str, Mapping[str, Any]]],
+) -> Dict[str, Any]:
+    selected = list(candidates[:2])
+    candidate_ids = [agent_id for agent_id, _ in selected]
+    topics = [
+        (_topic_terms(agent, agent_id=agent_id, limit=1) or ["that room area"])[0]
+        for agent_id, agent in selected
+    ]
+    text = (
+        f"My question combines {topics[0]} and {topics[1]}. "
+        "Which aspect should I clarify before you decide who can help?"
+    )
+    return {
+        "question_id": _question_id(
+            case_id,
+            "HANDOFF_AMBIGUOUS",
+            f"{source_agent_id}_{'_'.join(candidate_ids)}",
+        ),
+        "case_id": case_id,
+        "kind": "handoff_ambiguous",
+        "text": text,
+        "utterance": text,
+        "benchmark_class": "ambiguous",
+        "active_agent_id": source_agent_id,
+        "expected_agent_id": source_agent_id,
+        "expected_handoff": False,
+        "expected_handoff_to": None,
+        "expected_zone_ids": [],
+        "expected_object_ids": [],
+        "source_agent_id": source_agent_id,
+        "target_agent_id": None,
+        "candidate_agent_ids": candidate_ids,
+        "handoff_condition": None,
+        "handoff_reason": "Two declared targets are plausible; the system should clarify before routing.",
+        "expected_resolution": "clarify",
+        "expected": _expected_block(
+            agent_id=source_agent_id,
+            handoff=False,
+            handoff_to=None,
+            resolution="clarify",
+            rationale="Two declared targets are plausible; the system should clarify before routing.",
+            candidate_agent_ids=candidate_ids,
+        ),
+        "provenance": {
+            "source": "handoff_matrix.handoffs",
+            "source_agent_id": source_agent_id,
+            "candidate_agent_ids": candidate_ids,
+            "benchmark_case": "ambiguous_handoff",
+        },
+    }
+
+
+def _handoff_unknown_question(*, case_id: str, active_agent_id: str) -> Dict[str, Any]:
+    text = "What will tomorrow's exact closing price of the S&P 500 be?"
+    return {
+        "question_id": _question_id(case_id, "HANDOFF_UNKNOWN", active_agent_id),
+        "case_id": case_id,
+        "kind": "handoff_unknown",
+        "text": text,
+        "utterance": text,
+        "benchmark_class": "unknown",
+        "active_agent_id": active_agent_id,
+        "expected_agent_id": active_agent_id,
+        "expected_handoff": False,
+        "expected_handoff_to": None,
+        "expected_zone_ids": [],
+        "expected_object_ids": [],
+        "source_agent_id": active_agent_id,
+        "target_agent_id": None,
+        "candidate_agent_ids": [],
+        "handoff_condition": None,
+        "handoff_reason": "No modeled room agent can ground a future market-price prediction.",
+        "expected_resolution": "abstain",
+        "expected": _expected_block(
+            agent_id=active_agent_id,
+            handoff=False,
+            handoff_to=None,
+            resolution="abstain",
+            rationale="No modeled room agent can ground a future market-price prediction.",
+        ),
+        "provenance": {
+            "source": "deterministic_out_of_scope_probe",
+            "source_agent_id": active_agent_id,
+            "benchmark_case": "unknown_handoff",
         },
     }
 
@@ -217,6 +462,41 @@ def generate_deterministic_questions(
                     target_agent=agent_by_id[target],
                 )
             )
+
+    for agent_id, agent in agent_by_id.items():
+        questions.append(
+            _handoff_negative_question(
+                case_id=case_id,
+                source_agent_id=agent_id,
+                source_agent=agent,
+            )
+        )
+
+    targets_by_source: Dict[str, List[str]] = {}
+    for source, target in sorted(_handoff_pairs(handoff_matrix)):
+        if source in agent_by_id and target in agent_by_id:
+            targets_by_source.setdefault(source, []).append(target)
+    for source, target_ids in targets_by_source.items():
+        if len(target_ids) < 2:
+            continue
+        questions.append(
+            _handoff_ambiguous_question(
+                case_id=case_id,
+                source_agent_id=source,
+                candidates=[
+                    (target_id, agent_by_id[target_id])
+                    for target_id in target_ids[:2]
+                ],
+            )
+        )
+
+    if fallback_agent:
+        questions.append(
+            _handoff_unknown_question(
+                case_id=case_id,
+                active_agent_id=fallback_agent,
+            )
+        )
 
     validation = validate_evaluation_questions(
         {
@@ -272,6 +552,7 @@ def validate_evaluation_questions(
     zone_question_zones: Set[str] = set()
     agent_question_agents: Set[str] = set()
     handoff_question_pairs: Set[Tuple[str, str]] = set()
+    ambiguous_question_sources: Set[str] = set()
 
     for index, question in enumerate(questions):
         if not isinstance(question, Mapping):
@@ -286,8 +567,14 @@ def validate_evaluation_questions(
 
         if str(question.get("case_id") or "").strip() != case_id:
             errors.append(f"{question_id or index} has a case_id mismatch.")
-        if not _clean_text(question.get("text")):
+        text = _clean_text(question.get("text"))
+        utterance = _clean_text(question.get("utterance") or text)
+        if not text:
             errors.append(f"{question_id or index} has empty text.")
+        if not utterance:
+            errors.append(f"{question_id or index} has empty utterance.")
+        if question.get("utterance") is not None and utterance != text:
+            errors.append(f"{question_id or index}.utterance must match legacy text.")
 
         kind = str(question.get("kind") or "").strip()
         kinds[kind] = kinds.get(kind, 0) + 1
@@ -298,9 +585,26 @@ def validate_evaluation_questions(
         expected_handoff = question.get("expected_handoff")
         if not isinstance(expected_handoff, bool):
             errors.append(f"{question_id or index}.expected_handoff must be boolean.")
-        expected_target = question.get("expected_handoff_to")
-        if expected_target is not None and str(expected_target) not in agent_ids:
+        expected_target = (
+            str(question.get("expected_handoff_to")).strip()
+            if question.get("expected_handoff_to") is not None
+            else None
+        )
+        if expected_target is not None and expected_target not in agent_ids:
             errors.append(f"{question_id or index} references unknown expected_handoff_to: {expected_target}.")
+        expected = question.get("expected")
+        if expected is not None:
+            if not isinstance(expected, Mapping):
+                errors.append(f"{question_id or index}.expected must be an object.")
+            else:
+                if bool(expected.get("handoff")) != bool(expected_handoff):
+                    errors.append(f"{question_id or index}.expected.handoff disagrees with legacy field.")
+                if expected.get("handoff_to") != expected_target:
+                    errors.append(f"{question_id or index}.expected.handoff_to disagrees with legacy field.")
+                if expected.get("agent_id") != question.get("expected_agent_id"):
+                    errors.append(f"{question_id or index}.expected.agent_id disagrees with legacy field.")
+                if not _clean_text(expected.get("rationale")):
+                    errors.append(f"{question_id or index}.expected.rationale is empty.")
 
         if kind == "zone_grounding":
             for zone_id in question.get("expected_zone_ids") or []:
@@ -325,6 +629,58 @@ def validate_evaluation_questions(
                 errors.append(f"{question_id} is a handoff question but expected_handoff is false.")
             if expected_target != target:
                 errors.append(f"{question_id} expected_handoff_to does not match target_agent_id.")
+            target_agent = _agent_by_id(agent_roles).get(target, {})
+            if target_agent and _contains_agent_reference(
+                utterance,
+                agent_id=target,
+                agent=target_agent,
+            ):
+                errors.append(
+                    f"{question_id}.utterance leaks the expected target agent label or id."
+                )
+        elif kind == "handoff_negative":
+            source = str(question.get("source_agent_id") or "").strip()
+            if source != active_agent_id:
+                errors.append(f"{question_id} source_agent_id must equal active_agent_id.")
+            if expected_handoff or expected_target is not None:
+                errors.append(f"{question_id} negative case must not expect a handoff.")
+            if question.get("expected_agent_id") != active_agent_id:
+                errors.append(f"{question_id} negative case must remain with the active agent.")
+        elif kind == "handoff_ambiguous":
+            source = str(question.get("source_agent_id") or "").strip()
+            candidates = [
+                str(item).strip()
+                for item in question.get("candidate_agent_ids") or []
+                if str(item).strip()
+            ]
+            ambiguous_question_sources.add(source)
+            if source != active_agent_id:
+                errors.append(f"{question_id} source_agent_id must equal active_agent_id.")
+            if len(candidates) < 2 or len(candidates) != len(set(candidates)):
+                errors.append(f"{question_id} requires at least two unique candidate_agent_ids.")
+            for candidate in candidates:
+                if (source, candidate) not in handoff_pairs:
+                    errors.append(
+                        f"{question_id} candidate is not a declared target: {source}->{candidate}."
+                    )
+                candidate_agent = _agent_by_id(agent_roles).get(candidate, {})
+                if candidate_agent and _contains_agent_reference(
+                    utterance,
+                    agent_id=candidate,
+                    agent=candidate_agent,
+                ):
+                    errors.append(
+                        f"{question_id}.utterance leaks candidate agent label or id: {candidate}."
+                    )
+            if expected_handoff or expected_target is not None:
+                errors.append(f"{question_id} ambiguous case must clarify before handoff.")
+            if question.get("expected_resolution") != "clarify":
+                errors.append(f"{question_id} ambiguous case must expect clarification.")
+        elif kind == "handoff_unknown":
+            if expected_handoff or expected_target is not None:
+                errors.append(f"{question_id} unknown case must not expect a handoff.")
+            if question.get("expected_resolution") != "abstain":
+                errors.append(f"{question_id} unknown case must expect abstention.")
         else:
             errors.append(f"{question_id or index} has unknown kind: {kind}.")
 
@@ -348,10 +704,14 @@ def validate_evaluation_questions(
         "agent_responsibility_question_count": kinds.get("agent_responsibility", 0),
         "agent_count": len(agent_ids),
         "handoff_question_count": kinds.get("handoff_decision", 0),
+        "handoff_negative_question_count": kinds.get("handoff_negative", 0),
+        "handoff_ambiguous_question_count": kinds.get("handoff_ambiguous", 0),
+        "handoff_unknown_question_count": kinds.get("handoff_unknown", 0),
         "declared_handoff_pair_count": len(handoff_pairs),
         "zone_question_coverage": round(len(zone_question_zones) / len(zone_ids), 6) if zone_ids else 1.0,
         "agent_question_coverage": round(len(agent_question_agents) / len(agent_ids), 6) if agent_ids else 1.0,
         "handoff_pair_question_coverage": round(len(handoff_question_pairs) / len(handoff_pairs), 6) if handoff_pairs else 1.0,
+        "ambiguous_source_question_count": len(ambiguous_question_sources),
     }
     return {
         "status": "valid" if not errors else "invalid",
@@ -382,7 +742,13 @@ def run_evaluation_questions_for_case(case_dir: Path) -> Dict[str, Any]:
         case_dir,
         stage_id="evaluation_questions",
         status="success" if payload["status"] == "valid" else "failed",
-        input_paths=[semantics_path, agent_roles_path, handoff_path],
+        input_paths=[
+            semantics_path,
+            agent_roles_path,
+            handoff_path,
+            PROMPT_PATH,
+            Path(__file__).resolve(),
+        ],
         output_paths=[output_path],
         errors=payload["errors"],
         warnings=payload["warnings"],

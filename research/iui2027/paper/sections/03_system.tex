@@ -1,5 +1,12 @@
 \section{System}
 
+Figure~\ref{fig:architecture} separates the authoring loop from the runtime path.
+Both use the same identifiers and relationships, but AI is used only to propose
+semantic content; deterministic checks decide whether an artifact or action is
+admissible.
+
+\input{figures/architecture}
+
 \subsection{Interaction model}
 
 \systemname{} represents an interaction at several linked levels. A
@@ -23,6 +30,40 @@ responsible zones and grounded assets. These relationships allow validators to
 reject a capability use whose provider is not responsible for its spatial
 target.
 
+\begin{table}[t]
+  \caption{Running example: representing ``What is this?'' while a visitor
+  selects the classroom dinosaur skeleton.}
+  \Description{A table maps each interaction-model element to its dinosaur
+  example instance and purpose. The chain proceeds from the selected skeleton
+  through an exhibit-interpreter agent and description capability to the chat
+  endpoint and a grounded-response assertion.}
+  \label{tab:dinosaur-chain}
+  \begin{tabular}{p{.19\linewidth}p{.29\linewidth}p{.43\linewidth}}
+    \toprule
+    Element & Example instance & Meaning \\
+    \midrule
+    Target &
+    Dinosaur skeleton asset; its object group and exhibit zone &
+    Stable referent selected in Unity \\
+    Scenario step &
+    Describe selected dinosaur skeleton &
+    User-visible interaction to execute \\
+    Capability use &
+    Describe room object; provider: Exhibit Interpreter &
+    One occurrence with an explicit provider and targets \\
+    Agent &
+    Exhibit Interpreter &
+    Domain agent responsible for the asset \\
+    Runtime binding &
+    Validated \texttt{POST /chat} request and response &
+    Concrete operation permitted for the capability \\
+    Assertion &
+    Target, provider, response entity, and route agree &
+    Observable pass/fail evidence \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
 \subsection{Generation pipeline}
 
 The pipeline starts from a structured room description. It normalizes scene
@@ -38,6 +79,18 @@ Identifiers, geometric placement, relationship validation, artifact
 materialization, and metric computation are deterministic. Each stage records
 its inputs, configuration, outputs, and hashes so that a result can be
 invalidated when a relevant upstream artifact changes.
+
+\subsection{Inspectable placement authoring}
+
+The Unity editor exposes the generated placement as a revisioned working copy.
+An author can inspect stable agent identifiers, preview a structured change and
+its before/after values, apply it through deterministic regeneration and
+validation, and then accept or discard the result. The last accepted placement
+can be undone without restarting the backend. Content hashes provide an
+optimistic-concurrency guard, and files are restored byte for byte when
+regeneration fails or an applied preview is discarded. Runtime project commit
+is disabled while a change awaits a decision. Free-text chat is not interpreted
+as a model edit; the interface says explicitly that such text was not applied.
 
 \subsection{Unity client and WebXR path}
 
@@ -79,7 +132,8 @@ agent, and spatial target. Validation separates four questions:
   \item Was a syntactically valid runtime operation invoked?
   \item Was the intended spatial entity resolved?
   \item Was the responsible agent and capability selected?
-  \item Did the observable response satisfy the case-specific assertion?
+  \item Did the observable response preserve the expected entity and permitted
+  route?
 \end{enumerate}
 
 This separation avoids treating network success or a single token overlap as
@@ -89,9 +143,9 @@ be surfaced in authoring tools or logs.
 \subsection{Use of machine intelligence}
 
 The system uses language models for semantic scene interpretation, agent-role
-proposal, knowledge synthesis, conversational responses, and, in an explicitly
-reported condition, semantic response assessment. Prompts, model identifiers,
-sampling parameters, and repair attempts are versioned with the evaluation.
-No language-model output is accepted as structurally valid without schema and
-invariant checks. The Stanford Agentic Reviewer is not part of the system or the
-scientific evaluation.
+proposal, knowledge synthesis, and conversational responses. Prompts, model
+identifiers, sampling parameters, and repair attempts are versioned. No
+language-model output is accepted as structurally valid without schema and
+invariant checks. The reported benchmark neither invokes a model nor uses one
+as a semantic judge. The Stanford Agentic Reviewer is not part of the system or
+the scientific evaluation.

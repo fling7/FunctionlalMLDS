@@ -96,7 +96,7 @@ EXPECTED_APPLICATION_ACTIONS = {
         "scenario_step_id": "STEP-CLASSROOM_DINOSAUR-S11",
         "capability_use_id": "CU-CLASSROOM_DINOSAUR-S11-ANSWER-ROOM-GROUNDED-QUESTION",
         "capability_id": "CAP-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
-        "provider_entity_id": "ENT-CLASSROOM_DINOSAUR-RUNTIME-ORCHESTRATOR",
+        "provider_entity_id": "ENT-AGENT-TEACHER_AGENT",
         "runtime_binding_id": "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
         "runtime_action_id": "RA-CLASSROOM_DINOSAUR-BACKEND-CHAT",
     },
@@ -104,7 +104,7 @@ EXPECTED_APPLICATION_ACTIONS = {
         "scenario_step_id": "STEP-CLASSROOM_DINOSAUR-S12",
         "capability_use_id": "CU-CLASSROOM_DINOSAUR-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
         "capability_id": "CAP-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT",
-        "provider_entity_id": "ENT-CLASSROOM_DINOSAUR-RUNTIME-ORCHESTRATOR",
+        "provider_entity_id": "ENT-AGENT-TEACHER_AGENT",
         "runtime_binding_id": "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT",
         "runtime_action_id": "RA-CLASSROOM_DINOSAUR-BACKEND-CHAT-HANDOFF",
     },
@@ -297,6 +297,29 @@ class FunctionalMldsV2MaterializerBackendContractTests(unittest.TestCase):
                 self.assertIn(action["capability_id"], provider["providedCapability"])
                 self.assertEqual([action["capability_id"]], binding["capability"])
                 self.assertIn(action["runtime_action_id"], binding["runtimeAction"])
+                request_schema = action["request_wire_schema"]
+                self.assertEqual("2.0", request_schema["wireContractVersion"])
+                self.assertEqual(
+                    action_kind,
+                    request_schema["applicationActionKind"],
+                )
+                self.assertEqual(
+                    action["runtime_action_id"],
+                    request_schema["modelBinding"]["runtimeActionId"],
+                )
+                self.assertIn(
+                    action["capability_use_id"],
+                    request_schema["modelBinding"]["capabilityUseIds"],
+                )
+                if action_kind in {"chat", "handoff"}:
+                    self.assertEqual(
+                        ["deictic", "non_deictic"],
+                        request_schema["properties"]["interaction_mode"]["enum"],
+                    )
+                    self.assertIn(
+                        "grounding_evidence",
+                        action["response_wire_schema"]["properties"],
+                    )
 
         # Reading/copying the fixture and assembling its temp copy must never rewrite it.
         self.assertEqual(self.reference_v05_sha256, _sha256(self.reference_v05_path))
@@ -573,6 +596,87 @@ class FunctionalMldsV2MaterializerBackendContractTests(unittest.TestCase):
             with self.assertRaisesRegex(
                 FunctionalMldsContractError,
                 "RuntimeAction is not owned by the binding",
+            ):
+                self._contract()
+
+    def test_backend_rejects_invalid_spatial_entities_and_wire_schema(self) -> None:
+        mutations = (
+            (
+                "missing sourceId",
+                "sourceId",
+                lambda by_id: by_id["ENT-ASSET-DINOSAUR_SKELETON"].pop(
+                    "sourceId"
+                ),
+            ),
+            (
+                "duplicate sourceId",
+                "Duplicate V2 sourceId",
+                lambda by_id: by_id["ENT-ASSET-PICTURE1"].__setitem__(
+                    "sourceId",
+                    by_id["ENT-ASSET-DINOSAUR_SKELETON"]["sourceId"],
+                ),
+            ),
+            (
+                "duplicate sourceAgentId",
+                "Duplicate V2 sourceAgentId",
+                lambda by_id: by_id[
+                    "ENT-AGENT-READING_AREA_GUIDE"
+                ].__setitem__(
+                    "sourceAgentId",
+                    by_id["ENT-AGENT-TEACHER_AGENT"]["sourceAgentId"],
+                ),
+            ),
+            (
+                "objectGroup cardinality",
+                "objectGroup requires 0..1",
+                lambda by_id: by_id["ENT-ASSET-DINOSAUR_SKELETON"][
+                    "objectGroup"
+                ].append("ENT-GROUP-FURNITURE"),
+            ),
+            (
+                "objectGroup role",
+                "asset/objectGroup",
+                lambda by_id: by_id["ENT-ASSET-DINOSAUR_SKELETON"].__setitem__(
+                    "objectGroup",
+                    ["ENT-ZONE-DINOSAUR_DISPLAY_ZONE"],
+                ),
+            ),
+        )
+        for label, error_pattern, mutation in mutations:
+            with self.subTest(manipulation=label):
+                self._restore_project()
+                model_path = self.project_dir / V2_PROJECT_INSTANCE_FILENAME
+                instance = _read_json(model_path)
+                by_id = {item["id"]: item for item in instance["objects"]}
+                mutation(by_id)
+                _write_json(model_path, instance)
+                self._synchronize_model_hash()
+                with self.assertRaisesRegex(
+                    FunctionalMldsContractError,
+                    error_pattern,
+                ):
+                    self._contract()
+
+        with self.subTest(manipulation="chat request wire schema"):
+            self._restore_project()
+            model_path = self.project_dir / V2_PROJECT_INSTANCE_FILENAME
+            instance = _read_json(model_path)
+            by_id = {item["id"]: item for item in instance["objects"]}
+            action = by_id[EXPECTED_APPLICATION_ACTIONS["chat"]["runtime_action_id"]]
+            schema_reference = by_id[action["inputSchema"][0]]
+            schema = json.loads(schema_reference["text"])
+            schema["required"].remove("interaction_mode")
+            schema_reference["text"] = json.dumps(
+                schema,
+                ensure_ascii=True,
+                sort_keys=True,
+                separators=(",", ":"),
+            )
+            _write_json(model_path, instance)
+            self._synchronize_model_hash()
+            with self.assertRaisesRegex(
+                FunctionalMldsContractError,
+                "request schema must require",
             ):
                 self._contract()
 

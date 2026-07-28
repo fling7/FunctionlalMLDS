@@ -117,19 +117,40 @@ class V05CompatibilityProjectionTests(unittest.TestCase):
             self.assertTrue(all(agent_id.startswith("AG-") for agent_id, _, _ in actual))
             self.assertTrue(all(entity_id.startswith("ENT-AGENT-") for _, _, entity_id in actual))
 
-    def test_normalized_field_mapping_covers_173_paths_and_101_leaves(self):
+    def test_normalized_field_mapping_covers_the_complete_observed_contract(self):
         mapping = compat.build_semantic_mapping(self.documents)
-        self.assertEqual(173, mapping["entryCount"])
-        self.assertEqual(72, mapping["structurePathCount"])
-        self.assertEqual(101, mapping["leafPathCount"])
+        # The historical fixtures expose 173 paths.  Scene-specific v0.5
+        # instances add explicit provider and target references, so the exact
+        # count may grow while old and freshly regenerated fixtures coexist.
+        self.assertGreaterEqual(mapping["entryCount"], 173)
+        self.assertGreaterEqual(mapping["structurePathCount"], 72)
+        self.assertGreaterEqual(mapping["leafPathCount"], 101)
         self.assertTrue(mapping["coverage"]["covered"])
-        self.assertEqual(173, mapping["coverage"]["coveredPathCount"])
-        self.assertEqual(173, mapping["coverage"]["resolvedTargetCount"])
+        self.assertEqual(
+            mapping["entryCount"],
+            mapping["coverage"]["coveredPathCount"],
+        )
+        self.assertEqual(
+            mapping["entryCount"],
+            mapping["coverage"]["resolvedTargetCount"],
+        )
         self.assertEqual([], mapping["coverage"]["unresolvedTargets"])
         self.assertEqual([], mapping["coverage"]["missingStructurePaths"])
         self.assertEqual([], mapping["coverage"]["missingLeafPaths"])
         self.assertTrue(all(entry["v2Target"] != "UNMAPPED" for entry in mapping["entries"]))
         self.assertTrue(all(entry["rule"] for entry in mapping["entries"]))
+        self.assertEqual(
+            "CapabilityUse.provider",
+            compat.LEAF_TARGETS[
+                "$.capabilityUses[].preferred_provider_entity_id"
+            ],
+        )
+        self.assertEqual(
+            "CapabilityUse.target[*]",
+            compat.STRUCTURE_TARGETS[
+                "$.capabilityUses[].target_entity_ids"
+            ],
+        )
 
     def test_cli_audit_and_evidence_pass(self):
         audit = compat.run_compatibility_audit(ROOT)

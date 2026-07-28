@@ -242,9 +242,18 @@ def _validate_v2_agent_provider_contract(
             errors.append(f"{owner_id}.{field} must not contain duplicate references.")
         return refs
 
+    domain_agent_ids_by_capability: Dict[str, set[str]] = {}
     for agent in native_agents:
         checked_refs(agent, "playsActor", expected_type="Actor")
-        checked_refs(agent, "providedCapability", expected_type="Capability")
+        for capability_id in checked_refs(
+            agent,
+            "providedCapability",
+            expected_type="Capability",
+        ):
+            domain_agent_ids_by_capability.setdefault(
+                capability_id,
+                set(),
+            ).add(str(agent.get("id") or ""))
         checked_refs(agent, "responsibleZone", expected_type="Entity", expected_kind="zone")
         checked_refs(agent, "groundedAsset", expected_type="Entity", expected_kind="asset")
         checked_refs(
@@ -253,6 +262,23 @@ def _validate_v2_agent_provider_contract(
             expected_type="Entity",
         )
         checked_refs(agent, "handoffTarget", expected_type="Agent")
+
+    orchestrators = [
+        item
+        for item in objects
+        if item.get("type") == "Entity"
+        and item.get("entityRole") == "runtimeOrchestrator"
+    ]
+    for orchestrator in orchestrators:
+        overlap = sorted(
+            set(_as_reference_list(orchestrator.get("providedCapability")))
+            & set(domain_agent_ids_by_capability)
+        )
+        if overlap:
+            errors.append(
+                f"{orchestrator.get('id')} must not advertise Agent-owned domain "
+                f"Capabilities: {overlap!r}."
+            )
 
     for use in [item for item in objects if item.get("type") == "CapabilityUse"]:
         use_id = str(use.get("id") or "")
@@ -290,6 +316,16 @@ def _validate_v2_agent_provider_contract(
                 errors.append(
                     f"{use_id} provider {provider_ids[0]!r} does not provide Capability "
                     f"{capability_ids[0]!r}."
+                )
+            domain_provider_ids = domain_agent_ids_by_capability.get(
+                capability_ids[0],
+                set(),
+            )
+            if domain_provider_ids and provider_ids[0] not in domain_provider_ids:
+                errors.append(
+                    f"{use_id} references Agent-owned domain Capability "
+                    f"{capability_ids[0]!r}, but provider {provider_ids[0]!r} is "
+                    "not a modeled Domain Agent for that Capability."
                 )
 
     if errors:
@@ -1391,6 +1427,7 @@ def run_project_materializer_for_case(case_dir: Path, *, backend_root: Path = DE
             knowledge_path,
             functionalmlds_path,
             case_dir / "functionalmlds" / V2_INSTANCE_FILENAME,
+            Path(__file__).resolve(),
         ],
         output_paths=output_paths,
         errors=validation.get("errors"),

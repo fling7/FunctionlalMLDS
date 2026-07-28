@@ -89,6 +89,41 @@ namespace FunctionalMlds.V2
             return entries;
         }
 
+        /// <summary>
+        /// Synchronizes the runner with an externally observed runtime step without claiming
+        /// that skipped build-time predecessors were executed by this Unity session. This is
+        /// used when Unity joins a scenario after the offline materialization steps.
+        /// </summary>
+        public void SynchronizeExternallyObservedStep(string stepId)
+        {
+            if (string.IsNullOrWhiteSpace(stepId) || !_scenarioSteps.Contains(stepId))
+                throw new FunctionalMldsV2FormatException(
+                    $"Cannot observe ScenarioStep {stepId ?? "<null>"} outside Scenario {_scenario.Id}.");
+            _active.Clear();
+            _active.Add(stepId);
+            _completed.Remove(stepId);
+            _context.SetActiveSteps(_active, _index);
+        }
+
+        /// <summary>
+        /// Completes a runtime step only after both target resolution and route resolution have
+        /// been established by real observations. A false evidence flag leaves runner state
+        /// unchanged and therefore fails closed.
+        /// </summary>
+        public bool TryCompleteEvidenceBoundStep(
+            string stepId,
+            bool targetResolved,
+            bool routeResolved,
+            out FunctionalMldsV2Transition transition,
+            FunctionalMldsV2AdvanceRequest request = null)
+        {
+            transition = null;
+            if (!targetResolved || !routeResolved)
+                return false;
+            transition = CompleteAndAdvance(stepId, request);
+            return true;
+        }
+
         public FunctionalMldsV2Transition CompleteAndAdvance(
             string stepId,
             FunctionalMldsV2AdvanceRequest request = null)

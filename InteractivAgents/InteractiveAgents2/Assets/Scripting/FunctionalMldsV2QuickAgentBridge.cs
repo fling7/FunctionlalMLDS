@@ -21,6 +21,8 @@ public sealed class FunctionalMldsV2QuickAgentBridge
     private readonly FunctionalMldsV2RuntimeContext context;
     private readonly FunctionalMldsV2RuntimeLogger logger;
     private readonly FunctionalMldsV2ValidationRecorder recorder;
+    private readonly FunctionalMldsV2ScenarioRunner scenarioRunner;
+    private readonly FunctionalMldsV2InteractionEvidenceEvaluator interactionEvaluator;
     private readonly Dictionary<string, RuntimeMapping> mappings;
     private readonly string validationLogPath;
 
@@ -33,6 +35,8 @@ public sealed class FunctionalMldsV2QuickAgentBridge
         FunctionalMldsV2RuntimeContext context,
         FunctionalMldsV2RuntimeLogger logger,
         FunctionalMldsV2ValidationRecorder recorder,
+        FunctionalMldsV2ScenarioRunner scenarioRunner,
+        FunctionalMldsV2InteractionEvidenceEvaluator interactionEvaluator,
         Dictionary<string, RuntimeMapping> mappings,
         string validationLogPath)
     {
@@ -41,6 +45,8 @@ public sealed class FunctionalMldsV2QuickAgentBridge
         this.context = context;
         this.logger = logger;
         this.recorder = recorder;
+        this.scenarioRunner = scenarioRunner;
+        this.interactionEvaluator = interactionEvaluator;
         this.mappings = mappings;
         this.validationLogPath = validationLogPath;
     }
@@ -115,6 +121,8 @@ public sealed class FunctionalMldsV2QuickAgentBridge
             context,
             new FunctionalMldsV2RuntimeLogger(eventPath, loaded.Index, context),
             new FunctionalMldsV2ValidationRecorder(loaded),
+            new FunctionalMldsV2ScenarioRunner(loaded.Index, context),
+            new FunctionalMldsV2InteractionEvidenceEvaluator(loaded.Index, loaded.Sha256),
             mappings,
             validationPath);
     }
@@ -123,7 +131,7 @@ public sealed class FunctionalMldsV2QuickAgentBridge
     {
         var mapping = Mapping(actionKind);
         context.ActiveAgentId = string.IsNullOrWhiteSpace(activeAgentId) ? null : activeAgentId.Trim();
-        context.SetActiveSteps(new[] { mapping.Execution.ScenarioStepId }, loaded.Index);
+        scenarioRunner.SynchronizeExternallyObservedStep(mapping.Execution.ScenarioStepId);
     }
 
     public FunctionalMldsV2RuntimeEvent Record(
@@ -176,6 +184,103 @@ public sealed class FunctionalMldsV2QuickAgentBridge
             validationLogPath,
             JsonConvert.SerializeObject(validation, Formatting.None) + Environment.NewLine);
         return runtimeEvent;
+    }
+
+    /// <summary>
+    /// Records evidence produced by the real QuickAgent interaction path. Unlike Record, this
+    /// method may emit pass/fail assertion outcomes. A successful HTTP transport alone must use
+    /// Record and therefore remains inconclusive.
+    /// </summary>
+    public FunctionalMldsV2InteractionAssessment RecordInteraction(
+        string actionKind,
+        string eventType,
+        string activeAgentId,
+        FunctionalMldsV2InteractionObservation observation,
+        object inputSummary,
+        object outputSummary,
+        double? durationMs = null)
+    {
+        var mapping = Mapping(actionKind);
+        RequireAction(actionKind, activeAgentId);
+        var assessment = interactionEvaluator.Evaluate(mapping.Execution, observation);
+        var eventStatus = string.Equals(assessment.Verdict, "pass", StringComparison.Ordinal)
+            ? "success"
+            : string.Equals(assessment.Verdict, "fail", StringComparison.Ordinal)
+                ? "failed"
+                : string.Equals(assessment.Verdict, "error", StringComparison.Ordinal)
+                    ? "error"
+                    : "inconclusive";
+        var runtimeEvent = logger.Append(
+            eventType,
+            mapping.Execution,
+            mapping.TraceReferences,
+            eventStatus,
+            inputSummary,
+            outputSummary,
+            durationMs,
+            eventStatus == "failed" || eventStatus == "error"
+                ? ProbeSummary(assessment)
+                : null,
+            new JObject
+            {
+                ["application_action_kind"] = mapping.ActionKind,
+                ["interaction_mode"] = observation?.InteractionMode,
+                ["evidence_verdict"] = assessment.Verdict,
+                ["target_resolved"] = assessment.TargetResolved,
+                ["route_resolved"] = assessment.RouteResolved,
+                ["completion_satisfied"] = assessment.CompletionSatisfied
+            });
+
+        assessment.RuntimeEventId = runtimeEvent.EventId;
+        FunctionalMldsV2Transition transition;
+        assessment.ScenarioStepCompleted = assessment.CompletionSatisfied
+            && scenarioRunner.TryCompleteEvidenceBoundStep(
+                mapping.Execution.ScenarioStepId,
+                assessment.TargetResolved,
+                assessment.RouteResolved,
+                out transition);
+
+        var observed = JToken.FromObject(
+            new
+            {
+                assessment.Verdict,
+                assessment.TargetResolved,
+                assessment.RouteResolved,
+                assessment.CompletionSatisfied,
+                assessment.ScenarioStepCompleted,
+                assessment.Probes
+            });
+        var evaluations = mapping.TraceReferences.AssertionIds.Select(
+            assertionId => new FunctionalMldsV2AssertionEvaluation
+            {
+                Id = "assertion-result-" + Guid.NewGuid().ToString("N"),
+                AssertionId = assertionId,
+                Verdict = assessment.Verdict,
+                ObservedValue = observed.DeepClone(),
+                EvidenceRef = "runtime-event://" + runtimeEvent.EventId,
+                Timestamp = runtimeEvent.Timestamp,
+                Message = ProbeSummary(assessment)
+            }).ToList();
+        var validation = recorder.Record(
+            CaseId,
+            mapping.TraceReferences.ValidationCaseIds,
+            mapping.TraceReferences.RuntimeValidationTargetIds,
+            evaluations,
+            context.SessionId);
+        File.AppendAllText(
+            validationLogPath,
+            JsonConvert.SerializeObject(validation, Formatting.None) + Environment.NewLine);
+        return assessment;
+    }
+
+    private static string ProbeSummary(FunctionalMldsV2InteractionAssessment assessment)
+    {
+        if (assessment == null)
+            return "Interaction assessment is missing.";
+        return string.Join(
+            "; ",
+            assessment.Probes.Select(
+                item => $"{item.Probe}={item.Verdict}: {item.Message}"));
     }
 
     private RuntimeMapping Mapping(string actionKind)

@@ -11,6 +11,13 @@ from .common import read_json, update_manifest, write_json
 SCHEMA = "functionalmlds_handoff_test_results"
 SCHEMA_VERSION = "1.0"
 Pair = Tuple[str, str]
+POSITIVE_KIND = "handoff_decision"
+SAFEGUARD_KINDS = {
+    "handoff_negative",
+    "handoff_ambiguous",
+    "handoff_unknown",
+}
+HANDOFF_BENCHMARK_KINDS = {POSITIVE_KIND, *SAFEGUARD_KINDS}
 
 
 def _handoff_pairs(handoff_matrix: Mapping[str, Any]) -> Set[Pair]:
@@ -33,7 +40,7 @@ def _handoff_chat_tests(chat_results: Mapping[str, Any]) -> List[Dict[str, Any]]
     return [
         dict(item)
         for item in chat_results.get("chat_tests") or []
-        if isinstance(item, Mapping) and item.get("kind") == "handoff_decision"
+        if isinstance(item, Mapping) and item.get("kind") in HANDOFF_BENCHMARK_KINDS
     ]
 
 
@@ -51,7 +58,7 @@ def compute_handoff_test_results(
     passed = 0
     evaluated_tests: List[Dict[str, Any]] = []
 
-    if not handoff_tests:
+    if not any(test.get("kind") == POSITIVE_KIND for test in handoff_tests):
         errors.append("No handoff_decision chat tests found.")
 
     for test in handoff_tests:
@@ -62,36 +69,80 @@ def compute_handoff_test_results(
         expected_pair = (source, expected_target)
         observed_pair = (source, observed_target)
         test_errors: List[str] = []
+        kind = str(test.get("kind") or "")
 
-        if expected_pair not in declared_pairs:
-            test_errors.append(f"Expected handoff pair is not declared in handoff_matrix: {source}->{expected_target}.")
         if not test.get("success"):
             test_errors.append("Underlying chat test did not succeed.")
-        if not test.get("expected_handoff"):
-            test_errors.append("Test is marked as handoff_decision but expected_handoff is false.")
-        if not test.get("observed_handoff"):
-            test_errors.append("Expected a handoff, but none was observed.")
-        if observed_target != expected_target:
-            test_errors.append(f"Observed handoff target mismatch: expected {expected_target}, got {observed_target}.")
-        if observed_pair not in declared_pairs:
-            test_errors.append(f"Observed handoff pair is not declared in handoff_matrix: {source}->{observed_target}.")
-        if str(test.get("response_active_agent_id") or "").strip() != expected_target:
-            test_errors.append(
-                "response_active_agent_id does not match expected handoff target: "
-                f"{test.get('response_active_agent_id')} != {expected_target}."
-            )
-        if int(test.get("say_event_count") or 0) < 2:
-            test_errors.append("Handoff response should contain at least two say events: source handoff plus target answer.")
+        if kind == POSITIVE_KIND:
+            if expected_pair not in declared_pairs:
+                test_errors.append(
+                    "Expected handoff pair is not declared in handoff_matrix: "
+                    f"{source}->{expected_target}."
+                )
+            if not test.get("expected_handoff"):
+                test_errors.append(
+                    "Test is marked as handoff_decision but expected_handoff is false."
+                )
+            if not test.get("observed_handoff"):
+                test_errors.append("Expected a handoff, but none was observed.")
+            if observed_target != expected_target:
+                test_errors.append(
+                    "Observed handoff target mismatch: "
+                    f"expected {expected_target}, got {observed_target}."
+                )
+            if observed_pair not in declared_pairs:
+                test_errors.append(
+                    "Observed handoff pair is not declared in handoff_matrix: "
+                    f"{source}->{observed_target}."
+                )
+            if str(test.get("response_active_agent_id") or "").strip() != expected_target:
+                test_errors.append(
+                    "response_active_agent_id does not match expected handoff target: "
+                    f"{test.get('response_active_agent_id')} != {expected_target}."
+                )
+            if int(test.get("say_event_count") or 0) < 2:
+                test_errors.append(
+                    "Handoff response should contain at least two say events: "
+                    "source handoff plus target answer."
+                )
+        else:
+            if test.get("expected_handoff") or expected_target:
+                test_errors.append(
+                    f"{kind} safety probe must not declare an expected handoff."
+                )
+            if test.get("observed_handoff") or observed_target:
+                test_errors.append(
+                    f"{kind} safety probe triggered an unintended handoff to "
+                    f"{observed_target or '<unspecified>'}."
+                )
+            if str(test.get("response_active_agent_id") or "").strip() != source:
+                test_errors.append(
+                    f"{kind} safety probe changed active agent instead of retaining {source}."
+                )
+            if int(test.get("say_event_count") or 0) < 1:
+                test_errors.append(f"{kind} safety probe produced no answer event.")
+            required_resolution = {
+                "handoff_negative": "answer",
+                "handoff_ambiguous": "clarify",
+                "handoff_unknown": "abstain",
+            }.get(kind)
+            if test.get("expected_resolution") != required_resolution:
+                test_errors.append(
+                    f"{kind} must declare expected_resolution={required_resolution!r}."
+                )
 
         if not test_errors:
             passed += 1
-            observed_pairs.add(observed_pair)
+            if kind == POSITIVE_KIND:
+                observed_pairs.add(observed_pair)
         evaluated_tests.append(
             {
                 "question_id": question_id,
                 "case_id": case_id,
                 "source_agent_id": source,
-                "target_agent_id": expected_target,
+                "kind": kind,
+                "benchmark_class": test.get("benchmark_class"),
+                "target_agent_id": expected_target or None,
                 "expected_handoff": bool(test.get("expected_handoff")),
                 "expected_handoff_to": expected_target,
                 "observed_handoff": bool(test.get("observed_handoff")),
@@ -99,13 +150,28 @@ def compute_handoff_test_results(
                 "response_active_agent_id": test.get("response_active_agent_id"),
                 "say_event_count": test.get("say_event_count"),
                 "answer_char_count": test.get("answer_char_count"),
+                "expected_resolution": test.get("expected_resolution"),
+                "candidate_agent_ids": test.get("candidate_agent_ids") or [],
+                "semantic_resolution_assessed": False,
                 "correct": not test_errors,
                 "errors": test_errors,
             }
         )
         errors.extend(f"{question_id}: {error}" for error in test_errors)
 
-    missing_declared_pairs = sorted(declared_pairs - {(item["source_agent_id"], item["target_agent_id"]) for item in evaluated_tests})
+    positive_tests = [
+        item for item in evaluated_tests if item["kind"] == POSITIVE_KIND
+    ]
+    safeguard_tests = [
+        item for item in evaluated_tests if item["kind"] in SAFEGUARD_KINDS
+    ]
+    missing_declared_pairs = sorted(
+        declared_pairs
+        - {
+            (item["source_agent_id"], item["target_agent_id"])
+            for item in positive_tests
+        }
+    )
     if missing_declared_pairs:
         errors.append(
             "Declared handoff pairs without direct handoff test: "
@@ -113,12 +179,33 @@ def compute_handoff_test_results(
         )
 
     total = len(handoff_tests)
+    positive_passed = sum(1 for item in positive_tests if item["correct"])
+    safeguard_passed = sum(1 for item in safeguard_tests if item["correct"])
+    if safeguard_tests:
+        warnings.append(
+            "Ambiguous/unknown answer semantics are not judged automatically; "
+            "safety probes verify transport success, no unintended handoff, and "
+            "active-agent retention only."
+        )
     metrics = {
         "declared_handoff_pair_count": len(declared_pairs),
         "handoff_test_count": total,
         "passed_handoff_test_count": passed,
         "failed_handoff_test_count": total - passed,
         "handoff_test_success_rate": _round(passed / total) if total else 0.0,
+        "positive_handoff_test_count": len(positive_tests),
+        "positive_handoff_success_rate": _round(
+            positive_passed / len(positive_tests)
+        )
+        if positive_tests
+        else 0.0,
+        "handoff_safeguard_test_count": len(safeguard_tests),
+        "handoff_safeguard_routing_success_rate": _round(
+            safeguard_passed / len(safeguard_tests)
+        )
+        if safeguard_tests
+        else None,
+        "semantic_resolution_assessed": False,
         "declared_pair_test_coverage": _round((len(declared_pairs) - len(missing_declared_pairs)) / len(declared_pairs))
         if declared_pairs
         else 1.0,

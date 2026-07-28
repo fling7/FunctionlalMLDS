@@ -57,6 +57,12 @@
       "items": { "$ref": "#/$defs/nonEmptyString" },
       "uniqueItems": true
     },
+    "optionalOneRef": {
+      "type": "array",
+      "maxItems": 1,
+      "items": { "$ref": "#/$defs/nonEmptyString" },
+      "uniqueItems": true
+    },
     "nonEmptyRefs": {
       "type": "array",
       "minItems": 1,
@@ -120,12 +126,12 @@
         "name": { "type": "string" },
         "text": { "type": "string" },
         "kind": { "type": "string" },
-        "sourceId": { "type": "string" },
+        "sourceId": { "$ref": "#/$defs/nonEmptyString" },
         "entityRole": { "type": "string" },
         "purpose": { "type": "string" },
         "sourceGroup": { "type": "string" },
         "objectType": { "type": "string" },
-        "sourceAgentId": { "type": "string" },
+        "sourceAgentId": { "$ref": "#/$defs/nonEmptyString" },
         "displayName": { "type": "string" },
         "persona": { "type": "string" },
         "voice": { "type": "string" },
@@ -176,7 +182,7 @@
         "knowledgeTag": { "$ref": "#/$defs/refs" },
         "playsActor": { "$ref": "#/$defs/refs" },
         "providedCapability": { "$ref": "#/$defs/refs" },
-        "objectGroup": { "$ref": "#/$defs/refs" },
+        "objectGroup": { "$ref": "#/$defs/optionalOneRef" },
         "handoffTarget": { "$ref": "#/$defs/refs" },
         "responsibleZone": { "$ref": "#/$defs/refs" },
         "groundedAsset": { "$ref": "#/$defs/refs" },
@@ -288,11 +294,46 @@
         },
         {
           "if": { "properties": { "type": { "const": "Agent" } } },
-          "then": { "required": ["kind", "handoffTarget"], "properties": { "kind": { "const": "agent" } } }
+          "then": {
+            "required": ["kind", "sourceId", "sourceAgentId", "handoffTarget"],
+            "properties": { "kind": { "const": "agent" } }
+          }
         },
         {
           "if": { "properties": { "type": { "const": "Entity" } } },
-          "then": { "properties": { "kind": { "not": { "const": "agent" } } } }
+          "then": {
+            "required": ["sourceId"],
+            "properties": { "kind": { "not": { "const": "agent" } } }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": { "const": "Entity" },
+              "entityRole": { "const": "objectGroup" }
+            },
+            "required": ["type", "entityRole"]
+          },
+          "then": {
+            "required": ["kind", "sourceGroup"],
+            "properties": {
+              "kind": { "const": "asset" },
+              "objectGroup": { "maxItems": 0 }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": { "const": "Entity" },
+              "entityRole": { "const": "sceneObject" }
+            },
+            "required": ["type", "entityRole"]
+          },
+          "then": {
+            "required": ["kind"],
+            "properties": { "kind": { "const": "asset" } }
+          }
         },
         {
           "if": { "properties": { "type": { "const": "Capability" } } },

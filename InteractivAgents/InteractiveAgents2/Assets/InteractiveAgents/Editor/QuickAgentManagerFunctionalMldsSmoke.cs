@@ -216,11 +216,12 @@ public static class QuickAgentManagerFunctionalMldsSmoke
     private static void RunChatSmoke(string backendBaseUrl, QuickAgentManager manager, string sessionId, string activeAgentId)
     {
         var message = "Welche Ausstattung gibt es im Unterrichtsbereich? Antworte kurz und nenne nur Dinge aus dem Raumwissen.";
-        var payload = JsonUtility.ToJson(new QuickAgentManager.ChatRequest
+        var payload = QuickAgentManager.SerializeChatRequest(new QuickAgentManager.ChatRequest
         {
             session_id = sessionId,
             active_agent_id = activeAgentId,
-            user_text = message
+            user_text = message,
+            interaction_mode = FunctionalMlds.V2.FunctionalMldsV2InteractionEvidenceEvaluator.NonDeicticMode
         });
 
         QuickAgentManager.ChatResponse chatResponse;
@@ -319,11 +320,12 @@ public static class QuickAgentManagerFunctionalMldsSmoke
 
     private static QuickAgentManager.ChatResponse SendChat(string backendBaseUrl, string sessionId, string activeAgentId, string message)
     {
-        var payload = JsonUtility.ToJson(new QuickAgentManager.ChatRequest
+        var payload = QuickAgentManager.SerializeChatRequest(new QuickAgentManager.ChatRequest
         {
             session_id = sessionId,
             active_agent_id = activeAgentId,
-            user_text = message
+            user_text = message,
+            interaction_mode = FunctionalMlds.V2.FunctionalMldsV2InteractionEvidenceEvaluator.NonDeicticMode
         });
 
         using (var req = new UnityWebRequest(backendBaseUrl + "/chat", "POST"))

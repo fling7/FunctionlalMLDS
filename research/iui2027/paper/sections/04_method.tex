@@ -1,93 +1,128 @@
 \section{Evaluation Method}
 
-\subsection{Study design}
+\subsection{Scope and study design}
 
-We use a paired system evaluation. The \emph{direct-wiring} condition expresses
-the scene-to-agent relationships in the Unity and backend artifacts used by the
-existing implementation. The \emph{model-grounded} condition represents the
-same relationships in \systemname{} and generates or validates the runtime
-artifacts. Both conditions use identical scenes, agents, knowledge, language
-model, prompts, user utterances, and runtime environment. The independent
-variable is therefore the authoring and execution structure, not the
-conversational model.
+We conduct a software-system evaluation of the interaction contract, its
+runtime enforcement, and its authoring controls. The evaluation does not score
+generated answers or human experience. It has three parts: (1) an exhaustive
+structural routing benchmark over the authored case corpus, (2) contract tests
+that execute valid and deliberately broken Unity/backend traces, and (3)
+transaction tests for the placement-authoring loop.
 
-\subsection{Cases}
+The structural benchmark compares two executable adapters. The
+\emph{direct-wiring} adapter reads the scene-semantics, agent-role, and handoff
+artifacts used by the existing implementation. The
+\emph{model-grounded} adapter reads a fresh native \systemname{} instance
+regenerated in memory from the corresponding version-0.5 case model. Both
+adapters expose the same normalized operation: resolve the owner of an object
+and classify a route from a given starting agent as local, directly permitted,
+transitively reachable, or unreachable. This is an adapter-level structural
+comparison, not a comparison of conversational models or Unity frame rates.
 
-The corpus contains a classroom with a dinosaur exhibit, a career-fair
-environment, and a food or trade-fair environment. They differ in object count,
-zone structure, agent roles, and knowledge domains. We use all three cases for
-interaction and trace tests and a stratified subset for controlled authoring
-changes.
+\subsection{Cases and fixed generation inputs}
 
-\resultpending{Insert regenerated per-case counts and justify the corpus after
-the native V2 instances are rebuilt.}
+The corpus contains a career-fair room, a classroom with a dinosaur exhibit,
+and a food or trade-fair room. They provide 27, 36, and 30 routable scene
+objects and 5, 4, and 6 agents, respectively. The object universe is the union
+of the agents' explicitly grounded object identifiers. One zone-only semantic
+reference in the food/trade-fair case is disclosed and excluded because it is
+not an executable agent-grounding target.
 
-\subsection{Interaction tasks}
+Scene semantics, agent roles, handoff matrices, and knowledge entries had been
+proposed in earlier pipeline runs using
+\texttt{gpt-4.1-mini-2025-04-14} at temperature 0.2. We treat those stored
+outputs as fixed case inputs. The final model assembly, comparison, mutations,
+metrics, and tables make no model or network calls.
 
-The benchmark contains four kinds of end-user utterance:
+\subsection{Responsibility and routing probes}
 
-\begin{enumerate}
-  \item direct descriptions of a visible object;
-  \item held-out paraphrases that require the same object and agent;
-  \item ambiguous or unknown references for which the system should clarify or
-  abstain; and
-  \item requests outside the active agent's responsibility that require a
-  handoff.
-\end{enumerate}
+Both adapters apply the same precedence rule: an explicit asset assignment
+outranks a matching object-group assignment, which outranks a matching zone.
+More than one owner at the highest active tier is ambiguous and must fail
+closed. For every routable object we first compare the resolved owner between
+adapters. We then pair that object with every possible starting agent in its
+case and compare the route classification. The resulting corpus is exhaustive
+for these three fixed models; it is not sampled from a larger population.
 
-Expected targets and agents are stored separately from the utterances. In
-particular, handoff questions do not name the correct target agent. This avoids
-encoding the answer in the input being evaluated. We report the benchmark
-construction procedure and release the items in the anonymous supplement.
+Natural inputs assign every routable object at the asset tier. We therefore
+keep fallback tests separate from natural-corpus results. For one copied object
+per case, we derive three synthetic probes: remove the asset assignment to
+exercise group fallback, also remove the group assignment to exercise zone
+fallback, and add a competing owner at the highest active tier to exercise
+ambiguity rejection. The same normalized candidate sets are supplied to both
+adapters. Because the direct-wiring source has no native object-group
+relationship, these probes test the decision rule, not equivalent native
+authoring expressiveness.
 
-\subsection{Authoring change tasks}
+\subsection{Fault injection and edit counts}
 
-We apply the same controlled changes in each condition: rename, move, and delete
-an object; change its zone; reassign the responsible agent; change a capability;
-and alter a runtime endpoint. For each change we count deliberately edited
-artifacts, remaining inconsistent references, faults detected before execution,
-successful regeneration, and final task success. Scripts start from clean
-snapshots and record every patch so the comparison does not rely on expected or
-manually estimated values.
+The common mutation denominator contains three semantically equivalent changes
+per case: remove ownership of an object, assign a second owner, and introduce a
+dangling handoff. For each adapter and mutation we start from an accepted
+copy, apply a deterministic patch, and record whether a new validation error is
+raised and whether it identifies the affected relationship. We also count
+edited top-level artifacts and changed references. These counts describe the
+scripted representation patches; they are not elapsed developer effort.
 
-\subsection{Fault injection}
+A separate V2-only suite removes a capability provider, duplicates a source
+agent identifier, or reassigns a domain capability to the runtime
+orchestrator. We report the canonical model validator and the stricter
+pipeline provider contract separately, because combining them would obscure
+which rule detected a fault. Expected-valid copies measure false positives.
 
-The mutation suite removes providers, creates dangling asset and zone
-references, deletes bindings, changes endpoints, and corrupts trace
-identifiers. Mutations are deterministic and use recorded seeds. We measure
-detection and false-positive rates, localization to the responsible model or
-runtime element, and repair success. Detection and repair are reported
-separately.
+\subsection{Local structural runtime}
 
-\subsection{Measures}
+For descriptive overhead, each adapter repeatedly constructs its normalized
+responsibility view and enumerates all object-by-start-agent routes. After four
+warm-ups, we alternate adapter order for 40 repetitions per case and measure
+with a monotonic nanosecond clock. JSON input/output, version-0.5-to-V2
+generation, Unity, and language-model latency are excluded. We report medians
+and the V2/direct ratio, but do not infer a population-level performance
+advantage.
 
-For RQ1 we measure spatial-target accuracy, agent-routing accuracy, task
-success, false handoffs, and appropriate abstention. For RQ2 we measure edited
-artifacts, inconsistent references after a change, pre-runtime fault detection,
-regeneration success, and execution success. For RQ3 we measure complete
-scenario-to-outcome traces, runtime-action log coverage, and fault localization.
-Semantic response quality is reported separately from structural grounding.
+\subsection{Runtime contract tests}
 
-All proportions include their numerator and denominator and an interval estimate.
-Paired binary outcomes are compared with an appropriate paired test; continuous
-change-task measures are described with paired differences and robust summaries.
-We avoid significance testing where the number of independent cases is too
-small to support it.
+Backend tests pin a V2 model at session setup and exercise deictic and
+non-deictic chat requests. Negative cases include a missing spatial context,
+an unknown entity, an obsolete model hash, an ambiguous target, an invalid
+active agent, and an unmodeled handoff. Each test snapshots session history and
+checks that a rejected request caused no mutation or model call. Positive cases
+check the server-derived entity, group, zone, responsible agent, evidence
+references, routing reason, and modeled binding returned to Unity.
 
-\subsection{Human-participant boundary}
+Unity batch-mode smokes execute the same interaction-evidence component used by
+the client. A valid target and route must reach completion; a mismatched
+response entity, missing deictic context, ambiguous selection, or forbidden
+handoff must produce a failed assertion and block answer completion.
+Non-deictic interactions are represented explicitly and cannot claim spatial
+grounding evidence.
 
-The reported evaluation involves software artifacts, generated or
-researcher-authored benchmark utterances, and automated runtime observations; it
-does not involve human participants or collect personal data. We therefore do
-not report preference, trust, workload, usability, or human ratings. A future
-participant study would require the ethics process applicable to the authors'
-institution and would constitute separate evidence rather than a retrospective
-reinterpretation of this system benchmark.
+\subsection{Placement-authoring transaction}
 
-\subsection{Reproducibility}
+The editor's authoring test begins from a validated FunctionalMLDS draft. It
+inspects the current revision, previews a structured placement change without
+writing files, applies the change through the deterministic placement and model
+stages, and then either accepts or discards it. A subsequent undo restores the
+last accepted snapshot without restarting the backend. Tests compare
+before/after values and artifact bytes, reject stale revisions and unknown
+agents, force a regeneration failure to exercise rollback, and ensure that a
+runtime project cannot be committed while a change awaits acceptance.
+Responsibility editing is not evaluated or presented as implemented.
 
-The evaluation is executed from immutable case inputs with recorded software
-versions, model and prompt identifiers, random seeds, environment metadata, and
-content hashes. A single command regenerates machine-readable results and all
-paper tables. Private service credentials and raw personal data are not part of
-the artifact.
+\subsection{Measures, analysis, and reproducibility}
+
+For RQ1 we report unique, ambiguous, and unassigned ownership; route classes;
+one-hop coverage; graph reachability; adapter parity; and the separate
+fallback probes. For RQ2 we report mutation detection, false positives,
+localization, representation edits, and descriptive local runtime. For RQ3 we
+report pass/fail outcomes for request validation, scenario evidence, rollback,
+discard, and undo.
+
+All proportions include their numerator and denominator. We do not attach
+confidence intervals or significance tests to exhaustive deterministic probes
+over three purposively authored cases: such intervals would imply a sampling
+model the design does not support. Repetitions characterize local timing noise
+only. A single API-free command records software versions, source and input
+hashes, immutable JSON results, and generated tables. The reported evaluation
+contains no human participants or personal data and supports no claims about
+usability, preference, trust, or workload.

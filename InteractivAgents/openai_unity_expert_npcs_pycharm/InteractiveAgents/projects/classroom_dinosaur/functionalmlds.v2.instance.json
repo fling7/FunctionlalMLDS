@@ -1082,7 +1082,7 @@
       "name": "Runtime Orchestrator",
       "sourceId": "runtime-orchestrator",
       "entityRole": "runtimeOrchestrator",
-      "purpose": "Explicit executable provider for projected runtime capability uses.",
+      "purpose": "Executable provider for pipeline and runtime-infrastructure capability uses.",
       "providedCapability": [
         "CAP-CLASSROOM_DINOSAUR-ANALYZE-MLDS-SCENE",
         "CAP-CLASSROOM_DINOSAUR-DERIVE-SPATIAL-AGENT-ROLES",
@@ -1090,9 +1090,7 @@
         "CAP-CLASSROOM_DINOSAUR-PLACE-AGENTS-IN-SCENE",
         "CAP-CLASSROOM_DINOSAUR-ASSEMBLE-FUNCTIONAL-MLDS",
         "CAP-CLASSROOM_DINOSAUR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
-        "CAP-CLASSROOM_DINOSAUR-SETUP-INTERACTIVE-SESSION",
-        "CAP-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
-        "CAP-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+        "CAP-CLASSROOM_DINOSAUR-SETUP-INTERACTIVE-SESSION"
       ]
     },
     {
@@ -1491,12 +1489,13 @@
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-RUN-MLDS-INGESTION-INPUT",
       "type": "SchemaReference",
       "uri": "json",
-      "text": "{\"applicationActionKind\":\"runtime\"}"
+      "text": "{\"$id\":\"urn:functionalmlds:wire:runtime:request:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"applicationActionKind\":\"runtime\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-ANALYZE-MLDS-SCENE\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S02-ANALYZE-MLDS-SCENE\",\"CU-CLASSROOM_DINOSAUR-S03-ANALYZE-MLDS-SCENE\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-RUN-MLDS-INGESTION\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-ANALYZE-MLDS-SCENE\"},\"title\":\"Interactive Agents runtime request\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-RUN-MLDS-INGESTION-OUTPUT",
       "type": "SchemaReference",
-      "uri": "json"
+      "uri": "json",
+      "text": "{\"$id\":\"urn:functionalmlds:wire:runtime:response:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"applicationActionKind\":\"runtime\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-ANALYZE-MLDS-SCENE\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S02-ANALYZE-MLDS-SCENE\",\"CU-CLASSROOM_DINOSAUR-S03-ANALYZE-MLDS-SCENE\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-RUN-MLDS-INGESTION\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-ANALYZE-MLDS-SCENE\"},\"title\":\"Interactive Agents runtime response\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "RA-CLASSROOM_DINOSAUR-RUN-MLDS-INGESTION",
@@ -1522,12 +1521,13 @@
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-RUN-SCENE-SEMANTICS-INPUT",
       "type": "SchemaReference",
       "uri": "json",
-      "text": "{\"applicationActionKind\":\"runtime\"}"
+      "text": "{\"$id\":\"urn:functionalmlds:wire:runtime:request:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"applicationActionKind\":\"runtime\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-ANALYZE-MLDS-SCENE\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S02-ANALYZE-MLDS-SCENE\",\"CU-CLASSROOM_DINOSAUR-S03-ANALYZE-MLDS-SCENE\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-RUN-SCENE-SEMANTICS\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-ANALYZE-MLDS-SCENE\"},\"title\":\"Interactive Agents runtime request\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-RUN-SCENE-SEMANTICS-OUTPUT",
       "type": "SchemaReference",
-      "uri": "json"
+      "uri": "json",
+      "text": "{\"$id\":\"urn:functionalmlds:wire:runtime:response:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"applicationActionKind\":\"runtime\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-ANALYZE-MLDS-SCENE\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S02-ANALYZE-MLDS-SCENE\",\"CU-CLASSROOM_DINOSAUR-S03-ANALYZE-MLDS-SCENE\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-RUN-SCENE-SEMANTICS\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-ANALYZE-MLDS-SCENE\"},\"title\":\"Interactive Agents runtime response\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "RA-CLASSROOM_DINOSAUR-RUN-SCENE-SEMANTICS",
@@ -1553,12 +1553,13 @@
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-ARROW-ANALYZE-INPUT",
       "type": "SchemaReference",
       "uri": "json",
-      "text": "{\"applicationActionKind\":\"runtime\"}"
+      "text": "{\"$id\":\"urn:functionalmlds:wire:runtime:request:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"applicationActionKind\":\"runtime\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-ANALYZE-MLDS-SCENE\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S02-ANALYZE-MLDS-SCENE\",\"CU-CLASSROOM_DINOSAUR-S03-ANALYZE-MLDS-SCENE\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-ARROW-ANALYZE\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-ANALYZE-MLDS-SCENE\"},\"title\":\"Interactive Agents runtime request\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-ARROW-ANALYZE-OUTPUT",
       "type": "SchemaReference",
-      "uri": "json"
+      "uri": "json",
+      "text": "{\"$id\":\"urn:functionalmlds:wire:runtime:response:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"applicationActionKind\":\"runtime\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-ANALYZE-MLDS-SCENE\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S02-ANALYZE-MLDS-SCENE\",\"CU-CLASSROOM_DINOSAUR-S03-ANALYZE-MLDS-SCENE\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-ARROW-ANALYZE\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-ANALYZE-MLDS-SCENE\"},\"title\":\"Interactive Agents runtime response\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "RA-CLASSROOM_DINOSAUR-ARROW-ANALYZE",
@@ -1597,12 +1598,13 @@
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-RUN-AGENT-ROLES-INPUT",
       "type": "SchemaReference",
       "uri": "json",
-      "text": "{\"applicationActionKind\":\"runtime\"}"
+      "text": "{\"$id\":\"urn:functionalmlds:wire:runtime:request:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"applicationActionKind\":\"runtime\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-DERIVE-SPATIAL-AGENT-ROLES\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S04-DERIVE-SPATIAL-AGENT-ROLES\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-RUN-AGENT-ROLES\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-DERIVE-SPATIAL-AGENT-ROLES\"},\"title\":\"Interactive Agents runtime request\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-RUN-AGENT-ROLES-OUTPUT",
       "type": "SchemaReference",
-      "uri": "json"
+      "uri": "json",
+      "text": "{\"$id\":\"urn:functionalmlds:wire:runtime:response:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"applicationActionKind\":\"runtime\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-DERIVE-SPATIAL-AGENT-ROLES\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S04-DERIVE-SPATIAL-AGENT-ROLES\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-RUN-AGENT-ROLES\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-DERIVE-SPATIAL-AGENT-ROLES\"},\"title\":\"Interactive Agents runtime response\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "RA-CLASSROOM_DINOSAUR-RUN-AGENT-ROLES",
@@ -1639,12 +1641,13 @@
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-RUN-KNOWLEDGE-SYNTHESIS-INPUT",
       "type": "SchemaReference",
       "uri": "json",
-      "text": "{\"applicationActionKind\":\"runtime\"}"
+      "text": "{\"$id\":\"urn:functionalmlds:wire:runtime:request:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"applicationActionKind\":\"runtime\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-GENERATE-ROOM-KNOWLEDGE\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S05-GENERATE-ROOM-KNOWLEDGE\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-RUN-KNOWLEDGE-SYNTHESIS\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-GENERATE-ROOM-KNOWLEDGE\"},\"title\":\"Interactive Agents runtime request\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-RUN-KNOWLEDGE-SYNTHESIS-OUTPUT",
       "type": "SchemaReference",
-      "uri": "json"
+      "uri": "json",
+      "text": "{\"$id\":\"urn:functionalmlds:wire:runtime:response:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"applicationActionKind\":\"runtime\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-GENERATE-ROOM-KNOWLEDGE\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S05-GENERATE-ROOM-KNOWLEDGE\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-RUN-KNOWLEDGE-SYNTHESIS\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-GENERATE-ROOM-KNOWLEDGE\"},\"title\":\"Interactive Agents runtime response\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "RA-CLASSROOM_DINOSAUR-RUN-KNOWLEDGE-SYNTHESIS",
@@ -1681,12 +1684,13 @@
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-RUN-AGENT-PLACEMENT-INPUT",
       "type": "SchemaReference",
       "uri": "json",
-      "text": "{\"applicationActionKind\":\"runtime\"}"
+      "text": "{\"$id\":\"urn:functionalmlds:wire:runtime:request:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"applicationActionKind\":\"runtime\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-PLACE-AGENTS-IN-SCENE\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S06-PLACE-AGENTS-IN-SCENE\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-RUN-AGENT-PLACEMENT\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-PLACE-AGENTS-IN-SCENE\"},\"title\":\"Interactive Agents runtime request\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-RUN-AGENT-PLACEMENT-OUTPUT",
       "type": "SchemaReference",
-      "uri": "json"
+      "uri": "json",
+      "text": "{\"$id\":\"urn:functionalmlds:wire:runtime:response:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"applicationActionKind\":\"runtime\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-PLACE-AGENTS-IN-SCENE\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S06-PLACE-AGENTS-IN-SCENE\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-RUN-AGENT-PLACEMENT\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-PLACE-AGENTS-IN-SCENE\"},\"title\":\"Interactive Agents runtime response\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "RA-CLASSROOM_DINOSAUR-RUN-AGENT-PLACEMENT",
@@ -1723,12 +1727,13 @@
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-RUN-FUNCTIONALMLDS-ASSEMBLER-INPUT",
       "type": "SchemaReference",
       "uri": "json",
-      "text": "{\"applicationActionKind\":\"runtime\"}"
+      "text": "{\"$id\":\"urn:functionalmlds:wire:runtime:request:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"applicationActionKind\":\"runtime\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-ASSEMBLE-FUNCTIONAL-MLDS\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S07-ASSEMBLE-FUNCTIONAL-MLDS\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-RUN-FUNCTIONALMLDS-ASSEMBLER\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-ASSEMBLE-FUNCTIONAL-MLDS\"},\"title\":\"Interactive Agents runtime request\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-RUN-FUNCTIONALMLDS-ASSEMBLER-OUTPUT",
       "type": "SchemaReference",
-      "uri": "json"
+      "uri": "json",
+      "text": "{\"$id\":\"urn:functionalmlds:wire:runtime:response:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"applicationActionKind\":\"runtime\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-ASSEMBLE-FUNCTIONAL-MLDS\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S07-ASSEMBLE-FUNCTIONAL-MLDS\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-RUN-FUNCTIONALMLDS-ASSEMBLER\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-ASSEMBLE-FUNCTIONAL-MLDS\"},\"title\":\"Interactive Agents runtime response\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "RA-CLASSROOM_DINOSAUR-RUN-FUNCTIONALMLDS-ASSEMBLER",
@@ -1765,12 +1770,13 @@
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-ARROW-COMMIT-INPUT",
       "type": "SchemaReference",
       "uri": "json",
-      "text": "{\"applicationActionKind\":\"runtime\"}"
+      "text": "{\"$id\":\"urn:functionalmlds:wire:runtime:request:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"applicationActionKind\":\"runtime\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S08-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-ARROW-COMMIT\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT\"},\"title\":\"Interactive Agents runtime request\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-ARROW-COMMIT-OUTPUT",
       "type": "SchemaReference",
-      "uri": "json"
+      "uri": "json",
+      "text": "{\"$id\":\"urn:functionalmlds:wire:runtime:response:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"applicationActionKind\":\"runtime\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S08-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-ARROW-COMMIT\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT\"},\"title\":\"Interactive Agents runtime response\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "RA-CLASSROOM_DINOSAUR-ARROW-COMMIT",
@@ -1796,12 +1802,13 @@
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-WRITE-PROJECT-FILES-INPUT",
       "type": "SchemaReference",
       "uri": "json",
-      "text": "{\"applicationActionKind\":\"runtime\"}"
+      "text": "{\"$id\":\"urn:functionalmlds:wire:runtime:request:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"applicationActionKind\":\"runtime\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S08-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-WRITE-PROJECT-FILES\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT\"},\"title\":\"Interactive Agents runtime request\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-WRITE-PROJECT-FILES-OUTPUT",
       "type": "SchemaReference",
-      "uri": "json"
+      "uri": "json",
+      "text": "{\"$id\":\"urn:functionalmlds:wire:runtime:response:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"applicationActionKind\":\"runtime\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S08-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-WRITE-PROJECT-FILES\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT\"},\"title\":\"Interactive Agents runtime response\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "RA-CLASSROOM_DINOSAUR-WRITE-PROJECT-FILES",
@@ -1839,12 +1846,13 @@
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-BACKEND-SETUP-INPUT",
       "type": "SchemaReference",
       "uri": "json",
-      "text": "{\"applicationActionKind\":\"setup\"}"
+      "text": "{\"$id\":\"urn:functionalmlds:wire:setup:request:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"applicationActionKind\":\"setup\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-SETUP-INTERACTIVE-SESSION\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S09-SETUP-INTERACTIVE-SESSION\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-BACKEND-SETUP\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-SETUP-INTERACTIVE-SESSION\"},\"title\":\"Interactive Agents setup request\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-BACKEND-SETUP-OUTPUT",
       "type": "SchemaReference",
-      "uri": "json"
+      "uri": "json",
+      "text": "{\"$id\":\"urn:functionalmlds:wire:setup:response:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"applicationActionKind\":\"setup\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-SETUP-INTERACTIVE-SESSION\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S09-SETUP-INTERACTIVE-SESSION\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-BACKEND-SETUP\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-SETUP-INTERACTIVE-SESSION\"},\"title\":\"Interactive Agents setup response\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "RA-CLASSROOM_DINOSAUR-BACKEND-SETUP",
@@ -1881,12 +1889,13 @@
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-BACKEND-CHAT-INPUT",
       "type": "SchemaReference",
       "uri": "json",
-      "text": "{\"applicationActionKind\":\"chat\"}"
+      "text": "{\"$id\":\"urn:functionalmlds:wire:chat:request:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"allOf\":[{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"required\":[\"spatial_context\"]}},{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"non_deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"not\":{\"required\":[\"spatial_context\"]}}}],\"applicationActionKind\":\"chat\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S11-ANSWER-ROOM-GROUNDED-QUESTION\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-BACKEND-CHAT\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION\"},\"properties\":{\"active_agent_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"interaction_mode\":{\"enum\":[\"deictic\",\"non_deictic\"],\"type\":\"string\"},\"session_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"spatial_context\":{\"additionalProperties\":false,\"anyOf\":[{\"required\":[\"entity_id\"]},{\"required\":[\"source_object_id\"]},{\"required\":[\"source_id\"]}],\"properties\":{\"ambiguity\":{\"oneOf\":[{\"type\":\"boolean\"},{\"additionalProperties\":true,\"maxProperties\":8,\"type\":\"object\"}]},\"ambiguity_reason\":{\"maxLength\":512,\"type\":\"string\"},\"ambiguous\":{\"type\":\"boolean\"},\"candidate_entity_ids\":{\"items\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"maxItems\":16,\"type\":\"array\",\"uniqueItems\":true},\"distance_m\":{\"maximum\":1000000,\"minimum\":0,\"type\":\"number\"},\"entity_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"hit_position\":{\"additionalProperties\":false,\"properties\":{\"x\":{\"maximum\":1000000,\"minimum\":-1000000,\"type\":\"number\"},\"y\":{\"maximum\":1000000,\"minimum\":-1000000,\"type\":\"number\"},\"z\":{\"maximum\":1000000,\"minimum\":-1000000,\"type\":\"number\"}},\"required\":[\"x\",\"y\",\"z\"],\"type\":\"object\"},\"modality\":{\"enum\":[\"desktop_ray\",\"mouse_ray\",\"keyboard_mouse\",\"xr_controller_ray\",\"controller_ray\",\"gaze\",\"touch\",\"direct\",\"programmatic\"],\"type\":\"string\"},\"model_sha256\":{\"pattern\":\"^[0-9A-Fa-f]{64}$\",\"type\":\"string\"},\"object_group_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"selection_modality\":{\"enum\":[\"desktop_ray\",\"mouse_ray\",\"keyboard_mouse\",\"xr_controller_ray\",\"controller_ray\",\"gaze\",\"touch\",\"direct\",\"programmatic\"],\"type\":\"string\"},\"source_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"source_object_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"state\":{\"const\":\"resolved\"},\"zone_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"model_sha256\",\"state\",\"hit_position\",\"distance_m\",\"selection_modality\"],\"type\":\"object\"},\"user_text\":{\"maxLength\":32768,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"session_id\",\"active_agent_id\",\"user_text\",\"interaction_mode\"],\"title\":\"Interactive Agents chat request\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-BACKEND-CHAT-OUTPUT",
       "type": "SchemaReference",
-      "uri": "json"
+      "uri": "json",
+      "text": "{\"$id\":\"urn:functionalmlds:wire:chat:response:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"allOf\":[{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"required\":[\"grounded_entity_ids\",\"grounding_evidence\",\"routing_reason\",\"grounding\",\"routing\"]}},{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"non_deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"not\":{\"anyOf\":[{\"required\":[\"grounded_entity_ids\"]},{\"required\":[\"grounding_evidence\"]},{\"required\":[\"routing_reason\"]},{\"required\":[\"grounding\"]},{\"required\":[\"routing\"]}]}}}],\"applicationActionKind\":\"chat\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S11-ANSWER-ROOM-GROUNDED-QUESTION\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-BACKEND-CHAT\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION\"},\"properties\":{\"active_agent_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"events\":{\"type\":\"array\"},\"grounded_entity_ids\":{\"items\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"maxItems\":64,\"minItems\":1,\"type\":\"array\",\"uniqueItems\":true},\"grounding\":{\"type\":\"object\"},\"grounding_evidence\":{\"items\":{\"type\":\"object\"},\"maxItems\":128,\"minItems\":1,\"type\":\"array\"},\"handoff\":{\"type\":[\"object\",\"null\"]},\"interaction_mode\":{\"enum\":[\"deictic\",\"non_deictic\"],\"type\":\"string\"},\"memory_mode\":{\"type\":\"string\"},\"model_binding\":{\"additionalProperties\":false,\"properties\":{\"capability_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"capability_use_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"runtime_action_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"runtime_binding_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"runtime_binding_id\",\"runtime_action_id\",\"capability_id\",\"capability_use_id\"],\"type\":\"object\"},\"routing\":{\"type\":\"object\"},\"routing_reason\":{\"maxLength\":2048,\"minLength\":1,\"type\":\"string\"},\"session_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"session_id\",\"active_agent_id\",\"memory_mode\",\"handoff\",\"events\",\"interaction_mode\",\"model_binding\"],\"title\":\"Interactive Agents chat response\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "RA-CLASSROOM_DINOSAUR-BACKEND-CHAT",
@@ -1923,12 +1932,13 @@
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-BACKEND-CHAT-HANDOFF-INPUT",
       "type": "SchemaReference",
       "uri": "json",
-      "text": "{\"applicationActionKind\":\"handoff\"}"
+      "text": "{\"$id\":\"urn:functionalmlds:wire:handoff:request:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"allOf\":[{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"required\":[\"spatial_context\"]}},{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"non_deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"not\":{\"required\":[\"spatial_context\"]}}}],\"applicationActionKind\":\"handoff\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S12-HANDOFF-TO-RESPONSIBLE-AGENT\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-BACKEND-CHAT-HANDOFF\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT\"},\"properties\":{\"active_agent_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"interaction_mode\":{\"enum\":[\"deictic\",\"non_deictic\"],\"type\":\"string\"},\"session_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"spatial_context\":{\"additionalProperties\":false,\"anyOf\":[{\"required\":[\"entity_id\"]},{\"required\":[\"source_object_id\"]},{\"required\":[\"source_id\"]}],\"properties\":{\"ambiguity\":{\"oneOf\":[{\"type\":\"boolean\"},{\"additionalProperties\":true,\"maxProperties\":8,\"type\":\"object\"}]},\"ambiguity_reason\":{\"maxLength\":512,\"type\":\"string\"},\"ambiguous\":{\"type\":\"boolean\"},\"candidate_entity_ids\":{\"items\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"maxItems\":16,\"type\":\"array\",\"uniqueItems\":true},\"distance_m\":{\"maximum\":1000000,\"minimum\":0,\"type\":\"number\"},\"entity_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"hit_position\":{\"additionalProperties\":false,\"properties\":{\"x\":{\"maximum\":1000000,\"minimum\":-1000000,\"type\":\"number\"},\"y\":{\"maximum\":1000000,\"minimum\":-1000000,\"type\":\"number\"},\"z\":{\"maximum\":1000000,\"minimum\":-1000000,\"type\":\"number\"}},\"required\":[\"x\",\"y\",\"z\"],\"type\":\"object\"},\"modality\":{\"enum\":[\"desktop_ray\",\"mouse_ray\",\"keyboard_mouse\",\"xr_controller_ray\",\"controller_ray\",\"gaze\",\"touch\",\"direct\",\"programmatic\"],\"type\":\"string\"},\"model_sha256\":{\"pattern\":\"^[0-9A-Fa-f]{64}$\",\"type\":\"string\"},\"object_group_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"selection_modality\":{\"enum\":[\"desktop_ray\",\"mouse_ray\",\"keyboard_mouse\",\"xr_controller_ray\",\"controller_ray\",\"gaze\",\"touch\",\"direct\",\"programmatic\"],\"type\":\"string\"},\"source_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"source_object_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"state\":{\"const\":\"resolved\"},\"zone_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"model_sha256\",\"state\",\"hit_position\",\"distance_m\",\"selection_modality\"],\"type\":\"object\"},\"user_text\":{\"maxLength\":32768,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"session_id\",\"active_agent_id\",\"user_text\",\"interaction_mode\"],\"title\":\"Interactive Agents handoff request\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "SCHEMA-RA-CLASSROOM_DINOSAUR-BACKEND-CHAT-HANDOFF-OUTPUT",
       "type": "SchemaReference",
-      "uri": "json"
+      "uri": "json",
+      "text": "{\"$id\":\"urn:functionalmlds:wire:handoff:response:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"allOf\":[{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"required\":[\"grounded_entity_ids\",\"grounding_evidence\",\"routing_reason\",\"grounding\",\"routing\"]}},{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"non_deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"not\":{\"anyOf\":[{\"required\":[\"grounded_entity_ids\"]},{\"required\":[\"grounding_evidence\"]},{\"required\":[\"routing_reason\"]},{\"required\":[\"grounding\"]},{\"required\":[\"routing\"]}]}}}],\"applicationActionKind\":\"handoff\",\"modelBinding\":{\"capabilityIds\":[\"CAP-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT\"],\"capabilityUseIds\":[\"CU-CLASSROOM_DINOSAUR-S12-HANDOFF-TO-RESPONSIBLE-AGENT\"],\"runtimeActionId\":\"RA-CLASSROOM_DINOSAUR-BACKEND-CHAT-HANDOFF\",\"runtimeBindingId\":\"RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT\"},\"properties\":{\"active_agent_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"events\":{\"type\":\"array\"},\"grounded_entity_ids\":{\"items\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"maxItems\":64,\"minItems\":1,\"type\":\"array\",\"uniqueItems\":true},\"grounding\":{\"type\":\"object\"},\"grounding_evidence\":{\"items\":{\"type\":\"object\"},\"maxItems\":128,\"minItems\":1,\"type\":\"array\"},\"handoff\":{\"type\":[\"object\",\"null\"]},\"interaction_mode\":{\"enum\":[\"deictic\",\"non_deictic\"],\"type\":\"string\"},\"memory_mode\":{\"type\":\"string\"},\"model_binding\":{\"additionalProperties\":false,\"properties\":{\"capability_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"capability_use_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"runtime_action_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"runtime_binding_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"runtime_binding_id\",\"runtime_action_id\",\"capability_id\",\"capability_use_id\"],\"type\":\"object\"},\"routing\":{\"type\":\"object\"},\"routing_reason\":{\"maxLength\":2048,\"minLength\":1,\"type\":\"string\"},\"session_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"session_id\",\"active_agent_id\",\"memory_mode\",\"handoff\",\"events\",\"interaction_mode\",\"model_binding\"],\"title\":\"Interactive Agents handoff response\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "RA-CLASSROOM_DINOSAUR-BACKEND-CHAT-HANDOFF",
@@ -2326,7 +2336,7 @@
         "CAP-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION"
       ],
       "provider": [
-        "ENT-CLASSROOM_DINOSAUR-RUNTIME-ORCHESTRATOR"
+        "ENT-AGENT-TEACHER_AGENT"
       ],
       "target": [
         "ENT-STATE-CLASSROOM_DINOSAUR"
@@ -2344,7 +2354,7 @@
       "kind": "systemResponse",
       "actorRole": [],
       "performedBy": [
-        "ENT-CLASSROOM_DINOSAUR-RUNTIME-ORCHESTRATOR"
+        "ENT-AGENT-TEACHER_AGENT"
       ],
       "triggeredBy": [],
       "resultingAssertion": [
@@ -2365,7 +2375,7 @@
         "CAP-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
       ],
       "provider": [
-        "ENT-CLASSROOM_DINOSAUR-RUNTIME-ORCHESTRATOR"
+        "ENT-AGENT-TEACHER_AGENT"
       ],
       "target": [
         "ENT-STATE-CLASSROOM_DINOSAUR"
@@ -2383,7 +2393,7 @@
       "kind": "systemResponse",
       "actorRole": [],
       "performedBy": [
-        "ENT-CLASSROOM_DINOSAUR-RUNTIME-ORCHESTRATOR"
+        "ENT-AGENT-TEACHER_AGENT"
       ],
       "triggeredBy": [
         "EV-CLASSROOM_DINOSAUR-HANDOFF-NEEDED"

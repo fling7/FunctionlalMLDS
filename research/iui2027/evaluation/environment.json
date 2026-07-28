@@ -1,0 +1,164 @@
+{
+  "api_key_required": false,
+  "command": "python research/iui2027/evaluation/run_benchmark.py",
+  "dependencies": {
+    "jsonschema": "4.25.1"
+  },
+  "git_commit": "321079c8e90c81a99c4fbfde2a6c192f0707d6f8",
+  "input_files": [
+    {
+      "case_id": "bestfit_career_fair",
+      "path": "output/case_studies/bestfit_career_fair/functionalmlds/functionalmlds.v2.instance.json",
+      "role": "v2",
+      "sha256": "861e3569b4c82c4e7d5e486dfce24343b237f3a1ef0056d512ca0795811e077e"
+    },
+    {
+      "case_id": "bestfit_career_fair",
+      "path": "output/case_studies/bestfit_career_fair/functionalmlds/functionalmlds.v2.assembly_report.json",
+      "role": "assembly_report",
+      "sha256": "8f8bb4a75d37b5de7e29828a302def1b7b877d173cfdebab27fd7acb8d05e64d"
+    },
+    {
+      "case_id": "bestfit_career_fair",
+      "path": "output/case_studies/bestfit_career_fair/functionalmlds/functionalmlds.instance.generated.json",
+      "role": "v05",
+      "sha256": "b3f47ee37fd58329d321487946187fe041bfbd07ec5b295d9aa0a92c2f7ce50f"
+    },
+    {
+      "case_id": "bestfit_career_fair",
+      "path": "output/case_studies/bestfit_career_fair/intermediate/scene_semantics.json",
+      "role": "scene_semantics",
+      "sha256": "81a76712eafc96ae21aff368b51e5eb132f5648e5bff811b35c18fd80a8b44dc"
+    },
+    {
+      "case_id": "bestfit_career_fair",
+      "path": "output/case_studies/bestfit_career_fair/intermediate/agent_roles.generated.json",
+      "role": "agent_roles",
+      "sha256": "c66cb3428008e391c43b17049141d99063a6ecf3fe29d84ac4d8d55562e1b2de"
+    },
+    {
+      "case_id": "bestfit_career_fair",
+      "path": "output/case_studies/bestfit_career_fair/intermediate/handoff_matrix.json",
+      "role": "handoff_matrix",
+      "sha256": "08d10263d03fbdfbf270ac1a27fb430e6e2603c544c9ec2e3354a18d29357fdf"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "path": "output/case_studies/classroom_dinosaur/functionalmlds/functionalmlds.v2.instance.json",
+      "role": "v2",
+      "sha256": "5fe7e33d91933a87dcb25539f68ec34b6751950216bb121dfbe83ee61066451c"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "path": "output/case_studies/classroom_dinosaur/functionalmlds/functionalmlds.v2.assembly_report.json",
+      "role": "assembly_report",
+      "sha256": "d90de8bfa299ddc38b5403a95ecc0f5bb250fb5a15951f09ab4f47d638d1305a"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "path": "output/case_studies/classroom_dinosaur/functionalmlds/functionalmlds.instance.generated.json",
+      "role": "v05",
+      "sha256": "090f630c2c1eca565171c8dfcc60fb6f4e91378b901d6b3c8653bc13fdd1ee27"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "path": "output/case_studies/classroom_dinosaur/intermediate/scene_semantics.json",
+      "role": "scene_semantics",
+      "sha256": "ee6fe3dd98c16994bd11f38a2e2922bbaa947c0615f76ca4669dc33efbf67ef3"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "path": "output/case_studies/classroom_dinosaur/intermediate/agent_roles.generated.json",
+      "role": "agent_roles",
+      "sha256": "b5076acd874e933d36e1ba86b989db9a365f14b33014d2c02e27bc99b5bd1353"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "path": "output/case_studies/classroom_dinosaur/intermediate/handoff_matrix.json",
+      "role": "handoff_matrix",
+      "sha256": "4769a00b5e133d2753c68a054022943abb428fe7e8c2ce3bedfba0470d3cc01a"
+    },
+    {
+      "case_id": "steinpilz_brand_room",
+      "path": "output/case_studies/steinpilz_brand_room/functionalmlds/functionalmlds.v2.instance.json",
+      "role": "v2",
+      "sha256": "56658f5e72532753d6163a5f93bd8517e4f9e8e963c79ed74965f71c9c096431"
+    },
+    {
+      "case_id": "steinpilz_brand_room",
+      "path": "output/case_studies/steinpilz_brand_room/functionalmlds/functionalmlds.v2.assembly_report.json",
+      "role": "assembly_report",
+      "sha256": "f1bbb0c477662bd4e72fb0061e28cfc50faf8e87d5db7def65d61b50a8b50058"
+    },
+    {
+      "case_id": "steinpilz_brand_room",
+      "path": "output/case_studies/steinpilz_brand_room/functionalmlds/functionalmlds.instance.generated.json",
+      "role": "v05",
+      "sha256": "d58ed1279973d816df3f6e08d4adbe0881ac8b372654b9ed858906a80fc1a71d"
+    },
+    {
+      "case_id": "steinpilz_brand_room",
+      "path": "output/case_studies/steinpilz_brand_room/intermediate/scene_semantics.json",
+      "role": "scene_semantics",
+      "sha256": "ff509fe7ec471a2401cafb5235cd2e1794ac0c23b2528a4df35f5042b9fd2417"
+    },
+    {
+      "case_id": "steinpilz_brand_room",
+      "path": "output/case_studies/steinpilz_brand_room/intermediate/agent_roles.generated.json",
+      "role": "agent_roles",
+      "sha256": "00f2b0213c842979cb8b83d5012d54885373ec57d63a574ffec4f78db7a590c8"
+    },
+    {
+      "case_id": "steinpilz_brand_room",
+      "path": "output/case_studies/steinpilz_brand_room/intermediate/handoff_matrix.json",
+      "role": "handoff_matrix",
+      "sha256": "481443ecd5469744e3d2ab2affc2bc042f9138e5af84a1a8b0ff165956136d29"
+    }
+  ],
+  "network_required": false,
+  "platform": {
+    "machine": "AMD64",
+    "release": "11",
+    "system": "Windows"
+  },
+  "python": {
+    "implementation": "CPython",
+    "version": "3.12.8"
+  },
+  "runtime_measurement": {
+    "adjustable": false,
+    "alternating_execution_order": true,
+    "clock": "time.perf_counter_ns",
+    "clock_implementation": "QueryPerformanceCounter()",
+    "clock_resolution_seconds": 1e-07,
+    "json_io_included": false,
+    "monotonic": true,
+    "repetitions_per_case": 40,
+    "v05_to_v2_generation_included": false,
+    "warmups_per_case": 4
+  },
+  "schema": "iui2027_benchmark_environment",
+  "schema_version": "1.1.0",
+  "validator_and_benchmark_sources": [
+    {
+      "path": "tools/dynamic_functional_mlds_v2_model.py",
+      "sha256": "0710b7353459fe64de0692d18ac904b930d07161f6782544ac48d3d4dbaa8dd7"
+    },
+    {
+      "path": "tools/validate_dynamic_functional_mlds_v2.py",
+      "sha256": "82e2fe0c506629a4222795d6a81e94f606d7eb1244cc0d594ab14b7e98b989c3"
+    },
+    {
+      "path": "tools/case_study_pipeline/project_materializer.py",
+      "sha256": "616f980a5b600bcb6f8cc9ed20741dca56fe713119cffe34c4d0b833f9beb3f8"
+    },
+    {
+      "path": "tools/case_study_pipeline/functionalmlds_v2_assembler.py",
+      "sha256": "18f966e757449c26441c5f328f9ab955d3c97784dfb2985172d4509ebfc4e7ba"
+    },
+    {
+      "path": "research/iui2027/evaluation/run_benchmark.py",
+      "sha256": "73fdc40b116b30f928a1dfe40c75f1dbcfe0538926a40821251dd11221aa54e7"
+    }
+  ]
+}

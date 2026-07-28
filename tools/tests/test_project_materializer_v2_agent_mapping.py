@@ -13,6 +13,9 @@ from tools.case_study_pipeline.project_materializer import (  # noqa: E402
     _validate_v2_agent_provider_contract,
     build_trace_map_v2,
 )
+from tools.case_study_pipeline.functionalmlds_v2_assembler import (  # noqa: E402
+    assemble_v2_instance,
+)
 from tools.case_study_pipeline.agent_placement import (  # noqa: E402
     PLACEMENT_FLOOR_TOLERANCE,
     generate_agent_placements,
@@ -29,8 +32,12 @@ def _read_json(path: Path) -> dict:
 class ProjectMaterializerV2AgentMappingTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.instance = _read_json(
-            CASE_DIR / "functionalmlds" / "functionalmlds.v2.instance.json"
+        cls.instance = assemble_v2_instance(
+            _read_json(
+                CASE_DIR
+                / "functionalmlds"
+                / "functionalmlds.instance.generated.json"
+            )
         )
         cls.agent_roles = _read_json(
             CASE_DIR / "intermediate" / "agent_roles.generated.json"
@@ -103,6 +110,30 @@ class ProjectMaterializerV2AgentMappingTests(unittest.TestCase):
             item for item in provider.get("providedCapability") or [] if item != capability_id
         ]
         with self.assertRaisesRegex(ValueError, "does not provide Capability"):
+            self._validate(instance)
+
+    def test_agent_owned_capability_cannot_be_reassigned_to_orchestrator(self) -> None:
+        instance = copy.deepcopy(self.instance)
+        by_id = {item["id"]: item for item in instance["objects"]}
+        use = next(
+            item
+            for item in instance["objects"]
+            if item.get("type") == "CapabilityUse"
+            and by_id[item["provider"][0]].get("type") == "Agent"
+        )
+        capability_id = use["typeRef"][0]
+        orchestrator = next(
+            item
+            for item in instance["objects"]
+            if item.get("entityRole") == "runtimeOrchestrator"
+        )
+        orchestrator.setdefault("providedCapability", []).append(capability_id)
+        use["provider"] = [orchestrator["id"]]
+
+        with self.assertRaisesRegex(
+            ValueError,
+            "must not advertise Agent-owned domain Capabilities|not a modeled Domain Agent",
+        ):
             self._validate(instance)
 
     def test_materializer_requires_complete_exact_placement_projection(self) -> None:

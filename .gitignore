@@ -62,3 +62,4 @@ Thumbs.db
 desktop.ini
 research/iui2027/paper/build/
 tmp/pdfs/
+tmp/*.log

@@ -148,6 +148,7 @@ class FunctionalMldsV2SessionHardeningTests(unittest.TestCase):
                 {
                     "session_id": session_id,
                     "active_agent_id": next(iter(state.agents)),
+                    "interaction_mode": "non_deictic",
                     "user_text": "Diese Anfrage darf keinen Zustand verändern.",
                 }
             )
@@ -236,6 +237,7 @@ class FunctionalMldsV2SessionHardeningTests(unittest.TestCase):
             {
                 "session_id": session_id,
                 "active_agent_id": next(iter(state.agents)),
+                "interaction_mode": "non_deictic",
                 "user_text": "Rollback-Test",
             }
         ).encode("utf-8")

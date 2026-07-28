@@ -5,6 +5,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.IO;
+using FunctionalMlds.V2;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
@@ -116,6 +118,15 @@ public class QuickAgentManager : MonoBehaviour
     public KeyCode fpvChatKey = KeyCode.T;
     public bool fpvProximityHandoff = true;
 
+    [Header("Spatial Grounding")]
+    public bool enableSpatialTargetSelection = true;
+    public LayerMask spatialSelectionMask = ~0;
+    public float spatialSelectionMaxDistance = 100f;
+    [Min(0f)]
+    public float spatialAmbiguityDistanceTolerance = 0.025f;
+    public Color selectedSpatialTargetColor = new Color(0.15f, 0.9f, 1f, 1f);
+    public float selectedSpatialTargetEmission = 1.1f;
+
     [Header("FPV-Richtungspfeil")]
     public float fpvDirectionArrowRadius = 130f;
     public float fpvDirectionArrowSize = 58f;
@@ -191,6 +202,113 @@ public class QuickAgentManager : MonoBehaviour
         public string session_id;
         public string active_agent_id;
         public string user_text;
+        public string interaction_mode;
+        public SpatialContext spatial_context;
+    }
+
+    /// <summary>
+    /// JsonUtility materializes null nested serializable classes as empty objects in some
+    /// Unity versions. Use this serializer for /chat so a legacy request really omits the
+    /// optional spatial_context field.
+    /// </summary>
+    public static string SerializeChatRequest(ChatRequest request)
+    {
+        if (request == null)
+            throw new ArgumentNullException(nameof(request));
+        if (string.Equals(
+                request.interaction_mode,
+                FunctionalMldsV2InteractionEvidenceEvaluator.DeicticMode,
+                StringComparison.Ordinal)
+            && request.spatial_context == null)
+        {
+            throw new ArgumentException(
+                "A deictic chat request requires spatial_context.",
+                nameof(request));
+        }
+        return JsonConvert.SerializeObject(
+            request,
+            Formatting.None,
+            new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            });
+    }
+
+    /// <summary>
+    /// Selects the explicit V2 interaction contract from runtime state only. User text is never
+    /// inspected. Ambiguous or internally inconsistent selection state fails closed.
+    /// </summary>
+    public static string ResolveV2InteractionMode(
+        bool isV2,
+        string selectionState,
+        SpatialContext spatialContext)
+    {
+        if (!isV2)
+            return null;
+        if (string.Equals(
+                selectionState,
+                FunctionalMldsSpatialTargetStates.Ambiguous,
+                StringComparison.Ordinal))
+        {
+            throw new InvalidOperationException(
+                "An ambiguous spatial selection cannot fall back to non_deictic mode.");
+        }
+        if (spatialContext != null)
+        {
+            if (!string.Equals(
+                    selectionState,
+                    FunctionalMldsSpatialTargetStates.Resolved,
+                    StringComparison.Ordinal))
+            {
+                throw new InvalidOperationException(
+                    "A spatial_context requires resolved selection state.");
+            }
+            return FunctionalMldsV2InteractionEvidenceEvaluator.DeicticMode;
+        }
+        if (string.Equals(
+                selectionState,
+                FunctionalMldsSpatialTargetStates.Resolved,
+                StringComparison.Ordinal))
+        {
+            throw new InvalidOperationException(
+                "Resolved V2 selection state requires spatial_context.");
+        }
+        return FunctionalMldsV2InteractionEvidenceEvaluator.NonDeicticMode;
+    }
+
+    /// <summary>
+    /// Optional request extension. A null value preserves the legacy /chat contract.
+    /// The backend validates IDs and derives trusted group/zone membership from model_sha256.
+    /// </summary>
+    [Serializable]
+    public class SpatialContext
+    {
+        public string model_sha256;
+        public string state;
+        public string entity_id;
+        public string source_object_id;
+        public string object_group_id;
+        public string zone_id;
+        public string display_name;
+        public string[] synonyms;
+        public Vector3Data hit_position;
+        public float distance_m;
+        public string selection_modality;
+        public string ambiguity_reason;
+        public string[] candidate_entity_ids;
+    }
+
+    [Serializable]
+    public class SpatialSelectionEvent
+    {
+        public string event_type;
+        public string state;
+        public string entity_id;
+        public string source_object_id;
+        public string selection_modality;
+        public string reason;
+        public string[] candidate_entity_ids;
+        public float time_since_start_s;
     }
 
     [Serializable]
@@ -211,6 +329,44 @@ public class QuickAgentManager : MonoBehaviour
     }
 
     [Serializable]
+    public class GroundingEvidenceItem
+    {
+        public string relation;
+        public string subject_id;
+        public string object_id;
+        public string source_object_id;
+        public string source;
+    }
+
+    [Serializable]
+    public class GroundingInfo
+    {
+        public string status;
+        public string model_sha256;
+        public string selected_entity_id;
+        public string selected_source_object_id;
+        public string selected_name;
+        public string[] object_group_ids;
+        public string[] zone_ids;
+        public string[] grounded_entity_ids;
+        public Vector3Data hit_position;
+        public float distance_m;
+        public string selection_modality;
+        public GroundingEvidenceItem[] evidence;
+    }
+
+    [Serializable]
+    public class RoutingInfo
+    {
+        public string requested_agent_id;
+        public string selected_agent_id;
+        public string priority;
+        public string[] candidate_agent_ids;
+        public bool? modeled_handoff;
+        public string reason;
+    }
+
+    [Serializable]
     public class ChatResponse
     {
         public string session_id;
@@ -218,6 +374,11 @@ public class QuickAgentManager : MonoBehaviour
         public string memory_mode;
         public Handoff handoff;
         public ChatEvent[] events;
+        public string[] grounded_entity_ids;
+        public GroundingEvidenceItem[] grounding_evidence;
+        public string routing_reason;
+        public GroundingInfo grounding;
+        public RoutingInfo routing;
     }
 
     [Serializable]
@@ -240,6 +401,17 @@ public class QuickAgentManager : MonoBehaviour
     [Header("Runtime")]
     public string sessionId;
     public string activeAgentId;
+
+    public string SpatialSelectionState => spatialSelectionState;
+    public string SelectedSpatialEntityId =>
+        selectedSpatialTarget == null ? string.Empty : selectedSpatialTarget.EntityId;
+    public string SelectedSpatialSourceObjectId =>
+        selectedSpatialTarget == null ? string.Empty : selectedSpatialTarget.SourceObjectId;
+    public string CurrentModelSha256 => currentModelSha256;
+    public string InteractionEvidenceStatus => interactionEvidenceStatus;
+    public FunctionalMldsSceneObjectBindingRegistry SpatialBindingRegistry => spatialBindingRegistry;
+    public event Action<SpatialSelectionEvent> SpatialEventLogged;
+    public event Action<FunctionalMldsV2InteractionAssessment> InteractionEvidenceLogged;
 
     private class AgentVisual
     {
@@ -289,6 +461,18 @@ public class QuickAgentManager : MonoBehaviour
     private float voiceRecordingStartedAt;
     private AgentPlacement[] lastAgents;
     private FunctionalMldsV2QuickAgentBridge functionalMldsV2Bridge;
+    private readonly FunctionalMldsSceneObjectBindingRegistry spatialBindingRegistry =
+        new FunctionalMldsSceneObjectBindingRegistry();
+    private FunctionalMldsSceneBindingBootstrapper.Report lastSpatialBootstrapReport;
+    private FunctionalMldsSceneObjectBinding selectedSpatialTarget;
+    private string spatialSelectionState = FunctionalMldsSpatialTargetStates.None;
+    private string spatialSelectionReason = "No target selected.";
+    private string spatialSelectionModality = "";
+    private string[] spatialSelectionCandidates = Array.Empty<string>();
+    private Vector3 spatialSelectionHitPosition;
+    private float spatialSelectionDistance;
+    private string currentModelSha256 = "";
+    private string interactionEvidenceStatus = "Noch keine modellgebundene Interaktionsbewertung.";
     private string statusMessage = "";
     private string chatInput = "";
     private const string ChatInputControlName = "chatInputField";
@@ -339,6 +523,7 @@ public class QuickAgentManager : MonoBehaviour
     {
         EnsureSceneBasics();
         EnsureSceneObjectColliders();
+        RefreshSpatialBindingRegistry();
         StartCoroutine(SetupFromServer());
     }
 
@@ -350,9 +535,22 @@ public class QuickAgentManager : MonoBehaviour
         UpdatePendingAgentPulse();
         UpdateFreeMovement();
 
-        if (!_fpvActive && TryGetSelectPosition(out var screenPosition))
+        if (enableSpatialTargetSelection && TryGetSelectPosition(out var screenPosition))
         {
-            TrySelectAgentFromClick(screenPosition);
+            if (_fpvActive)
+            {
+                if (!_fpvChatOpen && Camera.main != null)
+                {
+                    var cameraTransform = Camera.main.transform;
+                    TrySelectSpatialTargetFromRay(
+                        new Ray(cameraTransform.position, cameraTransform.forward),
+                        "desktop_ray");
+                }
+            }
+            else
+            {
+                TrySelectFromScreenPosition(screenPosition);
+            }
         }
 
         CleanupExpiredBubbles();
@@ -589,6 +787,9 @@ public class QuickAgentManager : MonoBehaviour
         }
 
         statusMessage = "Setup läuft...";
+        ClearSpatialTarget("A new setup is being loaded.", "setup", false);
+        currentModelSha256 = "";
+        interactionEvidenceStatus = "Noch keine modellgebundene Interaktionsbewertung.";
         var setupStartedAt = Time.realtimeSinceStartupAsDouble;
         var url = $"{backendBaseUrl}/setup";
         var payload = new SetupRequestPaths
@@ -628,6 +829,7 @@ public class QuickAgentManager : MonoBehaviour
                 memoryMode = resp.memory_mode;
 
             functionalMldsV2Bridge = null;
+            string spatialBindingModelJson = null;
             string modelEndpoint;
             try
             {
@@ -660,13 +862,14 @@ public class QuickAgentManager : MonoBehaviour
 
                     try
                     {
+                        spatialBindingModelJson = modelRequest.downloadHandler.text;
                         var logDirectory = Path.Combine(
                             Application.persistentDataPath,
                             "FunctionalMLDS",
                             string.IsNullOrWhiteSpace(selectedProjectId) ? "direct" : selectedProjectId);
                         functionalMldsV2Bridge = FunctionalMldsV2QuickAgentBridge.Create(
                             setupJson,
-                            modelRequest.downloadHandler.text,
+                            spatialBindingModelJson,
                             logDirectory);
                     }
                     catch (Exception exception)
@@ -688,9 +891,13 @@ public class QuickAgentManager : MonoBehaviour
                 chatLog.Add(statusMessage);
                 yield break;
             }
+            currentModelSha256 = string.IsNullOrWhiteSpace(resp.model_sha256)
+                ? string.Empty
+                : resp.model_sha256.Trim();
             statusMessage = $"Setup OK. Memory: {memoryMode} | Agents: {lastAgents.Length}";
             UpdateAgentVoices(lastAgents);
             SpawnAgents(lastAgents);
+            InitializeSpatialBindings(spatialBindingModelJson);
             if (lastAgents.Length > 0)
             {
                 SetActiveAgentId(lastAgents[0].id);
@@ -713,6 +920,13 @@ public class QuickAgentManager : MonoBehaviour
             if (useProjectSelection)
             {
                 statusMessage = $"Setup OK. Projekt: {selectedProjectId} | Memory: {memoryMode} | Agents: {lastAgents.Length}";
+            }
+            if (!spatialBindingRegistry.IsValid)
+            {
+                statusMessage += " | Spatial Grounding blockiert";
+                chatLog.Add(
+                    "Spatial Grounding blockiert: "
+                    + spatialBindingRegistry.ValidationSummary());
             }
         }
     }
@@ -1020,6 +1234,9 @@ public class QuickAgentManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (selectedSpatialTarget != null)
+            selectedSpatialTarget.SetHighlighted(false, selectedSpatialTargetColor, 0f);
+
         foreach (var entry in agentObjects)
         {
             if (entry.Value != null && entry.Value.animGraph.IsValid())
@@ -1124,35 +1341,553 @@ public class QuickAgentManager : MonoBehaviour
         return false;
     }
 
-    private void TrySelectAgentFromClick(Vector2 screenPosition)
+    private void TrySelectFromScreenPosition(Vector2 screenPosition)
     {
         var cam = Camera.main;
         if (cam == null)
         {
+            SetSpatialTargetAmbiguous(
+                "No main camera is available for target selection.",
+                "mouse_ray",
+                Array.Empty<string>());
             return;
         }
 
-        var ray = cam.ScreenPointToRay(screenPosition);
-        if (!Physics.Raycast(ray, out var hit))
+        TrySelectSpatialTargetFromRay(
+            cam.ScreenPointToRay(screenPosition),
+            "mouse_ray");
+    }
+
+    /// <summary>
+    /// Package-independent ray hook for desktop and XR controllers. A WebXR/XRI adapter can
+    /// pass its controller ray and the modality "xr_controller_ray" without this
+    /// component claiming or depending on a particular XR input implementation.
+    /// </summary>
+    public bool TrySelectSpatialTargetFromRay(Ray ray, string selectionModality)
+    {
+        if (!enableSpatialTargetSelection)
+            return false;
+
+        var modality = NormalizeSpatialSelectionModality(selectionModality);
+        if (modality == null)
         {
-            return;
+            SetSpatialTargetAmbiguous(
+                $"Unsupported selection modality '{selectionModality}'.",
+                "programmatic",
+                Array.Empty<string>());
+            return false;
+        }
+        LogSpatialEvent(
+            "target_selection_started",
+            spatialSelectionState,
+            modality,
+            string.Empty,
+            spatialSelectionCandidates);
+
+        var maximumDistance = Mathf.Max(0.01f, spatialSelectionMaxDistance);
+        var hits = Physics.RaycastAll(
+            ray,
+            maximumDistance,
+            spatialSelectionMask,
+            QueryTriggerInteraction.Ignore);
+        if (hits == null || hits.Length == 0)
+        {
+            ClearSpatialTarget("Raycast hit no selectable object.", modality, true);
+            return false;
+        }
+        Array.Sort(hits, (left, right) => left.distance.CompareTo(right.distance));
+
+        var frontDistance = hits[0].distance;
+        var tolerance = Mathf.Max(0f, spatialAmbiguityDistanceTolerance);
+        var relevantHitCount = 0;
+        while (relevantHitCount < hits.Length
+               && hits[relevantHitCount].distance <= frontDistance + tolerance)
+        {
+            relevantHitCount++;
         }
 
-        // Walk up the hierarchy so clicks on child meshes of FBX characters still register
-        var hitTransform = hit.collider.transform;
+        // Preserve the original agent-selection behavior. Agent colliders at the first
+        // surface take precedence and do not clear an already selected semantic target.
+        for (var hitIndex = 0; hitIndex < relevantHitCount; hitIndex++)
+        {
+            string agentId;
+            if (TryGetAgentIdForCollider(hits[hitIndex].collider, out agentId))
+            {
+                SetActiveAgentId(agentId, true);
+                LogSpatialEvent(
+                    "agent_selected_by_ray",
+                    spatialSelectionState,
+                    modality,
+                    "Ray hit an agent; semantic target selection is unchanged.",
+                    spatialSelectionCandidates);
+                return true;
+            }
+        }
+
+        if (!spatialBindingRegistry.IsValid)
+        {
+            var invalidCandidates = RegisteredSpatialEntityIds();
+            SetSpatialTargetAmbiguous(
+                "Scene bindings are invalid: " + spatialBindingRegistry.ValidationSummary(),
+                modality,
+                invalidCandidates);
+            return false;
+        }
+
+        var candidateBindings = new List<FunctionalMldsSceneObjectBinding>();
+        var candidateHits = new List<RaycastHit>();
+        for (var hitIndex = 0; hitIndex < relevantHitCount; hitIndex++)
+        {
+            var resolution = spatialBindingRegistry.ResolveCollider(hits[hitIndex].collider);
+            if (resolution.State == FunctionalMldsSpatialTargetStates.Ambiguous)
+            {
+                SetSpatialTargetAmbiguous(
+                    resolution.Reason,
+                    modality,
+                    resolution.CandidateEntityIds);
+                return false;
+            }
+            if (!resolution.IsResolved || candidateBindings.Contains(resolution.Binding))
+                continue;
+            candidateBindings.Add(resolution.Binding);
+            candidateHits.Add(hits[hitIndex]);
+        }
+
+        if (candidateBindings.Count == 0)
+        {
+            ClearSpatialTarget(
+                $"Front collider '{hits[0].collider.name}' has no semantic binding.",
+                modality,
+                true);
+            return false;
+        }
+        if (candidateBindings.Count > 1)
+        {
+            var candidateIds = new List<string>();
+            for (var i = 0; i < candidateBindings.Count; i++)
+                candidateIds.Add(candidateBindings[i].EntityId);
+            SetSpatialTargetAmbiguous(
+                $"{candidateBindings.Count} semantic objects overlap at the selected surface.",
+                modality,
+                candidateIds);
+            return false;
+        }
+
+        if (string.IsNullOrWhiteSpace(currentModelSha256))
+        {
+            SetSpatialTargetAmbiguous(
+                "The selected object is not anchored to a loaded V2 model hash.",
+                modality,
+                new[] { candidateBindings[0].EntityId });
+            return false;
+        }
+
+        SetSpatialTargetResolved(
+            candidateBindings[0],
+            candidateHits[0].point,
+            candidateHits[0].distance,
+            modality);
+        return true;
+    }
+
+    public void ClearSelectedSpatialTarget()
+    {
+        ClearSpatialTarget("Selection cleared by the user.", "ui", true);
+    }
+
+    public void RefreshSpatialBindingRegistry()
+    {
+        var all = Resources.FindObjectsOfTypeAll<FunctionalMldsSceneObjectBinding>();
+        var sceneBindings = new List<FunctionalMldsSceneObjectBinding>();
+        for (var i = 0; i < all.Length; i++)
+        {
+            var binding = all[i];
+            if (binding == null
+                || !binding.gameObject.scene.IsValid()
+                || !binding.gameObject.scene.isLoaded)
+            {
+                continue;
+            }
+            sceneBindings.Add(binding);
+        }
+
+        spatialBindingRegistry.Rebuild(
+            sceneBindings,
+            lastSpatialBootstrapReport == null
+                ? null
+                : lastSpatialBootstrapReport.Errors);
+    }
+
+    private void InitializeSpatialBindings(string modelJson)
+    {
+        if (string.IsNullOrWhiteSpace(modelJson))
+        {
+            FunctionalMldsSceneBindingBootstrapper.DisableGeneratedBindings();
+            lastSpatialBootstrapReport = null;
+        }
+        else
+        {
+            lastSpatialBootstrapReport =
+                FunctionalMldsSceneBindingBootstrapper.ApplyV2Model(modelJson);
+        }
+
+        RefreshSpatialBindingRegistry();
+        Debug.Log(
+            "[SpatialGrounding] binding_registry="
+            + spatialBindingRegistry.ValidationSummary()
+            + (lastSpatialBootstrapReport == null
+                ? "; bootstrap=manual_only"
+                : "; bootstrap=" + lastSpatialBootstrapReport.Summary()));
+    }
+
+    private bool TryGetAgentIdForCollider(Collider collider, out string agentId)
+    {
+        agentId = string.Empty;
+        if (collider == null)
+            return false;
+
+        var hitTransform = collider.transform;
         while (hitTransform != null)
         {
             foreach (var pair in agentObjects)
             {
-                if (pair.Value != null && pair.Value.obj != null
+                if (pair.Value != null
+                    && pair.Value.obj != null
                     && pair.Value.obj.transform == hitTransform)
                 {
-                    SetActiveAgentId(pair.Key, true);
-                    return;
+                    agentId = pair.Key;
+                    return true;
                 }
             }
             hitTransform = hitTransform.parent;
         }
+        return false;
+    }
+
+    private void SetSpatialTargetResolved(
+        FunctionalMldsSceneObjectBinding binding,
+        Vector3 hitPosition,
+        float distance,
+        string modality)
+    {
+        if (selectedSpatialTarget != null && selectedSpatialTarget != binding)
+        {
+            selectedSpatialTarget.SetHighlighted(
+                false,
+                selectedSpatialTargetColor,
+                selectedSpatialTargetEmission);
+        }
+
+        selectedSpatialTarget = binding;
+        spatialSelectionState = FunctionalMldsSpatialTargetStates.Resolved;
+        spatialSelectionReason = string.Empty;
+        spatialSelectionModality = modality;
+        spatialSelectionCandidates = new[] { binding.EntityId };
+        spatialSelectionHitPosition = hitPosition;
+        spatialSelectionDistance = Mathf.Max(0f, distance);
+        binding.SetHighlighted(
+            true,
+            selectedSpatialTargetColor,
+            selectedSpatialTargetEmission);
+        statusMessage = $"Raumziel: {binding.DisplayName} ({binding.SourceObjectId})";
+        LogSpatialEvent(
+            "target_selection_resolved",
+            spatialSelectionState,
+            modality,
+            string.Empty,
+            spatialSelectionCandidates);
+        if (functionalMldsV2Bridge != null)
+        {
+            FunctionalMldsV2InteractionAssessment ignoredAssessment;
+            TryRecordFunctionalMldsV2Interaction(
+                "chat",
+                "unity_target_selection_resolved",
+                CreateInteractionObservation(
+                    FunctionalMldsV2InteractionEvidenceEvaluator.DeicticMode,
+                    null,
+                    responseObserved: false),
+                new
+                {
+                    binding.EntityId,
+                    binding.SourceObjectId,
+                    selection_modality = modality
+                },
+                new { selection_state = spatialSelectionState },
+                null,
+                requireCompletion: false,
+                out ignoredAssessment);
+        }
+    }
+
+    private void SetSpatialTargetAmbiguous(
+        string reason,
+        string modality,
+        IEnumerable<string> candidateEntityIds)
+    {
+        if (selectedSpatialTarget != null)
+        {
+            selectedSpatialTarget.SetHighlighted(
+                false,
+                selectedSpatialTargetColor,
+                selectedSpatialTargetEmission);
+        }
+
+        selectedSpatialTarget = null;
+        spatialSelectionState = FunctionalMldsSpatialTargetStates.Ambiguous;
+        spatialSelectionReason = string.IsNullOrWhiteSpace(reason)
+            ? "Spatial target is ambiguous."
+            : reason.Trim();
+        spatialSelectionModality = modality ?? string.Empty;
+        spatialSelectionCandidates = UniqueSorted(candidateEntityIds);
+        spatialSelectionHitPosition = Vector3.zero;
+        spatialSelectionDistance = 0f;
+        statusMessage = "Raumziel mehrdeutig: " + spatialSelectionReason;
+        LogSpatialEvent(
+            "target_selection_ambiguous",
+            spatialSelectionState,
+            spatialSelectionModality,
+            spatialSelectionReason,
+            spatialSelectionCandidates);
+    }
+
+    private void ClearSpatialTarget(
+        string reason,
+        string modality,
+        bool logEvent)
+    {
+        if (selectedSpatialTarget != null)
+        {
+            selectedSpatialTarget.SetHighlighted(
+                false,
+                selectedSpatialTargetColor,
+                selectedSpatialTargetEmission);
+        }
+
+        selectedSpatialTarget = null;
+        spatialSelectionState = FunctionalMldsSpatialTargetStates.None;
+        spatialSelectionReason = string.IsNullOrWhiteSpace(reason)
+            ? "No target selected."
+            : reason.Trim();
+        spatialSelectionModality = modality ?? string.Empty;
+        spatialSelectionCandidates = Array.Empty<string>();
+        spatialSelectionHitPosition = Vector3.zero;
+        spatialSelectionDistance = 0f;
+        if (logEvent)
+        {
+            statusMessage = "Kein Raumziel: " + spatialSelectionReason;
+            LogSpatialEvent(
+                "target_selection_no_target",
+                spatialSelectionState,
+                spatialSelectionModality,
+                spatialSelectionReason,
+                spatialSelectionCandidates);
+        }
+    }
+
+    private SpatialContext CreateResolvedSpatialContext()
+    {
+        if (spatialSelectionState != FunctionalMldsSpatialTargetStates.Resolved
+            || selectedSpatialTarget == null
+            || string.IsNullOrWhiteSpace(currentModelSha256))
+        {
+            return null;
+        }
+
+        return new SpatialContext
+        {
+            model_sha256 = currentModelSha256,
+            state = FunctionalMldsSpatialTargetStates.Resolved,
+            entity_id = selectedSpatialTarget.EntityId,
+            source_object_id = selectedSpatialTarget.SourceObjectId,
+            object_group_id = selectedSpatialTarget.ObjectGroupId,
+            zone_id = selectedSpatialTarget.ZoneId,
+            display_name = selectedSpatialTarget.DisplayName,
+            synonyms = (string[])selectedSpatialTarget.Synonyms.Clone(),
+            hit_position = new Vector3Data
+            {
+                x = spatialSelectionHitPosition.x,
+                y = spatialSelectionHitPosition.y,
+                z = spatialSelectionHitPosition.z
+            },
+            distance_m = spatialSelectionDistance,
+            selection_modality = spatialSelectionModality,
+            ambiguity_reason = string.Empty,
+            candidate_entity_ids = new[] { selectedSpatialTarget.EntityId }
+        };
+    }
+
+    private static bool ValidateGroundedResponse(
+        ChatResponse response,
+        SpatialContext requestContext,
+        out string error)
+    {
+        error = string.Empty;
+        if (response == null || requestContext == null)
+        {
+            error = "Grounding response or request context is missing.";
+            return false;
+        }
+        if (response.grounding == null
+            || response.grounding.status != FunctionalMldsSpatialTargetStates.Resolved)
+        {
+            error = "Backend response has no resolved grounding object.";
+            return false;
+        }
+        if (!string.Equals(
+                response.grounding.model_sha256,
+                requestContext.model_sha256,
+                StringComparison.OrdinalIgnoreCase))
+        {
+            error = "Backend response references a different model hash.";
+            return false;
+        }
+        if (!string.Equals(
+                response.grounding.selected_entity_id,
+                requestContext.entity_id,
+                StringComparison.Ordinal)
+            || !string.Equals(
+                response.grounding.selected_source_object_id,
+                requestContext.source_object_id,
+                StringComparison.Ordinal))
+        {
+            error = "Backend response resolved a different scene object.";
+            return false;
+        }
+        if (!ContainsOrdinal(response.grounded_entity_ids, requestContext.entity_id)
+            || !ContainsEvidenceForTarget(
+                response.grounding_evidence,
+                requestContext.entity_id,
+                requestContext.source_object_id))
+        {
+            error = "Backend response has no model-grounding evidence for the selected entity.";
+            return false;
+        }
+        if (response.routing == null
+            || string.IsNullOrWhiteSpace(response.routing.selected_agent_id)
+            || string.IsNullOrWhiteSpace(response.routing.reason)
+            || !string.Equals(
+                response.routing.selected_agent_id,
+                response.active_agent_id,
+                StringComparison.Ordinal))
+        {
+            error = "Backend response has no consistent model-grounded routing decision.";
+            return false;
+        }
+        return true;
+    }
+
+    private static bool ContainsEvidenceForTarget(
+        IEnumerable<GroundingEvidenceItem> evidence,
+        string entityId,
+        string sourceObjectId)
+    {
+        if (evidence == null)
+            return false;
+        foreach (var item in evidence)
+        {
+            if (item == null)
+                continue;
+            if (string.Equals(item.subject_id, entityId, StringComparison.Ordinal)
+                || string.Equals(item.object_id, entityId, StringComparison.Ordinal)
+                || string.Equals(item.source_object_id, sourceObjectId, StringComparison.Ordinal))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static bool ContainsOrdinal(IEnumerable<string> values, string expected)
+    {
+        if (values == null)
+            return false;
+        foreach (var value in values)
+        {
+            if (string.Equals(value, expected, StringComparison.Ordinal))
+                return true;
+        }
+        return false;
+    }
+
+    private string[] RegisteredSpatialEntityIds()
+    {
+        var result = new List<string>();
+        var registered = spatialBindingRegistry.Bindings;
+        for (var i = 0; i < registered.Count; i++)
+        {
+            if (registered[i] != null)
+                result.Add(registered[i].EntityId);
+        }
+        return UniqueSorted(result);
+    }
+
+    private static string[] UniqueSorted(IEnumerable<string> values)
+    {
+        var seen = new HashSet<string>(StringComparer.Ordinal);
+        var result = new List<string>();
+        if (values != null)
+        {
+            foreach (var value in values)
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    continue;
+                var clean = value.Trim();
+                if (seen.Add(clean))
+                    result.Add(clean);
+            }
+        }
+        result.Sort(StringComparer.Ordinal);
+        return result.ToArray();
+    }
+
+    private static string NormalizeSpatialSelectionModality(string value)
+    {
+        var modality = string.IsNullOrWhiteSpace(value)
+            ? "programmatic"
+            : value.Trim().ToLowerInvariant();
+        switch (modality)
+        {
+            case "desktop_ray":
+            case "mouse_ray":
+            case "keyboard_mouse":
+            case "xr_controller_ray":
+            case "controller_ray":
+            case "gaze":
+            case "touch":
+            case "direct":
+            case "programmatic":
+                return modality;
+            default:
+                return null;
+        }
+    }
+
+    private void LogSpatialEvent(
+        string eventType,
+        string state,
+        string modality,
+        string reason,
+        string[] candidates)
+    {
+        var item = new SpatialSelectionEvent
+        {
+            event_type = eventType ?? string.Empty,
+            state = state ?? FunctionalMldsSpatialTargetStates.None,
+            entity_id = selectedSpatialTarget == null
+                ? string.Empty
+                : selectedSpatialTarget.EntityId,
+            source_object_id = selectedSpatialTarget == null
+                ? string.Empty
+                : selectedSpatialTarget.SourceObjectId,
+            selection_modality = modality ?? string.Empty,
+            reason = reason ?? string.Empty,
+            candidate_entity_ids = candidates ?? Array.Empty<string>(),
+            time_since_start_s = Time.realtimeSinceStartup
+        };
+        Debug.Log("[SpatialGrounding] " + JsonUtility.ToJson(item));
+        var handler = SpatialEventLogged;
+        if (handler != null)
+            handler(item);
     }
 
     private IEnumerator SendChat(string message)
@@ -1169,6 +1904,17 @@ public class QuickAgentManager : MonoBehaviour
             yield break;
         }
 
+        // Once the user has attempted a spatial selection, an ambiguous result must never
+        // silently fall back to an ungrounded answer. "none" remains backwards compatible
+        // for ordinary, non-deictic chat.
+        if (spatialSelectionState == FunctionalMldsSpatialTargetStates.Ambiguous)
+        {
+            statusMessage = "Chat blockiert: Raumziel ist mehrdeutig. "
+                + spatialSelectionReason;
+            chatLog.Add(statusMessage);
+            yield break;
+        }
+
         if (functionalMldsV2Bridge != null
             && !TryRequireFunctionalMldsV2Action("chat"))
         {
@@ -1177,13 +1923,28 @@ public class QuickAgentManager : MonoBehaviour
 
         var url = $"{backendBaseUrl}/chat";
         var chatStartedAt = Time.realtimeSinceStartupAsDouble;
+        var spatialContext = CreateResolvedSpatialContext();
         var payload = new ChatRequest
         {
             session_id = sessionId,
             active_agent_id = activeAgentId,
-            user_text = message
+            user_text = message,
+            interaction_mode = ResolveV2InteractionMode(
+                functionalMldsV2Bridge != null,
+                spatialSelectionState,
+                spatialContext),
+            spatial_context = spatialContext
         };
-        var json = JsonUtility.ToJson(payload);
+        var json = SerializeChatRequest(payload);
+        if (spatialContext != null)
+        {
+            LogSpatialEvent(
+                "grounded_chat_sent",
+                spatialSelectionState,
+                spatialSelectionModality,
+                string.Empty,
+                spatialSelectionCandidates);
+        }
 
         using (var req = new UnityWebRequest(url, "POST"))
         {
@@ -1195,6 +1956,15 @@ public class QuickAgentManager : MonoBehaviour
 
             if (req.result != UnityWebRequest.Result.Success)
             {
+                if (spatialContext != null)
+                {
+                    LogSpatialEvent(
+                        "grounded_response_failed",
+                        spatialSelectionState,
+                        spatialSelectionModality,
+                        req.error,
+                        spatialSelectionCandidates);
+                }
                 statusMessage = "Chat fehlgeschlagen: " + req.error;
                 chatLog.Add(statusMessage + " | " + req.downloadHandler.text);
                 if (functionalMldsV2Bridge != null)
@@ -1211,7 +1981,32 @@ public class QuickAgentManager : MonoBehaviour
                 yield break;
             }
 
-            var resp = JsonUtility.FromJson<ChatResponse>(req.downloadHandler.text);
+            // Chat responses contain nullable evidence fields (for example
+            // routing.modeled_handoff). Unity's JsonUtility does not reliably
+            // deserialize Nullable<T>; use the same Newtonsoft contract as the
+            // request path so absence and false remain distinguishable.
+            ChatResponse resp = null;
+            try
+            {
+                resp = JsonConvert.DeserializeObject<ChatResponse>(req.downloadHandler.text);
+            }
+            catch (JsonException exception)
+            {
+                statusMessage = "Chat fehlgeschlagen: ungültige JSON-Antwort.";
+                chatLog.Add(statusMessage);
+                if (functionalMldsV2Bridge != null)
+                {
+                    TryRecordFunctionalMldsV2(
+                        "chat",
+                        "unity_chat_received",
+                        "error",
+                        json,
+                        req.downloadHandler.text,
+                        (Time.realtimeSinceStartupAsDouble - chatStartedAt) * 1000.0,
+                        exception.Message);
+                }
+                yield break;
+            }
             if (resp == null)
             {
                 statusMessage = "Chat fehlgeschlagen: ungültige JSON-Antwort.";
@@ -1229,38 +2024,70 @@ public class QuickAgentManager : MonoBehaviour
                 }
                 yield break;
             }
-            sessionId = resp.session_id;
-            if (!string.IsNullOrEmpty(resp.memory_mode))
-                memoryMode = resp.memory_mode;
-
+            if (spatialContext != null
+                && !ValidateGroundedResponse(resp, spatialContext, out var groundingError))
+            {
+                statusMessage = "Chat-Antwort verworfen: " + groundingError;
+                chatLog.Add(statusMessage);
+                LogSpatialEvent(
+                    "grounded_response_failed",
+                    spatialSelectionState,
+                    spatialSelectionModality,
+                    groundingError,
+                    spatialSelectionCandidates);
+                yield break;
+            }
             var isHandoff = resp.handoff != null && !string.IsNullOrEmpty(resp.handoff.to);
             if (functionalMldsV2Bridge != null)
             {
-                if (!TryRecordFunctionalMldsV2(
+                var observation = CreateInteractionObservation(
+                    payload.interaction_mode,
+                    resp,
+                    responseObserved: true);
+                FunctionalMldsV2InteractionAssessment chatAssessment;
+                if (!TryRecordFunctionalMldsV2Interaction(
                     "chat",
-                    "unity_chat_received",
-                    "success",
-                    json,
-                    req.downloadHandler.text,
+                    "unity_grounded_chat_observed",
+                    observation,
+                    payload,
+                    resp,
                     (Time.realtimeSinceStartupAsDouble - chatStartedAt) * 1000.0,
-                    null))
+                    requireCompletion: true,
+                    out chatAssessment))
                 {
                     yield break;
                 }
-                if (isHandoff
-                    && (!TryRequireFunctionalMldsV2Action("handoff")
-                        || !TryRecordFunctionalMldsV2(
-                            "handoff",
-                            "unity_handoff_received",
-                            "success",
-                            json,
-                            req.downloadHandler.text,
-                            (Time.realtimeSinceStartupAsDouble - chatStartedAt) * 1000.0,
-                            null)))
+                if (isHandoff)
                 {
-                    yield break;
+                    FunctionalMldsV2InteractionAssessment handoffAssessment;
+                    if (!TryRequireFunctionalMldsV2Action("handoff")
+                        || !TryRecordFunctionalMldsV2Interaction(
+                            "handoff",
+                            "unity_handoff_observed",
+                            observation,
+                            payload,
+                            resp,
+                            (Time.realtimeSinceStartupAsDouble - chatStartedAt) * 1000.0,
+                            requireCompletion: true,
+                            out handoffAssessment))
+                    {
+                        yield break;
+                    }
                 }
             }
+            sessionId = resp.session_id;
+            if (!string.IsNullOrEmpty(resp.memory_mode))
+                memoryMode = resp.memory_mode;
+            if (spatialContext != null)
+            {
+                LogSpatialEvent(
+                    "grounded_response_received",
+                    spatialSelectionState,
+                    spatialSelectionModality,
+                    resp.routing_reason ?? string.Empty,
+                    spatialSelectionCandidates);
+            }
+
             if (isHandoff && _fpvActive && fpvProximityHandoff)
             {
                 // From-agent events go to log now; to-agent events are deferred until arrival
@@ -1323,6 +2150,113 @@ public class QuickAgentManager : MonoBehaviour
         }
         catch (Exception exception)
         {
+            statusMessage = $"FunctionalMLDS V2 Logging blockiert {actionKind}: {exception.Message}";
+            chatLog.Add(statusMessage);
+            return false;
+        }
+    }
+
+    private FunctionalMldsV2InteractionObservation CreateInteractionObservation(
+        string interactionMode,
+        ChatResponse response,
+        bool responseObserved)
+    {
+        var deictic = string.Equals(
+            interactionMode,
+            FunctionalMldsV2InteractionEvidenceEvaluator.DeicticMode,
+            StringComparison.Ordinal);
+        var groundedIds = new List<string>();
+        if (response != null)
+        {
+            if (response.grounded_entity_ids != null)
+                groundedIds.AddRange(response.grounded_entity_ids);
+            if (response.grounding != null && response.grounding.grounded_entity_ids != null)
+                groundedIds.AddRange(response.grounding.grounded_entity_ids);
+        }
+        var hasHandoff = response != null
+            && response.handoff != null
+            && !string.IsNullOrWhiteSpace(response.handoff.to);
+        return new FunctionalMldsV2InteractionObservation
+        {
+            InteractionMode = interactionMode,
+            ModelSha256 = currentModelSha256,
+            BindingRegistryValid = deictic ? (bool?)spatialBindingRegistry.IsValid : null,
+            SelectionObserved = deictic && selectedSpatialTarget != null,
+            SelectionState = deictic ? spatialSelectionState : FunctionalMldsSpatialTargetStates.None,
+            SelectedEntityId = deictic && selectedSpatialTarget != null
+                ? selectedSpatialTarget.EntityId
+                : null,
+            SelectedSourceObjectId = deictic && selectedSpatialTarget != null
+                ? selectedSpatialTarget.SourceObjectId
+                : null,
+            SelectedObjectGroupIds = deictic
+                && selectedSpatialTarget != null
+                && !string.IsNullOrWhiteSpace(selectedSpatialTarget.ObjectGroupId)
+                    ? new List<string> { selectedSpatialTarget.ObjectGroupId }
+                    : new List<string>(),
+            SelectedZoneIds = deictic
+                && selectedSpatialTarget != null
+                && !string.IsNullOrWhiteSpace(selectedSpatialTarget.ZoneId)
+                    ? new List<string> { selectedSpatialTarget.ZoneId }
+                    : new List<string>(),
+            RequestedAgentId = activeAgentId,
+            RoutedAgentId = response?.routing?.selected_agent_id ?? response?.active_agent_id,
+            ResponseObserved = responseObserved,
+            ResponseSelectedEntityId = response?.grounding?.selected_entity_id,
+            ResponseGroundedEntityIds = new List<string>(UniqueSorted(groundedIds)),
+            HandoffObserved = hasHandoff,
+            HandoffFromAgentId = hasHandoff ? response.handoff.from : null,
+            HandoffToAgentId = hasHandoff ? response.handoff.to : null,
+            ModeledHandoff = hasHandoff ? response.routing?.modeled_handoff : null
+        };
+    }
+
+    private bool TryRecordFunctionalMldsV2Interaction(
+        string actionKind,
+        string eventType,
+        FunctionalMldsV2InteractionObservation observation,
+        object inputSummary,
+        object outputSummary,
+        double? durationMs,
+        bool requireCompletion,
+        out FunctionalMldsV2InteractionAssessment assessment)
+    {
+        assessment = null;
+        if (functionalMldsV2Bridge == null)
+            return true;
+        try
+        {
+            assessment = functionalMldsV2Bridge.RecordInteraction(
+                actionKind,
+                eventType,
+                activeAgentId,
+                observation,
+                inputSummary,
+                outputSummary,
+                durationMs);
+            interactionEvidenceStatus =
+                $"FunctionalMLDS-Evidenz: {assessment.Verdict} "
+                + $"| Ziel: {(assessment.TargetResolved ? "ok" : "offen")} "
+                + $"| Route: {(assessment.RouteResolved ? "ok" : "offen")} "
+                + $"| Abschluss: {(assessment.CompletionSatisfied ? "ja" : "nein")}";
+            var handler = InteractionEvidenceLogged;
+            if (handler != null)
+                handler(assessment);
+
+            if (string.Equals(assessment.Verdict, "fail", StringComparison.Ordinal)
+                || string.Equals(assessment.Verdict, "error", StringComparison.Ordinal)
+                || (requireCompletion && !assessment.CompletionSatisfied))
+            {
+                statusMessage = $"FunctionalMLDS V2 blockiert {actionKind}: "
+                    + interactionEvidenceStatus;
+                chatLog.Add(statusMessage);
+                return false;
+            }
+            return true;
+        }
+        catch (Exception exception)
+        {
+            interactionEvidenceStatus = $"FunctionalMLDS-Evidenzfehler: {exception.Message}";
             statusMessage = $"FunctionalMLDS V2 Logging blockiert {actionKind}: {exception.Message}";
             chatLog.Add(statusMessage);
             return false;
@@ -1562,6 +2496,14 @@ public class QuickAgentManager : MonoBehaviour
         GUILayout.Label($"Status: {statusMessage}");
         GUILayout.Label($"Session: {sessionId}");
         GUILayout.Label($"Aktiv: {activeAgentId}");
+        GUILayout.Label("Raumziel: " + GetSpatialTargetLabel());
+        if (functionalMldsV2Bridge != null)
+            GUILayout.Label(interactionEvidenceStatus);
+        if (spatialSelectionState != FunctionalMldsSpatialTargetStates.None
+            && GUILayout.Button("Raumziel aufheben"))
+        {
+            ClearSelectedSpatialTarget();
+        }
 
         GUILayout.Space(6);
         GUILayout.Label("Gedaechtnis:");
@@ -1700,7 +2642,7 @@ public class QuickAgentManager : MonoBehaviour
         GUILayout.EndScrollView();
 
         GUILayout.Space(6);
-        GUILayout.Label("Interaktion: Linksklick auf Box wählt Agenten.");
+        GUILayout.Label("Interaktion: Linksklick wählt Agent oder semantisches Raumobjekt.");
         GUILayout.Label("Freie Kamera: WASD + QE, rechte Maustaste zum Umschauen.");
         GUILayout.Space(6);
         GUILayout.Label($"FPV Maussensitivitaet: {fpvMouseSensitivity:0.00}");
@@ -4345,6 +5287,43 @@ public class QuickAgentManager : MonoBehaviour
         return (px - bx) * (ay - by) - (ax - bx) * (py - by);
     }
 
+    private string GetSpatialTargetLabel()
+    {
+        if (spatialSelectionState == FunctionalMldsSpatialTargetStates.Resolved
+            && selectedSpatialTarget != null)
+        {
+            return $"{selectedSpatialTarget.DisplayName} "
+                + $"[{selectedSpatialTarget.SourceObjectId}]";
+        }
+        if (spatialSelectionState == FunctionalMldsSpatialTargetStates.Ambiguous)
+        {
+            return "mehrdeutig – " + spatialSelectionReason;
+        }
+        return "keines";
+    }
+
+    private void DrawSpatialTargetHud()
+    {
+        var width = Mathf.Min(680f, Screen.width - 20f);
+        var style = new GUIStyle(GUI.skin.box)
+        {
+            fontSize = 13,
+            fontStyle = FontStyle.Bold,
+            alignment = TextAnchor.MiddleCenter
+        };
+        if (spatialSelectionState == FunctionalMldsSpatialTargetStates.Resolved)
+            style.normal.textColor = selectedSpatialTargetColor;
+        else if (spatialSelectionState == FunctionalMldsSpatialTargetStates.Ambiguous)
+            style.normal.textColor = new Color(1f, 0.45f, 0.25f);
+        else
+            style.normal.textColor = new Color(0.82f, 0.82f, 0.82f);
+
+        GUI.Box(
+            new Rect(Screen.width * 0.5f - width * 0.5f, 12f, width, 28f),
+            "Raumziel: " + GetSpatialTargetLabel(),
+            style);
+    }
+
     private void DrawFpvHud()
     {
         var sw = Screen.width;
@@ -4358,6 +5337,8 @@ public class QuickAgentManager : MonoBehaviour
                 new Rect(sw * 0.5f - dotSize * 0.5f, sh * 0.5f - dotSize * 0.5f, dotSize, dotSize),
                 Texture2D.whiteTexture, ScaleMode.StretchToFill, false, 0f, Color.white, 0f, 0f);
         }
+
+        DrawSpatialTargetHud();
 
         // Direction arrow toward pending handoff agent
         DrawFpvDirectionArrow();

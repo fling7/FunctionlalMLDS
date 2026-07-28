@@ -4,6 +4,9 @@
   \providecommand\BibTeX{{%
     Bib\TeX}}}
 
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit}
+
 \newcommand{\systemname}{FunctionalMLDS}
 \newcommand{\resultpending}[1]{\textbf{[RESULT PENDING: #1]}}
 
@@ -25,7 +28,8 @@ outcomes consistent. These relationships are commonly distributed across a
 scene editor and an agent backend, which makes interaction failures difficult
 to explain and changes difficult to validate. We present \systemname{}, a
 model-grounded authoring and runtime layer for embodied multi-agent interfaces
-implemented in Unity/WebXR and a conversational-agent backend. The layer makes
+implemented in a Unity desktop prototype with a WebXR deployment path and a
+conversational-agent backend. The layer makes
 the path from a user-facing scenario and spatial target to an agent capability,
 runtime action, and validation assertion explicit and executable. We evaluate
 the approach against direct artifact wiring in three spatial environments using
@@ -57,6 +61,7 @@ model-driven authoring, runtime traceability, Unity, WebXR}
 \input{sections/06_discussion}
 \input{sections/07_limitations}
 \input{sections/08_conclusion}
+\input{sections/09_genai_disclosure}
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{references}

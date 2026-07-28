@@ -13,6 +13,10 @@ from .state import SessionStore
 from .version import backend_version_payload
 
 
+MAX_JSON_BODY_BYTES = 16 * 1024 * 1024
+MAX_MULTIPART_BODY_BYTES = 64 * 1024 * 1024
+
+
 def _set_cors_headers(handler: BaseHTTPRequestHandler) -> None:
     handler.send_header("Access-Control-Allow-Origin", "*")
     handler.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
@@ -33,8 +37,33 @@ def _json_response(handler: BaseHTTPRequestHandler, status: int, payload: Dict[s
     handler.wfile.write(data)
 
 
+def _content_length(
+    handler: BaseHTTPRequestHandler,
+    *,
+    body_kind: str,
+    maximum_bytes: int,
+) -> int:
+    raw_length = handler.headers.get("Content-Length", "0")
+    try:
+        length = int(raw_length)
+    except (TypeError, ValueError) as exc:
+        raise ValueError("Content-Length ist ungültig.") from exc
+    if length < 0:
+        raise ValueError("Content-Length darf nicht negativ sein.")
+    if length > maximum_bytes:
+        raise ValueError(
+            f"{body_kind}-Body ist zu groß "
+            f"(maximal {maximum_bytes} Bytes)."
+        )
+    return length
+
+
 def _read_json(handler: BaseHTTPRequestHandler) -> Dict[str, Any]:
-    length = int(handler.headers.get("Content-Length", "0"))
+    length = _content_length(
+        handler,
+        body_kind="JSON",
+        maximum_bytes=MAX_JSON_BODY_BYTES,
+    )
     if length <= 0:
         return {}
     raw = handler.rfile.read(length).decode("utf-8", errors="replace")
@@ -48,7 +77,11 @@ def _read_multipart(handler: BaseHTTPRequestHandler) -> Tuple[Dict[str, Any], Di
     if "multipart/form-data" not in content_type.lower():
         raise ValueError("Content-Type muss multipart/form-data sein.")
 
-    length = int(handler.headers.get("Content-Length", "0"))
+    length = _content_length(
+        handler,
+        body_kind="Multipart",
+        maximum_bytes=MAX_MULTIPART_BODY_BYTES,
+    )
     if length <= 0:
         raise ValueError("Multipart-Body fehlt.")
 
@@ -137,6 +170,12 @@ def start_http_server(host: str, port: int, store: SessionStore) -> None:
                                 "POST /projects/arrow/chat": "MLDSI-Chat fortsetzen",
                                 "POST /projects/arrow/commit": "Projekt aus MLDSI erstellen",
                                 "POST /projects/arrow/placement": "Agentenpositionen im Wizard aktualisieren",
+                                "POST /projects/arrow/authoring/inspect": "Aktuellen Placement-Authoring-Stand laden",
+                                "POST /projects/arrow/authoring/preview": "Strukturierte Placement-Änderung prüfen",
+                                "POST /projects/arrow/authoring/apply": "Placement anwenden, regenerieren und validieren",
+                                "POST /projects/arrow/authoring/accept": "Validierte Placement-Änderung akzeptieren",
+                                "POST /projects/arrow/authoring/discard": "Offene Placement-Änderung verwerfen",
+                                "POST /projects/arrow/authoring/undo": "Letzte akzeptierte Placement-Änderung rückgängig machen",
                                 "GET /projects/{id}": "Projekt-Details laden",
                                 "GET /projects/{id}/functionalmlds-v2": "Native FunctionalMLDS-V2-Instanz laden",
                                 "POST /projects/{id}/metadata": "Projekt-Metadaten speichern",
@@ -210,6 +249,9 @@ def start_http_server(host: str, port: int, store: SessionStore) -> None:
                 payload = _read_json(self)
             except json.JSONDecodeError as e:
                 return self._send_json(400, {"error": "Invalid JSON", "details": str(e)})
+            except ValueError as e:
+                self._log_action(f"Fehler POST {path}: {e}")
+                return self._send_json(400, {"error": str(e)})
 
             try:
                 if path == "/setup":
@@ -384,6 +426,30 @@ def start_http_server(host: str, port: int, store: SessionStore) -> None:
                 if path == "/projects/arrow/placement":
                     self._log_action("MLDSI-Agentenplatzierung aktualisieren")
                     out = store.update_arrow_placement(payload)
+                    return self._send_json(200, out)
+                if path == "/projects/arrow/authoring/inspect":
+                    self._log_action("Placement-Authoring-Stand laden")
+                    out = store.inspect_arrow_authoring(payload)
+                    return self._send_json(200, out)
+                if path == "/projects/arrow/authoring/preview":
+                    self._log_action("Placement-Änderung prüfen")
+                    out = store.preview_arrow_authoring(payload)
+                    return self._send_json(200, out)
+                if path == "/projects/arrow/authoring/apply":
+                    self._log_action("Placement-Änderung anwenden und validieren")
+                    out = store.apply_arrow_authoring(payload)
+                    return self._send_json(200, out)
+                if path == "/projects/arrow/authoring/accept":
+                    self._log_action("Placement-Änderung akzeptieren")
+                    out = store.accept_arrow_authoring(payload)
+                    return self._send_json(200, out)
+                if path == "/projects/arrow/authoring/discard":
+                    self._log_action("Placement-Änderung verwerfen")
+                    out = store.discard_arrow_authoring(payload)
+                    return self._send_json(200, out)
+                if path == "/projects/arrow/authoring/undo":
+                    self._log_action("Placement-Änderung rückgängig machen")
+                    out = store.undo_arrow_authoring(payload)
                     return self._send_json(200, out)
                 parts = [p for p in path.split("/") if p]
                 if len(parts) >= 2 and parts[0] == "projects":

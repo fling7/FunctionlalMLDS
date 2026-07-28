@@ -378,6 +378,263 @@ class BackendVersionAndPlacementTest(unittest.TestCase):
             self.assertEqual(["functionalmlds_invariants"], executed_stages)
             self.assertNotIn("project_materialization", executed_stages)
 
+    def test_functionalmlds_authoring_preview_is_non_mutating_and_chat_is_honest(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="backend_authoring_preview_") as tmp:
+            fixture = self._functional_fixture(Path(tmp))
+            store = fixture["store"]
+            session = fixture["session"]
+            adapter = fixture["adapter"]
+            case_dir = fixture["case_dir"]
+            paths = SessionStore._functionalmlds_placement_transaction_paths(case_dir)
+            files_before = self._file_snapshot(paths)
+            placement_before = copy.deepcopy(session.placement_preview)
+
+            chat = store.arrow_chat(
+                {
+                    "session_id": session.session_id,
+                    "user_text": "Stelle den Ausstellungsagenten näher an das Exponat.",
+                }
+            )
+            self.assertEqual("not_applied", chat["chat_status"]["status"])
+            self.assertFalse(chat["chat_status"]["model_mutated"])
+            self.assertFalse(session.validation_stale)
+            self.assertEqual([], session.refinement_requests)
+            self.assertEqual(files_before, self._file_snapshot(paths))
+
+            inspected = store.inspect_arrow_authoring(
+                {
+                    "session_id": session.session_id,
+                    "generation_mode": GENERATION_MODE_FUNCTIONALMLDS,
+                }
+            )
+            self.assertEqual("placement_only", inspected["authoring_state"]["scope"])
+            revision = inspected["authoring_state"]["revision"]
+            requested = self._changed_forward_request(session)
+
+            with mock.patch(
+                "backend.state.FunctionalMldsAdapter.discover",
+                return_value=adapter,
+            ):
+                previewed = store.preview_arrow_authoring(
+                    {
+                        "session_id": session.session_id,
+                        "generation_mode": GENERATION_MODE_FUNCTIONALMLDS,
+                        "expected_revision": revision,
+                        "change": {
+                            "kind": "agent_placement",
+                            "rationale": "Blickrichtung zum Exponat korrigieren.",
+                            "agent_placements": requested,
+                        },
+                    }
+                )
+
+            self.assertEqual("preview_ready", previewed["status"])
+            self.assertFalse(previewed["mutation_applied"])
+            self.assertEqual("previewed", previewed["change"]["lifecycle"])
+            self.assertEqual(1, len(previewed["change"]["diffs"]))
+            self.assertEqual(files_before, self._file_snapshot(paths))
+            self.assertEqual(placement_before, session.placement_preview)
+            self.assertTrue(previewed["change"]["affected_artifacts"])
+            for path in previewed["change"]["affected_artifacts"]:
+                self.assertFalse(Path(path).is_absolute(), path)
+                self.assertNotIn("\\", path)
+            serialized = json.dumps(previewed, ensure_ascii=False)
+            self.assertNotIn(str(case_dir), serialized)
+            self.assertNotIn(str(Path(tmp)), serialized)
+
+            blocked = store.commit_arrow_project(
+                {
+                    "session_id": session.session_id,
+                    "project_id": session.case_id,
+                    "display_name": "Open Preview Must Block",
+                }
+            )
+            self.assertEqual("needs_authoring_decision", blocked["status"])
+
+    def test_functionalmlds_authoring_apply_accept_and_undo_is_byte_exact(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="backend_authoring_undo_") as tmp:
+            fixture = self._functional_fixture(Path(tmp))
+            store = fixture["store"]
+            session = fixture["session"]
+            adapter = fixture["adapter"]
+            case_dir = fixture["case_dir"]
+            paths = SessionStore._functionalmlds_placement_transaction_paths(case_dir)
+            files_before = self._file_snapshot(paths)
+            placement_before = copy.deepcopy(session.placement_preview)
+
+            inspected = store.inspect_arrow_authoring({"session_id": session.session_id})
+            requested = self._changed_forward_request(session)
+            with mock.patch(
+                "backend.state.FunctionalMldsAdapter.discover",
+                return_value=adapter,
+            ):
+                previewed = store.preview_arrow_authoring(
+                    {
+                        "session_id": session.session_id,
+                        "expected_revision": inspected["authoring_state"]["revision"],
+                        "change": {
+                            "kind": "agent_placement",
+                            "agent_placements": requested,
+                        },
+                    }
+                )
+                applied = store.apply_arrow_authoring(
+                    {
+                        "session_id": session.session_id,
+                        "change_id": previewed["change"]["change_id"],
+                        "expected_revision": previewed["authoring_state"]["revision"],
+                    }
+                )
+
+            self.assertEqual("applied_pending_accept", applied["status"])
+            self.assertTrue(applied["mutation_applied"])
+            self.assertEqual(
+                "valid",
+                applied["change"]["analysis_validation_summary"]["status"],
+            )
+            self.assertNotEqual(files_before, self._file_snapshot(paths))
+            self.assertNotEqual(placement_before, session.placement_preview)
+
+            accepted = store.accept_arrow_authoring(
+                {
+                    "session_id": session.session_id,
+                    "change_id": applied["change"]["change_id"],
+                    "expected_revision": applied["authoring_state"]["revision"],
+                }
+            )
+            self.assertEqual("accepted", accepted["status"])
+            self.assertTrue(accepted["authoring_state"]["can_undo"])
+            files_accepted = self._file_snapshot(paths)
+
+            with mock.patch(
+                "backend.state.FunctionalMldsAdapter.discover",
+                return_value=adapter,
+            ):
+                undone = store.undo_arrow_authoring(
+                    {
+                        "session_id": session.session_id,
+                        "change_id": accepted["change"]["change_id"],
+                        "expected_revision": accepted["authoring_state"]["revision"],
+                    }
+                )
+            self.assertEqual("undone", undone["status"])
+            self.assertFalse(undone["mutation_applied"])
+            self.assertFalse(undone["authoring_state"]["can_undo"])
+            self.assertEqual(files_before, self._file_snapshot(paths))
+            self.assertEqual(placement_before, session.placement_preview)
+            self.assertNotEqual(files_accepted, self._file_snapshot(paths))
+
+    def test_functionalmlds_authoring_discard_and_revision_conflict_are_non_destructive(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="backend_authoring_discard_") as tmp:
+            fixture = self._functional_fixture(Path(tmp))
+            store = fixture["store"]
+            session = fixture["session"]
+            adapter = fixture["adapter"]
+            case_dir = fixture["case_dir"]
+            paths = SessionStore._functionalmlds_placement_transaction_paths(case_dir)
+            files_before = self._file_snapshot(paths)
+
+            inspected = store.inspect_arrow_authoring({"session_id": session.session_id})
+            requested = self._changed_forward_request(session)
+            with mock.patch(
+                "backend.state.FunctionalMldsAdapter.discover",
+                return_value=adapter,
+            ):
+                conflict = store.preview_arrow_authoring(
+                    {
+                        "session_id": session.session_id,
+                        "expected_revision": "sha256:" + ("0" * 64),
+                        "change": {
+                            "kind": "agent_placement",
+                            "agent_placements": requested,
+                        },
+                    }
+                )
+                self.assertEqual("conflict", conflict["status"])
+                self.assertEqual(files_before, self._file_snapshot(paths))
+
+                previewed = store.preview_arrow_authoring(
+                    {
+                        "session_id": session.session_id,
+                        "expected_revision": inspected["authoring_state"]["revision"],
+                        "change": {
+                            "kind": "agent_placement",
+                            "agent_placements": requested,
+                        },
+                    }
+                )
+                applied = store.apply_arrow_authoring(
+                    {
+                        "session_id": session.session_id,
+                        "change_id": previewed["change"]["change_id"],
+                        "expected_revision": previewed["authoring_state"]["revision"],
+                    }
+                )
+                discarded = store.discard_arrow_authoring(
+                    {
+                        "session_id": session.session_id,
+                        "change_id": applied["change"]["change_id"],
+                        "expected_revision": applied["authoring_state"]["revision"],
+                    }
+                )
+
+            self.assertEqual("discarded", discarded["status"])
+            self.assertFalse(discarded["mutation_applied"])
+            self.assertEqual("idle", discarded["authoring_state"]["lifecycle"])
+            self.assertEqual(files_before, self._file_snapshot(paths))
+
+    def test_functionalmlds_authoring_apply_failure_rolls_back_and_keeps_preview(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="backend_authoring_failure_") as tmp:
+            fixture = self._functional_fixture(Path(tmp))
+            store = fixture["store"]
+            session = fixture["session"]
+            adapter = fixture["adapter"]
+            case_dir = fixture["case_dir"]
+            paths = SessionStore._functionalmlds_placement_transaction_paths(case_dir)
+            files_before = self._file_snapshot(paths)
+            placement_before = copy.deepcopy(session.placement_preview)
+
+            inspected = store.inspect_arrow_authoring({"session_id": session.session_id})
+            requested = self._changed_forward_request(session)
+            with mock.patch(
+                "backend.state.FunctionalMldsAdapter.discover",
+                return_value=adapter,
+            ):
+                previewed = store.preview_arrow_authoring(
+                    {
+                        "session_id": session.session_id,
+                        "expected_revision": inspected["authoring_state"]["revision"],
+                        "change": {
+                            "kind": "agent_placement",
+                            "agent_placements": requested,
+                        },
+                    }
+                )
+                with mock.patch.object(
+                    adapter,
+                    "run_stage",
+                    side_effect=RuntimeError("forced authoring regeneration failure"),
+                ):
+                    failed = store.apply_arrow_authoring(
+                        {
+                            "session_id": session.session_id,
+                            "change_id": previewed["change"]["change_id"],
+                            "expected_revision": previewed["authoring_state"]["revision"],
+                        }
+                    )
+
+            self.assertEqual("invalid", failed["status"])
+            self.assertEqual("previewed", failed["authoring_state"]["lifecycle"])
+            self.assertEqual(files_before, self._file_snapshot(paths))
+            self.assertEqual(placement_before, session.placement_preview)
+            self.assertTrue(
+                any(
+                    "forced authoring regeneration failure" in error
+                    for error in failed["errors"]
+                ),
+                failed["errors"],
+            )
+
     @staticmethod
     def _store(root: Path) -> SessionStore:
         backend_root = Path(__file__).resolve().parents[1]
@@ -500,6 +757,26 @@ class BackendVersionAndPlacementTest(unittest.TestCase):
             }
             for agent in session.agents
         ]
+
+    @classmethod
+    def _changed_forward_request(
+        cls,
+        session: ArrowProjectDraft,
+    ) -> list[Dict[str, Any]]:
+        requested = cls._valid_request(session)
+        current = requested[0]["forward"]
+        candidates = (
+            {"x": 1.0, "y": 0.0, "z": 0.0},
+            {"x": -1.0, "y": 0.0, "z": 0.0},
+            {"x": 0.0, "y": 0.0, "z": 1.0},
+            {"x": 0.0, "y": 0.0, "z": -1.0},
+        )
+        requested[0]["forward"] = next(
+            copy.deepcopy(candidate)
+            for candidate in candidates
+            if candidate != current
+        )
+        return requested
 
     @staticmethod
     def _compact_placements(preview: Dict[str, Any]) -> list[Dict[str, Any]]:

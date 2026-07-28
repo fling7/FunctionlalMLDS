@@ -49,18 +49,20 @@ software architecture or metamodel contribution.
 We ask three questions:
 
 \begin{description}
-  \item[RQ1: Interaction correctness.] How accurately does model-grounded
-  execution resolve spatial targets and route requests across heterogeneous
-  scenes, including ambiguous, negative, and changed-scene cases?
+  \item[RQ1: Representation.] Can assets in
+  heterogeneous scenes be represented as provider-coherent interaction chains
+  and resolved to a responsible agent under explicit asset, group, and zone
+  rules?
 
-  \item[RQ2: Robust authoring and evolution.] Compared with direct artifact
-  wiring, how does the model-grounded workflow affect consistency, detected
-  faults, and the number of artifacts that must be edited when an interaction
-  changes?
+  \item[RQ2: Robustness.] Under semantically matched
+  executable adapters, how do direct wiring and the model-grounded
+  representation compare in routing parity, detection and localization of
+  common faults, representation edits, and local execution time?
 
-  \item[RQ3: Runtime accountability.] To what extent can an interaction be
-  traced from intent and spatial target through agent capability and runtime
-  action to a validated outcome?
+  \item[RQ3: Accountability.] Which invalid
+  selections, routes, and traces are rejected before state mutation, and can an
+  author preview, validate, discard, or undo a placement change without
+  breaking the model-to-runtime chain?
 \end{description}
 
 This paper makes four contributions:
@@ -71,11 +73,11 @@ This paper makes four contributions:
   path and a conversational-agent backend;
   \item an executable interaction chain linking scenarios, targets, agents,
   capabilities, runtime actions, assertions, and evidence;
-  \item a reproducible benchmark over multiple environments covering reference
-  resolution, routing, authoring changes, trace completeness, and injected
-  faults; and
-  \item a controlled comparison with direct artifact wiring, with claims bounded
-  to the measured interaction and engineering outcomes.
+  \item a reproducible, API-free structural benchmark over three environments,
+  plus deliberately valid and broken Unity/backend interaction traces; and
+  \item an executable comparison with direct artifact wiring, with claims
+  bounded to routing parity, synthetic mutations, representation edits, and
+  descriptive local runtime.
 \end{enumerate}
 
 Our current evaluation is a system and computational evaluation, not a claim

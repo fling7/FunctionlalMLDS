@@ -20,7 +20,7 @@
       "scenarioSpecification": ["scenario-spec"],
       "scenario": ["main"],
       "assertion": ["assert-state", "assert-event", "assert-output", "assert-grounding", "assert-relation"],
-      "entity": ["provider-agent", "target-asset"],
+      "entity": ["provider-agent", "specialist-agent", "target-asset"],
       "capability": ["capability-chat"],
       "runtimeBinding": ["binding-chat"],
       "verify": ["verify-requirement"]
@@ -72,8 +72,27 @@
     { "id": "parallel-work", "type": "ParallelGroup", "memberStep": ["step-left", "step-right"] },
     { "id": "guard-retry", "type": "ScenarioCondition", "kind": "guard", "datatype": "EABoolean", "value": true, "operator": "truthy" },
 
-    { "id": "provider-agent", "type": "Agent", "kind": "agent", "providedCapability": ["capability-chat"] },
-    { "id": "target-asset", "type": "Entity", "kind": "asset" },
+    {
+      "id": "provider-agent",
+      "type": "Agent",
+      "kind": "agent",
+      "sourceId": "runtime-agent",
+      "sourceAgentId": "runtime-agent",
+      "providedCapability": ["capability-chat"],
+      "groundedAsset": ["target-asset"],
+      "handoffTarget": ["specialist-agent"]
+    },
+    {
+      "id": "specialist-agent",
+      "type": "Agent",
+      "kind": "agent",
+      "sourceId": "specialist-agent",
+      "sourceAgentId": "specialist-agent",
+      "providedCapability": ["capability-chat"],
+      "groundedAsset": ["target-asset"],
+      "handoffTarget": ["provider-agent"]
+    },
+    { "id": "target-asset", "type": "Entity", "kind": "asset", "sourceId": "target-asset-source" },
     {
       "id": "capability-use-chat",
       "type": "CapabilityUse",

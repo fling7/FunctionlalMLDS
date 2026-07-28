@@ -233,6 +233,14 @@ def _runtime_bindings(prefix: str) -> List[Dict[str, Any]]:
 
 
 def _scenario_and_capability_uses(prefix: str, uc_id: str) -> tuple[Dict[str, Any], List[Dict[str, Any]]]:
+    """Build the authoring pipeline scenario.
+
+    User-facing room interactions are deliberately modeled separately by
+    :func:`_interaction_use_cases`.  Keeping the pipeline trace independent
+    preserves its stable S01--S09 identifiers while allowing every grounded
+    scene object to carry its own provider and target chain.
+    """
+
     steps_spec = [
         ("S01", "actorIntent", "ACT-CASE-STUDY-ENGINEER", "Provide an MLDS file as case-study input.", [], ["MLDS-PROVIDED"], "VALID-INPUT", []),
         ("S02", "systemResponse", None, "Load and normalize the MLDS scene.", ["ANALYZE-MLDS-SCENE"], [], None, ["NORMALIZED-SCENE-VALID"]),
@@ -243,9 +251,6 @@ def _scenario_and_capability_uses(prefix: str, uc_id: str) -> tuple[Dict[str, An
         ("S07", "systemResponse", None, "Assemble and validate the FunctionalMLDS trace instance.", ["ASSEMBLE-FUNCTIONAL-MLDS"], [], None, ["FUNCTIONALMLDS-VALID"]),
         ("S08", "systemResponse", None, "Materialize the Interactive Agents project files.", ["MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"], [], None, ["PROJECT-MATERIALIZED"]),
         ("S09", "systemResponse", None, "Set up an Interactive Agents runtime session.", ["SETUP-INTERACTIVE-SESSION"], [], "AGENTS-AVAILABLE", ["SETUP-VALID"]),
-        ("S10", "actorIntent", "ACT-VISITOR", "Ask a room-related question to an agent.", [], ["VISITOR-QUESTION"], None, []),
-        ("S11", "systemResponse", None, "Answer the visitor question using grounded room knowledge.", ["ANSWER-ROOM-GROUNDED-QUESTION"], [], None, ["ANSWER-GROUNDED"]),
-        ("S12", "systemResponse", None, "Optionally hand off to the responsible specialist agent.", ["HANDOFF-TO-RESPONSIBLE-AGENT"], ["HANDOFF-NEEDED"], "HANDOFF-TARGET-AVAILABLE", ["HANDOFF-VALID"]),
     ]
     capability_uses: List[Dict[str, Any]] = []
     steps = []
@@ -292,14 +297,256 @@ def _scenario_and_capability_uses(prefix: str, uc_id: str) -> tuple[Dict[str, An
     scenario = {
         "id": f"SC-{prefix}-MAIN",
         "kind": "main",
-        "description": "Main scenario for generating and using a spatially grounded multi-agent room guide.",
+        "description": "Authoring pipeline for generating and validating a spatially grounded multi-agent room guide.",
         "precondition_ids": [f"COND-{prefix}-VALID-INPUT"],
-        "postcondition_ids": [f"SA-{prefix}-ANSWER-GROUNDED"],
+        "postcondition_ids": [f"SA-{prefix}-SETUP-VALID"],
         "steps": steps,
         "stepRelations": relations,
         "parallelGroups": [],
     }
     return scenario, capability_uses
+
+
+def _interaction_targets(
+    *,
+    normalized_scene: Dict[str, Any],
+    scene_semantics: Dict[str, Any],
+    agent_roles: Dict[str, Any],
+) -> List[Dict[str, Any]]:
+    """Resolve one fail-closed interaction owner for every grounded asset.
+
+    Only object IDs explicitly grounded by an agent are routable here.  The
+    owner is therefore resolved at the highest-priority asset tier; group and
+    zone references are retained as transparent target context.  Competing
+    asset owners are an ambiguity and must not silently fall through to a
+    lower-priority group or zone owner.
+    """
+
+    object_lookup = _object_lookup(normalized_scene)
+    agents = [
+        agent
+        for agent in (agent_roles.get("agents") or [])
+        if isinstance(agent, dict) and str(agent.get("id") or "").strip()
+    ]
+    owners_by_object: Dict[str, List[Dict[str, Any]]] = {}
+    for agent in agents:
+        for object_id in _unique(agent.get("grounded_object_ids") or []):
+            if object_id not in object_lookup:
+                raise ValueError(
+                    f"Agent {agent.get('id')} grounds missing scene object {object_id}."
+                )
+            owners_by_object.setdefault(object_id, []).append(agent)
+
+    zones_by_object: Dict[str, List[str]] = {}
+    for zone in scene_semantics.get("semantic_zones") or []:
+        if not isinstance(zone, dict):
+            continue
+        zone_id = str(zone.get("zone_id") or "").strip()
+        if not zone_id:
+            continue
+        for object_id in _unique(zone.get("object_ids") or []):
+            zones_by_object.setdefault(object_id, []).append(zone_id)
+
+    ordered_object_ids = [
+        str(obj.get("object_id"))
+        for obj in normalized_scene.get("objects") or []
+        if isinstance(obj, dict) and str(obj.get("object_id") or "") in owners_by_object
+    ]
+    interaction_targets: List[Dict[str, Any]] = []
+    used_tokens: Dict[str, str] = {}
+    for object_id in ordered_object_ids:
+        owners = owners_by_object[object_id]
+        if len(owners) != 1:
+            owner_ids = ", ".join(str(owner.get("id")) for owner in owners)
+            raise ValueError(
+                f"Grounded scene object {object_id} has ambiguous asset owners: {owner_ids}."
+            )
+        owner = owners[0]
+        owner_id = str(owner.get("id"))
+        obj = object_lookup[object_id]
+        token = slugify(object_id, fallback="object").upper().replace("-", "_")
+        previous = used_tokens.setdefault(token, object_id)
+        if previous != object_id:
+            raise ValueError(
+                f"Scene object IDs {previous} and {object_id} collapse to interaction token {token}."
+            )
+
+        responsible_zone_ids = set(_unique(owner.get("responsible_zone_ids") or []))
+        object_zone_ids = _unique(zones_by_object.get(object_id) or [])
+        target_zone_ids = [
+            zone_id for zone_id in object_zone_ids if zone_id in responsible_zone_ids
+        ]
+        if object_zone_ids and not target_zone_ids:
+            raise ValueError(
+                f"Asset owner {owner_id} has no responsible zone containing {object_id}."
+            )
+
+        group_id = str(obj.get("group") or "ungrouped").strip() or "ungrouped"
+        target_entity_ids = [_asset_entity_id(object_id)]
+        if not _is_structural_object(obj):
+            target_entity_ids.append(_object_group_entity_id(group_id))
+        target_entity_ids.extend(_zone_entity_id(zone_id) for zone_id in target_zone_ids)
+        interaction_targets.append(
+            {
+                "object_id": object_id,
+                "object_token": token,
+                "object_name": str(obj.get("object_type") or object_id),
+                "provider_entity_id": _agent_entity_id(owner_id),
+                "provider_name": str(owner.get("display_name") or owner_id),
+                "target_entity_ids": target_entity_ids,
+                "responsibility_tier": "asset",
+            }
+        )
+
+    if not interaction_targets:
+        raise ValueError("No explicitly grounded scene object is available for interaction modeling.")
+    return interaction_targets
+
+
+def _interaction_use_cases(
+    *,
+    prefix: str,
+    interaction_targets: List[Dict[str, Any]],
+) -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    """Create one concrete user-facing scenario for each routable asset."""
+
+    use_cases: List[Dict[str, Any]] = []
+    capability_uses: List[Dict[str, Any]] = []
+    for index, target in enumerate(interaction_targets):
+        object_token = target["object_token"]
+        object_name = target["object_name"]
+        object_id = target["object_id"]
+        provider_name = target["provider_name"]
+        provider_entity_id = target["provider_entity_id"]
+        target_entity_ids = list(target["target_entity_ids"])
+        use_case_id = f"UC-{prefix}-INTERACT-{object_token}"
+        scenario_id = f"SC-{prefix}-INTERACT-{object_token}-MAIN"
+
+        # Preserve the established runtime-trace IDs for the first, stable
+        # representative asset.  Every other asset uses an ID that contains
+        # its exact source-object token.
+        if index == 0:
+            ask_step_id = f"STEP-{prefix}-S10"
+            answer_step_id = f"STEP-{prefix}-S11"
+            handoff_step_id = f"STEP-{prefix}-S12"
+            answer_use_id = f"CU-{prefix}-S11-ANSWER-ROOM-GROUNDED-QUESTION"
+            handoff_use_id = f"CU-{prefix}-S12-HANDOFF-TO-RESPONSIBLE-AGENT"
+        else:
+            ask_step_id = f"STEP-{prefix}-INTERACT-{object_token}-ASK"
+            answer_step_id = f"STEP-{prefix}-INTERACT-{object_token}-ANSWER"
+            handoff_step_id = f"STEP-{prefix}-INTERACT-{object_token}-HANDOFF"
+            answer_use_id = (
+                f"CU-{prefix}-INTERACT-{object_token}-ANSWER-ROOM-GROUNDED-QUESTION"
+            )
+            handoff_use_id = (
+                f"CU-{prefix}-INTERACT-{object_token}-HANDOFF-TO-RESPONSIBLE-AGENT"
+            )
+
+        answer_capability_id = f"CAP-{prefix}-ANSWER-ROOM-GROUNDED-QUESTION"
+        handoff_capability_id = f"CAP-{prefix}-HANDOFF-TO-RESPONSIBLE-AGENT"
+        capability_uses.extend(
+            [
+                {
+                    "id": answer_use_id,
+                    "step_id": answer_step_id,
+                    "capability_id": answer_capability_id,
+                    "preferred_provider_entity_id": provider_entity_id,
+                    "target_entity_ids": target_entity_ids,
+                    "parameters": [],
+                },
+                {
+                    "id": handoff_use_id,
+                    "step_id": handoff_step_id,
+                    "capability_id": handoff_capability_id,
+                    "preferred_provider_entity_id": provider_entity_id,
+                    "target_entity_ids": target_entity_ids,
+                    "parameters": [],
+                },
+            ]
+        )
+        steps = [
+            {
+                "id": ask_step_id,
+                "stepNumber": 1,
+                "kind": "actorIntent",
+                "performedBy": "ACT-VISITOR",
+                "text": f"Select {object_name} ({object_id}) and ask for a description.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [f"EV-{prefix}-VISITOR-QUESTION"],
+                "guard": None,
+                "resultingState": [],
+                "capabilityUseIds": [],
+            },
+            {
+                "id": answer_step_id,
+                "stepNumber": 2,
+                "kind": "systemResponse",
+                "performedBy": "ACT-ROOM-GUIDE",
+                "text": (
+                    f"{provider_name} describes {object_name} using knowledge grounded "
+                    f"in source object {object_id}."
+                ),
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": None,
+                "resultingState": [f"SA-{prefix}-ANSWER-GROUNDED"],
+                "capabilityUseIds": [answer_use_id],
+            },
+            {
+                "id": handoff_step_id,
+                "stepNumber": 3,
+                "kind": "systemResponse",
+                "performedBy": "ACT-ROOM-GUIDE",
+                "text": (
+                    f"Constrain any follow-up handoff about {object_name} to the "
+                    f"modeled responsibility of {provider_name}."
+                ),
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [f"EV-{prefix}-HANDOFF-NEEDED"],
+                "guard": f"COND-{prefix}-HANDOFF-TARGET-AVAILABLE",
+                "resultingState": [f"SA-{prefix}-HANDOFF-VALID"],
+                "capabilityUseIds": [handoff_use_id],
+            },
+        ]
+        relations = [
+            {
+                "id": f"REL-{prefix}-INTERACT-{object_token}-{relation_index:02d}",
+                "kind": "sequence",
+                "source_step_id": steps[relation_index - 1]["id"],
+                "target_step_id": steps[relation_index]["id"],
+                "guard": None,
+                "probability": 1.0,
+            }
+            for relation_index in range(1, len(steps))
+        ]
+        scenario = {
+            "id": scenario_id,
+            "kind": "main",
+            "description": (
+                f"Visitor asks about source object {object_id}; the model binds the "
+                f"interaction to {provider_name} and its asset, group, and zone context."
+            ),
+            "precondition_ids": [f"COND-{prefix}-AGENTS-AVAILABLE"],
+            "postcondition_ids": [
+                f"SA-{prefix}-ANSWER-GROUNDED",
+                f"SA-{prefix}-HANDOFF-VALID",
+            ],
+            "steps": steps,
+            "stepRelations": relations,
+            "parallelGroups": [],
+        }
+        use_cases.append(
+            {
+                "id": use_case_id,
+                "name": f"Describe grounded scene object {object_id}",
+                "actor_ids": ["ACT-VISITOR", "ACT-ROOM-GUIDE"],
+                "extensionPoints": [],
+                "includes": [],
+                "extends": [],
+                "scenarios": [scenario],
+            }
+        )
+    return use_cases, capability_uses
 
 
 def _entities(
@@ -401,7 +648,17 @@ def assemble_functionalmlds_instance(
     object_lookup = _object_lookup(normalized_scene)
     requirements = _requirements(prefix)
     uc_id = f"UC-{prefix}-01"
-    scenario, capability_uses = _scenario_and_capability_uses(prefix, uc_id)
+    pipeline_scenario, capability_uses = _scenario_and_capability_uses(prefix, uc_id)
+    interaction_targets = _interaction_targets(
+        normalized_scene=normalized_scene,
+        scene_semantics=scene_semantics,
+        agent_roles=agent_roles,
+    )
+    interaction_use_cases, interaction_capability_uses = _interaction_use_cases(
+        prefix=prefix,
+        interaction_targets=interaction_targets,
+    )
+    capability_uses.extend(interaction_capability_uses)
     actors = [
         {"id": "ACT-CASE-STUDY-ENGINEER", "name": "Case Study Engineer", "description": "Provides MLDS input and runs the validation pipeline."},
         {"id": "ACT-VISITOR", "name": "Visitor", "description": "Asks room-related questions in the generated immersive environment."},
@@ -433,15 +690,17 @@ def assemble_functionalmlds_instance(
                 **responsibility_trace,
             }
         )
-    use_case = {
+    pipeline_use_case = {
         "id": uc_id,
-        "name": "Generate and use spatially grounded multi-agent guide",
-        "actor_ids": ["ACT-CASE-STUDY-ENGINEER", "ACT-VISITOR", "ACT-ROOM-GUIDE"],
+        "name": "Generate spatially grounded multi-agent guide",
+        "actor_ids": ["ACT-CASE-STUDY-ENGINEER", "ACT-ROOM-GUIDE"],
         "extensionPoints": [],
         "includes": [],
         "extends": [],
-        "scenarios": [scenario],
+        "scenarios": [pipeline_scenario],
     }
+    use_cases = [pipeline_use_case, *interaction_use_cases]
+    representative_use_case_id = interaction_use_cases[0]["id"]
     capabilities = _capabilities(prefix)
     validation_cases = [
         {
@@ -483,7 +742,7 @@ def assemble_functionalmlds_instance(
         {
             "id": f"VC-{prefix}-CHAT-GROUNDING",
             "level": "concrete",
-            "validates_use_case_ids": [uc_id],
+            "validates_use_case_ids": [representative_use_case_id],
             "verifies_requirement_ids": [f"REQ-{prefix}-002", f"REQ-{prefix}-004", f"REQ-{prefix}-006"],
             "stimulus_ids": [f"EV-{prefix}-VISITOR-QUESTION"],
             "runtime_binding_ids": [f"RB-{prefix}-ANSWER-ROOM-GROUNDED-QUESTION"],
@@ -492,19 +751,52 @@ def assemble_functionalmlds_instance(
         {
             "id": f"VC-{prefix}-HANDOFF",
             "level": "concrete",
-            "validates_use_case_ids": [uc_id],
+            "validates_use_case_ids": [representative_use_case_id],
             "verifies_requirement_ids": [f"REQ-{prefix}-003", f"REQ-{prefix}-006"],
             "stimulus_ids": [f"EV-{prefix}-HANDOFF-NEEDED"],
             "runtime_binding_ids": [f"RB-{prefix}-HANDOFF-TO-RESPONSIBLE-AGENT"],
             "expectedOutcome": [f"SA-{prefix}-HANDOFF-VALID"],
         },
     ]
+    for target, interaction_use_case in zip(
+        interaction_targets[1:],
+        interaction_use_cases[1:],
+    ):
+        validation_cases.append(
+            {
+                "id": f"VC-{prefix}-INTERACT-{target['object_token']}",
+                "level": "concrete",
+                "validates_use_case_ids": [interaction_use_case["id"]],
+                "verifies_requirement_ids": [
+                    f"REQ-{prefix}-002",
+                    f"REQ-{prefix}-003",
+                    f"REQ-{prefix}-004",
+                    f"REQ-{prefix}-006",
+                ],
+                "stimulus_ids": [
+                    f"EV-{prefix}-VISITOR-QUESTION",
+                    f"EV-{prefix}-HANDOFF-NEEDED",
+                ],
+                "runtime_binding_ids": [
+                    f"RB-{prefix}-ANSWER-ROOM-GROUNDED-QUESTION",
+                    f"RB-{prefix}-HANDOFF-TO-RESPONSIBLE-AGENT",
+                ],
+                "expectedOutcome": [
+                    f"SA-{prefix}-ANSWER-GROUNDED",
+                    f"SA-{prefix}-HANDOFF-VALID",
+                ],
+            }
+        )
     satisfy = [
         {
             "id": f"SAT-{req['id']}",
             "satisfiedRequirement": [req["id"]],
             "satisfiedUseCase": [],
-            "satisfiedBy": [uc_id, f"VC-{prefix}-MODEL-INVARIANTS"],
+            "satisfiedBy": [
+                uc_id,
+                *[use_case["id"] for use_case in interaction_use_cases],
+                f"VC-{prefix}-MODEL-INVARIANTS",
+            ],
         }
         for req in requirements
     ]
@@ -512,7 +804,11 @@ def assemble_functionalmlds_instance(
         "schema": "functionalmlds_case_study",
         "metamodelVersion": "v0.5",
         "caseId": case_id,
-        "requirementsModel": {"id": f"RM-{prefix}", "requirements": requirements, "useCases": [use_case]},
+        "requirementsModel": {
+            "id": f"RM-{prefix}",
+            "requirements": requirements,
+            "useCases": use_cases,
+        },
         "actors": actors,
         "entities": _entities(prefix=prefix, normalized_scene=normalized_scene, scene_semantics=scene_semantics, agent_roles=agent_roles),
         "agents": agents,
@@ -540,7 +836,18 @@ def validate_functionalmlds_instance(instance: Dict[str, Any]) -> Dict[str, Any]
     runtime_bindings = {rb.get("id"): rb for rb in instance.get("runtimeBindings", []) if isinstance(rb, dict)}
     validation_cases = instance.get("validationCases") or []
     use_cases = (instance.get("requirementsModel") or {}).get("useCases") or []
+    use_case_ids = {
+        use_case.get("id")
+        for use_case in use_cases
+        if isinstance(use_case, dict) and use_case.get("id")
+    }
     requirements = {r.get("id") for r in (instance.get("requirementsModel") or {}).get("requirements", []) if isinstance(r, dict)}
+    agent_by_entity_id = {
+        agent.get("entity_id"): agent
+        for agent in instance.get("agents", [])
+        if isinstance(agent, dict) and agent.get("entity_id")
+    }
+    step_owners_by_capability_use: Dict[str, List[str]] = {}
 
     for entity_id, entity in entities.items():
         kind = entity.get("kind")
@@ -653,6 +960,10 @@ def validate_functionalmlds_instance(instance: Dict[str, Any]) -> Dict[str, Any]
                 for cu_id in step.get("capabilityUseIds") or []:
                     if cu_id not in capability_uses:
                         errors.append(f"ScenarioStep {step.get('id')} references unknown CapabilityUse {cu_id}.")
+                    else:
+                        step_owners_by_capability_use.setdefault(cu_id, []).append(
+                            str(step.get("id") or "")
+                        )
                 for state_id in step.get("resultingState") or []:
                     if state_id not in state_assertions:
                         errors.append(f"ScenarioStep {step.get('id')} references unknown StateAssertion {state_id}.")
@@ -670,6 +981,103 @@ def validate_functionalmlds_instance(instance: Dict[str, Any]) -> Dict[str, Any]
         capability_id = capability_use.get("capability_id")
         if not capability_id or capability_id not in capabilities:
             errors.append(f"CapabilityUse {cu_id} must reference exactly one existing Capability.")
+        owning_steps = step_owners_by_capability_use.get(str(cu_id), [])
+        if len(owning_steps) != 1:
+            errors.append(
+                f"CapabilityUse {cu_id} must be composed by exactly one ScenarioStep."
+            )
+        elif capability_use.get("step_id") != owning_steps[0]:
+            errors.append(
+                f"CapabilityUse {cu_id} step_id does not match its composing ScenarioStep."
+            )
+
+        is_user_facing = str(capability_id or "").endswith(
+            (
+                "-ANSWER-ROOM-GROUNDED-QUESTION",
+                "-HANDOFF-TO-RESPONSIBLE-AGENT",
+            )
+        )
+        if not is_user_facing:
+            continue
+
+        provider_entity_id = str(
+            capability_use.get("preferred_provider_entity_id") or ""
+        ).strip()
+        target_entity_ids = _unique(capability_use.get("target_entity_ids") or [])
+        if not provider_entity_id:
+            errors.append(
+                f"User-facing CapabilityUse {cu_id} has no preferred provider."
+            )
+            continue
+        provider = agent_by_entity_id.get(provider_entity_id)
+        if provider is None:
+            errors.append(
+                f"User-facing CapabilityUse {cu_id} references unknown Agent entity "
+                f"{provider_entity_id}."
+            )
+            continue
+        if capability_id not in (provider.get("providedCapabilityIds") or []):
+            errors.append(
+                f"Preferred provider {provider_entity_id} does not provide "
+                f"Capability {capability_id}."
+            )
+        if not target_entity_ids:
+            errors.append(f"User-facing CapabilityUse {cu_id} has no explicit target.")
+            continue
+        unknown_targets = [
+            target_id for target_id in target_entity_ids if target_id not in entities
+        ]
+        if unknown_targets:
+            errors.append(
+                f"User-facing CapabilityUse {cu_id} references unknown targets: "
+                + ", ".join(unknown_targets)
+            )
+            continue
+
+        provider_assets = set(provider.get("groundedAssetEntityIds") or [])
+        provider_groups = set(provider.get("groundedObjectGroupEntityIds") or [])
+        provider_zones = set(provider.get("responsibleZoneEntityIds") or [])
+        asset_targets = [
+            target_id
+            for target_id in target_entity_ids
+            if entities[target_id].get("entityRole") == "sceneObject"
+        ]
+        if len(asset_targets) != 1 or asset_targets[0] not in provider_assets:
+            errors.append(
+                f"User-facing CapabilityUse {cu_id} must target exactly one asset "
+                f"grounded by provider {provider_entity_id}."
+            )
+            continue
+        asset = entities[asset_targets[0]]
+        expected_groups = {
+            str(asset.get("object_group_entity_id"))
+        } if asset.get("object_group_entity_id") else set()
+        actual_groups = {
+            target_id
+            for target_id in target_entity_ids
+            if entities[target_id].get("entityRole") == "objectGroup"
+        }
+        if actual_groups != expected_groups or not actual_groups.issubset(provider_groups):
+            errors.append(
+                f"User-facing CapabilityUse {cu_id} has a group target inconsistent "
+                f"with asset {asset_targets[0]} and provider {provider_entity_id}."
+            )
+        source_object_id = str(asset.get("source_id") or "")
+        expected_zones = {
+            target_id
+            for target_id in provider_zones
+            if source_object_id in (entities.get(target_id, {}).get("source_object_ids") or [])
+        }
+        actual_zones = {
+            target_id
+            for target_id in target_entity_ids
+            if entities[target_id].get("entityRole") == "semanticZone"
+        }
+        if actual_zones != expected_zones:
+            errors.append(
+                f"User-facing CapabilityUse {cu_id} has zone targets inconsistent "
+                f"with asset {asset_targets[0]} and provider {provider_entity_id}."
+            )
 
     for capability_id, capability in capabilities.items():
         for forbidden in ("endpoint", "tool", "topic", "runtimeActionIds"):
@@ -731,6 +1139,12 @@ def validate_functionalmlds_instance(instance: Dict[str, Any]) -> Dict[str, Any]
         expected = validation_case.get("expectedOutcome") or []
         if not expected:
             errors.append(f"ValidationCase {validation_case.get('id')} has no expectedOutcome.")
+        for use_case_id in validation_case.get("validates_use_case_ids") or []:
+            if use_case_id not in use_case_ids:
+                errors.append(
+                    f"ValidationCase {validation_case.get('id')} references unknown "
+                    f"UseCase {use_case_id}."
+                )
         for state_id in expected:
             if state_id not in state_assertions:
                 errors.append(f"ValidationCase {validation_case.get('id')} references unknown StateAssertion {state_id}.")
@@ -758,6 +1172,11 @@ def validate_functionalmlds_instance(instance: Dict[str, Any]) -> Dict[str, Any]
         "metrics": {
             "requirement_count": len(requirements),
             "use_case_count": len(use_cases),
+            "interaction_use_case_count": sum(
+                1
+                for use_case in use_cases
+                if "-INTERACT-" in str(use_case.get("id") or "")
+            ),
             "entity_count": len(entities),
             "semantic_zone_entity_count": sum(1 for entity in entities.values() if entity.get("entityRole") == "semanticZone"),
             "object_group_entity_count": sum(1 for entity in entities.values() if entity.get("entityRole") == "objectGroup"),
@@ -768,6 +1187,11 @@ def validate_functionalmlds_instance(instance: Dict[str, Any]) -> Dict[str, Any]
             "handoff_runtime_action_count": len(handoff_actions),
             "capability_count": len(capabilities),
             "capability_use_count": len(capability_uses),
+            "explicit_user_provider_count": sum(
+                1
+                for capability_use in capability_uses.values()
+                if capability_use.get("preferred_provider_entity_id")
+            ),
             "runtime_binding_count": len(runtime_bindings),
             "validation_case_count": len(validation_cases),
             "capability_use_coverage": capability_use_coverage,
@@ -799,7 +1223,14 @@ def run_functionalmlds_assembly_for_case(case_dir: Path) -> Dict[str, Any]:
         case_dir,
         stage_id="functionalmlds_assembly",
         status=status,
-        input_paths=[normalized_path, semantics_path, agent_roles_path, placements_path, PROMPT_PATH],
+        input_paths=[
+            normalized_path,
+            semantics_path,
+            agent_roles_path,
+            placements_path,
+            PROMPT_PATH,
+            Path(__file__).resolve(),
+        ],
         output_paths=[instance_path, validation_path],
         errors=validation.get("errors"),
         warnings=validation.get("warnings"),

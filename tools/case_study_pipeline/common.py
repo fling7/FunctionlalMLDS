@@ -6,7 +6,7 @@ import re
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional
+from typing import Any, Dict, Iterable, List, Mapping, Optional
 
 
 def utc_now_iso() -> str:
@@ -88,6 +88,160 @@ def load_manifest(case_dir: Path) -> Dict[str, Any]:
     if not path.exists():
         return {"case_id": case_dir.name, "created_at": utc_now_iso(), "stages": []}
     return read_json(path)
+
+
+def _normalized_path_key(value: Any) -> str:
+    return str(Path(str(value or "")).resolve())
+
+
+def manifest_stage_inputs_match(
+    case_dir: Path,
+    stage_id: str,
+    input_paths: Iterable[Path],
+    *,
+    exact: bool = True,
+) -> bool:
+    """Return whether a successful stage has the current declared inputs.
+
+    Matching the exact dependency set prevents a stale stage from being reused
+    merely because a caller checked a subset of its prompts, model, project or
+    implementation files.
+    """
+
+    manifest = load_manifest(case_dir)
+    stage = next(
+        (
+            entry
+            for entry in manifest.get("stages") or []
+            if isinstance(entry, Mapping) and entry.get("stage_id") == stage_id
+        ),
+        None,
+    )
+    if not stage or stage.get("status") != "success":
+        return False
+
+    recorded = {
+        _normalized_path_key(item.get("path")): item.get("sha256")
+        for item in stage.get("inputs") or []
+        if isinstance(item, Mapping) and item.get("path")
+    }
+    expected_paths = [Path(path) for path in input_paths]
+    expected_keys = {_normalized_path_key(path) for path in expected_paths}
+    if exact and set(recorded) != expected_keys:
+        return False
+    if not expected_keys.issubset(recorded):
+        return False
+    for path in expected_paths:
+        if not path.exists() or not path.is_file():
+            return False
+        if recorded.get(_normalized_path_key(path)) != sha256_file(path):
+            return False
+    return True
+
+
+def manifest_stage_metadata_matches(
+    case_dir: Path,
+    stage_id: str,
+    expected: Mapping[str, Any],
+) -> bool:
+    """Compare selected nested metadata keys using dotted paths."""
+
+    manifest = load_manifest(case_dir)
+    stage = next(
+        (
+            entry
+            for entry in manifest.get("stages") or []
+            if isinstance(entry, Mapping) and entry.get("stage_id") == stage_id
+        ),
+        None,
+    )
+    if not stage:
+        return False
+    metadata: Any = stage.get("metadata") or {}
+    for dotted_key, expected_value in expected.items():
+        current: Any = metadata
+        for part in dotted_key.split("."):
+            if not isinstance(current, Mapping) or part not in current:
+                return False
+            current = current[part]
+        if current != expected_value:
+            return False
+    return True
+
+
+def verify_manifest_stage_integrity(stage: Mapping[str, Any]) -> Dict[str, Any]:
+    """Verify all recorded file/tree fingerprints for one manifest stage."""
+
+    drift: List[Dict[str, Any]] = []
+    checked = 0
+    for role in ("inputs", "outputs"):
+        for item in stage.get(role) or []:
+            if not isinstance(item, Mapping) or not item.get("path"):
+                continue
+            path = Path(str(item["path"]))
+            checked += 1
+            if not path.exists():
+                drift.append(
+                    {"role": role, "path": str(path), "reason": "missing"}
+                )
+                continue
+            if item.get("sha256") is not None:
+                if not path.is_file():
+                    drift.append(
+                        {
+                            "role": role,
+                            "path": str(path),
+                            "reason": "expected_file",
+                        }
+                    )
+                else:
+                    actual = sha256_file(path)
+                    if actual != item.get("sha256"):
+                        drift.append(
+                            {
+                                "role": role,
+                                "path": str(path),
+                                "reason": "sha256_mismatch",
+                                "recorded": item.get("sha256"),
+                                "actual": actual,
+                            }
+                        )
+            elif item.get("tree_sha256") is not None:
+                if not path.is_dir():
+                    drift.append(
+                        {
+                            "role": role,
+                            "path": str(path),
+                            "reason": "expected_directory",
+                        }
+                    )
+                else:
+                    actual = sha256_tree(path)
+                    if actual != item.get("tree_sha256"):
+                        drift.append(
+                            {
+                                "role": role,
+                                "path": str(path),
+                                "reason": "tree_sha256_mismatch",
+                                "recorded": item.get("tree_sha256"),
+                                "actual": actual,
+                            }
+                        )
+            else:
+                drift.append(
+                    {
+                        "role": role,
+                        "path": str(path),
+                        "reason": "unfingerprinted",
+                    }
+                )
+    return {
+        "stage_id": stage.get("stage_id"),
+        "checked_path_count": checked,
+        "drift_count": len(drift),
+        "valid": not drift,
+        "drift": drift,
+    }
 
 
 def update_manifest(

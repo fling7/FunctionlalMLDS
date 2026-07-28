@@ -5,7 +5,13 @@ import json
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Mapping, Optional
 
-from .common import load_manifest, read_json, update_manifest, write_json
+from .common import (
+    load_manifest,
+    read_json,
+    update_manifest,
+    verify_manifest_stage_integrity,
+    write_json,
+)
 
 
 SCHEMA = "functionalmlds_stage_completion_report"
@@ -89,6 +95,11 @@ def compute_stage_completion(case_dir: Path) -> Dict[str, Any]:
     manifest_path = case_dir / "stage_manifest.json"
     manifest = load_manifest(case_dir) if manifest_path.exists() else {"stages": []}
     statuses = _stage_statuses(manifest)
+    stage_entries = {
+        str(entry.get("stage_id") or ""): entry
+        for entry in manifest.get("stages") or []
+        if isinstance(entry, Mapping) and str(entry.get("stage_id") or "")
+    }
     missing_stages = [stage for stage in REQUIRED_STAGES if stage not in statuses]
     non_success_stages = {stage: statuses.get(stage) for stage in REQUIRED_STAGES if statuses.get(stage) != "success"}
 
@@ -97,6 +108,19 @@ def compute_stage_completion(case_dir: Path) -> Dict[str, Any]:
     for stage, status in non_success_stages.items():
         if stage not in missing_stages:
             errors.append(f"Stage {stage} is not successful: {status}.")
+
+    integrity_results = []
+    for stage_id in REQUIRED_STAGES:
+        entry = stage_entries.get(stage_id)
+        if not entry:
+            continue
+        integrity = verify_manifest_stage_integrity(entry)
+        integrity_results.append(integrity)
+        for drift in integrity["drift"]:
+            errors.append(
+                f"Stage {stage_id} has stale {drift['role']} fingerprint "
+                f"({drift['reason']}): {drift['path']}."
+            )
 
     artifact_results = []
     for relative in REQUIRED_ARTIFACTS:
@@ -134,6 +158,13 @@ def compute_stage_completion(case_dir: Path) -> Dict[str, Any]:
             / (len(REQUIRED_STAGES) + len(REQUIRED_ARTIFACTS) + len(REQUIRED_VALIDATION_REPORTS)),
             6,
         ),
+        "integrity_checked_stage_count": len(integrity_results),
+        "integrity_checked_path_count": sum(
+            item["checked_path_count"] for item in integrity_results
+        ),
+        "integrity_drift_count": sum(
+            item["drift_count"] for item in integrity_results
+        ),
     }
     return {
         "schema": SCHEMA,
@@ -147,6 +178,7 @@ def compute_stage_completion(case_dir: Path) -> Dict[str, Any]:
         "stage_statuses": statuses,
         "missing_stages": missing_stages,
         "non_success_stages": non_success_stages,
+        "stage_integrity": integrity_results,
         "required_artifacts": artifact_results,
         "validation_reports": validation_results,
     }
