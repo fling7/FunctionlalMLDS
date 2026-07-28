@@ -1,6 +1,6 @@
 # Prototype and evaluation task list
 
-Last updated: 2026-07-28
+Last updated: 2026-07-29
 
 This list follows the paper's actual claim boundary: a Unity desktop
 prototype, a model-constrained agent backend, a limited placement-authoring
@@ -22,6 +22,8 @@ not claim them.
       access.
 - [x] Hash immutable inputs and reject stale checked-in V2 instances.
 - [x] Publish validated regenerated artifacts for all three cases.
+- [x] Provide a scripted, review-anonymous Unity capture command pinned to
+      the walkthrough's exact project, entity, source ID, and collider.
 
 Evidence: `artifact/README.md`, `artifact/regenerate_frozen.py`,
 `artifact/regeneration-summary.json`, `evaluation/environment.json`.

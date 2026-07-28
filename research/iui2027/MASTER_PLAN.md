@@ -1,6 +1,6 @@
 # ACM IUI 2027 submission master plan
 
-Last updated: 2026-07-28
+Last updated: 2026-07-29
 
 Target: ACM IUI 2027 main paper  
 Abstract registration: 2026-08-13 AoE  
@@ -66,10 +66,10 @@ References:
 
 ## Phase 4 — external review loop
 
-- [ ] Follow [REVIEW_PROTOCOL.md](REVIEW_PROTOCOL.md).
-- [ ] Submit only the anonymous PDF to the Stanford Agentic Reviewer.
-- [ ] Save the returned token only in an ignored local file.
-- [ ] Convert each substantial review comment into a tracked paper or prototype task.
+- [x] Follow [REVIEW_PROTOCOL.md](REVIEW_PROTOCOL.md).
+- [x] Submit only the anonymous PDF to the Stanford Agentic Reviewer.
+- [x] Save the returned token only in an ignored local file.
+- [x] Convert each substantial review comment into a tracked paper or prototype task.
 - [ ] Rebuild and resubmit only after the prior review has been fully addressed.
 - [ ] Stop only when the exit criteria are met.
 

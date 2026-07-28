@@ -58,21 +58,34 @@ responsible zones and grounded assets. These relationships allow validators to
 reject a capability use whose provider is not responsible for its spatial
 target.
 
-\input{figures/contract-model}
-
-Figure~\ref{fig:contract-model} shows the model boundary. A
-\texttt{CapabilityUse} has exactly one capability and one provider in the
+A \texttt{CapabilityUse} has exactly one capability and one provider in the
 executable profile. Its targets may include a scene asset, its group, and the
 provider's zone. A runtime binding realizes the capability through actions; a
 validation case connects the binding and resulting assertions to a check. The
 resolver evaluates asset, then group, then zone ownership. It accepts exactly
 one owner at the highest matching tier; ambiguity or no owner blocks execution.
+Appendix Figure~\ref{fig:contract-model} shows the complete model boundary.
 
-In the running example, a visitor selects a dinosaur skeleton and asks
-``What is this?'' The chain resolves the Exhibit Interpreter's description
-capability and the chat action; Appendix Table~\ref{tab:dinosaur-chain} lists
-the corresponding model objects. Its evidence can verify target, provider, and
-route metadata, but not the biological accuracy of the generated sentence.
+\subsection{Concrete end-to-end walkthrough}
+
+\input{figures/unity-trace-walkthrough}
+
+Figure~\ref{fig:unity-walkthrough} grounds the abstract path in one frozen
+Steinpilz-room case. Unity maps the selected collider's source identifier
+\texttt{brand\_panel3} to \texttt{ENT-ASSET-BRAND\_PANEL3}. The model attaches
+that entity to the branding group and entrance zone and names the Reception
+Agent as asset-level owner. The answer step's capability use maps through one
+runtime binding to the backend-chat action; Appendix
+Table~\ref{tab:steinpilz-chain} lists every identifier.
+
+Starting from the Lounge Host, one declared handoff reaches the Reception
+Agent. The admitted response preserves target, provider, capability-use,
+capability, binding, and action IDs, calls the deterministic stub once, and
+receives the structural contract verdict \texttt{accepted\_with\_evidence}.
+From the Career Advisor, however, reaching that provider requires two handoffs,
+so the request stops before the stub without state mutation. The declared
+grounded-answer assertion names the expected relation; it is not an
+independently observed semantic verdict in this sweep.
 
 \subsection{Staged invariant enforcement}
 
@@ -87,8 +100,8 @@ all three as ``metamodel validation'' would hide where a fault is detected.
 
 The enforcement path has five concrete boundaries: JSON schema, canonical
 model, executable pipeline profile, backend runtime, and Unity client. The
-backend rechecks the authoritative model relations, so a modified client cannot
-bypass provider, route, target, or action validation. Appendix
+backend rechecks the authoritative model relations; client-provided fields
+alone cannot satisfy provider, route, target, or action validation. Appendix
 Table~\ref{tab:enforcement-layers} gives the complete invariant-to-boundary
 mapping.
 
@@ -156,6 +169,28 @@ request from a model-consistent, contract-conforming interaction.
 When several scenarios share an operation kind, the backend selects by trusted
 target and routed provider and returns the resulting binding. Zero or multiple
 exact mappings fail closed; endpoint kind alone is never the dispatch key.
+
+\subsection{Version, identity, and request boundaries}
+
+The contract is pinned at setup. Each preflight compares the current project
+with the session's stored hash, runtime context, and fingerprint; drift is
+rejected, and adopting a changed model requires regeneration and a new
+setup/session. There is no live refresh or migration for objects created,
+deleted, or merged during a conversation.
+
+Model \texttt{id} and \texttt{sourceId}, not display names, bind scene objects.
+Prefab duplication or runtime instantiation that reuses an identity, a
+duplicated collider, one source matching several objects, or a conflicting
+manual binding invalidates the registry. A newly instantiated object without a
+model identity remains unbound; rename and scene-merge operations require
+regeneration or deliberate rebinding, and UUID suffixes are not approximate
+matches.
+
+Session IDs separate contracts and histories, but concurrent writes to one
+session are neither serialized nor evaluated. A request permits at most one
+direct modeled handoff. The response's active-agent ID can seed a later turn,
+which is admitted again under the pinned contract; one turn never traverses a
+multi-hop route.
 
 \subsection{Runtime validation}
 

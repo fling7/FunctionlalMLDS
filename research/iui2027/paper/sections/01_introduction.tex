@@ -24,17 +24,20 @@ bindings, expected assertions, and observed outcomes in a shared interaction
 model. A generation pipeline materializes this model in a Unity desktop client
 and a multi-agent backend. Unity supplies a ray-selected target candidate; the
 contract validates its stable identity, determines the declared provider and
-route, and permits a model call only after those checks pass. Runtime events
+route, and permits a model call only after those request-decidable checks pass.
+Runtime events
 carry model identifiers back into a validation layer, allowing a developer to
 follow an interaction from a user request to its outcome.
 
 We call an interaction \emph{interaction-model-grounded} when the selected
 entity, responsible provider, invoked capability, concrete runtime action, and
 expected assertion all resolve from the same pinned model instance. This is a
-conditional assurance guarantee: if the backend admits a spatial request, that
-request has one complete, authorized model path; otherwise it fails before
-session mutation or answer generation with the earliest violated relation
-identified. The guarantee concerns identity, authority, and trace coherence. It
+conditional assurance guarantee: if the backend admits a spatial request, its
+preflight found one complete model-local path. Request-decidable failures stop
+before a model call or state mutation; response-dependent postconditions can
+reject a generated proposal and roll back its provisional state. In either
+case, the violated relation and enforcement stage are identified. The guarantee
+concerns identity, declared responsibility, and trace coherence. It
 does not establish that the selected object matches an unobserved user
 intention or that a generated answer is factually correct.
 

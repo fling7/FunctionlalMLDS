@@ -1,6 +1,6 @@
 # IUI 2027 scientific paper task list
 
-Last updated: 2026-07-28
+Last updated: 2026-07-29
 
 The paper source is in `paper/`. A checked item is present in the current
 anonymous manuscript and backed by the cited artifact. PCS actions remain
@@ -35,7 +35,8 @@ author actions because they require account access and final author metadata.
 - [x] Cover model-based interface engineering and traceability.
 - [x] Position the contribution as an explicit lifecycle connection, not as
       the first Unity, XR, LLM-agent, embodied-agent, or model-based UI system.
-- [x] Verify bibliography identifiers against primary publisher/DOI records.
+- [x] Verify bibliography identifiers against primary publisher, DOI, or arXiv
+      records.
 
 ## D — Manuscript sections
 
@@ -85,10 +86,10 @@ author actions because they require account access and final author metadata.
 
 - [x] Complete an independent internal IUI-style review and address every
       critical or major point.
-- [ ] Upload the anonymous PDF to paperreview.ai as `ACM IUI 2027` using the
+- [x] Upload the anonymous PDF to paperreview.ai as `ACM IUI 2027` using the
       authorized email.
-- [ ] Store the access token and raw reviews only in ignored private paths.
-- [ ] Convert every substantial comment into a redacted task and resolution.
+- [x] Store the access token and raw reviews only in ignored private paths.
+- [x] Convert every substantial comment into a redacted task and resolution.
 - [ ] Rebuild and resubmit until the textual assessment is positive and no
       critical or major issue remains.
 - [ ] Record the passing review timestamp and paper commit without the email,

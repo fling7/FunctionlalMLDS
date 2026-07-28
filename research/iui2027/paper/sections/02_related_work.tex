@@ -35,11 +35,12 @@ combine recognition of a user's plan and referring expression
 \cite{kollar2010directions}, maintain symbolic anchors for human--robot
 discourse \cite{lemaignan2012grounding}, or learn perceptually grounded word
 meanings for incremental reference resolution
-\cite{kennington2015reference}. \systemname{} does not introduce another
-general grounding model. It supplies a system boundary around a chosen
-selection or grounding mechanism: candidates are bound to stable model
-entities, ambiguity is explicit, responsibility is constrained, and the
-resolved entity remains available to runtime assertions.
+\cite{kennington2015reference}. MM-Conv more recently supplies a multimodal
+benchmark for resolving ambiguous expressions in dynamic 3D dialogue from
+speech, motion, gaze, and scene geometry \cite{deichler2026mmconv}.
+\systemname{} instead begins after target selection: it binds the candidate to
+a stable entity and constrains responsibility and execution. MM-Conv is thus a
+possible upstream resolver, not a competing contract.
 
 \subsection{Conversational authoring and agents in XR}
 
@@ -51,17 +52,17 @@ automations conversationally in AR and VR
 \cite{carcangiu2025tellxr}. CUIfy packages the integration of LLM-powered
 conversational agents in XR \cite{buldu2025cuify}. AgentHands studies
 interactive gestures for spatially grounded XR conversations
-\cite{liu2026agenthands}.
+\cite{liu2026agenthands}. Nisiotis and Hadjiliasi route prompts through an
+SLM-based gateway to heterogeneous AI services in a virtual-world museum
+\cite{nisiotis2026prompt}. ARdena instead controls an embodied agent through
+runtime-composed scenario prompts \cite{borozan2026ardena}.
 
 These systems rule out a claim that combining Unity or XR with LLM agents is
-itself novel. Our focus is complementary. We make the generated interaction
-architecture inspectable across spatial entities, agent responsibilities,
-capabilities, backend actions, and validation evidence. Compared with LLMR and
-Tell-XR, the target is not free-form world generation or individual automation
-rules, but lifecycle-wide consistency of an embodied multi-agent interface.
-Compared with CUIfy and AgentHands, the contribution is an authoring and
-verification layer rather than an integration library or gesture-generation
-method.
+itself novel. Our focus is lifecycle-wide consistency across spatial entities,
+agent responsibilities, backend actions, and evidence, not free-form world
+generation, XR integration, or gestures. Unlike learned service routing, we
+check an authored target--provider--capability--action chain; unlike prompt-level
+scenario control, the restriction remains outside probabilistic generation.
 
 \subsection{Model-based interface and XR engineering}
 
@@ -125,11 +126,21 @@ and invariants \cite{meyer1992contract}; runtime verification evaluates
 specified properties against observations of an executing system
 \cite{leucker2009runtime}. \systemname{} adopts the enforcement intuition but
 does not claim formal program verification. Its obligations are cross-layer
-relations: a request has a pinned model, a resolved entity, one authorized
-provider, an executable binding, and a response that preserves the relevant
-identifiers. The backend checks these obligations before a model call or state
-mutation, while later assertion evidence distinguishes contradiction from a
-missing observation.
+relations: a request has a pinned model, a resolved entity, one model-declared
+provider, and an executable binding; a returned response must also preserve the
+relevant identifiers. The backend checks request-decidable obligations before a
+model call or state mutation. It checks response-dependent postconditions
+afterwards and rolls back a rejected proposal, while later assertion evidence
+distinguishes contradiction from a missing observation.
+
+Recent agent-governance work clarifies what this contract does not replace.
+Ibrahim and Li formalize recursive delegation and scope attenuation as an
+authorization overlay \cite{ibrahim2026overlaying}, while Qin et al.\ govern
+whether a new capability version may be activated, monitored, or rolled back
+\cite{qin2026governed}. Our complementary invocation-time question is whether
+the active model maps this target and provider to the exact Unity-facing action.
+A deployment can require both decisions; this prototype implements only the
+interaction binding.
 
 Provenance models such as W3C PROV connect entities, activities, and agents so
 that derivation can be represented and exchanged \cite{lebo2013provo}. Agent
@@ -141,6 +152,13 @@ identifiers and observable outcome needed to locate a failure along the
 scenario--target--provider--action path, without claiming to expose private
 chain-of-thought or explain answer semantics.
 
+ESAA similarly separates probabilistic agent intentions from deterministic
+project mutation and records append-only events for replay and audit
+\cite{santosfilho2026esaa}. It targets long-running software workflows;
+\systemname{} instead blocks a spatial effect when its target, provider,
+capability, or binding is missing. Persistent event sourcing remains future
+work.
+
 \subsection{Positioning}
 
 Prior work addresses model-based interface generation, conversational XR
@@ -148,7 +166,8 @@ authoring, spatial grounding, embodied agents, and LLM-agent orchestration.
 \systemname{} instead keeps one interaction contract active after
 materialization, linking the selected entity and responsible agent to a
 capability, runtime action, and observed assertion. We evaluate routing
-correctness, change consistency, fault localization, and trace completeness
+agreement, change consistency, fault localization, and trace completeness
 against a normalized direct-artifact adapter; we do not claim the first
-spatial-agent system, a new grounding algorithm, or a general UI description
-language. Appendix Table~\ref{tab:closest-work} details the closest comparison.
+spatial-agent system, a new grounding algorithm, a general authorization
+framework, or a general UI description language. Appendix
+Table~\ref{tab:closest-work} details the closest comparison.

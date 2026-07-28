@@ -166,9 +166,9 @@
     {
       "facts": {
         "checker_status": "pass",
-        "pdf_bytes": 625824,
+        "pdf_bytes": 1445760,
         "pdf_present": true,
-        "pdf_sha256": "3dfe5462e08990edb15af2811bdfb3bdc2ac073c602cb122e8b8803a565c293c"
+        "pdf_sha256": "ade3bcde931e59bc861e3b423cc72c8208c6557dee82eb547f0128415dd59066"
       },
       "id": "paper",
       "issues": [],
@@ -178,7 +178,7 @@
     },
     {
       "facts": {
-        "file_count": 75,
+        "file_count": 78,
         "finding_count": 0,
         "patterns": [
           "email_address",

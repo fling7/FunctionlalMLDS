@@ -21,6 +21,7 @@ MAX_RECOMMENDED_WORDS = 8_000
 LENGTH_JUSTIFICATION_THRESHOLD = 10_000
 MAX_REVIEWER_BYTES = 10 * 1024 * 1024
 MAX_REVIEWER_ANALYZED_PAGES = 15
+CONCLUSION = ROOT / "sections" / "08_conclusion.tex"
 
 
 def fail(message: str, failures: list[str]) -> None:
@@ -78,6 +79,26 @@ def pending_marker_count(source: str) -> int:
     """Count uses, not the ``\\newcommand`` definition with its ``[1]`` arity."""
 
     return len(re.findall(r"\\resultpending\{", source))
+
+
+def normalized_words(text: str) -> list[str]:
+    """Normalize source and extracted PDF text for robust boundary checks."""
+
+    return re.findall(r"[a-z0-9]+", text.casefold())
+
+
+def conclusion_tail_present(analyzed_text: str, *, tail_words: int = 8) -> bool:
+    """Return whether the final conclusion phrase is inside the analyzed pages."""
+
+    conclusion_text = tex_without_commands(
+        CONCLUSION.read_text(encoding="utf-8")
+    )
+    conclusion_words = normalized_words(conclusion_text)
+    if len(conclusion_words) < tail_words:
+        raise ValueError("Conclusion is too short for the review-window check.")
+    tail = " ".join(conclusion_words[-tail_words:])
+    analyzed = " ".join(normalized_words(analyzed_text))
+    return tail in analyzed
 
 
 def inspect_pdf(
@@ -186,6 +207,12 @@ def main() -> int:
                     fail(
                         "The Conclusion falls outside the 15 pages analyzed by "
                         "paperreview.ai.",
+                        failures,
+                    )
+                elif not conclusion_tail_present(analyzed_text):
+                    fail(
+                        "The Conclusion starts but does not finish within the "
+                        "15 pages analyzed by paperreview.ai.",
                         failures,
                     )
                 else:

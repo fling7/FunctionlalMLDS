@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using UnityEditor;
@@ -8,7 +9,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 
 /// <summary>
-/// Deterministic, review-anonymous capture of the implemented visitor surface.
+/// Scripted, review-anonymous capture of the implemented visitor surface.
 /// The command opens the real Steinpilz scene, selects its frozen backend
 /// project, waits for the V2 bindings, enters one resolved selection through
 /// the same state transition used by ray selection, and captures the Game view.
@@ -17,6 +18,8 @@ public static class Iui2027InterfaceCapture
 {
     private const string ScenePath = "Assets/Scenes/MolkereiChampignion.unity";
     private const string ProjectId = "steinpilz_brand_room";
+    private const string TargetEntityId = "ENT-ASSET-BRAND_PANEL3";
+    private const string TargetSourceObjectId = "brand_panel3";
     private const string SuccessMarker = "[Iui2027InterfaceCapture] OK";
     private const double CaptureDelaySeconds = 8.0;
     private const double TimeoutSeconds = 240.0;
@@ -183,7 +186,7 @@ public static class Iui2027InterfaceCapture
             && registry.IsValid
             && registry.Count > 0)
         {
-            var binding = SelectVisibleBinding(registry);
+            var binding = SelectRequiredBinding(registry);
             var collider = binding.SelectionCollider;
             if (collider == null)
             {
@@ -198,6 +201,23 @@ public static class Iui2027InterfaceCapture
                 collider.bounds.center,
                 2.4f,
                 "desktop_ray");
+            var camera = Camera.main
+                ?? UnityEngine.Object.FindAnyObjectByType<Camera>();
+            var viewport = camera == null
+                ? Vector3.zero
+                : camera.WorldToViewportPoint(collider.bounds.center);
+            Debug.Log(
+                "[Iui2027InterfaceCapture] selection"
+                + "; entity_id=" + binding.EntityId
+                + "; source_object_id=" + binding.SourceObjectId
+                + "; display_name=" + binding.DisplayName
+                + "; viewport=("
+                + viewport.x.ToString("0.000", CultureInfo.InvariantCulture)
+                + ","
+                + viewport.y.ToString("0.000", CultureInfo.InvariantCulture)
+                + ","
+                + viewport.z.ToString("0.000", CultureInfo.InvariantCulture)
+                + ")");
             selectionAt = now;
             captureRequested = true;
             return;
@@ -239,57 +259,59 @@ public static class Iui2027InterfaceCapture
         }
     }
 
-    private static FunctionalMldsSceneObjectBinding SelectVisibleBinding(
+    private static FunctionalMldsSceneObjectBinding SelectRequiredBinding(
         FunctionalMldsSceneObjectBindingRegistry registry)
     {
         var camera = Camera.main ?? UnityEngine.Object.FindAnyObjectByType<Camera>();
-        FunctionalMldsSceneObjectBinding fallback = null;
-        FunctionalMldsSceneObjectBinding best = null;
-        var bestScore = float.PositiveInfinity;
+        FunctionalMldsSceneObjectBinding selected = null;
+        var matchCount = 0;
 
         foreach (var candidate in registry.Bindings)
         {
-            if (candidate == null || candidate.SelectionCollider == null)
+            if (candidate == null
+                || !string.Equals(
+                    candidate.EntityId,
+                    TargetEntityId,
+                    StringComparison.Ordinal)
+                || !string.Equals(
+                    candidate.SourceObjectId,
+                    TargetSourceObjectId,
+                    StringComparison.Ordinal))
             {
                 continue;
             }
-            fallback ??= candidate;
-            if (camera == null)
-            {
-                continue;
-            }
+            selected = candidate;
+            matchCount++;
+        }
 
+        if (matchCount != 1 || selected == null)
+        {
+            throw new InvalidOperationException(
+                "Expected exactly one capture binding for entity '"
+                + TargetEntityId
+                + "' and source '"
+                + TargetSourceObjectId
+                + "', found "
+                + matchCount
+                + ".");
+        }
+        if (selected.SelectionCollider == null)
+        {
+            throw new InvalidOperationException(
+                "The required capture binding has no selection collider.");
+        }
+        if (camera != null)
+        {
             var viewport = camera.WorldToViewportPoint(
-                candidate.SelectionCollider.bounds.center);
+                selected.SelectionCollider.bounds.center);
             if (viewport.z <= 0f
                 || viewport.x < 0.05f
                 || viewport.x > 0.95f
                 || viewport.y < 0.05f
                 || viewport.y > 0.95f)
             {
-                continue;
+                camera.transform.LookAt(selected.SelectionCollider.bounds.center);
             }
-
-            var score = Mathf.Abs(viewport.x - 0.5f)
-                + Mathf.Abs(viewport.y - 0.5f)
-                + viewport.z * 0.0001f;
-            if (score < bestScore)
-            {
-                best = candidate;
-                bestScore = score;
-            }
-        }
-
-        var selected = best ?? fallback;
-        if (selected == null)
-        {
-            throw new InvalidOperationException(
-                "The registry contains no binding with a selection collider.");
-        }
-
-        if (best == null && camera != null)
-        {
-            camera.transform.LookAt(selected.SelectionCollider.bounds.center);
         }
         return selected;
     }

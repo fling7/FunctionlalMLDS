@@ -41,24 +41,31 @@ not the paper’s sole subject. It explicitly connects:
 6. assertions and runtime evidence.
 
 The authoring system derives and previews these links from a structured room
-description, lets an author inspect and revise them, and materializes the result
-in Unity and the agent backend. At runtime, a ray-selected object becomes a
-validated spatial context. The model determines the responsible agent and
-allowed capability path; observable events close the trace back to the
-user-facing scenario.
+description and materializes the result in Unity and the agent backend. Authors
+can inspect every link; the implemented workbench revises placement only, while
+typed responsibility, capability, and handoff edits remain a roadmap. At
+runtime, a ray-selected object becomes a validated spatial context. The model
+determines the responsible agent and allowed capability path; observable events
+close the trace back to the user-facing scenario.
 
 ## Concrete running example
 
-A visitor points at a dinosaur skeleton and asks, “What is this?”
+A visitor selects the Unity object `brand_panel3` in the Steinpilz exhibition
+room and asks a grounded question.
 
-1. Unity maps the selected collider to the modeled `DinosaurSkeleton` entity.
-2. The backend validates the entity and model hash before invoking an LLM.
-3. The model links the asset to `ExhibitInterpreter`, its
-   `DescribeRoomObject` capability, and the `/chat` runtime action.
-4. Only modeled handoffs are available.
-5. The response returns the grounded entity and evidence references.
-6. Runtime probes verify selection, routing, capability use, and response
-   grounding and attach the verdicts to the scenario trace.
+1. Unity maps the collider to `ENT-ASSET-BRAND_PANEL3`.
+2. The backend validates the entity and pinned model hash before the response
+   stub.
+3. The capability use names the asset, branding group, entrance zone, and
+   responsible Reception Agent.
+4. From the Lounge Host, one declared handoff reaches that provider; from the
+   Career Advisor, the required two-hop route is rejected before the stub.
+5. The runtime binding maps the grounded-answer capability to
+   `RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT` (`POST /chat`).
+6. The admitted path returns the structural verdict `accepted_with_evidence`
+   and preserves target, provider, capability-use, capability, binding, and
+   action IDs. The grounded-answer assertion remains declared rather than
+   independently judged for semantic correctness.
 
 This is the implemented end-to-end contract exercised by the Unity batch
 smokes and backend tests. The evaluation does not ask an online model to judge
@@ -139,7 +146,8 @@ We must not claim:
 1. An author turns a spatial scene description into a multi-agent interface.
 2. A visitor points to an object and asks an underspecified question.
 3. Direct wiring hides reference resolution and routing across assets and code.
-4. The proposed authoring interface makes those decisions visible and editable.
+4. The proposed interface makes those decisions visible and makes placement
+   reversibly editable.
 5. FunctionalMLDS stores them as an executable interaction contract.
 6. Unity and the backend execute only contract-valid actions and handoffs.
 7. Runtime evidence explains whether the intended interaction succeeded.

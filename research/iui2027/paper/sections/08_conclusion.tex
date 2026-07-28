@@ -1,21 +1,17 @@
 \section{Conclusion}
 
-We presented an interaction-model-grounded assurance layer for embodied
-multi-agent interfaces in Unity. Rather than replacing interaction design with
-a metamodel, it requires each admitted request to follow one pinned chain from
-spatial target through agent capability and runtime action, while a rejection
-identifies the violated relation.
+We presented an interaction-model-grounded assurance layer for embodied agents
+in Unity. Each admitted request follows one pinned chain from spatial target
+through agent capability and runtime action; rejection identifies the violated
+relation.
 
-All 93 assets had complete provider-coherent chains, and all 186 declared
-target-specific candidates were structurally complete. Under a shared resolver,
-the adapters agreed on 93 owner and 459 route decisions and detected all nine
-common injected faults. The runtime sweep admitted all 298 local or direct
-routes with consistent binding evidence and rejected all 161 transitive or
-unreachable routes before the response stub without session mutation. Unity
-batch tests exercised 31 scenario contexts and 73 actions; four placement
-workflows preserved preview and recovery guarantees.
+All 93 assets and 186 target-specific candidates were structurally complete.
+Under a shared resolver, the adapters agreed on 93 owner and 459 route
+decisions and detected all nine common faults. The runtime admitted all 298
+local/direct routes and rejected all 161 transitive/unreachable routes before
+the stub without session mutation. Unity loaded 31 scenario contexts and 73
+actions; all four placement workflows passed.
 
-These corpus-bounded results support \systemname{} as an executable assurance
-boundary, not claims of better answers, usability, trust, or authoring
-productivity. Whether the added structure helps people design or understand
-spatial-agent interactions remains a human-participant question.
+These corpus-bounded results establish only an executable assurance boundary;
+whether the structure helps people design or understand spatial-agent
+interactions remains a human-participant question.

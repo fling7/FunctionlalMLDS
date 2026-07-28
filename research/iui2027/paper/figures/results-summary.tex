@@ -1,0 +1,28 @@
+\begin{table*}[t]
+  \caption{Main measured results. Counts describe the fixed three-scene corpus
+  and deterministic test paths, not participants or dialogue quality.}
+  \label{tab:results-summary}
+  \centering
+  \footnotesize
+  \begin{tabular}{@{}p{.22\textwidth}p{.43\textwidth}p{.27\textwidth}@{}}
+    \toprule
+    Check & Observed result & Boundary \\
+    \midrule
+    Chains and routing
+      & 93/93 assets and 186/186 target-specific pairs complete; 93/93 owner
+        decisions and 459/459 route classifications agree
+      & Static records; shared resolver \\
+    Common injected faults
+      & Both adapters detected and localized 9/9; 0/3 false positives
+      & Three scripted fault types per scene \\
+    Runtime admission
+      & 298/298 local/direct routes admitted; 161/161 transitive/unreachable
+        routes rejected before the stub
+      & Deterministic response stub; restored sessions \\
+    Unity and placement
+      & 3/3 batch entry points, 31 contexts, and 73 actions; 4/4 placement
+        workflows passed
+      & Desktop Editor and scripted paths \\
+    \bottomrule
+  \end{tabular}
+\end{table*}

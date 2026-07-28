@@ -36,8 +36,8 @@ a Unity desktop prototype and a conversational-agent backend. The layer makes
 the path from a user-facing scenario and spatial target to an agent capability,
 runtime action, and validation assertion explicit and executable. An admitted
 request must resolve that entire path in one pinned model version; a failed
-request is assigned to the first violated relation instead of being treated as
-a generic chat failure. We evaluate the approach against a normalized adapter
+request reports the contract stage and relation that blocked it instead of
+being treated as a generic chat failure. We evaluate the approach against a normalized adapter
 over the corresponding direct artifacts in three spatial environments, using
 exhaustive structural probes over a fixed authored corpus, contract tests, and
 systematic fault injection. All 93 assets had a complete declared
@@ -49,8 +49,9 @@ faults. An exhaustive runtime sweep admitted all 298 local or direct routes with
 the expected target and provider and cross-field-consistent binding identifiers,
 then rejected all 161 transitive or unreachable routes before the response stub
 without session mutation. A multi-scenario Unity smoke loaded 31 scenario
-actions. The contribution is a technical and interaction-oriented account of
-how explicit model relations can authorize, diagnose, and reproducibly test
+contexts and 73 actions. The contribution is a technical and
+interaction-oriented account of how explicit model relations can admit,
+diagnose, and reproducibly test
 spatial-agent behavior; it does not claim improvements in subjective user
 experience without a human-participant study.
 \end{abstract}

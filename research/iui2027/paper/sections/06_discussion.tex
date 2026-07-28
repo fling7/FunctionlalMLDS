@@ -2,57 +2,57 @@
 
 \subsection{Implications for intelligent-interface authoring}
 
-Agent behavior in a spatial interface begins with a user-facing task and
-environmental referent, not the chat endpoint. The explicit path gives
-developers a pre-interaction view of responsibility, permitted behavior,
-expected outcomes, and failures such as unknown targets, ambiguous owners,
-disallowed handoffs, missing bindings, or contradictory observations. This is
-a diagnostic and enforcement claim, not an explanation of model reasoning. It
-is most useful for evolving scenes with divided agent responsibility; a static
-single-chatbot interface may not justify the added representation. The
-workbench currently revises placement, not responsibility or capabilities.
+The explicit path gives developers a pre-interaction view of responsibility,
+permitted behavior, expected outcomes, and failures such as unknown targets,
+ambiguous owners, missing bindings, or contradictory observations. This is a
+diagnostic claim, not an explanation of model reasoning, and a static
+single-chatbot interface may not justify the added structure. The workbench
+currently revises placement only. Responsibility, capability, and handoff
+relations are a roadmap: they should become typed preview--validate--commit
+transactions rather than unrestricted graph edits.
 
 \subsection{Control and failure recovery}
 
-An intelligent interface should communicate when it cannot ground a request or
-when no agent has the required capability. Silent fallback to a generic agent
-can produce a fluent but misleading response. The current visitor path exposes
-no-target and ambiguity status and blocks the answer transition; route and
-assertion diagnostics are primarily developer-facing. Turning these states into
-well-designed clarification, transparent-handoff, or abstention dialogues is
-future interaction work.
+Silent fallback after failed grounding can produce a fluent but misleading
+response. The visitor path instead exposes no-target and ambiguity status and
+blocks the answer transition; route and assertion details remain
+developer-facing. Clarification, transparent-handoff, and abstention dialogues
+are future interaction work.
+
+\subsection{Composing interaction and authorization policy}
+
+``Authorized'' is local to the interaction model: the scenario declares this
+provider and capability for this target. It neither authenticates a person nor
+grants access to a protected resource. A deployment can resolve the exact
+target--provider--action tuple with \systemname{} and then require an external
+relationship- or capability-based policy to approve it; lifecycle governance
+can separately decide which implementation may be active. The preflight
+boundary permits this composition, but the prototype integrates neither
+mechanism.
 
 \subsection{Practical and societal considerations}
 
-Spatial agent systems can encode sensitive information about rooms, user
-locations, speech, and interaction histories. A trace that improves debugging
-can also increase surveillance risk. Deployments should minimize retained
-location and conversation data, separate technical identifiers from personal
-identities, and make retention visible to users.
+Spatial-agent traces can expose rooms, locations, speech, and interaction
+histories. The backend receives the utterance, target identifiers, ray
+metadata, and modality; the model provider receives bounded history and trusted
+entity/group/zone context but not raw ray coordinates. Persistent traces omit
+utterance text, yet the prototype lacks visitor-facing consent, retention,
+export, and deletion controls. Deployments should minimize data and separate
+technical identifiers from personal identities. Agent roles can also encode
+organizational bias: inspectability does not replace review of representation,
+authority, refusal, safeguards, or knowledge provenance.
 
-In the prototype, a request sends the utterance together with entity and source
-identifiers, ray-hit coordinates, distance, and input modality to the backend.
-For an online reply, the model provider receives the utterance, bounded history,
-and trusted entity, group, and zone context, but not the raw ray coordinates.
-The backend keeps that bounded history in memory. Persistent runtime traces
-record model, scenario, target, provider, action, status, and utterance length
-rather than the utterance text. This data minimization is useful but incomplete:
-the prototype has no visitor-facing consent, retention, export, or deletion
-controls.
+\subsection{Artifact-release boundary}
 
-Agent roles and knowledge assignments can reproduce organizational bias. A
-model makes assignments inspectable but does not make them fair. Authors still
-need procedures for reviewing who is represented, which agent is considered
-authoritative, and which requests are refused or redirected. Likewise,
-language-model safeguards and knowledge provenance remain necessary even when
-the surrounding configuration is valid.
+The review artifact supports local replication but grants no blanket
+redistribution license. Public release requires an owner-approved license, a
+third-party inventory, and removal or replacement of restricted Unity/media
+assets. The intended path is a clean tagged snapshot plus a newly licensed
+minimal scene that runs the same contract tests.
 
 \subsection{When a model helps---and when it does not}
 
-The approach trades authoring structure for validation and runtime evidence and
-helps only while model and runtime remain synchronized. Both adapters detected
-the common fault set; higher detection was therefore not the observed benefit.
-Model-grounded patches touched fewer top-level artifacts and expressed added
-provider constraints, but changed more references and had higher local
-structural runtime. Whether this trade helps authors is an empirical interaction
-question.
+The approach trades authoring structure for evidence and helps only while model
+and runtime remain synchronized. Both adapters detected the common faults;
+model-grounded patches changed fewer artifacts but more references and ran
+slower locally. Whether this trade helps authors requires human evaluation.

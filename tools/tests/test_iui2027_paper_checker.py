@@ -29,6 +29,16 @@ class Iui2027PaperCheckerTests(unittest.TestCase):
         compact = "".join(source.split())
         self.assertIn(check_submission.PDF_UA_STANDARD, compact)
 
+    def test_review_window_requires_conclusion_tail(self) -> None:
+        conclusion = check_submission.tex_without_commands(
+            check_submission.CONCLUSION.read_text(encoding="utf-8")
+        )
+        tail = " ".join(check_submission.normalized_words(conclusion)[-8:])
+        self.assertTrue(check_submission.conclusion_tail_present(tail))
+        self.assertFalse(
+            check_submission.conclusion_tail_present("Conclusion starts here")
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
