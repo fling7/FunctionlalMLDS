@@ -90,9 +90,9 @@ author actions because they require account access and final author metadata.
       authorized email.
 - [x] Store the access token and raw reviews only in ignored private paths.
 - [x] Convert every substantial comment into a redacted task and resolution.
-- [ ] Rebuild and resubmit until the textual assessment is positive and no
+- [x] Rebuild and resubmit until the textual assessment is positive and no
       critical or major issue remains.
-- [ ] Record the passing review timestamp and paper commit without the email,
+- [x] Record the passing review timestamp and paper commit without the email,
       token, or private raw response.
 
 ## H — Author actions before PCS deadlines

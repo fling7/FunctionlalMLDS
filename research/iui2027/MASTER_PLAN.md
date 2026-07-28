@@ -19,11 +19,11 @@ The project is complete only when all of the following hold:
 - [x] Every claim in the paper maps to generated evidence.
 - [x] The anonymous PDF builds with the official ACM review class.
 - [x] The PDF satisfies the IUI format, anonymity, accessibility, and word-count checks.
-- [ ] A fresh Stanford Agentic Reviewer run contains no major or critical weakness.
-- [ ] Its overall assessment is positive and recommends acceptance or describes
+- [x] A fresh Stanford Agentic Reviewer run contains no major or critical weakness.
+- [x] Its overall assessment is positive and recommends acceptance or describes
       the work as submission-ready.
-- [ ] All repository changes and non-secret review evidence are committed and pushed.
-- [ ] The five-minute heartbeat is paused only after the preceding criteria hold.
+- [x] All repository changes and non-secret review evidence are committed and pushed.
+- [x] The five-minute heartbeat is paused only after the preceding criteria hold.
 
 The Stanford service does not expose an IUI-calibrated accept/reject score.
 Consequently, “accepted” is operationalized by the two reviewer criteria above;
@@ -59,10 +59,13 @@ References:
 
 ## Phase 3 — paper
 
-- [ ] Complete all items in [PAPER_TASKS.md](PAPER_TASKS.md).
+- [x] Complete all manuscript, verification, and review-loop items (sections
+      A–G) in [PAPER_TASKS.md](PAPER_TASKS.md).
 - [x] Build the anonymous PDF and inspect every page.
 - [x] Package anonymized supplementary material; a system video is deferred
       because it is not required for the present claim boundary.
+
+The PCS/account actions in section H intentionally remain with the authors.
 
 ## Phase 4 — external review loop
 
@@ -70,14 +73,29 @@ References:
 - [x] Submit only the anonymous PDF to the Stanford Agentic Reviewer.
 - [x] Save the returned token only in an ignored local file.
 - [x] Convert each substantial review comment into a tracked paper or prototype task.
-- [ ] Rebuild and resubmit only after the prior review has been fully addressed.
-- [ ] Stop only when the exit criteria are met.
+- [x] Rebuild and resubmit only after the prior review has been fully addressed.
+- [x] Stop only when the exit criteria are met.
 
 ## Phase 5 — release
 
 - [x] Run all Python, backend, model, evaluation, Unity, and paper checks.
 - [x] Ensure no token, email address, author identity, local path, or secret is in review artifacts.
-- [ ] Commit the final source, generated evidence, and submission PDF.
-- [ ] Push `codex/iui-2027-submission`.
-- [ ] Record the final commit and review timestamp.
-- [ ] Pause the heartbeat.
+- [x] Commit the final source, generated evidence, and submission PDF.
+- [x] Push `codex/iui-2027-submission`.
+- [x] Record the reviewed paper commit (`75c3189`) and reviewer service
+      timestamp (`2026-07-28T23:25:40.557218`).
+- [x] Pause the heartbeat.
+
+## Completion record
+
+The second fresh external review recommends acceptance after minor revisions
+and reports no major, critical, or rejection-level issue. The reviewed
+anonymous PDF is the snapshot from commit `75c3189`, with SHA-256
+`ade3bcde931e59bc861e3b423cc72c8208c6557dee82eb547f0128415dd59066`.
+Residual minor suggestions and the reason they do not change the bounded
+claims are recorded in
+[reviewer/REVIEW_ITERATIONS.md](reviewer/REVIEW_ITERATIONS.md).
+
+This research-preparation plan is complete. Abstract registration, author
+metadata, and the actual PCS submission remain human account actions due by
+the dates above.

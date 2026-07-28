@@ -47,7 +47,7 @@ not yet satisfy the project exit criterion.
 - [x] R1.9 Retain the explicit limits: shared resolver, internal binding
       consistency, author-authored corpus, synthetic fallback, desktop-only
       Unity paths, no human study, and no full-stack latency claim.
-- [ ] R1.10 Rebuild, rerun all gates, push, and resubmit.
+- [x] R1.10 Rebuild, rerun all gates, push, and resubmit.
 
 ### Evidence that cannot be manufactured
 
@@ -80,3 +80,54 @@ revisions.
 - The full artifact verifier reports `overall_status: pass`, all mandatory
   checks pass, all three real Unity batch smokes observe their OK marker, and
   neither network nor model API is used.
+
+## Iteration 2 — 2026-07-29
+
+Reviewed paper commit: `75c3189`
+
+Reviewer service timestamp: `2026-07-28T23:25:40.557218`
+
+Venue supplied to the reviewer: `ACM IUI 2027`
+
+Overall assessment: the fresh external review recommends acceptance after
+minor revisions. It describes the contribution as technically solid,
+implemented end to end, useful to the IUI community, and supported by an
+evaluation that is convincing for the paper's deliberately bounded claims.
+Neither the assessment nor the weakness section identifies a major or critical
+issue, and neither recommends rejection. This satisfies the project's
+operational review exit criterion.
+
+### Strengths retained
+
+- a coherent and auditable Unity-to-backend interaction contract;
+- fail-closed behavior with staged validation and runtime evidence;
+- exhaustive probes, deterministic stubs, fault injection, and reproducible
+  artifacts that match the bounded claims;
+- clear writing, appropriate prior-work context, and practical value for
+  spatial and embodied-agent systems.
+
+### Residual minor comments
+
+- A compact main-text presentation of further metamodel cardinalities and
+  invariants could help readers; the current detailed material remains in the
+  appendix to preserve the IUI review window.
+- The comparison with runtime-verification and W3C PROV-style approaches could
+  be expanded beyond the current positioning.
+- A full-stack latency profile or more upstream deictic-resolver integration
+  guidance would be useful, but cannot be claimed from the present local,
+  model-API-free measurements.
+- External validity remains intentionally limited to three purposively authored
+  scenes, a shared resolver, static pinned scenes, and one-hop delegation.
+
+These points do not invalidate a result or require a correction to a central
+claim. The manuscript already states the corresponding evidence boundaries;
+the measurement- and corpus-expansion items are recorded as future work rather
+than being manufactured after review.
+
+### Exit decision
+
+- [x] The textual assessment recommends acceptance.
+- [x] No critical or major weakness remains.
+- [x] All verdict-changing comments from the prior round were addressed.
+- [x] The reviewed PDF is the verified snapshot with SHA-256
+      `ade3bcde931e59bc861e3b423cc72c8208c6557dee82eb547f0128415dd59066`.
