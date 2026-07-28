@@ -134,6 +134,9 @@ public static class FunctionalMldsSpatialGroundingSmoke
         var target = GameObject.CreatePrimitive(PrimitiveType.Cube);
         target.name = sourceId + "_artifact";
         target.transform.position = new Vector3(-30f, 0f, 0f);
+        var generatedVariant = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        generatedVariant.name = sourceId + "_artifact_0123456789abcdef";
+        generatedVariant.transform.position = new Vector3(-31f, 0f, 0f);
 
         var model = new JObject
         {
@@ -188,6 +191,9 @@ public static class FunctionalMldsSpatialGroundingSmoke
         var binding = target.GetComponent<FunctionalMldsSceneObjectBinding>();
         Require(binding != null, "Bootstrap did not create a binding component.");
         Require(
+            generatedVariant.GetComponent<FunctionalMldsSceneObjectBinding>() == null,
+            "A generated UUID-suffix variant was mistaken for the stable scene identity.");
+        Require(
             binding.EntityId == entityId
             && binding.SourceObjectId == sourceId
             && binding.ObjectGroupId == "ENT-GROUP-IUI-SMOKE"
@@ -195,7 +201,7 @@ public static class FunctionalMldsSpatialGroundingSmoke
             "Bootstrap binding does not preserve model IDs.");
 
         var ambiguousTwin = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        ambiguousTwin.name = sourceId + "_second";
+        ambiguousTwin.name = sourceId + "_artifact";
         ambiguousTwin.transform.position = new Vector3(-32f, 0f, 0f);
         UnityEngine.Object.DestroyImmediate(binding);
         var ambiguousReport = FunctionalMldsSceneBindingBootstrapper.ApplyV2Model(
@@ -206,6 +212,7 @@ public static class FunctionalMldsSpatialGroundingSmoke
             "Ambiguous scene-name bootstrap did not fail closed.");
 
         UnityEngine.Object.DestroyImmediate(target);
+        UnityEngine.Object.DestroyImmediate(generatedVariant);
         UnityEngine.Object.DestroyImmediate(ambiguousTwin);
     }
 

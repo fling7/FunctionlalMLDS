@@ -1,11 +1,21 @@
 \section{Conclusion}
 
-We presented a model-grounded authoring and runtime layer for embodied
-multi-agent interfaces in Unity/WebXR. The approach makes the relationship
-between spatial targets, agent responsibility, capabilities, runtime actions,
-and validation outcomes explicit. Its purpose is not to replace interaction
-design with a metamodel, but to make a user-facing agent interaction executable,
-traceable, and testable across the scene and backend boundary.
+We presented an interaction-model-grounded assurance layer for embodied
+multi-agent interfaces in Unity. Rather than replacing interaction design with
+a metamodel, it requires each admitted request to follow one pinned chain from
+spatial target through agent capability and runtime action, while a rejection
+identifies the violated relation.
 
-\resultpending{Insert a concise, evidence-bounded answer to all three research
-questions after the final evaluation.}
+All 93 assets had complete provider-coherent chains, and all 186 declared
+target-specific candidates were structurally complete. Under a shared resolver,
+the adapters agreed on 93 owner and 459 route decisions and detected all nine
+common injected faults. The runtime sweep admitted all 298 local or direct
+routes with consistent binding evidence and rejected all 161 transitive or
+unreachable routes before the response stub without session mutation. Unity
+batch tests exercised 31 scenario contexts and 73 actions; four placement
+workflows preserved preview and recovery guarantees.
+
+These corpus-bounded results support \systemname{} as an executable assurance
+boundary, not claims of better answers, usability, trust, or authoring
+productivity. Whether the added structure helps people design or understand
+spatial-agent interactions remains a human-participant question.

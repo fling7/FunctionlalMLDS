@@ -446,8 +446,11 @@ def build_trace_map_v2(
             return []
         return [str(item) for item in value if str(item)]
 
+    use_cases = typed("UseCase")
     scenarios = typed("Scenario")
-    main_scenario = next((item for item in scenarios if item.get("kind") == "main"), scenarios[0] if scenarios else {})
+    main_scenarios = [
+        item for item in scenarios if str(item.get("kind") or "") == "main"
+    ]
     scenario_steps = typed("ScenarioStep")
     capability_uses = typed("CapabilityUse")
     capabilities = typed("Capability")
@@ -461,9 +464,51 @@ def build_trace_map_v2(
         in {"StateAssertion", "EventAssertion", "OutputAssertion", "GroundingAssertion", "RelationAssertion"}
     ]
 
+    scenario_for_step: Dict[str, str] = {}
+    for scenario in scenarios:
+        scenario_id = str(scenario.get("id") or "")
+        for step_id in refs(scenario.get("step")):
+            previous = scenario_for_step.setdefault(step_id, scenario_id)
+            if previous != scenario_id:
+                raise ValueError(
+                    f"ScenarioStep {step_id!r} belongs to more than one Scenario: "
+                    f"{previous!r}, {scenario_id!r}."
+                )
+
+    use_case_for_scenario: Dict[str, str] = {}
+    for specification in typed("UseCaseScenarioSpecification"):
+        use_case_ids = refs(specification.get("useCase"))
+        scenario_ids = refs(specification.get("scenario"))
+        if len(use_case_ids) != 1 or len(scenario_ids) != 1:
+            raise ValueError(
+                "UseCaseScenarioSpecification requires exactly one UseCase and Scenario."
+            )
+        scenario_id = scenario_ids[0]
+        use_case_id = use_case_ids[0]
+        previous = use_case_for_scenario.setdefault(scenario_id, use_case_id)
+        if previous != use_case_id:
+            raise ValueError(
+                f"Scenario {scenario_id!r} belongs to more than one UseCase: "
+                f"{previous!r}, {use_case_id!r}."
+            )
+    if (
+        len(use_cases) == 1
+        and len(scenarios) == 1
+        and not use_case_for_scenario
+    ):
+        # Compatibility with early native-V2 fixtures that predate the explicit
+        # UseCaseScenarioSpecification projection.
+        use_case_for_scenario[str(scenarios[0].get("id") or "")] = str(
+            use_cases[0].get("id") or ""
+        )
+
     step_for_use: Dict[str, Dict[str, Any]] = {}
     for step in scenario_steps:
         for use_id in refs(step.get("capabilityUse")):
+            if use_id in step_for_use:
+                raise ValueError(
+                    f"CapabilityUse {use_id!r} belongs to more than one ScenarioStep."
+                )
             step_for_use[use_id] = step
     uses_for_capability: Dict[str, List[Dict[str, Any]]] = {}
     for use in capability_uses:
@@ -509,9 +554,19 @@ def build_trace_map_v2(
                 locator_kind = str(locator.get("kind") or "")
                 locator_value = str(locator.get("value") or "")
                 action_kind = _runtime_action_kind_v2(action=action, by_id=by_id)
+                step_id = str(step.get("id") or "")
+                scenario_id = scenario_for_step.get(step_id, "")
+                use_case_id = use_case_for_scenario.get(scenario_id, "")
+                if not scenario_id or not use_case_id:
+                    raise ValueError(
+                        f"Runtime action chain for ScenarioStep {step_id!r} has no "
+                        "unique Scenario/UseCase owner."
+                    )
                 item = {
                     "action_kind": action_kind,
-                    "scenario_step_id": step.get("id"),
+                    "use_case_id": use_case_id,
+                    "scenario_id": scenario_id,
+                    "scenario_step_id": step_id,
                     "capability_use_id": use_id,
                     "capability_id": capability_id,
                     "provider_entity_id": provider_ids[0],
@@ -528,6 +583,20 @@ def build_trace_map_v2(
                     "topic": locator_value if locator_kind == "topic" else None,
                 }
                 runtime_action_refs.append(item)
+
+    setup_actions = [
+        item
+        for item in runtime_action_refs
+        if item.get("action_kind") == "setup"
+    ]
+    if len(setup_actions) == 1:
+        primary_scenario_id = str(setup_actions[0].get("scenario_id") or "")
+        primary_use_case_id = str(setup_actions[0].get("use_case_id") or "")
+    else:
+        primary_scenario_id = str(
+            (main_scenarios[0] if main_scenarios else {}).get("id") or ""
+        )
+        primary_use_case_id = use_case_for_scenario.get(primary_scenario_id, "")
 
     agent_refs = []
     for source_agent in agent_roles.get("agents") or []:
@@ -562,10 +631,19 @@ def build_trace_map_v2(
             "agents": str(project_dir / "agents.json"),
             "kb_root": str(project_dir / "kb"),
         },
-        "use_case_id": next((item.get("id") for item in typed("UseCase")), None),
-        "main_scenario_id": main_scenario.get("id"),
+        # Singular aliases remain for older Unity clients.  They identify the
+        # authoring/setup chain; the plural fields and per-chain ownership below
+        # are authoritative for multi-UseCase models.
+        "use_case_id": primary_use_case_id or None,
+        "main_scenario_id": primary_scenario_id or None,
+        "use_case_ids": [str(item.get("id")) for item in use_cases],
+        "main_scenario_ids": [str(item.get("id")) for item in main_scenarios],
         "scenario_steps": [
             {
+                "use_case_id": use_case_for_scenario.get(
+                    scenario_for_step.get(str(step.get("id") or ""), ""),
+                ),
+                "scenario_id": scenario_for_step.get(str(step.get("id") or "")),
                 "scenario_step_id": step.get("id"),
                 "step_number": step.get("stepNumber"),
                 "capability_use_ids": refs(step.get("capabilityUse")),
@@ -1169,6 +1247,8 @@ def validate_materialized_project(project_paths: Dict[str, Path], *, case_dir: P
         "functionalmlds_v2_path",
         "use_case_id",
         "main_scenario_id",
+        "use_case_ids",
+        "main_scenario_ids",
         "scenario_steps",
         "step_relations",
         "parallel_groups",
@@ -1208,9 +1288,28 @@ def validate_materialized_project(project_paths: Dict[str, Path], *, case_dir: P
         )
         for kind in ("setup", "chat", "handoff")
     }
-    for kind, count in action_kind_counts.items():
-        if count != 1:
-            errors.append(f"trace_map.json requires exactly one {kind!r} action; found {count}.")
+    if action_kind_counts["setup"] != 1:
+        errors.append(
+            "trace_map.json requires exactly one 'setup' action; "
+            f"found {action_kind_counts['setup']}."
+        )
+    for kind in ("chat", "handoff"):
+        if action_kind_counts[kind] < 1:
+            errors.append(
+                f"trace_map.json requires at least one {kind!r} action; "
+                f"found {action_kind_counts[kind]}."
+            )
+    for index, action in enumerate(trace_map.get("runtime_actions") or []):
+        if not isinstance(action, dict):
+            continue
+        if not str(action.get("scenario_id") or ""):
+            errors.append(
+                f"trace_map.json runtime_actions[{index}] has no scenario_id."
+            )
+        if not str(action.get("use_case_id") or ""):
+            errors.append(
+                f"trace_map.json runtime_actions[{index}] has no use_case_id."
+            )
 
     if functionalmlds_v2_path is not None and functionalmlds_v2_path.exists():
         v2_instance = read_json(functionalmlds_v2_path)

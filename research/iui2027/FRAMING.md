@@ -2,8 +2,8 @@
 
 ## Working title
 
-**From Spatial Scene Descriptions to Verifiable Embodied-Agent Interactions:
-A Model-Grounded Authoring Interface for Unity**
+**Model-Grounded Interaction Contracts for Traceable Spatial Agent Interfaces
+in Unity**
 
 Short alternative:
 
@@ -11,10 +11,11 @@ Short alternative:
 
 ## One-sentence contribution
 
-We present and evaluate an intelligent authoring interface and runtime layer
-that turns structured spatial scene descriptions into embodied Unity agents
-while keeping object references, responsibilities, capabilities, handoffs, and
-observed outcomes connected through an executable interaction model.
+We present and evaluate a model-grounded interaction-assurance layer for
+LLM-enabled spatial agents in Unity. It validates stable object references,
+responsibilities, capabilities, handoffs, and observed outcomes through an
+executable interaction contract, while a limited authoring workbench supports
+reversible placement changes.
 
 ## HCI problem
 
@@ -59,10 +60,12 @@ A visitor points at a dinosaur skeleton and asks, “What is this?”
 6. Runtime probes verify selection, routing, capability use, and response
    grounding and attach the verdicts to the scenario trace.
 
-This example is the target end-to-end behavior. The existing codebase already
-contains the model, generation pipeline, backend, Unity agents, and validation
-infrastructure; live deictic selection and the complete runtime evidence chain
-are implementation work, not pre-existing results.
+This is the implemented end-to-end contract exercised by the Unity batch
+smokes and backend tests. The evaluation does not ask an online model to judge
+its own answer: it measures stable target preservation, provider selection,
+permitted execution, and observation-backed contract verdicts. Semantic or
+biological correctness of a dinosaur description remains outside the reported
+claims.
 
 ## Research questions
 
@@ -91,9 +94,9 @@ mechanisms, and observable system behavior.
 
 ## Intended contributions
 
-1. A model-grounded authoring architecture for spatial embodied-agent
-   interfaces, implemented as a Unity desktop prototype with a WebXR deployment
-   path and a multi-agent backend.
+1. A model-grounded authoring and runtime-contract architecture for spatial
+   embodied-agent interfaces, implemented as a Unity desktop prototype and a
+   multi-agent backend.
 2. An executable interaction chain from scenario and selected spatial target to
    responsible agent, capability, runtime action, assertion, and evidence.
 3. An author-facing inspect, preview, validate, discard, and undo loop for

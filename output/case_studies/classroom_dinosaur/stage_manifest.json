@@ -241,44 +241,6 @@
       }
     },
     {
-      "stage_id": "agent_placement",
-      "status": "success",
-      "updated_at": "2026-07-08T08:23:38+00:00",
-      "inputs": [
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\scene_graph.normalized.json",
-          "sha256": "d45cb962c10c7ddafecea2180641863afeac627db2139ef92a7810d707d3cfe8"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\scene_semantics.json",
-          "sha256": "ee6fe3dd98c16994bd11f38a2e2922bbaa947c0615f76ca4669dc33efbf67ef3"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\agent_roles.generated.json",
-          "sha256": "7edb90d8f523a161387a85805a80b73567eae8f3c66ee70463aeddac79f9fa64"
-        }
-      ],
-      "outputs": [
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\agent_placements.json",
-          "sha256": "2b497a7c12662b7cd40ed491b8cb7ce2f0f21978fc0d567f641e12c5709d7dd8"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\agent_placement_validation.json",
-          "sha256": "65e2eccbe3b8da1f3fe740d559478d3d6a564a51546872bdefe9dbb170a0d2e3"
-        }
-      ],
-      "errors": [],
-      "warnings": [],
-      "metadata": {
-        "agent_count": 4,
-        "placement_count": 4,
-        "out_of_bounds_count": 0,
-        "obstacle_overlap_count": 0,
-        "minimum_agent_distance": 1.288
-      }
-    },
-    {
       "stage_id": "runtime_setup",
       "status": "success",
       "updated_at": "2026-07-08T09:29:44+00:00",
@@ -676,141 +638,6 @@
       }
     },
     {
-      "stage_id": "functionalmlds_assembly",
-      "status": "success",
-      "updated_at": "2026-07-09T10:44:44+00:00",
-      "inputs": [
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\scene_graph.normalized.json",
-          "sha256": "d45cb962c10c7ddafecea2180641863afeac627db2139ef92a7810d707d3cfe8"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\scene_semantics.json",
-          "sha256": "ee6fe3dd98c16994bd11f38a2e2922bbaa947c0615f76ca4669dc33efbf67ef3"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\agent_roles.generated.json",
-          "sha256": "b5076acd874e933d36e1ba86b989db9a365f14b33014d2c02e27bc99b5bd1353"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\agent_placements.json",
-          "sha256": "2b497a7c12662b7cd40ed491b8cb7ce2f0f21978fc0d567f641e12c5709d7dd8"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\functionalmlds_assembly_v1.md",
-          "sha256": "64caf06a68b6c1c3e13df14415b4b9da90809d0c3fe41d480bbfd232853e020a"
-        }
-      ],
-      "outputs": [
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.instance.generated.json",
-          "sha256": "31cb2f0df30998e91adf9bb49982e6587257dbf79cade1eb5525b7a84b30d39a"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\functionalmlds_invariant_validation.json",
-          "sha256": "d5676793eeec4aeb3a897bde776cca5c1a23b77288197b8115feed76ee6af118"
-        }
-      ],
-      "errors": [],
-      "warnings": [],
-      "metadata": {
-        "prompt_version": "functionalmlds_assembly_v1",
-        "deterministic": true,
-        "metrics": {
-          "requirement_count": 6,
-          "use_case_count": 1,
-          "entity_count": 50,
-          "semantic_zone_entity_count": 4,
-          "object_group_entity_count": 5,
-          "scene_object_entity_count": 36,
-          "room_answer_capability_count": 1,
-          "handoff_capability_count": 1,
-          "handoff_runtime_binding_count": 1,
-          "handoff_runtime_action_count": 1,
-          "capability_count": 9,
-          "capability_use_count": 10,
-          "runtime_binding_count": 9,
-          "validation_case_count": 6,
-          "capability_use_coverage": 9,
-          "runtime_capability_coverage": 9
-        }
-      }
-    },
-    {
-      "stage_id": "handoff_derivation",
-      "status": "success",
-      "updated_at": "2026-07-09T10:44:44+00:00",
-      "inputs": [
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\agent_roles.generated.json",
-          "sha256": "b5076acd874e933d36e1ba86b989db9a365f14b33014d2c02e27bc99b5bd1353"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.instance.generated.json",
-          "sha256": "090f630c2c1eca565171c8dfcc60fb6f4e91378b901d6b3c8653bc13fdd1ee27"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\handoff_matrix.json",
-          "sha256": "4769a00b5e133d2753c68a054022943abb428fe7e8c2ce3bedfba0470d3cc01a"
-        }
-      ],
-      "outputs": [
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\agent_roles.generated.json",
-          "sha256": "b5076acd874e933d36e1ba86b989db9a365f14b33014d2c02e27bc99b5bd1353"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.instance.generated.json",
-          "sha256": "090f630c2c1eca565171c8dfcc60fb6f4e91378b901d6b3c8653bc13fdd1ee27"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\handoff_matrix.json",
-          "sha256": "4769a00b5e133d2753c68a054022943abb428fe7e8c2ce3bedfba0470d3cc01a"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\handoff_derivation_validation.json",
-          "sha256": "07fe59cb2b257a603a9cece4a6628c59e931bd569dd9ac9c9b7ea2ec103812d5"
-        }
-      ],
-      "errors": [],
-      "warnings": [],
-      "metadata": {
-        "agent_count": 4,
-        "handoff_pair_count": 6,
-        "source_agent_with_handoff_count": 4,
-        "fallback_used": false,
-        "unique_pair_count": 6,
-        "role_validation_status": "valid",
-        "derivation_validation_status": "valid"
-      }
-    },
-    {
-      "stage_id": "functionalmlds_invariants",
-      "status": "success",
-      "updated_at": "2026-07-09T10:44:44+00:00",
-      "inputs": [
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.instance.generated.json",
-          "sha256": "090f630c2c1eca565171c8dfcc60fb6f4e91378b901d6b3c8653bc13fdd1ee27"
-        }
-      ],
-      "outputs": [
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\functionalmlds_invariants_validation.json",
-          "sha256": "896c7d12b41848e1c76169fa939c9822a0a487b292d433e5b2526a16400f0724"
-        }
-      ],
-      "errors": [],
-      "warnings": [],
-      "metadata": {
-        "invariant_count": 8,
-        "passed_invariant_count": 8,
-        "failed_invariant_count": 0,
-        "checked_element_count": 52,
-        "error_count": 0
-      }
-    },
-    {
       "stage_id": "traceability_metrics",
       "status": "success",
       "updated_at": "2026-07-09T10:44:44+00:00",
@@ -916,23 +743,193 @@
       }
     },
     {
+      "stage_id": "agent_placement",
+      "status": "success",
+      "updated_at": "2026-07-28T17:51:35+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\scene_graph.normalized.json",
+          "sha256": "d45cb962c10c7ddafecea2180641863afeac627db2139ef92a7810d707d3cfe8"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\scene_semantics.json",
+          "sha256": "ee6fe3dd98c16994bd11f38a2e2922bbaa947c0615f76ca4669dc33efbf67ef3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\agent_roles.generated.json",
+          "sha256": "b5076acd874e933d36e1ba86b989db9a365f14b33014d2c02e27bc99b5bd1353"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\agent_placements.json",
+          "sha256": "132aaaebac4b40dc6abbd2ac55ad4fbf86a7694d01bb6e872fe64a86cf2aeb77"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\agent_placement_validation.json",
+          "sha256": "524059447520b0343cc1b61515fd8371f9220d88fea87b43d371af31dde7f1f4"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "agent_count": 4,
+        "placement_count": 4,
+        "out_of_bounds_count": 0,
+        "obstacle_overlap_count": 0,
+        "minimum_agent_distance": 2.4677
+      }
+    },
+    {
+      "stage_id": "functionalmlds_assembly",
+      "status": "success",
+      "updated_at": "2026-07-28T17:51:35+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\scene_graph.normalized.json",
+          "sha256": "d45cb962c10c7ddafecea2180641863afeac627db2139ef92a7810d707d3cfe8"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\scene_semantics.json",
+          "sha256": "ee6fe3dd98c16994bd11f38a2e2922bbaa947c0615f76ca4669dc33efbf67ef3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\agent_roles.generated.json",
+          "sha256": "b5076acd874e933d36e1ba86b989db9a365f14b33014d2c02e27bc99b5bd1353"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\agent_placements.json",
+          "sha256": "132aaaebac4b40dc6abbd2ac55ad4fbf86a7694d01bb6e872fe64a86cf2aeb77"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\functionalmlds_assembly_v1.md",
+          "sha256": "64caf06a68b6c1c3e13df14415b4b9da90809d0c3fe41d480bbfd232853e020a"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\functionalmlds_assembler.py",
+          "sha256": "0b8d061432f44a1d6e6c28848bd36044fc1edee561bb4ea3bf15ea84005082a5"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "be9f8dc7f681d75bef6847439e6acdc92c0a8d2dc0d32ca5958d8cd4ccd8d63d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\functionalmlds_invariant_validation.json",
+          "sha256": "58e9ea94766fab3977185f7a4c3849634b38b5a382f1849dab9d29b0f9b2b564"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "prompt_version": "functionalmlds_assembly_v1",
+        "deterministic": true,
+        "metrics": {
+          "requirement_count": 6,
+          "use_case_count": 37,
+          "interaction_use_case_count": 36,
+          "entity_count": 50,
+          "semantic_zone_entity_count": 4,
+          "object_group_entity_count": 5,
+          "scene_object_entity_count": 36,
+          "room_answer_capability_count": 1,
+          "handoff_capability_count": 1,
+          "handoff_runtime_binding_count": 1,
+          "handoff_runtime_action_count": 1,
+          "capability_count": 9,
+          "capability_use_count": 80,
+          "explicit_user_provider_count": 72,
+          "runtime_binding_count": 9,
+          "validation_case_count": 41,
+          "capability_use_coverage": 9,
+          "runtime_capability_coverage": 9
+        }
+      }
+    },
+    {
+      "stage_id": "handoff_derivation",
+      "status": "success",
+      "updated_at": "2026-07-28T17:51:35+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\agent_roles.generated.json",
+          "sha256": "b5076acd874e933d36e1ba86b989db9a365f14b33014d2c02e27bc99b5bd1353"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "be9f8dc7f681d75bef6847439e6acdc92c0a8d2dc0d32ca5958d8cd4ccd8d63d"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\agent_roles.generated.json",
+          "sha256": "b5076acd874e933d36e1ba86b989db9a365f14b33014d2c02e27bc99b5bd1353"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "be9f8dc7f681d75bef6847439e6acdc92c0a8d2dc0d32ca5958d8cd4ccd8d63d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\handoff_matrix.json",
+          "sha256": "4769a00b5e133d2753c68a054022943abb428fe7e8c2ce3bedfba0470d3cc01a"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\handoff_derivation_validation.json",
+          "sha256": "7084d482f64f28ad80f8c1d2c7d231c8a3d06b10e2f6eed52a3fc81b659cea79"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "agent_count": 4,
+        "handoff_pair_count": 6,
+        "source_agent_with_handoff_count": 4,
+        "fallback_used": false,
+        "unique_pair_count": 6,
+        "role_validation_status": "valid",
+        "derivation_validation_status": "valid",
+        "frozen_role_unchanged": true
+      }
+    },
+    {
       "stage_id": "functionalmlds_v2_assembly",
       "status": "success",
-      "updated_at": "2026-07-14T12:39:22+00:00",
+      "updated_at": "2026-07-28T17:53:08+00:00",
       "inputs": [
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.instance.generated.json",
-          "sha256": "090f630c2c1eca565171c8dfcc60fb6f4e91378b901d6b3c8653bc13fdd1ee27"
+          "sha256": "be9f8dc7f681d75bef6847439e6acdc92c0a8d2dc0d32ca5958d8cd4ccd8d63d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\functionalmlds_v2_assembler.py",
+          "sha256": "645bc378c9a4be3f97f0eb5d4ce11678433e53bef8e0b6081df70e936457e51d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\dynamic_functional_mlds_v2_compat.py",
+          "sha256": "030df93df188001e349b1ae0bab0387244444545397f62e95e287bcad16dae4f"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\dynamic_functional_mlds_v2_model.py",
+          "sha256": "0710b7353459fe64de0692d18ac904b930d07161f6782544ac48d3d4dbaa8dd7"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\validate_dynamic_functional_mlds_v2.py",
+          "sha256": "82e2fe0c506629a4222795d6a81e94f606d7eb1244cc0d594ab14b7e98b989c3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\dynamic_functional_mlds_v2_instance.schema.json",
+          "sha256": "4a2567a6cfc8cdce447a0f776f134c969fcf6af8e26d7b4c84dc31d9c6c68d49"
         }
       ],
       "outputs": [
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.v2.instance.json",
-          "sha256": "5fe7e33d91933a87dcb25539f68ec34b6751950216bb121dfbe83ee61066451c"
+          "sha256": "36ad81efdc00b09e50b1433b75e74688bfdc0579a5deb86585efca056f6b4428"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.v2.assembly_report.json",
-          "sha256": "54c8237256206b76af6024bb5466739b9e28a2dce6c02b12a36c29bc21440d3e"
+          "sha256": "02d52744db5c48d8e557e0d7454b43e66176a652b0946aa45cc0327c823eb467"
         }
       ],
       "errors": [],
@@ -941,7 +938,7 @@
         "deterministic": true,
         "metamodel_version": "2.0.0-model",
         "metrics": {
-          "object_count": 292,
+          "object_count": 1522,
           "error_count": 0,
           "warning_count": 0
         }
@@ -950,7 +947,7 @@
     {
       "stage_id": "project_materialization",
       "status": "success",
-      "updated_at": "2026-07-14T12:39:22+00:00",
+      "updated_at": "2026-07-28T17:53:08+00:00",
       "inputs": [
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\input\\source_mlds.json",
@@ -962,7 +959,7 @@
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\agent_placements.json",
-          "sha256": "2b497a7c12662b7cd40ed491b8cb7ce2f0f21978fc0d567f641e12c5709d7dd8"
+          "sha256": "132aaaebac4b40dc6abbd2ac55ad4fbf86a7694d01bb6e872fe64a86cf2aeb77"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\knowledge.generated.json",
@@ -970,17 +967,21 @@
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.instance.generated.json",
-          "sha256": "090f630c2c1eca565171c8dfcc60fb6f4e91378b901d6b3c8653bc13fdd1ee27"
+          "sha256": "be9f8dc7f681d75bef6847439e6acdc92c0a8d2dc0d32ca5958d8cd4ccd8d63d"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.v2.instance.json",
-          "sha256": "5fe7e33d91933a87dcb25539f68ec34b6751950216bb121dfbe83ee61066451c"
+          "sha256": "36ad81efdc00b09e50b1433b75e74688bfdc0579a5deb86585efca056f6b4428"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\project_materializer.py",
+          "sha256": "eae58667c5ad6923686d6fb4896fdb3ce4f48fcacd4cfedb35dc09f2d89f5ec0"
         }
       ],
       "outputs": [
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\project.json",
-          "sha256": "f791f275f11b629305d8942d17aa108bcdebfb3533803d887ba4928f74a40ce5"
+          "sha256": "a6404287f9c4cd1873ff2863bd8c3b6a2005e9b6495716bf1a4254d086e266a3"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\room_plan.json",
@@ -988,31 +989,31 @@
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\agents.json",
-          "sha256": "eb72f5e65b61fe1f40249dcbcccc9f5bd3eaa3ecacd332f31852359e9fdb79d1"
+          "sha256": "0b753e69c543766a01ed1b52b8aae5add8dde545cb77b5f1782edabb292170a3"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\trace_map.json",
-          "sha256": "3668c19e5d25add296ca871663eb682504a9abfeee57670a17d832d0986a4d0c"
+          "sha256": "d61e4484a49ec5275bbf88dc62c5d21d04b07349db1b79b63b9626084c49a00b"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\trace_map.v2.json",
-          "sha256": "3668c19e5d25add296ca871663eb682504a9abfeee57670a17d832d0986a4d0c"
+          "sha256": "d61e4484a49ec5275bbf88dc62c5d21d04b07349db1b79b63b9626084c49a00b"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\trace_map.v05.json",
-          "sha256": "3166aa2465f7ea514d13d1402d6da32d75a52c113e9ddace46490a2bb4c6a81e"
+          "sha256": "e787ab563f736ed6f4fd485f1f0edb027a7538b0cc70484c3485048771c6fb64"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\functionalmlds.v2.instance.json",
-          "sha256": "5fe7e33d91933a87dcb25539f68ec34b6751950216bb121dfbe83ee61066451c"
+          "sha256": "36ad81efdc00b09e50b1433b75e74688bfdc0579a5deb86585efca056f6b4428"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\functionalmlds.v05.instance.json",
-          "sha256": "090f630c2c1eca565171c8dfcc60fb6f4e91378b901d6b3c8653bc13fdd1ee27"
+          "sha256": "be9f8dc7f681d75bef6847439e6acdc92c0a8d2dc0d32ca5958d8cd4ccd8d63d"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\project_materialization_validation.json",
-          "sha256": "0656c8d23a07789df0f06a22b14a03b1390ca9224774759d6ea7dea673307d6c"
+          "sha256": "58693505f9ecba952ad1c14e0a3f6f4188eaed3ff4b08f0748bf5c548572b0a2"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\kb\\chalkboard_usage\\effective_chalkboard_use_in_lessons.txt",
@@ -1052,15 +1053,15 @@
       "metadata": {
         "agent_count": 4,
         "kb_file_count": 8,
-        "trace_step_count": 12,
-        "trace_runtime_action_count": 15,
-        "trace_validation_case_count": 6
+        "trace_step_count": 117,
+        "trace_runtime_action_count": 85,
+        "trace_validation_case_count": 41
       }
     },
     {
       "stage_id": "schema_validation",
       "status": "success",
-      "updated_at": "2026-07-14T12:40:18+00:00",
+      "updated_at": "2026-07-28T17:53:39+00:00",
       "inputs": [
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\intermediate\\scene_graph.normalized.json",
@@ -1084,55 +1085,53 @@
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\project.json",
-          "sha256": "f791f275f11b629305d8942d17aa108bcdebfb3533803d887ba4928f74a40ce5"
+          "sha256": "a6404287f9c4cd1873ff2863bd8c3b6a2005e9b6495716bf1a4254d086e266a3"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\agents.json",
-          "sha256": "eb72f5e65b61fe1f40249dcbcccc9f5bd3eaa3ecacd332f31852359e9fdb79d1"
+          "sha256": "0b753e69c543766a01ed1b52b8aae5add8dde545cb77b5f1782edabb292170a3"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\room_plan.json",
           "sha256": "a5327d5d506a691fe1ec8a9e0b88bea791f8cbc8244219033b7f5031d9606761"
         },
         {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\runtime_logs\\events.jsonl",
-          "sha256": "9effd8b93a56b65a3a896b9d25961e3ec23ab5a55fa92f6b481cb8e9aa6cd76e"
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\runtime_logs\\events.jsonl"
         },
         {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\runtime_logs\\runtime_validation.v2.jsonl",
-          "sha256": "9f6d2b8e03644008d9893d1c7e3a964d67ac0fe03b53af2e876ea0c1694a3ecb"
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\runtime_logs\\runtime_validation.v2.jsonl"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\functionalmlds.v2.instance.json",
-          "sha256": "5fe7e33d91933a87dcb25539f68ec34b6751950216bb121dfbe83ee61066451c"
+          "sha256": "36ad81efdc00b09e50b1433b75e74688bfdc0579a5deb86585efca056f6b4428"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\functionalmlds.v05.instance.json",
-          "sha256": "090f630c2c1eca565171c8dfcc60fb6f4e91378b901d6b3c8653bc13fdd1ee27"
+          "sha256": "be9f8dc7f681d75bef6847439e6acdc92c0a8d2dc0d32ca5958d8cd4ccd8d63d"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\trace_map.v2.json",
-          "sha256": "3668c19e5d25add296ca871663eb682504a9abfeee57670a17d832d0986a4d0c"
+          "sha256": "d61e4484a49ec5275bbf88dc62c5d21d04b07349db1b79b63b9626084c49a00b"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\trace_map.v05.json",
-          "sha256": "3166aa2465f7ea514d13d1402d6da32d75a52c113e9ddace46490a2bb4c6a81e"
+          "sha256": "e787ab563f736ed6f4fd485f1f0edb027a7538b0cc70484c3485048771c6fb64"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\trace_map.json",
-          "sha256": "3668c19e5d25add296ca871663eb682504a9abfeee57670a17d832d0986a4d0c"
+          "sha256": "d61e4484a49ec5275bbf88dc62c5d21d04b07349db1b79b63b9626084c49a00b"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.v2.instance.json",
-          "sha256": "5fe7e33d91933a87dcb25539f68ec34b6751950216bb121dfbe83ee61066451c"
+          "sha256": "36ad81efdc00b09e50b1433b75e74688bfdc0579a5deb86585efca056f6b4428"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.v2.assembly_report.json",
-          "sha256": "54c8237256206b76af6024bb5466739b9e28a2dce6c02b12a36c29bc21440d3e"
+          "sha256": "02d52744db5c48d8e557e0d7454b43e66176a652b0946aa45cc0327c823eb467"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.instance.generated.json",
-          "sha256": "090f630c2c1eca565171c8dfcc60fb6f4e91378b901d6b3c8653bc13fdd1ee27"
+          "sha256": "be9f8dc7f681d75bef6847439e6acdc92c0a8d2dc0d32ca5958d8cd4ccd8d63d"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\agent_roles.schema.json",
@@ -1140,7 +1139,7 @@
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\dynamic_functional_mlds_v2_instance.schema.json",
-          "sha256": "bfb302b48ed2cda8cddab7e60d6ae42fb54a421f6aee4eaf6cdfff5e6b965f4f"
+          "sha256": "4a2567a6cfc8cdce447a0f776f134c969fcf6af8e26d7b4c84dc31d9c6c68d49"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\functionalmlds_case_study.schema.json",
@@ -1148,7 +1147,7 @@
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\interactive_agents_project.schema.json",
-          "sha256": "964ef080a78609e2f8c01cf44f994de91e65b8a8b702627ab344ab988ad5bff4"
+          "sha256": "d8aa2724bfc1eb6522e328f5cdd6853abbdeed19e7fc648bb370ecdc99d4b1b2"
         },
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\knowledge.schema.json",
@@ -1159,18 +1158,6 @@
           "sha256": "c4ceaf66757447d2fbc5c6c8c73710c2e7dc4f5b5fecdeb520b1a369263b1d90"
         },
         {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\runtime_event.schema.json",
-          "sha256": "64007b49aa7315bfd516c1759f8594686aabdfc179f128c9ef858a408d6b1197"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\runtime_event_v2.schema.json",
-          "sha256": "976b9de0d3069911952c83205593665bfdee2462f5abd69408b79608599d5b52"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\runtime_validation_v2.schema.json",
-          "sha256": "53e58d77023ed9e229caf8f9bb3ad500263169042a297bc2be30acfa5cba1a81"
-        },
-        {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\scene_semantics.schema.json",
           "sha256": "c4b6a699b6892e7c61cb06dc9772f4750e404732b1f53ec7428e3293ed120615"
         }
@@ -1178,20 +1165,48 @@
       "outputs": [
         {
           "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\schema_validation.json",
-          "sha256": "44fac79f88577f225b9ff58c1ae9348e345588fac8a083ac402c1ccfee776b70"
+          "sha256": "a5c7eadb7ebd3c3dabf5bafd63281a4a0c00b07640bb70bd9347cf8e8c962957"
+        }
+      ],
+      "errors": [],
+      "warnings": [
+        "Runtime-Log fehlt: C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\runtime_logs\\events.jsonl"
+      ],
+      "metadata": {
+        "artifact_count": 7,
+        "valid_artifact_count": 7,
+        "invalid_artifact_count": 0,
+        "schema_count": 7,
+        "runtime_event_count": 0,
+        "contract_mode": "v2-dual"
+      }
+    },
+    {
+      "stage_id": "functionalmlds_invariants",
+      "status": "success",
+      "updated_at": "2026-07-28T17:53:39+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "be9f8dc7f681d75bef6847439e6acdc92c0a8d2dc0d32ca5958d8cd4ccd8d63d"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\functionalmlds_invariants_validation.json",
+          "sha256": "e323b3b44a805eb304c16f5d949dbc89f546e4f10846b86400f58a379132fe21"
         }
       ],
       "errors": [],
       "warnings": [],
       "metadata": {
-        "artifact_count": 10,
-        "valid_artifact_count": 10,
-        "invalid_artifact_count": 0,
-        "schema_count": 10,
-        "runtime_event_count": 120,
-        "contract_mode": "v2-dual"
+        "invariant_count": 8,
+        "passed_invariant_count": 8,
+        "failed_invariant_count": 0,
+        "checked_element_count": 334,
+        "error_count": 0
       }
     }
   ],
-  "updated_at": "2026-07-14T12:40:18+00:00"
+  "updated_at": "2026-07-28T17:53:39+00:00"
 }

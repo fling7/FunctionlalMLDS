@@ -1,0 +1,1633 @@
+{
+  "api_calls": 0,
+  "case_order": [
+    "bestfit_career_fair",
+    "classroom_dinosaur",
+    "steinpilz_brand_room"
+  ],
+  "cases": [
+    {
+      "case_id": "bestfit_career_fair",
+      "frozen_inputs": {
+        "agent_count": 5,
+        "agent_roles_sha256": "c66cb3428008e391c43b17049141d99063a6ecf3fe29d84ac4d8d55562e1b2de",
+        "handoff_count": 12,
+        "knowledge_entry_count": 15,
+        "knowledge_sha256": "29e0f4329fcc83a72239ef63a3859072bc81165c6dd7d853c3887163c6907cc3",
+        "scene_semantics_sha256": "81a76712eafc96ae21aff368b51e5eb132f5648e5bff811b35c18fd80a8b44dc",
+        "source_sha256": "b749a695fa7cc7307db08217f88fdc587780d14e5096e7e06a43f0d3a4f0ece3",
+        "status": "valid"
+      },
+      "outputs": [
+        {
+          "kind": "file",
+          "path": "functionalmlds/functionalmlds.instance.generated.json",
+          "sha256": "9ee614b0e7999ec536fee33b300e43a4160fb3e6aa6e39ba5c04a847bf7c1322"
+        },
+        {
+          "kind": "file",
+          "path": "functionalmlds/functionalmlds.v2.instance.json",
+          "sha256": "6231d576becf69ae3e593e75e5075329c530285fb4aebd36d5182c16f2697c17"
+        },
+        {
+          "kind": "file",
+          "path": "intermediate/agent_placements.json",
+          "sha256": "6708881c60fce4505cf8be078292d7e3b564202038b3ca3ec7b64582dca533e1"
+        },
+        {
+          "kind": "file",
+          "path": "intermediate/handoff_matrix.json",
+          "sha256": "08d10263d03fbdfbf270ac1a27fb430e6e2603c544c9ec2e3354a18d29357fdf"
+        },
+        {
+          "kind": "tree",
+          "path": "interactive_agents_project/kb",
+          "sha256": "4e77bf601d381c15c2813c223682042b08a5dc54b30866b8d2d02bc12952c7c2"
+        },
+        {
+          "file_count": 23,
+          "kind": "materialized_project",
+          "model_sha256": "6231d576becf69ae3e593e75e5075329c530285fb4aebd36d5182c16f2697c17",
+          "path": "backend/projects/bestfit_career_fair"
+        }
+      ],
+      "stages": [
+        {
+          "action": "generated",
+          "id": "agent_placement",
+          "metrics": {
+            "agent_count": 5,
+            "minimum_agent_distance": 1.1268,
+            "obstacle_overlap_count": 0,
+            "out_of_bounds_count": 0,
+            "placement_count": 5
+          },
+          "status": "success",
+          "validation_status": "valid"
+        },
+        {
+          "id": "functionalmlds_assembly",
+          "metrics": {
+            "capability_count": 9,
+            "capability_use_count": 62,
+            "capability_use_coverage": 9,
+            "entity_count": 51,
+            "explicit_user_provider_count": 54,
+            "handoff_capability_count": 1,
+            "handoff_runtime_action_count": 1,
+            "handoff_runtime_binding_count": 1,
+            "interaction_use_case_count": 27,
+            "object_group_entity_count": 12,
+            "requirement_count": 6,
+            "room_answer_capability_count": 1,
+            "runtime_binding_count": 9,
+            "runtime_capability_coverage": 9,
+            "scene_object_entity_count": 27,
+            "semantic_zone_entity_count": 6,
+            "use_case_count": 28,
+            "validation_case_count": 32
+          },
+          "status": "success",
+          "validation_status": "valid"
+        },
+        {
+          "id": "handoff_derivation",
+          "metrics": {
+            "agent_count": 5,
+            "derivation_validation_status": "valid",
+            "fallback_used": false,
+            "frozen_role_unchanged": true,
+            "handoff_pair_count": 12,
+            "role_validation_status": "valid",
+            "source_agent_with_handoff_count": 5,
+            "unique_pair_count": 12
+          },
+          "status": "success",
+          "validation_status": "valid"
+        },
+        {
+          "id": "functionalmlds_v2_assembly",
+          "metrics": {
+            "error_count": 0,
+            "object_count": 1208,
+            "warning_count": 0
+          },
+          "status": "success",
+          "validation_status": "valid"
+        },
+        {
+          "id": "project_materialization",
+          "metrics": {
+            "agent_count": 5,
+            "kb_file_count": 15,
+            "trace_runtime_action_count": 67,
+            "trace_step_count": 90,
+            "trace_validation_case_count": 32
+          },
+          "status": "success",
+          "validation_status": "valid"
+        },
+        {
+          "id": "schema_validation",
+          "metrics": {
+            "artifact_count": 7,
+            "contract_mode": "v2-dual",
+            "invalid_artifact_count": 0,
+            "runtime_event_count": 0,
+            "schema_count": 7,
+            "valid_artifact_count": 7
+          },
+          "status": "success",
+          "validation_status": "valid"
+        },
+        {
+          "id": "functionalmlds_invariants",
+          "metrics": {
+            "checked_element_count": 262,
+            "error_count": 0,
+            "failed_invariant_count": 0,
+            "invariant_count": 8,
+            "passed_invariant_count": 8
+          },
+          "status": "success",
+          "validation_status": "valid"
+        }
+      ],
+      "status": "pass",
+      "target_comparison": {
+        "all_bytes_equal": false,
+        "all_path_normalized_semantically_equal": false,
+        "all_semantically_equal": false,
+        "artifact_count": 50,
+        "artifacts": [
+          {
+            "byte_equal": false,
+            "path": "stage_manifest.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "intermediate/agent_placements.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "intermediate/handoff_matrix.json",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "functionalmlds/functionalmlds.instance.generated.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "functionalmlds/functionalmlds.v2.instance.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "functionalmlds/functionalmlds.v2.assembly_report.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "validation/agent_placement_validation.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "validation/functionalmlds_invariant_validation.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "validation/handoff_derivation_validation.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "validation/project_materialization_validation.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "validation/schema_validation.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "validation/functionalmlds_invariants_validation.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/application_process/job_application_guidance.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/career_opportunities/career_development_opportunities.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/company_basics/basic_company_information_at_reception.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/company_benefits/employee_benefits_information.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/employee_wellbeing/wellbeing_programs_overview.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/interactive_kiosks/demo_kiosk_interaction.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/interactive_terminals/interactive_benefits_terminals.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/job_recruiting/job_openings_and_recruiting_info.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/lounge_services/hospitality_and_visitor_services.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/navigation/booth_navigation_assistance.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/product_demos/product_showcase_and_demonstrations.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/refreshments/refreshment_counter_and_seating.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/visitor_comfort/lounge_seating_and_comfort.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/visitor_orientation/reception_area_orientation.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/vr_ar_technology/vr_ar_demo_stations.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "backend/projects/bestfit_career_fair/agents.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "backend/projects/bestfit_career_fair/functionalmlds.v05.instance.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": false
+          },
+          {
+            "byte_equal": false,
+            "path": "backend/projects/bestfit_career_fair/functionalmlds.v2.instance.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": false
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/bestfit_career_fair/kb/application_process/job_application_guidance.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/bestfit_career_fair/kb/career_opportunities/career_development_opportunities.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/bestfit_career_fair/kb/company_basics/basic_company_information_at_reception.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/bestfit_career_fair/kb/company_benefits/employee_benefits_information.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/bestfit_career_fair/kb/employee_wellbeing/wellbeing_programs_overview.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/bestfit_career_fair/kb/interactive_kiosks/demo_kiosk_interaction.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/bestfit_career_fair/kb/interactive_terminals/interactive_benefits_terminals.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/bestfit_career_fair/kb/job_recruiting/job_openings_and_recruiting_info.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/bestfit_career_fair/kb/lounge_services/hospitality_and_visitor_services.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/bestfit_career_fair/kb/navigation/booth_navigation_assistance.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/bestfit_career_fair/kb/product_demos/product_showcase_and_demonstrations.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/bestfit_career_fair/kb/refreshments/refreshment_counter_and_seating.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/bestfit_career_fair/kb/visitor_comfort/lounge_seating_and_comfort.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/bestfit_career_fair/kb/visitor_orientation/reception_area_orientation.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/bestfit_career_fair/kb/vr_ar_technology/vr_ar_demo_stations.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "backend/projects/bestfit_career_fair/project.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/bestfit_career_fair/room_plan.json",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "backend/projects/bestfit_career_fair/trace_map.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "backend/projects/bestfit_career_fair/trace_map.v05.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": false
+          },
+          {
+            "byte_equal": false,
+            "path": "backend/projects/bestfit_career_fair/trace_map.v2.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": false
+          }
+        ],
+        "byte_equal_count": 32,
+        "path_normalized_semantic_equal_count": 32,
+        "semantic_equal_count": 32
+      }
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "frozen_inputs": {
+        "agent_count": 4,
+        "agent_roles_sha256": "b5076acd874e933d36e1ba86b989db9a365f14b33014d2c02e27bc99b5bd1353",
+        "handoff_count": 6,
+        "knowledge_entry_count": 8,
+        "knowledge_sha256": "db63fad9246e49d8d067fd3e4d222834ddf250152daeacb82108db45f6772f16",
+        "scene_semantics_sha256": "ee6fe3dd98c16994bd11f38a2e2922bbaa947c0615f76ca4669dc33efbf67ef3",
+        "source_sha256": "a5327d5d506a691fe1ec8a9e0b88bea791f8cbc8244219033b7f5031d9606761",
+        "status": "valid"
+      },
+      "outputs": [
+        {
+          "kind": "file",
+          "path": "functionalmlds/functionalmlds.instance.generated.json",
+          "sha256": "be9f8dc7f681d75bef6847439e6acdc92c0a8d2dc0d32ca5958d8cd4ccd8d63d"
+        },
+        {
+          "kind": "file",
+          "path": "functionalmlds/functionalmlds.v2.instance.json",
+          "sha256": "36ad81efdc00b09e50b1433b75e74688bfdc0579a5deb86585efca056f6b4428"
+        },
+        {
+          "kind": "file",
+          "path": "intermediate/agent_placements.json",
+          "sha256": "132aaaebac4b40dc6abbd2ac55ad4fbf86a7694d01bb6e872fe64a86cf2aeb77"
+        },
+        {
+          "kind": "file",
+          "path": "intermediate/handoff_matrix.json",
+          "sha256": "4769a00b5e133d2753c68a054022943abb428fe7e8c2ce3bedfba0470d3cc01a"
+        },
+        {
+          "kind": "tree",
+          "path": "interactive_agents_project/kb",
+          "sha256": "eb19e0f52137aeefc0c06d9d14f8975898a82c1aee5013cd1198c67ccf4051ba"
+        },
+        {
+          "file_count": 16,
+          "kind": "materialized_project",
+          "model_sha256": "36ad81efdc00b09e50b1433b75e74688bfdc0579a5deb86585efca056f6b4428",
+          "path": "backend/projects/classroom_dinosaur"
+        }
+      ],
+      "stages": [
+        {
+          "action": "generated",
+          "id": "agent_placement",
+          "metrics": {
+            "agent_count": 4,
+            "minimum_agent_distance": 2.4677,
+            "obstacle_overlap_count": 0,
+            "out_of_bounds_count": 0,
+            "placement_count": 4
+          },
+          "status": "success",
+          "validation_status": "valid"
+        },
+        {
+          "id": "functionalmlds_assembly",
+          "metrics": {
+            "capability_count": 9,
+            "capability_use_count": 80,
+            "capability_use_coverage": 9,
+            "entity_count": 50,
+            "explicit_user_provider_count": 72,
+            "handoff_capability_count": 1,
+            "handoff_runtime_action_count": 1,
+            "handoff_runtime_binding_count": 1,
+            "interaction_use_case_count": 36,
+            "object_group_entity_count": 5,
+            "requirement_count": 6,
+            "room_answer_capability_count": 1,
+            "runtime_binding_count": 9,
+            "runtime_capability_coverage": 9,
+            "scene_object_entity_count": 36,
+            "semantic_zone_entity_count": 4,
+            "use_case_count": 37,
+            "validation_case_count": 41
+          },
+          "status": "success",
+          "validation_status": "valid"
+        },
+        {
+          "id": "handoff_derivation",
+          "metrics": {
+            "agent_count": 4,
+            "derivation_validation_status": "valid",
+            "fallback_used": false,
+            "frozen_role_unchanged": true,
+            "handoff_pair_count": 6,
+            "role_validation_status": "valid",
+            "source_agent_with_handoff_count": 4,
+            "unique_pair_count": 6
+          },
+          "status": "success",
+          "validation_status": "valid"
+        },
+        {
+          "id": "functionalmlds_v2_assembly",
+          "metrics": {
+            "error_count": 0,
+            "object_count": 1522,
+            "warning_count": 0
+          },
+          "status": "success",
+          "validation_status": "valid"
+        },
+        {
+          "id": "project_materialization",
+          "metrics": {
+            "agent_count": 4,
+            "kb_file_count": 8,
+            "trace_runtime_action_count": 85,
+            "trace_step_count": 117,
+            "trace_validation_case_count": 41
+          },
+          "status": "success",
+          "validation_status": "valid"
+        },
+        {
+          "id": "schema_validation",
+          "metrics": {
+            "artifact_count": 7,
+            "contract_mode": "v2-dual",
+            "invalid_artifact_count": 0,
+            "runtime_event_count": 0,
+            "schema_count": 7,
+            "valid_artifact_count": 7
+          },
+          "status": "success",
+          "validation_status": "valid"
+        },
+        {
+          "id": "functionalmlds_invariants",
+          "metrics": {
+            "checked_element_count": 334,
+            "error_count": 0,
+            "failed_invariant_count": 0,
+            "invariant_count": 8,
+            "passed_invariant_count": 8
+          },
+          "status": "success",
+          "validation_status": "valid"
+        }
+      ],
+      "status": "pass",
+      "target_comparison": {
+        "all_bytes_equal": false,
+        "all_path_normalized_semantically_equal": false,
+        "all_semantically_equal": false,
+        "artifact_count": 36,
+        "artifacts": [
+          {
+            "byte_equal": false,
+            "path": "stage_manifest.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "intermediate/agent_placements.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "intermediate/handoff_matrix.json",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "functionalmlds/functionalmlds.instance.generated.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "functionalmlds/functionalmlds.v2.instance.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "functionalmlds/functionalmlds.v2.assembly_report.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "validation/agent_placement_validation.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "validation/functionalmlds_invariant_validation.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "validation/handoff_derivation_validation.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "validation/project_materialization_validation.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "validation/schema_validation.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "validation/functionalmlds_invariants_validation.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/chalkboard_usage/effective_chalkboard_use_in_lessons.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/decorative_zone/decorative_art_and_plants_for_ambiance.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/dinosaur_display_zone/dinosaur_skeleton_exhibit_zone.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/dinosaur_education/educational_insights_on_the_dinosaur_skeleton.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/instruction_zone/classroom_instruction_zone_overview.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/reading_area/reading_area_setup.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/reading_area_usage/using_the_reading_area_for_study_and_relaxation.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/student_seating_arrangement/student_desk_arrangement_for_learning.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/classroom_dinosaur/agents.json",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "backend/projects/classroom_dinosaur/functionalmlds.v05.instance.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "backend/projects/classroom_dinosaur/functionalmlds.v2.instance.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/classroom_dinosaur/kb/chalkboard_usage/effective_chalkboard_use_in_lessons.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/classroom_dinosaur/kb/decorative_zone/decorative_art_and_plants_for_ambiance.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/classroom_dinosaur/kb/dinosaur_display_zone/dinosaur_skeleton_exhibit_zone.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/classroom_dinosaur/kb/dinosaur_education/educational_insights_on_the_dinosaur_skeleton.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/classroom_dinosaur/kb/instruction_zone/classroom_instruction_zone_overview.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/classroom_dinosaur/kb/reading_area/reading_area_setup.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/classroom_dinosaur/kb/reading_area_usage/using_the_reading_area_for_study_and_relaxation.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/classroom_dinosaur/kb/student_seating_arrangement/student_desk_arrangement_for_learning.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "backend/projects/classroom_dinosaur/project.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/classroom_dinosaur/room_plan.json",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "backend/projects/classroom_dinosaur/trace_map.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "backend/projects/classroom_dinosaur/trace_map.v05.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "backend/projects/classroom_dinosaur/trace_map.v2.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          }
+        ],
+        "byte_equal_count": 19,
+        "path_normalized_semantic_equal_count": 19,
+        "semantic_equal_count": 19
+      }
+    },
+    {
+      "case_id": "steinpilz_brand_room",
+      "frozen_inputs": {
+        "agent_count": 6,
+        "agent_roles_sha256": "00f2b0213c842979cb8b83d5012d54885373ec57d63a574ffec4f78db7a590c8",
+        "handoff_count": 15,
+        "knowledge_entry_count": 18,
+        "knowledge_sha256": "7dff1f33aa0d0433f986148878b765f50ad1980645373f53e163fc486bce87ef",
+        "scene_semantics_sha256": "ff509fe7ec471a2401cafb5235cd2e1794ac0c23b2528a4df35f5042b9fd2417",
+        "source_sha256": "be5f3a875eea8557012abaeba060a9dad6496884e7e1e1d1b52ce20195f22e78",
+        "status": "valid"
+      },
+      "outputs": [
+        {
+          "kind": "file",
+          "path": "functionalmlds/functionalmlds.instance.generated.json",
+          "sha256": "fa9b915ccbb5474bdad10bc70da7f17464b93d0f8ce4700bfd18d397945aa598"
+        },
+        {
+          "kind": "file",
+          "path": "functionalmlds/functionalmlds.v2.instance.json",
+          "sha256": "5615722da2d20f2cd850f69dd27a8501f7939f581514aa79d75b2ee2526216bf"
+        },
+        {
+          "kind": "file",
+          "path": "intermediate/agent_placements.json",
+          "sha256": "fe3bf78d827c3c82ce813c74f24bb0aba9dc0a859924cd53cdf9c9fb561d8581"
+        },
+        {
+          "kind": "file",
+          "path": "intermediate/handoff_matrix.json",
+          "sha256": "481443ecd5469744e3d2ab2affc2bc042f9138e5af84a1a8b0ff165956136d29"
+        },
+        {
+          "kind": "tree",
+          "path": "interactive_agents_project/kb",
+          "sha256": "2fba32e59a013219dbe00e1b87375d588b8e08b25ab22fefc9d30f6e744daadb"
+        },
+        {
+          "file_count": 26,
+          "kind": "materialized_project",
+          "model_sha256": "5615722da2d20f2cd850f69dd27a8501f7939f581514aa79d75b2ee2526216bf",
+          "path": "backend/projects/steinpilz_brand_room"
+        }
+      ],
+      "stages": [
+        {
+          "action": "generated",
+          "id": "agent_placement",
+          "metrics": {
+            "agent_count": 6,
+            "minimum_agent_distance": 2.1585,
+            "obstacle_overlap_count": 0,
+            "out_of_bounds_count": 0,
+            "placement_count": 6
+          },
+          "status": "success",
+          "validation_status": "valid"
+        },
+        {
+          "id": "functionalmlds_assembly",
+          "metrics": {
+            "capability_count": 9,
+            "capability_use_count": 68,
+            "capability_use_coverage": 9,
+            "entity_count": 54,
+            "explicit_user_provider_count": 60,
+            "handoff_capability_count": 1,
+            "handoff_runtime_action_count": 1,
+            "handoff_runtime_binding_count": 1,
+            "interaction_use_case_count": 30,
+            "object_group_entity_count": 9,
+            "requirement_count": 6,
+            "room_answer_capability_count": 1,
+            "runtime_binding_count": 9,
+            "runtime_capability_coverage": 9,
+            "scene_object_entity_count": 30,
+            "semantic_zone_entity_count": 8,
+            "use_case_count": 31,
+            "validation_case_count": 35
+          },
+          "status": "success",
+          "validation_status": "valid"
+        },
+        {
+          "id": "handoff_derivation",
+          "metrics": {
+            "agent_count": 6,
+            "derivation_validation_status": "valid",
+            "fallback_used": false,
+            "frozen_role_unchanged": true,
+            "handoff_pair_count": 15,
+            "role_validation_status": "valid",
+            "source_agent_with_handoff_count": 6,
+            "unique_pair_count": 15
+          },
+          "status": "success",
+          "validation_status": "valid"
+        },
+        {
+          "id": "functionalmlds_v2_assembly",
+          "metrics": {
+            "error_count": 0,
+            "object_count": 1316,
+            "warning_count": 0
+          },
+          "status": "success",
+          "validation_status": "valid"
+        },
+        {
+          "id": "project_materialization",
+          "metrics": {
+            "agent_count": 6,
+            "kb_file_count": 18,
+            "trace_runtime_action_count": 73,
+            "trace_step_count": 99,
+            "trace_validation_case_count": 35
+          },
+          "status": "success",
+          "validation_status": "valid"
+        },
+        {
+          "id": "schema_validation",
+          "metrics": {
+            "artifact_count": 7,
+            "contract_mode": "v2-dual",
+            "invalid_artifact_count": 0,
+            "runtime_event_count": 0,
+            "schema_count": 7,
+            "valid_artifact_count": 7
+          },
+          "status": "success",
+          "validation_status": "valid"
+        },
+        {
+          "id": "functionalmlds_invariants",
+          "metrics": {
+            "checked_element_count": 286,
+            "error_count": 0,
+            "failed_invariant_count": 0,
+            "invariant_count": 8,
+            "passed_invariant_count": 8
+          },
+          "status": "success",
+          "validation_status": "valid"
+        }
+      ],
+      "status": "pass",
+      "target_comparison": {
+        "all_bytes_equal": false,
+        "all_path_normalized_semantically_equal": false,
+        "all_semantically_equal": false,
+        "artifact_count": 56,
+        "artifacts": [
+          {
+            "byte_equal": false,
+            "path": "stage_manifest.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "intermediate/agent_placements.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "intermediate/handoff_matrix.json",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "functionalmlds/functionalmlds.instance.generated.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "functionalmlds/functionalmlds.v2.instance.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "functionalmlds/functionalmlds.v2.assembly_report.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "validation/agent_placement_validation.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "validation/functionalmlds_invariant_validation.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "validation/handoff_derivation_validation.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "validation/project_materialization_validation.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "validation/schema_validation.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "validation/functionalmlds_invariants_validation.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/booth_navigation/visitor_circulation_guidance.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/career_opportunities/career_discussions_and_opportunities.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/cheese_products/cheese_product_display_and_information.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/company_culture/insights_into_company_culture.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/company_overview/company_branding_and_messaging.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/content_navigation/guidance_through_digital_content.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/customer_engagement/engaging_visitors_with_cheese_expertise.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/digital_interaction/interactive_digital_kiosks.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/energy_management/energy_measurement_and_sustainability_displays.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/hospitality/warm_hospitality_in_lounge_area.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/networking/facilitated_networking_in_lounge.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/product_sampling/facilitated_cheese_sampling.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/production_process/cheese_production_technology_explanation.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/sustainability/sustainability_commitment_in_production.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/technical_support/technical_assistance_for_digital_interfaces.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/training_programs/training_program_information.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/visitor_comfort/lounge_area_comfort_and_hospitality.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "interactive_agents_project/kb/visitor_orientation/welcome_and_orientation_at_reception.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "backend/projects/steinpilz_brand_room/agents.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "backend/projects/steinpilz_brand_room/functionalmlds.v05.instance.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": false
+          },
+          {
+            "byte_equal": false,
+            "path": "backend/projects/steinpilz_brand_room/functionalmlds.v2.instance.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": false
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/steinpilz_brand_room/kb/booth_navigation/visitor_circulation_guidance.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/steinpilz_brand_room/kb/career_opportunities/career_discussions_and_opportunities.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/steinpilz_brand_room/kb/cheese_products/cheese_product_display_and_information.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/steinpilz_brand_room/kb/company_culture/insights_into_company_culture.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/steinpilz_brand_room/kb/company_overview/company_branding_and_messaging.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/steinpilz_brand_room/kb/content_navigation/guidance_through_digital_content.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/steinpilz_brand_room/kb/customer_engagement/engaging_visitors_with_cheese_expertise.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/steinpilz_brand_room/kb/digital_interaction/interactive_digital_kiosks.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/steinpilz_brand_room/kb/energy_management/energy_measurement_and_sustainability_displays.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/steinpilz_brand_room/kb/hospitality/warm_hospitality_in_lounge_area.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/steinpilz_brand_room/kb/networking/facilitated_networking_in_lounge.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/steinpilz_brand_room/kb/product_sampling/facilitated_cheese_sampling.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/steinpilz_brand_room/kb/production_process/cheese_production_technology_explanation.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/steinpilz_brand_room/kb/sustainability/sustainability_commitment_in_production.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/steinpilz_brand_room/kb/technical_support/technical_assistance_for_digital_interfaces.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/steinpilz_brand_room/kb/training_programs/training_program_information.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/steinpilz_brand_room/kb/visitor_comfort/lounge_area_comfort_and_hospitality.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/steinpilz_brand_room/kb/visitor_orientation/welcome_and_orientation_at_reception.txt",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "backend/projects/steinpilz_brand_room/project.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": true,
+            "path": "backend/projects/steinpilz_brand_room/room_plan.json",
+            "path_normalized_semantic_equal": true,
+            "semantic_equal": true,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "backend/projects/steinpilz_brand_room/trace_map.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": true
+          },
+          {
+            "byte_equal": false,
+            "path": "backend/projects/steinpilz_brand_room/trace_map.v05.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": false
+          },
+          {
+            "byte_equal": false,
+            "path": "backend/projects/steinpilz_brand_room/trace_map.v2.json",
+            "path_normalized_semantic_equal": false,
+            "semantic_equal": false,
+            "staged_exists": true,
+            "target_exists": false
+          }
+        ],
+        "byte_equal_count": 38,
+        "path_normalized_semantic_equal_count": 38,
+        "semantic_equal_count": 38
+      }
+    }
+  ],
+  "frozen_inputs_mutated": false,
+  "mode": "write",
+  "network_access": "blocked",
+  "published": true,
+  "schema": "iui2027_frozen_regeneration",
+  "schema_version": "1.0",
+  "status": "pass"
+}

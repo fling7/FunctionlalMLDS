@@ -18,12 +18,10 @@ public sealed class FunctionalMldsV2QuickAgentBridge
     private const string RuntimeContextSchema = "functionalmlds_runtime_context_v2";
 
     private readonly FunctionalMldsV2LoadResult loaded;
-    private readonly FunctionalMldsV2RuntimeContext context;
-    private readonly FunctionalMldsV2RuntimeLogger logger;
     private readonly FunctionalMldsV2ValidationRecorder recorder;
-    private readonly FunctionalMldsV2ScenarioRunner scenarioRunner;
     private readonly FunctionalMldsV2InteractionEvidenceEvaluator interactionEvaluator;
-    private readonly Dictionary<string, RuntimeMapping> mappings;
+    private readonly Dictionary<string, List<RuntimeMapping>> mappings;
+    private readonly Dictionary<string, ScenarioRuntime> scenarioRuntimes;
     private readonly string validationLogPath;
 
     public string CaseId { get; }
@@ -32,22 +30,18 @@ public sealed class FunctionalMldsV2QuickAgentBridge
     private FunctionalMldsV2QuickAgentBridge(
         string caseId,
         FunctionalMldsV2LoadResult loaded,
-        FunctionalMldsV2RuntimeContext context,
-        FunctionalMldsV2RuntimeLogger logger,
         FunctionalMldsV2ValidationRecorder recorder,
-        FunctionalMldsV2ScenarioRunner scenarioRunner,
         FunctionalMldsV2InteractionEvidenceEvaluator interactionEvaluator,
-        Dictionary<string, RuntimeMapping> mappings,
+        Dictionary<string, List<RuntimeMapping>> mappings,
+        Dictionary<string, ScenarioRuntime> scenarioRuntimes,
         string validationLogPath)
     {
         CaseId = caseId;
         this.loaded = loaded;
-        this.context = context;
-        this.logger = logger;
         this.recorder = recorder;
-        this.scenarioRunner = scenarioRunner;
         this.interactionEvaluator = interactionEvaluator;
         this.mappings = mappings;
+        this.scenarioRuntimes = scenarioRuntimes;
         this.validationLogPath = validationLogPath;
     }
 
@@ -102,36 +96,52 @@ public sealed class FunctionalMldsV2QuickAgentBridge
             throw new FunctionalMldsV2FormatException("Runtime context case_id does not match the downloaded model.");
         var scenarioId = RequiredText(runtime, "main_scenario_id");
         var sessionId = RequiredText(root, "session_id");
-        var context = FunctionalMldsV2RuntimeContext.Create(loaded, scenarioId, sessionId);
+        loaded.Index.Require(scenarioId, "Scenario");
 
         var mappings = ParseMappings(runtime["runtime_actions"], loaded.Index, scenarioId, caseId);
         foreach (var requiredKind in new[] { "setup", "chat", "handoff" })
         {
-            if (!mappings.ContainsKey(requiredKind))
+            if (!mappings.ContainsKey(requiredKind) || mappings[requiredKind].Count == 0)
                 throw new FunctionalMldsV2FormatException($"V2 runtime context has no exact '{requiredKind}' mapping.");
         }
+        if (mappings["setup"].Count != 1)
+            throw new FunctionalMldsV2FormatException("V2 runtime context must have exactly one setup mapping.");
 
         var directory = Path.GetFullPath(logDirectory ?? string.Empty);
         Directory.CreateDirectory(directory);
         var eventPath = Path.Combine(directory, "events.v2.jsonl");
         var validationPath = Path.Combine(directory, "runtime_validation.v2.jsonl");
+        var scenarioRuntimes = mappings.Values
+            .SelectMany(items => items)
+            .Select(item => item.ScenarioId)
+            .Distinct(StringComparer.Ordinal)
+            .ToDictionary(
+                id => id,
+                id =>
+                {
+                    var scenarioContext = FunctionalMldsV2RuntimeContext.Create(loaded, id, sessionId);
+                    return new ScenarioRuntime(
+                        scenarioContext,
+                        new FunctionalMldsV2RuntimeLogger(eventPath, loaded.Index, scenarioContext),
+                        new FunctionalMldsV2ScenarioRunner(loaded.Index, scenarioContext));
+                },
+                StringComparer.Ordinal);
         return new FunctionalMldsV2QuickAgentBridge(
             caseId,
             loaded,
-            context,
-            new FunctionalMldsV2RuntimeLogger(eventPath, loaded.Index, context),
             new FunctionalMldsV2ValidationRecorder(loaded),
-            new FunctionalMldsV2ScenarioRunner(loaded.Index, context),
             new FunctionalMldsV2InteractionEvidenceEvaluator(loaded.Index, loaded.Sha256),
             mappings,
+            scenarioRuntimes,
             validationPath);
     }
 
-    public void RequireAction(string actionKind, string activeAgentId)
+    public void RequireAction(
+        string actionKind,
+        string activeAgentId,
+        FunctionalMldsV2InteractionObservation observation = null)
     {
-        var mapping = Mapping(actionKind);
-        context.ActiveAgentId = string.IsNullOrWhiteSpace(activeAgentId) ? null : activeAgentId.Trim();
-        scenarioRunner.SynchronizeExternallyObservedStep(mapping.Execution.ScenarioStepId);
+        RequireMapping(Mapping(actionKind, observation), activeAgentId);
     }
 
     public FunctionalMldsV2RuntimeEvent Record(
@@ -142,11 +152,12 @@ public sealed class FunctionalMldsV2QuickAgentBridge
         object inputSummary,
         object outputSummary,
         double? durationMs = null,
-        string errorSummary = null)
+        string errorSummary = null,
+        FunctionalMldsV2InteractionObservation observation = null)
     {
-        var mapping = Mapping(actionKind);
-        RequireAction(actionKind, activeAgentId);
-        var runtimeEvent = logger.Append(
+        var mapping = Mapping(actionKind, observation);
+        var runtime = RequireMapping(mapping, activeAgentId);
+        var runtimeEvent = runtime.Logger.Append(
             eventType,
             mapping.Execution,
             mapping.TraceReferences,
@@ -179,7 +190,7 @@ public sealed class FunctionalMldsV2QuickAgentBridge
             mapping.TraceReferences.ValidationCaseIds,
             mapping.TraceReferences.RuntimeValidationTargetIds,
             evaluations,
-            context.SessionId);
+            runtime.Context.SessionId);
         File.AppendAllText(
             validationLogPath,
             JsonConvert.SerializeObject(validation, Formatting.None) + Environment.NewLine);
@@ -200,8 +211,8 @@ public sealed class FunctionalMldsV2QuickAgentBridge
         object outputSummary,
         double? durationMs = null)
     {
-        var mapping = Mapping(actionKind);
-        RequireAction(actionKind, activeAgentId);
+        var mapping = Mapping(actionKind, observation);
+        var runtime = RequireMapping(mapping, activeAgentId);
         var assessment = interactionEvaluator.Evaluate(mapping.Execution, observation);
         var eventStatus = string.Equals(assessment.Verdict, "pass", StringComparison.Ordinal)
             ? "success"
@@ -210,7 +221,7 @@ public sealed class FunctionalMldsV2QuickAgentBridge
                 : string.Equals(assessment.Verdict, "error", StringComparison.Ordinal)
                     ? "error"
                     : "inconclusive";
-        var runtimeEvent = logger.Append(
+        var runtimeEvent = runtime.Logger.Append(
             eventType,
             mapping.Execution,
             mapping.TraceReferences,
@@ -234,7 +245,7 @@ public sealed class FunctionalMldsV2QuickAgentBridge
         assessment.RuntimeEventId = runtimeEvent.EventId;
         FunctionalMldsV2Transition transition;
         assessment.ScenarioStepCompleted = assessment.CompletionSatisfied
-            && scenarioRunner.TryCompleteEvidenceBoundStep(
+            && runtime.Runner.TryCompleteEvidenceBoundStep(
                 mapping.Execution.ScenarioStepId,
                 assessment.TargetResolved,
                 assessment.RouteResolved,
@@ -266,7 +277,7 @@ public sealed class FunctionalMldsV2QuickAgentBridge
             mapping.TraceReferences.ValidationCaseIds,
             mapping.TraceReferences.RuntimeValidationTargetIds,
             evaluations,
-            context.SessionId);
+            runtime.Context.SessionId);
         File.AppendAllText(
             validationLogPath,
             JsonConvert.SerializeObject(validation, Formatting.None) + Environment.NewLine);
@@ -283,34 +294,116 @@ public sealed class FunctionalMldsV2QuickAgentBridge
                 item => $"{item.Probe}={item.Verdict}: {item.Message}"));
     }
 
-    private RuntimeMapping Mapping(string actionKind)
+    private ScenarioRuntime RequireMapping(RuntimeMapping mapping, string activeAgentId)
     {
-        var normalized = (actionKind ?? string.Empty).Trim().ToLowerInvariant();
-        RuntimeMapping mapping;
-        if (!mappings.TryGetValue(normalized, out mapping))
-            throw new FunctionalMldsV2FormatException($"No exact V2 trace mapping for '{actionKind}'.");
-        return mapping;
+        ScenarioRuntime runtime;
+        if (mapping == null || !scenarioRuntimes.TryGetValue(mapping.ScenarioId, out runtime))
+            throw new FunctionalMldsV2FormatException("The selected V2 mapping has no scenario runtime.");
+        runtime.Context.ActiveAgentId =
+            string.IsNullOrWhiteSpace(activeAgentId) ? null : activeAgentId.Trim();
+        runtime.Runner.SynchronizeExternallyObservedStep(mapping.Execution.ScenarioStepId);
+        return runtime;
     }
 
-    private static Dictionary<string, RuntimeMapping> ParseMappings(
+    private RuntimeMapping Mapping(
+        string actionKind,
+        FunctionalMldsV2InteractionObservation observation = null)
+    {
+        var normalized = (actionKind ?? string.Empty).Trim().ToLowerInvariant();
+        List<RuntimeMapping> candidates;
+        if (!mappings.TryGetValue(normalized, out candidates) || candidates.Count == 0)
+            throw new FunctionalMldsV2FormatException($"No exact V2 trace mapping for '{actionKind}'.");
+        if (candidates.Count == 1)
+            return candidates[0];
+
+        var narrowed = candidates.AsEnumerable();
+        var selectedTarget = TextOf(
+            observation?.SelectedEntityId,
+            observation?.ResponseSelectedEntityId);
+        if (!string.IsNullOrWhiteSpace(selectedTarget))
+            narrowed = narrowed.Where(item => item.Execution.TargetIds.Contains(selectedTarget));
+
+        if (observation != null)
+        {
+            narrowed = FilterExact(narrowed, observation.CapabilityUseId, item => item.Execution.CapabilityUseId);
+            narrowed = FilterExact(narrowed, observation.CapabilityId, item => item.Execution.CapabilityId);
+            narrowed = FilterExact(narrowed, observation.RuntimeBindingId, item => item.Execution.RuntimeBindingId);
+            if (string.Equals(normalized, "chat", StringComparison.Ordinal))
+                narrowed = FilterExact(narrowed, observation.RuntimeActionId, item => item.Execution.RuntimeActionId);
+
+            var provider = TextOf(observation.RoutedAgentId, observation.RequestedAgentId);
+            if (!string.IsNullOrWhiteSpace(provider))
+            {
+                var providerMatches = narrowed.Where(item => ProviderMatches(item.Execution.ProviderId, provider)).ToList();
+                if (providerMatches.Count > 0)
+                    narrowed = providerMatches;
+            }
+
+            if (string.Equals(
+                    observation.InteractionMode,
+                    FunctionalMldsV2InteractionEvidenceEvaluator.NonDeicticMode,
+                    StringComparison.Ordinal))
+            {
+                narrowed = narrowed.Where(item => item.Execution.TargetIds.Count == 0);
+            }
+        }
+
+        var exact = narrowed.ToList();
+        if (exact.Count != 1)
+        {
+            var qualifier = string.IsNullOrWhiteSpace(selectedTarget)
+                ? "without one trusted target/model binding"
+                : $"for target '{selectedTarget}'";
+            throw new FunctionalMldsV2FormatException(
+                $"V2 '{normalized}' runtime mapping is {(exact.Count == 0 ? "missing" : "ambiguous")} {qualifier}.");
+        }
+        return exact[0];
+    }
+
+    private bool ProviderMatches(string providerId, string observedAgentId)
+    {
+        if (string.Equals(providerId, observedAgentId, StringComparison.Ordinal))
+            return true;
+        var provider = loaded.Index.Require(providerId, "Entity");
+        return string.Equals(provider.OptionalString("sourceAgentId"), observedAgentId, StringComparison.Ordinal)
+            || string.Equals(provider.OptionalString("sourceId"), observedAgentId, StringComparison.Ordinal);
+    }
+
+    private static IEnumerable<RuntimeMapping> FilterExact(
+        IEnumerable<RuntimeMapping> candidates,
+        string expected,
+        Func<RuntimeMapping, string> selector)
+    {
+        if (string.IsNullOrWhiteSpace(expected))
+            return candidates;
+        var normalized = expected.Trim();
+        return candidates.Where(item => string.Equals(selector(item), normalized, StringComparison.Ordinal));
+    }
+
+    private static string TextOf(params string[] values)
+    {
+        return (values ?? Array.Empty<string>())
+            .Select(value => value?.Trim())
+            .FirstOrDefault(value => !string.IsNullOrWhiteSpace(value));
+    }
+
+    private static Dictionary<string, List<RuntimeMapping>> ParseMappings(
         JToken token,
         FunctionalMldsV2ModelIndex index,
-        string scenarioId,
+        string mainScenarioId,
         string caseId)
     {
         var array = token as JArray;
         if (array == null || array.Count == 0)
             throw new FunctionalMldsV2FormatException("V2 runtime context contains no runtime_actions.");
-        var result = new Dictionary<string, RuntimeMapping>(StringComparer.Ordinal);
+        var result = new Dictionary<string, List<RuntimeMapping>>(StringComparer.Ordinal);
         var actualChains = new HashSet<string>(StringComparer.Ordinal);
         foreach (var raw in array.OfType<JObject>())
         {
             var kind = RequiredText(raw, "action_kind").ToLowerInvariant();
             if (kind != "setup" && kind != "chat" && kind != "handoff" && kind != "runtime")
                 throw new FunctionalMldsV2FormatException($"Unsupported application action kind '{kind}'.");
-            if (kind != "runtime" && result.ContainsKey(kind))
-                throw new FunctionalMldsV2FormatException($"Ambiguous V2 '{kind}' runtime mapping.");
-
+            var scenarioId = RequiredText(raw, "scenario_id");
             var execution = new FunctionalMldsV2ExecutionReference
             {
                 ScenarioStepId = RequiredText(raw, "scenario_step_id"),
@@ -332,8 +425,21 @@ public sealed class FunctionalMldsV2QuickAgentBridge
             if (!actualChains.Add(ChainKey(execution)))
                 throw new FunctionalMldsV2FormatException("V2 runtime context contains a duplicate runtime chain.");
             if (kind != "runtime")
-                result.Add(kind, new RuntimeMapping(kind, execution, references));
+            {
+                List<RuntimeMapping> byKind;
+                if (!result.TryGetValue(kind, out byKind))
+                {
+                    byKind = new List<RuntimeMapping>();
+                    result.Add(kind, byKind);
+                }
+                byKind.Add(new RuntimeMapping(kind, scenarioId, execution, references));
+            }
         }
+        if (!result.ContainsKey("setup")
+            || result["setup"].Count != 1
+            || !string.Equals(result["setup"][0].ScenarioId, mainScenarioId, StringComparison.Ordinal))
+            throw new FunctionalMldsV2FormatException(
+                "V2 runtime context requires one setup mapping in main_scenario_id.");
         var expectedChains = ExpectedChainKeys(index);
         if (!actualChains.SetEquals(expectedChains))
             throw new FunctionalMldsV2FormatException(
@@ -524,17 +630,37 @@ public sealed class FunctionalMldsV2QuickAgentBridge
     private sealed class RuntimeMapping
     {
         public string ActionKind { get; }
+        public string ScenarioId { get; }
         public FunctionalMldsV2ExecutionReference Execution { get; }
         public FunctionalMldsV2TraceReferences TraceReferences { get; }
 
         public RuntimeMapping(
             string actionKind,
+            string scenarioId,
             FunctionalMldsV2ExecutionReference execution,
             FunctionalMldsV2TraceReferences traceReferences)
         {
             ActionKind = actionKind;
+            ScenarioId = scenarioId;
             Execution = execution;
             TraceReferences = traceReferences;
+        }
+    }
+
+    private sealed class ScenarioRuntime
+    {
+        public FunctionalMldsV2RuntimeContext Context { get; }
+        public FunctionalMldsV2RuntimeLogger Logger { get; }
+        public FunctionalMldsV2ScenarioRunner Runner { get; }
+
+        public ScenarioRuntime(
+            FunctionalMldsV2RuntimeContext context,
+            FunctionalMldsV2RuntimeLogger logger,
+            FunctionalMldsV2ScenarioRunner runner)
+        {
+            Context = context;
+            Logger = logger;
+            Runner = runner;
         }
     }
 }

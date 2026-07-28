@@ -1,28 +1,188 @@
 \section{Results}
 
-This section is intentionally evidence-gated. Every value will be imported from
-the clean evaluation output; no expected baseline value or stale report is used.
+All structural values below were recomputed by the API-free benchmark from the
+three frozen cases. They are exact counts for this corpus rather than estimates
+of a room population. The backend tests used a deterministic response stub, and
+the Unity values are editor batch-mode results. No result in this section comes
+from a human-participant study or measures answer quality.
 
-\subsection{RQ1: Interaction correctness}
+\subsection{RQ1: Representation and routing conformance}
 
-\resultpending{Report per-case and aggregate target resolution, routing, task
-success, false-handoff, and abstention results for both conditions. Include
-denominators, uncertainty, and representative failures.}
+Table~\ref{tab:rq1-chains} reports the target-specific chains. Every one of the
+93 scene assets occurred in at least one complete chain. All 186
+\texttt{ScenarioStep}/\texttt{CapabilityUse} pairs that explicitly targeted an
+asset resolved through a provider, runtime binding and action, resulting
+assertions, and a covering validation case; the checker reported no incomplete
+chain. The two chains per asset encode the modeled answer and handoff paths,
+not two observed visitor interactions.
 
-\subsection{RQ2: Robust authoring and evolution}
+\begin{table}[t]
+  \caption{Complete model-grounded interaction chains. ``Pairs'' are
+  asset-targeting \texttt{ScenarioStep}/\texttt{CapabilityUse} pairs.}
+  \label{tab:rq1-chains}
+  \centering
+  \begin{tabular}{@{}lrrrr@{}}
+    \toprule
+    Case & Assets & Complete & Pairs & Complete \\
+    \midrule
+    Career fair & 27 & 27 & 54 & 54 \\
+    Classroom & 36 & 36 & 72 & 72 \\
+    Food/trade fair & 30 & 30 & 60 & 60 \\
+    \midrule
+    Total & 93 & 93 & 186 & 186 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
-\resultpending{Report paired change-task results: edited artifacts, inconsistent
-references, detected faults, regeneration, and execution. Distinguish measured
-developer actions from automatically derived changes.}
+On the natural corpus, responsibility resolution was unique at the
+asset-assignment tier for 93/93 assets; none required group or zone fallback,
+and none was ambiguous or unassigned. We therefore do not present fallback as
+a natural-corpus frequency. In the separate derived priority suite, both
+adapters produced the expected result for all nine decision cases
+(9/9 per adapter, 18/18 adapter outcomes): three group fallbacks, three zone
+fallbacks, and three fail-closed ambiguities.
 
-\subsection{RQ3: Runtime accountability}
+The routing benchmark paired each asset with every possible starting agent.
+Table~\ref{tab:rq1-routing} shows all 459 decisions. The owner was already local
+in 93 cases, a direct handoff was declared in 205, a route existed only
+transitively in 143, and 18 were unreachable. Thus local or direct one-hop
+coverage was 298/459 (64.9\%), while offline graph reachability was 441/459
+(96.1\%). The latter number does not mean that the online interface performs a
+multi-hop handoff in one turn. The direct-artifact and model-grounded adapters
+agreed on all 93 owner decisions and all 459 route classifications under the
+shared deterministic resolver.
 
-\resultpending{Report complete scenario-to-outcome traces, runtime-action log
-coverage, mutation detection, false positives, localization, and repair success.
-Do not combine detection and repair into one success measure.}
+\begin{table}[t]
+  \caption{Offline structural routing from every start agent. ``Reach.''
+  includes transitive graph paths; it is not online task completion.}
+  \label{tab:rq1-routing}
+  \centering
+  \begin{tabular}{@{}lrrrrrr@{}}
+    \toprule
+    Case & $n$ & Local & Direct & Trans. & Unreach. & Reach. \\
+    \midrule
+    Career fair & 135 & 27 & 53 & 55 & 0 & 135 \\
+    Classroom & 144 & 36 & 81 & 9 & 18 & 126 \\
+    Food/trade fair & 180 & 30 & 71 & 79 & 0 & 180 \\
+    \midrule
+    Total & 459 & 93 & 205 & 143 & 18 & 441 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
-\subsection{Response quality}
+\subsection{RQ2: Representation tradeoffs}
 
-\resultpending{Report structural grounding, expected-fact coverage, prohibited
-claims, and any independently judged semantic measure separately. State judge
-model and agreement when an AI judge is used.}
+The natural, unmodified representations had no owner or route mismatch.
+Agreement also remained exact after each of the nine semantically matched
+mutations (three mutation types in each of three cases). Table~\ref{tab:rq2-faults}
+separates validation from representation edits. Each adapter accepted all three
+expected-valid case copies, so neither produced a false positive. Each detected
+and localized 9/9 common mutations: missing ownership, a duplicate owner, and a
+dangling handoff in every case. This result establishes parity for the injected
+fault set; it does not show greater fault sensitivity for either
+representation.
+
+\begin{table}[t]
+  \caption{Common-fault validation and deterministic patch counts. Artifact
+  and reference edits describe scripted representation changes, not developer
+  actions or time.}
+  \label{tab:rq2-faults}
+  \centering
+  \begin{tabular}{@{}lrrrrr@{}}
+    \toprule
+    Adapter & FP & Detected & Localized & Artifacts & Refs. \\
+    \midrule
+    Direct artifact & 0/3 & 9/9 & 9/9 & 15 & 15 \\
+    Model grounded & 0/3 & 9/9 & 9/9 & 9 & 18 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The edit counts expose a mixed representation tradeoff. Across the nine
+patches, the model-grounded condition changed fewer top-level artifacts
+(9 versus 15) but more stored references (18 versus 15). These are automatic
+patch deltas, not evidence that a person would complete a maintenance task
+faster or with fewer errors. For the additional V2-only mutations, the
+canonical validator detected 3/9 and the stricter agent-provider contract
+detected 9/9; each localized every fault it detected and yielded 0/3 false
+positives on expected-valid copies. Because the direct artifacts have no
+equivalent constructs, these V2-only outcomes indicate added contract
+expressiveness, not a baseline failure.
+
+Table~\ref{tab:rq2-runtime} reports the local structural workload. The fresh V2
+adapter took 4.67--6.41 times the direct-adapter median across cases. Absolute
+medians remained below 8.3\,ms, but the measurement excludes parsing,
+V2 generation, Unity, networking, and language-model latency. It therefore
+characterizes only the in-memory adapter workload and is not an end-user
+response-time result.
+
+\begin{table*}[t]
+  \caption{Local structural runtime over 40 repetitions per adapter and case,
+  in milliseconds: median [Q1, Q3] (minimum--maximum).}
+  \label{tab:rq2-runtime}
+  \centering
+  \begin{tabular}{@{}lccc@{}}
+    \toprule
+    Case & Direct artifact & Fresh V2 & Median ratio \\
+    \midrule
+    Career fair
+      & 0.744 [0.693, 0.998] (0.653--1.575)
+      & 4.068 [3.976, 4.577] (3.581--7.796)
+      & 5.47 \\
+    Classroom
+      & 0.760 [0.724, 0.794] (0.683--1.638)
+      & 4.868 [4.791, 5.726] (4.661--8.433)
+      & 6.41 \\
+    Food/trade fair
+      & 1.776 [1.661, 1.928] (0.990--2.286)
+      & 8.298 [7.895, 8.712] (5.559--10.797)
+      & 4.67 \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\subsection{RQ3: Contract enforcement and placement transactions}
+
+The exhaustive runtime integration sweep passed all 459/459 probes. It admitted
+all 298/298 local and direct routes, preserved the expected target and provider,
+returned non-empty capability and runtime identifiers consistently across all
+checked response fields, and made exactly 298 deterministic-stub calls. It
+rejected all 161/161 transitive and unreachable routes before the stub with no
+session mutation. The per-case probe totals were 135, 144, and 180; all session
+states were restored and no network or external API was used. These probes
+execute the request contract, but they are not 459 human interactions.
+
+The targeted backend suite accepted the valid deictic request and returned the
+server-resolved spatial, provider, route, binding, action, and evidence fields.
+It rejected all 16 invalid variants: five stale, unknown, ambiguous, or
+contradictory contexts; one unmodeled handoff; one targetless request without
+an exact action; three invalid interaction-mode/context combinations; one
+spatial context on a non-deictic request; one invalid active agent; and four
+oversized fields. Session state remained unchanged. Fifteen failed before the
+stub; the unmodeled handoff required one call to observe the prohibited
+destination and then rolled back. These are contract tests, not
+dialogue-quality trials.
+
+All three Unity Editor batch entry points returned zero with explicit success
+markers. The native V2 smoke covered scenario progression, dispatch, five
+assertion types, validation recording, and malformed-model rejection. The
+bridge wrote 8/8 events and 8/8 validation records; its five assessments
+yielded the expected inconclusive, pass, and fail outcomes, while three
+transport events remained inconclusive. The spatial smoke covered ambiguous
+registries, stable scene binding, serialization, desktop-ray selection, and
+unsupported-modality rejection. The Steinpilz multi-scenario smoke loaded 31
+contexts and 73 actions, selected an exact target-specific chain, accepted the
+server-confirmed binding, and uniquely bound 30/30 stable objects without
+UUID-suffix fallback. These are editor batch paths, not human, headset, or
+frame-rate evidence.
+
+Finally, all four placement-authoring transaction workflows passed. Preview
+left files and session placement unchanged and blocked project commit while a
+decision was pending; apply--accept--undo restored the original bytes; a stale
+revision was rejected and discard restored the original files; and an injected
+regeneration failure rolled back both files and session state while retaining
+the preview for correction. Detection and recovery are stated separately:
+the stale revision and injected regeneration fault were each detected (2/2),
+and the corresponding non-destructive conflict handling and rollback both
+completed (2/2). No responsibility, capability, or handoff authoring is implied
+by these placement-only results.

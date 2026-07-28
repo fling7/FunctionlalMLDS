@@ -9,7 +9,8 @@
     "fallback_used": false,
     "unique_pair_count": 12,
     "role_validation_status": "valid",
-    "derivation_validation_status": "valid"
+    "derivation_validation_status": "valid",
+    "frozen_role_unchanged": true
   },
   "role_validation": {
     "status": "valid",

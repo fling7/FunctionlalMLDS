@@ -1,4 +1,6 @@
 {
+  "placement_algorithm_version": "2.0.0",
+  "placement_artifact_sha256": "e14dc7f7c42a8ac3317766b03023578aff0b840c2b3ec8677f94cfacb473a2f9",
   "status": "valid",
   "errors": [],
   "warnings": [],
@@ -7,6 +9,6 @@
     "placement_count": 6,
     "out_of_bounds_count": 0,
     "obstacle_overlap_count": 0,
-    "minimum_agent_distance": 0.9851
+    "minimum_agent_distance": 2.1585
   }
 }

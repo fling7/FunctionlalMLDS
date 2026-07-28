@@ -304,11 +304,46 @@ def start_http_server(host: str, port: int, store: SessionStore) -> None:
                 if path == "/chat":
                     started = time.perf_counter()
                     session_id = str(payload.get("session_id") or "").strip()
-                    chat_preflight = store.preflight_runtime_action(session_id, "chat")
-                    is_v2 = chat_preflight.get("kind") == "v2"
+                    session_before_chat = store.sessions.get(session_id)
+                    is_v2 = (
+                        getattr(
+                            session_before_chat,
+                            "functionalmlds_contract_kind",
+                            "",
+                        )
+                        == "v2"
+                    )
                     session_snapshot = store.snapshot_session_mutation(session_id) if is_v2 else None
                     try:
-                        out = store.chat(payload)
+                        out = store.chat(
+                            payload,
+                            include_runtime_actions=is_v2,
+                        )
+                        runtime_actions = (
+                            out.pop("_functionalmlds_runtime_actions", {})
+                            if isinstance(out, dict)
+                            else {}
+                        )
+                        chat_action = (
+                            runtime_actions.get("chat")
+                            if isinstance(runtime_actions, dict)
+                            else None
+                        )
+                        handoff_action = (
+                            runtime_actions.get("handoff")
+                            if isinstance(runtime_actions, dict)
+                            else None
+                        )
+                        contract_fingerprint = (
+                            runtime_actions.get("contract_fingerprint")
+                            if isinstance(runtime_actions, dict)
+                            else None
+                        )
+                        if is_v2 and not isinstance(chat_action, dict):
+                            raise RuntimeError(
+                                "V2 chat did not return its preselected runtime "
+                                "action."
+                            )
                         session_id = str(out.get("session_id") or session_id).strip()
                         session = store.sessions.get(session_id)
                         project_id = session.project_id if session else None
@@ -331,11 +366,15 @@ def start_http_server(host: str, port: int, store: SessionStore) -> None:
                             "duration_ms": round((time.perf_counter() - started) * 1000, 3),
                             "status": "success",
                             "metadata": {"event_count": len(events), "handoff": bool(handoff)},
-                            "expected_action": chat_preflight.get("action"),
+                            "expected_action": chat_action,
                         }
                         handoff_entry = None
                         if handoff:
-                            handoff_preflight = store.preflight_runtime_action(session_id, "handoff")
+                            if is_v2 and not isinstance(handoff_action, dict):
+                                raise RuntimeError(
+                                    "V2 handoff did not return its preselected "
+                                    "runtime action."
+                                )
                             handoff_entry = {
                                 "action_kind": "handoff",
                                 "event_type": "backend_handoff_completed",
@@ -353,7 +392,7 @@ def start_http_server(host: str, port: int, store: SessionStore) -> None:
                                 "duration_ms": None,
                                 "status": "success",
                                 "metadata": {"from": handoff.get("from"), "to": handoff.get("to")},
-                                "expected_action": handoff_preflight.get("action"),
+                                "expected_action": handoff_action,
                             }
                         if is_v2:
                             entries = [chat_entry] + ([handoff_entry] if handoff_entry else [])
@@ -361,7 +400,7 @@ def start_http_server(host: str, port: int, store: SessionStore) -> None:
                                 project_manager=store.project_manager,
                                 project_id=project_id,
                                 entries=entries,
-                                expected_contract_fingerprint=chat_preflight.get("contract_fingerprint") or None,
+                                expected_contract_fingerprint=contract_fingerprint or None,
                             )
                             if len(logged) != len(entries):
                                 raise RuntimeError("V2 runtime evidence transaction was not fully committed.")

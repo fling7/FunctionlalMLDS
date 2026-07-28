@@ -1,4 +1,5 @@
 \section{Related Work}
+\label{sec:related-work}
 
 \subsection{Human--AI interaction and intelligible control}
 
@@ -62,7 +63,7 @@ Compared with CUIfy and AgentHands, the contribution is an authoring and
 verification layer rather than an integration library or gesture-generation
 method.
 
-\subsection{Model-based interface engineering and traceability}
+\subsection{Model-based interface and XR engineering}
 
 Model-based interface development has long addressed the mapping from abstract
 tasks and domain concepts to concrete interfaces
@@ -75,6 +76,41 @@ runtime, omni-channel interfaces \cite{moldovan2020openuidl}. FunctionalMLDS is
 narrower: its domain is spatial, agentic interaction, and its platform mappings
 connect Unity entities and events to agent capabilities and backend operations.
 
+Model-driven work also targets immersive applications directly. Campos-López
+et al.\ define a domain metamodel enriched with AR representations and
+interactions with external systems, then generate applications with their ALTER
+tool \cite{camposlopez2023mdear}. Karre and Reddy define a role-based template
+for VR requirements, including scene, action, state, and validation concepts
+\cite{karre2024vrrequirements}. These systems establish that a metamodel can
+organize XR requirements or application generation. Our narrower concern is
+whether one instance can remain an executable authorization and diagnostic
+contract across a selected scene object, a responsible embodied agent, and a
+backend action.
+
+The MLDS lineage is especially close and fixes the terminology used here.
+Fischer et al.\ define a Meta-Language-defined Structure (MLDS) as a
+machine-readable artifact generated under a domain-specific meta-language
+specification \cite{fischer2025machinereadable}. Burk and Wienkop already apply
+that idea to natural-language-to-Unity scene generation, including spatial
+object placement and optional manual refinement
+\cite{burk2025dynamicvr}. Burk et al.\ subsequently formalize modular MLDS
+instructions, versioned profiles, dependencies, and gatekeeper validation for
+evolving toolchains \cite{burk2026modular}. Consequently, neither
+MLDS-to-Unity materialization, placement, nor MLDSI modularization is claimed as
+new here. The present contribution starts after materialization: a selected
+scene entity must resolve through one scenario-specific provider, capability,
+runtime action, and assertion, and that same chain is enforced during backend
+admission and response presentation.
+
+RADIANT likewise brings model-driven discipline to multi-agent LLM systems by
+deriving traceable structure and behavior models from requirements and using
+formal verification and change-impact analysis \cite{wei2026radiant}. It
+therefore rules out a broad claim that requirements-to-verification modeling
+for multi-agent LLM systems is new. Our later-lifecycle focus is narrower: a
+Unity-selected spatial entity must remain bound to one scenario-specific
+provider, capability, and executable action during request admission and
+returned interaction evidence.
+
 The design also builds on requirements traceability: a trace is useful when it
 helps locate and reason about consequences across artifacts
 \cite{gotel1994traceability}, and empirical work shows that developers can
@@ -82,15 +118,37 @@ benefit from trace links during maintenance and evolution
 \cite{maeder2015benefit}. We therefore evaluate concrete change and fault tasks
 rather than treating the presence of trace links as evidence of benefit.
 
+\subsection{Contracts, runtime verification, and agent provenance}
+
+Design by Contract makes obligations explicit as preconditions, postconditions,
+and invariants \cite{meyer1992contract}; runtime verification evaluates
+specified properties against observations of an executing system
+\cite{leucker2009runtime}. \systemname{} adopts the enforcement intuition but
+does not claim formal program verification. Its obligations are cross-layer
+relations: a request has a pinned model, a resolved entity, one authorized
+provider, an executable binding, and a response that preserves the relevant
+identifiers. The backend checks these obligations before a model call or state
+mutation, while later assertion evidence distinguishes contradiction from a
+missing observation.
+
+Provenance models such as W3C PROV connect entities, activities, and agents so
+that derivation can be represented and exchanged \cite{lebo2013provo}. Agent
+diagnosis has a related need for complete execution context: TraceElephant
+shows that partial output-only traces obscure failure attribution in
+multi-agent systems \cite{chen2026elephant}. Our trace is deliberately more
+limited than a complete reasoning trajectory. It records the contract
+identifiers and observable outcome needed to locate a failure along the
+scenario--target--provider--action path, without claiming to expose private
+chain-of-thought or explain answer semantics.
+
 \subsection{Positioning}
 
-Prior work separately addresses model-based interface generation,
-conversational XR authoring, spatial grounding, embodied agents, and LLM-agent
-orchestration. \systemname{} connects these concerns through one executable
-interaction contract linking a user scenario, selected spatial entity,
-responsible agent, capability, Unity/backend action, and observed assertion.
-The empirical contribution is correspondingly bounded: we test reference and
-routing correctness, change consistency, fault detection, and trace
-completeness against direct artifact wiring. We do not claim the first XR agent
-system, a new grounding algorithm, or a general-purpose user-interface
-description language.
+Prior work addresses model-based interface generation, conversational XR
+authoring, spatial grounding, embodied agents, and LLM-agent orchestration.
+\systemname{} instead keeps one interaction contract active after
+materialization, linking the selected entity and responsible agent to a
+capability, runtime action, and observed assertion. We evaluate routing
+correctness, change consistency, fault localization, and trace completeness
+against a normalized direct-artifact adapter; we do not claim the first
+spatial-agent system, a new grounding algorithm, or a general UI description
+language. Appendix Table~\ref{tab:closest-work} details the closest comparison.

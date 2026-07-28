@@ -1,0 +1,158 @@
+\begin{figure*}[t]
+  \centering
+  \resizebox{\textwidth}{!}{%
+    \begin{tikzpicture}[
+      alt={Three-part interaction contract. A scenario step reaches a runtime
+      action through a capability use, capability, and runtime binding.
+      Responsibility resolves by asset, then group, then zone and blocks
+      ambiguity. Stable identifiers connect Unity selection, backend routing,
+      and runtime assertion evidence.},
+      font=\scriptsize,
+      class/.style={
+        draw,
+        rounded corners=1.5pt,
+        align=center,
+        minimum height=10mm,
+        text width=24mm,
+        inner sep=2mm,
+        fill=black!3
+      },
+      core/.style={
+        class,
+        double,
+        double distance=0.6pt,
+        fill=black!9
+      },
+      implementation/.style={
+        class,
+        text width=38mm,
+        minimum height=14mm,
+        fill=black!6
+      },
+      decision/.style={
+        class,
+        text width=36mm,
+        minimum height=13mm,
+        fill=black!12
+      },
+      arrow/.style={-{Latex[length=2mm]},semithick},
+      relation/.style={arrow},
+      trace/.style={arrow,dashed},
+      reject/.style={-{Bar[width=2.8mm]},semithick},
+      edgelabel/.style={font=\tiny,align=center,fill=white,inner sep=1pt}
+    ]
+      \node[font=\bfseries,anchor=west] at (0,1.1) {(a) Executable interaction contract};
+
+      \node[class] (scenario) at (0,0) {\textbf{Scenario}\\[0.5mm]
+        ordered flow};
+      \node[core,right=8mm of scenario] (step) {\textbf{ScenarioStep}\\[0.5mm]
+        \texttt{performedBy} \texttt{[*]}};
+      \node[core,right=8mm of step] (use) {\textbf{CapabilityUse}\\[0.5mm]
+        \texttt{provider} \texttt{[1]}\\
+        \texttt{target} \texttt{[*]}};
+      \node[class,right=8mm of use] (capability) {\textbf{Capability}\\[0.5mm]
+        reusable intent};
+      \node[core,right=8mm of capability] (binding) {\textbf{RuntimeBinding}\\[0.5mm]
+        \texttt{targetPlatform} \texttt{[1]}};
+      \node[class,right=8mm of binding] (action) {\textbf{RuntimeAction}\\[0.5mm]
+        locator \texttt{[1]}\\
+        schemas \texttt{[0..1]}};
+
+      \draw[relation] (scenario) -- node[edgelabel,above] {owns\\\texttt{1..*}} (step);
+      \draw[relation] (step) -- node[edgelabel,above] {requires\\\texttt{0..*} ordered} (use);
+      \draw[relation] (use) -- node[edgelabel,above] {typed by\\exactly \texttt{1}} (capability);
+      \draw[relation] (capability) -- node[edgelabel,above] {realized by\\\texttt{0..*}} (binding);
+      \draw[relation] (binding) -- node[edgelabel,above] {owns\\\texttt{1..*} ordered} (action);
+
+      \node[class,below=14mm of capability] (effect) {\textbf{Effect}\\[0.5mm]
+        observable promise};
+      \node[class,right=8mm of effect] (assertion) {\textbf{Assertion}\\[0.5mm]
+        subject \texttt{[1]}\\
+        expression \texttt{[1]}};
+      \node[core,right=8mm of assertion] (validation) {\textbf{ValidationCase}\\[0.5mm]
+        \texttt{vvSubject [*]}\\
+        \texttt{vvProcedure [*]}};
+      \draw[relation] (capability) -- node[edgelabel,right] {owns \texttt{1..*}} (effect);
+      \draw[relation] (effect) -- node[edgelabel,above] {specified by\\\texttt{1..*}} (assertion);
+      \draw[trace] (validation) -- node[edgelabel,above] {intended outcome\\to \texttt{1..*}} (assertion);
+      \draw[trace] (validation.north east) to[bend left=15]
+        node[edgelabel,right] {\texttt{vvSubject [*]}} (binding.south);
+
+      \node[
+        draw,
+        rounded corners=2pt,
+        dashed,
+        fit=(scenario)(action)(effect)(validation),
+        inner sep=3mm,
+        label={[font=\tiny]below:No direct \texttt{ScenarioStep} $\rightarrow$
+          \texttt{RuntimeAction} shortcut}
+      ] (contractboundary) {};
+
+      \node[font=\bfseries,anchor=west] at
+        ([yshift=-13mm]contractboundary.south west) {(b) Spatial responsibility and fail-closed routing};
+      \node[class,anchor=north west] (asset) at
+        ([yshift=-16mm]contractboundary.south west) {\textbf{Asset Entity}\\
+        stable source ID};
+      \node[class,right=7mm of asset] (group) {\textbf{Group Entity}\\
+        \texttt{objectGroup [0..1]}};
+      \node[class,right=7mm of group] (zone) {\textbf{Zone Entity}\\
+        containing zone};
+      \node[class,right=10mm of zone,text width=31mm] (agent) {\textbf{Agent}
+        $\subseteq$ Entity\\
+        \texttt{groundedAsset [*]}\\
+        \texttt{groundedObjectGroup [*]}\\
+        \texttt{responsibleZone [*]}};
+      \node[decision,right=9mm of agent] (resolver) {\textbf{Responsibility resolver}\\
+        asset $>$ group $>$ zone\\
+        evaluate highest matching tier};
+
+      \draw[relation] (asset) -- node[edgelabel,above] {member of\\\texttt{0..1}} (group);
+      \draw[relation] (group) -- node[edgelabel,above] {located in} (zone);
+      \draw[relation] (agent) -- node[edgelabel,above] {candidate owners} (resolver);
+
+      \node[class,below=8mm of resolver,text width=43mm] (outcome)
+        {\textbf{Resolver outcome}\\
+        \texttt{1}: provider + permitted route\\
+        \texttt{>1} at top tier: ambiguous; block\\
+        \texttt{0}: unreachable; reject};
+      \draw[relation] (resolver) -- node[edgelabel,right] {count at\\highest tier} (outcome);
+
+      \node[font=\bfseries,anchor=west] at
+        ([xshift=-2mm,yshift=-39mm]asset.south west) {(c) Implemented Unity--backend--evidence projection};
+      \node[implementation,anchor=north west] (unity) at
+        ([xshift=-2mm,yshift=-43mm]asset.south west) {\textbf{Unity desktop client}\\
+        \texttt{SceneObjectBinding} maps a collider to a stable entity/source ID;
+        ray selection reports no target, one target, or ambiguity};
+      \node[implementation,right=9mm of unity] (backend) {\textbf{Agent backend}\\
+        validates pinned model hash and entity; derives group and zone; applies
+        priority and allowed handoffs; validates action schemas};
+      \node[implementation,right=9mm of backend] (evidence) {\textbf{Runtime evidence}\\
+        events retain scenario, capability use, binding, provider, and target;
+        assertion result is pass, fail, inconclusive, or error};
+      \draw[relation] (unity) -- node[edgelabel,above] {stable identifiers\\+ selection state} (backend);
+      \draw[relation] (backend) -- node[edgelabel,above] {permitted action\\+ observation} (evidence);
+    \end{tikzpicture}%
+  }
+  \caption{The compact FunctionalMLDS contract and its implementation mapping.
+  A scenario step reaches a runtime action only through an explicitly provided
+  capability use, capability, and binding. Spatial responsibility is resolved
+  at the highest matching tier---asset before object group before zone---and
+  ambiguity at that tier blocks execution. Stable model identifiers connect the
+  Unity selection, backend routing, and structured assertion evidence.}
+  \Description{A three-part diagram. Part a shows the executable contract from
+  Scenario through ScenarioStep, CapabilityUse, Capability, RuntimeBinding, and
+  RuntimeAction, with cardinalities on every edge. Capability owns one or more
+  Effects, each specified by one or more Assertions; a ValidationCase checks
+  bindings and assertions. A dashed boundary states that ScenarioStep cannot
+  directly reference RuntimeAction. Part b shows an asset, its optional object
+  group, its zone, and candidate agents. A responsibility resolver evaluates
+  asset assignments before group assignments and group assignments before zone
+  assignments. Exactly one owner permits routing; multiple owners at the
+  highest matching tier are ambiguous and blocked, while no owner or route is
+  rejected. Part c maps the contract to the implemented system: a Unity desktop
+  component binds a selected collider to a stable model entity, the backend
+  validates the pinned model and resolves responsibility and permitted
+  handoffs, and runtime evidence records the scenario, capability use, binding,
+  provider, target, and assertion verdict.}
+  \label{fig:contract-model}
+\end{figure*}

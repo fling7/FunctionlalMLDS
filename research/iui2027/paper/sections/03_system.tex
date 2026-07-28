@@ -1,11 +1,30 @@
 \section{System}
+\label{sec:system}
 
-Figure~\ref{fig:architecture} separates the authoring loop from the runtime path.
-Both use the same identifiers and relationships, but AI is used only to propose
-semantic content; deterministic checks decide whether an artifact or action is
-admissible.
+The core system is the visitor interaction path and its developer-facing
+diagnostics. Language models propose semantic content and, after deterministic
+contract checks pass, a conversational reply. A secondary placement workbench
+reuses the same identifiers for guarded change. We evaluate the contract, not
+linguistic output quality.
 
-\input{figures/architecture}
+\subsection{Interaction-oriented design goals}
+
+The visitor uses the Unity surface to select a visible object, see its highlight
+and status, and ask an agent about it. Three goals connect this interaction to
+the contract:
+
+\begin{description}
+  \item[Stable reference.] A collider is bound to a model entity and remains
+  the request target while the visitor composes a question.
+  \item[Visible uncertainty.] Missing and ambiguous selections are explicit
+  states that block a model call rather than silently choosing an object.
+  \item[Auditable responsibility.] Provider and route follow declared asset,
+  group, zone, capability, and handoff relations and are returned as diagnostic
+  evidence.
+\end{description}
+
+The interaction model is the executable infrastructure for these behaviors; it
+is not itself the user interface.
 
 \subsection{Interaction model}
 
@@ -16,6 +35,15 @@ operation, the responsible provider, and the spatial targets. The capability is
 connected through a \emph{runtime binding} to a concrete backend action. An
 \emph{assertion} describes the outcome that should be observable, and a
 \emph{validation case} links a stimulus to that expected outcome.
+
+The \emph{metamodel} defines classes, associations, cardinalities, and
+invariants; each room is a conforming instance. V2 conservatively extends a
+selected EAST-ADL 2.1.12 subset \cite{eastadl2013spec}. Imported requirements,
+use-case, function, and verification concepts retain their specified meaning.
+The \systemname{} namespace adds scenario flow, capabilities, entities, agents,
+runtime bindings/actions, assertions, and spatial responsibility and handoff
+relations. EAST-ADL provides a typed traceability foundation; we do not claim
+full conformance.
 
 The required execution path is:
 
@@ -30,98 +58,104 @@ responsible zones and grounded assets. These relationships allow validators to
 reject a capability use whose provider is not responsible for its spatial
 target.
 
-\begin{table}[t]
-  \caption{Running example: representing ``What is this?'' while a visitor
-  selects the classroom dinosaur skeleton.}
-  \Description{A table maps each interaction-model element to its dinosaur
-  example instance and purpose. The chain proceeds from the selected skeleton
-  through an exhibit-interpreter agent and description capability to the chat
-  endpoint and a grounded-response assertion.}
-  \label{tab:dinosaur-chain}
-  \begin{tabular}{p{.19\linewidth}p{.29\linewidth}p{.43\linewidth}}
-    \toprule
-    Element & Example instance & Meaning \\
-    \midrule
-    Target &
-    Dinosaur skeleton asset; its object group and exhibit zone &
-    Stable referent selected in Unity \\
-    Scenario step &
-    Describe selected dinosaur skeleton &
-    User-visible interaction to execute \\
-    Capability use &
-    Describe room object; provider: Exhibit Interpreter &
-    One occurrence with an explicit provider and targets \\
-    Agent &
-    Exhibit Interpreter &
-    Domain agent responsible for the asset \\
-    Runtime binding &
-    Validated \texttt{POST /chat} request and response &
-    Concrete operation permitted for the capability \\
-    Assertion &
-    Target, provider, response entity, and route agree &
-    Observable pass/fail evidence \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+\input{figures/contract-model}
+
+Figure~\ref{fig:contract-model} shows the model boundary. A
+\texttt{CapabilityUse} has exactly one capability and one provider in the
+executable profile. Its targets may include a scene asset, its group, and the
+provider's zone. A runtime binding realizes the capability through actions; a
+validation case connects the binding and resulting assertions to a check. The
+resolver evaluates asset, then group, then zone ownership. It accepts exactly
+one owner at the highest matching tier; ambiguity or no owner blocks execution.
+
+In the running example, a visitor selects a dinosaur skeleton and asks
+``What is this?'' The chain resolves the Exhibit Interpreter's description
+capability and the chat action; Appendix Table~\ref{tab:dinosaur-chain} lists
+the corresponding model objects. Its evidence can verify target, provider, and
+route metadata, but not the biological accuracy of the generated sentence.
+
+\subsection{Staged invariant enforcement}
+
+The implementation distinguishes three kinds of rule. \emph{Canonical} rules
+define model-language well-formedness and backwards-compatible cardinalities.
+The \emph{executable profile}, enforced while the pipeline assembles a case,
+tightens those rules where execution needs a unique choice; for example, the
+compatibility core permits an optional provider, whereas an executable
+capability use requires exactly one. \emph{Runtime} rules bind a
+specific request and observation to one already valid model version. Treating
+all three as ``metamodel validation'' would hide where a fault is detected.
+
+The enforcement path has five concrete boundaries: JSON schema, canonical
+model, executable pipeline profile, backend runtime, and Unity client. The
+backend rechecks the authoritative model relations, so a modified client cannot
+bypass provider, route, target, or action validation. Appendix
+Table~\ref{tab:enforcement-layers} gives the complete invariant-to-boundary
+mapping.
+
+There is consequently no endpoint shortcut around the interaction contract in
+the evaluated path. A scenario step does not store a callable endpoint; the
+pipeline emits an action only through a valid capability binding; the backend
+re-resolves the exact action from the pinned model; and Unity presents the
+answer only when the returned identifiers agree with the pending selection.
 
 \subsection{Generation pipeline}
 
-The pipeline starts from a structured room description. It normalizes scene
-entities, derives scene semantics, proposes agent roles and capabilities,
-materializes knowledge resources, and computes agent placement. A native
-\systemname{} instance then connects these products to interaction scenarios and
-runtime bindings. Deterministic validators check schemas and cross-reference
-invariants before artifacts are made available to Unity or the backend.
+From a structured room description, the pipeline normalizes scene entities,
+derives semantics, proposes agent roles and capabilities, materializes
+knowledge, and computes placement. A native \systemname{} instance connects
+these products to scenarios and runtime bindings. Deterministic validators
+check schemas and references before publication to Unity or the backend.
 
-The implementation separates probabilistic and deterministic stages. Language
-models can propose semantic labels, roles, knowledge, and evaluation utterances.
-Identifiers, geometric placement, relationship validation, artifact
-materialization, and metric computation are deterministic. Each stage records
-its inputs, configuration, outputs, and hashes so that a result can be
-invalidated when a relevant upstream artifact changes.
+Language models may propose labels, roles, handoffs, and knowledge. Identifiers,
+placement, probes, relationship validation, materialization, and metrics are
+deterministic. Each stage records inputs, configuration, outputs, and hashes so
+upstream changes invalidate stale results.
 
-\subsection{Inspectable placement authoring}
+\subsection{Secondary placement workbench}
 
-The Unity editor exposes the generated placement as a revisioned working copy.
-An author can inspect stable agent identifiers, preview a structured change and
-its before/after values, apply it through deterministic regeneration and
-validation, and then accept or discard the result. The last accepted placement
-can be undone without restarting the backend. Content hashes provide an
-optimistic-concurrency guard, and files are restored byte for byte when
-regeneration fails or an applied preview is discarded. Runtime project commit
-is disabled while a change awaits a decision. Free-text chat is not interpreted
-as a model edit; the interface says explicitly that such text was not applied.
+The Unity editor additionally exposes generated agent placement as a revisioned
+working copy. An author can inspect stable identifiers, preview a structured
+change, apply it through deterministic regeneration and validation, and accept,
+discard, or undo it. Content hashes guard concurrent revision, and failed or
+discarded changes restore prior bytes. This placement-only transaction is a
+secondary demonstration that the same model can guard change; it is not the
+paper's core contribution or a general natural-language model editor.
 
-\subsection{Unity client and WebXR path}
+\subsection{Unity desktop client}
 
 The Unity client imports room assets and agent configurations, places embodied
 agents in their assigned zones, and supports first-person and proximity-based
 interaction. A scene-object component binds a collider to a stable model entity
 rather than relying on its GameObject name. In the evaluated desktop path, a
 camera ray selects that component, the object is highlighted, and the resolved
-target remains stable while a text or voice request is composed. The client
+target remains stable while a request is composed. The client
 sends the pinned model hash, entity and source identifiers, ray-hit metadata,
 input modality, active agent, and utterance to the backend. No-target and
 ambiguous states are explicit and do not silently fall through to an LLM call.
-
-The project includes WebXR and XR Interaction Toolkit dependencies. Controller
-rays can use the same selection interface, but immersive interaction is
-described as a deployment path rather than an evaluated condition unless a
-physical-headset test is reported.
+The bridge does not choose one global action merely by operation kind. It first
+uses the selected entity to identify the candidate scenario context, then
+accepts the scenario, capability, binding, and action identifiers confirmed in
+the server's \texttt{model\_binding}. The corresponding scenario-specific
+context and runner receive the event. Scene bootstrap likewise requires an
+exact stable object binding; UUID-suffix variants are not treated as equivalent
+fallback identifiers.
 
 \subsection{Agent backend and handoffs}
 
 The backend exposes setup, chat, speech, and project-management endpoints. Each
 agent has a persona, knowledge scope, capabilities, and permitted handoff
-targets. A request can be answered by the active agent, delegated to a more
-appropriate agent, or rejected when no grounded target or responsible
+targets. A request can be answered by the active agent, delegated to the modeled
+responsible agent, or rejected when no grounded target or responsible
 capability exists. The backend validates the model hash and entity before
 mutating session state. It derives the entity's group and zone from the pinned
 model rather than trusting client-supplied responsibility fields. Routing gives
 an explicit asset binding precedence over group and zone responsibility; any
 handoff is limited to the source agent's modeled targets. Runtime actions carry
 the interaction-model identifiers needed to distinguish a successful HTTP
-request from a semantically correct interaction.
+request from a model-consistent, contract-conforming interaction.
+When several scenarios share an operation kind, the backend selects by trusted
+target and routed provider and returns the resulting binding. Zero or multiple
+exact mappings fail closed; endpoint kind alone is never the dispatch key.
 
 \subsection{Runtime validation}
 
@@ -147,5 +181,5 @@ proposal, knowledge synthesis, and conversational responses. Prompts, model
 identifiers, sampling parameters, and repair attempts are versioned. No
 language-model output is accepted as structurally valid without schema and
 invariant checks. The reported benchmark neither invokes a model nor uses one
-as a semantic judge. The Stanford Agentic Reviewer is not part of the system or
+as a semantic judge. Editorial review services are not part of the system or
 the scientific evaluation.

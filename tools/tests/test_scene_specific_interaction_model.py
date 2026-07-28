@@ -213,6 +213,33 @@ class SceneSpecificInteractionModelTests(unittest.TestCase):
                 agent_roles=mutated_roles,
             )
 
+    def test_unowned_scene_group_is_not_promoted_to_runtime_contract(self) -> None:
+        _, normalized_scene, scene_semantics, agent_roles = _assemble(
+            "classroom_dinosaur"
+        )
+        mutated_scene = copy.deepcopy(normalized_scene)
+        exemplar = copy.deepcopy(mutated_scene["objects"][0])
+        exemplar.update(
+            {
+                "object_id": "unowned_prop",
+                "object_type": "unowned_prop",
+                "group": "unowned_group",
+            }
+        )
+        mutated_scene["objects"].append(exemplar)
+
+        instance = assemble_functionalmlds_instance(
+            case_id="classroom_dinosaur",
+            normalized_scene=mutated_scene,
+            scene_semantics=scene_semantics,
+            agent_roles=agent_roles,
+        )
+
+        entity_ids = {entity["id"] for entity in instance["entities"]}
+        self.assertNotIn("ENT-GROUP-UNOWNED_GROUP", entity_ids)
+        report = validate_functionalmlds_instance(instance)
+        self.assertEqual("valid", report["status"], report["errors"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -93,7 +93,10 @@ public static class FunctionalMldsSceneBindingBootstrapper
                 continue;
             }
 
-            var objectMatches = FindNamedSceneObjects(sceneObjects, spec.SourceObjectId);
+            var objectMatches = FindNamedSceneObjects(
+                sceneObjects,
+                spec.SourceObjectId,
+                spec.ObjectType);
             if (objectMatches.Count == 0)
             {
                 report.Errors.Add(
@@ -234,6 +237,7 @@ public static class FunctionalMldsSceneBindingBootstrapper
                 ObjectGroupId = groups.Length == 1 ? groups[0] : string.Empty,
                 ZoneId = zones != null && zones.Count == 1 ? zones[0] : string.Empty,
                 DisplayName = displayName.Length == 0 ? sourceObjectId : displayName,
+                ObjectType = objectType,
                 Synonyms = aliases
             });
         }
@@ -316,13 +320,16 @@ public static class FunctionalMldsSceneBindingBootstrapper
 
     private static List<GameObject> FindNamedSceneObjects(
         IList<Transform> sceneTransforms,
-        string sourceObjectId)
+        string sourceObjectId,
+        string objectType)
     {
         var result = new List<GameObject>();
         if (string.IsNullOrWhiteSpace(sourceObjectId))
             return result;
 
-        var generatedPrefix = sourceObjectId + "_";
+        var exactGeneratedName = string.IsNullOrWhiteSpace(objectType)
+            ? string.Empty
+            : sourceObjectId + "_" + objectType.Trim();
         for (var i = 0; i < sceneTransforms.Count; i++)
         {
             var transform = sceneTransforms[i];
@@ -330,7 +337,11 @@ public static class FunctionalMldsSceneBindingBootstrapper
                 continue;
             var objectName = transform.gameObject.name;
             if (string.Equals(objectName, sourceObjectId, StringComparison.OrdinalIgnoreCase)
-                || objectName.StartsWith(generatedPrefix, StringComparison.OrdinalIgnoreCase))
+                || (!string.IsNullOrEmpty(exactGeneratedName)
+                    && string.Equals(
+                        objectName,
+                        exactGeneratedName,
+                        StringComparison.OrdinalIgnoreCase)))
             {
                 result.Add(transform.gameObject);
             }
@@ -487,6 +498,7 @@ public static class FunctionalMldsSceneBindingBootstrapper
         public string ObjectGroupId;
         public string ZoneId;
         public string DisplayName;
+        public string ObjectType;
         public string[] Synonyms;
     }
 }

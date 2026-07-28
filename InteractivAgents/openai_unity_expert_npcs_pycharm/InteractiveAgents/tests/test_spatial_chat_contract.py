@@ -283,7 +283,8 @@ class SpatialChatContractTests(unittest.TestCase):
                     "session_id": setup["session_id"],
                     "active_agent_id": "exhibit_interpreter",
                     "user_text": "Bitte leite mich falsch weiter.",
-                    "interaction_mode": "non_deictic",
+                    "interaction_mode": "deictic",
+                    "spatial_context": self._context(setup["model_sha256"]),
                 }
             )
 
@@ -294,39 +295,69 @@ class SpatialChatContractTests(unittest.TestCase):
         allowed_enum = self.openai.calls[0]["schema"]["properties"]["handoff_to"][
             "oneOf"
         ][0]["enum"]
-        self.assertEqual(["teacher_agent"], allowed_enum)
+        self.assertEqual([], allowed_enum)
 
-    def test_non_deictic_chat_has_no_grounding_evidence(self) -> None:
+    def test_non_deictic_chat_without_targetless_chain_fails_closed(self) -> None:
         setup = self._setup()
-        response = self.store.chat(
-            {
-                "session_id": setup["session_id"],
-                "active_agent_id": "exhibit_interpreter",
-                "interaction_mode": "non_deictic",
-                "user_text": "Erzähle mir etwas über das Exponat.",
-            }
-        )
-
-        self.assertEqual("exhibit_interpreter", response["active_agent_id"])
-        self.assertEqual("non_deictic", response["interaction_mode"])
-        self.assertEqual(
-            {
-                "runtime_binding_id",
-                "runtime_action_id",
-                "capability_id",
-                "capability_use_id",
-            },
-            set(response["model_binding"]),
-        )
-        for field_name in (
-            "grounded_entity_ids",
-            "grounding_evidence",
-            "routing_reason",
-            "grounding",
-            "routing",
+        before = self.store.snapshot_session_mutation(setup["session_id"])
+        with self.assertRaisesRegex(
+            FunctionalMldsContractError,
+            "no exact action mapping",
         ):
-            self.assertNotIn(field_name, response)
-        self.assertEqual(2, len(self.store.sessions[setup["session_id"]].history))
+            self.store.chat(
+                {
+                    "session_id": setup["session_id"],
+                    "active_agent_id": "exhibit_interpreter",
+                    "interaction_mode": "non_deictic",
+                    "user_text": "Erzähle mir etwas über das Exponat.",
+                }
+            )
+        self.assertEqual(
+            before,
+            self.store.snapshot_session_mutation(setup["session_id"]),
+        )
+        self.assertEqual([], self.openai.calls)
+
+    def test_multi_chain_non_deictic_fails_before_llm_or_history_mutation(self) -> None:
+        setup = self._setup()
+        state = self.store.sessions[setup["session_id"]]
+        runtime_actions = state.functionalmlds_runtime_context["runtime_actions"]
+        for action_kind in ("chat", "handoff"):
+            original = next(
+                item
+                for item in runtime_actions
+                if item["action_kind"] == action_kind
+            )
+            competing = copy.deepcopy(original)
+            competing["scenario_id"] = f"SC-COMPETING-{action_kind.upper()}"
+            competing["use_case_id"] = f"UC-COMPETING-{action_kind.upper()}"
+            competing["scenario_step_id"] = (
+                f"STEP-COMPETING-{action_kind.upper()}"
+            )
+            competing["capability_use_id"] = (
+                f"CU-COMPETING-{action_kind.upper()}"
+            )
+            competing["target_ids"] = ["ENT-ASSET-COMPETING"]
+            runtime_actions.append(competing)
+
+        before = self.store.snapshot_session_mutation(setup["session_id"])
+        with self.assertRaisesRegex(
+            FunctionalMldsContractError,
+            "no exact action mapping",
+        ):
+            self.store.chat(
+                {
+                    "session_id": setup["session_id"],
+                    "active_agent_id": "teacher_agent",
+                    "interaction_mode": "non_deictic",
+                    "user_text": "Allgemeine Frage ohne Ziel.",
+                }
+            )
+        self.assertEqual(
+            before,
+            self.store.snapshot_session_mutation(setup["session_id"]),
+        )
+        self.assertEqual([], self.openai.calls)
 
     def test_v2_requires_explicit_mode_and_deictic_context_without_mutation(self) -> None:
         setup = self._setup()
@@ -450,7 +481,8 @@ class SpatialChatContractTests(unittest.TestCase):
                 "session_id": setup["session_id"],
                 "active_agent_id": "exhibit_interpreter",
                 "user_text": "Allgemeine Frage.",
-                "interaction_mode": "non_deictic",
+                "interaction_mode": "deictic",
+                "spatial_context": self._context(setup["model_sha256"]),
             }
         )
         self.assertIsNone(response["handoff"])

@@ -1,4 +1,10 @@
 {
+  "placement_schema": "functionalmlds_agent_placements",
+  "placement_schema_version": "2.0",
+  "placement_algorithm_version": "2.0.0",
+  "placement_origin": "deterministic",
+  "placement_artifact_sha256": "b4fd2c1ccc9831cc905cf0667a2aa1ede2fa8303adcb839f020bd11b6c891035",
+  "placement_projection_sha256": "7182bed63f385eca638cc09d63a21e1e1f98e6fa4032bdc6c4c83a21ccac25e7",
   "agents": [
     {
       "id": "reception_agent",
@@ -35,16 +41,24 @@
         "reception_zone"
       ],
       "position": {
-        "x": -5.348,
+        "x": -4.655,
         "y": 0.0,
-        "z": -5.134
+        "z": -5.079
       },
       "forward": {
-        "x": -0.7214,
+        "x": -0.676050624566222,
         "y": 0.0,
-        "z": -0.6925
+        "z": -0.736855177781646
       },
-      "functionalmlds_agent_ref": "reception_agent"
+      "functionalmlds_agent_ref": "ENT-AGENT-RECEPTION_AGENT",
+      "functionalmlds_entity_ref": "ENT-AGENT-RECEPTION_AGENT",
+      "provided_capability_ids": [
+        "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "plays_actor_ids": [
+        "ACT-ROOM-GUIDE"
+      ]
     },
     {
       "id": "benefits_expert",
@@ -82,16 +96,24 @@
         "benefits_info_zone"
       ],
       "position": {
-        "x": 3.119,
+        "x": 3.358,
         "y": 0.0,
-        "z": -0.964
+        "z": -1.58
       },
       "forward": {
-        "x": 0.8988,
+        "x": 0.8808348242988157,
         "y": 0.0,
-        "z": -0.4385
+        "z": -0.4734237132870243
       },
-      "functionalmlds_agent_ref": "benefits_expert"
+      "functionalmlds_agent_ref": "ENT-AGENT-BENEFITS_EXPERT",
+      "functionalmlds_entity_ref": "ENT-AGENT-BENEFITS_EXPERT",
+      "provided_capability_ids": [
+        "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "plays_actor_ids": [
+        "ACT-ROOM-GUIDE"
+      ]
     },
     {
       "id": "recruiting_agent",
@@ -129,16 +151,24 @@
         "recruiting_zone"
       ],
       "position": {
-        "x": 4.876,
+        "x": 4.743,
         "y": 0.0,
-        "z": 3.226
+        "z": 3.182
       },
       "forward": {
-        "x": 0.6917,
+        "x": 0.8381540482450448,
         "y": 0.0,
-        "z": 0.7222
+        "z": 0.5454335811173007
       },
-      "functionalmlds_agent_ref": "recruiting_agent"
+      "functionalmlds_agent_ref": "ENT-AGENT-RECRUITING_AGENT",
+      "functionalmlds_entity_ref": "ENT-AGENT-RECRUITING_AGENT",
+      "provided_capability_ids": [
+        "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "plays_actor_ids": [
+        "ACT-ROOM-GUIDE"
+      ]
     },
     {
       "id": "demo_technician",
@@ -184,16 +214,24 @@
         "demo_kiosk_zone"
       ],
       "position": {
-        "x": 1.725,
+        "x": -0.065,
         "y": 0.0,
-        "z": -0.674
+        "z": 0.991
       },
       "forward": {
-        "x": 0.7416,
+        "x": 0.06428696184217006,
         "y": 0.0,
-        "z": 0.6708
+        "z": 0.9979314538269166
       },
-      "functionalmlds_agent_ref": "demo_technician"
+      "functionalmlds_agent_ref": "ENT-AGENT-DEMO_TECHNICIAN",
+      "functionalmlds_entity_ref": "ENT-AGENT-DEMO_TECHNICIAN",
+      "provided_capability_ids": [
+        "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "plays_actor_ids": [
+        "ACT-ROOM-GUIDE"
+      ]
     },
     {
       "id": "hospitality_agent",
@@ -230,16 +268,24 @@
         "refreshment_zone"
       ],
       "position": {
-        "x": 2.534,
+        "x": 2.266,
         "y": 0.0,
-        "z": -1.439
+        "z": -1.302
       },
       "forward": {
-        "x": 0.8175,
+        "x": 0.8667010397030608,
         "y": 0.0,
-        "z": -0.5759
+        "z": -0.49882793403901643
       },
-      "functionalmlds_agent_ref": "hospitality_agent"
+      "functionalmlds_agent_ref": "ENT-AGENT-HOSPITALITY_AGENT",
+      "functionalmlds_entity_ref": "ENT-AGENT-HOSPITALITY_AGENT",
+      "provided_capability_ids": [
+        "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "plays_actor_ids": [
+        "ACT-ROOM-GUIDE"
+      ]
     }
   ]
 }

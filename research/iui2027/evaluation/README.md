@@ -8,13 +8,44 @@ python research/iui2027/evaluation/run_benchmark.py
 
 The command regenerates:
 
-- `results.json`: machine-readable corpus, responsibility, routing, parity,
-  mutation, validation, edit-effort and timing results;
+- `results.json`: machine-readable corpus, asset-chain, responsibility,
+  routing, parity, mutation, validation, edit-effort and timing results;
 - `tables.md`: paper-ready summaries with explicit denominators;
 - `environment.json`: hashes of every input and implementation source plus
   the local timing environment.
 
 It performs no network or model API calls and does not start Unity.
+
+## RQ1: complete asset-specific interaction chains
+
+The RQ1 metric follows the explicit references of every asset-specific
+interaction:
+
+`ScenarioStep -> CapabilityUse -> Capability -> provider/target ->
+RuntimeBinding -> RuntimeAction`, plus the step's `resultingAssertion` and a
+UseCase-linked `ValidationCase`.
+
+There are two deliberately separate denominators:
+
+- The **asset denominator** is every V2 `Entity` with
+  `entityRole=sceneObject`. An asset with no interaction chain remains in this
+  denominator and is reported as `ASSET_CHAIN_MISSING`.
+- The **chain denominator** is every `ScenarioStep`/`CapabilityUse` pair whose
+  use explicitly targets a scene object. It is not used as a substitute for
+  asset coverage.
+
+A chain is complete only when it resolves exactly one Capability and provider,
+the provider equals `ScenarioStep.performedBy`, every target resolves and
+contains exactly the evaluated asset, an executable
+`RuntimeBinding`/`RuntimeAction` path exists, every resulting assertion
+resolves, and a ValidationCase linked through the owning Scenario and UseCase
+covers both an executable binding and all resulting assertions. An asset is
+complete only if it has at least one chain and all its chain candidates are
+complete. `results.json` retains every chain, reference and structured error;
+`tables.md` prints aggregate and per-case denominators plus any error rows.
+
+This is a structural traceability result. A complete chain does not imply that
+the RuntimeAction was executed or that a pending validation assertion passed.
 
 ## Fair executable comparison
 
@@ -78,15 +109,19 @@ as a Direct-Wiring failure.
 
 Runtime is a descriptive local microbenchmark. It alternates adapter order,
 uses four warm-ups and 40 measured repetitions per case, and checks that every
-run produces the same semantic projection hash. It includes normalized
-adapter construction and route enumeration from already parsed artifacts; it
-excludes JSON I/O, v0.5-to-V2 generation, Unity and all network activity. No
-inferential performance advantage is claimed.
+run produces the same semantic projection hash. For each adapter and case it
+reports the median, inclusive-interpolation Q1/Q3 and IQR, plus min, p95 and
+max; the paper-facing table shows median with Q1/Q3 and min-max. It includes
+normalized adapter construction and route enumeration from already parsed
+artifacts; it excludes JSON I/O, v0.5-to-V2 generation, Unity and all network
+activity. No inferential performance advantage is claimed.
 
 ## Interpretation boundary
 
 The benchmark answers structural questions only:
 
+- Does every scene asset have a complete, provider-coherent path from an
+  interaction step through runtime binding and validation coverage?
 - Does a routeable object resolve to exactly one modeled responsible Agent?
 - Is that Agent local, directly reachable, transitively reachable or
   unreachable from each modeled start Agent?

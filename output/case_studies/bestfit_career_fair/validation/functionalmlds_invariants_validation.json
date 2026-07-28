@@ -6,7 +6,7 @@
     "invariant_count": 8,
     "passed_invariant_count": 8,
     "failed_invariant_count": 0,
-    "checked_element_count": 52,
+    "checked_element_count": 262,
     "error_count": 0
   },
   "invariants": [
@@ -14,7 +14,7 @@
       "invariant_id": "UC_MAIN_SCENARIO_EXACTLY_ONE",
       "description": "Every UseCase owns exactly one Scenario with kind=main.",
       "status": "valid",
-      "checked_count": 1,
+      "checked_count": 28,
       "error_count": 0,
       "errors": []
     },
@@ -22,7 +22,7 @@
       "invariant_id": "SCENARIO_HAS_STEP",
       "description": "Every Scenario contains at least one ScenarioStep.",
       "status": "valid",
-      "checked_count": 1,
+      "checked_count": 28,
       "error_count": 0,
       "errors": []
     },
@@ -30,7 +30,7 @@
       "invariant_id": "SCENARIO_STEP_NO_DIRECT_RUNTIME_ACTION",
       "description": "ScenarioStep instances do not directly reference RuntimeAction instances.",
       "status": "valid",
-      "checked_count": 12,
+      "checked_count": 90,
       "error_count": 0,
       "errors": []
     },
@@ -38,7 +38,7 @@
       "invariant_id": "CAPABILITY_USE_REFERENCES_EXACTLY_ONE_CAPABILITY",
       "description": "Every CapabilityUse references exactly one existing Capability.",
       "status": "valid",
-      "checked_count": 10,
+      "checked_count": 62,
       "error_count": 0,
       "errors": []
     },
@@ -70,7 +70,7 @@
       "invariant_id": "VALIDATION_CASE_REFERENCES_TESTABLE_ELEMENT",
       "description": "Every ValidationCase references at least one existing StateAssertion or RuntimeBinding.",
       "status": "valid",
-      "checked_count": 6,
+      "checked_count": 32,
       "error_count": 0,
       "errors": []
     }

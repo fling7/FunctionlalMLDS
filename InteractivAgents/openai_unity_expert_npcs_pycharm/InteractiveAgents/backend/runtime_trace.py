@@ -14,6 +14,7 @@ from .functionalmlds_v2_runtime import (
     V2_MODEL_VERSION,
     FunctionalMldsContractError,
     load_project_contract,
+    runtime_actions_for_kind,
     select_runtime_action,
 )
 
@@ -147,19 +148,33 @@ def log_backend_events(
         validations: List[Dict[str, Any]] = []
         for index, entry in enumerate(entries):
             action_kind = str(entry.get("action_kind") or "").strip().lower()
-            try:
-                trace_ref = select_runtime_action(runtime_context, action_kind)
-            except FunctionalMldsContractError:
-                if contract_kind == "v2":
-                    raise
-                trace_ref = _empty_trace_ref()
             expected_action = entry.get("expected_action")
             if contract_kind == "v2" and expected_action is not None:
-                if _canonical_json(trace_ref) != _canonical_json(expected_action):
+                exact_matches = [
+                    candidate
+                    for candidate in runtime_actions_for_kind(
+                        runtime_context,
+                        action_kind,
+                    )
+                    if _canonical_json(candidate)
+                    == _canonical_json(expected_action)
+                ]
+                if len(exact_matches) != 1:
                     raise FunctionalMldsContractError(
                         f"FunctionalMLDS V2 action drift detected for {action_kind!r}: "
                         "the concrete runtime action no longer matches the session preflight."
                     )
+                trace_ref = exact_matches[0]
+            else:
+                try:
+                    trace_ref = select_runtime_action(
+                        runtime_context,
+                        action_kind,
+                    )
+                except FunctionalMldsContractError:
+                    if contract_kind == "v2":
+                        raise
+                    trace_ref = _empty_trace_ref()
             event = _build_event(
                 case_id=str((contract.get("trace") or {}).get("case_id") or project_id),
                 event_type=str(entry.get("event_type") or "").strip(),

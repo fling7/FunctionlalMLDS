@@ -367,11 +367,22 @@ public class QuickAgentManager : MonoBehaviour
     }
 
     [Serializable]
+    public class ModelBindingInfo
+    {
+        public string runtime_binding_id;
+        public string runtime_action_id;
+        public string capability_id;
+        public string capability_use_id;
+    }
+
+    [Serializable]
     public class ChatResponse
     {
         public string session_id;
         public string active_agent_id;
         public string memory_mode;
+        public string interaction_mode;
+        public ModelBindingInfo model_binding;
         public Handoff handoff;
         public ChatEvent[] events;
         public string[] grounded_entity_ids;
@@ -1915,24 +1926,27 @@ public class QuickAgentManager : MonoBehaviour
             yield break;
         }
 
-        if (functionalMldsV2Bridge != null
-            && !TryRequireFunctionalMldsV2Action("chat"))
-        {
-            yield break;
-        }
-
         var url = $"{backendBaseUrl}/chat";
         var chatStartedAt = Time.realtimeSinceStartupAsDouble;
         var spatialContext = CreateResolvedSpatialContext();
+        var interactionMode = ResolveV2InteractionMode(
+            functionalMldsV2Bridge != null,
+            spatialSelectionState,
+            spatialContext);
+        var preflightObservation = functionalMldsV2Bridge == null
+            ? null
+            : CreateInteractionObservation(interactionMode, null, responseObserved: false);
+        if (functionalMldsV2Bridge != null
+            && !TryRequireFunctionalMldsV2Action("chat", preflightObservation))
+        {
+            yield break;
+        }
         var payload = new ChatRequest
         {
             session_id = sessionId,
             active_agent_id = activeAgentId,
             user_text = message,
-            interaction_mode = ResolveV2InteractionMode(
-                functionalMldsV2Bridge != null,
-                spatialSelectionState,
-                spatialContext),
+            interaction_mode = interactionMode,
             spatial_context = spatialContext
         };
         var json = SerializeChatRequest(payload);
@@ -1976,7 +1990,8 @@ public class QuickAgentManager : MonoBehaviour
                         json,
                         req.downloadHandler.text,
                         (Time.realtimeSinceStartupAsDouble - chatStartedAt) * 1000.0,
-                        req.error);
+                        req.error,
+                        preflightObservation);
                 }
                 yield break;
             }
@@ -2003,7 +2018,8 @@ public class QuickAgentManager : MonoBehaviour
                         json,
                         req.downloadHandler.text,
                         (Time.realtimeSinceStartupAsDouble - chatStartedAt) * 1000.0,
-                        exception.Message);
+                        exception.Message,
+                        preflightObservation);
                 }
                 yield break;
             }
@@ -2020,7 +2036,8 @@ public class QuickAgentManager : MonoBehaviour
                         json,
                         req.downloadHandler.text,
                         (Time.realtimeSinceStartupAsDouble - chatStartedAt) * 1000.0,
-                        "Invalid JSON response");
+                        "Invalid JSON response",
+                        preflightObservation);
                 }
                 yield break;
             }
@@ -2060,7 +2077,7 @@ public class QuickAgentManager : MonoBehaviour
                 if (isHandoff)
                 {
                     FunctionalMldsV2InteractionAssessment handoffAssessment;
-                    if (!TryRequireFunctionalMldsV2Action("handoff")
+                    if (!TryRequireFunctionalMldsV2Action("handoff", observation)
                         || !TryRecordFunctionalMldsV2Interaction(
                             "handoff",
                             "unity_handoff_observed",
@@ -2107,13 +2124,15 @@ public class QuickAgentManager : MonoBehaviour
         }
     }
 
-    private bool TryRequireFunctionalMldsV2Action(string actionKind)
+    private bool TryRequireFunctionalMldsV2Action(
+        string actionKind,
+        FunctionalMldsV2InteractionObservation observation = null)
     {
         if (functionalMldsV2Bridge == null)
             return true;
         try
         {
-            functionalMldsV2Bridge.RequireAction(actionKind, activeAgentId);
+            functionalMldsV2Bridge.RequireAction(actionKind, activeAgentId, observation);
             return true;
         }
         catch (Exception exception)
@@ -2131,7 +2150,8 @@ public class QuickAgentManager : MonoBehaviour
         object inputSummary,
         object outputSummary,
         double? durationMs,
-        string errorSummary)
+        string errorSummary,
+        FunctionalMldsV2InteractionObservation observation = null)
     {
         if (functionalMldsV2Bridge == null)
             return true;
@@ -2145,7 +2165,8 @@ public class QuickAgentManager : MonoBehaviour
                 inputSummary,
                 outputSummary,
                 durationMs,
-                errorSummary);
+                errorSummary,
+                observation);
             return true;
         }
         catch (Exception exception)
@@ -2207,7 +2228,11 @@ public class QuickAgentManager : MonoBehaviour
             HandoffObserved = hasHandoff,
             HandoffFromAgentId = hasHandoff ? response.handoff.from : null,
             HandoffToAgentId = hasHandoff ? response.handoff.to : null,
-            ModeledHandoff = hasHandoff ? response.routing?.modeled_handoff : null
+            ModeledHandoff = hasHandoff ? response.routing?.modeled_handoff : null,
+            CapabilityUseId = response?.model_binding?.capability_use_id,
+            CapabilityId = response?.model_binding?.capability_id,
+            RuntimeBindingId = response?.model_binding?.runtime_binding_id,
+            RuntimeActionId = response?.model_binding?.runtime_action_id
         };
     }
 

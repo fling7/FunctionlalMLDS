@@ -557,6 +557,11 @@ def _entities(
     agent_roles: Dict[str, Any],
 ) -> List[Dict[str, Any]]:
     object_lookup = _object_lookup(normalized_scene)
+    referenced_objects: Set[str] = set()
+    for agent in agent_roles.get("agents") or []:
+        referenced_objects.update(
+            str(obj) for obj in (agent.get("grounded_object_ids") or [])
+        )
     entities: List[Dict[str, Any]] = []
     for zone in scene_semantics.get("semantic_zones") or []:
         zone_id = str(zone.get("zone_id") or "")
@@ -573,6 +578,17 @@ def _entities(
                 }
             )
     for group_id, group_objects in sorted(_object_groups(normalized_scene).items()):
+        grounded_group_objects = [
+            obj
+            for obj in group_objects
+            if str(obj.get("object_id") or "") in referenced_objects
+        ]
+        if not grounded_group_objects:
+            # An object group is part of the executable interaction contract only
+            # when at least one modeled agent grounds an asset in that group.
+            # Keeping unowned scene-only groups would manufacture a responsibility
+            # relation that neither the generated roles nor the runtime can honor.
+            continue
         entities.append(
             {
                 "id": _object_group_entity_id(group_id),
@@ -581,12 +597,11 @@ def _entities(
                 "source_id": f"group:{group_id}",
                 "entityRole": "objectGroup",
                 "source_group": group_id,
-                "source_object_ids": _unique(obj.get("object_id") for obj in group_objects),
+                "source_object_ids": _unique(
+                    obj.get("object_id") for obj in grounded_group_objects
+                ),
             }
         )
-    referenced_objects: Set[str] = set()
-    for agent in agent_roles.get("agents") or []:
-        referenced_objects.update(str(obj) for obj in (agent.get("grounded_object_ids") or []))
     for object_id in sorted(referenced_objects):
         obj = object_lookup.get(object_id)
         if obj:

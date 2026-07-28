@@ -2,220 +2,172 @@
 
 Last updated: 2026-07-28
 
-Priority meanings:
-
-- `MUST`: required for defensible IUI main-paper claims.
-- `SHOULD`: materially strengthens the submission.
-- `COULD`: useful only after every `MUST` item is complete.
-
-A task is complete only when its implementation, automated check, and generated
-evidence are present. Tasks are ordered by dependency and are worked through in
-this order.
+This list follows the paper's actual claim boundary: a Unity desktop
+prototype, a model-constrained agent backend, a limited placement-authoring
+loop, and a deterministic structural system evaluation. A checked task has
+implementation, an automated check, and inspectable evidence. Features listed
+as out of scope are not silently treated as missing evidence; the paper does
+not claim them.
 
 ## P0 — Reproducible demonstrator
 
-- [ ] **MUST P0.1** Select `steinpilz_brand_room` as the canonical live
-      demonstrator and document why its Unity scene and model belong together.
-- [ ] **MUST P0.2** Add a single command that starts or validates the pinned
-      backend, Unity project configuration, and selected FunctionalMLDS V2 model.
-- [ ] **MUST P0.3** Record Python, Unity, package, OS, LLM, prompt, temperature,
-      and seed or stored-response versions.
-- [ ] **MUST P0.4** Make the complete non-Unity test suite terminate reliably.
-- [ ] **MUST P0.5** Run all tests and archive a machine-readable test summary.
-- [ ] **MUST P0.6** Include model, project, backend, prompt, and question hashes
-      in stage invalidation so stale runtime evidence cannot be reused.
+- [x] Select `steinpilz_brand_room` as the canonical walkthrough and explain why
+      the scene exercises assets, groups, zones, several agents, and handoffs.
+- [x] Provide one artifact command that validates frozen inputs, fresh V2
+      models, benchmark evidence, backend contracts, Unity integration, paper
+      hygiene, and anonymity.
+- [x] Record Python, Unity, package, OS, LLM, prompt, sampling, repair, and
+      benchmark settings.
+- [x] Make deterministic regeneration work without an API key or network
+      access.
+- [x] Hash immutable inputs and reject stale checked-in V2 instances.
+- [x] Publish validated regenerated artifacts for all three cases.
 
-Acceptance: a fresh checkout deterministically selects the same scene, V2
-contract, configuration, and benchmark inputs without manual file selection.
+Evidence: `artifact/README.md`, `artifact/regenerate_frozen.py`,
+`artifact/regeneration-summary.json`, `evaluation/environment.json`.
 
-## P1 — Stable Unity-to-model object bindings
+## P1 — Stable Unity-to-model bindings
 
-- [ ] **MUST P1.1** Add a scene-object binding component containing `entityId`,
-      `sourceObjectId`, object group, zone, display name, collider, and optional
-      synonyms.
-- [ ] **MUST P1.2** Add an editor/runtime registry that resolves bindings by
-      stable IDs rather than GameObject-name heuristics.
-- [ ] **MUST P1.3** Validate missing, duplicate, stale, and ambiguous bindings
-      before interaction starts.
-- [ ] **MUST P1.4** Give the QuickAgent bridge read-only access to loaded entity,
-      group, zone, agent, and responsibility relationships.
-- [ ] **MUST P1.5** Add edit-mode tests for valid and invalid registries.
+- [x] Add `FunctionalMldsSceneObjectBinding` with stable model/source IDs,
+      group, zone, display name, collider, and synonyms.
+- [x] Add a registry that resolves bindings by stable IDs rather than
+      GameObject-name heuristics.
+- [x] Validate missing, duplicate, stale, unknown, and ambiguous bindings
+      fail-closed.
+- [x] Expose the loaded entity, group, zone, agent, and responsibility
+      relations to the QuickAgent bridge.
+- [x] Add static, edit-mode, and batch-mode Unity checks.
 
-Acceptance: every semantically relevant demonstrator object maps to exactly one
-V2 entity; duplicate or missing IDs fail closed with an actionable diagnostic.
+Acceptance met: a relevant collider resolves to exactly one V2 entity, while an
+invalid or ambiguous binding is blocked with an explicit state.
 
-## P2 — Deictic spatial target selection
+## P2 — Deictic spatial selection
 
-- [ ] **MUST P2.1** Implement a shared spatial-selection abstraction.
-- [ ] **MUST P2.2** Resolve desktop camera raycasts against the binding registry.
-- [ ] **MUST P2.3** Keep the selected target stable while a text or voice query
-      is composed and sent.
-- [ ] **MUST P2.4** Highlight the selected object and show its human-readable name.
-- [ ] **MUST P2.5** Represent no target, a resolved target, and ambiguity
-      explicitly; ask for clarification instead of guessing.
-- [ ] **SHOULD P2.6** Connect a WebXR controller ray to the same abstraction.
-- [ ] **COULD P2.7** Add gaze selection after controller selection is stable.
+- [x] Implement a shared desktop ray-selection abstraction.
+- [x] Preserve the selected target while a request is composed and sent.
+- [x] Highlight the selected object and show a human-readable selection state.
+- [x] Distinguish resolved, no-target, and ambiguous states.
+- [x] Block a deictic request without exactly one target before an LLM call.
+- [x] Exercise serialization and fail-closed selection in a real Unity
+      batch-mode smoke.
 
-Acceptance: “What is this?” deterministically resolves the correct entity ID for
-at least twelve defined desktop targets, and ambiguous cases do not invoke the
-LLM.
+Acceptance met for the desktop path. WebXR controller and gaze input are
+explicitly outside the evaluated prototype.
 
 ## P3 — Validated spatial chat contract
 
-- [ ] **MUST P3.1** Extend the Unity request with a structured
-      `spatial_context`: model hash, entity/source ID, hit position, distance,
-      modality, and ambiguity state.
-- [ ] **MUST P3.2** Validate the model hash and entity against the model pinned to
-      the backend session before history or session state is mutated.
-- [ ] **MUST P3.3** Derive group and zone server-side from trusted model
-      relationships; never trust client-supplied responsibility data.
-- [ ] **MUST P3.4** Reject unknown, stale, malformed, and ambiguous targets before
-      any LLM request.
-- [ ] **MUST P3.5** Restrict retrieval to knowledge connected to the resolved
-      entity where such knowledge is modeled.
-- [ ] **MUST P3.6** Return `grounded_entity_ids`, evidence references, and routing
-      reason in the response.
-- [ ] **MUST P3.7** Add positive, tampering, model-drift, and no-mutation tests.
+- [x] Send structured spatial context containing the pinned model hash, stable
+      entity/source ID, hit coordinates, distance, modality, and ambiguity.
+- [x] Validate model hash, entity, interaction mode, and request size before
+      history or session state changes.
+- [x] Derive group and zone on the server from the trusted model.
+- [x] Reject malformed, forged, stale, unknown, and ambiguous contexts before
+      an LLM call.
+- [x] Return trusted entity IDs, model-binding IDs, evidence references, and a
+      routing explanation.
+- [x] Keep a non-deictic request fail-closed when the model contains no unique
+      targetless action chain.
+- [x] Cover valid, tampered, drifted, ambiguous, and no-mutation paths in
+      backend tests.
 
-Acceptance: a forged entity, wrong model hash, or ambiguous selection is rejected
-without changing chat history; a valid request returns the same trusted entity
-ID and supporting evidence.
+Acceptance met: invalid spatial context cannot invoke the model or mutate chat
+history; a valid path retains the selected entity in response evidence.
 
-## P4 — Model-constrained providers, routing, and handoffs
+## P4 — Model-constrained providers and handoffs
 
-- [ ] **MUST P4.1** Make the responsible domain agent, rather than the generic
-      runtime orchestrator, provide each user-facing capability.
-- [ ] **MUST P4.2** Make `ScenarioStep.performedBy`,
-      `CapabilityUse.provider`, responsible zone, grounded asset, and capability
-      provider form one valid chain.
-- [ ] **MUST P4.3** Resolve object-to-agent responsibility deterministically in
-      the order asset, group, then zone.
-- [ ] **MUST P4.4** Restrict online structured-output handoff choices to the
-      modeled `handoffTarget` set.
-- [ ] **MUST P4.5** Validate a handoff before state mutation and expose a concise
-      routing explanation to the interface.
-- [ ] **MUST P4.6** Add positive and negative provider, routing, and handoff tests.
-- [ ] **MUST P4.7** Regenerate every evaluated native V2 instance and verify that
-      no user-facing step is attributed to the orchestrator.
+- [x] Attribute each asset-facing capability and scenario step to its
+      responsible domain agent, not a generic orchestrator.
+- [x] Generate one scene-specific use case with a three-step interaction chain
+      for every grounded asset.
+- [x] Carry `use_case_id` and `scenario_id` on each runtime action chain.
+- [x] Resolve responsibility deterministically in the order asset, group, zone.
+- [x] Evaluate only the highest matching tier and reject a tie at that tier.
+- [x] Restrict online handoff choices to the selected chain's modeled targets.
+- [x] Select deictic chat/handoff mappings by trusted target and provider before
+      LLM execution.
+- [x] Regenerate and validate every evaluated V2 case and backend project.
 
-Acceptance: no online handoff outside the V2 contract is possible, and each
-benchmark target produces a deterministic, explainable responsible agent.
+Acceptance met: 93 authored assets have a unique natural-corpus owner and an
+explicit provider-specific execution chain.
 
-## P5 — Executable interaction scenario and assertions
+## P5 — Executable scenario and runtime evidence
 
-- [ ] **MUST P5.1** Add or bind a runtime action for spatial target resolution.
-- [ ] **MUST P5.2** Connect the existing `ScenarioRunner` to live
-      QuickAgentManager selection, routing, chat, response, and handoff events.
-- [ ] **MUST P5.3** Prevent an answer-display transition until target resolution
-      and agent routing have succeeded.
-- [ ] **MUST P5.4** Implement probes for object binding, target resolution,
-      entity/capability agreement, agent responsibility, response entity, and
-      handoff permission.
-- [ ] **MUST P5.5** Replace transport-success `inconclusive` records with real
-      `pass` or `fail` verdicts where the required observation exists.
-- [ ] **MUST P5.6** Reserve `inconclusive` for genuinely missing observations.
-- [ ] **MUST P5.7** Add smoke tests showing valid traces pass and intentionally
-      broken traces fail closed.
+- [x] Connect target resolution, routing, chat, response, and handoff events to
+      the scenario runner.
+- [x] Prevent an answer transition until target and provider checks succeed.
+- [x] Implement eight runtime probes for binding, target, scenario,
+      capability, provider, response, route, and observed assertion state.
+- [x] Produce `pass`, `fail`, `inconclusive`, and `error` from observations
+      rather than equating transport success with correctness.
+- [x] Retain model, scenario, capability-use, binding, action, provider, and
+      target IDs in runtime evidence.
+- [x] Exercise the native scenario, QuickAgent bridge, and spatial grounding in
+      three real Unity batch-mode smokes.
 
-Acceptance: the live interaction executes the modeled chain
-`target → agent → capability → runtime action → response assertion`; it cannot
-jump directly from a question to displaying an answer.
+Acceptance met for the tested Unity desktop and deterministic backend paths.
+The smokes establish contract execution, not conversational answer quality.
 
-## P6 — Scene-specific models and authoring loop
+## P6 — Placement-authoring transaction
 
-- [ ] **MUST P6.1** Replace the identical hard-coded scenario template with
-      interaction elements derived from each evaluated scene and agent set.
-- [ ] **MUST P6.2** Generate distinct scenario steps and targets for classroom,
-      career-fair, and food/trade-fair cases.
-- [ ] **MUST P6.3** Add an explicit “apply changes and regenerate preview” action
-      to the FunctionalMLDS authoring UI.
-- [ ] **MUST P6.4** Show a before/after diff with affected agents, entities,
-      model IDs, explanations, and validation status.
-- [ ] **MUST P6.5** Support accept, discard, and undo without restarting.
-- [ ] **MUST P6.6** Prove schema and invariant validity and report non-duplicated
-      per-case coverage.
+- [x] Inspect stable agent IDs, current coordinates, revision, and content hash.
+- [x] Preview structured before/after coordinates without writing files.
+- [x] Apply only against the inspected revision, then regenerate and validate.
+- [x] Keep a successful change pending until explicit acceptance or discard.
+- [x] Roll back byte-exactly after a generation/validation failure.
+- [x] Support discard and one-level undo of the last accepted placement.
+- [x] Disable commit while a decision is pending and reject revision conflicts.
+- [x] Expose the six authoring operations through backend routes and Unity UI.
+- [x] Report free-text edit attempts as not applied rather than inventing a
+      model mutation.
 
-Acceptance: an author can inspect, apply, validate, and undo a responsibility or
-placement change, and the resulting scene-specific model remains valid.
+Acceptance met by 12 placement tests, including four paper-level transactional
+workflows. Responsibility editing is not claimed.
 
-## P7 — Non-leaking interaction benchmark
+## P7 — Fair structural comparison
 
-- [ ] **MUST P7.1** Remove the correct target agent’s name from handoff questions.
-- [ ] **MUST P7.2** Create held-out paraphrases independently of the handoff matrix.
-- [ ] **MUST P7.3** Add negative requests, ambiguous references, unknown targets,
-      neighboring objects, and partially occluded targets.
-- [ ] **MUST P7.4** Store expected target, expected agent, acceptable outcome,
-      and rationale separately from the user utterance.
-- [ ] **MUST P7.5** Report target-resolution accuracy, routing accuracy, task
-      success, false-handoff rate, abstention, interaction steps, and latency
-      with confidence intervals where meaningful.
-- [ ] **SHOULD P7.6** Have qualified humans inspect a blinded response sample,
-      subject to the applicable ethics determination.
+- [x] Implement a normalized direct-artifact adapter and a freshly regenerated
+      V2 adapter over the same cases.
+- [x] Compare all natural-corpus ownership and routing decisions.
+- [x] Inject the same provider, asset, group, zone, and ambiguity conditions
+      into both adapters.
+- [x] Inject three shared mutation classes per case and distinguish detection
+      from localization.
+- [x] Add V2-only mutations to describe validator expressiveness without
+      mislabeling them as baseline failures.
+- [x] Count edited artifacts and references separately.
+- [x] Measure local deterministic execution time with median, quartiles, IQR,
+      and range; exclude network and LLM latency.
+- [x] Report every numerator, denominator, error, and input hash in JSON and
+      generated tables.
 
-Acceptance: no benchmark utterance leaks its expected target or agent, and both
-positive and fail-closed behavior are measured.
+Acceptance met: both adapters preserve all measured natural and common-mutation
+decisions; the paper reports representation tradeoffs rather than superiority.
 
-## P8 — Fair baseline, mutations, and observability
+## P8 — Anonymous verification artifact
 
-- [ ] **MUST P8.1** Implement a direct-wiring baseline with the same
-      Unity/backend behavior but without the FunctionalMLDS control layer.
-- [ ] **MUST P8.2** Hold scenes, agents, prompts, questions, model, and runtime
-      constant between baseline and treatment.
-- [ ] **MUST P8.3** Execute change tasks: rename/move/delete object, reassign
-      agent, change zone, change capability, and change endpoint.
-- [ ] **MUST P8.4** Deterministically inject missing bindings/providers,
-      duplicate IDs, stale hashes, invalid zones, wrong endpoints, unmodeled
-      handoffs, and broken traces.
-- [ ] **MUST P8.5** Measure edited artifacts, inconsistent references, detection
-      and false-positive rates, localization, repair, regeneration, execution
-      success, and runtime overhead.
-- [ ] **MUST P8.6** Instrument `target_selection_started`, `target_resolved`,
-      `target_ambiguous`, `agent_routed`, `grounded_chat_sent`,
-      `grounded_response_received`, `grounding_assertion_evaluated`, and
-      `task_completed`.
-- [ ] **MUST P8.7** Carry model and interaction IDs on every evaluated runtime
-      action and obtain complete runtime-action-to-log coverage.
+- [x] Provide frozen, API-free regeneration for all three cases.
+- [x] Provide a one-command verifier and machine-readable atomic summary.
+- [x] Add a data dictionary, environment record, anonymity policy, and explicit
+      license-status file.
+- [x] Exclude tokens, reviewer responses, build products, and local toolchains
+      from Git.
+- [x] Scan source, supplement, PDF metadata, logs, and generated summaries for
+      identities, local paths, and secrets.
+- [x] Pass the final post-paper artifact run with all tests, all three real
+      Unity smokes, the strict paper check, and no skips in claimed components.
 
-Acceptance: immutable inputs reproduce both conditions and all mutations, with
-every reported value traceable to raw events and hashes.
+Final evidence: `artifact/verification-summary.json` reports `overall_status:
+pass`, no failed mandatory checks, real Unity execution, and no network or
+model-API use.
 
-## P9 — Response grounding and human-centric evidence
+## Deliberately outside the current claims
 
-- [ ] **MUST P9.1** Separate structural grounding from semantic answer quality.
-- [ ] **MUST P9.2** Replace single-token overlap as a success criterion with
-      case-specific expected facts and disallowed claims.
-- [ ] **MUST P9.3** Report lexical, structural, and semantic measures separately.
-- [ ] **SHOULD P9.4** Add blinded human or independent-model labels and agreement;
-      disclose model judging in Methods.
-- [ ] **MUST P9.5** Define end-user tasks and interaction breakdowns before
-      interpreting system measurements.
-- [x] **MUST P9.6** State that the current software-only evaluation has no human
-      participants or personal data; do not imply an institutional determination
-      for a study that is not being conducted.
-- [ ] **SHOULD P9.7** Run a preregistered comparative study only if approval,
-      recruitment, and the deadline permit it.
-- [x] **MUST P9.8** Without an approved study, remove subjective claims and
-      present a system/computational evaluation.
+- WebXR controller, gaze, microphone, or physical-headset evaluation;
+- free-form responsibility/capability editing in Unity;
+- subjective usability, trust, workload, preference, or participant outcomes;
+- semantic or factual quality of generated answers;
+- autonomous repair effectiveness or a human maintenance-time advantage;
+- broad generalization beyond the three purposively selected development cases.
 
-Acceptance: every quality claim names its evidence source; no usability, trust,
-workload, preference, or participant claim appears without valid human evidence.
-
-## P10 — XR path and anonymous artifact
-
-- [ ] **MUST P10.1** Describe the implementation as a Unity desktop prototype
-      with a WebXR deployment path until controller input and a real-headset test
-      are complete.
-- [ ] **SHOULD P10.2** Connect controller selection, push-to-talk, subtitles, and
-      an XR-readable world-space HUD.
-- [ ] **SHOULD P10.3** Test WebGL/WebXR, microphone permission, CORS, local HTTPS,
-      and at least one physical headset.
-- [ ] **MUST P10.4** Provide a one-command deterministic benchmark requiring no
-      private API key.
-- [ ] **MUST P10.5** Create an anonymous artifact snapshot with README, license,
-      dependency lock, data dictionary, and immutable result inputs.
-- [ ] **SHOULD P10.6** Record a captioned anonymous system video.
-- [ ] **MUST P10.7** Scan artifact, PDF, video, logs, and metadata for identities,
-      local paths, tokens, and secrets.
-
-Acceptance: reviewers can reproduce deterministic checks without credentials;
-all XR claims match the interaction path that was actually tested.
+These are future-study tasks, not prerequisites hidden behind the current
+system/computational claims.

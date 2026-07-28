@@ -28,6 +28,7 @@ from .functionalmlds_v2_runtime import (
     WIRE_CONTRACT_VERSION,
     load_project_contract,
     load_v2_document,
+    runtime_actions_for_kind,
     select_runtime_action,
 )
 from .openai_client import OpenAIHTTPError, OpenAIResponsesClient, create_transcription, create_tts_audio
@@ -692,7 +693,16 @@ class SessionStore:
             "functionalmlds": copy.deepcopy(context) if context else None,
         }
 
-    def preflight_runtime_action(self, session_id: str, action_kind: str) -> Dict[str, Any]:
+    def preflight_runtime_action(
+        self,
+        session_id: str,
+        action_kind: str,
+        *,
+        scenario_id: Optional[str] = None,
+        provider_entity_id: Optional[str] = None,
+        target_id: Optional[str] = None,
+        require_targetless: bool = False,
+    ) -> Dict[str, Any]:
         """Revalidate a session's pinned V2 contract and one concrete action.
 
         Legacy/non-FunctionalMLDS sessions retain their previous behavior and return
@@ -723,10 +733,18 @@ class SessionStore:
         pinned_action = select_runtime_action(
             st.functionalmlds_runtime_context or {},
             action_kind,
+            scenario_id=scenario_id,
+            provider_entity_id=provider_entity_id,
+            target_id=target_id,
+            require_targetless=require_targetless,
         )
         current_action = select_runtime_action(
             current.get("runtime_context") or {},
             action_kind,
+            scenario_id=scenario_id,
+            provider_entity_id=provider_entity_id,
+            target_id=target_id,
+            require_targetless=require_targetless,
         )
         if _canonical_runtime_value(pinned_action) != _canonical_runtime_value(current_action):
             raise FunctionalMldsContractError(
@@ -950,6 +968,105 @@ class SessionStore:
                 + "."
             )
         return mode
+
+    def _v2_interaction_mode_for_context(
+        self,
+        st: SessionState,
+        payload: Dict[str, Any],
+    ) -> str:
+        actions = runtime_actions_for_kind(
+            st.functionalmlds_runtime_context or {},
+            "chat",
+        )
+        if not actions:
+            raise FunctionalMldsContractError(
+                "Pinned V2 session has no executable chat action."
+            )
+        modes = {
+            self._v2_interaction_mode(action, payload)
+            for action in actions
+        }
+        if len(modes) != 1:
+            raise FunctionalMldsContractError(
+                "Pinned V2 chat actions disagree on their interaction-mode "
+                "wire contract."
+            )
+        return next(iter(modes))
+
+    @staticmethod
+    def _v2_provider_entity_id(
+        st: SessionState,
+        source_agent_id: str,
+    ) -> str:
+        matches = [
+            str(
+                item.get("functionalmlds_agent_id")
+                or item.get("entity_id")
+                or ""
+            ).strip()
+            for item in (st.functionalmlds_runtime_context or {}).get(
+                "agents",
+                [],
+            )
+            if isinstance(item, dict)
+            and str(item.get("source_agent_id") or "").strip()
+            == source_agent_id
+        ]
+        matches = [item for item in matches if item]
+        if len(matches) != 1:
+            raise FunctionalMldsContractError(
+                f"Pinned V2 agent {source_agent_id!r} has no unique provider "
+                "Entity."
+            )
+        return matches[0]
+
+    def _preflight_v2_interaction_action(
+        self,
+        *,
+        st: SessionState,
+        session_id: str,
+        action_kind: str,
+        interaction_mode: str,
+        provider_entity_id: str,
+        target_id: Optional[str],
+    ) -> Dict[str, Any]:
+        candidates = runtime_actions_for_kind(
+            st.functionalmlds_runtime_context or {},
+            action_kind,
+        )
+        if not candidates:
+            raise FunctionalMldsContractError(
+                f"Pinned V2 session has no executable {action_kind} action."
+            )
+        legacy_single_chain = (
+            len(candidates) == 1
+            and not str(candidates[0].get("scenario_id") or "").strip()
+        )
+        if legacy_single_chain:
+            return self.preflight_runtime_action(session_id, action_kind)
+        if interaction_mode == "deictic":
+            if not target_id:
+                raise FunctionalMldsContractError(
+                    "A deictic V2 action requires a trusted model target."
+                )
+            return self.preflight_runtime_action(
+                session_id,
+                action_kind,
+                provider_entity_id=provider_entity_id,
+                target_id=target_id,
+            )
+
+        # Preserve old single-chain V2 fixtures.  A multi-chain non-deictic
+        # request, however, may only use an explicitly target-less provider
+        # chain; selecting an arbitrary asset chain would create false evidence.
+        if len(candidates) == 1:
+            return self.preflight_runtime_action(session_id, action_kind)
+        return self.preflight_runtime_action(
+            session_id,
+            action_kind,
+            provider_entity_id=provider_entity_id,
+            require_targetless=True,
+        )
 
     @staticmethod
     def _v2_model_binding(action: Dict[str, Any]) -> Dict[str, str]:
@@ -1871,7 +1988,12 @@ class SessionStore:
 
         return result
 
-    def chat(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+    def chat(
+        self,
+        payload: Dict[str, Any],
+        *,
+        include_runtime_actions: bool = False,
+    ) -> Dict[str, Any]:
         session_id = str(payload.get("session_id") or "").strip()
         if not session_id:
             raise ValueError("session_id fehlt. Bitte zuerst /setup aufrufen.")
@@ -1893,20 +2015,23 @@ class SessionStore:
         if not user_text:
             raise ValueError("user_text ist leer.")
 
-        # This happens before an OpenAI call or any history mutation.  V2 therefore
-        # fails closed if the model/trace changed after setup or chat has no exact
-        # concrete action mapping.
-        chat_preflight = self.preflight_runtime_action(session_id, "chat")
+        # Selection below happens before an OpenAI call or any history mutation.
+        # Multi-Scenario V2 requests are bound to one concrete provider/target
+        # chain instead of choosing an arbitrary action by application kind.
+        chat_preflight: Dict[str, Any] = {
+            "kind": st.functionalmlds_contract_kind,
+            "contract_fingerprint": "",
+            "action": None,
+        }
+        handoff_preflight: Dict[str, Any] = {
+            "kind": st.functionalmlds_contract_kind,
+            "contract_fingerprint": "",
+            "action": None,
+        }
         interaction_mode: Optional[str] = None
         model_binding: Optional[Dict[str, str]] = None
         if st.functionalmlds_contract_kind == "v2":
-            chat_action = chat_preflight.get("action")
-            if not isinstance(chat_action, dict):
-                raise FunctionalMldsContractError(
-                    "Pinned V2 session has no executable chat action."
-                )
-            interaction_mode = self._v2_interaction_mode(chat_action, payload)
-            model_binding = self._v2_model_binding(chat_action)
+            interaction_mode = self._v2_interaction_mode_for_context(st, payload)
             has_spatial_context = payload.get("spatial_context") is not None
             if interaction_mode == "deictic" and not has_spatial_context:
                 raise ValueError(
@@ -1937,10 +2062,44 @@ class SessionStore:
             str((routing or {}).get("selected_agent_id") or active_agent_id)
         )
         agent_a = st.agents[selected_agent_id]
-        if routing and routing.get("modeled_handoff"):
-            # Validate the concrete handoff chain before the external model call
-            # and before any conversation state can be changed.
-            self.preflight_runtime_action(session_id, "handoff")
+        if st.functionalmlds_contract_kind == "v2":
+            provider_entity_id = self._v2_provider_entity_id(
+                st,
+                selected_agent_id,
+            )
+            trusted_target_id = (
+                str((grounding or {}).get("selected_entity_id") or "").strip()
+                or None
+            )
+            chat_preflight = self._preflight_v2_interaction_action(
+                st=st,
+                session_id=session_id,
+                action_kind="chat",
+                interaction_mode=str(interaction_mode),
+                provider_entity_id=provider_entity_id,
+                target_id=trusted_target_id,
+            )
+            # Preselect the handoff chain as well.  A later model-produced
+            # handoff can therefore never mutate state before its modeled chain
+            # has been proven unique.
+            handoff_preflight = self._preflight_v2_interaction_action(
+                st=st,
+                session_id=session_id,
+                action_kind="handoff",
+                interaction_mode=str(interaction_mode),
+                provider_entity_id=provider_entity_id,
+                target_id=trusted_target_id,
+            )
+            chat_action = chat_preflight.get("action")
+            if not isinstance(chat_action, dict):
+                raise FunctionalMldsContractError(
+                    "Pinned V2 session has no executable chat action."
+                )
+            model_binding = self._v2_model_binding(chat_action)
+            if grounding is not None:
+                grounding["model_binding"] = copy.deepcopy(model_binding)
+            if routing is not None:
+                routing["model_binding"] = copy.deepcopy(model_binding)
 
         if st.memory_mode == MEMORY_MODE_AGENT_PRIVATE:
             response = self._chat_agent_private(
@@ -1962,13 +2121,27 @@ class SessionStore:
                 grounding=grounding,
                 routing=routing,
             )
-        return self._decorate_grounded_chat_response(
+        decorated = self._decorate_grounded_chat_response(
             response,
             grounding,
             routing,
             interaction_mode=interaction_mode,
             model_binding=model_binding,
         )
+        if (
+            st.functionalmlds_contract_kind == "v2"
+            and include_runtime_actions
+        ):
+            # Private server-side handoff to the logging transaction.  The HTTP
+            # layer removes it before serializing the public response.
+            decorated["_functionalmlds_runtime_actions"] = {
+                "chat": copy.deepcopy(chat_preflight.get("action")),
+                "handoff": copy.deepcopy(handoff_preflight.get("action")),
+                "contract_fingerprint": chat_preflight.get(
+                    "contract_fingerprint"
+                ),
+            }
+        return decorated
 
     def _openai_error_chat_response(self, session_id: str, active_agent_id: str, error: OpenAIHTTPError) -> Dict[str, Any]:
         return {

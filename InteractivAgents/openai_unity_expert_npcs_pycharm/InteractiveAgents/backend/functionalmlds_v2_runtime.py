@@ -83,18 +83,71 @@ def load_v2_document(project_dir: Path) -> Dict[str, Any]:
     return dict(contract["instance"])
 
 
-def select_runtime_action(runtime_context: Mapping[str, Any], action_kind: str) -> Dict[str, Any]:
+def runtime_actions_for_kind(
+    runtime_context: Mapping[str, Any],
+    action_kind: str,
+) -> List[Dict[str, Any]]:
     action_kind = str(action_kind or "").strip().lower()
-    matches = [
+    return [
         dict(item)
         for item in runtime_context.get("runtime_actions", [])
         if isinstance(item, Mapping) and str(item.get("action_kind") or "").lower() == action_kind
     ]
+
+
+def select_runtime_action(
+    runtime_context: Mapping[str, Any],
+    action_kind: str,
+    *,
+    scenario_id: Optional[str] = None,
+    provider_entity_id: Optional[str] = None,
+    target_id: Optional[str] = None,
+    require_targetless: bool = False,
+) -> Dict[str, Any]:
+    action_kind = str(action_kind or "").strip().lower()
+    matches = runtime_actions_for_kind(runtime_context, action_kind)
+    filters: List[str] = []
+    if scenario_id is not None:
+        expected_scenario = str(scenario_id or "").strip()
+        matches = [
+            item
+            for item in matches
+            if str(item.get("scenario_id") or "").strip() == expected_scenario
+        ]
+        filters.append(f"scenario_id={expected_scenario!r}")
+    if provider_entity_id is not None:
+        expected_provider = str(provider_entity_id or "").strip()
+        matches = [
+            item
+            for item in matches
+            if str(item.get("provider_entity_id") or "").strip()
+            == expected_provider
+        ]
+        filters.append(f"provider_entity_id={expected_provider!r}")
+    if target_id is not None:
+        expected_target = str(target_id or "").strip()
+        matches = [
+            item
+            for item in matches
+            if expected_target in _refs(item.get("target_ids"))
+        ]
+        filters.append(f"target_id={expected_target!r}")
+    if require_targetless:
+        matches = [
+            item for item in matches if not _refs(item.get("target_ids"))
+        ]
+        filters.append("target_ids=[]")
     if not matches:
-        raise FunctionalMldsContractError(f"Runtime context has no exact action mapping for {action_kind!r}.")
-    if len(matches) > 1:
+        qualifier = f" ({', '.join(filters)})" if filters else ""
         raise FunctionalMldsContractError(
-            f"Runtime context has {len(matches)} ambiguous action mappings for {action_kind!r}."
+            f"Runtime context has no exact action mapping for "
+            f"{action_kind!r}{qualifier}."
+        )
+    if len(matches) > 1:
+        qualifier = f" after {', '.join(filters)}" if filters else ""
+        raise FunctionalMldsContractError(
+            f"Runtime context has {len(matches)} ambiguous action mappings for "
+            f"{action_kind!r}{qualifier}."
         )
     return matches[0]
 
@@ -437,11 +490,106 @@ def _validate_v2_instance(instance: Mapping[str, Any]) -> Dict[str, Dict[str, An
                 expected_type="RuntimeValidationProcedure",
             )
 
-    main_scenarios = [
-        item for item in by_id.values() if item.get("type") == "Scenario" and item.get("kind") == "main"
+    use_cases = [
+        item for item in by_id.values() if item.get("type") == "UseCase"
     ]
-    if len(main_scenarios) != 1:
-        raise FunctionalMldsContractError("Native V2 instance requires exactly one main Scenario.")
+    scenarios = [
+        item for item in by_id.values() if item.get("type") == "Scenario"
+    ]
+    scenario_specifications = [
+        item
+        for item in by_id.values()
+        if item.get("type") == "UseCaseScenarioSpecification"
+    ]
+    scenarios_by_use_case: Dict[str, List[Mapping[str, Any]]] = {
+        str(item.get("id")): [] for item in use_cases
+    }
+    scenario_owner: Dict[str, str] = {}
+    for specification in scenario_specifications:
+        use_case_ids = _require_refs(
+            specification,
+            "useCase",
+            by_id,
+            minimum=1,
+            maximum=1,
+            expected_type="UseCase",
+        )
+        scenario_ids = _require_refs(
+            specification,
+            "scenario",
+            by_id,
+            minimum=1,
+            maximum=1,
+            expected_type="Scenario",
+        )
+        use_case_id = use_case_ids[0]
+        scenario_id = scenario_ids[0]
+        previous_owner = scenario_owner.setdefault(scenario_id, use_case_id)
+        if previous_owner != use_case_id:
+            raise FunctionalMldsContractError(
+                f"Scenario {scenario_id!r} belongs to more than one UseCase."
+            )
+        if by_id[scenario_id] not in scenarios_by_use_case[use_case_id]:
+            scenarios_by_use_case[use_case_id].append(by_id[scenario_id])
+
+    if (
+        not scenario_specifications
+        and len(use_cases) == 1
+        and len(scenarios) == 1
+    ):
+        # Compatibility with the first native-V2 fixtures, which exposed one
+        # global main Scenario before UseCase ownership became executable.
+        use_case_id = str(use_cases[0].get("id"))
+        scenario_id = str(scenarios[0].get("id"))
+        scenarios_by_use_case[use_case_id] = [scenarios[0]]
+        scenario_owner[scenario_id] = use_case_id
+    else:
+        unowned = [
+            str(item.get("id"))
+            for item in scenarios
+            if str(item.get("id")) not in scenario_owner
+        ]
+        if unowned:
+            raise FunctionalMldsContractError(
+                "Native V2 Scenarios require one UseCase owner: "
+                + ", ".join(unowned)
+                + "."
+            )
+
+    for use_case in use_cases:
+        use_case_id = str(use_case.get("id"))
+        main_scenarios = [
+            scenario
+            for scenario in scenarios_by_use_case.get(use_case_id, [])
+            if scenario.get("kind") == "main"
+        ]
+        if len(main_scenarios) != 1:
+            raise FunctionalMldsContractError(
+                f"Native V2 UseCase {use_case_id!r} requires exactly one main "
+                f"Scenario; found {len(main_scenarios)}."
+            )
+
+    step_owner: Dict[str, str] = {}
+    for scenario in scenarios:
+        scenario_id = str(scenario.get("id"))
+        for step_id in _refs(scenario.get("step")):
+            previous_owner = step_owner.setdefault(step_id, scenario_id)
+            if previous_owner != scenario_id:
+                raise FunctionalMldsContractError(
+                    f"ScenarioStep {step_id!r} belongs to more than one Scenario."
+                )
+    unowned_steps = [
+        str(item.get("id"))
+        for item in by_id.values()
+        if item.get("type") == "ScenarioStep"
+        and str(item.get("id")) not in step_owner
+    ]
+    if unowned_steps:
+        raise FunctionalMldsContractError(
+            "Native V2 ScenarioSteps require one Scenario owner: "
+            + ", ".join(unowned_steps)
+            + "."
+        )
 
     for step in [item for item in by_id.values() if item.get("type") == "ScenarioStep"]:
         for use_id in _refs(step.get("capabilityUse")):
@@ -474,18 +622,81 @@ def _validate_v2_trace(
     instance_profile = str(instance.get("fixture_profile") or instance.get("profile") or "")
     if str(trace.get("profile") or "") != instance_profile:
         raise FunctionalMldsContractError("V2 trace map profile does not match the native instance.")
-    main_scenarios = [
-        item for item in by_id.values() if item.get("type") == "Scenario" and item.get("kind") == "main"
+    use_cases = [
+        item for item in by_id.values() if item.get("type") == "UseCase"
     ]
-    if len(main_scenarios) != 1 or trace.get("main_scenario_id") != main_scenarios[0].get("id"):
+    scenarios = [
+        item for item in by_id.values() if item.get("type") == "Scenario"
+    ]
+    main_scenarios = [
+        item for item in scenarios if item.get("kind") == "main"
+    ]
+    scenario_for_step: Dict[str, str] = {}
+    for scenario in scenarios:
+        scenario_id = str(scenario.get("id"))
+        for step_id in _refs(scenario.get("step")):
+            previous = scenario_for_step.setdefault(step_id, scenario_id)
+            if previous != scenario_id:
+                raise FunctionalMldsContractError(
+                    f"ScenarioStep {step_id!r} has ambiguous Scenario ownership."
+                )
+    use_case_for_scenario: Dict[str, str] = {}
+    for specification in by_id.values():
+        if specification.get("type") != "UseCaseScenarioSpecification":
+            continue
+        use_case_ids = _refs(specification.get("useCase"))
+        scenario_ids = _refs(specification.get("scenario"))
+        if len(use_case_ids) != 1 or len(scenario_ids) != 1:
+            raise FunctionalMldsContractError(
+                "UseCaseScenarioSpecification must identify exactly one "
+                "UseCase and Scenario."
+            )
+        previous = use_case_for_scenario.setdefault(
+            scenario_ids[0],
+            use_case_ids[0],
+        )
+        if previous != use_case_ids[0]:
+            raise FunctionalMldsContractError(
+                f"Scenario {scenario_ids[0]!r} has ambiguous UseCase ownership."
+            )
+    if (
+        not use_case_for_scenario
+        and len(use_cases) == 1
+        and len(scenarios) == 1
+    ):
+        use_case_for_scenario[str(scenarios[0].get("id"))] = str(
+            use_cases[0].get("id")
+        )
+
+    expected_use_case_ids = [str(item.get("id")) for item in use_cases]
+    expected_main_scenario_ids = [
+        str(item.get("id")) for item in main_scenarios
+    ]
+    if "use_case_ids" in trace and _refs(trace.get("use_case_ids")) != expected_use_case_ids:
         raise FunctionalMldsContractError(
-            "V2 trace map main_scenario_id must identify the model's unique main Scenario."
+            "V2 trace map use_case_ids do not exactly match the model."
+        )
+    if (
+        "main_scenario_ids" in trace
+        and _refs(trace.get("main_scenario_ids")) != expected_main_scenario_ids
+    ):
+        raise FunctionalMldsContractError(
+            "V2 trace map main_scenario_ids do not exactly match the model."
+        )
+    if len(main_scenarios) > 1 and (
+        "use_case_ids" not in trace or "main_scenario_ids" not in trace
+    ):
+        raise FunctionalMldsContractError(
+            "A multi-UseCase V2 trace requires use_case_ids and "
+            "main_scenario_ids."
         )
     actions = trace.get("runtime_actions")
     if not isinstance(actions, list) or not actions:
         raise FunctionalMldsContractError("V2 trace map requires runtime_actions.")
     seen_action_kinds: Dict[str, int] = {}
-    actual_chains: List[tuple[str, str, str, str, str, str]] = []
+    actual_chains: List[
+        tuple[str, str, str, str, str, str, str, str]
+    ] = []
     for index, raw in enumerate(actions):
         if not isinstance(raw, Mapping):
             raise FunctionalMldsContractError(f"runtime_actions[{index}] must be an object.")
@@ -506,6 +717,37 @@ def _validate_v2_trace(
         provider = by_id[ids["provider_entity_id"]]
         binding = by_id[ids["runtime_binding_id"]]
         action = by_id[ids["runtime_action_id"]]
+        expected_scenario_id = scenario_for_step.get(
+            ids["scenario_step_id"],
+            "",
+        )
+        expected_use_case_id = use_case_for_scenario.get(
+            expected_scenario_id,
+            "",
+        )
+        if not expected_scenario_id or not expected_use_case_id:
+            raise FunctionalMldsContractError(
+                f"runtime_actions[{index}] ScenarioStep has no unique "
+                "Scenario/UseCase owner."
+            )
+        traced_scenario_id = _optional_text(raw.get("scenario_id"))
+        traced_use_case_id = _optional_text(raw.get("use_case_id"))
+        if len(scenarios) > 1 and (
+            traced_scenario_id is None or traced_use_case_id is None
+        ):
+            raise FunctionalMldsContractError(
+                f"runtime_actions[{index}] in a multi-Scenario model requires "
+                "scenario_id and use_case_id."
+            )
+        if traced_scenario_id not in {None, expected_scenario_id}:
+            raise FunctionalMldsContractError(
+                f"runtime_actions[{index}] scenario_id does not own its "
+                "ScenarioStep."
+            )
+        if traced_use_case_id not in {None, expected_use_case_id}:
+            raise FunctionalMldsContractError(
+                f"runtime_actions[{index}] use_case_id does not own its Scenario."
+            )
         if ids["capability_use_id"] not in _refs(step.get("capabilityUse")):
             raise FunctionalMldsContractError(f"runtime_actions[{index}] bypasses ScenarioStep.capabilityUse.")
         if ids["capability_id"] not in _refs(use.get("typeRef") or use.get("capability")):
@@ -520,7 +762,13 @@ def _validate_v2_trace(
             raise FunctionalMldsContractError(f"runtime_actions[{index}] RuntimeAction is not owned by the binding.")
         if step.get("type") != "ScenarioStep" or use.get("type") != "CapabilityUse" or capability.get("type") != "Capability" or binding.get("type") != "RuntimeBinding" or action.get("type") != "RuntimeAction":
             raise FunctionalMldsContractError(f"runtime_actions[{index}] contains a type-invalid chain.")
-        actual_chains.append(tuple(ids[name] for name in required))
+        actual_chains.append(
+            (
+                expected_use_case_id,
+                expected_scenario_id,
+                *(ids[name] for name in required),
+            )
+        )
 
         expected_targets = _refs(use.get("target"))
         expected_assertions: List[str] = []
@@ -570,7 +818,9 @@ def _validate_v2_trace(
             )
         seen_action_kinds[action_kind] = seen_action_kinds.get(action_kind, 0) + 1
 
-    expected_chains: List[tuple[str, str, str, str, str, str]] = []
+    expected_chains: List[
+        tuple[str, str, str, str, str, str, str, str]
+    ] = []
     steps_for_use: Dict[str, List[Mapping[str, Any]]] = {}
     for step in by_id.values():
         if step.get("type") != "ScenarioStep":
@@ -606,6 +856,10 @@ def _validate_v2_trace(
                     )
                 expected_chains.append(
                     (
+                        use_case_for_scenario[
+                            scenario_for_step[str(steps[0].get("id"))]
+                        ],
+                        scenario_for_step[str(steps[0].get("id"))],
                         str(steps[0].get("id")),
                         use_id,
                         capability_id,
@@ -621,11 +875,41 @@ def _validate_v2_trace(
             "V2 runtime trace is not a complete, exact projection of the model's runtime action chains."
         )
 
-    for action_kind in ("setup", "chat", "handoff"):
-        if seen_action_kinds.get(action_kind) != 1:
+    if seen_action_kinds.get("setup") != 1:
+        raise FunctionalMldsContractError(
+            "V2 runtime trace requires exactly one 'setup' action mapping; "
+            f"found {seen_action_kinds.get('setup', 0)}."
+        )
+    for action_kind in ("chat", "handoff"):
+        if seen_action_kinds.get(action_kind, 0) < 1:
             raise FunctionalMldsContractError(
-                f"V2 runtime trace requires exactly one {action_kind!r} action mapping; found {seen_action_kinds.get(action_kind, 0)}."
+                f"V2 runtime trace requires at least one {action_kind!r} "
+                f"action mapping; found {seen_action_kinds.get(action_kind, 0)}."
             )
+
+    setup_chain = next(
+        (
+            raw
+            for raw in actions
+            if isinstance(raw, Mapping)
+            and str(raw.get("action_kind") or "").lower() == "setup"
+        ),
+        None,
+    )
+    assert setup_chain is not None
+    setup_step_id = str(setup_chain.get("scenario_step_id") or "")
+    setup_scenario_id = scenario_for_step.get(setup_step_id, "")
+    setup_use_case_id = use_case_for_scenario.get(setup_scenario_id, "")
+    if trace.get("main_scenario_id") != setup_scenario_id:
+        raise FunctionalMldsContractError(
+            "V2 trace map main_scenario_id must identify the Scenario that "
+            "owns the unique setup chain."
+        )
+    if trace.get("use_case_id") != setup_use_case_id:
+        raise FunctionalMldsContractError(
+            "V2 trace map use_case_id must identify the UseCase that owns the "
+            "unique setup chain."
+        )
 
 
 def _build_v2_runtime_context(
@@ -735,6 +1019,15 @@ def _build_v2_runtime_context(
         "profile": "executable",
         "trace_schema_version": V2_TRACE_VERSION,
         "main_scenario_id": trace.get("main_scenario_id"),
+        "main_scenario_ids": list(
+            trace.get("main_scenario_ids")
+            or ([trace.get("main_scenario_id")] if trace.get("main_scenario_id") else [])
+        ),
+        "use_case_id": trace.get("use_case_id"),
+        "use_case_ids": list(
+            trace.get("use_case_ids")
+            or ([trace.get("use_case_id")] if trace.get("use_case_id") else [])
+        ),
         "runtime_validation_target_id": unity_target.get("id") if unity_target else None,
         "runtime_actions": runtime_actions,
         "assertions": assertions,

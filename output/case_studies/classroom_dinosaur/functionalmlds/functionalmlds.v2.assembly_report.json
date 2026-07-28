@@ -3,13 +3,13 @@
   "errors": [],
   "warnings": [],
   "metrics": {
-    "object_count": 292,
+    "object_count": 1522,
     "error_count": 0,
     "warning_count": 0
   },
   "subject": "native V2 runtime instance classroom_dinosaur",
   "ok": true,
-  "generated_at": "2026-07-14T13:04:41.338534+00:00",
+  "generated_at": "2026-07-28T17:52:31.666956+00:00",
   "error_count": 0,
   "warning_count": 0,
   "checks": [

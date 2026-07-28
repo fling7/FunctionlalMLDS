@@ -1,75 +1,104 @@
 # IUI 2027 scientific paper task list
 
-The paper source lives in `paper/`. Tasks are completed in order unless a later
-task can be advanced without inventing unavailable results.
+Last updated: 2026-07-28
 
-## A — Submission scaffold
+The paper source is in `paper/`. A checked item is present in the current
+anonymous manuscript and backed by the cited artifact. PCS actions remain
+author actions because they require account access and final author metadata.
 
-- [x] **A1** Obtain the latest official `acmart` template and record its version.
-- [x] **A2** Create the anonymous one-column review manuscript using
+## A — Venue-compliant scaffold
+
+- [x] Verify the official 2027 call, dates, scope, and evidence policy.
+- [x] Use the latest installed `acmart` review format:
       `\documentclass[manuscript,review,anonymous]{acmart}`.
-- [x] **A3** Add ACM CCS concepts and author keywords relevant to IUI.
-- [x] **A4** Establish a reproducible local PDF build.
-- [x] **A5** Add word-count, anonymity, broken-reference, and PDF-metadata checks.
+- [x] Add relevant ACM CCS concepts and keywords.
+- [x] Keep the main-text estimate below the recommended 8,000 words.
+- [x] Add strict checks for format, pending values, citations, anonymity,
+      metadata, log errors, size, and tagging.
+- [x] Document the optional supplement and concurrent-submission rule.
 
-## B — Evidence-first outline
+## B — Claim and narrative freeze
 
-- [x] **B1** Create a claim-to-evidence matrix.
-- [ ] **B2** Freeze the title and abstract before abstract registration.
-- [ ] **B3** Map each research question to method, metric, result, and limitation.
-- [ ] **B4** Remove claims that cannot be supported by the submission deadline.
+- [x] Frame the contribution around the Unity interaction and authoring
+      implementation, with the model as its interaction-assurance contract.
+- [x] Freeze the working title and complete a measured abstract.
+- [x] Map all three research questions to method, result, and limitation.
+- [x] Remove unsupported claims about user experience, semantic answer quality,
+      WebXR evaluation, broad generality, and representation superiority.
+- [x] Keep every abstract/result/conclusion claim in the evidence matrix.
 
-## C — Related work
+## C — Related work and novelty
 
-- [x] **C1** Review primary literature on intelligent and multimodal interfaces.
-- [x] **C2** Review embodied and situated conversational agents.
-- [x] **C3** Review spatial reference resolution and scene grounding.
-- [x] **C4** Review model-based UI and interactive-system authoring.
-- [x] **C5** Review agent orchestration, tracing, and human control.
-- [x] **C6** Verify every BibTeX record against a publisher or DOI source.
-- [x] **C7** State the precise gap without claiming that no prior system exists.
+- [x] Cover human–AI interaction and intelligible control.
+- [x] Cover embodied/situated agents and spatial reference.
+- [x] Cover conversational authoring and agents in XR.
+- [x] Cover model-based interface engineering and traceability.
+- [x] Position the contribution as an explicit lifecycle connection, not as
+      the first Unity, XR, LLM-agent, embodied-agent, or model-based UI system.
+- [x] Verify bibliography identifiers against primary publisher/DOI records.
 
 ## D — Manuscript sections
 
-- [ ] **D1 Abstract:** problem, gap, approach, evaluation, measured results, boundary.
-- [x] **D2 Introduction:** motivating user interaction, challenge, contributions.
-- [x] **D3 Related Work:** synthesis and gap, not a catalogue.
-- [ ] **D4 System:** interaction model, generation, Unity/WebXR, agents, traces.
-- [ ] **D5 Method:** cases, tasks, baselines, mutations, metrics, statistics.
-- [ ] **D6 Results:** answer each RQ using generated evidence only.
-- [x] **D7 Discussion:** human-centric implications, control, failure recovery,
-      practical use, societal impact.
-- [ ] **D8 Limitations and threats:** no hidden limitations or overgeneralization.
-- [ ] **D9 Conclusion:** concise contribution and bounded findings.
-- [ ] **D10 AI methods:** describe every LLM role, prompt, model, and judge affecting results.
-- [x] **D11 Ethics statement:** accurately state that the present software-only
-      evaluation contains no human participants or personal data.
+- [x] Abstract: problem, approach, corpus, principal measured results, boundary.
+- [x] Introduction: user interaction, gap, RQs, and four contributions.
+- [x] Related Work: synthesis and precise novelty boundary.
+- [x] System: interaction goals, model contract, placement workbench, Unity,
+      backend, runtime evidence, and AI roles.
+- [x] Method: cases, adapters, immutable inputs, routing probes, mutations,
+      timing, runtime tests, placement transactions, and analysis boundary.
+- [x] Results: exact answers to RQ1–RQ3 with generated denominators.
+- [x] Discussion: author/visitor implications, visible failure, mixed tradeoff,
+      privacy, bias, and control.
+- [x] Limitations: corpus, shared sources/validators, synthetic mutations,
+      absent human/semantic/WebXR evidence, client trust, and timing scope.
+- [x] Conclusion: concise, measured, and non-causal.
+- [x] GenAI account: all research-affecting model calls, sampling, repair,
+      frozen outputs, coding assistance, and editorial reviewer role.
+- [x] Human-subject boundary: no participants or personal data in the reported
+      software-system evaluation.
 
-## E — Visual material
+## E — Visual and quantitative material
 
-- [ ] **E1** Interaction walkthrough figure from user reference to validated response.
-- [ ] **E2** Architecture/model-to-runtime figure.
-- [ ] **E3** Experimental design figure or compact condition table.
-- [ ] **E4** Per-RQ results tables with denominators and uncertainty.
-- [ ] **E5** Failure taxonomy with representative examples.
-- [ ] **E6** Accessible descriptions, legible labels, and non-color-only encoding.
+- [x] Add an accessible model-to-runtime contract diagram.
+- [x] Add an accessible placement/visitor workflow diagram.
+- [x] Add an accessible compact authoring/runtime architecture diagram.
+- [x] Add per-case chain and routing tables.
+- [x] Add fault/edit and timing tables with explicit denominators.
+- [x] Describe representative invalid requests, trace failures, and rollback
+      behavior in the RQ3 text.
+- [x] Use labels and line styles that do not depend on color.
+- [x] Give every table and figure a detailed `\Description` or tagged alt text.
 
-## F — Quality and compliance
+## F — Reproducible and accessible PDF
 
-- [x] **F1** Keep main text at or below 8,000 words.
-- [x] **F2** Use direct, human-readable prose and define unavoidable terminology.
-- [ ] **F3** Audit citations, quotations, numbers, cross-references, and captions.
-- [ ] **F4** Audit anonymity in source, PDF, metadata, figures, links, and supplements.
-- [ ] **F5** Run accessibility checks and inspect every rendered PDF page.
-- [ ] **F6** Add practical/societal impact, privacy, bias, control, and failure discussion.
-- [ ] **F7** Ensure concurrent-submission disclosure is accurate.
+- [x] Pin the LaTeX tagging stack to
+      `latex-lab-2025-11-01a` /
+      `c5afb829ef326a0469435da85636c973cc258b3f`.
+- [x] Build with LuaLaTeX and `\DocumentMetadata{pdfstandard=UA-2}`.
+- [x] Add an optional hard veraPDF PDF/UA-2 gate.
+- [x] Complete the final four-pass build after the last source edit.
+- [x] Pass veraPDF PDF/UA-2 and the strict local submission checker.
+- [x] Render and visually inspect every final PDF page.
+- [x] Complete a final number/citation/cross-reference/anonymity audit.
 
-## G — Review loop and submission
+## G — Review loop
 
-- [ ] **G1** Run an internal claims/evidence review.
-- [ ] **G2** Build the ≤10 MB, ≤15-page anonymous PDF used by the Stanford reviewer.
-- [ ] **G3** Submit to `Other / ACM IUI 2027` using the authorized email address.
-- [ ] **G4** Track every major comment and its resolution.
-- [ ] **G5** Repeat build and review until the master exit criteria pass.
-- [ ] **G6** Register the abstract in PCS by 2026-08-13 AoE.
-- [ ] **G7** Submit the final manuscript by 2026-08-20 AoE.
+- [x] Complete an independent internal IUI-style review and address every
+      critical or major point.
+- [ ] Upload the anonymous PDF to paperreview.ai as `ACM IUI 2027` using the
+      authorized email.
+- [ ] Store the access token and raw reviews only in ignored private paths.
+- [ ] Convert every substantial comment into a redacted task and resolution.
+- [ ] Rebuild and resubmit until the textual assessment is positive and no
+      critical or major issue remains.
+- [ ] Record the passing review timestamp and paper commit without the email,
+      token, or private raw response.
+
+## H — Author actions before PCS deadlines
+
+- [ ] Confirm final author order, affiliations, corresponding author, and
+      concurrent-submission disclosure.
+- [ ] Register the abstract in PCS by 2026-08-13 AoE.
+- [ ] Submit the full paper by 2026-08-20 AoE.
+- [ ] Decide which review-only files may receive a redistribution license and
+      whether to attach an anonymous supplement/video.

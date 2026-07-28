@@ -3,13 +3,13 @@
   "errors": [],
   "warnings": [],
   "metrics": {
-    "object_count": 293,
+    "object_count": 1208,
     "error_count": 0,
     "warning_count": 0
   },
   "subject": "native V2 runtime instance bestfit_career_fair",
   "ok": true,
-  "generated_at": "2026-07-14T13:04:22.513448+00:00",
+  "generated_at": "2026-07-28T17:49:38.197068+00:00",
   "error_count": 0,
   "warning_count": 0,
   "checks": [

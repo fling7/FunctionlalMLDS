@@ -1,0 +1,671 @@
+{
+  "schema": "functionalmlds_trace_map",
+  "case_id": "bestfit_career_fair",
+  "functionalmlds_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\functionalmlds\\functionalmlds.instance.generated.json",
+  "project_files": {
+    "project": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\project.json",
+    "room_plan": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\room_plan.json",
+    "agents": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\agents.json",
+    "kb_root": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\kb"
+  },
+  "use_case_id": "UC-BESTFIT_CAREER_FAIR-01",
+  "main_scenario_id": "SC-BESTFIT_CAREER_FAIR-MAIN",
+  "scenario_steps": [
+    {
+      "scenario_step_id": "STEP-BESTFIT_CAREER_FAIR-S01",
+      "step_number": 1,
+      "capability_use_ids": [],
+      "resulting_state_ids": []
+    },
+    {
+      "scenario_step_id": "STEP-BESTFIT_CAREER_FAIR-S02",
+      "step_number": 2,
+      "capability_use_ids": [
+        "CU-BESTFIT_CAREER_FAIR-S02-ANALYZE-MLDS-SCENE"
+      ],
+      "resulting_state_ids": [
+        "SA-BESTFIT_CAREER_FAIR-NORMALIZED-SCENE-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-BESTFIT_CAREER_FAIR-S03",
+      "step_number": 3,
+      "capability_use_ids": [
+        "CU-BESTFIT_CAREER_FAIR-S03-ANALYZE-MLDS-SCENE"
+      ],
+      "resulting_state_ids": [
+        "SA-BESTFIT_CAREER_FAIR-SCENE-SEMANTICS-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-BESTFIT_CAREER_FAIR-S04",
+      "step_number": 4,
+      "capability_use_ids": [
+        "CU-BESTFIT_CAREER_FAIR-S04-DERIVE-SPATIAL-AGENT-ROLES"
+      ],
+      "resulting_state_ids": [
+        "SA-BESTFIT_CAREER_FAIR-AGENT-ROLES-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-BESTFIT_CAREER_FAIR-S05",
+      "step_number": 5,
+      "capability_use_ids": [
+        "CU-BESTFIT_CAREER_FAIR-S05-GENERATE-ROOM-KNOWLEDGE"
+      ],
+      "resulting_state_ids": [
+        "SA-BESTFIT_CAREER_FAIR-KNOWLEDGE-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-BESTFIT_CAREER_FAIR-S06",
+      "step_number": 6,
+      "capability_use_ids": [
+        "CU-BESTFIT_CAREER_FAIR-S06-PLACE-AGENTS-IN-SCENE"
+      ],
+      "resulting_state_ids": [
+        "SA-BESTFIT_CAREER_FAIR-PLACEMENT-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-BESTFIT_CAREER_FAIR-S07",
+      "step_number": 7,
+      "capability_use_ids": [
+        "CU-BESTFIT_CAREER_FAIR-S07-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "resulting_state_ids": [
+        "SA-BESTFIT_CAREER_FAIR-FUNCTIONALMLDS-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-BESTFIT_CAREER_FAIR-S08",
+      "step_number": 8,
+      "capability_use_ids": [
+        "CU-BESTFIT_CAREER_FAIR-S08-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "resulting_state_ids": [
+        "SA-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZED"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-BESTFIT_CAREER_FAIR-S09",
+      "step_number": 9,
+      "capability_use_ids": [
+        "CU-BESTFIT_CAREER_FAIR-S09-SETUP-INTERACTIVE-SESSION"
+      ],
+      "resulting_state_ids": [
+        "SA-BESTFIT_CAREER_FAIR-SETUP-VALID"
+      ]
+    }
+  ],
+  "capabilities": [
+    {
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE",
+      "effect_ids": [
+        "EFF-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE-01",
+        "EFF-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE-02"
+      ]
+    },
+    {
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-DERIVE-SPATIAL-AGENT-ROLES",
+      "effect_ids": [
+        "EFF-BESTFIT_CAREER_FAIR-DERIVE-SPATIAL-AGENT-ROLES-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-GENERATE-ROOM-KNOWLEDGE",
+      "effect_ids": [
+        "EFF-BESTFIT_CAREER_FAIR-GENERATE-ROOM-KNOWLEDGE-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-PLACE-AGENTS-IN-SCENE",
+      "effect_ids": [
+        "EFF-BESTFIT_CAREER_FAIR-PLACE-AGENTS-IN-SCENE-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS",
+      "effect_ids": [
+        "EFF-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "effect_ids": [
+        "EFF-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION",
+      "effect_ids": [
+        "EFF-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+      "effect_ids": [
+        "EFF-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "effect_ids": [
+        "EFF-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT-01"
+      ]
+    }
+  ],
+  "runtime_actions": [
+    {
+      "runtime_binding_id": "RB-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE",
+      "runtime_action_id": "RA-BESTFIT_CAREER_FAIR-RUN-MLDS-INGESTION",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.mlds_ingestion.run_ingestion_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE",
+      "runtime_action_id": "RA-BESTFIT_CAREER_FAIR-RUN-SCENE-SEMANTICS",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.scene_semantics.run_scene_semantics_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE",
+      "runtime_action_id": "RA-BESTFIT_CAREER_FAIR-ARROW-ANALYZE",
+      "endpoint": "POST /projects/arrow/analyze",
+      "tool": null,
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-BESTFIT_CAREER_FAIR-DERIVE-SPATIAL-AGENT-ROLES",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-DERIVE-SPATIAL-AGENT-ROLES",
+      "runtime_action_id": "RA-BESTFIT_CAREER_FAIR-RUN-AGENT-ROLES",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.agent_roles.run_agent_roles_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-BESTFIT_CAREER_FAIR-GENERATE-ROOM-KNOWLEDGE",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-GENERATE-ROOM-KNOWLEDGE",
+      "runtime_action_id": "RA-BESTFIT_CAREER_FAIR-RUN-KNOWLEDGE-SYNTHESIS",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.knowledge_synthesis.run_knowledge_synthesis_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-BESTFIT_CAREER_FAIR-PLACE-AGENTS-IN-SCENE",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-PLACE-AGENTS-IN-SCENE",
+      "runtime_action_id": "RA-BESTFIT_CAREER_FAIR-RUN-AGENT-PLACEMENT",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.agent_placement.run_agent_placement_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS",
+      "runtime_action_id": "RA-BESTFIT_CAREER_FAIR-RUN-FUNCTIONALMLDS-ASSEMBLER",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.functionalmlds_assembler.run_functionalmlds_assembly_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "runtime_action_id": "RA-BESTFIT_CAREER_FAIR-ARROW-COMMIT",
+      "endpoint": "POST /projects/arrow/commit",
+      "tool": null,
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "runtime_action_id": "RA-BESTFIT_CAREER_FAIR-WRITE-PROJECT-FILES",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.project_materializer.run_project_materializer_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION",
+      "runtime_action_id": "RA-BESTFIT_CAREER_FAIR-BACKEND-SETUP",
+      "endpoint": "POST /setup",
+      "tool": null,
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+      "runtime_action_id": "RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT",
+      "endpoint": "POST /chat",
+      "tool": null,
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "runtime_action_id": "RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT-HANDOFF",
+      "endpoint": "POST /chat",
+      "tool": null,
+      "topic": null
+    }
+  ],
+  "validation_cases": [
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-NORMALIZED-SCENE-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-FUNCTIONALMLDS-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZED"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-SETUP",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-SETUP-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-HANDOFF",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-KIOSK_RECEPTION",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-SHOWCASE_EQUIPMENT_TREADMILL",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-SHOWCASE_EQUIPMENT_WEIGHTS_RACK",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-INFO_STELE_STUDIO1",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-INFO_STELE_STUDIO2",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-INFO_STELE_STUDIO3",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-LOUNGE_SEATING",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-REFRESHMENT_COUNTER",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-BENEFITS_PANEL1",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-BENEFITS_PANEL2",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-BENEFITS_PANEL3",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-INTERACTIVE_TERMINAL_BENEFITS1",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-INTERACTIVE_TERMINAL_BENEFITS2",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-KIOSK_DEMO1",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-KIOSK_DEMO2",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-KIOSK_DEMO3",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-TOUCH_TERMINAL_RECRUITING1",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-TOUCH_TERMINAL_RECRUITING2",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-CHAIR_RECRUITING",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-POSTER_RECRUITING1",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-POSTER_RECRUITING2",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-BAR_STOOL_REFRESHMENT1",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-BAR_STOOL_REFRESHMENT2",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-BAR_STOOL_REFRESHMENT3",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-VR_AR_STATION1",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-BESTFIT_CAREER_FAIR-INTERACT-VR_AR_STATION2",
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "agent_id": "reception_agent",
+      "functionalmlds_agent_id": "AG-BESTFIT_CAREER_FAIR-RECEPTION_AGENT",
+      "entity_id": "ENT-AGENT-RECEPTION_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "visitor_orientation",
+        "company_basics",
+        "navigation"
+      ]
+    },
+    {
+      "agent_id": "benefits_expert",
+      "functionalmlds_agent_id": "AG-BESTFIT_CAREER_FAIR-BENEFITS_EXPERT",
+      "entity_id": "ENT-AGENT-BENEFITS_EXPERT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "company_benefits",
+        "employee_wellbeing",
+        "interactive_terminals"
+      ]
+    },
+    {
+      "agent_id": "recruiting_agent",
+      "functionalmlds_agent_id": "AG-BESTFIT_CAREER_FAIR-RECRUITING_AGENT",
+      "entity_id": "ENT-AGENT-RECRUITING_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "job_recruiting",
+        "application_process",
+        "career_opportunities"
+      ]
+    },
+    {
+      "agent_id": "demo_technician",
+      "functionalmlds_agent_id": "AG-BESTFIT_CAREER_FAIR-DEMO_TECHNICIAN",
+      "entity_id": "ENT-AGENT-DEMO_TECHNICIAN",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "product_demos",
+        "vr_ar_technology",
+        "interactive_kiosks"
+      ]
+    },
+    {
+      "agent_id": "hospitality_agent",
+      "functionalmlds_agent_id": "AG-BESTFIT_CAREER_FAIR-HOSPITALITY_AGENT",
+      "entity_id": "ENT-AGENT-HOSPITALITY_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "visitor_comfort",
+        "refreshments",
+        "lounge_services"
+      ]
+    }
+  ],
+  "placement_schema": "functionalmlds_agent_placements",
+  "placement_schema_version": "2.0",
+  "placement_algorithm_version": "2.0.0",
+  "placement_origin": "deterministic",
+  "placement_artifact_sha256": "b4fd2c1ccc9831cc905cf0667a2aa1ede2fa8303adcb839f020bd11b6c891035",
+  "placement_projection_sha256": "7182bed63f385eca638cc09d63a21e1e1f98e6fa4032bdc6c4c83a21ccac25e7"
+}

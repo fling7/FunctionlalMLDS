@@ -110,6 +110,23 @@ EXPECTED_APPLICATION_ACTIONS = {
     },
 }
 
+REPRESENTATIVE_TARGET_ID = "ENT-ASSET-CHALKBOARD"
+
+
+def _select_expected_application_action(
+    runtime_context: dict[str, Any],
+    action_kind: str,
+) -> dict[str, Any]:
+    if action_kind == "setup":
+        return select_runtime_action(runtime_context, action_kind)
+    expected = EXPECTED_APPLICATION_ACTIONS[action_kind]
+    return select_runtime_action(
+        runtime_context,
+        action_kind,
+        provider_entity_id=expected["provider_entity_id"],
+        target_id=REPRESENTATIVE_TARGET_ID,
+    )
+
 
 def _read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8-sig"))
@@ -281,7 +298,10 @@ class FunctionalMldsV2MaterializerBackendContractTests(unittest.TestCase):
         )
         for action_kind, expected_ids in EXPECTED_APPLICATION_ACTIONS.items():
             with self.subTest(action_kind=action_kind):
-                action = select_runtime_action(context, action_kind)
+                action = _select_expected_application_action(
+                    context,
+                    action_kind,
+                )
                 self.assertEqual(
                     expected_ids,
                     {field: action[field] for field in ACTION_ID_FIELDS},
@@ -384,7 +404,10 @@ class FunctionalMldsV2MaterializerBackendContractTests(unittest.TestCase):
         )
         contract = self._contract()
         expected_by_kind = {
-            kind: select_runtime_action(contract["runtime_context"], kind)
+            kind: _select_expected_application_action(
+                contract["runtime_context"],
+                kind,
+            )
             for kind in ("setup", "chat", "handoff")
         }
 
@@ -402,6 +425,7 @@ class FunctionalMldsV2MaterializerBackendContractTests(unittest.TestCase):
                 duration_ms=1.0,
                 status="success",
                 metadata={"test": "temporary-e2e"},
+                expected_action=expected_by_kind[action_kind],
             )
             self.assertIsNotNone(event)
             assert event is not None

@@ -3,48 +3,55 @@
 Imagine a visitor standing in a virtual classroom, pointing at a skeleton, and
 asking an embodied agent, ``What is this?'' The visible object, the visitor's
 selection, the responsible agent, and the relevant knowledge are all part of the
-interaction. A conversational response is useful only if the system resolves
-the intended object, selects an agent that is responsible for it, applies an
-appropriate capability, and makes failures recoverable. The same requirement
-holds when the object is moved, renamed, or assigned to another agent.
+interaction. The system must resolve the object, select the declared agent and
+capability, and expose ambiguity or failure instead of guessing.
 
 This apparently simple interaction crosses two development worlds. Unity
 contains rooms, zones, assets, colliders, avatars, and interaction components.
-The agent backend contains personas, prompts, knowledge, routing rules, and
-language-model calls. In a directly wired prototype, the relationships between
-these elements are encoded in several files and pieces of code. A response may
-be technically successful while being grounded in the wrong object or produced
-by the wrong agent. When the scene changes, stale relationships can remain
-hidden until a person encounters a failure at runtime.
+The agent backend contains personas, knowledge, routing rules, and model calls.
+Direct wiring distributes their relationships across files and code. An
+endpoint can succeed while the answer concerns the wrong object or comes from
+the wrong agent, and scene changes can leave stale links hidden until runtime.
 
 We investigate whether an explicit model-grounding layer can make these
-relationships executable and observable. Our system, \systemname{}, represents
+relationships executable and observable. \systemname{} expands to
+\emph{Functional Meta-Language-defined Structure}. It builds on the
+Meta-Language-defined Structure (MLDS) idea of a machine-readable artifact
+governed by a meta-language specification \cite{fischer2025machinereadable},
+but makes functional interaction relations first-class. Our system represents
 user-facing scenarios, spatial targets, embodied agents, capabilities, runtime
 bindings, expected assertions, and observed outcomes in a shared interaction
-model. A generation pipeline materializes this model in a Unity/WebXR client and
-a multi-agent backend. Runtime events carry model identifiers back into a
-validation layer, allowing a developer to follow an interaction from a user
-request to its outcome.
+model. A generation pipeline materializes this model in a Unity desktop client
+and a multi-agent backend. Unity supplies a ray-selected target candidate; the
+contract validates its stable identity, determines the declared provider and
+route, and permits a model call only after those checks pass. Runtime events
+carry model identifiers back into a validation layer, allowing a developer to
+follow an interaction from a user request to its outcome.
 
-This problem sits at a junction that prior systems usually address in parts.
-Embodied agents make language and social behavior visible
-\cite{cassell1999embodiment,kopp2005museum}; situated-language work grounds
-references in shared environments
-\cite{gorniak2005grounding,lemaignan2012grounding}; conversational XR tools
-support agent integration or end-user authoring
-\cite{delatorre2024llmr,carcangiu2025tellxr,buldu2025cuify,liu2026agenthands};
-and model-based interface engineering separates interaction concepts from
-platform realizations
-\cite{puerta1999framework,calvary2003cameleon,paterno2009maria}. Our question is
-not whether any one of these ingredients is new. It is whether explicitly
-connecting them provides a useful control and evidence boundary for a modern
-spatial multi-agent interface.
+We call an interaction \emph{interaction-model-grounded} when the selected
+entity, responsible provider, invoked capability, concrete runtime action, and
+expected assertion all resolve from the same pinned model instance. This is a
+conditional assurance guarantee: if the backend admits a spatial request, that
+request has one complete, authorized model path; otherwise it fails before
+session mutation or answer generation with the earliest violated relation
+identified. The guarantee concerns identity, authority, and trace coherence. It
+does not establish that the selected object matches an unobserved user
+intention or that a generated answer is factually correct.
 
-The model is not presented as an end in itself. It is infrastructure for an
-intelligent user interface: it determines what a spatial request refers to,
-which embodied agent may act, which operation is invoked, and what evidence can
-explain the result. This focus distinguishes the work from a general-purpose
-software architecture or metamodel contribution.
+This problem connects areas usually treated separately: embodied agents
+\cite{cassell1999embodiment,kopp2005museum}, situated reference
+\cite{gorniak2005grounding,lemaignan2012grounding}, conversational XR
+\cite{delatorre2024llmr,carcangiu2025tellxr,buldu2025cuify,liu2026agenthands},
+and model-based interface engineering
+\cite{puerta1999framework,calvary2003cameleon,paterno2009maria}. We ask whether
+their explicit connection can provide a control and evidence boundary for a
+spatial multi-agent interface, not whether any ingredient is new.
+
+The model is infrastructure for an intelligent interface: it determines what a
+spatial request refers to, which agent may act, which operation is invoked, and
+what evidence explains the result. The claimed novelty is the composed
+assurance boundary, in which the same typed relations constrain generation,
+backend admission, UI presentation, and diagnostics.
 
 We ask three questions:
 
@@ -54,12 +61,12 @@ We ask three questions:
   and resolved to a responsible agent under explicit asset, group, and zone
   rules?
 
-  \item[RQ2: Robustness.] Under semantically matched
-  executable adapters, how do direct wiring and the model-grounded
-  representation compare in routing parity, detection and localization of
+  \item[RQ2: Representation tradeoffs.] Under semantically matched
+  executable adapters, how do the direct-artifact and model-grounded
+  representations compare in routing parity, detection and localization of
   common faults, representation edits, and local execution time?
 
-  \item[RQ3: Accountability.] Which invalid
+  \item[RQ3: Contract enforcement.] Which invalid
   selections, routes, and traces are rejected before state mutation, and can an
   author preview, validate, discard, or undo a placement change without
   breaking the model-to-runtime chain?
@@ -68,19 +75,18 @@ We ask three questions:
 This paper makes four contributions:
 
 \begin{enumerate}
-  \item a model-grounded authoring architecture for spatial embodied-agent
-  interfaces, implemented as a Unity desktop prototype with a WebXR deployment
-  path and a conversational-agent backend;
+  \item a model-grounded interaction-assurance architecture for spatial
+  embodied-agent interfaces, implemented across a Unity desktop prototype and
+  conversational-agent backend;
   \item an executable interaction chain linking scenarios, targets, agents,
-  capabilities, runtime actions, assertions, and evidence;
+  capabilities, runtime actions, assertions, and evidence, with staged
+  fail-closed enforcement and relation-level diagnostics;
   \item a reproducible, API-free structural benchmark over three environments,
   plus deliberately valid and broken Unity/backend interaction traces; and
-  \item an executable comparison with direct artifact wiring, with claims
-  bounded to routing parity, synthetic mutations, representation edits, and
-  descriptive local runtime.
+  \item an executable comparison with a normalized adapter over the direct
+  pre-model artifacts, with claims bounded to routing parity, synthetic
+  mutations, representation edits, and descriptive local runtime.
 \end{enumerate}
 
-Our current evaluation is a system and computational evaluation, not a claim
-about preference, trust, workload, or perceived usability. We make this boundary
-explicit because technical observability can support a human-centered interface
-without, by itself, proving a better user experience.
+This system evaluation makes no claim about preference, trust, workload, or
+perceived usability.

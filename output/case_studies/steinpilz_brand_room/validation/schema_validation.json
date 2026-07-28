@@ -2,13 +2,16 @@
   "case_id": "steinpilz_brand_room",
   "status": "valid",
   "errors": [],
-  "warnings": [],
+  "warnings": [
+    "Runtime-Log fehlt: C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\runtime_logs\\events.jsonl"
+  ],
   "metrics": {
     "artifact_count": 7,
     "valid_artifact_count": 7,
     "invalid_artifact_count": 0,
     "schema_count": 7,
-    "runtime_event_count": 77
+    "runtime_event_count": 0,
+    "contract_mode": "v2-dual"
   },
   "artifacts": [
     {
@@ -36,9 +39,17 @@
       "errors": []
     },
     {
-      "artifact_id": "functionalmlds_instance",
+      "artifact_id": "functionalmlds_v2_instance",
+      "schema": "dynamic_functional_mlds_v2_instance.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\functionalmlds.v2.instance.json",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "artifact_id": "functionalmlds_v05_instance",
       "schema": "functionalmlds_case_study.schema.json",
-      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\functionalmlds\\functionalmlds.instance.generated.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\functionalmlds.v05.instance.json",
       "status": "valid",
       "error_count": 0,
       "errors": []
@@ -58,23 +69,16 @@
       "status": "valid",
       "error_count": 0,
       "errors": []
-    },
-    {
-      "artifact_id": "runtime_events",
-      "schema": "runtime_event.schema.json",
-      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\runtime_logs\\events.jsonl",
-      "status": "valid",
-      "error_count": 0,
-      "errors": []
     }
   ],
   "schemas": [
     "agent_roles.schema.json",
+    "dynamic_functional_mlds_v2_instance.schema.json",
     "functionalmlds_case_study.schema.json",
     "interactive_agents_project.schema.json",
     "knowledge.schema.json",
     "normalized_scene.schema.json",
-    "runtime_event.schema.json",
     "scene_semantics.schema.json"
-  ]
+  ],
+  "contract_mode": "v2-dual"
 }

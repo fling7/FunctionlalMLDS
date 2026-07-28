@@ -61,5 +61,7 @@ runtime_logs/
 Thumbs.db
 desktop.ini
 research/iui2027/paper/build/
+research/iui2027/paper/.latex-toolchain/
+tmp/
 tmp/pdfs/
 tmp/*.log

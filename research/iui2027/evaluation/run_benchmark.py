@@ -8,18 +8,25 @@ answer meaning or user experience.
 """
 
 import argparse
+import contextlib
 import copy
 import hashlib
 import importlib.metadata
+import io
 import json
 import platform
+import shutil
+import socket
 import statistics
 import subprocess
 import sys
+import tempfile
 import time
+import urllib.request
 from collections import Counter, deque
 from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping, Sequence
+from unittest import mock
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
@@ -37,17 +44,24 @@ from tools.validate_dynamic_functional_mlds_v2 import validate_instance  # noqa:
 
 
 BENCHMARK_SCHEMA = "iui2027_structural_system_benchmark"
-BENCHMARK_VERSION = "1.1.0"
+BENCHMARK_VERSION = "1.3.0"
 CASE_IDS = (
     "bestfit_career_fair",
     "classroom_dinosaur",
     "steinpilz_brand_room",
+)
+BACKEND_ROOT_RELATIVE = Path(
+    "InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents"
 )
 VALIDATOR_SOURCE_PATHS = (
     Path("tools/dynamic_functional_mlds_v2_model.py"),
     Path("tools/validate_dynamic_functional_mlds_v2.py"),
     Path("tools/case_study_pipeline/project_materializer.py"),
     Path("tools/case_study_pipeline/functionalmlds_v2_assembler.py"),
+    BACKEND_ROOT_RELATIVE / "backend/functionalmlds_v2_runtime.py",
+    BACKEND_ROOT_RELATIVE / "backend/state.py",
+    BACKEND_ROOT_RELATIVE / "backend/projects.py",
+    BACKEND_ROOT_RELATIVE / "backend/kb.py",
     Path("research/iui2027/evaluation/run_benchmark.py"),
 )
 
@@ -110,6 +124,611 @@ def _entities_with_role(
         ),
         key=lambda item: str(item.get("id") or ""),
     )
+
+
+def _asset_interaction_chain_metrics(
+    instance: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Measure complete executable-and-verifiable chains per scene asset.
+
+    The asset denominator is independent of the modeled interaction chains:
+    every ``sceneObject`` Entity contributes once, including assets for which
+    no chain can be found.  The chain denominator contains every
+    ScenarioStep/CapabilityUse pair whose CapabilityUse explicitly targets a
+    scene-object Entity.
+    """
+
+    objects = [
+        dict(item)
+        for item in instance.get("objects") or []
+        if isinstance(item, Mapping)
+    ]
+    by_id = {
+        str(item.get("id") or ""): item
+        for item in objects
+        if str(item.get("id") or "")
+    }
+    assets = _entities_with_role(instance, "sceneObject")
+    asset_ids = {str(asset["id"]) for asset in assets}
+
+    scenarios_by_step: dict[str, list[str]] = {}
+    for scenario in _typed(instance, "Scenario"):
+        scenario_id = str(scenario.get("id") or "")
+        for step_id in _refs(scenario.get("step")):
+            scenarios_by_step.setdefault(step_id, []).append(scenario_id)
+
+    use_cases_by_scenario: dict[str, list[str]] = {}
+    for specification in _typed(
+        instance,
+        "UseCaseScenarioSpecification",
+    ):
+        for scenario_id in _refs(specification.get("scenario")):
+            use_cases_by_scenario.setdefault(scenario_id, []).extend(
+                _refs(specification.get("useCase"))
+            )
+
+    validation_cases_by_use_case: dict[str, list[str]] = {}
+    for binding in _typed(instance, "ValidationCaseUseCaseBinding"):
+        for use_case_id in _refs(binding.get("useCase")):
+            validation_cases_by_use_case.setdefault(
+                use_case_id,
+                [],
+            ).extend(_refs(binding.get("validationCase")))
+
+    runtime_bindings_by_capability: dict[str, list[dict[str, Any]]] = {}
+    for binding in _typed(instance, "RuntimeBinding"):
+        for capability_id in _refs(binding.get("capability")):
+            runtime_bindings_by_capability.setdefault(
+                capability_id,
+                [],
+            ).append(binding)
+
+    def validation_case_coverage(
+        validation_case: Mapping[str, Any],
+    ) -> tuple[set[str], set[str]]:
+        binding_ids = {
+            reference
+            for reference in _refs(validation_case.get("vvSubject"))
+            if by_id.get(reference, {}).get("type") == "RuntimeBinding"
+        }
+        for target_id in _refs(validation_case.get("vvTarget")):
+            target = by_id.get(target_id)
+            if not target or target.get("type") != "RuntimeValidationTarget":
+                continue
+            for reference in (
+                _refs(target.get("runtimeBinding"))
+                + _refs(target.get("element"))
+            ):
+                if by_id.get(reference, {}).get("type") == "RuntimeBinding":
+                    binding_ids.add(reference)
+
+        assertion_ids: set[str] = set()
+        for procedure_id in _refs(validation_case.get("vvProcedure")):
+            procedure = by_id.get(procedure_id)
+            if (
+                not procedure
+                or procedure.get("type") != "RuntimeValidationProcedure"
+            ):
+                continue
+            for outcome_id in _refs(procedure.get("vvIntendedOutcome")):
+                outcome = by_id.get(outcome_id)
+                if not outcome:
+                    continue
+                assertion_ids.update(_refs(outcome.get("assertion")))
+        return binding_ids, assertion_ids
+
+    validation_coverage = {
+        validation_case_id: validation_case_coverage(validation_case)
+        for validation_case_id, validation_case in by_id.items()
+        if validation_case.get("type") == "ValidationCase"
+    }
+
+    chain_records_by_asset: dict[str, list[dict[str, Any]]] = {
+        asset_id: [] for asset_id in sorted(asset_ids)
+    }
+    for step in sorted(
+        _typed(instance, "ScenarioStep"),
+        key=lambda item: str(item.get("id") or ""),
+    ):
+        step_id = str(step.get("id") or "")
+        for capability_use_id in _refs(step.get("capabilityUse")):
+            capability_use = by_id.get(capability_use_id)
+            if (
+                not capability_use
+                or capability_use.get("type") != "CapabilityUse"
+            ):
+                continue
+            targeted_assets = sorted(
+                asset_ids.intersection(_refs(capability_use.get("target")))
+            )
+            for asset_id in targeted_assets:
+                errors: list[dict[str, Any]] = []
+
+                def add_error(
+                    code: str,
+                    message: str,
+                    **details: Any,
+                ) -> None:
+                    errors.append(
+                        {
+                            "code": code,
+                            "message": message,
+                            "details": details,
+                        }
+                    )
+
+                capability_ids = _refs(capability_use.get("typeRef"))
+                valid_capability_ids = [
+                    reference
+                    for reference in capability_ids
+                    if by_id.get(reference, {}).get("type") == "Capability"
+                ]
+                if len(capability_ids) != 1:
+                    add_error(
+                        "CAPABILITY_REFERENCE_CARDINALITY",
+                        "CapabilityUse must reference exactly one Capability.",
+                        capability_use_id=capability_use_id,
+                        observed_refs=capability_ids,
+                    )
+                elif not valid_capability_ids:
+                    add_error(
+                        "CAPABILITY_REFERENCE_INVALID",
+                        "CapabilityUse references no existing Capability.",
+                        capability_use_id=capability_use_id,
+                        missing_refs=capability_ids,
+                    )
+
+                provider_ids = _refs(capability_use.get("provider"))
+                valid_provider_ids = [
+                    reference
+                    for reference in provider_ids
+                    if reference in by_id
+                ]
+                if len(provider_ids) != 1:
+                    add_error(
+                        "PROVIDER_CARDINALITY",
+                        "CapabilityUse must reference exactly one provider.",
+                        capability_use_id=capability_use_id,
+                        observed_refs=provider_ids,
+                    )
+                elif not valid_provider_ids:
+                    add_error(
+                        "PROVIDER_REFERENCE_INVALID",
+                        "CapabilityUse provider does not resolve.",
+                        capability_use_id=capability_use_id,
+                        missing_refs=provider_ids,
+                    )
+                elif by_id[valid_provider_ids[0]].get("type") != "Agent":
+                    add_error(
+                        "PROVIDER_NOT_AGENT",
+                        (
+                            "Asset-specific interaction provider must be a "
+                            "modeled Agent."
+                        ),
+                        capability_use_id=capability_use_id,
+                        provider_id=valid_provider_ids[0],
+                        provider_type=by_id[valid_provider_ids[0]].get(
+                            "type"
+                        ),
+                    )
+                performed_by = _refs(step.get("performedBy"))
+                if provider_ids and provider_ids != performed_by:
+                    add_error(
+                        "PROVIDER_PERFORMER_MISMATCH",
+                        (
+                            "ScenarioStep.performedBy must equal the "
+                            "CapabilityUse provider."
+                        ),
+                        step_id=step_id,
+                        provider_refs=provider_ids,
+                        performed_by_refs=performed_by,
+                    )
+
+                target_ids = _refs(capability_use.get("target"))
+                missing_target_ids = [
+                    reference
+                    for reference in target_ids
+                    if reference not in by_id
+                ]
+                target_asset_ids = sorted(asset_ids.intersection(target_ids))
+                if missing_target_ids:
+                    add_error(
+                        "TARGET_REFERENCE_INVALID",
+                        "CapabilityUse contains unresolved target references.",
+                        capability_use_id=capability_use_id,
+                        missing_refs=missing_target_ids,
+                    )
+                if target_asset_ids != [asset_id]:
+                    add_error(
+                        "ASSET_TARGET_CARDINALITY",
+                        (
+                            "An asset-specific CapabilityUse must target "
+                            "exactly the evaluated scene object."
+                        ),
+                        capability_use_id=capability_use_id,
+                        evaluated_asset_id=asset_id,
+                        targeted_asset_ids=target_asset_ids,
+                    )
+
+                matching_bindings = [
+                    binding
+                    for capability_id in valid_capability_ids
+                    for binding in runtime_bindings_by_capability.get(
+                        capability_id,
+                        [],
+                    )
+                ]
+                executable_binding_ids: list[str] = []
+                runtime_action_ids: list[str] = []
+                invalid_binding_actions: dict[str, list[str]] = {}
+                for binding in matching_bindings:
+                    binding_id = str(binding.get("id") or "")
+                    action_refs = _refs(binding.get("runtimeAction"))
+                    invalid_action_refs = [
+                        reference
+                        for reference in action_refs
+                        if by_id.get(reference, {}).get("type")
+                        != "RuntimeAction"
+                    ]
+                    if action_refs and not invalid_action_refs:
+                        executable_binding_ids.append(binding_id)
+                        runtime_action_ids.extend(action_refs)
+                    else:
+                        invalid_binding_actions[binding_id] = (
+                            invalid_action_refs or action_refs
+                        )
+                if not matching_bindings:
+                    add_error(
+                        "RUNTIME_BINDING_MISSING",
+                        "Capability has no RuntimeBinding.",
+                        capability_ids=valid_capability_ids,
+                    )
+                elif not executable_binding_ids:
+                    add_error(
+                        "RUNTIME_ACTION_REFERENCE_INVALID",
+                        (
+                            "No matching RuntimeBinding has a non-empty set "
+                            "of resolvable RuntimeActions."
+                        ),
+                        binding_actions=invalid_binding_actions,
+                    )
+
+                assertion_ids = _refs(step.get("resultingAssertion"))
+                invalid_assertion_ids = [
+                    reference
+                    for reference in assertion_ids
+                    if (
+                        reference not in by_id
+                        or not str(by_id[reference].get("type") or "").endswith(
+                            "Assertion"
+                        )
+                    )
+                ]
+                if not assertion_ids:
+                    add_error(
+                        "RESULTING_ASSERTION_MISSING",
+                        "ScenarioStep has no resulting assertion.",
+                        step_id=step_id,
+                    )
+                elif invalid_assertion_ids:
+                    add_error(
+                        "RESULTING_ASSERTION_REFERENCE_INVALID",
+                        (
+                            "ScenarioStep contains unresolved or non-assertion "
+                            "result references."
+                        ),
+                        step_id=step_id,
+                        invalid_refs=invalid_assertion_ids,
+                    )
+
+                scenario_ids = sorted(
+                    set(scenarios_by_step.get(step_id, []))
+                )
+                use_case_ids = sorted(
+                    {
+                        use_case_id
+                        for scenario_id in scenario_ids
+                        for use_case_id in use_cases_by_scenario.get(
+                            scenario_id,
+                            [],
+                        )
+                    }
+                )
+                linked_validation_case_ids = sorted(
+                    {
+                        validation_case_id
+                        for use_case_id in use_case_ids
+                        for validation_case_id in (
+                            validation_cases_by_use_case.get(
+                                use_case_id,
+                                [],
+                            )
+                        )
+                    }
+                )
+                if not scenario_ids:
+                    add_error(
+                        "SCENARIO_MEMBERSHIP_MISSING",
+                        "ScenarioStep is not owned by a Scenario.",
+                        step_id=step_id,
+                    )
+                elif not use_case_ids:
+                    add_error(
+                        "USE_CASE_LINK_MISSING",
+                        "Scenario is not linked to a UseCase.",
+                        scenario_ids=scenario_ids,
+                    )
+                elif not linked_validation_case_ids:
+                    add_error(
+                        "VALIDATION_CASE_LINK_MISSING",
+                        "UseCase is not linked to a ValidationCase.",
+                        use_case_ids=use_case_ids,
+                    )
+
+                covering_validation_case_ids: list[str] = []
+                assertion_set = set(assertion_ids)
+                executable_binding_set = set(executable_binding_ids)
+                for validation_case_id in linked_validation_case_ids:
+                    coverage = validation_coverage.get(validation_case_id)
+                    if not coverage:
+                        continue
+                    covered_bindings, covered_assertions = coverage
+                    if (
+                        executable_binding_set.intersection(covered_bindings)
+                        and assertion_set
+                        and assertion_set.issubset(covered_assertions)
+                    ):
+                        covering_validation_case_ids.append(
+                            validation_case_id
+                        )
+                if (
+                    linked_validation_case_ids
+                    and executable_binding_ids
+                    and assertion_ids
+                    and not covering_validation_case_ids
+                ):
+                    covered_binding_ids = sorted(
+                        {
+                            reference
+                            for validation_case_id in linked_validation_case_ids
+                            for reference in validation_coverage.get(
+                                validation_case_id,
+                                (set(), set()),
+                            )[0]
+                        }
+                    )
+                    covered_assertion_ids = sorted(
+                        {
+                            reference
+                            for validation_case_id in linked_validation_case_ids
+                            for reference in validation_coverage.get(
+                                validation_case_id,
+                                (set(), set()),
+                            )[1]
+                        }
+                    )
+                    if not executable_binding_set.intersection(
+                        covered_binding_ids
+                    ):
+                        add_error(
+                            "VALIDATION_CASE_BINDING_NOT_COVERED",
+                            (
+                                "Linked ValidationCases do not cover an "
+                                "executable RuntimeBinding in this chain."
+                            ),
+                            executable_binding_ids=executable_binding_ids,
+                            covered_binding_ids=covered_binding_ids,
+                        )
+                    if not assertion_set.issubset(covered_assertion_ids):
+                        add_error(
+                            "VALIDATION_CASE_ASSERTION_NOT_COVERED",
+                            (
+                                "Linked ValidationCases do not cover every "
+                                "ScenarioStep resulting assertion."
+                            ),
+                            resulting_assertion_ids=assertion_ids,
+                            covered_assertion_ids=covered_assertion_ids,
+                        )
+
+                chain_records_by_asset[asset_id].append(
+                    {
+                        "asset_id": asset_id,
+                        "step_id": step_id,
+                        "capability_use_id": capability_use_id,
+                        "capability_ids": capability_ids,
+                        "provider_ids": provider_ids,
+                        "target_ids": target_ids,
+                        "runtime_binding_ids": sorted(
+                            set(executable_binding_ids)
+                        ),
+                        "runtime_action_ids": sorted(
+                            set(runtime_action_ids)
+                        ),
+                        "resulting_assertion_ids": assertion_ids,
+                        "scenario_ids": scenario_ids,
+                        "use_case_ids": use_case_ids,
+                        "validation_case_ids": (
+                            covering_validation_case_ids
+                        ),
+                        "complete": not errors,
+                        "errors": errors,
+                    }
+                )
+
+    asset_results: list[dict[str, Any]] = []
+    for asset in assets:
+        asset_id = str(asset["id"])
+        chains = chain_records_by_asset[asset_id]
+        asset_errors: list[dict[str, Any]] = []
+        if not chains:
+            asset_errors.append(
+                {
+                    "code": "ASSET_CHAIN_MISSING",
+                    "message": (
+                        "Scene object is not targeted by any "
+                        "ScenarioStep/CapabilityUse chain."
+                    ),
+                    "details": {"asset_id": asset_id},
+                }
+            )
+        complete_chain_count = sum(chain["complete"] for chain in chains)
+        asset_results.append(
+            {
+                "asset_id": asset_id,
+                "source_id": str(asset.get("sourceId") or ""),
+                "chain_candidate_denominator": len(chains),
+                "complete_chain_count": complete_chain_count,
+                "complete": (
+                    bool(chains)
+                    and complete_chain_count == len(chains)
+                    and not asset_errors
+                ),
+                "errors": asset_errors,
+                "chains": chains,
+            }
+        )
+
+    all_chains = [
+        chain
+        for asset_result in asset_results
+        for chain in asset_result["chains"]
+    ]
+    all_errors = [
+        {
+            "asset_id": asset_result["asset_id"],
+            "step_id": None,
+            "capability_use_id": None,
+            **error,
+        }
+        for asset_result in asset_results
+        for error in asset_result["errors"]
+    ]
+    all_errors.extend(
+        {
+            "asset_id": chain["asset_id"],
+            "step_id": chain["step_id"],
+            "capability_use_id": chain["capability_use_id"],
+            **error,
+        }
+        for chain in all_chains
+        for error in chain["errors"]
+    )
+    complete_assets = sum(asset["complete"] for asset in asset_results)
+    complete_chains = sum(chain["complete"] for chain in all_chains)
+    return {
+        "denominator_definition": {
+            "asset": (
+                "Every Entity with entityRole=sceneObject contributes once, "
+                "including assets with no discoverable interaction chain."
+            ),
+            "chain": (
+                "Every ScenarioStep/CapabilityUse pair whose CapabilityUse "
+                "explicitly targets a sceneObject contributes once."
+            ),
+            "complete_chain": (
+                "The pair resolves one Capability and provider; provider "
+                "equals ScenarioStep.performedBy; all targets resolve and "
+                "include exactly this asset; the Capability has an executable "
+                "RuntimeBinding/RuntimeAction path; resulting assertions "
+                "resolve; and a UseCase-linked ValidationCase covers both an "
+                "executable binding and every resulting assertion."
+            ),
+            "complete_asset": (
+                "The asset has at least one chain candidate and every one of "
+                "its chain candidates is complete."
+            ),
+        },
+        "asset_denominator": len(asset_results),
+        "asset_with_chain_candidate_count": sum(
+            bool(asset["chains"]) for asset in asset_results
+        ),
+        "asset_chain_coverage_rate": (
+            round(
+                sum(bool(asset["chains"]) for asset in asset_results)
+                / len(asset_results),
+                6,
+            )
+            if asset_results
+            else None
+        ),
+        "complete_asset_count": complete_assets,
+        "complete_asset_rate": (
+            round(complete_assets / len(asset_results), 6)
+            if asset_results
+            else None
+        ),
+        "chain_candidate_denominator": len(all_chains),
+        "complete_chain_count": complete_chains,
+        "chain_completeness_rate": (
+            round(complete_chains / len(all_chains), 6)
+            if all_chains
+            else None
+        ),
+        "error_count": len(all_errors),
+        "error_code_counts": dict(
+            sorted(Counter(error["code"] for error in all_errors).items())
+        ),
+        "errors": all_errors,
+        "asset_results": asset_results,
+    }
+
+
+def _aggregate_asset_interaction_chain_metrics(
+    cases: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    asset_denominator = sum(
+        int(case["metrics"]["asset_denominator"]) for case in cases
+    )
+    assets_with_candidates = sum(
+        int(case["metrics"]["asset_with_chain_candidate_count"])
+        for case in cases
+    )
+    complete_assets = sum(
+        int(case["metrics"]["complete_asset_count"]) for case in cases
+    )
+    chain_denominator = sum(
+        int(case["metrics"]["chain_candidate_denominator"])
+        for case in cases
+    )
+    complete_chains = sum(
+        int(case["metrics"]["complete_chain_count"]) for case in cases
+    )
+    errors = [
+        {
+            "case_id": str(case["case_id"]),
+            **error,
+        }
+        for case in cases
+        for error in case["metrics"]["errors"]
+    ]
+    return {
+        "case_denominator": len(cases),
+        "asset_denominator": asset_denominator,
+        "asset_with_chain_candidate_count": assets_with_candidates,
+        "asset_chain_coverage_rate": (
+            round(assets_with_candidates / asset_denominator, 6)
+            if asset_denominator
+            else None
+        ),
+        "complete_asset_count": complete_assets,
+        "complete_asset_rate": (
+            round(complete_assets / asset_denominator, 6)
+            if asset_denominator
+            else None
+        ),
+        "chain_candidate_denominator": chain_denominator,
+        "complete_chain_count": complete_chains,
+        "chain_completeness_rate": (
+            round(complete_chains / chain_denominator, 6)
+            if chain_denominator
+            else None
+        ),
+        "error_count": len(errors),
+        "error_code_counts": dict(
+            sorted(Counter(error["code"] for error in errors).items())
+        ),
+        "errors": errors,
+    }
 
 
 def _case_paths(repo_root: Path, case_id: str) -> dict[str, Path]:
@@ -699,6 +1318,634 @@ def _fresh_v2_adapter(
     }
 
 
+class _RuntimeCorpusStructuredStub:
+    """Deterministic structured-response provider with no network surface."""
+
+    api_key = ""
+    timeout_seconds = 1
+
+    def __init__(self) -> None:
+        self.call_count = 0
+
+    def create_structured_json(
+        self,
+        **_kwargs: object,
+    ) -> tuple[dict[str, Any], dict[str, str], str]:
+        self.call_count += 1
+        payload: dict[str, Any] = {
+            "say": "Deterministic offline corpus response.",
+            "handoff_to": None,
+            "handoff_reason": None,
+            "handoff_brief": None,
+            "confidence": 1.0,
+        }
+        return (
+            copy.deepcopy(payload),
+            {"id": f"offline-runtime-corpus-{self.call_count}"},
+            json.dumps(payload, ensure_ascii=False, sort_keys=True),
+        )
+
+
+def _blocked_runtime_network(
+    *_args: object,
+    **_kwargs: object,
+) -> None:
+    raise RuntimeError(
+        "Network access is disabled for the runtime corpus benchmark."
+    )
+
+
+@contextlib.contextmanager
+def _runtime_network_disabled() -> Iterable[None]:
+    """Fail immediately if the offline corpus path attempts network I/O."""
+
+    with contextlib.ExitStack() as stack:
+        stack.enter_context(
+            mock.patch.object(
+                socket.socket,
+                "connect",
+                side_effect=_blocked_runtime_network,
+            )
+        )
+        stack.enter_context(
+            mock.patch.object(
+                socket.socket,
+                "connect_ex",
+                side_effect=_blocked_runtime_network,
+            )
+        )
+        stack.enter_context(
+            mock.patch(
+                "socket.create_connection",
+                side_effect=_blocked_runtime_network,
+            )
+        )
+        stack.enter_context(
+            mock.patch.object(
+                urllib.request,
+                "urlopen",
+                side_effect=_blocked_runtime_network,
+            )
+        )
+        yield
+
+
+def _runtime_spatial_context(
+    *,
+    model_sha256: str,
+    entity_id: str,
+    source_id: str,
+) -> dict[str, Any]:
+    return {
+        "model_sha256": model_sha256,
+        "state": "resolved",
+        "entity_id": entity_id,
+        "source_object_id": source_id,
+        "hit_position": {"x": 0.0, "y": 0.0, "z": 0.0},
+        "distance_m": 1.0,
+        "selection_modality": "desktop_ray",
+        "candidate_entity_ids": [entity_id],
+    }
+
+
+def _accepted_runtime_evidence(
+    *,
+    response: Mapping[str, Any],
+    expected_status: str,
+    expected_owner: str,
+    expected_provider_entity_id: str,
+    expected_target_entity_id: str,
+    expected_target_source_id: str,
+) -> dict[str, Any]:
+    private_actions = response.get("_functionalmlds_runtime_actions")
+    private_actions = (
+        private_actions
+        if isinstance(private_actions, Mapping)
+        else {}
+    )
+    chat_action = private_actions.get("chat")
+    chat_action = chat_action if isinstance(chat_action, Mapping) else {}
+    model_binding = response.get("model_binding")
+    model_binding = (
+        model_binding if isinstance(model_binding, Mapping) else {}
+    )
+    expected_binding = {
+        field_name: str(chat_action.get(field_name) or "").strip()
+        for field_name in (
+            "runtime_binding_id",
+            "runtime_action_id",
+            "capability_id",
+            "capability_use_id",
+        )
+    }
+    grounding = response.get("grounding")
+    grounding = grounding if isinstance(grounding, Mapping) else {}
+    routing = response.get("routing")
+    routing = routing if isinstance(routing, Mapping) else {}
+    target_ids = [
+        str(item)
+        for item in chat_action.get("target_ids") or []
+        if str(item)
+    ]
+    grounded_entity_ids = [
+        str(item)
+        for item in response.get("grounded_entity_ids") or []
+        if str(item)
+    ]
+    checks = {
+        "target_entity": (
+            grounding.get("selected_entity_id")
+            == expected_target_entity_id
+            and expected_target_entity_id in target_ids
+            and expected_target_entity_id in grounded_entity_ids
+        ),
+        "target_source": (
+            grounding.get("selected_source_object_id")
+            == expected_target_source_id
+        ),
+        "provider": (
+            response.get("active_agent_id") == expected_owner
+            and routing.get("selected_agent_id") == expected_owner
+            and chat_action.get("provider_entity_id")
+            == expected_provider_entity_id
+        ),
+        "route_kind": (
+            routing.get("modeled_handoff")
+            is (expected_status == "direct_allowed")
+        ),
+        "model_binding": (
+            bool(expected_binding)
+            and all(expected_binding.values())
+            and dict(model_binding) == expected_binding
+            and grounding.get("model_binding") == expected_binding
+            and routing.get("model_binding") == expected_binding
+        ),
+    }
+    return {
+        "evidence_preserved": all(checks.values()),
+        "trusted_target_preserved": (
+            checks["target_entity"] and checks["target_source"]
+        ),
+        "trusted_provider_preserved": checks["provider"],
+        "model_binding_preserved": checks["model_binding"],
+        "route_kind_preserved": checks["route_kind"],
+        "runtime_provider_entity_id": str(
+            chat_action.get("provider_entity_id") or ""
+        ),
+        "runtime_target_entity_id": expected_target_entity_id,
+        "runtime_binding": expected_binding,
+    }
+
+
+def _runtime_case_evaluation(
+    *,
+    repo_root: Path,
+    case_id: str,
+    direct_adapter: Mapping[str, Any],
+    fresh_instance: Mapping[str, Any],
+    backend_root: Path,
+) -> dict[str, Any]:
+    backend_import_root = repo_root / BACKEND_ROOT_RELATIVE
+    backend_import_text = str(backend_import_root.resolve())
+    if backend_import_text not in sys.path:
+        sys.path.insert(0, backend_import_text)
+
+    from backend.functionalmlds_v2_runtime import (  # type: ignore
+        FunctionalMldsContractError,
+    )
+    from backend.kb import KnowledgeBase  # type: ignore
+    from backend.projects import ProjectManager  # type: ignore
+    from backend.state import SessionStore  # type: ignore
+    source_project = (
+        backend_import_root / "projects" / case_id
+    )
+    if not source_project.is_dir():
+        raise FileNotFoundError(
+            f"Materialized runtime project is missing: {source_project}"
+        )
+    project_dir = backend_root / "projects" / case_id
+    project_dir.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(
+        source_project,
+        project_dir,
+        ignore=shutil.ignore_patterns(
+            "__pycache__",
+            "*.pyc",
+            "runtime_logs",
+        ),
+    )
+    materialized_model_path = (
+        project_dir / "functionalmlds.v2.instance.json"
+    )
+    materialized_instance = _read_json(materialized_model_path)
+    if materialized_instance != fresh_instance:
+        raise RuntimeError(
+            f"{case_id} materialized model differs from fresh V2 input."
+        )
+
+    with contextlib.redirect_stdout(io.StringIO()):
+        manager = ProjectManager(
+            root=backend_root / "projects",
+            template_room_plan=project_dir / "room_plan.json",
+            template_agents=project_dir / "agents.json",
+        )
+    stub = _RuntimeCorpusStructuredStub()
+    store = SessionStore(
+        max_history_turns=2,
+        max_handoffs=1,
+        kb=KnowledgeBase(backend_root / "fallback-kb"),
+        kb_max_snippets=2,
+        model="offline-runtime-corpus",
+        temperature=0.0,
+        stt_model="offline-runtime-corpus",
+        stt_language="en",
+        stt_max_audio_bytes=1024,
+        openai=stub,
+        project_manager=manager,
+    )
+    session_id = f"IUI2027-RUNTIME-CORPUS-{case_id.upper()}"
+    setup = store.setup_from_request(
+        {
+            "project_id": case_id,
+            "session_id": session_id,
+            "memory_mode": "shared",
+        }
+    )
+    if str(setup.get("model_sha256") or "").lower() != _sha256(
+        materialized_model_path
+    ).lower():
+        raise RuntimeError(
+            f"{case_id} setup did not pin the materialized model hash."
+        )
+    state = store.sessions[session_id]
+    spatial_by_source: dict[str, dict[str, Any]] = {}
+    for item in setup.get("spatial_entities") or []:
+        if (
+            isinstance(item, dict)
+            and item.get("kind") == "asset"
+            and item.get("entity_role") == "sceneObject"
+        ):
+            source_id = str(item.get("source_id") or "")
+            if not source_id or source_id in spatial_by_source:
+                raise RuntimeError(
+                    f"{case_id} has non-unique runtime scene-object ids."
+                )
+            spatial_by_source[source_id] = item
+    provider_by_source = {
+        str(item.get("source_agent_id") or ""): str(
+            item.get("functionalmlds_agent_id")
+            or item.get("entity_id")
+            or ""
+        )
+        for item in (
+            state.functionalmlds_runtime_context or {}
+        ).get("agents", [])
+        if isinstance(item, dict)
+        and str(item.get("source_agent_id") or "")
+    }
+
+    records: list[dict[str, Any]] = []
+    for expected_probe in direct_adapter["routing_probes"]:
+        expected_status = str(expected_probe["status"])
+        start_agent_id = str(expected_probe["start_agent_id"])
+        target_source_id = str(expected_probe["asset_id"])
+        owners = list(expected_probe["owner_agent_ids"])
+        expected_owner = owners[0] if len(owners) == 1 else ""
+        target = spatial_by_source.get(target_source_id)
+        if target is None:
+            raise RuntimeError(
+                f"{case_id} runtime has no target for {target_source_id!r}."
+            )
+        target_entity_id = str(target.get("entity_id") or "")
+        expected_provider_entity_id = provider_by_source.get(
+            expected_owner,
+            "",
+        )
+        expected_outcome = (
+            "accept_local"
+            if expected_status == "local_owner"
+            else "accept_direct"
+            if expected_status == "direct_allowed"
+            else "reject_transitive"
+            if expected_status == "transitive_allowed"
+            else "reject_unreachable"
+            if expected_status == "rejected_unreachable"
+            else f"unsupported_{expected_status}"
+        )
+        before_state = store.snapshot_session_mutation(session_id)
+        before_stub_calls = stub.call_count
+        response: dict[str, Any] | None = None
+        error: Exception | None = None
+        try:
+            response = store.chat(
+                {
+                    "session_id": session_id,
+                    "active_agent_id": start_agent_id,
+                    "user_text": "Describe the selected object.",
+                    "interaction_mode": "deictic",
+                    "spatial_context": _runtime_spatial_context(
+                        model_sha256=str(setup["model_sha256"]),
+                        entity_id=target_entity_id,
+                        source_id=target_source_id,
+                    ),
+                },
+                include_runtime_actions=True,
+            )
+        except Exception as exc:  # classified below; never silently accepted
+            error = exc
+        after_state = store.snapshot_session_mutation(session_id)
+        stub_calls = stub.call_count - before_stub_calls
+        state_mutated = after_state != before_state
+        store.restore_session_mutation(session_id, before_state)
+        state_restored = (
+            store.snapshot_session_mutation(session_id) == before_state
+        )
+
+        accepted_expected = expected_status in {
+            "local_owner",
+            "direct_allowed",
+        }
+        evidence: dict[str, Any] = {
+            "evidence_preserved": None,
+            "trusted_target_preserved": None,
+            "trusted_provider_preserved": None,
+            "model_binding_preserved": None,
+            "route_kind_preserved": None,
+            "runtime_provider_entity_id": "",
+            "runtime_target_entity_id": target_entity_id,
+            "runtime_binding": {},
+        }
+        if response is not None:
+            evidence = _accepted_runtime_evidence(
+                response=response,
+                expected_status=expected_status,
+                expected_owner=expected_owner,
+                expected_provider_entity_id=expected_provider_entity_id,
+                expected_target_entity_id=target_entity_id,
+                expected_target_source_id=target_source_id,
+            )
+            actual = (
+                "accepted_with_evidence"
+                if evidence["evidence_preserved"]
+                else "accepted_without_complete_evidence"
+            )
+        elif (
+            isinstance(error, FunctionalMldsContractError)
+            and stub_calls == 0
+            and not state_mutated
+        ):
+            actual = "fail_closed_before_stub"
+        else:
+            actual = "unexpected_error"
+
+        passed = (
+            (
+                accepted_expected
+                and actual == "accepted_with_evidence"
+                and stub_calls == 1
+                and state_mutated
+                and state_restored
+            )
+            or (
+                not accepted_expected
+                and expected_status
+                in {"transitive_allowed", "rejected_unreachable"}
+                and actual == "fail_closed_before_stub"
+                and stub_calls == 0
+                and not state_mutated
+                and state_restored
+            )
+        )
+        record = {
+            "case_id": case_id,
+            "start": start_agent_id,
+            "target": target_source_id,
+            "expected": expected_outcome,
+            "actual": actual,
+            "stub_calls": stub_calls,
+            "state_mutated": state_mutated,
+            "passed": passed,
+            "state_restored": state_restored,
+            "expected_structural_status": expected_status,
+            "expected_owner": expected_owner,
+            "expected_target_path": expected_probe["target_paths"][0][
+                "path"
+            ]
+            if expected_probe["target_paths"]
+            else None,
+            **evidence,
+        }
+        if error is not None:
+            record["error_type"] = type(error).__name__
+            record["error_message"] = " ".join(str(error).split())[:400]
+        records.append(record)
+
+    status_counts = Counter(
+        str(item["expected_structural_status"]) for item in records
+    )
+    actual_counts = Counter(str(item["actual"]) for item in records)
+    accepted_records = [
+        item
+        for item in records
+        if item["expected_structural_status"]
+        in {"local_owner", "direct_allowed"}
+    ]
+    rejected_records = [
+        item
+        for item in records
+        if item["expected_structural_status"]
+        in {"transitive_allowed", "rejected_unreachable"}
+    ]
+    return {
+        "case_id": case_id,
+        "materialized_model_sha256": str(setup["model_sha256"]),
+        "fresh_v2_materialized_equality_verified": True,
+        "direct_expectation_projection_sha256": _projection_sha256(
+            direct_adapter
+        ),
+        "probe_denominator": len(records),
+        "expected_status_counts": {
+            status: status_counts[status]
+            for status in (
+                "local_owner",
+                "direct_allowed",
+                "transitive_allowed",
+                "rejected_unreachable",
+                "ambiguous_target",
+                "unassigned_target",
+            )
+        },
+        "actual_counts": dict(sorted(actual_counts.items())),
+        "accepted_probe_denominator": len(accepted_records),
+        "accepted_with_evidence_count": sum(
+            item["actual"] == "accepted_with_evidence"
+            for item in accepted_records
+        ),
+        "rejected_probe_denominator": len(rejected_records),
+        "fail_closed_before_stub_count": sum(
+            item["actual"] == "fail_closed_before_stub"
+            for item in rejected_records
+        ),
+        "stub_call_count": sum(int(item["stub_calls"]) for item in records),
+        "unexpected_rejection_mutation_count": sum(
+            bool(item["state_mutated"]) for item in rejected_records
+        ),
+        "passed_probe_count": sum(bool(item["passed"]) for item in records),
+        "failed_probe_count": sum(not bool(item["passed"]) for item in records),
+        "records": records,
+    }
+
+
+def _runtime_corpus_evaluation(
+    *,
+    repo_root: Path,
+    case_inputs: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    started = time.perf_counter()
+    with tempfile.TemporaryDirectory(
+        prefix="iui2027-runtime-corpus-"
+    ) as temporary:
+        temporary_root = Path(temporary)
+        backend_root = temporary_root / "backend-runtime"
+        backend_import_root = repo_root / BACKEND_ROOT_RELATIVE
+        backend_import_text = str(backend_import_root.resolve())
+        if backend_import_text not in sys.path:
+            sys.path.insert(0, backend_import_text)
+        import backend.state as backend_state  # type: ignore
+
+        original_contract_loader = backend_state.load_project_contract
+        contract_cache: dict[str, dict[str, Any]] = {}
+        contract_load_calls = 0
+
+        def cached_contract_loader(project_dir: Path) -> dict[str, Any]:
+            nonlocal contract_load_calls
+            contract_load_calls += 1
+            key = str(Path(project_dir).resolve())
+            if key not in contract_cache:
+                contract_cache[key] = original_contract_loader(
+                    Path(project_dir)
+                )
+            # SessionStore only reads the loaded contract and copies the
+            # runtime context when creating a session. Reusing the exact
+            # validated object avoids hundreds of irrelevant deep copies while
+            # preserving the production preflight-selection path.
+            return contract_cache[key]
+
+        with _runtime_network_disabled(), mock.patch.object(
+            backend_state,
+            "load_project_contract",
+            side_effect=cached_contract_loader,
+        ):
+            cases = [
+                _runtime_case_evaluation(
+                    repo_root=repo_root,
+                    case_id=str(item["case_id"]),
+                    direct_adapter=item["direct_adapter"],
+                    fresh_instance=item["fresh_instance"],
+                    backend_root=backend_root,
+                )
+                for item in case_inputs
+            ]
+
+    records = [
+        record
+        for case in cases
+        for record in case["records"]
+    ]
+    status_counts = Counter(
+        str(item["expected_structural_status"]) for item in records
+    )
+    actual_counts = Counter(str(item["actual"]) for item in records)
+    accepted = [
+        item
+        for item in records
+        if item["expected_structural_status"]
+        in {"local_owner", "direct_allowed"}
+    ]
+    rejected = [
+        item
+        for item in records
+        if item["expected_structural_status"]
+        in {"transitive_allowed", "rejected_unreachable"}
+    ]
+    failed = [item for item in records if not item["passed"]]
+    return {
+        "status": "pass" if not failed else "fail",
+        "definition": (
+            "One SessionStore.chat probe per Direct-Wiring scene asset and "
+            "start Agent against an isolated materialized project whose model "
+            "is verified equal to fresh V2 regenerated in the same run."
+        ),
+        "expectation_source": (
+            "Independent Direct-Wiring adapter over scene_semantics.json, "
+            "agent_roles.generated.json and handoff_matrix.json."
+        ),
+        "execution_surface": (
+            "Materialized project verified equal to fresh V2 -> isolated "
+            "ProjectManager -> SessionStore.setup -> SessionStore.chat with "
+            "deterministic structured-response stub."
+        ),
+        "fresh_v2_materialized_equality_verified": all(
+            case["fresh_v2_materialized_equality_verified"]
+            for case in cases
+        ),
+        "contract_snapshot_cache": {
+            "materialized_contract_disk_load_count": len(contract_cache),
+            "session_store_contract_load_call_count": contract_load_calls,
+            "immutable_snapshot_reuse_count": (
+                contract_load_calls - len(contract_cache)
+            ),
+            "purpose": (
+                "Avoid repeated parse/validation cost while preserving exact "
+                "preflight selection against the validated materialized "
+                "contract."
+            ),
+        },
+        "network_blocked": True,
+        "api_calls": 0,
+        "structured_stub_calls": sum(
+            int(item["stub_calls"]) for item in records
+        ),
+        "elapsed_seconds": round(time.perf_counter() - started, 6),
+        "case_denominator": len(cases),
+        "probe_denominator": len(records),
+        "expected_status_counts": {
+            status: status_counts[status]
+            for status in (
+                "local_owner",
+                "direct_allowed",
+                "transitive_allowed",
+                "rejected_unreachable",
+                "ambiguous_target",
+                "unassigned_target",
+            )
+        },
+        "actual_counts": dict(sorted(actual_counts.items())),
+        "accepted_probe_denominator": len(accepted),
+        "accepted_with_evidence_count": sum(
+            item["actual"] == "accepted_with_evidence"
+            for item in accepted
+        ),
+        "rejected_probe_denominator": len(rejected),
+        "fail_closed_before_stub_count": sum(
+            item["actual"] == "fail_closed_before_stub"
+            for item in rejected
+        ),
+        "rejection_zero_stub_call_count": sum(
+            int(item["stub_calls"]) == 0 for item in rejected
+        ),
+        "rejection_without_state_mutation_count": sum(
+            not bool(item["state_mutated"]) for item in rejected
+        ),
+        "state_restoration_count": sum(
+            bool(item["state_restored"]) for item in records
+        ),
+        "passed_probe_count": len(records) - len(failed),
+        "failed_probe_count": len(failed),
+        "case_results": cases,
+    }
+
+
 def _semantic_projection(adapter: Mapping[str, Any]) -> dict[str, Any]:
     return {
         "agent_ids": list(adapter["agent_ids"]),
@@ -1193,12 +2440,26 @@ def _new_issue_evaluation(
 
 
 def _timing_summary(values: Sequence[int]) -> dict[str, Any]:
+    if not values:
+        raise ValueError("Timing summary requires at least one observation.")
     ordered = sorted(values)
     p95_index = max(0, min(len(ordered) - 1, int(0.95 * len(ordered)) - 1))
+    if len(ordered) == 1:
+        q1 = q3 = float(ordered[0])
+    else:
+        q1, _, q3 = statistics.quantiles(
+            ordered,
+            n=4,
+            method="inclusive",
+        )
     return {
         "repetitions": len(values),
         "min_ns": min(values),
         "median_ns": int(statistics.median(values)),
+        "q1_ns": round(q1, 3),
+        "q3_ns": round(q3, 3),
+        "iqr_ns": round(q3 - q1, 3),
+        "quartile_method": "inclusive linear interpolation",
         "p95_ns": ordered[p95_index],
         "max_ns": max(values),
     }
@@ -1812,6 +3073,15 @@ def _aggregate_common_comparison(
             "repetitions_per_case": 40,
             "warmups_per_case": 4,
             "alternating_execution_order": True,
+            "dispersion_statistics": [
+                "q1_ns",
+                "q3_ns",
+                "iqr_ns",
+                "min_ns",
+                "p95_ns",
+                "max_ns",
+            ],
+            "quartile_method": "inclusive linear interpolation",
             "timings_are_descriptive": True,
         },
     }
@@ -2291,10 +3561,12 @@ def build_benchmark(repo_root: Path = REPOSITORY_ROOT) -> dict[str, Any]:
         tuple[str, dict[str, Any], dict[str, Any], dict[str, Any]]
     ] = []
     corpus: list[dict[str, Any]] = []
+    asset_chain_cases: list[dict[str, Any]] = []
     ownership_cases: list[dict[str, Any]] = []
     routing_cases: list[dict[str, Any]] = []
     comparison_cases: list[dict[str, Any]] = []
     checked_in_staleness: list[dict[str, Any]] = []
+    runtime_case_inputs: list[dict[str, Any]] = []
 
     for case_id in CASE_IDS:
         paths = _case_paths(repo_root, case_id)
@@ -2320,6 +3592,30 @@ def build_benchmark(repo_root: Path = REPOSITORY_ROOT) -> dict[str, Any]:
             checked_in_instance,
         )
         fresh_adapter = _fresh_v2_adapter(fresh_instance)
+        direct_adapter = _direct_wiring_adapter(
+            scene_semantics=scene_semantics,
+            agent_roles=agent_roles,
+            handoff_matrix=handoff_matrix,
+            expected_asset_ids=fresh_adapter["asset_ids"],
+        )
+        runtime_case_inputs.append(
+            {
+                "case_id": case_id,
+                "fresh_instance": fresh_instance,
+                "direct_adapter": direct_adapter,
+            }
+        )
+        asset_chain_cases.append(
+            {
+                "case_id": case_id,
+                "metrics": _asset_interaction_chain_metrics(
+                    fresh_instance
+                ),
+                "treatment_source": (
+                    "fresh in-memory V2 regenerated from v0.5"
+                ),
+            }
+        )
         ownership_metrics, routing_metrics, graph_metrics = _adapter_metrics(
             fresh_adapter
         )
@@ -2445,6 +3741,13 @@ def build_benchmark(repo_root: Path = REPOSITORY_ROOT) -> dict[str, Any]:
     priority_probe_suite = _aggregate_synthetic_priority_probes(
         comparison_cases
     )
+    asset_chain_aggregate = _aggregate_asset_interaction_chain_metrics(
+        asset_chain_cases
+    )
+    runtime_corpus = _runtime_corpus_evaluation(
+        repo_root=repo_root,
+        case_inputs=runtime_case_inputs,
+    )
 
     return {
         "schema": BENCHMARK_SCHEMA,
@@ -2454,12 +3757,18 @@ def build_benchmark(repo_root: Path = REPOSITORY_ROOT) -> dict[str, Any]:
             "api_calls": 0,
             "unity_runtime_started": False,
             "structural_routing_evaluated": True,
+            "session_store_chat_runtime_evaluated": True,
+            "asset_interaction_chain_completeness_evaluated": True,
             "answer_semantics_evaluated": False,
             "human_outcomes_evaluated": False,
         },
         "corpus": {
             "cases": corpus,
             "aggregate_counts": corpus_totals,
+        },
+        "asset_interaction_chains": {
+            "case_results": asset_chain_cases,
+            "aggregate": asset_chain_aggregate,
         },
         "ownership": {
             "priority_rule": "Asset > Group > Zone",
@@ -2500,6 +3809,7 @@ def build_benchmark(repo_root: Path = REPOSITORY_ROOT) -> dict[str, Any]:
                 "answer_semantics_evaluated": False,
             },
         },
+        "runtime_corpus": runtime_corpus,
         "direct_wiring_comparison": {
             "aggregate": comparison_aggregate,
             "case_results": comparison_cases,
@@ -2557,8 +3867,17 @@ def build_benchmark(repo_root: Path = REPOSITORY_ROOT) -> dict[str, Any]:
                 "not whether a generated answer is correct, useful or trusted."
             ),
             (
+                "Asset-chain completeness measures explicit references from "
+                "authored model elements to executable bindings and pending "
+                "validation cases. It does not establish that a runtime action "
+                "executed successfully or that an assertion passed."
+            ),
+            (
                 "Transitive paths show graph reachability; they do not claim "
-                "that a deployed runtime permits multiple handoffs per turn."
+                "that a deployed runtime permits multiple handoffs per turn. "
+                "The runtime-corpus experiment instead verifies that the "
+                "one-hop deployment rejects those paths before the response "
+                "stub and without session mutation."
             ),
             (
                 "The corpus contains three authored rooms and does not support "
@@ -2660,6 +3979,19 @@ def build_environment(repo_root: Path = REPOSITORY_ROOT) -> dict[str, Any]:
             "json_io_included": False,
             "v05_to_v2_generation_included": False,
         },
+        "session_store_runtime_corpus": {
+            "project_materialization": (
+                "isolated copy, model-equality checked against fresh V2"
+            ),
+            "response_provider": "deterministic structured-response stub",
+            "network_guard": "socket and urllib entry points blocked",
+            "contract_snapshot_cache": (
+                "one validated materialized contract per case"
+            ),
+            "one_session_per_case": True,
+            "state_restored_after_each_probe": True,
+            "api_calls": 0,
+        },
         "validator_and_benchmark_sources": sources,
         "input_files": inputs,
         "network_required": False,
@@ -2702,6 +4034,110 @@ def render_tables(results: Mapping[str, Any]) -> str:
                 groups=counts["object_groups"],
                 zones=counts["semantic_zones"],
             )
+        )
+
+    chain_results = results["asset_interaction_chains"]
+    lines.extend(
+        [
+            "",
+            "## Complete asset-specific interaction chains (RQ1)",
+            "",
+            (
+                "The asset denominator contains every `sceneObject`, even "
+                "when no chain exists. The chain denominator contains every "
+                "`ScenarioStep`/`CapabilityUse` pair that explicitly targets "
+                "a scene object. A complete chain resolves Capability, "
+                "provider, target, RuntimeBinding/RuntimeAction and a "
+                "UseCase-linked ValidationCase covering the step's resulting "
+                "assertions."
+            ),
+            "",
+            "| Case | Asset denominator | Assets with chain | Complete assets | Asset completeness | Chain denominator | Complete chains | Chain completeness | Errors |",
+            "|---|---:|---:|---:|---:|---:|---:|---:|---:|",
+        ]
+    )
+    for case in chain_results["case_results"]:
+        metrics = case["metrics"]
+        lines.append(
+            "| {case} | {asset_denom} | {covered_assets} | "
+            "{complete_assets} | {asset_rate} | {chain_denom} | "
+            "{complete_chains} | {chain_rate} | {errors} |".format(
+                case=case["case_id"],
+                asset_denom=metrics["asset_denominator"],
+                covered_assets=metrics[
+                    "asset_with_chain_candidate_count"
+                ],
+                complete_assets=metrics["complete_asset_count"],
+                asset_rate=_format_rate(
+                    metrics["complete_asset_rate"]
+                ),
+                chain_denom=metrics["chain_candidate_denominator"],
+                complete_chains=metrics["complete_chain_count"],
+                chain_rate=_format_rate(
+                    metrics["chain_completeness_rate"]
+                ),
+                errors=metrics["error_count"],
+            )
+        )
+    chain_aggregate = chain_results["aggregate"]
+    lines.append(
+        "| **Aggregate** | {asset_denom} | {covered_assets} | "
+        "{complete_assets} | {asset_rate} | {chain_denom} | "
+        "{complete_chains} | {chain_rate} | {errors} |".format(
+            asset_denom=chain_aggregate["asset_denominator"],
+            covered_assets=chain_aggregate[
+                "asset_with_chain_candidate_count"
+            ],
+            complete_assets=chain_aggregate["complete_asset_count"],
+            asset_rate=_format_rate(
+                chain_aggregate["complete_asset_rate"]
+            ),
+            chain_denom=chain_aggregate[
+                "chain_candidate_denominator"
+            ],
+            complete_chains=chain_aggregate["complete_chain_count"],
+            chain_rate=_format_rate(
+                chain_aggregate["chain_completeness_rate"]
+            ),
+            errors=chain_aggregate["error_count"],
+        )
+    )
+    if chain_aggregate["errors"]:
+        lines.extend(
+            [
+                "",
+                "### Asset-chain error details",
+                "",
+                "| Case | Asset | Step | CapabilityUse | Code | Message |",
+                "|---|---|---|---|---|---|",
+            ]
+        )
+        for error in chain_aggregate["errors"]:
+            lines.append(
+                "| {case} | `{asset}` | {step} | {capability_use} | "
+                "`{code}` | {message} |".format(
+                    case=error["case_id"],
+                    asset=error["asset_id"],
+                    step=(
+                        f"`{error['step_id']}`"
+                        if error["step_id"]
+                        else "n/a"
+                    ),
+                    capability_use=(
+                        f"`{error['capability_use_id']}`"
+                        if error["capability_use_id"]
+                        else "n/a"
+                    ),
+                    code=error["code"],
+                    message=error["message"],
+                )
+            )
+    else:
+        lines.extend(
+            [
+                "",
+                "No asset-chain errors were observed.",
+            ]
         )
 
     lines.extend(
@@ -2760,6 +4196,67 @@ def render_tables(results: Mapping[str, Any]) -> str:
                 ),
             )
         )
+
+    runtime_corpus = results["runtime_corpus"]
+    lines.extend(
+        [
+            "",
+            "## API-free fresh-V2 SessionStore runtime corpus (RQ3)",
+            "",
+            (
+                "The expectation for each row comes from the independent "
+                "Direct-Wiring artifacts. Each observed result executes a "
+                "materialized project, verified equal to fresh V2 regenerated "
+                "in the same run, through "
+                "`SessionStore.chat` with a deterministic structured-response "
+                "stub and an active network guard. The complete per-probe "
+                "records are stored in `results.json`."
+            ),
+            "",
+            "| Case | Probes | Local | Direct | Transitive | Unreachable | Accepted with target/provider/binding evidence | Rejected before stub and mutation | Stub calls | Passed |",
+            "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+        ]
+    )
+    for case in runtime_corpus["case_results"]:
+        counts = case["expected_status_counts"]
+        lines.append(
+            "| {case} | {denom} | {local} | {direct} | {transitive} | "
+            "{unreachable} | {evidence}/{accepted} | "
+            "{fail_closed}/{rejected} | {stub_calls} | {passed}/{denom} |".format(
+                case=case["case_id"],
+                denom=case["probe_denominator"],
+                local=counts["local_owner"],
+                direct=counts["direct_allowed"],
+                transitive=counts["transitive_allowed"],
+                unreachable=counts["rejected_unreachable"],
+                evidence=case["accepted_with_evidence_count"],
+                accepted=case["accepted_probe_denominator"],
+                fail_closed=case["fail_closed_before_stub_count"],
+                rejected=case["rejected_probe_denominator"],
+                stub_calls=case["stub_call_count"],
+                passed=case["passed_probe_count"],
+            )
+        )
+    counts = runtime_corpus["expected_status_counts"]
+    lines.append(
+        "| **Aggregate** | {denom} | {local} | {direct} | {transitive} | "
+        "{unreachable} | {evidence}/{accepted} | "
+        "{fail_closed}/{rejected} | {stub_calls} | {passed}/{denom} |".format(
+            denom=runtime_corpus["probe_denominator"],
+            local=counts["local_owner"],
+            direct=counts["direct_allowed"],
+            transitive=counts["transitive_allowed"],
+            unreachable=counts["rejected_unreachable"],
+            evidence=runtime_corpus["accepted_with_evidence_count"],
+            accepted=runtime_corpus["accepted_probe_denominator"],
+            fail_closed=runtime_corpus[
+                "fail_closed_before_stub_count"
+            ],
+            rejected=runtime_corpus["rejected_probe_denominator"],
+            stub_calls=runtime_corpus["structured_stub_calls"],
+            passed=runtime_corpus["passed_probe_count"],
+        )
+    )
 
     comparison = results["direct_wiring_comparison"]
     lines.extend(
@@ -2934,19 +4431,30 @@ def render_tables(results: Mapping[str, Any]) -> str:
             "",
             "### Repeated local structural runtime",
             "",
-            "| Case | Repetitions | Direct median (ns) | Fresh V2 median (ns) | V2/direct ratio | Deterministic outputs |",
-            "|---|---:|---:|---:|---:|---|",
+            "| Case | Repetitions | Direct median [Q1, Q3] ns | Direct min-max ns | Fresh V2 median [Q1, Q3] ns | Fresh V2 min-max ns | V2/direct median ratio | Deterministic outputs |",
+            "|---|---:|---:|---:|---:|---:|---:|---|",
         ]
     )
     for case in comparison["case_results"]:
         runtime = case["runtime"]
         lines.append(
-            "| {case} | {repetitions} | {direct} | {treatment} | "
-            "{ratio} | {deterministic} |".format(
+            "| {case} | {repetitions} | {direct_median} "
+            "[{direct_q1}, {direct_q3}] | {direct_min}-{direct_max} | "
+            "{treatment_median} [{treatment_q1}, {treatment_q3}] | "
+            "{treatment_min}-{treatment_max} | {ratio} | "
+            "{deterministic} |".format(
                 case=case["case_id"],
                 repetitions=runtime["repetitions"],
-                direct=runtime["direct_wiring"]["median_ns"],
-                treatment=runtime["fresh_v2"]["median_ns"],
+                direct_median=runtime["direct_wiring"]["median_ns"],
+                direct_q1=runtime["direct_wiring"]["q1_ns"],
+                direct_q3=runtime["direct_wiring"]["q3_ns"],
+                direct_min=runtime["direct_wiring"]["min_ns"],
+                direct_max=runtime["direct_wiring"]["max_ns"],
+                treatment_median=runtime["fresh_v2"]["median_ns"],
+                treatment_q1=runtime["fresh_v2"]["q1_ns"],
+                treatment_q3=runtime["fresh_v2"]["q3_ns"],
+                treatment_min=runtime["fresh_v2"]["min_ns"],
+                treatment_max=runtime["fresh_v2"]["max_ns"],
                 ratio=_format_value(
                     runtime[
                         "median_runtime_ratio_fresh_v2_over_direct"
@@ -3073,6 +4581,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         ],
         "routing_probe_denominator": results["routing"]["aggregate"][
             "routing_probe_denominator"
+        ],
+        "runtime_corpus_status": results["runtime_corpus"]["status"],
+        "runtime_corpus_probe_denominator": results["runtime_corpus"][
+            "probe_denominator"
         ],
         "direct_wiring_comparison_status": results[
             "direct_wiring_comparison"

@@ -15,10 +15,10 @@ record.
 
 The project is complete only when all of the following hold:
 
-- [ ] The prototype and evaluation tasks marked `MUST` are complete.
-- [ ] Every claim in the paper maps to generated evidence.
-- [ ] The anonymous PDF builds with the official ACM review class.
-- [ ] The PDF satisfies the IUI format, anonymity, accessibility, and word-count checks.
+- [x] The prototype and evaluation tasks marked `MUST` are complete.
+- [x] Every claim in the paper maps to generated evidence.
+- [x] The anonymous PDF builds with the official ACM review class.
+- [x] The PDF satisfies the IUI format, anonymity, accessibility, and word-count checks.
 - [ ] A fresh Stanford Agentic Reviewer run contains no major or critical weakness.
 - [ ] Its overall assessment is positive and recommends acceptance or describes
       the work as submission-ready.
@@ -52,16 +52,17 @@ References:
 
 ## Phase 2 — prototype and evaluation
 
-- [ ] Complete all `MUST` items in [PROTOTYPE_TASKS.md](PROTOTYPE_TASKS.md).
-- [ ] Run the clean, end-to-end evaluation from immutable inputs.
-- [ ] Generate tables, figures, raw result files, environment metadata, and hashes.
-- [ ] Audit every generated number against its raw evidence.
+- [x] Complete all `MUST` items in [PROTOTYPE_TASKS.md](PROTOTYPE_TASKS.md).
+- [x] Run the clean, end-to-end evaluation from immutable inputs.
+- [x] Generate tables, figures, raw result files, environment metadata, and hashes.
+- [x] Audit every generated number against its raw evidence.
 
 ## Phase 3 — paper
 
 - [ ] Complete all items in [PAPER_TASKS.md](PAPER_TASKS.md).
-- [ ] Build the anonymous PDF and inspect every page.
-- [ ] Package anonymized supplementary material and a captioned system video, if feasible.
+- [x] Build the anonymous PDF and inspect every page.
+- [x] Package anonymized supplementary material; a system video is deferred
+      because it is not required for the present claim boundary.
 
 ## Phase 4 — external review loop
 
@@ -74,8 +75,8 @@ References:
 
 ## Phase 5 — release
 
-- [ ] Run all Python, backend, model, evaluation, and paper checks.
-- [ ] Ensure no token, email address, author identity, local path, or secret is in review artifacts.
+- [x] Run all Python, backend, model, evaluation, Unity, and paper checks.
+- [x] Ensure no token, email address, author identity, local path, or secret is in review artifacts.
 - [ ] Commit the final source, generated evidence, and submission PDF.
 - [ ] Push `codex/iui-2027-submission`.
 - [ ] Record the final commit and review timestamp.

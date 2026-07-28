@@ -1,16 +1,154 @@
-\section{Evaluation and Artifact Checklist}
+\section{Detailed Positioning and Enforcement Matrices}
 
-The anonymous supplement will contain the following materials:
+Table~\ref{tab:dinosaur-chain} spells out the model objects used by the running
+example in Section~\ref{sec:system}.
+
+\begin{table*}[h]
+  \caption{Running example: representing ``What is this?'' while a visitor
+  selects the classroom dinosaur skeleton.}
+  \Description{A table maps each interaction-model element to its dinosaur
+  example instance and purpose. The chain proceeds from the selected skeleton
+  through an exhibit-interpreter agent and description capability to the chat
+  endpoint and a grounded-response assertion.}
+  \label{tab:dinosaur-chain}
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{@{}p{.17\textwidth}p{.28\textwidth}p{.45\textwidth}@{}}
+    \toprule
+    Element & Example instance & Meaning \\
+    \midrule
+    Target &
+    Dinosaur skeleton, its group, and exhibit zone &
+    Stable referent selected in Unity \\
+    Scenario step &
+    Describe selected dinosaur skeleton &
+    User-visible interaction to execute \\
+    Capability use &
+    Describe room object; provider: Exhibit Interpreter &
+    One occurrence with an explicit provider and targets \\
+    Capability &
+    Describe room object &
+    Declared operation that the provider may perform \\
+    Agent &
+    Exhibit Interpreter &
+    Domain agent responsible for the asset \\
+    Runtime action &
+    \texttt{POST /chat} &
+    Backend operation permitted by the binding \\
+    Assertion &
+    Target, provider, response entity, and route agree &
+    Observable pass/fail evidence \\
+    Validation case &
+    Grounded response contract probe &
+    Links the use case, binding, assertions, and verdict \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+Table~\ref{tab:closest-work} expands the closest-work positioning in
+Section~\ref{sec:related-work}. It compares each contribution's stated primary
+unit and emphasis; an empty cell is not evidence that a cited system lacks an
+unlisted mechanism.
+
+\begin{table*}[h]
+  \caption{Closest-work comparison by primary represented unit and assurance
+  locus.}
+  \Description{A table compares LLMR, Tell-XR, a model-driven augmented-reality
+  approach, a model-based virtual-reality requirements approach, and
+  FunctionalMLDS. Prior systems emphasize world editing, automation rules,
+  application generation, or requirements; FunctionalMLDS emphasizes a
+  cross-runtime interaction contract from selected target and responsible agent
+  to action and assertion.}
+  \label{tab:closest-work}
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{@{}p{.12\textwidth}p{.20\textwidth}p{.21\textwidth}p{.37\textwidth}@{}}
+    \toprule
+    Work & Represented unit & Interface/runtime emphasis &
+    Distinction of this work \\
+    \midrule
+    LLMR \cite{delatorre2024llmr} &
+    Plans and edits to a mixed-reality world &
+    Prompting, scene understanding, execution, and self-debugging &
+    We constrain a declared path through target, provider, capability, and
+    action instead of generating worlds. \\
+    Tell-XR \cite{carcangiu2025tellxr} &
+    Event--condition--action automation &
+    Conversational end-user development of XR behavior &
+    We study responsibility and evidence across a multi-agent interaction, not
+    automation-language expressiveness. \\
+    Campos-López et al.\ \cite{camposlopez2023mdear} &
+    Domain concepts, AR representations, and external interactions &
+    Model-to-application generation and user evaluation &
+    Our model remains active as an admission and diagnostic boundary after
+    scene materialization. \\
+    Karre and Reddy \cite{karre2024vrrequirements} &
+    VR requirements and role-based scene/action/state templates &
+    Requirements and mappings to VR application elements &
+    We specialize the runtime link to assets, agent authority, actions, and
+    observed assertions. \\
+    \systemname{} &
+    Scenario, target, provider, capability, action, and assertion contract &
+    Unity selection, fail-closed routing, and relation-level evidence &
+    The contribution is a non-bypassable composed interaction guarantee and
+    failure localization, not a general XR authoring language. \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+Table~\ref{tab:enforcement-layers} expands the staged enforcement account in
+Section~\ref{sec:system}. The backend remains authoritative even when the
+client performs an earlier equivalent check.
+
+\begin{table*}[h]
+  \caption{Invariant-enforcement layers in the implemented interaction path.}
+  \Description{A table lists five enforcement layers: JSON schema, canonical
+  model, executable pipeline profile, backend runtime, and Unity client. For
+  each layer it gives example invariants and where invalid data is blocked.}
+  \label{tab:enforcement-layers}
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{@{}p{.13\textwidth}p{.46\textwidth}p{.32\textwidth}@{}}
+    \toprule
+    Layer & Representative invariant & Failure boundary \\
+    \midrule
+    JSON schema &
+    Required fields, value types, enumerations, and reference shapes &
+    Before constructing a model instance. \\
+    Canonical V2 model &
+    Referential closure, typed cardinalities, assertion/VV ownership, and no
+    direct step-to-action shortcut &
+    The instance is rejected before materialization. \\
+    Executable profile &
+    One main scenario, one provider, provider/performer/capability agreement,
+    and target coherence &
+    Only chains surviving every stage validator are published. \\
+    Backend runtime &
+    Pinned hash, trusted entity, derived group and zone, exact target/provider/
+    action mapping, permitted handoff, and request/response schemas &
+    Before session mutation and, when request-decidable, before a model call. \\
+    Unity client &
+    Stable collider binding, explicit unresolved states, and returned
+    model/target/provider/route/action agreement &
+    Before serialization or answer presentation; backend checks remain
+    authoritative. \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\section{Supplementary Evaluation and Artifact Checklist}
+
+The anonymous supplement contains:
 
 \begin{itemize}
   \item immutable scene and agent inputs;
-  \item held-out interaction items and expected outcomes;
-  \item direct-wiring and model-grounded condition definitions;
+  \item the fixed authored probe corpus and expected structural outcomes;
+  \item direct-artifact and model-grounded condition definitions;
   \item change-task patches and fault-mutation catalog;
   \item raw machine-readable outcomes;
   \item scripts that regenerate tables and figures; and
   \item environment and content-hash manifests.
 \end{itemize}
 
-Any repository URL, file metadata, screenshot, or video included for review will
-be checked for identifying information.
+Repository URLs, file metadata, screenshots, and videos supplied for review are
+checked for identifying information.

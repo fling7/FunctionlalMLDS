@@ -486,7 +486,19 @@ def run_agent_roles_for_case(
                 scene_semantics=scene_semantics,
                 normalized_scene=normalized_scene,
             )
-            write_json(agent_roles_path, {"agents": normalized_output["agents"]})
+            # Keep the normalized handoff declarations with the role artifact as
+            # well as in the dedicated matrix.  The downstream deterministic
+            # handoff stage may validate or enrich these declarations, but should
+            # not have to mutate an earlier LLM-stage output merely to add data
+            # that was already returned by that stage.  This keeps later
+            # knowledge-stage fingerprints stable across offline reruns.
+            write_json(
+                agent_roles_path,
+                {
+                    "agents": normalized_output["agents"],
+                    "handoffs": normalized_output["handoffs"],
+                },
+            )
             write_json(handoff_path, {"handoffs": normalized_output["handoffs"]})
             write_json(validation_path, validation)
             previous_output = normalized_output

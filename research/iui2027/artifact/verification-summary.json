@@ -36,22 +36,22 @@
         "cases": [
           {
             "case_id": "bestfit_career_fair",
-            "fresh_v2_sha256": "3269feca4e864a23787570f0a8eead492b1b2d44bdc517dd690662ac7d1ce2ad",
-            "object_count": 293,
+            "fresh_v2_sha256": "4d577714ba8fbff454f2ab9b6cac74ee1a7aea77bd98c2ef076b349022db4bb5",
+            "object_count": 1208,
             "validation_error_count": 0,
             "validation_status": "valid"
           },
           {
             "case_id": "classroom_dinosaur",
-            "fresh_v2_sha256": "38254442a4a349d92cd8f831a1fcbdaa651fdf95d9630bede355c6c9d6421aa2",
-            "object_count": 292,
+            "fresh_v2_sha256": "69ff4272860042b827e5e8f889bdbaaeeeabc72e36e938cee98c25418e7cdd8b",
+            "object_count": 1522,
             "validation_error_count": 0,
             "validation_status": "valid"
           },
           {
             "case_id": "steinpilz_brand_room",
-            "fresh_v2_sha256": "9ad7d28c76167fec61f08437ccb4591a1150a53100515c1e14eada337fe31772",
-            "object_count": 296,
+            "fresh_v2_sha256": "825956d47b39f8286d9c388aed5e442c316965b872e2f1076b939b380abd309b",
+            "object_count": 1316,
             "validation_error_count": 0,
             "validation_status": "valid"
           }
@@ -64,14 +64,24 @@
       "status": "pass"
     },
     {
-      "facts": {},
+      "facts": {
+        "answer_semantics_evaluated": false,
+        "api_calls": 0,
+        "case_count": 3,
+        "checked_in_v2_rejection_count": 0,
+        "direct_wiring_comparison_status": "comparable",
+        "environment_hash_count": 27,
+        "fresh_v2_acceptance_count": 3,
+        "mode": "check",
+        "runtime_corpus_probe_denominator": 459,
+        "runtime_corpus_status": "pass",
+        "schema_version": "1.3.0"
+      },
       "id": "benchmark",
-      "issues": [
-        "Checked-in V2 inputs are stale for 3/3 cases; regenerate them before release."
-      ],
+      "issues": [],
       "label": "IUI structural benchmark",
       "mandatory": true,
-      "status": "fail"
+      "status": "pass"
     },
     {
       "facts": {
@@ -90,9 +100,12 @@
     {
       "facts": {
         "exit_code": 0,
-        "module_count": 3,
+        "module_count": 6,
         "modules": [
           "tools.tests.test_iui2027_artifact",
+          "tools.tests.test_iui2027_frozen_regeneration",
+          "tools.tests.test_iui2027_paper_checker",
+          "tools.tests.test_iui2027_reviewer_client",
           "tools.tests.test_iui2027_system_benchmark",
           "InteractivAgents.openai_unity_expert_npcs_pycharm.InteractiveAgents.tests.test_spatial_chat_contract"
         ]
@@ -125,29 +138,47 @@
     },
     {
       "facts": {
-        "editor_started": false
+        "editor_started": true,
+        "runs": [
+          {
+            "execute_method": "FunctionalMldsV2NativeSmoke.Run",
+            "exit_code": 0,
+            "ok_marker_observed": true
+          },
+          {
+            "execute_method": "FunctionalMldsV2QuickAgentBridgeSmoke.RunFromCommandLine",
+            "exit_code": 0,
+            "ok_marker_observed": true
+          },
+          {
+            "execute_method": "FunctionalMldsSpatialGroundingSmoke.RunFromCommandLine",
+            "exit_code": 0,
+            "ok_marker_observed": true
+          }
+        ]
       },
       "id": "unity_batch_smokes",
-      "issues": [
-        "No Unity editor was supplied; static Unity checks still ran."
-      ],
+      "issues": [],
       "label": "Optional real Unity batch smokes",
-      "mandatory": false,
-      "status": "not_run"
-    },
-    {
-      "facts": {},
-      "id": "paper",
-      "issues": [
-        "Strict paper checker failed: Approximate main-text words: 3524 PDF: 11 pages, 490025 bytes WARNING: PDF is not tagged; perform the SIGCHI accessibility workflow before final submission. ERROR: 7 RESULT PENDING marker(s) remain."
-      ],
-      "label": "Strict anonymous paper checker",
       "mandatory": true,
-      "status": "fail"
+      "status": "pass"
     },
     {
       "facts": {
-        "file_count": 68,
+        "checker_status": "pass",
+        "pdf_bytes": 625824,
+        "pdf_present": true,
+        "pdf_sha256": "3dfe5462e08990edb15af2811bdfb3bdc2ac073c602cb122e8b8803a565c293c"
+      },
+      "id": "paper",
+      "issues": [],
+      "label": "Strict anonymous paper checker",
+      "mandatory": true,
+      "status": "pass"
+    },
+    {
+      "facts": {
+        "file_count": 75,
         "finding_count": 0,
         "patterns": [
           "email_address",
@@ -164,15 +195,12 @@
       "status": "pass"
     }
   ],
-  "failed_mandatory_check_ids": [
-    "benchmark",
-    "paper"
-  ],
+  "failed_mandatory_check_ids": [],
   "interpretation": "A pass establishes artifact integrity and executable structural contracts only; it is not evidence of answer quality, usability, trust, or population-level effects.",
   "model_api_used": false,
   "network_used": false,
-  "overall_status": "fail",
+  "overall_status": "pass",
   "schema": "iui2027_artifact_verification",
   "schema_version": "1.0.0",
-  "unity_started": false
+  "unity_started": true
 }

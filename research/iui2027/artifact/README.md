@@ -57,6 +57,53 @@ old checked-in V2 instances without using them. The release verifier fails if
 such checked-in V2 instances are rejected, because a review artifact should
 not ship a known-stale representation.
 
+## Regeneration from frozen model outputs
+
+The review artifact does not require an OpenAI configuration to rebuild the
+three case-study projects. The checked-in normalized scene, scene-semantics,
+agent-role and knowledge JSON files are the frozen inputs. First run the
+non-mutating preflight:
+
+```text
+python research/iui2027/artifact/regenerate_frozen.py --check
+```
+
+`--check` copies only those inputs, the optional valid placement seed and the
+backend Python package to a temporary directory. It blocks socket and URL
+connections, does not load LLM settings, and discards the directory at the end
+of the run. For every case it then executes, in order:
+
+1. frozen role/knowledge validation and knowledge-file materialization;
+2. reuse of a valid placement, or deterministic placement regeneration;
+3. deterministic FunctionalMLDS v0.5 assembly;
+4. handoff derivation from the handoffs retained in the frozen role artifact;
+5. canonical FunctionalMLDS V2 assembly;
+6. Interactive Agents project materialization;
+7. schema/contract validation; and
+8. FunctionalMLDS invariants.
+
+Every stage must be valid before the next one starts. The command emits one
+JSON summary on standard output and returns a non-zero status on the first
+failure. The summary contains logical identifiers, counts and hashes, never
+reviewer credentials or local paths. Its `target_comparison` lists every
+publication file and reports raw byte equality, parsed-JSON/text semantic
+equality, and semantic equality after replacing temporary path prefixes with
+their publication paths. Mismatches are reported as evidence of stale targets;
+they do not make the isolated regeneration itself fail.
+
+After a passing check, the following command performs the same work in a
+temporary workspace and publishes only the validated generated files:
+
+```text
+python research/iui2027/artifact/regenerate_frozen.py --write
+```
+
+Publication uses same-parent replacements and keeps rollback copies until the
+published cases pass the schema, backend, placement, v0.5, and V2 checks. The
+frozen semantics, role, and knowledge files are not publication targets.
+`--write` additionally stores the machine-readable result as
+`regeneration-summary.json`.
+
 To rerun the structural benchmark in a temporary directory instead of only
 checking its committed evidence and hashes:
 
@@ -90,4 +137,3 @@ human usefulness, usability, trust, end-to-end network latency, or
 population-level effects. See [DATA_DICTIONARY.md](DATA_DICTIONARY.md) for the
 reported fields, [ANONYMITY.md](ANONYMITY.md) for review-bundle hygiene, and
 [LICENSE_STATUS.md](LICENSE_STATUS.md) before redistributing any file.
-

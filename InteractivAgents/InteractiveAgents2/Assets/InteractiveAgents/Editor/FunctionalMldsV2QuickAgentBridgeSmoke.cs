@@ -259,6 +259,118 @@ public static class FunctionalMldsV2QuickAgentBridgeSmoke
                 modelJson,
                 root),
             "Missing runtime chain must fail closed.");
+
+        RunRealMultiScenarioCorpus();
+    }
+
+    private static void RunRealMultiScenarioCorpus()
+    {
+        var projectDirectory = Path.GetFullPath(
+            Path.Combine(
+                Application.dataPath,
+                "..",
+                "..",
+                "openai_unity_expert_npcs_pycharm",
+                "InteractiveAgents",
+                "projects",
+                "steinpilz_brand_room"));
+        var modelPath = Path.Combine(projectDirectory, "functionalmlds.v2.instance.json");
+        var tracePath = Path.Combine(projectDirectory, "trace_map.v2.json");
+        Require(
+            File.Exists(modelPath) && File.Exists(tracePath),
+            "The committed multi-scenario Steinpilz corpus is missing.");
+
+        var modelJson = File.ReadAllText(modelPath);
+        var trace = JObject.Parse(File.ReadAllText(tracePath));
+        var loaded = FunctionalMldsV2Loader.LoadJson(modelJson, modelPath, validate: true);
+        Require(
+            string.Equals(
+                loaded.Sha256,
+                (string)trace["model_sha256"],
+                StringComparison.Ordinal),
+            "The real multi-scenario model and trace hashes differ.");
+
+        var setup = new JObject
+        {
+            ["session_id"] = "unity-real-multi-scenario-smoke",
+            ["metamodel_version"] = "2.0.0-model",
+            ["model_sha256"] = loaded.Sha256,
+            ["functionalmlds_model_endpoint"] =
+                "/projects/steinpilz_brand_room/functionalmlds-v2",
+            ["functionalmlds"] = new JObject
+            {
+                ["schema"] = "functionalmlds_runtime_context_v2",
+                ["case_id"] = (string)trace["case_id"],
+                ["model_version"] = "2.0.0-model",
+                ["model_sha256"] = loaded.Sha256,
+                ["profile"] = "executable",
+                ["main_scenario_id"] = (string)trace["main_scenario_id"],
+                ["runtime_actions"] = trace["runtime_actions"].DeepClone()
+            }
+        };
+        var root = Path.Combine(
+            Application.temporaryCachePath,
+            "functionalmlds-v2-real-multi-scenario-smoke");
+        if (Directory.Exists(root))
+            Directory.Delete(root, true);
+        var bridge = FunctionalMldsV2QuickAgentBridge.Create(
+            setup.ToString(Formatting.None),
+            modelJson,
+            root);
+
+        var actions = ((JArray)trace["runtime_actions"])
+            .OfType<JObject>()
+            .Where(item => (string)item["action_kind"] == "chat")
+            .GroupBy(item => (string)item["scenario_id"], StringComparer.Ordinal)
+            .Select(group => group.First())
+            .Take(2)
+            .ToList();
+        Require(actions.Count == 2, "The real corpus must expose at least two chat scenarios.");
+        foreach (var action in actions)
+        {
+            var targetId = ((JArray)action["target_ids"]).Values<string>().First();
+            var target = loaded.Index.Require(targetId, "Entity");
+            var provider = loaded.Index.Require((string)action["provider_entity_id"], "Entity");
+            var providerSourceId = provider.OptionalString("sourceAgentId")
+                ?? provider.OptionalString("sourceId");
+            var observation = new FunctionalMldsV2InteractionObservation
+            {
+                InteractionMode = FunctionalMldsV2InteractionEvidenceEvaluator.DeicticMode,
+                ModelSha256 = loaded.Sha256,
+                BindingRegistryValid = true,
+                SelectionObserved = true,
+                SelectionState = FunctionalMldsV2InteractionEvidenceEvaluator.ResolvedSelectionState,
+                SelectedEntityId = target.Id,
+                SelectedSourceObjectId = target.RequiredString("sourceId"),
+                RequestedAgentId = providerSourceId,
+                ResponseObserved = false,
+                CapabilityUseId = (string)action["capability_use_id"],
+                CapabilityId = (string)action["capability_id"],
+                RuntimeBindingId = (string)action["runtime_binding_id"],
+                RuntimeActionId = (string)action["runtime_action_id"]
+            };
+            bridge.RequireAction("chat", providerSourceId, observation);
+            var assessment = bridge.RecordInteraction(
+                "chat",
+                "unity_multi_scenario_target_resolved",
+                providerSourceId,
+                observation,
+                new { target_id = target.Id },
+                new { state = "resolved" });
+            Require(
+                assessment.Verdict == "inconclusive" && !assessment.CompletionSatisfied,
+                "A target-only multi-scenario observation must remain inconclusive.");
+        }
+
+        var events = File.ReadAllLines(Path.Combine(root, "events.v2.jsonl"))
+            .Select(JObject.Parse)
+            .ToList();
+        Require(events.Count == 2, "The multi-scenario smoke must persist both target observations.");
+        Require(
+            events.Select(item => (string)item["scenario_step_id"])
+                .Distinct(StringComparer.Ordinal)
+                .Count() == 2,
+            "The bridge collapsed two selected scenarios onto one runtime step.");
     }
 
     private static FunctionalMldsV2InteractionObservation ValidObservation(string modelSha256)
@@ -302,6 +414,7 @@ public static class FunctionalMldsV2QuickAgentBridgeSmoke
                 new JObject
                 {
                     ["action_kind"] = kinds[index],
+                    ["scenario_id"] = "main",
                     ["scenario_step_id"] = "step-dispatch",
                     ["capability_use_id"] = "capability-use-chat",
                     ["capability_id"] = "capability-chat",

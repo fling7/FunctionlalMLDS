@@ -101,6 +101,58 @@ class Iui2027SystemBenchmarkTests(unittest.TestCase):
             aggregate["resolution_counts"],
         )
 
+    def test_every_scene_object_has_complete_interaction_chains(self) -> None:
+        suite = self.results["asset_interaction_chains"]
+        aggregate = suite["aggregate"]
+        scene_object_count = self.results["corpus"]["aggregate_counts"][
+            "scene_objects"
+        ]
+        self.assertEqual(scene_object_count, aggregate["asset_denominator"])
+        self.assertEqual(
+            scene_object_count,
+            aggregate["asset_with_chain_candidate_count"],
+        )
+        self.assertEqual(
+            scene_object_count,
+            aggregate["complete_asset_count"],
+        )
+        self.assertEqual(1.0, aggregate["asset_chain_coverage_rate"])
+        self.assertEqual(1.0, aggregate["complete_asset_rate"])
+        self.assertGreaterEqual(
+            aggregate["chain_candidate_denominator"],
+            aggregate["asset_denominator"],
+        )
+        self.assertEqual(
+            aggregate["chain_candidate_denominator"],
+            aggregate["complete_chain_count"],
+        )
+        self.assertEqual(1.0, aggregate["chain_completeness_rate"])
+        self.assertEqual(0, aggregate["error_count"])
+        self.assertEqual([], aggregate["errors"])
+
+        corpus_by_case = {
+            case["case_id"]: case
+            for case in self.results["corpus"]["cases"]
+        }
+        for case in suite["case_results"]:
+            metrics = case["metrics"]
+            with self.subTest(case=case["case_id"]):
+                self.assertEqual(
+                    corpus_by_case[case["case_id"]]["counts"][
+                        "scene_objects"
+                    ],
+                    metrics["asset_denominator"],
+                )
+                self.assertEqual(
+                    metrics["asset_denominator"],
+                    metrics["complete_asset_count"],
+                )
+                self.assertEqual(
+                    metrics["chain_candidate_denominator"],
+                    metrics["complete_chain_count"],
+                )
+                self.assertEqual(0, metrics["error_count"])
+
     def test_routing_has_explicit_all_start_agent_denominator(self) -> None:
         aggregate = self.results["routing"]["aggregate"]
         expected = sum(
@@ -111,6 +163,106 @@ class Iui2027SystemBenchmarkTests(unittest.TestCase):
         self.assertEqual(expected, aggregate["routing_probe_denominator"])
         self.assertEqual(expected, sum(aggregate["status_counts"].values()))
         self.assertFalse(aggregate["answer_semantics_evaluated"])
+
+    def test_full_runtime_corpus_matches_direct_one_hop_expectations(self) -> None:
+        suite = self.results["runtime_corpus"]
+        self.assertEqual("pass", suite["status"])
+        self.assertEqual(3, suite["case_denominator"])
+        self.assertEqual(459, suite["probe_denominator"])
+        self.assertEqual(
+            {
+                "local_owner": 93,
+                "direct_allowed": 205,
+                "transitive_allowed": 143,
+                "rejected_unreachable": 18,
+                "ambiguous_target": 0,
+                "unassigned_target": 0,
+            },
+            suite["expected_status_counts"],
+        )
+        self.assertEqual(298, suite["accepted_probe_denominator"])
+        self.assertEqual(298, suite["accepted_with_evidence_count"])
+        self.assertEqual(161, suite["rejected_probe_denominator"])
+        self.assertEqual(161, suite["fail_closed_before_stub_count"])
+        self.assertEqual(161, suite["rejection_zero_stub_call_count"])
+        self.assertEqual(
+            161,
+            suite["rejection_without_state_mutation_count"],
+        )
+        self.assertEqual(298, suite["structured_stub_calls"])
+        self.assertEqual(459, suite["state_restoration_count"])
+        self.assertEqual(459, suite["passed_probe_count"])
+        self.assertEqual(0, suite["failed_probe_count"])
+        self.assertTrue(suite["network_blocked"])
+        self.assertEqual(0, suite["api_calls"])
+        self.assertTrue(
+            suite["fresh_v2_materialized_equality_verified"]
+        )
+        cache = suite["contract_snapshot_cache"]
+        self.assertEqual(3, cache["materialized_contract_disk_load_count"])
+        self.assertEqual(
+            599,
+            cache["session_store_contract_load_call_count"],
+        )
+        self.assertEqual(596, cache["immutable_snapshot_reuse_count"])
+
+        records = [
+            record
+            for case in suite["case_results"]
+            for record in case["records"]
+        ]
+        self.assertEqual(
+            459,
+            len(
+                {
+                    (
+                        item["case_id"],
+                        item["start"],
+                        item["target"],
+                    )
+                    for item in records
+                }
+            ),
+        )
+        required = {
+            "case_id",
+            "start",
+            "target",
+            "expected",
+            "actual",
+            "stub_calls",
+            "state_mutated",
+        }
+        for record in records:
+            with self.subTest(
+                case=record["case_id"],
+                start=record["start"],
+                target=record["target"],
+            ):
+                self.assertTrue(required.issubset(record))
+                self.assertTrue(record["passed"])
+                self.assertTrue(record["state_restored"])
+                if record["expected_structural_status"] in {
+                    "local_owner",
+                    "direct_allowed",
+                }:
+                    self.assertEqual(
+                        "accepted_with_evidence",
+                        record["actual"],
+                    )
+                    self.assertEqual(1, record["stub_calls"])
+                    self.assertTrue(record["state_mutated"])
+                    self.assertTrue(record["evidence_preserved"])
+                    self.assertTrue(record["trusted_target_preserved"])
+                    self.assertTrue(record["trusted_provider_preserved"])
+                    self.assertTrue(record["model_binding_preserved"])
+                else:
+                    self.assertEqual(
+                        "fail_closed_before_stub",
+                        record["actual"],
+                    )
+                    self.assertEqual(0, record["stub_calls"])
+                    self.assertFalse(record["state_mutated"])
 
     def test_direct_wiring_and_fresh_v2_have_full_semantic_parity(self) -> None:
         comparison = self.results["direct_wiring_comparison"]
@@ -278,6 +430,25 @@ class Iui2027SystemBenchmarkTests(unittest.TestCase):
                     0,
                 )
                 self.assertGreater(runtime["fresh_v2"]["median_ns"], 0)
+                for adapter_id in ("direct_wiring", "fresh_v2"):
+                    summary = runtime[adapter_id]
+                    self.assertLessEqual(
+                        summary["min_ns"],
+                        summary["q1_ns"],
+                    )
+                    self.assertLessEqual(
+                        summary["q1_ns"],
+                        summary["median_ns"],
+                    )
+                    self.assertLessEqual(
+                        summary["median_ns"],
+                        summary["q3_ns"],
+                    )
+                    self.assertLessEqual(
+                        summary["q3_ns"],
+                        summary["max_ns"],
+                    )
+                    self.assertGreaterEqual(summary["iqr_ns"], 0)
 
     def test_stale_checked_in_v2_is_audit_only(self) -> None:
         audit = self.results["checked_in_v2_staleness_audit"]

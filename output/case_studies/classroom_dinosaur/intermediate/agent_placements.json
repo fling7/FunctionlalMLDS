@@ -1,4 +1,8 @@
 {
+  "schema": "functionalmlds_agent_placements",
+  "schema_version": "2.0",
+  "placement_algorithm_version": "2.0.0",
+  "origin": "deterministic",
   "room_bounds": {
     "min_x": -5.0,
     "max_x": 5.0,
@@ -10,18 +14,18 @@
       "id": "teacher_agent",
       "display_name": "Teacher Agent",
       "position": {
-        "x": 0.996,
+        "x": 1.0,
         "y": 0.0,
-        "z": -0.287
+        "z": -1.15
       },
       "forward": {
-        "x": -0.479,
+        "x": -0.6246950475544243,
         "y": 0.0,
-        "z": -0.8778
+        "z": -0.7808688094430304
       },
       "target_xz": {
         "x": 0.0,
-        "z": -2.112
+        "z": -2.4
       },
       "responsible_zone_ids": [
         "instruction_zone"
@@ -55,18 +59,18 @@
       "id": "reading_area_guide",
       "display_name": "Reading Area Guide",
       "position": {
-        "x": -0.149,
+        "x": 0.272,
         "y": 0.0,
-        "z": 2.989
+        "z": 2.657
       },
       "forward": {
-        "x": 0.3741,
+        "x": 0.10243498137307994,
         "y": 0.0,
-        "z": 0.9274
+        "z": 0.9947397019276433
       },
       "target_xz": {
         "x": 0.4,
-        "z": 4.35
+        "z": 3.9
       },
       "responsible_zone_ids": [
         "reading_area"
@@ -85,14 +89,14 @@
       "id": "exhibit_interpreter",
       "display_name": "Exhibit Interpreter",
       "position": {
-        "x": 2.433,
+        "x": 2.337,
         "y": 0.0,
-        "z": 4.362
+        "z": 4.008
       },
       "forward": {
-        "x": 0.059,
+        "x": 0.10860314034209603,
         "y": 0.0,
-        "z": 0.9983
+        "z": 0.9940851864442176
       },
       "target_xz": {
         "x": 2.5,
@@ -109,18 +113,18 @@
       "id": "decorative_zone_ambassador",
       "display_name": "Decorative Zone Ambassador",
       "position": {
-        "x": 0.995,
+        "x": 1.0,
         "y": 0.0,
-        "z": -1.575
+        "z": -3.95
       },
       "forward": {
-        "x": -0.4255,
+        "x": -0.6246950475544243,
         "y": 0.0,
-        "z": -0.905
+        "z": -0.7808688094430304
       },
       "target_xz": {
-        "x": 0.614,
-        "z": -2.386
+        "x": 0.0,
+        "z": -5.2
       },
       "responsible_zone_ids": [
         "decorative_zone"

@@ -1,7 +1,7 @@
 {
   "schema": "functionalmlds_trace_map",
   "case_id": "classroom_dinosaur",
-  "functionalmlds_path": "C:\\Users\\burklo\\AppData\\Local\\Temp\\functionalmlds-wire-f9829e999e4648b9bd6e82c5a45e901c\\classroom_dinosaur\\functionalmlds\\functionalmlds.instance.generated.json",
+  "functionalmlds_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\functionalmlds\\functionalmlds.instance.generated.json",
   "project_files": {
     "project": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\project.json",
     "room_plan": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\classroom_dinosaur\\room_plan.json",
@@ -95,32 +95,6 @@
       ],
       "resulting_state_ids": [
         "SA-CLASSROOM_DINOSAUR-SETUP-VALID"
-      ]
-    },
-    {
-      "scenario_step_id": "STEP-CLASSROOM_DINOSAUR-S10",
-      "step_number": 10,
-      "capability_use_ids": [],
-      "resulting_state_ids": []
-    },
-    {
-      "scenario_step_id": "STEP-CLASSROOM_DINOSAUR-S11",
-      "step_number": 11,
-      "capability_use_ids": [
-        "CU-CLASSROOM_DINOSAUR-S11-ANSWER-ROOM-GROUNDED-QUESTION"
-      ],
-      "resulting_state_ids": [
-        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED"
-      ]
-    },
-    {
-      "scenario_step_id": "STEP-CLASSROOM_DINOSAUR-S12",
-      "step_number": 12,
-      "capability_use_ids": [
-        "CU-CLASSROOM_DINOSAUR-S12-HANDOFF-TO-RESPONSIBLE-AGENT"
-      ],
-      "resulting_state_ids": [
-        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
       ]
     }
   ],
@@ -331,6 +305,391 @@
         "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
       ],
       "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-TEACHER_DESK",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-STUDENT_DESK1",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-STUDENT_DESK2",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-STUDENT_DESK3",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-STUDENT_DESK4",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-STUDENT_DESK5",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-STUDENT_DESK6",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-STUDENT_DESK7",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-STUDENT_DESK8",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-STUDENT_DESK9",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-STUDENT_DESK10",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-STUDENT_DESK11",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-STUDENT_DESK12",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-STUDENT_DESK13",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-STUDENT_DESK14",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-STUDENT_DESK15",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-STUDENT_DESK16",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-STUDENT_DESK17",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-STUDENT_DESK18",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-STUDENT_DESK19",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-STUDENT_DESK20",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-BOOKCASE",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-READING_TABLE",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-BEANBAG1",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-BEANBAG2",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-BEANBAG3",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-BEANBAG4",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-DINOSAUR_SKELETON",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-PLANT1",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-PLANT2",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-PLANT3",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-PLANT4",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-PLANT5",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-PICTURE1",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
+        "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-CLASSROOM_DINOSAUR-INTERACT-PICTURE2",
+      "runtime_binding_ids": [
+        "RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "RB-CLASSROOM_DINOSAUR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-CLASSROOM_DINOSAUR-ANSWER-GROUNDED",
         "SA-CLASSROOM_DINOSAUR-HANDOFF-VALID"
       ]
     }

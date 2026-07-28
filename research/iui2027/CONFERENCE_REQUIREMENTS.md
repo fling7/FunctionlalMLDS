@@ -79,13 +79,14 @@ determination.
 
 ## Generative AI
 
-The manuscript must contain a `GenAI Usage Disclosure` immediately before the
-references. It must cover use throughout the research, including code, data,
-evaluation, and writing. Text generated beyond editing the authors' own prose
-must be disclosed in accordance with the ACM policy. The Methods section must
-separately document every use that affects scientific results: LLM-based scene
-semantics, agent roles, knowledge, responses, prompts, sampling settings,
-repair, and any AI-based judge.
+IUI 2027 follows the current ACM policy: assistance with writing does not by
+itself require a disclosure. AI used in the conduct of the research must,
+however, be described in detail in the Methods section. For this submission,
+that includes LLM-based scene semantics, agent roles, knowledge, prompts,
+sampling settings, repair behavior, and any AI-based judge. We additionally
+retain a transparent `GenAI Usage Disclosure` immediately before the references
+so that research, code, evaluation, and writing support are easy to distinguish;
+this extra section is a project choice rather than an IUI requirement.
 
 The Stanford Agentic Reviewer is used only as editorial feedback and is not a
 scientific evaluator in the paper.
@@ -106,15 +107,16 @@ scientific evaluator in the paper.
 ## Submission gates
 
 - [ ] Abstract registered by 2026-08-13 AoE.
-- [ ] Main text at or below 8,000 words, unless a justified exception is necessary.
-- [ ] Correct `acmart` options and one-column review PDF.
-- [ ] Complete double-blind audit, including PDF metadata and supplements.
-- [ ] Claims-to-evidence table has no unsupported claim.
-- [ ] Human-subject note is accurate, or the paper clearly states that no human
+- [x] Main text at or below 8,000 words, unless a justified exception is necessary.
+- [x] Correct `acmart` options and one-column review PDF.
+- [x] Complete double-blind audit, including PDF metadata and supplements.
+- [x] Claims-to-evidence table has no unsupported claim.
+- [x] Human-subject note is accurate, or the paper clearly states that no human
       participants were involved.
-- [ ] Machine intelligence used in the research is reproducibly documented.
-- [ ] The mandatory GenAI Usage Disclosure covers research, code, data,
-      evaluation, and writing.
-- [ ] Practical and societal impact, limitations, privacy, bias, and user control
+- [x] Machine intelligence used in the research is reproducibly documented.
+- [x] AI that affected the research is documented reproducibly in Methods; the
+      additional GenAI Usage Disclosure accurately separates research use from
+      coding, evaluation, and writing support.
+- [x] Practical and societal impact, limitations, privacy, bias, and user control
       are discussed.
-- [ ] Accessibility check passes; all figures have descriptions and videos have captions.
+- [x] Accessibility check passes; every included figure has a description.

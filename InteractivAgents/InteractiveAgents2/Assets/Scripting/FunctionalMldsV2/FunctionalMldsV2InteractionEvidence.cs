@@ -66,6 +66,18 @@ namespace FunctionalMlds.V2
 
         [JsonProperty("modeled_handoff")]
         public bool? ModeledHandoff { get; set; }
+
+        [JsonProperty("capability_use_id")]
+        public string CapabilityUseId { get; set; }
+
+        [JsonProperty("capability_id")]
+        public string CapabilityId { get; set; }
+
+        [JsonProperty("runtime_binding_id")]
+        public string RuntimeBindingId { get; set; }
+
+        [JsonProperty("runtime_action_id")]
+        public string RuntimeActionId { get; set; }
     }
 
     [Serializable]

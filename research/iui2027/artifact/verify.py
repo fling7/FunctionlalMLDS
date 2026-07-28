@@ -377,6 +377,45 @@ def _validate_benchmark_payload(
         CASE_IDS
     ):
         raise VerificationError("Not every fresh V2 regeneration is accepted.")
+    runtime_corpus = results.get("runtime_corpus") or {}
+    if runtime_corpus.get("status") != "pass":
+        raise VerificationError("The fresh-V2 SessionStore runtime corpus failed.")
+    if int(runtime_corpus.get("probe_denominator") or 0) != 459:
+        raise VerificationError(
+            "The fresh-V2 SessionStore runtime corpus is not the full "
+            "asset-by-start-Agent matrix."
+        )
+    if (
+        int(runtime_corpus.get("failed_probe_count") or 0) != 0
+        or int(runtime_corpus.get("passed_probe_count") or 0) != 459
+    ):
+        raise VerificationError(
+            "The fresh-V2 SessionStore runtime corpus has failed probes."
+        )
+    if (
+        int(runtime_corpus.get("accepted_with_evidence_count") or 0)
+        != int(runtime_corpus.get("accepted_probe_denominator") or 0)
+    ):
+        raise VerificationError(
+            "An accepted runtime-corpus probe lacks model evidence."
+        )
+    if (
+        int(runtime_corpus.get("fail_closed_before_stub_count") or 0)
+        != int(runtime_corpus.get("rejected_probe_denominator") or 0)
+    ):
+        raise VerificationError(
+            "A rejected runtime-corpus probe was not fail-closed before the stub."
+        )
+    if (
+        runtime_corpus.get("api_calls") != 0
+        or not runtime_corpus.get("network_blocked")
+        or not runtime_corpus.get(
+            "fresh_v2_materialized_equality_verified"
+        )
+    ):
+        raise VerificationError(
+            "The runtime-corpus API/network/fresh-materialization contract failed."
+        )
     hash_count = _validate_environment_hashes(environment)
     return {
         "schema_version": results.get("schema_version"),
@@ -389,6 +428,10 @@ def _validate_benchmark_payload(
         ],
         "answer_semantics_evaluated": False,
         "api_calls": 0,
+        "runtime_corpus_status": runtime_corpus["status"],
+        "runtime_corpus_probe_denominator": runtime_corpus[
+            "probe_denominator"
+        ],
     }
 
 
@@ -453,6 +496,9 @@ def check_submission_tests(timeout_seconds: int) -> Mapping[str, Any]:
     return run_test_modules(
         (
             "tools.tests.test_iui2027_artifact",
+            "tools.tests.test_iui2027_frozen_regeneration",
+            "tools.tests.test_iui2027_paper_checker",
+            "tools.tests.test_iui2027_reviewer_client",
             "tools.tests.test_iui2027_system_benchmark",
             (
                 "InteractivAgents.openai_unity_expert_npcs_pycharm."
@@ -595,6 +641,7 @@ def iter_release_files() -> Iterable[Path]:
         REPOSITORY_ROOT / "research" / "iui2027" / "artifact",
         REPOSITORY_ROOT / "research" / "iui2027" / "evaluation",
         REPOSITORY_ROOT / "research" / "iui2027" / "paper",
+        REPOSITORY_ROOT / "research" / "iui2027" / "reviewer",
     )
     for root in roots:
         if not root.exists():
@@ -604,6 +651,8 @@ def iter_release_files() -> Iterable[Path]:
                 path.is_file()
                 and path.suffix.lower() in TEXT_SUFFIXES
                 and "build" not in path.parts
+                and ".latex-toolchain" not in path.parts
+                and "private" not in path.parts
                 and path.name != SUMMARY_PATH.name
             ):
                 selected.add(path)
@@ -713,7 +762,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--test-timeout-seconds",
         type=int,
-        default=900,
+        default=1200,
     )
     parser.add_argument(
         "--unity-timeout-seconds",
@@ -896,4 +945,3 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -1,7 +1,8 @@
 # Stanford Agentic Reviewer protocol
 
 Service: <https://paperreview.ai/>  
-Status endpoint documentation: <https://paperreview.ai/docs>
+Live upload client: <https://paperreview.ai/static/upload.js>
+Live review client: <https://paperreview.ai/static/review.js>
 
 The local secret-safe API client is in `reviewer/paperreview_client.py`. It
 refuses an upload unless the strict paper check succeeds.
@@ -23,12 +24,18 @@ The review token is a secret capability:
 ## Submission
 
 1. Build an English anonymous PDF.
-2. Verify that it is at most 10 MB and that all essential content is within the
-   first 15 pages.
+2. Verify that it is at most 10 MB and that all essential content, including
+   the Conclusion, is within the first 15 pages. The service accepts a longer
+   IUI manuscript but analyzes only those first 15 pages.
 3. Select `Other` as target venue and enter `ACM IUI 2027`.
 4. Use the email address explicitly authorized by the user.
 5. Submit once and immediately save the returned token privately.
 6. Poll no more frequently than every five minutes.
+
+The public service currently uses a three-step upload: request a presigned
+object-store form, upload the PDF directly, then confirm the submission. The
+review endpoint returns HTTP 202 while processing and the completed JSON
+review otherwise. The local client mirrors this current browser flow.
 
 ## Review-to-task conversion
 

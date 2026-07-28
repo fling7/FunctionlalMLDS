@@ -16,10 +16,11 @@ PDF = BUILD / "main.pdf"
 LOG = BUILD / "main.log"
 
 REVIEW_CLASS = r"\documentclass[manuscript,review,anonymous]{acmart}"
+PDF_UA_STANDARD = "pdfstandard=UA-2"
 MAX_RECOMMENDED_WORDS = 8_000
 LENGTH_JUSTIFICATION_THRESHOLD = 10_000
 MAX_REVIEWER_BYTES = 10 * 1024 * 1024
-MAX_REVIEWER_PAGES = 15
+MAX_REVIEWER_ANALYZED_PAGES = 15
 
 
 def fail(message: str, failures: list[str]) -> None:
@@ -34,7 +35,28 @@ def tex_without_commands(text: str) -> str:
     return text
 
 
+def source_paths() -> list[Path]:
+    """Return every textual source that can contribute review-visible content."""
+
+    files = [MAIN, ROOT / "references.bib"]
+    files.extend(sorted((ROOT / "sections").glob("*.tex")))
+    files.extend(sorted((ROOT / "figures").glob("*.tex")))
+    return files
+
+
+def review_source_text() -> str:
+    return "\n".join(
+        path.read_text(encoding="utf-8") for path in source_paths()
+    )
+
+
 def manuscript_text() -> str:
+    """Return the approximate IUI word-count scope.
+
+    IUI excludes references, captions, the GenAI disclosure, and appendices.
+    Figure sources are therefore deliberately absent here.
+    """
+
     files = [MAIN]
     files.extend(
         ROOT / "sections" / name
@@ -52,7 +74,15 @@ def manuscript_text() -> str:
     return "\n".join(path.read_text(encoding="utf-8") for path in files)
 
 
-def inspect_pdf(pdf_path: Path) -> tuple[int, dict[str, str], bool] | None:
+def pending_marker_count(source: str) -> int:
+    """Count uses, not the ``\\newcommand`` definition with its ``[1]`` arity."""
+
+    return len(re.findall(r"\\resultpending\{", source))
+
+
+def inspect_pdf(
+    pdf_path: Path,
+) -> tuple[int, dict[str, str], bool, str] | None:
     try:
         from pypdf import PdfReader
     except ImportError:
@@ -65,7 +95,11 @@ def inspect_pdf(pdf_path: Path) -> tuple[int, dict[str, str], bool] | None:
     }
     mark_info = reader.trailer["/Root"].get("/MarkInfo")
     tagged = bool(mark_info and mark_info.get("/Marked"))
-    return len(reader.pages), metadata, tagged
+    analyzed_text = "\n".join(
+        page.extract_text() or ""
+        for page in reader.pages[:MAX_REVIEWER_ANALYZED_PAGES]
+    )
+    return len(reader.pages), metadata, tagged, analyzed_text
 
 
 def main() -> int:
@@ -79,17 +113,21 @@ def main() -> int:
 
     failures: list[str] = []
     warnings: list[str] = []
-    source = manuscript_text()
+    source = review_source_text()
+    word_count_source = manuscript_text()
     main_source = MAIN.read_text(encoding="utf-8")
 
     if REVIEW_CLASS not in main_source:
         fail(f"main.tex must contain exactly {REVIEW_CLASS}", failures)
+    compact_main_source = re.sub(r"\s+", "", main_source)
+    if PDF_UA_STANDARD not in compact_main_source:
+        fail("main.tex must request PDF/UA-2 in DocumentMetadata.", failures)
     if r"\setcopyright{none}" in main_source:
         fail("Do not suppress ACM review top matter with setcopyright{none}.", failures)
     if "printacmref=false" in main_source:
         fail("Do not suppress ACM reference-format top matter.", failures)
 
-    pending_uses = len(re.findall(r"\\resultpending\{", source)) - 1
+    pending_uses = pending_marker_count(source)
     if pending_uses and not args.allow_pending:
         fail(f"{pending_uses} RESULT PENDING marker(s) remain.", failures)
     elif pending_uses:
@@ -104,7 +142,11 @@ def main() -> int:
         if re.search(pattern, source):
             fail(f"Potential {label} in manuscript source.", failures)
 
-    words = re.findall(r"\b[\w'-]+\b", tex_without_commands(source), re.UNICODE)
+    words = re.findall(
+        r"\b[\w'-]+\b",
+        tex_without_commands(word_count_source),
+        re.UNICODE,
+    )
     word_count = len(words)
     if word_count > LENGTH_JUSTIFICATION_THRESHOLD:
         fail(
@@ -138,12 +180,21 @@ def main() -> int:
         if pdf_details is None:
             warnings.append("pypdf unavailable; PDF metadata checks skipped.")
         else:
-            pages, metadata, tagged = pdf_details
-            if pages > MAX_REVIEWER_PAGES:
-                fail(
-                    f"PDF has {pages} pages; Stanford reviewer reads only the first 15.",
-                    failures,
-                )
+            pages, metadata, tagged, analyzed_text = pdf_details
+            if pages > MAX_REVIEWER_ANALYZED_PAGES:
+                if "Conclusion" not in analyzed_text:
+                    fail(
+                        "The Conclusion falls outside the 15 pages analyzed by "
+                        "paperreview.ai.",
+                        failures,
+                    )
+                else:
+                    warnings.append(
+                        f"PDF has {pages} pages; paperreview.ai analyzes only the "
+                        "first 15. The complete main argument and Conclusion are "
+                        "within that window; later bibliography/appendix pages are "
+                        "not reviewer inputs."
+                    )
             metadata_text = "\n".join(f"{key}: {value}" for key, value in metadata.items())
             for label, pattern in identity_patterns.items():
                 if re.search(pattern, metadata_text):
@@ -152,9 +203,9 @@ def main() -> int:
             if author and "anonymous" not in author.lower():
                 fail("PDF /Author metadata is not anonymous.", failures)
             if not tagged:
-                warnings.append(
-                    "PDF is not tagged; perform the SIGCHI accessibility workflow "
-                    "before final submission."
+                fail(
+                    "PDF is not tagged; use the pinned LuaLaTeX accessibility build.",
+                    failures,
                 )
 
     if LOG.exists():

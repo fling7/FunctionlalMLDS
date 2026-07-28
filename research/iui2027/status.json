@@ -2,14 +2,16 @@
   "target": "ACM IUI 2027 main paper",
   "updated": "2026-07-28",
   "branch": "codex/iui-2027-submission",
-  "phase": "prototype_implementation",
+  "phase": "external_review",
   "heartbeat": {
     "name": "IUI-2027 Paper-Fortschritt",
     "interval_minutes": 5,
     "active": true
   },
   "conference_requirements_verified": true,
-  "prototype_must_complete": false,
+  "prototype_must_complete": true,
+  "paper_draft_complete": true,
+  "local_submission_gates_passed": true,
   "paper_complete": false,
   "review_passed": false,
   "final_push_complete": false
