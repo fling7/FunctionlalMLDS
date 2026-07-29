@@ -1,16 +1,16 @@
 \section{Detailed Positioning and Enforcement Matrices}
 
-\input{figures/contract-model}
-
 Figure~\ref{fig:contract-model} retains the complete metamodel-to-runtime
 overview. It is intentionally supplementary to the concrete main-text
 walkthrough: the former explains type relations and validation boundaries,
 whereas Figure~\ref{fig:unity-walkthrough} follows one implemented interaction.
 
+\input{figures/contract-model}
+
 Table~\ref{tab:steinpilz-chain} spells out the exact model objects used by the
 running example in Section~\ref{sec:system}.
 
-\begin{table*}[h]
+\begin{table*}[!htbp]
   \caption{Exact model objects for the Steinpilz
   \texttt{brand\_panel3} walkthrough.}
   \Description{A table maps each interaction-model element to the exact
@@ -61,7 +61,7 @@ Section~\ref{sec:related-work}. It compares each contribution's stated primary
 unit and emphasis; an empty cell is not evidence that a cited system lacks an
 unlisted mechanism.
 
-\begin{table*}[h]
+\begin{table*}[!htbp]
   \caption{Closest-work comparison by primary represented unit and assurance
   locus.}
   \Description{A table compares LLMR, Tell-XR, a model-driven augmented-reality
@@ -127,7 +127,7 @@ Table~\ref{tab:enforcement-layers} expands the staged enforcement account in
 Section~\ref{sec:system}. The backend remains authoritative even when the
 client performs an earlier equivalent check.
 
-\begin{table*}[h]
+\begin{table*}[!htbp]
   \caption{Invariant-enforcement layers in the implemented interaction path.}
   \Description{A table lists five enforcement layers: JSON schema, canonical
   model, executable pipeline profile, backend runtime, and Unity client. For
@@ -163,9 +163,10 @@ client performs an earlier equivalent check.
   \end{tabular}
 \end{table*}
 
+\clearpage
 \section{Detailed Evaluation Tables}
 
-\begin{table}[h]
+\begin{table}[!htbp]
   \caption{Complete model-grounded interaction chains. ``Pairs'' are
   asset-targeting \texttt{ScenarioStep}/\texttt{CapabilityUse} pairs.}
   \label{tab:rq1-chains}
@@ -183,7 +184,7 @@ client performs an earlier equivalent check.
   \end{tabular}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[!htbp]
   \caption{Offline structural routing from every start agent. ``Reach.''
   includes transitive graph paths; it is not online task completion.}
   \label{tab:rq1-routing}
@@ -201,7 +202,7 @@ client performs an earlier equivalent check.
   \end{tabular}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[!htbp]
   \caption{Common-fault validation and deterministic patch counts. Artifact
   and reference edits describe scripted representation changes, not developer
   actions or time.}
@@ -217,7 +218,7 @@ client performs an earlier equivalent check.
   \end{tabular}
 \end{table}
 
-\begin{table*}[h]
+\begin{table*}[!htbp]
   \caption{Local structural runtime over 40 repetitions per adapter and case,
   in milliseconds: median [Q1, Q3] (minimum--maximum).}
   \label{tab:rq2-runtime}
@@ -242,6 +243,7 @@ client performs an earlier equivalent check.
   \end{tabular}
 \end{table*}
 
+\clearpage
 \section{Supplementary Evaluation and Artifact Checklist}
 
 The anonymous supplement contains:

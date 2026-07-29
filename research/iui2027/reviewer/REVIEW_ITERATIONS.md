@@ -131,3 +131,13 @@ than being manufactured after review.
 - [x] All verdict-changing comments from the prior round were addressed.
 - [x] The reviewed PDF is the verified snapshot with SHA-256
       `ade3bcde931e59bc861e3b423cc72c8208c6557dee82eb547f0128415dd59066`.
+
+### Post-review layout maintenance — 2026-07-29
+
+After the passing review, only LaTeX float boundaries and appendix placement
+were changed. No claim, prose, citation, result, table value, figure content,
+or evaluation artifact changed. Appendix A now contains its model figure and
+Tables 2--4 before Appendix B; Appendix B contains Tables 5--8 before Appendix
+C; and the bibliography starts only after all appendix material. The strict
+submission checker passes for the resulting 23-page PDF. Its SHA-256 is
+`54733bc531eb4466c04da38fb7638c67647ba4f98af66b3bff440307c646fa25`.
