@@ -1,0 +1,14 @@
+flowchart LR
+  A["MLDS / MLDSI file"] --> B["MLDS ingestion and normalization"]
+  B --> C["Scene semantics"]
+  C --> D["Agent roles and handoff matrix"]
+  D --> E["Knowledge synthesis"]
+  D --> F["Agent placement"]
+  E --> G["FunctionalMLDS assembly"]
+  F --> G
+  G --> H["Schema and invariant validation"]
+  H --> I["Interactive Agents project materialization"]
+  I --> J["Backend setup"]
+  J --> K["Chat and handoff runtime tests"]
+  K --> L["Answer grounding"]
+  L --> M["Cross-case metrics and paper artefacts"]

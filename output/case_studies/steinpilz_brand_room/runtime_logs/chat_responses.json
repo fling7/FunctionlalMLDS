@@ -1,0 +1,854 @@
+{
+  "schema": "functionalmlds_chat_test_results_raw",
+  "schema_version": "1.0",
+  "case_id": "steinpilz_brand_room",
+  "backend_url": "http://127.0.0.1:8787",
+  "responses": [
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-ZONE-ENTRANCE_ZONE",
+      "request": {
+        "session_id": "0ab4f983-cde9-4f47-9467-20e12c6bddbc",
+        "active_agent_id": "reception_agent",
+        "user_text": "What can I do in the Entrance and Reception area, and which objects there are relevant for welcome visitors, provide initial information and guidance?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 3963.365,
+      "response": {
+        "session_id": "0ab4f983-cde9-4f47-9467-20e12c6bddbc",
+        "active_agent_id": "reception_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "reception_agent",
+            "text": "Herzlich willkommen! Im Eingangs- und Empfangsbereich werden Sie freundlich begrüßt und erhalten erste Orientierung. Hier finden Sie unseren Empfangstresen, an dem ich Ihnen gerne allgemeine Informationen zum Unternehmen und zum Messestand gebe. In der Nähe sehen Sie Marken-Panels mit hochwertigen Grafiken, die unsere Unternehmensgeschichte und Vision vermitteln. Außerdem gibt es Bodenmarkierungen, die Sie zu den wichtigsten Bereichen führen. Benötigen Sie eine bestimmte Information oder möchten Sie zu einem speziellen Bereich weitergeleitet werden?"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-ZONE-PRODUCT_DISPLAY_ZONE",
+      "request": {
+        "session_id": "4a676522-ae4b-4eac-9f89-911850fe9474",
+        "active_agent_id": "product_specialist_agent",
+        "user_text": "What can I do in the Cheese Product Display area, and which objects there are relevant for showcase cheese products in refrigerated counters and on pedestals for sampling and viewing?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 2364.942,
+      "response": {
+        "session_id": "4a676522-ae4b-4eac-9f89-911850fe9474",
+        "active_agent_id": "product_specialist_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "product_specialist_agent",
+            "text": "Im Cheese Product Display Bereich können Sie verschiedene Käsesorten an gekühlten Theken und auf Podesten entdecken. Dort erhalten Sie detaillierte Informationen zu den Produkten und können ausgewählte Käse direkt probieren. Die gekühlten Theken präsentieren die Käse hygienisch und frisch, während die Podeste einzelne Proben oder Verpackungen besonders hervorheben. Möchten Sie mehr über eine bestimmte Käsesorte oder das Probieren erfahren?"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-ZONE-PRODUCTION_MODEL_ZONE",
+      "request": {
+        "session_id": "867ef73b-9338-4e3a-bee6-c27e836732d9",
+        "active_agent_id": "production_expert_agent",
+        "user_text": "What can I do in the Production Technology Display area, and which objects there are relevant for display detailed production models to explain cheese manufacturing process?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 2318.759,
+      "response": {
+        "session_id": "867ef73b-9338-4e3a-bee6-c27e836732d9",
+        "active_agent_id": "production_expert_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "production_expert_agent",
+            "text": "Im Bereich Produktionstechnologie können Sie großformatige Produktionsmodelle sehen, die den industriellen Käseherstellungsprozess anschaulich darstellen. Besonders relevant sind die detailgetreuen Nachbildungen der Produktionsanlagen und die Energie-Messstationen. Ich erkläre Ihnen gerne, wie diese Technologien funktionieren und wie Nachhaltigkeit dabei integriert wird."
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-ZONE-INTERACTIVE_ZONE",
+      "request": {
+        "session_id": "91c14e6c-3168-47f2-9a23-53e374eb1828",
+        "active_agent_id": "digital_interaction_agent",
+        "user_text": "What can I do in the Interactive Information Kiosks area, and which objects there are relevant for provide digital interactive content about products, production, and company?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 1477.515,
+      "response": {
+        "session_id": "91c14e6c-3168-47f2-9a23-53e374eb1828",
+        "active_agent_id": "digital_interaction_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "digital_interaction_agent",
+            "text": "An den interaktiven Informationskiosken können Sie digitale Inhalte zu unseren Produkten, zur Produktion und zum Unternehmen entdecken. Über die Touchscreens navigieren Sie einfach durch Produktdetails, Produktionsabläufe und Unternehmensinfos. Gibt es ein bestimmtes Thema, das Sie besonders interessiert?"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-ZONE-CAREER_ZONE",
+      "request": {
+        "session_id": "c404a1aa-3178-42a6-8264-06e7e95172a1",
+        "active_agent_id": "career_advisor_agent",
+        "user_text": "What can I do in the Career and Training Area area, and which objects there are relevant for facilitate career discussions, training sessions, and meetings with company representatives?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 3196.185,
+      "response": {
+        "session_id": "c404a1aa-3178-42a6-8264-06e7e95172a1",
+        "active_agent_id": "career_advisor_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "career_advisor_agent",
+            "text": "Im Career & Training-Bereich können Sie sich über Karrierewege, Trainingsprogramme und unsere Unternehmenskultur informieren. Besonders relevant sind die Meeting-Pods für persönliche Gespräche und die interaktiven Trainingsboards, die Ihnen Einblicke in Recruiting und Weiterbildung bieten. Möchten Sie mehr zu bestimmten Programmen oder zur Unternehmenskultur erfahren?"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-ZONE-ENERGY_MONITORING_ZONE",
+      "request": {
+        "session_id": "5cfbbcf5-d03d-4691-8f8c-827ee8fbc726",
+        "active_agent_id": "production_expert_agent",
+        "user_text": "What can I do in the Energy Measurement Stations area, and which objects there are relevant for showcase energy measurement and sustainability technology related to production?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 2033.651,
+      "response": {
+        "session_id": "5cfbbcf5-d03d-4691-8f8c-827ee8fbc726",
+        "active_agent_id": "production_expert_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "production_expert_agent",
+            "text": "In den Energy Measurement Stations können Sie live verfolgen, wie Energieverbrauch und Nachhaltigkeitsdaten während der Käseproduktion gemessen werden. Besonders relevant sind die Messgeräte, die Echtzeitdaten anzeigen, sowie die Infotafeln, die erklären, wie unser Unternehmen Energieeffizienz und Umweltschutz in den Produktionsprozess integriert. Möchten Sie mehr über die konkreten Technologien oder die Auswertung der Daten erfahren?"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-ZONE-LOUNGE_ZONE",
+      "request": {
+        "session_id": "71c45c51-b820-42b8-98a8-75306f67da11",
+        "active_agent_id": "lounge_host_agent",
+        "user_text": "What can I do in the Lounge and Networking Area area, and which objects there are relevant for provide comfortable seating for informal meetings, relaxation, and networking?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 1398.603,
+      "response": {
+        "session_id": "71c45c51-b820-42b8-98a8-75306f67da11",
+        "active_agent_id": "lounge_host_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "lounge_host_agent",
+            "text": "Im Lounge- und Networking-Bereich finden Sie bequeme Sitzmöglichkeiten wie Sofas und ergonomische Stühle rund um einen Loungetisch. Hier können Sie sich entspannen, informelle Gespräche führen oder neue Kontakte knüpfen. Benötigen Sie Unterstützung bei der Vernetzung oder wünschen Sie etwas zu trinken?"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-ZONE-NAVIGATION_PATH",
+      "request": {
+        "session_id": "f31dfd93-cb54-4857-87e3-6287118ce5ff",
+        "active_agent_id": "reception_agent",
+        "user_text": "What can I do in the Visitor Circulation Path area, and which objects there are relevant for guide visitor movement through the booth to ensure smooth flow and coverage of zones?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 2006.987,
+      "response": {
+        "session_id": "f31dfd93-cb54-4857-87e3-6287118ce5ff",
+        "active_agent_id": "reception_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "reception_agent",
+            "text": "Herzlich willkommen! Im Bereich des Besucherleitsystems führt Sie ein Bodenmarkierungs-Pfad durch den gesamten Messestand. Dieser verbindet alle wichtigen Zonen wie Produktpräsentationen, Produktionsmodelle, interaktive Kioske, Karrierebereich und Lounge. Die Bodenmarkierungen helfen Ihnen, sich leicht zu orientieren und nichts zu verpassen. Möchten Sie gezielt zu einer bestimmten Zone oder wünschen Sie einen Überblick über alle Bereiche?"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-AGENT-RECEPTION_AGENT",
+      "request": {
+        "session_id": "bd47cb41-2a97-4fa3-a53c-073c6d30a3b2",
+        "active_agent_id": "reception_agent",
+        "user_text": "Reception Agent, what are you responsible for in this room, especially regarding visitor orientation, basic product knowledge, booth navigation?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 2120.235,
+      "response": {
+        "session_id": "bd47cb41-2a97-4fa3-a53c-073c6d30a3b2",
+        "active_agent_id": "reception_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "reception_agent",
+            "text": "Herzlich willkommen! Ich bin Ihr erster Ansprechpartner am Empfang. Ich helfe Ihnen gern bei der Orientierung, gebe einen Überblick über unser Unternehmen und leite Sie zu den passenden Bereichen wie Produktpräsentationen, Produktion, digitale Stationen, Karriere oder Lounge weiter. Möchten Sie sich zu einem bestimmten Thema informieren oder den Stand erkunden?"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-AGENT-PRODUCT_SPECIALIST_AGENT",
+      "request": {
+        "session_id": "b5a24e19-abbe-4b59-893c-72a54e9201d2",
+        "active_agent_id": "product_specialist_agent",
+        "user_text": "Product Specialist Agent, what are you responsible for in this room, especially regarding cheese product knowledge, sampling facilitation, customer engagement?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 1538.981,
+      "response": {
+        "session_id": "b5a24e19-abbe-4b59-893c-72a54e9201d2",
+        "active_agent_id": "product_specialist_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "product_specialist_agent",
+            "text": "Ich bin hier verantwortlich für alle Fragen rund um unsere Käseprodukte, unterstütze Sie beim Probieren und teile gerne mein Fachwissen zu Sorten, Geschmack und Besonderheiten. Außerdem sorge ich dafür, dass Ihr Besuch am Stand informativ und angenehm ist."
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-AGENT-PRODUCTION_EXPERT_AGENT",
+      "request": {
+        "session_id": "79287465-9f5f-41a1-a820-1981d8d7d826",
+        "active_agent_id": "production_expert_agent",
+        "user_text": "Production Expert Agent, what are you responsible for in this room, especially regarding production technology, energy management, sustainability?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 1907.345,
+      "response": {
+        "session_id": "79287465-9f5f-41a1-a820-1981d8d7d826",
+        "active_agent_id": "production_expert_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "production_expert_agent",
+            "text": "Ich erkläre Ihnen die eingesetzte Käseproduktionstechnologie, zeige, wie wir Energie messen und steuern, und informiere über unsere nachhaltigen Produktionspraktiken. Gerne beantworte ich dazu Ihre Fragen oder führe Sie zu den entsprechenden Stationen."
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-AGENT-DIGITAL_INTERACTION_AGENT",
+      "request": {
+        "session_id": "df2effe2-ccec-46ea-aa2f-6d1090e80281",
+        "active_agent_id": "digital_interaction_agent",
+        "user_text": "Digital Interaction Agent, what are you responsible for in this room, especially regarding digital kiosk operation, content guidance, technical support?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 1670.815,
+      "response": {
+        "session_id": "df2effe2-ccec-46ea-aa2f-6d1090e80281",
+        "active_agent_id": "digital_interaction_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "digital_interaction_agent",
+            "text": "Ich unterstütze Sie bei der Bedienung der digitalen Touch-Kioske, helfe Ihnen beim Finden von Inhalten und stehe für technische Fragen zur Verfügung. Benötigen Sie Hilfe bei einem bestimmten Thema oder Gerät?"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-AGENT-CAREER_ADVISOR_AGENT",
+      "request": {
+        "session_id": "aff272d6-93c0-4e77-8a6b-de9d0c462abb",
+        "active_agent_id": "career_advisor_agent",
+        "user_text": "Career Advisor Agent, what are you responsible for in this room, especially regarding career counseling, training program knowledge, meeting facilitation?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 1454.749,
+      "response": {
+        "session_id": "aff272d6-93c0-4e77-8a6b-de9d0c462abb",
+        "active_agent_id": "career_advisor_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "career_advisor_agent",
+            "text": "Ich bin hier zuständig für Karriereberatung, Informationen zu unseren Ausbildungs- und Weiterbildungsprogrammen sowie die Moderation von Gesprächen in den Meeting-Pods. Gerne unterstütze ich Sie bei Fragen zu Karrierewegen, Trainingsangeboten und unserer Unternehmenskultur."
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-AGENT-LOUNGE_HOST_AGENT",
+      "request": {
+        "session_id": "0cd640aa-e864-4853-a30f-3c56de6abbc6",
+        "active_agent_id": "lounge_host_agent",
+        "user_text": "Lounge Host Agent, what are you responsible for in this room, especially regarding visitor comfort, networking facilitation, hospitality?"
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 2387.148,
+      "response": {
+        "session_id": "0cd640aa-e864-4853-a30f-3c56de6abbc6",
+        "active_agent_id": "lounge_host_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": null,
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "lounge_host_agent",
+            "text": "Ich sorge hier im Loungebereich dafür, dass Sie sich wohlfühlen – mit bequemen Sitzmöglichkeiten, entspannter Atmosphäre und aufmerksamer Betreuung. Außerdem unterstütze ich Sie gern beim Netzwerken und schaffe einen angenehmen Rahmen für Gespräche und Kontakte."
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-RECEPTION_AGENT_TO_PRODUCT_SPECIALIST_AGENT",
+      "request": {
+        "session_id": "959c0c55-e955-48b7-bb37-e1e0e3fb5bdb",
+        "active_agent_id": "reception_agent",
+        "user_text": "I am asking you, but my topic is this: Visitor requests detailed information about cheese products or sampling.. Please connect me to the right expert if Product Specialist Agent should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 5056.777,
+      "response": {
+        "session_id": "959c0c55-e955-48b7-bb37-e1e0e3fb5bdb",
+        "active_agent_id": "product_specialist_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "reception_agent",
+          "to": "product_specialist_agent",
+          "reason": "Besucher wünscht detaillierte Infos zu Käseprodukten oder Verkostungen.",
+          "brief": "Thema: Käseprodukte und Verkostung; Besucher möchte Details dazu erfahren."
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "reception_agent",
+            "text": "Gerne! Für detaillierte Informationen zu unseren Käseprodukten oder Verkostungen leite ich Sie direkt an unseren Produktspezialisten weiter."
+          },
+          {
+            "type": "say",
+            "agent_id": "product_specialist_agent",
+            "text": "{\n  \"response\": \"Herzlich willkommen! Ich bin Ihr Ansprechpartner für alle Fragen rund um unsere Käseprodukte und Verkostungen. Unsere Käse werden in gekühlten Theken und auf Podesten präsentiert – Sie können sowohl einzelne Sorten probieren als auch sich über die Besonderheiten und Geschmacksprofile informieren. Möchten Sie mehr über eine bestimmte Käsesorte erfahren oder interessieren Sie sich für die Verkostung allgemein?\"\n}"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-RECEPTION_AGENT_TO_PRODUCTION_EXPERT_AGENT",
+      "request": {
+        "session_id": "673fa6fa-4f38-471a-8777-a4e0e070e0e2",
+        "active_agent_id": "reception_agent",
+        "user_text": "I am asking you, but my topic is this: Visitor inquires about cheese production technology or sustainability.. Please connect me to the right expert if Production Expert Agent should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 4653.024,
+      "response": {
+        "session_id": "673fa6fa-4f38-471a-8777-a4e0e070e0e2",
+        "active_agent_id": "production_expert_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "reception_agent",
+          "to": "production_expert_agent",
+          "reason": "Frage zu Käseproduktionstechnologie oder Nachhaltigkeit.",
+          "brief": "Besucher interessiert sich für Käseproduktionstechnologie oder Nachhaltigkeit. Bitte weitere Infos und Beratung anbieten."
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "reception_agent",
+            "text": "Ich verbinde Sie gern mit unserem Experten für Produktion und Nachhaltigkeit."
+          },
+          {
+            "type": "say",
+            "agent_id": "production_expert_agent",
+            "text": "{\n  \"antwort\": \"Willkommen! Ich bin der Production Expert Agent und beantworte gerne Ihre Fragen zu Käseproduktionstechnologie und Nachhaltigkeit. Unsere Ausstellung zeigt großtechnische Produktionsmodelle, die den industriellen Käseherstellungsprozess anschaulich erklären. Außerdem können Sie an Energie-Stationen in Echtzeit sehen, wie wir Energie messen und nachhaltige Praktiken integrieren. Gibt es einen bestimmten Aspekt der Käseproduktion oder Nachhaltigkeit, der Sie besonders interessiert?\"\n}"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-RECEPTION_AGENT_TO_DIGITAL_INTERACTION_AGENT",
+      "request": {
+        "session_id": "ff42e807-7bab-4202-baa1-8f216b4f4398",
+        "active_agent_id": "reception_agent",
+        "user_text": "I am asking you, but my topic is this: Visitor needs assistance with interactive kiosks or digital content navigation.. Please connect me to the right expert if Digital Interaction Agent should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 4411.211,
+      "response": {
+        "session_id": "ff42e807-7bab-4202-baa1-8f216b4f4398",
+        "active_agent_id": "digital_interaction_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "reception_agent",
+          "to": "digital_interaction_agent",
+          "reason": "Anfrage zu interaktiven Kiosken oder digitaler Inhaltsnavigation.",
+          "brief": "Besucher benötigt Unterstützung bei interaktiven Kiosken oder digitaler Navigation. Bitte übernehmen Sie die Beratung."
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "reception_agent",
+            "text": "Ich leite Sie gerne an unseren Digital Interaction Agent weiter, der Ihnen bei den interaktiven Kiosken und der digitalen Navigation hilft."
+          },
+          {
+            "type": "say",
+            "agent_id": "digital_interaction_agent",
+            "text": "{\n  \"response\": \"Gerne unterstütze ich Sie! Ich bin der richtige Ansprechpartner für Fragen zu interaktiven Kiosken und der Navigation durch digitale Inhalte. Möchten Sie Hilfe bei der Bedienung eines bestimmten Kiosks oder suchen Sie gezielt Informationen zu Produkten, Produktion oder unserem Unternehmen?\",\n  \"next_step_suggestion\": \"Bitte teilen Sie mir mit, bei welchem Thema oder Bereich Sie Unterstützung benötigen, damit ich Sie gezielt durch die digitalen Inhalte führen kann.\"\n}"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-RECEPTION_AGENT_TO_CAREER_ADVISOR_AGENT",
+      "request": {
+        "session_id": "4c4aae30-022b-4d13-8a0c-e2fec54830d7",
+        "active_agent_id": "reception_agent",
+        "user_text": "I am asking you, but my topic is this: Visitor wants to discuss career opportunities or training programs.. Please connect me to the right expert if Career Advisor Agent should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 3472.249,
+      "response": {
+        "session_id": "4c4aae30-022b-4d13-8a0c-e2fec54830d7",
+        "active_agent_id": "career_advisor_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "reception_agent",
+          "to": "career_advisor_agent",
+          "reason": "Anfrage zu Karrieremöglichkeiten oder Trainingsprogrammen.",
+          "brief": "Besucher interessiert sich für Karrierechancen oder Weiterbildungsangebote. Bitte Details und nächste Schritte erläutern."
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "reception_agent",
+            "text": "Ich leite Sie gerne an unseren Karriereberater weiter, der Ihnen alle Informationen zu Karrieremöglichkeiten und Trainingsprogrammen geben kann."
+          },
+          {
+            "type": "say",
+            "agent_id": "career_advisor_agent",
+            "text": "{\n  \"response\": \"Willkommen! Ich bin genau der richtige Ansprechpartner für Fragen zu Karrieremöglichkeiten und Weiterbildungsangeboten. Wir bieten verschiedene Karrierepfade sowie interaktive Trainingsprogramme an, die Sie gezielt bei Ihrer beruflichen Entwicklung unterstützen. Gibt es einen bestimmten Bereich oder eine Position, für die Sie sich besonders interessieren? Dann kann ich Ihnen gezielt passende Möglichkeiten und nächste Schritte vorstellen.\"\n}"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-RECEPTION_AGENT_TO_LOUNGE_HOST_AGENT",
+      "request": {
+        "session_id": "0c39abac-4f93-405a-b2a4-baaa036a386f",
+        "active_agent_id": "reception_agent",
+        "user_text": "I am asking you, but my topic is this: Visitor seeks a place to relax or network in the lounge area.. Please connect me to the right expert if Lounge Host Agent should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 3517.082,
+      "response": {
+        "session_id": "0c39abac-4f93-405a-b2a4-baaa036a386f",
+        "active_agent_id": "lounge_host_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "reception_agent",
+          "to": "lounge_host_agent",
+          "reason": "Anfrage zu Lounge, Entspannung oder Networking fällt in den Bereich des Lounge Host.",
+          "brief": "Besucher sucht einen Platz zum Entspannen oder Netzwerken in der Lounge. Bitte Unterstützung anbieten."
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "reception_agent",
+            "text": "Gerne! Für alles rund um Entspannung und Networking in unserer Lounge leite ich Sie direkt an unseren Lounge Host weiter."
+          },
+          {
+            "type": "say",
+            "agent_id": "lounge_host_agent",
+            "text": "{\n  \"response\": \"Herzlich willkommen in unserer Lounge! Hier finden Sie bequeme Sofas und ergonomische Stühle rund um einen Loungetisch – ideal zum Entspannen oder für informelle Gespräche. Möchten Sie lieber in Ruhe entspannen oder gezielt mit anderen Besuchern ins Gespräch kommen? Ich unterstütze Sie gern dabei.\"\n}"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-PRODUCT_SPECIALIST_AGENT_TO_PRODUCTION_EXPERT_AGENT",
+      "request": {
+        "session_id": "25c09ebb-b3eb-436d-906b-733f61d0d454",
+        "active_agent_id": "product_specialist_agent",
+        "user_text": "I am asking you, but my topic is this: Visitor asks technical questions about production after product inquiry.. Please connect me to the right expert if Production Expert Agent should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 4251.897,
+      "response": {
+        "session_id": "25c09ebb-b3eb-436d-906b-733f61d0d454",
+        "active_agent_id": "production_expert_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "product_specialist_agent",
+          "to": "production_expert_agent",
+          "reason": "Nutzer stellt nach Produktanfrage technische Fragen zur Produktion.",
+          "brief": "Technische Produktionsfragen nach Produktanfrage; bitte übernehmen Sie die Beantwortung."
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "product_specialist_agent",
+            "text": "Gerne beantworte ich Ihre Fragen zu unseren Käseprodukten. Für technische Fragen zur Produktion leite ich Sie direkt an unseren Produktionsexperten weiter."
+          },
+          {
+            "type": "say",
+            "agent_id": "production_expert_agent",
+            "text": "{\n  \"role\": \"production_expert_agent\",\n  \"response\": \"Sie sind hier genau richtig! Ich bin der Production Expert Agent und beantworte gerne alle technischen Fragen rund um die Käseproduktion, Produktionstechnologie, Energiemanagement und Nachhaltigkeit. Haben Sie eine konkrete Frage zu einem bestimmten Produktionsschritt, zur Energieeffizienz oder zu nachhaltigen Praktiken in der Käseherstellung?\"\n}"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-PRODUCT_SPECIALIST_AGENT_TO_DIGITAL_INTERACTION_AGENT",
+      "request": {
+        "session_id": "58a311b1-ec20-43cc-8404-d3a03cde423c",
+        "active_agent_id": "product_specialist_agent",
+        "user_text": "I am asking you, but my topic is this: Visitor wants to explore digital content related to products.. Please connect me to the right expert if Digital Interaction Agent should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 3719.148,
+      "response": {
+        "session_id": "58a311b1-ec20-43cc-8404-d3a03cde423c",
+        "active_agent_id": "digital_interaction_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "product_specialist_agent",
+          "to": "digital_interaction_agent",
+          "reason": "Anfrage zu digitalen Inhalten und Produktinformationen.",
+          "brief": "Besucher möchte digitale Inhalte zu Produkten erkunden. Bitte unterstützen Sie bei der Navigation und Nutzung der digitalen Angebote."
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "product_specialist_agent",
+            "text": "Ich leite Sie gerne an unseren Digital Interaction Agent weiter, der Ihnen bei digitalen Inhalten rund um unsere Produkte weiterhelfen kann."
+          },
+          {
+            "type": "say",
+            "agent_id": "digital_interaction_agent",
+            "text": "{\n  \"response\": \"Sie sind hier genau richtig! Ich unterstütze Sie gerne dabei, digitale Inhalte zu unseren Produkten am Kiosk zu erkunden. Möchten Sie sich bestimmte Produktkategorien ansehen oder suchen Sie gezielt nach einem bestimmten Produkt? Tippen Sie einfach auf den Bildschirm oder nennen Sie Ihr Interessensgebiet, und ich leite Sie durch die Inhalte.\",\n  \"clarification_request\": \"Gibt es eine spezielle Produktgruppe oder ein Thema, das Sie besonders interessiert?\"\n}"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-PRODUCT_SPECIALIST_AGENT_TO_CAREER_ADVISOR_AGENT",
+      "request": {
+        "session_id": "5d569bd8-baab-4d0c-bea1-7143ce684b10",
+        "active_agent_id": "product_specialist_agent",
+        "user_text": "I am asking you, but my topic is this: Visitor expresses interest in career or training after product discussion.. Please connect me to the right expert if Career Advisor Agent should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 5534.292,
+      "response": {
+        "session_id": "5d569bd8-baab-4d0c-bea1-7143ce684b10",
+        "active_agent_id": "career_advisor_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "product_specialist_agent",
+          "to": "career_advisor_agent",
+          "reason": "Nutzer interessiert sich nach Produktgespräch für Karriere oder Ausbildung.",
+          "brief": "Karriere- oder Ausbildungsinteresse nach Produktgespräch; bitte beraten."
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "product_specialist_agent",
+            "text": "Gerne! Für Fragen zu Karriere oder Ausbildung leite ich Sie direkt an unsere Karriereberatung weiter."
+          },
+          {
+            "type": "say",
+            "agent_id": "career_advisor_agent",
+            "text": "{\n  \"response\": \"Hallo! Schön, dass Sie sich nach dem Produktgespräch für Karrierewege oder Ausbildungsprogramme interessieren. Ich bin genau der richtige Ansprechpartner dafür. Gibt es ein bestimmtes Berufsfeld oder eine Abteilung, die Sie besonders spannend finden? Dann kann ich gezielt passende Karrierewege oder Trainingsmöglichkeiten vorstellen.\"\n}"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-PRODUCTION_EXPERT_AGENT_TO_DIGITAL_INTERACTION_AGENT",
+      "request": {
+        "session_id": "885bc97c-ebbe-4d1d-96c0-065cdbf58a0a",
+        "active_agent_id": "production_expert_agent",
+        "user_text": "I am asking you, but my topic is this: Visitor requests digital content related to production technology or sustainability.. Please connect me to the right expert if Digital Interaction Agent should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 3731.257,
+      "response": {
+        "session_id": "885bc97c-ebbe-4d1d-96c0-065cdbf58a0a",
+        "active_agent_id": "digital_interaction_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "production_expert_agent",
+          "to": "digital_interaction_agent",
+          "reason": "Anfrage nach digitalem Content zu Produktionstechnologie oder Nachhaltigkeit.",
+          "brief": "Besucher wünscht digitalen Content zu Produktionstechnologie oder Nachhaltigkeit."
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "production_expert_agent",
+            "text": "Gerne! Für digitale Inhalte rund um Produktionstechnologie oder Nachhaltigkeit leite ich Sie direkt an unseren Digital Interaction Agent weiter."
+          },
+          {
+            "type": "say",
+            "agent_id": "digital_interaction_agent",
+            "text": "{\n  \"response\": \"Gerne unterstütze ich Sie! Sie können an unseren digitalen Kiosks interaktive Inhalte zu Produktionstechnologien und Nachhaltigkeit entdecken. Möchten Sie mehr über unsere Produktionsprozesse oder unsere Nachhaltigkeitsinitiativen erfahren? Bitte wählen Sie Ihr Interessensgebiet, dann leite ich Sie gezielt durch die Inhalte.\",\n  \"clarification_request\": \"Interessieren Sie sich mehr für Produktionstechnologie oder Nachhaltigkeit?\"\n}"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-PRODUCTION_EXPERT_AGENT_TO_CAREER_ADVISOR_AGENT",
+      "request": {
+        "session_id": "00dc9573-32fe-4604-928d-a233ea91eefc",
+        "active_agent_id": "production_expert_agent",
+        "user_text": "I am asking you, but my topic is this: Visitor shows interest in career or training after production explanation.. Please connect me to the right expert if Career Advisor Agent should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 4096.061,
+      "response": {
+        "session_id": "00dc9573-32fe-4604-928d-a233ea91eefc",
+        "active_agent_id": "career_advisor_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "production_expert_agent",
+          "to": "career_advisor_agent",
+          "reason": "Der Besucher interessiert sich nach der Produktionsführung für Karriere- oder Ausbildungsmöglichkeiten.",
+          "brief": "Besucher interessiert sich nach Produktionsführung für Karriere oder Ausbildung. Bitte beraten."
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "production_expert_agent",
+            "text": "Gerne! Für Fragen zu Karriere- oder Ausbildungsmöglichkeiten leite ich Sie direkt an unseren Karriereberater weiter."
+          },
+          {
+            "type": "say",
+            "agent_id": "career_advisor_agent",
+            "text": "{\n  \"response\": \"Willkommen im Karriere- und Ausbildungsbereich! Nach Ihrer Produktionsführung ist es großartig, dass Sie sich für Karrierewege oder Ausbildungsprogramme interessieren. Wir bieten verschiedene Programme für Berufseinsteiger und erfahrene Fachkräfte an. Gibt es einen bestimmten Bereich oder eine Position, die Sie besonders interessiert? Dann kann ich gezielt passende Möglichkeiten und Trainings vorstellen.\"\n}"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-DIGITAL_INTERACTION_AGENT_TO_PRODUCT_SPECIALIST_AGENT",
+      "request": {
+        "session_id": "a5d42684-c136-428c-9c53-c63597112cb7",
+        "active_agent_id": "digital_interaction_agent",
+        "user_text": "I am asking you, but my topic is this: Visitor wants more detailed product information after digital interaction.. Please connect me to the right expert if Product Specialist Agent should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 4045.178,
+      "response": {
+        "session_id": "a5d42684-c136-428c-9c53-c63597112cb7",
+        "active_agent_id": "product_specialist_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "digital_interaction_agent",
+          "to": "product_specialist_agent",
+          "reason": "Besucher wünscht detaillierte Produktinformationen nach digitaler Interaktion.",
+          "brief": "Thema: Detaillierte Produktinfos nach digitaler Interaktion. Bitte Produktdetails bereitstellen und auf Rückfragen eingehen."
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "digital_interaction_agent",
+            "text": "Ich leite Sie gern an unseren Produktspezialisten weiter, der Ihnen detaillierte Produktinformationen geben kann."
+          },
+          {
+            "type": "say",
+            "agent_id": "product_specialist_agent",
+            "text": "{\n  \"response\": \"Gerne übernehme ich das! Ich bin Ihr Ansprechpartner für detaillierte Produktinformationen zu unseren Käsesorten. Gibt es eine bestimmte Käsesorte oder ein Produkt, zu dem Sie mehr erfahren möchten? Oder interessieren Sie sich für unser gesamtes Sortiment?\",\n  \"follow_up\": \"Bitte teilen Sie mir mit, zu welchem Käse oder Produkt Sie genauere Informationen wünschen, damit ich gezielt weiterhelfen kann.\"\n}"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-DIGITAL_INTERACTION_AGENT_TO_PRODUCTION_EXPERT_AGENT",
+      "request": {
+        "session_id": "d1cc4d8b-3929-4541-8a38-a6255d0fb9c5",
+        "active_agent_id": "digital_interaction_agent",
+        "user_text": "I am asking you, but my topic is this: Visitor seeks deeper production technology details after digital content.. Please connect me to the right expert if Production Expert Agent should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 4849.833,
+      "response": {
+        "session_id": "d1cc4d8b-3929-4541-8a38-a6255d0fb9c5",
+        "active_agent_id": "production_expert_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "digital_interaction_agent",
+          "to": "production_expert_agent",
+          "reason": "Besucher wünscht vertiefte Informationen zur Produktionstechnologie nach Ansicht digitaler Inhalte.",
+          "brief": "Thema: Produktionstechnologie, Nutzer möchte nach digitalem Content mehr Details. Bitte tiefergehende Infos bereitstellen."
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "digital_interaction_agent",
+            "text": "Ich leite Sie gerne an unseren Produktionsexperten weiter, der Ihnen detaillierte Informationen zur Produktionstechnologie geben kann."
+          },
+          {
+            "type": "say",
+            "agent_id": "production_expert_agent",
+            "text": "{\n  \"antwort\": \"Gerne gebe ich Ihnen vertiefte Einblicke in die Käseproduktionstechnologie. In der industriellen Käseherstellung werden große Produktionsanlagen eingesetzt, die den gesamten Prozess automatisieren: Von der Milchannahme über das Pasteurisieren, das Einbringen von Lab und Kulturen, das Schneiden der Gallerte, bis hin zum Formen, Pressen und Reifen des Käses. Moderne Sensorik und Energie-Monitoring-Systeme überwachen dabei kontinuierlich Temperatur, Feuchtigkeit und Energieverbrauch. So kann die Produktion effizient und nachhaltig gestaltet werden. Möchten Sie mehr zu einem bestimmten Produktionsschritt oder zur Energieeffizienz erfahren?\",\n  \"rueckfrage\": \"Gibt es einen speziellen Bereich der Produktionstechnologie, der Sie besonders interessiert – zum Beispiel Automatisierung, Energieeinsparung oder Qualitätskontrolle?\"\n}"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-DIGITAL_INTERACTION_AGENT_TO_CAREER_ADVISOR_AGENT",
+      "request": {
+        "session_id": "589f918a-9ce8-4d1e-a310-581f37863718",
+        "active_agent_id": "digital_interaction_agent",
+        "user_text": "I am asking you, but my topic is this: Visitor wants to discuss career or training after digital content interaction.. Please connect me to the right expert if Career Advisor Agent should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 3581.313,
+      "response": {
+        "session_id": "589f918a-9ce8-4d1e-a310-581f37863718",
+        "active_agent_id": "career_advisor_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "digital_interaction_agent",
+          "to": "career_advisor_agent",
+          "reason": "Nutzer möchte nach der Nutzung digitaler Inhalte über Karriere oder Weiterbildung sprechen.",
+          "brief": "Karriere- oder Trainingsberatung nach digitaler Interaktion gewünscht. Bitte Gespräch übernehmen."
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "digital_interaction_agent",
+            "text": "Ich leite Sie gerne an unseren Karriereberater weiter, der Sie zu Karriere- und Weiterbildungsmöglichkeiten beraten kann."
+          },
+          {
+            "type": "say",
+            "agent_id": "career_advisor_agent",
+            "text": "{\n  \"response\": \"Hallo! Ich bin der Career Advisor Agent und unterstütze dich gerne bei allen Fragen rund um Karrierewege oder Weiterbildungsprogramme. Gibt es ein bestimmtes Berufsfeld oder eine Qualifikation, über die du mehr erfahren möchtest? Oder suchst du allgemeine Informationen zu unseren Trainingsmöglichkeiten?\",\n  \"next_step_prompt\": \"Bitte teile mir kurz mit, welches Thema dich besonders interessiert, damit ich gezielt weiterhelfen kann.\"\n}"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-CAREER_ADVISOR_AGENT_TO_LOUNGE_HOST_AGENT",
+      "request": {
+        "session_id": "1909b464-c949-483e-bfda-164ef27a483c",
+        "active_agent_id": "career_advisor_agent",
+        "user_text": "I am asking you, but my topic is this: Visitor wants to relax or network after career discussions.. Please connect me to the right expert if Lounge Host Agent should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 6168.694,
+      "response": {
+        "session_id": "1909b464-c949-483e-bfda-164ef27a483c",
+        "active_agent_id": "lounge_host_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "career_advisor_agent",
+          "to": "lounge_host_agent",
+          "reason": "Besucher möchte sich nach Karrierethemen entspannen oder vernetzen.",
+          "brief": "Besucher sucht nach Möglichkeiten zum Entspannen oder Netzwerken nach Karrierediskussionen. Gibt es spezielle Lounge-Angebote?"
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "career_advisor_agent",
+            "text": "Gerne! Für Entspannung oder Networking nach dem Karriereaustausch ist unser Lounge Host der richtige Ansprechpartner. Ich leite Sie weiter."
+          },
+          {
+            "type": "say",
+            "agent_id": "lounge_host_agent",
+            "text": "{\n  \"antwort\": \"Willkommen in unserer Lounge! Hier können Sie sich nach den Karrierediskussionen entspannt zurücklehnen – bequeme Sofas und ergonomische Stühle laden zum Verweilen ein. Für Networking bieten wir eine offene, freundliche Atmosphäre, in der Sie unkompliziert mit anderen Besuchern ins Gespräch kommen können. Möchten Sie eher entspannen oder gezielt Kontakte knüpfen? Dann kann ich Ihnen passende Tipps geben.\"\n}"
+          }
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-LOUNGE_HOST_AGENT_TO_RECEPTION_AGENT",
+      "request": {
+        "session_id": "d1d40682-1b2d-4b7a-80a2-6d7ce8bf4606",
+        "active_agent_id": "lounge_host_agent",
+        "user_text": "I am asking you, but my topic is this: Visitor needs general information or orientation after lounge time.. Please connect me to the right expert if Reception Agent should handle it."
+      },
+      "setup_status": 200,
+      "response_status": 200,
+      "duration_ms": 4305.834,
+      "response": {
+        "session_id": "d1d40682-1b2d-4b7a-80a2-6d7ce8bf4606",
+        "active_agent_id": "reception_agent",
+        "memory_mode": "agent_private_history",
+        "handoff": {
+          "from": "lounge_host_agent",
+          "to": "reception_agent",
+          "reason": "Nutzer benötigt allgemeine Informationen oder Orientierung nach dem Lounge-Aufenthalt.",
+          "brief": "Besucher sucht allgemeine Infos oder Orientierung nach der Loungezeit. Bitte unterstützen."
+        },
+        "events": [
+          {
+            "type": "say",
+            "agent_id": "lounge_host_agent",
+            "text": "Gerne! Für allgemeine Informationen oder Orientierung nach Ihrem Aufenthalt in der Lounge leite ich Sie an unseren Empfang weiter."
+          },
+          {
+            "type": "say",
+            "agent_id": "reception_agent",
+            "text": "{\n  \"role\": \"reception_agent\",\n  \"response\": \"Herzlich willkommen zurück! Nach Ihrem Aufenthalt in der Lounge unterstütze ich Sie gern mit allgemeinen Informationen oder Orientierung im Messestand. Möchten Sie mehr über unsere Produkte, aktuelle Highlights, Karrieremöglichkeiten oder bestimmte Bereiche des Standes erfahren? Oder suchen Sie einfach den nächsten Weg zu einer bestimmten Zone? Lassen Sie mich wissen, was Sie interessiert, damit ich gezielt weiterhelfen kann.\"\n}"
+          }
+        ]
+      }
+    }
+  ]
+}

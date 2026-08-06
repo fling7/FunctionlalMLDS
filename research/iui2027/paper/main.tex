@@ -1,0 +1,88 @@
+\DocumentMetadata{
+  lang=en-US,
+  pdfstandard=UA-2,
+  testphase=latest
+}
+\documentclass[manuscript,review,anonymous]{acmart}
+
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    Bib\TeX}}}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit}
+
+\newcommand{\systemname}{FunctionalMLDS}
+
+\title[Model-Grounded Contracts for Spatial Agents]{Model-Grounded Interaction
+Contracts for Traceable Spatial Agent Interfaces in Unity}
+
+\author{Anonymous Author(s)}
+\affiliation{%
+  \institution{Anonymous Institution}
+  \country{Anonymous}}
+
+\begin{abstract}
+People in interactive three-dimensional environments increasingly communicate
+with embodied agents about objects that they can see, approach, or point to.
+Implementing such an interface requires developers to keep scene selections,
+stable entity identities, agent responsibilities, runtime actions, and
+validation evidence consistent. These relationships are commonly distributed
+across a scene editor and an agent backend, which makes interaction failures
+difficult to explain and changes difficult to validate. We present
+\systemname{}, a Functional Meta-Language-defined Structure and model-grounded
+interaction-assurance layer for embodied multi-agent interfaces, implemented in
+a Unity desktop prototype and a conversational-agent backend. The layer makes
+the path from a user-facing scenario and spatial target to an agent capability,
+runtime action, and validation assertion explicit and executable. An admitted
+request must resolve that entire path in one pinned model version; a failed
+request reports the contract stage and relation that blocked it instead of
+being treated as a generic chat failure. We evaluate the approach against a normalized adapter
+over the corresponding direct artifacts in three spatial environments, using
+exhaustive structural probes over a fixed authored corpus, contract tests, and
+systematic fault injection. All 93 assets had a complete declared
+model-grounded interaction chain (186/186 target-specific step--capability
+pairs); these are static model records, not 186 executed conversations. Under a
+shared deterministic resolver, the two adapters agreed on all 93 responsibility
+and 459 routing decisions and detected and localized all 9 common injected
+faults. An exhaustive runtime sweep admitted all 298 local or direct routes with
+the expected target and provider and cross-field-consistent binding identifiers,
+then rejected all 161 transitive or unreachable routes before the response stub
+without session mutation. A multi-scenario Unity smoke loaded 31 scenario
+contexts and 73 actions. The contribution is a technical and
+interaction-oriented account of how explicit model relations can admit,
+diagnose, and reproducibly test
+spatial-agent behavior; it does not claim improvements in subjective user
+experience without a human-participant study.
+\end{abstract}
+
+\ccsdesc[500]{Human-centered computing~Intelligent user interfaces}
+\ccsdesc[300]{Human-centered computing~Interactive systems and tools}
+\ccsdesc[300]{Computing methodologies~Intelligent agents}
+
+\keywords{intelligent user interfaces, embodied agents, spatial grounding,
+model-driven authoring, runtime traceability, Unity}
+
+\begin{document}
+
+\maketitle
+
+\input{sections/01_introduction}
+\input{sections/02_related_work}
+\input{sections/03_system}
+\input{sections/04_method}
+\input{sections/05_results}
+\input{sections/06_discussion}
+\input{sections/07_limitations}
+\input{sections/08_conclusion}
+\input{sections/09_genai_disclosure}
+
+\clearpage
+\appendix
+\input{sections/appendix}
+
+\clearpage
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,248 @@
+{
+  "agents": [
+    {
+      "id": "reception_agent",
+      "display_name": "Reception Agent",
+      "persona": "Friendly and welcoming guide who provides initial orientation and basic company information to visitors, helping them navigate the booth efficiently.",
+      "expertise": [
+        "visitor orientation",
+        "basic company info",
+        "navigation assistance"
+      ],
+      "knowledge_tags": [
+        "visitor_orientation",
+        "company_basics",
+        "navigation"
+      ],
+      "responsible_zone_ids": [
+        "reception_zone"
+      ],
+      "grounded_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ],
+      "handoff_targets": [
+        "benefits_expert",
+        "recruiting_agent",
+        "demo_technician",
+        "hospitality_agent"
+      ],
+      "voice": "sage",
+      "voice_style": "warm and clear",
+      "tts_model": "gpt-4o-mini-tts",
+      "voice_gender": "weiblich"
+    },
+    {
+      "id": "benefits_expert",
+      "display_name": "Benefits Information Specialist",
+      "persona": "Knowledgeable and approachable specialist focused on explaining employee benefits and company culture, assisting visitors with interactive terminals and panels.",
+      "expertise": [
+        "employee benefits",
+        "company culture",
+        "interactive terminal assistance"
+      ],
+      "knowledge_tags": [
+        "company_benefits",
+        "employee_wellbeing",
+        "interactive_terminals"
+      ],
+      "responsible_zone_ids": [
+        "benefits_info_zone"
+      ],
+      "grounded_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ],
+      "handoff_targets": [
+        "recruiting_agent",
+        "reception_agent"
+      ],
+      "voice": "coral",
+      "voice_style": "informative and friendly",
+      "tts_model": "gpt-4o-mini-tts",
+      "voice_gender": "weiblich"
+    },
+    {
+      "id": "recruiting_agent",
+      "display_name": "Recruiting Agent",
+      "persona": "Professional and helpful recruiting expert who assists visitors with job applications, provides detailed recruiting information, and answers related questions.",
+      "expertise": [
+        "job openings",
+        "application process",
+        "recruiting info"
+      ],
+      "knowledge_tags": [
+        "job_recruiting",
+        "application_process",
+        "career_opportunities"
+      ],
+      "responsible_zone_ids": [
+        "recruiting_zone"
+      ],
+      "grounded_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ],
+      "handoff_targets": [
+        "benefits_expert",
+        "reception_agent"
+      ],
+      "voice": "onyx",
+      "voice_style": "professional and clear",
+      "tts_model": "gpt-4o-mini-tts",
+      "voice_gender": "maennlich"
+    },
+    {
+      "id": "demo_technician",
+      "display_name": "Demo Technician",
+      "persona": "Enthusiastic and tech-savvy specialist who manages product showcases and VR/AR stations, guiding visitors through interactive demos and answering technical questions.",
+      "expertise": [
+        "product knowledge",
+        "VR/AR technology",
+        "interactive kiosk support"
+      ],
+      "knowledge_tags": [
+        "product_demos",
+        "vr_ar_technology",
+        "interactive_kiosks"
+      ],
+      "responsible_zone_ids": [
+        "showcase_zone",
+        "demo_kiosk_zone"
+      ],
+      "grounded_object_ids": [
+        "showcase_equipment_treadmill",
+        "showcase_equipment_weights_rack",
+        "vr_ar_station1",
+        "vr_ar_station2",
+        "kiosk_demo1",
+        "kiosk_demo2",
+        "kiosk_demo3",
+        "info_stele_studio1",
+        "info_stele_studio2",
+        "info_stele_studio3"
+      ],
+      "handoff_targets": [
+        "recruiting_agent",
+        "benefits_expert",
+        "reception_agent"
+      ],
+      "voice": "fable",
+      "voice_style": "enthusiastic and engaging",
+      "tts_model": "gpt-4o-mini-tts",
+      "voice_gender": "maennlich"
+    },
+    {
+      "id": "hospitality_agent",
+      "display_name": "Hospitality Agent",
+      "persona": "Warm and attentive hospitality professional dedicated to providing refreshments and ensuring visitor comfort in the lounge area.",
+      "expertise": [
+        "customer service",
+        "refreshment management",
+        "visitor comfort"
+      ],
+      "knowledge_tags": [
+        "visitor_comfort",
+        "refreshments",
+        "lounge_services"
+      ],
+      "responsible_zone_ids": [
+        "refreshment_zone"
+      ],
+      "grounded_object_ids": [
+        "refreshment_counter",
+        "bar_stool_refreshment1",
+        "bar_stool_refreshment2",
+        "bar_stool_refreshment3",
+        "lounge_seating"
+      ],
+      "handoff_targets": [
+        "reception_agent"
+      ],
+      "voice": "ash",
+      "voice_style": "warm and caring",
+      "tts_model": "gpt-4o-mini-tts",
+      "voice_gender": "maennlich"
+    }
+  ],
+  "handoffs": [
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "benefits_expert",
+      "condition": "visitor requests detailed information about company benefits or culture",
+      "reason": "Benefits Expert has specialized knowledge on employee benefits and culture"
+    },
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "recruiting_agent",
+      "condition": "visitor inquires about job openings or recruiting process",
+      "reason": "Recruiting Agent specializes in job opportunities and application assistance"
+    },
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "demo_technician",
+      "condition": "visitor wants to interact with product demos or VR/AR experiences",
+      "reason": "Demo Technician manages product showcases and interactive demos"
+    },
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "hospitality_agent",
+      "condition": "visitor seeks refreshments or a place to relax",
+      "reason": "Hospitality Agent provides refreshments and lounge comfort"
+    },
+    {
+      "source_agent_id": "benefits_expert",
+      "target_agent_id": "recruiting_agent",
+      "condition": "visitor expresses interest in job applications after learning about benefits",
+      "reason": "Recruiting Agent can assist with job application details"
+    },
+    {
+      "source_agent_id": "benefits_expert",
+      "target_agent_id": "reception_agent",
+      "condition": "visitor needs general orientation or navigation help",
+      "reason": "Reception Agent provides overall visitor guidance"
+    },
+    {
+      "source_agent_id": "recruiting_agent",
+      "target_agent_id": "benefits_expert",
+      "condition": "visitor asks about company culture or benefits during recruiting discussion",
+      "reason": "Benefits Expert has detailed knowledge on company culture and benefits"
+    },
+    {
+      "source_agent_id": "recruiting_agent",
+      "target_agent_id": "reception_agent",
+      "condition": "visitor requires general information or orientation",
+      "reason": "Reception Agent supports visitor orientation and basic info"
+    },
+    {
+      "source_agent_id": "demo_technician",
+      "target_agent_id": "recruiting_agent",
+      "condition": "visitor wants to know about job opportunities after product demos",
+      "reason": "Recruiting Agent specializes in recruiting information"
+    },
+    {
+      "source_agent_id": "demo_technician",
+      "target_agent_id": "benefits_expert",
+      "condition": "visitor asks about company culture or benefits during demo interaction",
+      "reason": "Benefits Expert provides detailed benefits and culture info"
+    },
+    {
+      "source_agent_id": "demo_technician",
+      "target_agent_id": "reception_agent",
+      "condition": "visitor needs general orientation or assistance",
+      "reason": "Reception Agent provides visitor guidance"
+    },
+    {
+      "source_agent_id": "hospitality_agent",
+      "target_agent_id": "reception_agent",
+      "condition": "visitor seeks information beyond refreshments or lounge services",
+      "reason": "Reception Agent provides comprehensive visitor assistance"
+    }
+  ]
+}

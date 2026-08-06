@@ -1,0 +1,547 @@
+{
+  "schema": "functionalmlds_unity_v2_alignment_acceptance",
+  "schema_version": "1.0",
+  "status": "pass",
+  "summary": {
+    "check_count": 8,
+    "passed": 8,
+    "failed": 0,
+    "fixture_count": 7
+  },
+  "checks": [
+    {
+      "check_id": "UV2-A01",
+      "title": "v0.5-Archiv: Manifest und deterministisches ZIP",
+      "status": "pass",
+      "archive": "archive/functionalmlds_implementation_v05_20260714_pre_v2_runtime",
+      "manifest_entries": 373,
+      "manifested_bytes": 6655391,
+      "fixture_count": 7,
+      "zip": "functionalmlds_implementation_v05_20260714_pre_v2_runtime.zip",
+      "zip_sha256": "657626434B3DD7D3D80E070137CA795745B05D6079101738BB277C67320D7CDC",
+      "secret_findings": 0
+    },
+    {
+      "check_id": "UV2-A02",
+      "title": "Sieben Golden-v0.5-Fixtures bytegleich zum Archiv",
+      "status": "pass",
+      "expected_case_count": 7,
+      "case_count": 7,
+      "cases": [
+        {
+          "case_id": "bestfit_career_fair",
+          "current": "output/case_studies/bestfit_career_fair/functionalmlds/functionalmlds.instance.generated.json",
+          "archived": "archive/functionalmlds_implementation_v05_20260714_pre_v2_runtime/fixtures/output/case_studies/bestfit_career_fair/functionalmlds/functionalmlds.instance.generated.json",
+          "current_sha256": "B3F47EE37FD58329D321487946187FE041BFBD07EC5B295D9AA0A92C2F7CE50F",
+          "archive_sha256": "B3F47EE37FD58329D321487946187FE041BFBD07EC5B295D9AA0A92C2F7CE50F",
+          "byte_equal": true
+        },
+        {
+          "case_id": "classroom_dinosaur",
+          "current": "output/case_studies/classroom_dinosaur/functionalmlds/functionalmlds.instance.generated.json",
+          "archived": "archive/functionalmlds_implementation_v05_20260714_pre_v2_runtime/fixtures/output/case_studies/classroom_dinosaur/functionalmlds/functionalmlds.instance.generated.json",
+          "current_sha256": "090F630C2C1ECA565171C8DFCC60FB6F4E91378B901D6B3C8653BC13FDD1EE27",
+          "archive_sha256": "090F630C2C1ECA565171C8DFCC60FB6F4E91378B901D6B3C8653BC13FDD1EE27",
+          "byte_equal": true
+        },
+        {
+          "case_id": "steinpilz_brand_room",
+          "current": "output/case_studies/steinpilz_brand_room/functionalmlds/functionalmlds.instance.generated.json",
+          "archived": "archive/functionalmlds_implementation_v05_20260714_pre_v2_runtime/fixtures/output/case_studies/steinpilz_brand_room/functionalmlds/functionalmlds.instance.generated.json",
+          "current_sha256": "D58ED1279973D816DF3F6E08D4ADBE0881AC8B372654B9ED858906A80FC1A71D",
+          "archive_sha256": "D58ED1279973D816DF3F6E08D4ADBE0881AC8B372654B9ED858906A80FC1A71D",
+          "byte_equal": true
+        },
+        {
+          "case_id": "cheese_factory_tradefair_booth_36f00adc",
+          "current": "output/wizard_functionalmlds/cheese_factory_tradefair_booth_36f00adc/functionalmlds/functionalmlds.instance.generated.json",
+          "archived": "archive/functionalmlds_implementation_v05_20260714_pre_v2_runtime/fixtures/output/wizard_functionalmlds/cheese_factory_tradefair_booth_36f00adc/functionalmlds/functionalmlds.instance.generated.json",
+          "current_sha256": "DE82C9E40BD8927262E6463A0943AAEB5FD576D5096DDDACFE13B04A6A5AC532",
+          "archive_sha256": "DE82C9E40BD8927262E6463A0943AAEB5FD576D5096DDDACFE13B04A6A5AC532",
+          "byte_equal": true
+        },
+        {
+          "case_id": "mldssteinpilz_e2e_1783611970",
+          "current": "output/wizard_functionalmlds/mldssteinpilz_e2e_1783611970/functionalmlds/functionalmlds.instance.generated.json",
+          "archived": "archive/functionalmlds_implementation_v05_20260714_pre_v2_runtime/fixtures/output/wizard_functionalmlds/mldssteinpilz_e2e_1783611970/functionalmlds/functionalmlds.instance.generated.json",
+          "current_sha256": "3E87DFB4F588634760BAB5A7B85FA0805649D60D9ACD28B9786FFE0D97921EF1",
+          "archive_sha256": "3E87DFB4F588634760BAB5A7B85FA0805649D60D9ACD28B9786FFE0D97921EF1",
+          "byte_equal": true
+        },
+        {
+          "case_id": "mldssteinpilz_probe",
+          "current": "output/wizard_functionalmlds/mldssteinpilz_probe/functionalmlds/functionalmlds.instance.generated.json",
+          "archived": "archive/functionalmlds_implementation_v05_20260714_pre_v2_runtime/fixtures/output/wizard_functionalmlds/mldssteinpilz_probe/functionalmlds/functionalmlds.instance.generated.json",
+          "current_sha256": "2EEAAC3F6E9A9E03ADAA32C2E4D6EE8FD0E9874DF725F3CBEF26B51562E99190",
+          "archive_sha256": "2EEAAC3F6E9A9E03ADAA32C2E4D6EE8FD0E9874DF725F3CBEF26B51562E99190",
+          "byte_equal": true
+        },
+        {
+          "case_id": "mldssteinpilz_uidiag_abs_repair_1783611709",
+          "current": "output/wizard_functionalmlds/mldssteinpilz_uidiag_abs_repair_1783611709/functionalmlds/functionalmlds.instance.generated.json",
+          "archived": "archive/functionalmlds_implementation_v05_20260714_pre_v2_runtime/fixtures/output/wizard_functionalmlds/mldssteinpilz_uidiag_abs_repair_1783611709/functionalmlds/functionalmlds.instance.generated.json",
+          "current_sha256": "B6748607D61295DF26733AE0DFBE80B8217604DAF8C49F01737E050E85EDBBD8",
+          "archive_sha256": "B6748607D61295DF26733AE0DFBE80B8217604DAF8C49F01737E050E85EDBBD8",
+          "byte_equal": true
+        }
+      ]
+    },
+    {
+      "check_id": "UV2-A03",
+      "title": "Vorhandene V2-Instanzen, Reports, Schema und Assertions",
+      "status": "pass",
+      "schema": "tools/case_study_pipeline/schemas/dynamic_functional_mlds_v2_instance.schema.json",
+      "expected_case_count": 7,
+      "case_count": 7,
+      "required_assertion_types": [
+        "EventAssertion",
+        "GroundingAssertion",
+        "OutputAssertion",
+        "RelationAssertion",
+        "StateAssertion"
+      ],
+      "cases": [
+        {
+          "case_id": "bestfit_career_fair",
+          "model": "output/case_studies/bestfit_career_fair/functionalmlds/functionalmlds.v2.instance.json",
+          "assembly_report": "output/case_studies/bestfit_career_fair/functionalmlds/functionalmlds.v2.assembly_report.json",
+          "model_sha256": "861E3569B4C82C4E7D5E486DFCE24343B237F3A1EF0056D512CA0795811E077E",
+          "object_count": 293,
+          "profile": "executable",
+          "assertion_type_counts": {
+            "EventAssertion": 1,
+            "GroundingAssertion": 1,
+            "OutputAssertion": 1,
+            "RelationAssertion": 1,
+            "StateAssertion": 10
+          },
+          "assembly_report_status": "valid",
+          "status": "pass",
+          "errors": []
+        },
+        {
+          "case_id": "classroom_dinosaur",
+          "model": "output/case_studies/classroom_dinosaur/functionalmlds/functionalmlds.v2.instance.json",
+          "assembly_report": "output/case_studies/classroom_dinosaur/functionalmlds/functionalmlds.v2.assembly_report.json",
+          "model_sha256": "5FE7E33D91933A87DCB25539F68EC34B6751950216BB121DFBE83EE61066451C",
+          "object_count": 292,
+          "profile": "executable",
+          "assertion_type_counts": {
+            "EventAssertion": 1,
+            "GroundingAssertion": 1,
+            "OutputAssertion": 1,
+            "RelationAssertion": 1,
+            "StateAssertion": 10
+          },
+          "assembly_report_status": "valid",
+          "status": "pass",
+          "errors": []
+        },
+        {
+          "case_id": "steinpilz_brand_room",
+          "model": "output/case_studies/steinpilz_brand_room/functionalmlds/functionalmlds.v2.instance.json",
+          "assembly_report": "output/case_studies/steinpilz_brand_room/functionalmlds/functionalmlds.v2.assembly_report.json",
+          "model_sha256": "56658F5E72532753D6163A5F93BD8517E4F9E8E963C79ED74965F71C9C096431",
+          "object_count": 296,
+          "profile": "executable",
+          "assertion_type_counts": {
+            "EventAssertion": 1,
+            "GroundingAssertion": 1,
+            "OutputAssertion": 1,
+            "RelationAssertion": 1,
+            "StateAssertion": 10
+          },
+          "assembly_report_status": "valid",
+          "status": "pass",
+          "errors": []
+        },
+        {
+          "case_id": "cheese_factory_tradefair_booth_36f00adc",
+          "model": "output/wizard_functionalmlds/cheese_factory_tradefair_booth_36f00adc/functionalmlds/functionalmlds.v2.instance.json",
+          "assembly_report": "output/wizard_functionalmlds/cheese_factory_tradefair_booth_36f00adc/functionalmlds/functionalmlds.v2.assembly_report.json",
+          "model_sha256": "B73DDA9FF5FF550DA82479185FAE7926371D8498C917ADBEC9A36FF3679AAC68",
+          "object_count": 296,
+          "profile": "executable",
+          "assertion_type_counts": {
+            "EventAssertion": 1,
+            "GroundingAssertion": 1,
+            "OutputAssertion": 1,
+            "RelationAssertion": 1,
+            "StateAssertion": 10
+          },
+          "assembly_report_status": "valid",
+          "status": "pass",
+          "errors": []
+        },
+        {
+          "case_id": "mldssteinpilz_e2e_1783611970",
+          "model": "output/wizard_functionalmlds/mldssteinpilz_e2e_1783611970/functionalmlds/functionalmlds.v2.instance.json",
+          "assembly_report": "output/wizard_functionalmlds/mldssteinpilz_e2e_1783611970/functionalmlds/functionalmlds.v2.assembly_report.json",
+          "model_sha256": "1253DCFAFBF009BBE94FE5C04CFF169105DC7DF08C0ADD2CA1169D842F6F68AD",
+          "object_count": 295,
+          "profile": "executable",
+          "assertion_type_counts": {
+            "EventAssertion": 1,
+            "GroundingAssertion": 1,
+            "OutputAssertion": 1,
+            "RelationAssertion": 1,
+            "StateAssertion": 10
+          },
+          "assembly_report_status": "valid",
+          "status": "pass",
+          "errors": []
+        },
+        {
+          "case_id": "mldssteinpilz_probe",
+          "model": "output/wizard_functionalmlds/mldssteinpilz_probe/functionalmlds/functionalmlds.v2.instance.json",
+          "assembly_report": "output/wizard_functionalmlds/mldssteinpilz_probe/functionalmlds/functionalmlds.v2.assembly_report.json",
+          "model_sha256": "11ADC36153E202DCAEF9FD05ED504E67C64B1FFDA4196C7A1BF1C9DD0564F8C9",
+          "object_count": 295,
+          "profile": "executable",
+          "assertion_type_counts": {
+            "EventAssertion": 1,
+            "GroundingAssertion": 1,
+            "OutputAssertion": 1,
+            "RelationAssertion": 1,
+            "StateAssertion": 10
+          },
+          "assembly_report_status": "valid",
+          "status": "pass",
+          "errors": []
+        },
+        {
+          "case_id": "mldssteinpilz_uidiag_abs_repair_1783611709",
+          "model": "output/wizard_functionalmlds/mldssteinpilz_uidiag_abs_repair_1783611709/functionalmlds/functionalmlds.v2.instance.json",
+          "assembly_report": "output/wizard_functionalmlds/mldssteinpilz_uidiag_abs_repair_1783611709/functionalmlds/functionalmlds.v2.assembly_report.json",
+          "model_sha256": "12908B85EFF007C4544AFEA0796DB93C9B2A90A607FF0CF8B4E8496433F292E2",
+          "object_count": 295,
+          "profile": "executable",
+          "assertion_type_counts": {
+            "EventAssertion": 1,
+            "GroundingAssertion": 1,
+            "OutputAssertion": 1,
+            "RelationAssertion": 1,
+            "StateAssertion": 10
+          },
+          "assembly_report_status": "valid",
+          "status": "pass",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "check_id": "UV2-A04",
+      "title": "Temporäre duale Materialisierung und Backend-Vertrag",
+      "status": "pass",
+      "execution_scope": "isoliertes temporäres Verzeichnis",
+      "expected_case_count": 7,
+      "case_count": 7,
+      "cases": [
+        {
+          "case_id": "bestfit_career_fair",
+          "status": "pass",
+          "validation_status": "valid",
+          "contract_kind": "v2",
+          "action_kind_counts": {
+            "setup": 1,
+            "chat": 1,
+            "handoff": 1
+          },
+          "dual_files": {
+            "functionalmlds.v2.instance.json": true,
+            "functionalmlds.v05.instance.json": true,
+            "trace_map.v2.json": true,
+            "trace_map.v05.json": true
+          },
+          "model_sha256": "861E3569B4C82C4E7D5E486DFCE24343B237F3A1EF0056D512CA0795811E077E",
+          "errors": []
+        },
+        {
+          "case_id": "classroom_dinosaur",
+          "status": "pass",
+          "validation_status": "valid",
+          "contract_kind": "v2",
+          "action_kind_counts": {
+            "setup": 1,
+            "chat": 1,
+            "handoff": 1
+          },
+          "dual_files": {
+            "functionalmlds.v2.instance.json": true,
+            "functionalmlds.v05.instance.json": true,
+            "trace_map.v2.json": true,
+            "trace_map.v05.json": true
+          },
+          "model_sha256": "5FE7E33D91933A87DCB25539F68EC34B6751950216BB121DFBE83EE61066451C",
+          "errors": []
+        },
+        {
+          "case_id": "steinpilz_brand_room",
+          "status": "pass",
+          "validation_status": "valid",
+          "contract_kind": "v2",
+          "action_kind_counts": {
+            "setup": 1,
+            "chat": 1,
+            "handoff": 1
+          },
+          "dual_files": {
+            "functionalmlds.v2.instance.json": true,
+            "functionalmlds.v05.instance.json": true,
+            "trace_map.v2.json": true,
+            "trace_map.v05.json": true
+          },
+          "model_sha256": "56658F5E72532753D6163A5F93BD8517E4F9E8E963C79ED74965F71C9C096431",
+          "errors": []
+        },
+        {
+          "case_id": "cheese_factory_tradefair_booth_36f00adc",
+          "status": "pass",
+          "validation_status": "valid",
+          "contract_kind": "v2",
+          "action_kind_counts": {
+            "setup": 1,
+            "chat": 1,
+            "handoff": 1
+          },
+          "dual_files": {
+            "functionalmlds.v2.instance.json": true,
+            "functionalmlds.v05.instance.json": true,
+            "trace_map.v2.json": true,
+            "trace_map.v05.json": true
+          },
+          "model_sha256": "B73DDA9FF5FF550DA82479185FAE7926371D8498C917ADBEC9A36FF3679AAC68",
+          "errors": []
+        },
+        {
+          "case_id": "mldssteinpilz_e2e_1783611970",
+          "status": "pass",
+          "validation_status": "valid",
+          "contract_kind": "v2",
+          "action_kind_counts": {
+            "setup": 1,
+            "chat": 1,
+            "handoff": 1
+          },
+          "dual_files": {
+            "functionalmlds.v2.instance.json": true,
+            "functionalmlds.v05.instance.json": true,
+            "trace_map.v2.json": true,
+            "trace_map.v05.json": true
+          },
+          "model_sha256": "1253DCFAFBF009BBE94FE5C04CFF169105DC7DF08C0ADD2CA1169D842F6F68AD",
+          "errors": []
+        },
+        {
+          "case_id": "mldssteinpilz_probe",
+          "status": "pass",
+          "validation_status": "valid",
+          "contract_kind": "v2",
+          "action_kind_counts": {
+            "setup": 1,
+            "chat": 1,
+            "handoff": 1
+          },
+          "dual_files": {
+            "functionalmlds.v2.instance.json": true,
+            "functionalmlds.v05.instance.json": true,
+            "trace_map.v2.json": true,
+            "trace_map.v05.json": true
+          },
+          "model_sha256": "11ADC36153E202DCAEF9FD05ED504E67C64B1FFDA4196C7A1BF1C9DD0564F8C9",
+          "errors": []
+        },
+        {
+          "case_id": "mldssteinpilz_uidiag_abs_repair_1783611709",
+          "status": "pass",
+          "validation_status": "valid",
+          "contract_kind": "v2",
+          "action_kind_counts": {
+            "setup": 1,
+            "chat": 1,
+            "handoff": 1
+          },
+          "dual_files": {
+            "functionalmlds.v2.instance.json": true,
+            "functionalmlds.v05.instance.json": true,
+            "trace_map.v2.json": true,
+            "trace_map.v05.json": true
+          },
+          "model_sha256": "12908B85EFF007C4544AFEA0796DB93C9B2A90A607FF0CF8B4E8496433F292E2",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "check_id": "UV2-A05",
+      "title": "Unity-Projektquellen und Backend-Quellkopien SHA-identisch",
+      "status": "pass",
+      "file_count": 10,
+      "expected_file_count": 10,
+      "v2_directory_set_identical": true,
+      "missing_or_extra_unity_v2": [],
+      "missing_or_extra_source_copy_v2": [],
+      "files": [
+        {
+          "relative_path": "QuickAgentManager.cs",
+          "unity_sha256": "C6B2C06BF279C5C72F3AC57D17747D8B517E0D04F6B6B476F02ABDE46F4D8ABC",
+          "source_copy_sha256": "C6B2C06BF279C5C72F3AC57D17747D8B517E0D04F6B6B476F02ABDE46F4D8ABC",
+          "sha_identical": true
+        },
+        {
+          "relative_path": "FunctionalMldsV2QuickAgentBridge.cs",
+          "unity_sha256": "9647EED9AA05C915DB2311BC8823C74FBA7BEDF49BE147DEF41691127B99CD4A",
+          "source_copy_sha256": "9647EED9AA05C915DB2311BC8823C74FBA7BEDF49BE147DEF41691127B99CD4A",
+          "sha_identical": true
+        },
+        {
+          "relative_path": "FunctionalMldsV2/FunctionalMldsV2Assertions.cs",
+          "unity_sha256": "3D5614CF9EDB42E32AE6EBD9527B908B7B7DC76591C319B216CCBFD3950037FA",
+          "source_copy_sha256": "3D5614CF9EDB42E32AE6EBD9527B908B7B7DC76591C319B216CCBFD3950037FA",
+          "sha_identical": true
+        },
+        {
+          "relative_path": "FunctionalMldsV2/FunctionalMldsV2CapabilityDispatcher.cs",
+          "unity_sha256": "29A03EBD332B11CA498E7F37CC11725A27CA2CD3584DC2D4E18781474D1CFB5A",
+          "source_copy_sha256": "29A03EBD332B11CA498E7F37CC11725A27CA2CD3584DC2D4E18781474D1CFB5A",
+          "sha_identical": true
+        },
+        {
+          "relative_path": "FunctionalMldsV2/FunctionalMldsV2Loader.cs",
+          "unity_sha256": "38CD690AFB9C95735C372E9B2CFDCC48ECD75540E4DE82D39A83A58661FFC91C",
+          "source_copy_sha256": "38CD690AFB9C95735C372E9B2CFDCC48ECD75540E4DE82D39A83A58661FFC91C",
+          "sha_identical": true
+        },
+        {
+          "relative_path": "FunctionalMldsV2/FunctionalMldsV2Model.cs",
+          "unity_sha256": "2655E9FB2F022E3CEAE3C7F42414E104F3CE24C656F71527DF5BC94B162D4F73",
+          "source_copy_sha256": "2655E9FB2F022E3CEAE3C7F42414E104F3CE24C656F71527DF5BC94B162D4F73",
+          "sha_identical": true
+        },
+        {
+          "relative_path": "FunctionalMldsV2/FunctionalMldsV2RuntimeContext.cs",
+          "unity_sha256": "770809A278E9A32AEB518B1CB7CC47B519979D11E9552707F2E6D06D7F4622BF",
+          "source_copy_sha256": "770809A278E9A32AEB518B1CB7CC47B519979D11E9552707F2E6D06D7F4622BF",
+          "sha_identical": true
+        },
+        {
+          "relative_path": "FunctionalMldsV2/FunctionalMldsV2RuntimeLogger.cs",
+          "unity_sha256": "DCBBD9D82A28C1AB472ACC6C984AC3CE4A30F639820E5F80359C488EE1B158DA",
+          "source_copy_sha256": "DCBBD9D82A28C1AB472ACC6C984AC3CE4A30F639820E5F80359C488EE1B158DA",
+          "sha_identical": true
+        },
+        {
+          "relative_path": "FunctionalMldsV2/FunctionalMldsV2ScenarioRunner.cs",
+          "unity_sha256": "A0A555E803C292FFE3F79769068A5196707A28AF6E50709BD59F4D52A3895463",
+          "source_copy_sha256": "A0A555E803C292FFE3F79769068A5196707A28AF6E50709BD59F4D52A3895463",
+          "sha_identical": true
+        },
+        {
+          "relative_path": "FunctionalMldsV2/FunctionalMldsV2ValidationRecorder.cs",
+          "unity_sha256": "D883C0A1893861C7E595A48FEA25F7E730ADAB4B72CBBD4483300DCF84CCC66E",
+          "source_copy_sha256": "D883C0A1893861C7E595A48FEA25F7E730ADAB4B72CBBD4483300DCF84CCC66E",
+          "sha_identical": true
+        }
+      ]
+    },
+    {
+      "check_id": "UV2-A06",
+      "title": "Finale Unity-Compile-/Smoke-Logs",
+      "status": "pass",
+      "log_count": 4,
+      "logs": [
+        {
+          "kind": "compile",
+          "path": "output/unity_v2_alignment/unity_final_v2_compile.log",
+          "sha256": "60F4D57649B38B97D46C65CB4B74425B2C39ACD687A51BBED4BB2401C623EB90",
+          "success_marker": "Batchmode quit successfully invoked - shutting down!",
+          "marker_found": true,
+          "completed": true,
+          "status": "pass",
+          "errors": []
+        },
+        {
+          "kind": "quickbridge",
+          "path": "output/unity_v2_alignment/unity_final_v2_smoke.log",
+          "sha256": "03E73F1B7D105113C7001B2230ABB3CC3CBEE314FD2F63B20916BE2282CD83AA",
+          "success_marker": "[FunctionalMldsV2QuickAgentBridgeSmoke] OK",
+          "marker_found": true,
+          "completed": true,
+          "status": "pass",
+          "errors": []
+        },
+        {
+          "kind": "native",
+          "path": "output/unity_v2_alignment/unity_final_native_v2_smoke.log",
+          "sha256": "62656E2FBF2B178292C8FDEECCC6F9B6339D6D6844ACA5624028EE2110C65AEF",
+          "success_marker": "[FunctionalMLDSV2NativeSmoke] OK",
+          "marker_found": true,
+          "completed": true,
+          "status": "pass",
+          "errors": []
+        },
+        {
+          "kind": "real_instance",
+          "path": "output/unity_v2_alignment/unity_final_real_instance_smoke.log",
+          "sha256": "F7A245E651672C97AC2B2264BB229FAD0AF69459B13C406DF5F8027231AAC11E",
+          "success_marker": "[FunctionalMLDSUnitySmoke] OK",
+          "marker_found": true,
+          "completed": true,
+          "status": "pass",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "check_id": "UV2-A07",
+      "title": "Vollständige Tools- und Backend-Python-Testläufe",
+      "status": "pass",
+      "log_count": 2,
+      "logs": [
+        {
+          "kind": "tools",
+          "path": "output/unity_v2_alignment/pytest_tools_full_final.log",
+          "sha256": "7691C8A78924BC0FB080EA5E0627ED0D2542D7A35DE0CA24AA935D16A32FCBBA",
+          "success_markers": [
+            "85 passed",
+            "58 subtests passed"
+          ],
+          "markers_found": true,
+          "status": "pass",
+          "errors": []
+        },
+        {
+          "kind": "backend",
+          "path": "output/unity_v2_alignment/pytest_backend_full_final.log",
+          "sha256": "6278246A5C3517367D41157837FEEDCFB8D82F672976EF98B211CD5BA4BFBF00",
+          "success_markers": [
+            "5 passed",
+            "23 subtests passed"
+          ],
+          "markers_found": true,
+          "status": "pass",
+          "errors": []
+        }
+      ]
+    },
+    {
+      "check_id": "UV2-A08",
+      "title": "Tasklisten-ID- und Checkbox-Vollständigkeit",
+      "status": "pass",
+      "tasklist": "output/unity_v2_alignment/unity_v2_implementation_tasklist.md",
+      "expected_id_count": 44,
+      "unique_id_count": 44,
+      "checkbox_count": 44,
+      "identifiers_complete": true,
+      "checkboxes_complete": true,
+      "require_closed": true,
+      "closed_count": 44,
+      "missing_ids": [],
+      "duplicate_ids": [],
+      "unexpected_ids": [],
+      "missing_checkboxes": [],
+      "duplicate_checkboxes": [],
+      "open_ids": []
+    }
+  ]
+}

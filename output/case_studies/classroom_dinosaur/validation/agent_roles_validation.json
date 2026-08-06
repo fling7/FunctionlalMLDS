@@ -1,0 +1,11 @@
+{
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "agent_count": 4,
+    "knowledge_tag_count": 8,
+    "handoff_count": 0,
+    "grounded_object_count": 36
+  }
+}

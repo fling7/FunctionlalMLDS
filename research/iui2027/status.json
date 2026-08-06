@@ -1,0 +1,27 @@
+{
+  "target": "ACM IUI 2027 main paper",
+  "updated": "2026-07-29",
+  "branch": "codex/iui-2027-submission",
+  "phase": "complete",
+  "heartbeat": {
+    "name": "IUI-2027 Paper-Fortschritt",
+    "interval_minutes": 5,
+    "active": false
+  },
+  "conference_requirements_verified": true,
+  "prototype_must_complete": true,
+  "paper_draft_complete": true,
+  "local_submission_gates_passed": true,
+  "review_iteration": 2,
+  "reviewed_paper_commit": "75c31897859c8253266b9dfd80ea3413aa9448bf",
+  "review_timestamp": "2026-07-28T23:25:40.557218",
+  "review_verdict": "recommend_acceptance_after_minor_revisions",
+  "reviewed_pdf_sha256": "ade3bcde931e59bc861e3b423cc72c8208c6557dee82eb547f0128415dd59066",
+  "post_review_layout_only_revision": true,
+  "post_review_layout_check": "pass",
+  "last_verifier_status": "pass",
+  "submission_pdf_sha256": "54733bc531eb4466c04da38fb7638c67647ba4f98af66b3bff440307c646fa25",
+  "paper_complete": true,
+  "review_passed": true,
+  "final_push_complete": true
+}

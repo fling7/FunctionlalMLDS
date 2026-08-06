@@ -1,0 +1,1051 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using UnityEngine;
+using UnityEngine.Networking;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+#if UNITY_EDITOR
+public class ProjectManagerUI : EditorWindow
+{
+    [Serializable]
+    public class Vector3Data
+    {
+        public float x;
+        public float y;
+        public float z;
+    }
+
+    [Serializable]
+    public class ProjectSummary
+    {
+        public string id;
+        public string display_name;
+        public string description;
+    }
+
+    [Serializable]
+    public class ProjectListResponse
+    {
+        public ProjectSummary[] projects;
+    }
+
+    [Serializable]
+    public class ProjectMetadata
+    {
+        public string id;
+        public string display_name;
+        public string description;
+    }
+
+    [Serializable]
+    public class AgentSpec
+    {
+        public string id;
+        public string display_name;
+        public string persona;
+        public string[] expertise;
+        public string[] knowledge_tags;
+        public string[] preferred_zone_ids;
+        public string[] preferred_spawn_tags;
+        public Vector3Data position;
+        public string voice;
+        public string voice_style;
+        public string tts_model;
+    }
+
+    [Serializable]
+    public class KnowledgeEntrySummary
+    {
+        public string tag;
+        public string name;
+        public string file;
+    }
+
+    [Serializable]
+    public class KnowledgeListResponse
+    {
+        public KnowledgeEntrySummary[] knowledge;
+    }
+
+    [Serializable]
+    public class ProjectDetailResponse
+    {
+        public ProjectMetadata project;
+        public AgentSpec[] agents;
+        public KnowledgeEntrySummary[] knowledge;
+    }
+
+    [Serializable]
+    public class CreateProjectRequest
+    {
+        public string display_name;
+        public string project_id;
+        public string description;
+    }
+
+    [Serializable]
+    public class AgentsSaveRequest
+    {
+        public AgentSpec[] agents;
+    }
+
+    [Serializable]
+    public class MetadataSaveRequest
+    {
+        public string display_name;
+        public string description;
+    }
+
+    [Serializable]
+    public class KnowledgeUpsertRequest
+    {
+        public string action;
+        public string tag;
+        public string name;
+        public string text;
+        public bool overwrite;
+    }
+
+    [Serializable]
+    public class KnowledgeReadRequest
+    {
+        public string tag;
+        public string name;
+    }
+
+    [Serializable]
+    public class KnowledgeReadResponse
+    {
+        public string tag;
+        public string name;
+        public string text;
+    }
+
+    private class AgentUi
+    {
+        public string id;
+        public string displayName;
+        public string persona;
+        public string expertiseCsv;
+        public string knowledgeTagsCsv;
+        public string preferredZoneIdsCsv;
+        public string preferredSpawnTagsCsv;
+        public string voice;
+        public string voiceStyle;
+        public string ttsModel;
+        public string voiceGender;
+        public bool hasPosition;
+        public Vector3Data position;
+    }
+
+    private class EditorCoroutine
+    {
+        private readonly Stack<IEnumerator> routineStack = new Stack<IEnumerator>();
+
+        public EditorCoroutine(IEnumerator routine)
+        {
+            if (routine != null)
+            {
+                routineStack.Push(routine);
+            }
+        }
+
+        public bool MoveNext()
+        {
+            while (routineStack.Count > 0)
+            {
+                var current = routineStack.Peek();
+                if (!current.MoveNext())
+                {
+                    routineStack.Pop();
+                    continue;
+                }
+
+                if (current.Current is IEnumerator nested)
+                {
+                    routineStack.Push(nested);
+                    return true;
+                }
+
+                if (current.Current is AsyncOperation asyncOp)
+                {
+                    routineStack.Push(WaitForAsync(asyncOp));
+                    return true;
+                }
+
+                return true;
+            }
+            return false;
+        }
+    }
+
+    private const string DefaultBackendUrl = "http://127.0.0.1:8787";
+
+    private static readonly List<EditorCoroutine> ActiveCoroutines = new List<EditorCoroutine>();
+
+    [SerializeField]
+    private string backendBaseUrl = DefaultBackendUrl;
+
+    private ProjectSummary[] projects = Array.Empty<ProjectSummary>();
+    private ProjectMetadata currentProject;
+    private readonly List<AgentUi> agentUiList = new List<AgentUi>();
+    private KnowledgeEntrySummary[] knowledgeEntries = Array.Empty<KnowledgeEntrySummary>();
+    private Vector2 scroll;
+    private string statusMessage = "";
+    private int draggingAgentIndex = -1;
+    private bool isDraggingPosition = false;
+
+    private string newProjectName = "";
+    private string newProjectId = "";
+    private string newProjectDescription = "";
+
+    private string knowledgeTag = "";
+    private string knowledgeName = "";
+    private string knowledgeText = "";
+    private readonly string[] voiceGenderOptions = { "weiblich", "männlich" };
+    private readonly string[] femaleVoices = { "coral", "nova", "shimmer" };
+    private readonly string[] maleVoices = { "alloy", "verse", "onyx", "fable", "echo" };
+    private readonly string[] voiceStyleOptions = { "klar", "kreativ", "präzise", "warm", "neutral" };
+    private readonly string[] ttsModelOptions = { "gpt-4o-mini-tts", "tts-1", "tts-1-hd" };
+
+    [MenuItem("Tools/Project Manager")]
+    public static void OpenWindow()
+    {
+        var window = GetWindow<ProjectManagerUI>("Project Manager");
+        window.minSize = new Vector2(540, 720);
+        window.Show();
+    }
+
+    private void OnEnable()
+    {
+        StartEditorCoroutine(RefreshProjects());
+    }
+
+    private void OnGUI()
+    {
+        EditorGUILayout.Space(4f);
+        EditorGUILayout.LabelField("Projekt-Manager", EditorStyles.boldLabel);
+
+        EditorGUILayout.Space(4f);
+        backendBaseUrl = EditorGUILayout.TextField("Backend Base Url", backendBaseUrl);
+        if (!string.IsNullOrEmpty(statusMessage))
+        {
+            EditorGUILayout.HelpBox(statusMessage, MessageType.Info);
+        }
+
+        EditorGUILayout.Space(6f);
+        if (GUILayout.Button("Projekte aktualisieren"))
+        {
+            StartEditorCoroutine(RefreshProjects());
+        }
+
+        scroll = EditorGUILayout.BeginScrollView(scroll);
+
+        EditorGUILayout.Space(8f);
+        EditorGUILayout.LabelField("Neues Projekt", EditorStyles.boldLabel);
+        newProjectName = LabeledTextField("Name", newProjectName);
+        newProjectId = LabeledTextField("ID (optional)", newProjectId);
+        newProjectDescription = LabeledTextField("Beschreibung", newProjectDescription);
+        if (GUILayout.Button("Projekt erstellen"))
+        {
+            StartEditorCoroutine(CreateProject());
+        }
+
+        EditorGUILayout.Space(10f);
+        EditorGUILayout.LabelField("Vorhandene Projekte", EditorStyles.boldLabel);
+        if (projects.Length == 0)
+        {
+            EditorGUILayout.LabelField("Keine Projekte gefunden.");
+        }
+        else
+        {
+            foreach (var project in projects)
+            {
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField($"{project.display_name} ({project.id})", GUILayout.Width(320));
+                if (GUILayout.Button("Laden"))
+                {
+                    StartEditorCoroutine(LoadProject(project.id));
+                }
+                EditorGUILayout.EndHorizontal();
+            }
+        }
+
+        EditorGUILayout.Space(12f);
+        if (currentProject != null)
+        {
+            EditorGUILayout.LabelField("Aktuelles Projekt: " + currentProject.display_name, EditorStyles.boldLabel);
+            currentProject.display_name = LabeledTextField("Projektname", currentProject.display_name);
+            currentProject.description = LabeledTextField("Beschreibung", currentProject.description);
+            if (GUILayout.Button("Metadaten speichern"))
+            {
+                StartEditorCoroutine(SaveMetadata());
+            }
+
+            EditorGUILayout.Space(8f);
+            EditorGUILayout.LabelField("Agenten", EditorStyles.boldLabel);
+            if (GUILayout.Button("Agent hinzufügen"))
+            {
+                agentUiList.Add(new AgentUi
+                {
+                    id = "agent_" + (agentUiList.Count + 1),
+                    displayName = "Neuer Agent",
+                    persona = "",
+                    expertiseCsv = "",
+                    knowledgeTagsCsv = "",
+                    preferredZoneIdsCsv = "",
+                    preferredSpawnTagsCsv = "",
+                    voice = "",
+                    voiceStyle = "",
+                    ttsModel = "",
+                    voiceGender = voiceGenderOptions[0],
+                });
+            }
+
+            for (var i = 0; i < agentUiList.Count; i++)
+            {
+                var agent = agentUiList[i];
+                EditorGUILayout.BeginVertical("box");
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("Agent " + (i + 1));
+                if (GUILayout.Button("Entfernen", GUILayout.Width(90)))
+                {
+                    agentUiList.RemoveAt(i);
+                    EditorGUILayout.EndHorizontal();
+                    EditorGUILayout.EndVertical();
+                    break;
+                }
+                EditorGUILayout.EndHorizontal();
+
+                agent.id = LabeledTextField("ID", agent.id);
+                agent.displayName = LabeledTextField("Name", agent.displayName);
+                EditorGUILayout.LabelField("Persona");
+                agent.persona = EditorGUILayout.TextArea(agent.persona ?? "", GUILayout.MinHeight(60));
+                agent.expertiseCsv = LabeledTextField("Expertise (CSV)", agent.expertiseCsv);
+                agent.knowledgeTagsCsv = LabeledTextField("Wissen-Tags (CSV)", agent.knowledgeTagsCsv);
+                agent.preferredZoneIdsCsv = LabeledTextField("Bevorzugte Zonen (CSV)", agent.preferredZoneIdsCsv);
+                agent.preferredSpawnTagsCsv = LabeledTextField("Bevorzugte Spawn-Tags (CSV)", agent.preferredSpawnTagsCsv);
+                EditorGUILayout.Space(4f);
+                EditorGUILayout.LabelField("Stimme (TTS)", EditorStyles.boldLabel);
+                DrawVoiceOptions(agent);
+                agent.voice = LabeledTextField("Voice", agent.voice);
+                agent.voiceStyle = LabeledTextField("Voice Style", agent.voiceStyle);
+                agent.ttsModel = LabeledTextField("TTS Model", agent.ttsModel);
+                EditorGUILayout.Space(4f);
+                EditorGUILayout.LabelField("Positionierung", EditorStyles.boldLabel);
+                DrawPositionEditor(agent, i);
+                EditorGUILayout.EndVertical();
+            }
+
+            if (GUILayout.Button("Agenten speichern"))
+            {
+                StartEditorCoroutine(SaveAgents());
+            }
+
+            EditorGUILayout.Space(12f);
+            EditorGUILayout.LabelField("Wissensdatenbank", EditorStyles.boldLabel);
+            EditorGUILayout.BeginVertical("box");
+            knowledgeTag = LabeledTextField("Tag", knowledgeTag);
+            knowledgeName = LabeledTextField("Name", knowledgeName);
+            EditorGUILayout.LabelField("Text");
+            knowledgeText = EditorGUILayout.TextArea(knowledgeText ?? "", GUILayout.MinHeight(80));
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("Wissen speichern"))
+            {
+                StartEditorCoroutine(UpsertKnowledge());
+            }
+            if (GUILayout.Button("Felder leeren"))
+            {
+                knowledgeTag = "";
+                knowledgeName = "";
+                knowledgeText = "";
+            }
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndVertical();
+
+            EditorGUILayout.LabelField("Vorhandenes Wissen", EditorStyles.boldLabel);
+            if (knowledgeEntries.Length == 0)
+            {
+                EditorGUILayout.LabelField("Keine Einträge.");
+            }
+            else
+            {
+                foreach (var entry in knowledgeEntries)
+                {
+                    EditorGUILayout.BeginHorizontal();
+                    EditorGUILayout.LabelField($"{entry.tag}/{entry.name}", GUILayout.Width(220));
+                    if (GUILayout.Button("Laden", GUILayout.Width(70)))
+                    {
+                        StartEditorCoroutine(ReadKnowledge(entry.tag, entry.name));
+                    }
+                    if (GUILayout.Button("Löschen", GUILayout.Width(70)))
+                    {
+                        StartEditorCoroutine(DeleteKnowledge(entry.tag, entry.name));
+                    }
+                    EditorGUILayout.EndHorizontal();
+                }
+            }
+        }
+
+        EditorGUILayout.EndScrollView();
+    }
+
+    private static void StartEditorCoroutine(IEnumerator routine)
+    {
+        if (routine == null)
+        {
+            return;
+        }
+
+        if (ActiveCoroutines.Count == 0)
+        {
+            EditorApplication.update += UpdateCoroutines;
+        }
+
+        ActiveCoroutines.Add(new EditorCoroutine(routine));
+    }
+
+    private static void UpdateCoroutines()
+    {
+        for (var i = ActiveCoroutines.Count - 1; i >= 0; i--)
+        {
+            if (!ActiveCoroutines[i].MoveNext())
+            {
+                ActiveCoroutines.RemoveAt(i);
+            }
+        }
+
+        if (ActiveCoroutines.Count == 0)
+        {
+            EditorApplication.update -= UpdateCoroutines;
+        }
+    }
+
+    private static string LabeledTextField(string label, string value)
+    {
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField(label, GUILayout.Width(150));
+        value = EditorGUILayout.TextField(value ?? "");
+        EditorGUILayout.EndHorizontal();
+        return value;
+    }
+
+    private static float LabeledFloatField(string label, float value)
+    {
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField(label, GUILayout.Width(150));
+        value = EditorGUILayout.FloatField(value);
+        EditorGUILayout.EndHorizontal();
+        return value;
+    }
+
+    private void DrawVoiceOptions(AgentUi agent)
+    {
+        if (agent == null)
+        {
+            return;
+        }
+
+        var genderIndex = agent.voiceGender == voiceGenderOptions[1] ? 1 : 0;
+        var updatedGender = GUILayout.Toolbar(genderIndex, voiceGenderOptions);
+        if (updatedGender != genderIndex)
+        {
+            agent.voiceGender = voiceGenderOptions[updatedGender];
+        }
+
+        var voiceOptions = agent.voiceGender == voiceGenderOptions[1] ? maleVoices : femaleVoices;
+        DrawOptionButtons("Stimme", voiceOptions, agent.voice, selected => agent.voice = selected);
+        DrawOptionButtons("Stil", voiceStyleOptions, agent.voiceStyle, selected => agent.voiceStyle = selected);
+        DrawOptionButtons("TTS-Modell", ttsModelOptions, agent.ttsModel, selected => agent.ttsModel = selected);
+    }
+
+    private static void DrawOptionButtons(string label, string[] options, string currentValue, Action<string> onSelected)
+    {
+        EditorGUILayout.LabelField(label + ":");
+        const int buttonsPerRow = 3;
+        for (var i = 0; i < options.Length; i += buttonsPerRow)
+        {
+            EditorGUILayout.BeginHorizontal();
+            for (var j = 0; j < buttonsPerRow && i + j < options.Length; j++)
+            {
+                var option = options[i + j];
+                var previousColor = GUI.backgroundColor;
+                if (!string.IsNullOrWhiteSpace(currentValue) && option == currentValue)
+                {
+                    GUI.backgroundColor = new Color(0.35f, 0.7f, 1f, 1f);
+                }
+
+                if (GUILayout.Button(option))
+                {
+                    onSelected?.Invoke(option);
+                }
+
+                GUI.backgroundColor = previousColor;
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+    }
+
+    private string ResolveGenderForVoice(string voice)
+    {
+        if (string.IsNullOrWhiteSpace(voice))
+        {
+            return null;
+        }
+
+        for (var i = 0; i < femaleVoices.Length; i++)
+        {
+            if (voice == femaleVoices[i])
+            {
+                return voiceGenderOptions[0];
+            }
+        }
+
+        for (var i = 0; i < maleVoices.Length; i++)
+        {
+            if (voice == maleVoices[i])
+            {
+                return voiceGenderOptions[1];
+            }
+        }
+
+        return null;
+    }
+
+    private void DrawPositionEditor(AgentUi agent, int agentIndex)
+    {
+        if (agent == null)
+        {
+            return;
+        }
+
+        agent.hasPosition = EditorGUILayout.Toggle("Position aktiv", agent.hasPosition);
+        if (!agent.hasPosition)
+        {
+            return;
+        }
+
+        if (agent.position == null)
+        {
+            agent.position = new Vector3Data { x = 0f, y = 0f, z = 0f };
+        }
+
+        agent.position.x = LabeledFloatField("X", agent.position.x);
+        agent.position.y = LabeledFloatField("Y", agent.position.y);
+        agent.position.z = LabeledFloatField("Z", agent.position.z);
+
+        EditorGUILayout.LabelField("2D-Vorschau (X/Z)", EditorStyles.miniBoldLabel);
+        DrawPositionPreview(agentIndex);
+        EditorGUILayout.HelpBox("Im Vorschaubereich klicken/ziehen, um X/Z zu verschieben.", MessageType.None);
+    }
+
+    private void DrawPositionPreview(int agentIndex)
+    {
+        const float previewSize = 220f;
+        var rect = GUILayoutUtility.GetRect(previewSize, previewSize, GUILayout.ExpandWidth(true));
+        EditorGUI.DrawRect(rect, new Color(0.12f, 0.12f, 0.12f));
+
+        var positions = new List<Vector3Data>();
+        for (var i = 0; i < agentUiList.Count; i++)
+        {
+            var entry = agentUiList[i];
+            if (entry != null && entry.hasPosition && entry.position != null)
+            {
+                positions.Add(entry.position);
+            }
+        }
+
+        if (positions.Count == 0)
+        {
+            var fallback = agentUiList.Count > agentIndex ? agentUiList[agentIndex]?.position : null;
+            if (fallback != null)
+            {
+                positions.Add(fallback);
+            }
+            else
+            {
+                GUI.Label(rect, "Keine Positionsdaten verfügbar.", EditorStyles.centeredGreyMiniLabel);
+                return;
+            }
+        }
+
+        var minX = float.PositiveInfinity;
+        var maxX = float.NegativeInfinity;
+        var minZ = float.PositiveInfinity;
+        var maxZ = float.NegativeInfinity;
+        foreach (var pos in positions)
+        {
+            minX = Mathf.Min(minX, pos.x);
+            maxX = Mathf.Max(maxX, pos.x);
+            minZ = Mathf.Min(minZ, pos.z);
+            maxZ = Mathf.Max(maxZ, pos.z);
+        }
+
+        var padding = 0.5f;
+        minX -= padding;
+        maxX += padding;
+        minZ -= padding;
+        maxZ += padding;
+        var spanX = Mathf.Max(1f, maxX - minX);
+        var spanZ = Mathf.Max(1f, maxZ - minZ);
+        var scale = Mathf.Min(rect.width / spanX, rect.height / spanZ);
+
+        Vector2 WorldToPreview(Vector3Data position)
+        {
+            var x = rect.x + (position.x - minX) * scale;
+            var z = rect.y + rect.height - (position.z - minZ) * scale;
+            return new Vector2(x, z);
+        }
+
+        Vector3Data PreviewToWorld(Vector2 screenPosition)
+        {
+            var worldX = (screenPosition.x - rect.x) / scale + minX;
+            var worldZ = (rect.y + rect.height - screenPosition.y) / scale + minZ;
+            return new Vector3Data { x = worldX, y = 0f, z = worldZ };
+        }
+
+        Handles.BeginGUI();
+        for (var i = 0; i < agentUiList.Count; i++)
+        {
+            var entry = agentUiList[i];
+            if (entry == null || !entry.hasPosition || entry.position == null)
+            {
+                continue;
+            }
+
+            var center = WorldToPreview(entry.position);
+            Handles.color = i == agentIndex ? new Color(0.95f, 0.6f, 0.2f, 0.95f) : new Color(0.35f, 0.7f, 1f, 0.7f);
+            Handles.DrawSolidDisc(new Vector3(center.x, center.y, 0f), Vector3.forward, i == agentIndex ? 6f : 4f);
+        }
+        Handles.EndGUI();
+
+        var evt = Event.current;
+        if (evt == null)
+        {
+            return;
+        }
+
+        if (evt.type == EventType.MouseDown && rect.Contains(evt.mousePosition))
+        {
+            draggingAgentIndex = agentIndex;
+            isDraggingPosition = true;
+            UpdateAgentPositionFromPreview(agentIndex, PreviewToWorld(evt.mousePosition));
+            evt.Use();
+        }
+        else if (evt.type == EventType.MouseDrag && isDraggingPosition && draggingAgentIndex == agentIndex)
+        {
+            UpdateAgentPositionFromPreview(agentIndex, PreviewToWorld(evt.mousePosition));
+            evt.Use();
+        }
+        else if (evt.type == EventType.MouseUp && isDraggingPosition && draggingAgentIndex == agentIndex)
+        {
+            isDraggingPosition = false;
+            draggingAgentIndex = -1;
+            evt.Use();
+        }
+    }
+
+    private void UpdateAgentPositionFromPreview(int agentIndex, Vector3Data updated)
+    {
+        if (agentIndex < 0 || agentIndex >= agentUiList.Count)
+        {
+            return;
+        }
+
+        var agent = agentUiList[agentIndex];
+        if (agent == null)
+        {
+            return;
+        }
+
+        if (agent.position == null)
+        {
+            agent.position = new Vector3Data();
+        }
+
+        agent.position.x = updated.x;
+        agent.position.z = updated.z;
+        Repaint();
+    }
+
+    private void LogStatus(string message)
+    {
+        statusMessage = message;
+        Debug.Log($"[ProjectManagerUI] {message}");
+    }
+
+    private void LogStep(string step, string detail = null)
+    {
+        if (string.IsNullOrEmpty(detail))
+        {
+            LogStatus($"Schritt: {step}");
+        }
+        else
+        {
+            LogStatus($"Schritt: {step} - {detail}");
+        }
+    }
+
+    private void LogResponse(string action, UnityWebRequest req)
+    {
+        var body = req.downloadHandler != null ? req.downloadHandler.text : "";
+        Debug.Log($"[ProjectManagerUI] <- {action} (HTTP {req.responseCode}) {body}");
+    }
+
+    private static IEnumerator WaitForAsync(AsyncOperation asyncOp)
+    {
+        if (asyncOp == null)
+        {
+            yield break;
+        }
+
+        while (!asyncOp.isDone)
+        {
+            yield return null;
+        }
+    }
+
+    private IEnumerator RefreshProjects()
+    {
+        LogStep("Projekte laden", "GET /projects");
+        var url = $"{backendBaseUrl}/projects";
+        using (var req = UnityWebRequest.Get(url))
+        {
+            req.timeout = 30;
+            Debug.Log($"[ProjectManagerUI] -> GET {url}");
+            yield return req.SendWebRequest();
+            if (req.result != UnityWebRequest.Result.Success)
+            {
+                LogStatus("Fehler beim Laden der Projekte: " + req.error + " | " + req.downloadHandler.text);
+                yield break;
+            }
+            LogResponse("GET /projects", req);
+            var resp = JsonUtility.FromJson<ProjectListResponse>(req.downloadHandler.text);
+            projects = resp?.projects ?? Array.Empty<ProjectSummary>();
+            LogStatus("Projekte geladen: " + projects.Length);
+        }
+    }
+
+    private IEnumerator CreateProject()
+    {
+        if (string.IsNullOrWhiteSpace(newProjectName))
+        {
+            LogStatus("Projektname fehlt.");
+            yield break;
+        }
+        LogStep("Projekt erstellen", "POST /projects/create");
+        var payload = new CreateProjectRequest
+        {
+            display_name = newProjectName,
+            project_id = string.IsNullOrWhiteSpace(newProjectId) ? null : newProjectId,
+            description = newProjectDescription,
+        };
+        var url = $"{backendBaseUrl}/projects/create";
+        var ok = false;
+        yield return SendJson(url, payload, success => ok = success, "Projekt erstellen");
+        if (!ok)
+        {
+            yield break;
+        }
+        newProjectName = "";
+        newProjectId = "";
+        newProjectDescription = "";
+        yield return RefreshProjects();
+    }
+
+    private IEnumerator LoadProject(string projectId)
+    {
+        LogStep("Projekt laden", $"GET /projects/{projectId}");
+        var url = $"{backendBaseUrl}/projects/{projectId}";
+        using (var req = UnityWebRequest.Get(url))
+        {
+            req.timeout = 30;
+            Debug.Log($"[ProjectManagerUI] -> GET {url}");
+            yield return req.SendWebRequest();
+            if (req.result != UnityWebRequest.Result.Success)
+            {
+                LogStatus("Fehler beim Laden des Projekts: " + req.error + " | " + req.downloadHandler.text);
+                yield break;
+            }
+            LogResponse($"GET /projects/{projectId}", req);
+            var resp = JsonUtility.FromJson<ProjectDetailResponse>(req.downloadHandler.text);
+            if (resp == null || resp.project == null)
+            {
+                LogStatus("Projekt konnte nicht geladen werden.");
+                yield break;
+            }
+            currentProject = resp.project;
+            knowledgeEntries = resp.knowledge ?? Array.Empty<KnowledgeEntrySummary>();
+            LoadAgentsUi(resp.agents ?? Array.Empty<AgentSpec>());
+            LogStatus("Projekt geladen: " + currentProject.display_name);
+        }
+    }
+
+    private void LoadAgentsUi(AgentSpec[] agents)
+    {
+        agentUiList.Clear();
+        foreach (var agent in agents)
+        {
+            var hasPosition = agent.position != null;
+            agentUiList.Add(new AgentUi
+            {
+                id = agent.id ?? "",
+                displayName = agent.display_name ?? "",
+                persona = agent.persona ?? "",
+                expertiseCsv = JoinCsv(agent.expertise),
+                knowledgeTagsCsv = JoinCsv(agent.knowledge_tags),
+                preferredZoneIdsCsv = JoinCsv(agent.preferred_zone_ids),
+                preferredSpawnTagsCsv = JoinCsv(agent.preferred_spawn_tags),
+                voice = agent.voice ?? "",
+                voiceStyle = agent.voice_style ?? "",
+                ttsModel = agent.tts_model ?? "",
+                voiceGender = ResolveGenderForVoice(agent.voice) ?? voiceGenderOptions[0],
+                hasPosition = hasPosition,
+                position = hasPosition ? new Vector3Data
+                {
+                    x = agent.position.x,
+                    y = agent.position.y,
+                    z = agent.position.z,
+                } : new Vector3Data { x = 0f, y = 0f, z = 0f },
+            });
+        }
+    }
+
+    private IEnumerator SaveMetadata()
+    {
+        if (currentProject == null)
+        {
+            yield break;
+        }
+        LogStep("Metadaten speichern", $"POST /projects/{currentProject.id}/metadata");
+        var url = $"{backendBaseUrl}/projects/{currentProject.id}/metadata";
+        var payload = new MetadataSaveRequest
+        {
+            display_name = currentProject.display_name,
+            description = currentProject.description,
+        };
+        var ok = false;
+        yield return SendJson(url, payload, success => ok = success, "Metadaten speichern");
+        if (!ok)
+        {
+            yield break;
+        }
+        yield return RefreshProjects();
+        yield return LoadProject(currentProject.id);
+    }
+
+    private IEnumerator SaveAgents()
+    {
+        if (currentProject == null)
+        {
+            yield break;
+        }
+        LogStep("Agenten speichern", $"POST /projects/{currentProject.id}/agents");
+        var agents = new List<AgentSpec>();
+        foreach (var agent in agentUiList)
+        {
+            agents.Add(new AgentSpec
+            {
+                id = agent.id,
+                display_name = agent.displayName,
+                persona = agent.persona,
+                expertise = ParseCsv(agent.expertiseCsv),
+                knowledge_tags = ParseCsv(agent.knowledgeTagsCsv),
+                preferred_zone_ids = ParseCsv(agent.preferredZoneIdsCsv),
+                preferred_spawn_tags = ParseCsv(agent.preferredSpawnTagsCsv),
+                position = agent.hasPosition ? new Vector3Data
+                {
+                    x = agent.position != null ? agent.position.x : 0f,
+                    y = agent.position != null ? agent.position.y : 0f,
+                    z = agent.position != null ? agent.position.z : 0f,
+                } : null,
+                voice = agent.voice,
+                voice_style = agent.voiceStyle,
+                tts_model = agent.ttsModel,
+            });
+        }
+        var payload = new AgentsSaveRequest { agents = agents.ToArray() };
+        var url = $"{backendBaseUrl}/projects/{currentProject.id}/agents";
+        yield return SendJson(url, payload, null, "Agenten speichern");
+    }
+
+    private IEnumerator UpsertKnowledge()
+    {
+        if (currentProject == null)
+        {
+            yield break;
+        }
+        LogStep("Wissen speichern", $"POST /projects/{currentProject.id}/knowledge");
+        var url = $"{backendBaseUrl}/projects/{currentProject.id}/knowledge";
+        var payload = new KnowledgeUpsertRequest
+        {
+            action = "upsert",
+            tag = knowledgeTag,
+            name = knowledgeName,
+            text = knowledgeText,
+            overwrite = true,
+        };
+        yield return SendJson(url, payload, null, "Wissen speichern");
+        yield return RefreshKnowledge();
+    }
+
+    private IEnumerator DeleteKnowledge(string tag, string name)
+    {
+        if (currentProject == null)
+        {
+            yield break;
+        }
+        LogStep("Wissen löschen", $"POST /projects/{currentProject.id}/knowledge");
+        var url = $"{backendBaseUrl}/projects/{currentProject.id}/knowledge";
+        var payload = new KnowledgeUpsertRequest
+        {
+            action = "delete",
+            tag = tag,
+            name = name,
+            text = "",
+            overwrite = true,
+        };
+        yield return SendJson(url, payload, null, "Wissen löschen");
+        yield return RefreshKnowledge();
+    }
+
+    private IEnumerator ReadKnowledge(string tag, string name)
+    {
+        if (currentProject == null)
+        {
+            yield break;
+        }
+        LogStep("Wissen laden", $"POST /projects/{currentProject.id}/knowledge/read");
+        var url = $"{backendBaseUrl}/projects/{currentProject.id}/knowledge/read";
+        var payload = new KnowledgeReadRequest
+        {
+            tag = tag,
+            name = name,
+        };
+        using (var req = BuildPost(url, payload))
+        {
+            req.timeout = 30;
+            Debug.Log($"[ProjectManagerUI] -> POST {url}");
+            yield return req.SendWebRequest();
+            if (req.result != UnityWebRequest.Result.Success)
+            {
+                LogStatus("Fehler: " + req.error + " | " + req.downloadHandler.text);
+                yield break;
+            }
+            LogResponse($"POST /projects/{currentProject.id}/knowledge/read", req);
+            var resp = JsonUtility.FromJson<KnowledgeReadResponse>(req.downloadHandler.text);
+            if (resp != null)
+            {
+                knowledgeTag = resp.tag ?? "";
+                knowledgeName = resp.name ?? "";
+                knowledgeText = resp.text ?? "";
+                GUI.FocusControl(null);
+                Repaint();
+            }
+            LogStatus("Wissen geladen.");
+        }
+    }
+
+    private IEnumerator RefreshKnowledge()
+    {
+        if (currentProject == null)
+        {
+            yield break;
+        }
+        LogStep("Wissensliste laden", $"GET /projects/{currentProject.id}/knowledge");
+        var url = $"{backendBaseUrl}/projects/{currentProject.id}/knowledge";
+        using (var req = UnityWebRequest.Get(url))
+        {
+            req.timeout = 30;
+            Debug.Log($"[ProjectManagerUI] -> GET {url}");
+            yield return req.SendWebRequest();
+            if (req.result != UnityWebRequest.Result.Success)
+            {
+                LogStatus("Fehler beim Laden der Wissensliste: " + req.error + " | " + req.downloadHandler.text);
+                yield break;
+            }
+            LogResponse($"GET /projects/{currentProject.id}/knowledge", req);
+            var resp = JsonUtility.FromJson<KnowledgeListResponse>(req.downloadHandler.text);
+            knowledgeEntries = resp?.knowledge ?? Array.Empty<KnowledgeEntrySummary>();
+            LogStatus("Wissen aktualisiert.");
+        }
+    }
+
+    private IEnumerator SendJson(string url, object payload, Action<bool> onComplete, string actionLabel = null)
+    {
+        using (var req = BuildPost(url, payload))
+        {
+            req.timeout = 30;
+            Debug.Log($"[ProjectManagerUI] -> POST {url}");
+            yield return req.SendWebRequest();
+            if (req.result != UnityWebRequest.Result.Success)
+            {
+                var label = string.IsNullOrEmpty(actionLabel) ? "Anfrage" : actionLabel;
+                LogStatus($"{label} fehlgeschlagen: {req.error} (HTTP {req.responseCode}) | {req.downloadHandler.text}");
+                onComplete?.Invoke(false);
+            }
+            else
+            {
+                LogResponse(actionLabel ?? "POST", req);
+                if (!string.IsNullOrEmpty(actionLabel))
+                {
+                    LogStatus($"{actionLabel} abgeschlossen.");
+                }
+                else
+                {
+                    LogStatus("OK");
+                }
+                onComplete?.Invoke(true);
+            }
+        }
+    }
+
+    private static UnityWebRequest BuildPost(string url, object payload)
+    {
+        var json = JsonUtility.ToJson(payload);
+        var body = Encoding.UTF8.GetBytes(json);
+        var req = new UnityWebRequest(url, "POST");
+        req.uploadHandler = new UploadHandlerRaw(body);
+        req.uploadHandler.contentType = "application/json";
+        req.downloadHandler = new DownloadHandlerBuffer();
+        req.SetRequestHeader("Content-Type", "application/json");
+        req.SetRequestHeader("Accept", "application/json");
+        req.chunkedTransfer = false;
+        req.useHttpContinue = false;
+        return req;
+    }
+
+    private static string[] ParseCsv(string raw)
+    {
+        if (string.IsNullOrWhiteSpace(raw))
+        {
+            return Array.Empty<string>();
+        }
+        var parts = raw.Split(',');
+        var list = new List<string>();
+        foreach (var part in parts)
+        {
+            var trimmed = part.Trim();
+            if (!string.IsNullOrEmpty(trimmed))
+            {
+                list.Add(trimmed);
+            }
+        }
+        return list.ToArray();
+    }
+
+    private static string JoinCsv(string[] values)
+    {
+        if (values == null || values.Length == 0)
+        {
+            return "";
+        }
+        return string.Join(", ", values);
+    }
+}
+#endif

@@ -1,0 +1,909 @@
+{
+  "schema": "functionalmlds_evaluation_questions",
+  "schema_version": "1.0",
+  "case_id": "steinpilz_brand_room",
+  "generation_mode": "deterministic",
+  "prompt_version": null,
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "question_count": 29,
+    "zone_question_count": 8,
+    "semantic_zone_count": 8,
+    "agent_responsibility_question_count": 6,
+    "agent_count": 6,
+    "handoff_question_count": 15,
+    "declared_handoff_pair_count": 15,
+    "zone_question_coverage": 1.0,
+    "agent_question_coverage": 1.0,
+    "handoff_pair_question_coverage": 1.0
+  },
+  "questions": [
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-ZONE-ENTRANCE_ZONE",
+      "case_id": "steinpilz_brand_room",
+      "kind": "zone_grounding",
+      "text": "What can I do in the Entrance and Reception area, and which objects there are relevant for welcome visitors, provide initial information and guidance?",
+      "active_agent_id": "reception_agent",
+      "expected_agent_id": "reception_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "entrance_zone"
+      ],
+      "expected_object_ids": [
+        "reception_desk",
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "scene_semantics.semantic_zones",
+        "zone_id": "entrance_zone",
+        "object_ids": [
+          "reception_desk",
+          "brand_panel1",
+          "brand_panel2",
+          "brand_panel3",
+          "brand_panel4"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-ZONE-PRODUCT_DISPLAY_ZONE",
+      "case_id": "steinpilz_brand_room",
+      "kind": "zone_grounding",
+      "text": "What can I do in the Cheese Product Display area, and which objects there are relevant for showcase cheese products in refrigerated counters and on pedestals for sampling and viewing?",
+      "active_agent_id": "product_specialist_agent",
+      "expected_agent_id": "product_specialist_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "product_display_zone"
+      ],
+      "expected_object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "scene_semantics.semantic_zones",
+        "zone_id": "product_display_zone",
+        "object_ids": [
+          "refrigerated_counter1",
+          "refrigerated_counter2",
+          "refrigerated_counter3",
+          "refrigerated_counter4",
+          "product_pedestal1",
+          "product_pedestal2",
+          "product_pedestal3",
+          "product_pedestal4",
+          "product_pedestal5",
+          "product_pedestal6"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-ZONE-PRODUCTION_MODEL_ZONE",
+      "case_id": "steinpilz_brand_room",
+      "kind": "zone_grounding",
+      "text": "What can I do in the Production Technology Display area, and which objects there are relevant for display detailed production models to explain cheese manufacturing process?",
+      "active_agent_id": "production_expert_agent",
+      "expected_agent_id": "production_expert_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "production_model_zone"
+      ],
+      "expected_object_ids": [
+        "production_model1",
+        "production_model2"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "scene_semantics.semantic_zones",
+        "zone_id": "production_model_zone",
+        "object_ids": [
+          "production_model1",
+          "production_model2"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-ZONE-INTERACTIVE_ZONE",
+      "case_id": "steinpilz_brand_room",
+      "kind": "zone_grounding",
+      "text": "What can I do in the Interactive Information Kiosks area, and which objects there are relevant for provide digital interactive content about products, production, and company?",
+      "active_agent_id": "digital_interaction_agent",
+      "expected_agent_id": "digital_interaction_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "interactive_zone"
+      ],
+      "expected_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "scene_semantics.semantic_zones",
+        "zone_id": "interactive_zone",
+        "object_ids": [
+          "touch_kiosk1",
+          "touch_kiosk2"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-ZONE-CAREER_ZONE",
+      "case_id": "steinpilz_brand_room",
+      "kind": "zone_grounding",
+      "text": "What can I do in the Career and Training Area area, and which objects there are relevant for facilitate career discussions, training sessions, and meetings with company representatives?",
+      "active_agent_id": "career_advisor_agent",
+      "expected_agent_id": "career_advisor_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "career_zone"
+      ],
+      "expected_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "scene_semantics.semantic_zones",
+        "zone_id": "career_zone",
+        "object_ids": [
+          "meeting_pod1",
+          "meeting_pod2",
+          "meeting_pod3",
+          "training_board1",
+          "training_board2"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-ZONE-ENERGY_MONITORING_ZONE",
+      "case_id": "steinpilz_brand_room",
+      "kind": "zone_grounding",
+      "text": "What can I do in the Energy Measurement Stations area, and which objects there are relevant for showcase energy measurement and sustainability technology related to production?",
+      "active_agent_id": "production_expert_agent",
+      "expected_agent_id": "production_expert_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "energy_monitoring_zone"
+      ],
+      "expected_object_ids": [
+        "energy_station1",
+        "energy_station2"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "scene_semantics.semantic_zones",
+        "zone_id": "energy_monitoring_zone",
+        "object_ids": [
+          "energy_station1",
+          "energy_station2"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-ZONE-LOUNGE_ZONE",
+      "case_id": "steinpilz_brand_room",
+      "kind": "zone_grounding",
+      "text": "What can I do in the Lounge and Networking Area area, and which objects there are relevant for provide comfortable seating for informal meetings, relaxation, and networking?",
+      "active_agent_id": "lounge_host_agent",
+      "expected_agent_id": "lounge_host_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "lounge_zone"
+      ],
+      "expected_object_ids": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "scene_semantics.semantic_zones",
+        "zone_id": "lounge_zone",
+        "object_ids": [
+          "sofa1",
+          "lounge_table",
+          "chair1",
+          "chair2"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-ZONE-NAVIGATION_PATH",
+      "case_id": "steinpilz_brand_room",
+      "kind": "zone_grounding",
+      "text": "What can I do in the Visitor Circulation Path area, and which objects there are relevant for guide visitor movement through the booth to ensure smooth flow and coverage of zones?",
+      "active_agent_id": "reception_agent",
+      "expected_agent_id": "reception_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "navigation_path"
+      ],
+      "expected_object_ids": [
+        "floor_marking_path1"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "scene_semantics.semantic_zones",
+        "zone_id": "navigation_path",
+        "object_ids": [
+          "floor_marking_path1"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-AGENT-RECEPTION_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "agent_responsibility",
+      "text": "Reception Agent, what are you responsible for in this room, especially regarding visitor orientation, basic product knowledge, booth navigation?",
+      "active_agent_id": "reception_agent",
+      "expected_agent_id": "reception_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "entrance_zone"
+      ],
+      "expected_object_ids": [
+        "reception_desk",
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "agent_roles.agents",
+        "agent_id": "reception_agent",
+        "knowledge_tags": [
+          "visitor_orientation",
+          "company_overview",
+          "booth_navigation"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-AGENT-PRODUCT_SPECIALIST_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "agent_responsibility",
+      "text": "Product Specialist Agent, what are you responsible for in this room, especially regarding cheese product knowledge, sampling facilitation, customer engagement?",
+      "active_agent_id": "product_specialist_agent",
+      "expected_agent_id": "product_specialist_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "product_display_zone"
+      ],
+      "expected_object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "agent_roles.agents",
+        "agent_id": "product_specialist_agent",
+        "knowledge_tags": [
+          "cheese_products",
+          "product_sampling",
+          "customer_engagement"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-AGENT-PRODUCTION_EXPERT_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "agent_responsibility",
+      "text": "Production Expert Agent, what are you responsible for in this room, especially regarding production technology, energy management, sustainability?",
+      "active_agent_id": "production_expert_agent",
+      "expected_agent_id": "production_expert_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "production_model_zone",
+        "energy_monitoring_zone"
+      ],
+      "expected_object_ids": [
+        "production_model1",
+        "production_model2",
+        "energy_station1",
+        "energy_station2"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "agent_roles.agents",
+        "agent_id": "production_expert_agent",
+        "knowledge_tags": [
+          "production_process",
+          "energy_management",
+          "sustainability"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-AGENT-DIGITAL_INTERACTION_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "agent_responsibility",
+      "text": "Digital Interaction Agent, what are you responsible for in this room, especially regarding digital kiosk operation, content guidance, technical support?",
+      "active_agent_id": "digital_interaction_agent",
+      "expected_agent_id": "digital_interaction_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "interactive_zone"
+      ],
+      "expected_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "agent_roles.agents",
+        "agent_id": "digital_interaction_agent",
+        "knowledge_tags": [
+          "digital_interaction",
+          "content_navigation",
+          "technical_support"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-AGENT-CAREER_ADVISOR_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "agent_responsibility",
+      "text": "Career Advisor Agent, what are you responsible for in this room, especially regarding career counseling, training program knowledge, meeting facilitation?",
+      "active_agent_id": "career_advisor_agent",
+      "expected_agent_id": "career_advisor_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "career_zone"
+      ],
+      "expected_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "agent_roles.agents",
+        "agent_id": "career_advisor_agent",
+        "knowledge_tags": [
+          "career_opportunities",
+          "training_programs",
+          "company_culture"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-AGENT-LOUNGE_HOST_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "agent_responsibility",
+      "text": "Lounge Host Agent, what are you responsible for in this room, especially regarding visitor comfort, networking facilitation, hospitality?",
+      "active_agent_id": "lounge_host_agent",
+      "expected_agent_id": "lounge_host_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "lounge_zone"
+      ],
+      "expected_object_ids": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "agent_roles.agents",
+        "agent_id": "lounge_host_agent",
+        "knowledge_tags": [
+          "visitor_comfort",
+          "networking",
+          "hospitality"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-RECEPTION_AGENT_TO_PRODUCT_SPECIALIST_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor requests detailed information about cheese products or sampling.. Please connect me to the right expert if Product Specialist Agent should handle it.",
+      "active_agent_id": "reception_agent",
+      "expected_agent_id": "product_specialist_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "product_specialist_agent",
+      "expected_zone_ids": [
+        "product_display_zone"
+      ],
+      "expected_object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4"
+      ],
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "product_specialist_agent",
+      "handoff_condition": "Visitor requests detailed information about cheese products or sampling.",
+      "handoff_reason": "Product Specialist has in-depth product knowledge and sampling facilitation expertise.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "reception_agent",
+        "target_agent_id": "product_specialist_agent"
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-RECEPTION_AGENT_TO_PRODUCTION_EXPERT_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor inquires about cheese production technology or sustainability.. Please connect me to the right expert if Production Expert Agent should handle it.",
+      "active_agent_id": "reception_agent",
+      "expected_agent_id": "production_expert_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "production_expert_agent",
+      "expected_zone_ids": [
+        "production_model_zone",
+        "energy_monitoring_zone"
+      ],
+      "expected_object_ids": [
+        "production_model1",
+        "production_model2",
+        "energy_station1",
+        "energy_station2"
+      ],
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "production_expert_agent",
+      "handoff_condition": "Visitor inquires about cheese production technology or sustainability.",
+      "handoff_reason": "Production Expert specializes in explaining production processes and energy management.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "reception_agent",
+        "target_agent_id": "production_expert_agent"
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-RECEPTION_AGENT_TO_DIGITAL_INTERACTION_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor needs assistance with interactive kiosks or digital content navigation.. Please connect me to the right expert if Digital Interaction Agent should handle it.",
+      "active_agent_id": "reception_agent",
+      "expected_agent_id": "digital_interaction_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "digital_interaction_agent",
+      "expected_zone_ids": [
+        "interactive_zone"
+      ],
+      "expected_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "digital_interaction_agent",
+      "handoff_condition": "Visitor needs assistance with interactive kiosks or digital content navigation.",
+      "handoff_reason": "Digital Interaction Agent supports digital kiosk operation and content guidance.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "reception_agent",
+        "target_agent_id": "digital_interaction_agent"
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-RECEPTION_AGENT_TO_CAREER_ADVISOR_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor wants to discuss career opportunities or training programs.. Please connect me to the right expert if Career Advisor Agent should handle it.",
+      "active_agent_id": "reception_agent",
+      "expected_agent_id": "career_advisor_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "career_advisor_agent",
+      "expected_zone_ids": [
+        "career_zone"
+      ],
+      "expected_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "career_advisor_agent",
+      "handoff_condition": "Visitor wants to discuss career opportunities or training programs.",
+      "handoff_reason": "Career Advisor facilitates career counseling and training information.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "reception_agent",
+        "target_agent_id": "career_advisor_agent"
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-RECEPTION_AGENT_TO_LOUNGE_HOST_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor seeks a place to relax or network in the lounge area.. Please connect me to the right expert if Lounge Host Agent should handle it.",
+      "active_agent_id": "reception_agent",
+      "expected_agent_id": "lounge_host_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "lounge_host_agent",
+      "expected_zone_ids": [
+        "lounge_zone"
+      ],
+      "expected_object_ids": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "lounge_host_agent",
+      "handoff_condition": "Visitor seeks a place to relax or network in the lounge area.",
+      "handoff_reason": "Lounge Host ensures visitor comfort and networking facilitation.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "reception_agent",
+        "target_agent_id": "lounge_host_agent"
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-PRODUCT_SPECIALIST_AGENT_TO_PRODUCTION_EXPERT_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor asks technical questions about production after product inquiry.. Please connect me to the right expert if Production Expert Agent should handle it.",
+      "active_agent_id": "product_specialist_agent",
+      "expected_agent_id": "production_expert_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "production_expert_agent",
+      "expected_zone_ids": [
+        "production_model_zone",
+        "energy_monitoring_zone"
+      ],
+      "expected_object_ids": [
+        "production_model1",
+        "production_model2",
+        "energy_station1",
+        "energy_station2"
+      ],
+      "source_agent_id": "product_specialist_agent",
+      "target_agent_id": "production_expert_agent",
+      "handoff_condition": "Visitor asks technical questions about production after product inquiry.",
+      "handoff_reason": "Production Expert provides detailed production technology explanations.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "product_specialist_agent",
+        "target_agent_id": "production_expert_agent"
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-PRODUCT_SPECIALIST_AGENT_TO_DIGITAL_INTERACTION_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor wants to explore digital content related to products.. Please connect me to the right expert if Digital Interaction Agent should handle it.",
+      "active_agent_id": "product_specialist_agent",
+      "expected_agent_id": "digital_interaction_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "digital_interaction_agent",
+      "expected_zone_ids": [
+        "interactive_zone"
+      ],
+      "expected_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "source_agent_id": "product_specialist_agent",
+      "target_agent_id": "digital_interaction_agent",
+      "handoff_condition": "Visitor wants to explore digital content related to products.",
+      "handoff_reason": "Digital Interaction Agent assists with interactive digital content.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "product_specialist_agent",
+        "target_agent_id": "digital_interaction_agent"
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-PRODUCT_SPECIALIST_AGENT_TO_CAREER_ADVISOR_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor expresses interest in career or training after product discussion.. Please connect me to the right expert if Career Advisor Agent should handle it.",
+      "active_agent_id": "product_specialist_agent",
+      "expected_agent_id": "career_advisor_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "career_advisor_agent",
+      "expected_zone_ids": [
+        "career_zone"
+      ],
+      "expected_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "source_agent_id": "product_specialist_agent",
+      "target_agent_id": "career_advisor_agent",
+      "handoff_condition": "Visitor expresses interest in career or training after product discussion.",
+      "handoff_reason": "Career Advisor supports career and training discussions.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "product_specialist_agent",
+        "target_agent_id": "career_advisor_agent"
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-PRODUCTION_EXPERT_AGENT_TO_DIGITAL_INTERACTION_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor requests digital content related to production technology or sustainability.. Please connect me to the right expert if Digital Interaction Agent should handle it.",
+      "active_agent_id": "production_expert_agent",
+      "expected_agent_id": "digital_interaction_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "digital_interaction_agent",
+      "expected_zone_ids": [
+        "interactive_zone"
+      ],
+      "expected_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "source_agent_id": "production_expert_agent",
+      "target_agent_id": "digital_interaction_agent",
+      "handoff_condition": "Visitor requests digital content related to production technology or sustainability.",
+      "handoff_reason": "Digital Interaction Agent guides interactive kiosk usage for production topics.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "production_expert_agent",
+        "target_agent_id": "digital_interaction_agent"
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-PRODUCTION_EXPERT_AGENT_TO_CAREER_ADVISOR_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor shows interest in career or training after production explanation.. Please connect me to the right expert if Career Advisor Agent should handle it.",
+      "active_agent_id": "production_expert_agent",
+      "expected_agent_id": "career_advisor_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "career_advisor_agent",
+      "expected_zone_ids": [
+        "career_zone"
+      ],
+      "expected_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "source_agent_id": "production_expert_agent",
+      "target_agent_id": "career_advisor_agent",
+      "handoff_condition": "Visitor shows interest in career or training after production explanation.",
+      "handoff_reason": "Career Advisor facilitates career-related discussions.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "production_expert_agent",
+        "target_agent_id": "career_advisor_agent"
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-DIGITAL_INTERACTION_AGENT_TO_PRODUCT_SPECIALIST_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor wants more detailed product information after digital interaction.. Please connect me to the right expert if Product Specialist Agent should handle it.",
+      "active_agent_id": "digital_interaction_agent",
+      "expected_agent_id": "product_specialist_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "product_specialist_agent",
+      "expected_zone_ids": [
+        "product_display_zone"
+      ],
+      "expected_object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4"
+      ],
+      "source_agent_id": "digital_interaction_agent",
+      "target_agent_id": "product_specialist_agent",
+      "handoff_condition": "Visitor wants more detailed product information after digital interaction.",
+      "handoff_reason": "Product Specialist provides expert product knowledge.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "digital_interaction_agent",
+        "target_agent_id": "product_specialist_agent"
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-DIGITAL_INTERACTION_AGENT_TO_PRODUCTION_EXPERT_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor seeks deeper production technology details after digital content.. Please connect me to the right expert if Production Expert Agent should handle it.",
+      "active_agent_id": "digital_interaction_agent",
+      "expected_agent_id": "production_expert_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "production_expert_agent",
+      "expected_zone_ids": [
+        "production_model_zone",
+        "energy_monitoring_zone"
+      ],
+      "expected_object_ids": [
+        "production_model1",
+        "production_model2",
+        "energy_station1",
+        "energy_station2"
+      ],
+      "source_agent_id": "digital_interaction_agent",
+      "target_agent_id": "production_expert_agent",
+      "handoff_condition": "Visitor seeks deeper production technology details after digital content.",
+      "handoff_reason": "Production Expert offers specialized production insights.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "digital_interaction_agent",
+        "target_agent_id": "production_expert_agent"
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-DIGITAL_INTERACTION_AGENT_TO_CAREER_ADVISOR_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor wants to discuss career or training after digital content interaction.. Please connect me to the right expert if Career Advisor Agent should handle it.",
+      "active_agent_id": "digital_interaction_agent",
+      "expected_agent_id": "career_advisor_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "career_advisor_agent",
+      "expected_zone_ids": [
+        "career_zone"
+      ],
+      "expected_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "source_agent_id": "digital_interaction_agent",
+      "target_agent_id": "career_advisor_agent",
+      "handoff_condition": "Visitor wants to discuss career or training after digital content interaction.",
+      "handoff_reason": "Career Advisor supports career and training inquiries.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "digital_interaction_agent",
+        "target_agent_id": "career_advisor_agent"
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-CAREER_ADVISOR_AGENT_TO_LOUNGE_HOST_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor wants to relax or network after career discussions.. Please connect me to the right expert if Lounge Host Agent should handle it.",
+      "active_agent_id": "career_advisor_agent",
+      "expected_agent_id": "lounge_host_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "lounge_host_agent",
+      "expected_zone_ids": [
+        "lounge_zone"
+      ],
+      "expected_object_ids": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "source_agent_id": "career_advisor_agent",
+      "target_agent_id": "lounge_host_agent",
+      "handoff_condition": "Visitor wants to relax or network after career discussions.",
+      "handoff_reason": "Lounge Host facilitates comfort and networking in lounge area.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "career_advisor_agent",
+        "target_agent_id": "lounge_host_agent"
+      }
+    },
+    {
+      "question_id": "EQ-STEINPILZ_BRAND_ROOM-HANDOFF-LOUNGE_HOST_AGENT_TO_RECEPTION_AGENT",
+      "case_id": "steinpilz_brand_room",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor needs general information or orientation after lounge time.. Please connect me to the right expert if Reception Agent should handle it.",
+      "active_agent_id": "lounge_host_agent",
+      "expected_agent_id": "reception_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "reception_agent",
+      "expected_zone_ids": [
+        "entrance_zone"
+      ],
+      "expected_object_ids": [
+        "reception_desk",
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "source_agent_id": "lounge_host_agent",
+      "target_agent_id": "reception_agent",
+      "handoff_condition": "Visitor needs general information or orientation after lounge time.",
+      "handoff_reason": "Reception Agent provides overall booth guidance and orientation.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "lounge_host_agent",
+        "target_agent_id": "reception_agent"
+      }
+    }
+  ]
+}

@@ -1,0 +1,500 @@
+{
+  "ok": true,
+  "reports": [
+    {
+      "subject": "Dynamic Functional MLDS V2",
+      "ok": true,
+      "generated_at": "2026-07-14T11:14:41.725217+00:00",
+      "error_count": 0,
+      "warning_count": 0,
+      "checks": [
+        {
+          "check_id": "META-01",
+          "title": "reference, type and enumeration closure",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "EAST-01",
+          "title": "exact EAST-ADL bases and properties",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "META-02",
+          "title": "no inherited attribute shadows",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "PKG-01",
+          "title": "one-way DFMLDS to EAST-ADL dependency",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "OWN-01",
+          "title": "single composition owner and relationship ownership",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "INV-01",
+          "title": "invariant identifier synchronization",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "ROOT-01",
+          "title": "exact root requirements and V&V containers",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "CAP-01",
+          "title": "capability type/prototype pattern",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "AST-01",
+          "title": "reusable assertion and assertion-result structure",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "VAL-01",
+          "title": "Boolean condition and probability datatype",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "RUN-01",
+          "title": "runtime locator and ordered action structure",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "SCN-01",
+          "title": "scenario variants and control-flow structure",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "ENT-01",
+          "title": "agent discriminator contract",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "REQ-01",
+          "title": "Satisfy XOR and exclusions",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "VV-01",
+          "title": "verification and validation structure",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "FUN-01",
+          "title": "FunctionBehavior exact required properties",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "ARCH-01",
+          "title": "functional architecture is not reified",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "ANNEX-01",
+          "title": "optional preliminary Annex mapping",
+          "status": "pass",
+          "issue_count": 0
+        }
+      ],
+      "evidence": {},
+      "issues": []
+    },
+    {
+      "subject": "DFMLDS-V2-positive-full-surface",
+      "ok": true,
+      "generated_at": "2026-07-14T11:14:41.825745+00:00",
+      "error_count": 0,
+      "warning_count": 0,
+      "checks": [
+        {
+          "check_id": "META-01",
+          "title": "reference, type and enumeration closure",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "EAST-01",
+          "title": "exact EAST-ADL bases and properties",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "META-02",
+          "title": "no inherited attribute shadows",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "PKG-01",
+          "title": "one-way DFMLDS to EAST-ADL dependency",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "OWN-01",
+          "title": "single composition owner and relationship ownership",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "INV-01",
+          "title": "invariant identifier synchronization",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "ROOT-01",
+          "title": "exact root requirements and V&V containers",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "CAP-01",
+          "title": "capability type/prototype pattern",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "AST-01",
+          "title": "reusable assertion and assertion-result structure",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "VAL-01",
+          "title": "Boolean condition and probability datatype",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "RUN-01",
+          "title": "runtime locator and ordered action structure",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "SCN-01",
+          "title": "scenario variants and control-flow structure",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "ENT-01",
+          "title": "agent discriminator contract",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "REQ-01",
+          "title": "Satisfy XOR and exclusions",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "VV-01",
+          "title": "verification and validation structure",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "FUN-01",
+          "title": "FunctionBehavior exact required properties",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "ARCH-01",
+          "title": "functional architecture is not reified",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "ANNEX-01",
+          "title": "optional preliminary Annex mapping",
+          "status": "pass",
+          "issue_count": 0
+        }
+      ],
+      "evidence": {},
+      "issues": []
+    },
+    {
+      "subject": "positive-full-surface",
+      "ok": true,
+      "generated_at": "2026-07-14T11:14:41.862744+00:00",
+      "error_count": 0,
+      "warning_count": 0,
+      "checks": [
+        {
+          "check_id": "I-REF",
+          "title": "instance identity and reference closure",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "I-OWN",
+          "title": "single instance composition owner",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "I-ROOT",
+          "title": "exact root requirements and V&V containers",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "I-CAP",
+          "title": "capability-use performer and targets",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "I-AST",
+          "title": "assertions and structured assertion results",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "I-VAL",
+          "title": "Boolean conditions and probabilities",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "I-RUN",
+          "title": "runtime locator and ordered actions",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "I-SCN",
+          "title": "main, variants, control-flow and fork/join",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "I-ENT",
+          "title": "EntityKind agent equivalence",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "I-REQ",
+          "title": "Satisfy XOR and exclusions",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "I-VV",
+          "title": "V&V ownership, logging and separation",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "I-FUN",
+          "title": "FunctionBehavior required values",
+          "status": "pass",
+          "issue_count": 0
+        },
+        {
+          "check_id": "I-COV",
+          "title": "full-surface fixture construction coverage",
+          "status": "pass",
+          "issue_count": 0
+        }
+      ],
+      "evidence": {
+        "fixture_coverage": {
+          "profile": "full-surface",
+          "ok": true,
+          "covered_count": 17,
+          "requirement_count": 17,
+          "requirements": [
+            {
+              "id": "COV-USECASE-REL",
+              "description": "Include, Extend and ExtensionPoint with populated EAST-ADL ends",
+              "covered": true,
+              "evidence": [
+                "ep",
+                "include",
+                "extend"
+              ]
+            },
+            {
+              "id": "COV-SCENARIO-KINDS",
+              "description": "main, alternative and exception scenarios",
+              "covered": true,
+              "evidence": [
+                "alternative",
+                "exception",
+                "main"
+              ]
+            },
+            {
+              "id": "COV-RELATION-KINDS",
+              "description": "all canonical StepRelation kinds",
+              "covered": true,
+              "evidence": [
+                "alternative",
+                "exception",
+                "fork",
+                "join",
+                "loop",
+                "sequence"
+              ]
+            },
+            {
+              "id": "COV-SIGNAL",
+              "description": "signal Entity discriminator",
+              "covered": true,
+              "evidence": [
+                "ent-signal"
+              ]
+            },
+            {
+              "id": "COV-LOCATORS",
+              "description": "positive endpoint, tool and topic locators",
+              "covered": true,
+              "evidence": [
+                "endpoint",
+                "tool",
+                "topic"
+              ]
+            },
+            {
+              "id": "COV-PARAMETER-SCHEMA",
+              "description": "typed capability/runtime parameters, schemas and ParameterBinding",
+              "covered": true,
+              "evidence": [
+                "parameter-binding",
+                "schema-in",
+                "schema-out",
+                "cap-param",
+                "runtime-param"
+              ]
+            },
+            {
+              "id": "COV-ABSTRACT-VV",
+              "description": "abstract ValidationCase and Procedure omit concrete-only features",
+              "covered": true,
+              "evidence": [
+                "vc-abstract",
+                "procedure-abstract"
+              ]
+            },
+            {
+              "id": "COV-SATISFY-BRANCHES",
+              "description": "positive Requirement and UseCase XOR branches",
+              "covered": true,
+              "evidence": [
+                "satisfy-requirement",
+                "satisfy-usecase"
+              ]
+            },
+            {
+              "id": "COV-STATE-EVIDENCE",
+              "description": "StateAssertion reused as Capability effect specification and V&V intended outcome",
+              "covered": true,
+              "evidence": [
+                "state"
+              ]
+            },
+            {
+              "id": "COV-ASSERTION-KINDS",
+              "description": "all five concrete Assertion specializations",
+              "covered": true,
+              "evidence": [
+                "EventAssertion",
+                "GroundingAssertion",
+                "OutputAssertion",
+                "RelationAssertion",
+                "StateAssertion"
+              ]
+            },
+            {
+              "id": "COV-ASSERTION-RESULT",
+              "description": "structured AssertionResult with verdict, observed value and actual-outcome ownership",
+              "covered": true,
+              "evidence": [
+                "assertion-result",
+                "actual"
+              ]
+            },
+            {
+              "id": "COV-CAPABILITY-PERFORMER",
+              "description": "CapabilityUse has an explicit provider and identifiable target",
+              "covered": true,
+              "evidence": [
+                "cap-use"
+              ]
+            },
+            {
+              "id": "COV-RUNTIME-TARGET",
+              "description": "runtime validation target names a platform and exposes binding as element subset",
+              "covered": true,
+              "evidence": [
+                "vt"
+              ]
+            },
+            {
+              "id": "COV-BRANCH-PROBABILITY",
+              "description": "complete alternative/exception branch carries probabilities summing to one",
+              "covered": true,
+              "evidence": [
+                "r45-alt",
+                "r46-exc"
+              ]
+            },
+            {
+              "id": "COV-ROOT-CONTAINERS",
+              "description": "root has exactly one RequirementsModel and one VerificationValidation",
+              "covered": true,
+              "evidence": [
+                "root"
+              ]
+            },
+            {
+              "id": "COV-VV-ROLE-SEPARATION",
+              "description": "separate vvSubject/VVTarget.element roles allow coincident Identifiable values",
+              "covered": true,
+              "evidence": [
+                "rb"
+              ]
+            },
+            {
+              "id": "COV-VERIFY-CASE",
+              "description": "Verify always includes a VVCase in addition to Requirements",
+              "covered": true,
+              "evidence": [
+                "verify"
+              ]
+            }
+          ]
+        }
+      },
+      "issues": []
+    }
+  ]
+}

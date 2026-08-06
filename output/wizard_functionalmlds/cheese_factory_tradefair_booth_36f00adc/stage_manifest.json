@@ -1,0 +1,862 @@
+{
+  "case_id": "cheese_factory_tradefair_booth_36f00adc",
+  "created_at": "2026-07-09T16:03:08+00:00",
+  "stages": [
+    {
+      "stage_id": "case_initialization",
+      "status": "success",
+      "updated_at": "2026-07-09T16:03:08+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\_wizard_inputs\\cheese_factory_tradefair_booth_36f00adc.source_mlds.json",
+          "sha256": "9233dc567bf56802d5756ab0b08e7ff58eab4295f14f811252944670130ffd65"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\input\\source_mlds.json",
+          "sha256": "9233dc567bf56802d5756ab0b08e7ff58eab4295f14f811252944670130ffd65"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\input\\source_mlds.sha256",
+          "sha256": "28e0897f0744fb75de71ff2c5b802caf4da942b01c6c2403d06fd2f0dc0f1ccf"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "case_id": "cheese_factory_tradefair_booth_36f00adc",
+        "source_sha256": "9233dc567bf56802d5756ab0b08e7ff58eab4295f14f811252944670130ffd65"
+      }
+    },
+    {
+      "stage_id": "mlds_ingestion",
+      "status": "success",
+      "updated_at": "2026-07-09T16:03:08+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\input\\source_mlds.json",
+          "sha256": "9233dc567bf56802d5756ab0b08e7ff58eab4295f14f811252944670130ffd65"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\scene_graph.normalized.json",
+          "sha256": "b3c7d33e599e37fd22c8f49d72759d0915e911b145ad64153704e49319666bff"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\object_group_summary.json",
+          "sha256": "07e917bbfc401ed6f6918645eca3efa8e7777f64f74ae7b97577173f1acaea6a"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\validation\\mlds_ingestion_validation.json",
+          "sha256": "b7db41abd807baec63b11789053335d66187041e3a0f1e4897eca7c93fc928db"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "object_count": 36,
+        "non_structural_group_count": 10
+      }
+    },
+    {
+      "stage_id": "scene_semantics",
+      "status": "success",
+      "updated_at": "2026-07-09T16:03:26+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\scene_graph.normalized.json",
+          "sha256": "b3c7d33e599e37fd22c8f49d72759d0915e911b145ad64153704e49319666bff"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\object_group_summary.json",
+          "sha256": "07e917bbfc401ed6f6918645eca3efa8e7777f64f74ae7b97577173f1acaea6a"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\scene_semantics_v1.md",
+          "sha256": "8f969a22465731dce45d5883ff9e382b0a2afad32fc4111b864514c4facb09b2"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\repair_invalid_object_refs_v1.md",
+          "sha256": "4ed8ec0ac617348733a44b8867e98ec618005a8f3bbc74a7d1f263020e3ad5ed"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\scene_semantics.json",
+          "sha256": "a949df7359615057fe8df9f3340b59b10fe88649a3dcfc81a5bdca5d29fae978"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\validation\\scene_semantics_validation.json",
+          "sha256": "924f6d314b604678de625b0e46be5511e79392457b5eb04ee2bc8245e42c832d"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "prompt_version": "scene_semantics_v1",
+        "repair_prompt_version": "repair_invalid_object_refs_v1",
+        "attempts_used": 1,
+        "llm": {
+          "base_url": "https://api.openai.com/v1/responses",
+          "model": "gpt-4.1-mini",
+          "timeout_seconds": 60,
+          "config_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\config.json",
+          "api_key_present": true
+        },
+        "response": {
+          "response_id": "resp_00fe634485303877006a4fc63d54c881a298dfad3d9a0917af",
+          "model": "gpt-4.1-mini-2025-04-14",
+          "status": "completed",
+          "usage": {
+            "input_tokens": 5524,
+            "input_tokens_details": {
+              "cache_write_tokens": 0,
+              "cached_tokens": 0
+            },
+            "output_tokens": 1613,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 7137
+          }
+        },
+        "metrics": {
+          "visitor_goal_count": 6,
+          "semantic_zone_count": 8,
+          "important_object_count": 11,
+          "interaction_topic_count": 4,
+          "agent_role_candidate_count": 6,
+          "covered_object_count": 31
+        }
+      }
+    },
+    {
+      "stage_id": "agent_roles",
+      "status": "success",
+      "updated_at": "2026-07-09T16:03:57+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\scene_graph.normalized.json",
+          "sha256": "b3c7d33e599e37fd22c8f49d72759d0915e911b145ad64153704e49319666bff"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\object_group_summary.json",
+          "sha256": "07e917bbfc401ed6f6918645eca3efa8e7777f64f74ae7b97577173f1acaea6a"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\scene_semantics.json",
+          "sha256": "a949df7359615057fe8df9f3340b59b10fe88649a3dcfc81a5bdca5d29fae978"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\agent_roles_v1.md",
+          "sha256": "8324a36c46c368ea65fb3210a62fe35fb8f5f8e8587e7543dea8369d8743e99a"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\repair_invalid_handoff_targets_v1.md",
+          "sha256": "f4fe09af976143d0078dfc7dbecb8155d4d6ca0b83dccea237e95c57d1831fd1"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\agent_roles.generated.json",
+          "sha256": "511a8ef52f0a006efd16cc6491d53026f70e46fdd1504257105601d9c507bf3f"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\handoff_matrix.json",
+          "sha256": "3068796e8041db94ebf055329c9091d48dacec437f5f6b06d584df05e65dbde6"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\validation\\agent_roles_validation.json",
+          "sha256": "70e1f17fa0d204fc27f2a1ae9336ba978c6dd63db8358aca7fe46c609cd37fdb"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "prompt_version": "agent_roles_v1",
+        "repair_prompt_version": "repair_invalid_handoff_targets_v1",
+        "attempts_used": 1,
+        "llm": {
+          "base_url": "https://api.openai.com/v1/responses",
+          "model": "gpt-4.1-mini",
+          "timeout_seconds": 60,
+          "config_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\config.json",
+          "api_key_present": true
+        },
+        "response": {
+          "response_id": "resp_0895674bb6466f05006a4fc64f53e881a392e30b85ad5a63bd",
+          "model": "gpt-4.1-mini-2025-04-14",
+          "status": "completed",
+          "usage": {
+            "input_tokens": 5118,
+            "input_tokens_details": {
+              "cache_write_tokens": 0,
+              "cached_tokens": 0
+            },
+            "output_tokens": 1516,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 6634
+          }
+        },
+        "metrics": {
+          "agent_count": 6,
+          "knowledge_tag_count": 18,
+          "handoff_count": 15,
+          "grounded_object_count": 30
+        }
+      }
+    },
+    {
+      "stage_id": "knowledge_synthesis",
+      "status": "success",
+      "updated_at": "2026-07-09T16:04:22+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\scene_graph.normalized.json",
+          "sha256": "b3c7d33e599e37fd22c8f49d72759d0915e911b145ad64153704e49319666bff"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\scene_semantics.json",
+          "sha256": "a949df7359615057fe8df9f3340b59b10fe88649a3dcfc81a5bdca5d29fae978"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\agent_roles.generated.json",
+          "sha256": "511a8ef52f0a006efd16cc6491d53026f70e46fdd1504257105601d9c507bf3f"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\knowledge_synthesis_v1.md",
+          "sha256": "405365373f9b12f824416a4cb43d2d48242d1b8db2869b82aaedcc191fdc99c9"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\repair_missing_knowledge_entries_v1.md",
+          "sha256": "68c3c267a63e9e3ae326ce83d2772cf2a2c899d28ac022c45b598b33055cb301"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\knowledge.generated.json",
+          "sha256": "ab735bd94d56f0f1912b691b0e5b70187bc3054185fdeda576cd1007e1adb827"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\validation\\knowledge_synthesis_validation.json",
+          "sha256": "4cf2d6ec5693cce39723f395eb167bb024a202b115bc64808c9b5b4af220b108"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\interactive_agents_project\\kb\\cheese_products\\branding_and_cheese_product_introduction_at_entrance.txt",
+          "sha256": "0d4db7192bd938a7122f316c5608e3eb8868cfe62c0c3893a4138a8b43598059"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\interactive_agents_project\\kb\\visitor_guidance\\visitor_welcome_and_initial_guidance.txt",
+          "sha256": "f1fd52b0537dfacb61a11b38c147708c6c904db0d00919f901dfa30ce48007b4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\interactive_agents_project\\kb\\booth_navigation\\visitor_circulation_path_and_zone_orientation.txt",
+          "sha256": "d641544e0154aca1484adf097614bb3ec86d5f8ffcc623df233151e33331a991"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\interactive_agents_project\\kb\\cheese_varieties\\cheese_product_display_and_varieties.txt",
+          "sha256": "c93d3dc9e50639f4e9b98a568c0cec1a33621525e40de325cfde2c2ce5bbc9d0"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\interactive_agents_project\\kb\\product_tasting\\cheese_tasting_and_sampling_area.txt",
+          "sha256": "287cdd06d3eda7645c784c0f134cf95c18c3cf1dc703da4854441876958b08d4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\interactive_agents_project\\kb\\customer_engagement\\interactive_customer_engagement_at_product_displays.txt",
+          "sha256": "87b6338a4ac51374a1e927b21fddfbea7fe7e8cea09a86843710b2ef95172f7b"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\interactive_agents_project\\kb\\cheese_production\\cheese_production_demonstration_models.txt",
+          "sha256": "30bddd64ede8e3b753e5c8d51967495711c992bfed4175cc50a964edc3755406"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\interactive_agents_project\\kb\\industrial_equipment\\industrial_cheese_manufacturing_equipment_models.txt",
+          "sha256": "f06a0f739c346b3b5f0013cbacc8a9b6d5fdeff1bfccf75de71249cc165d8f36"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\interactive_agents_project\\kb\\energy_measurement\\energy_measurement_stations_for_production_sustainability.txt",
+          "sha256": "de8d93a69e7b24b13c4274c7f14376f6cbf268d721787d20c748a3f473f578e4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\interactive_agents_project\\kb\\interactive_kiosks\\interactive_touchscreen_kiosks.txt",
+          "sha256": "c0f581bcb7a4b92fbc4233ace686f3d82e7602a65063d57d17fb4245f88b8631"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\interactive_agents_project\\kb\\digital_guides\\digital_content_and_guides_via_touch_kiosks.txt",
+          "sha256": "398faf00d9017a277836e2a0b2200db36f4e69c5115e8b3685c8a317149ffb86"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\interactive_agents_project\\kb\\user_support\\assistance_with_digital_interaction.txt",
+          "sha256": "14d457ac38f404f45e95a7e2724a5b2f24260a7c6a28b51c22c9dbe671daff07"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\interactive_agents_project\\kb\\career_opportunities\\career_and_business_meeting_pods.txt",
+          "sha256": "f2c09e9db4944f71dba28bb7339245fda1a7e1daff7c3997582d8fb1a4b8abce"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\interactive_agents_project\\kb\\training_sessions\\interactive_training_boards_for_career_development.txt",
+          "sha256": "24d5b350ba28a4d2e6a503a6638316e1512944165253a09fbc419013fd996b1b"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\interactive_agents_project\\kb\\business_discussions\\facilitated_business_and_career_discussions.txt",
+          "sha256": "a838009a4d032d37a238041e0c33027da5eef9e1a9ecb1374cdd9949b96ee650"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\interactive_agents_project\\kb\\visitor_relaxation\\lounge_area_for_visitor_comfort.txt",
+          "sha256": "8f3c9284fc305e3e8de53bee31f5ca0bbc6e5697f5d4d3f879cf8e4c5ed7d0e4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\interactive_agents_project\\kb\\informal_engagement\\informal_visitor_interaction_in_lounge.txt",
+          "sha256": "5b3a19f8092cb58a5902615e3f5f962ced3a61845a452dd3cd573e06f5f51c7e"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\interactive_agents_project\\kb\\hospitality\\hospitality_and_visitor_comfort_in_lounge_zone.txt",
+          "sha256": "e45eecda6f97734ab9a57acc4d31bfe8371f10415bdf3da6a2ab4d17a8a621d0"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "prompt_version": "knowledge_synthesis_v1",
+        "repair_prompt_version": "repair_missing_knowledge_entries_v1",
+        "attempts_used": 1,
+        "llm": {
+          "base_url": "https://api.openai.com/v1/responses",
+          "model": "gpt-4.1-mini",
+          "timeout_seconds": 60,
+          "config_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\config.json",
+          "api_key_present": true
+        },
+        "response": {
+          "response_id": "resp_053258cddf04120a006a4fc66db18881a083790498820f4ebd",
+          "model": "gpt-4.1-mini-2025-04-14",
+          "status": "completed",
+          "usage": {
+            "input_tokens": 8887,
+            "input_tokens_details": {
+              "cache_write_tokens": 0,
+              "cached_tokens": 0
+            },
+            "output_tokens": 1575,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 10462
+          }
+        },
+        "metrics": {
+          "knowledge_entry_count": 18,
+          "required_tag_count": 18,
+          "covered_tag_count": 18,
+          "referenced_object_count": 31,
+          "required_room_group_count": 10,
+          "covered_room_group_count": 10,
+          "room_group_coverage": 1.0
+        }
+      }
+    },
+    {
+      "stage_id": "agent_placement",
+      "status": "success",
+      "updated_at": "2026-07-09T16:04:22+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\scene_graph.normalized.json",
+          "sha256": "b3c7d33e599e37fd22c8f49d72759d0915e911b145ad64153704e49319666bff"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\scene_semantics.json",
+          "sha256": "a949df7359615057fe8df9f3340b59b10fe88649a3dcfc81a5bdca5d29fae978"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\agent_roles.generated.json",
+          "sha256": "511a8ef52f0a006efd16cc6491d53026f70e46fdd1504257105601d9c507bf3f"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\agent_placements.json",
+          "sha256": "0c51e549c8cd21d62d0b69f109b7a5bbf2181f60d2ec379226a020e488949cf3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\validation\\agent_placement_validation.json",
+          "sha256": "02ceadd0404e2a24395d27f16398bb16ad7f838a92fe855350cda877a15570b8"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "agent_count": 6,
+        "placement_count": 6,
+        "out_of_bounds_count": 0,
+        "obstacle_overlap_count": 0,
+        "minimum_agent_distance": 0.9067
+      }
+    },
+    {
+      "stage_id": "functionalmlds_assembly",
+      "status": "success",
+      "updated_at": "2026-07-09T16:04:22+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\scene_graph.normalized.json",
+          "sha256": "b3c7d33e599e37fd22c8f49d72759d0915e911b145ad64153704e49319666bff"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\scene_semantics.json",
+          "sha256": "a949df7359615057fe8df9f3340b59b10fe88649a3dcfc81a5bdca5d29fae978"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\agent_roles.generated.json",
+          "sha256": "511a8ef52f0a006efd16cc6491d53026f70e46fdd1504257105601d9c507bf3f"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\agent_placements.json",
+          "sha256": "0c51e549c8cd21d62d0b69f109b7a5bbf2181f60d2ec379226a020e488949cf3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\functionalmlds_assembly_v1.md",
+          "sha256": "64caf06a68b6c1c3e13df14415b4b9da90809d0c3fe41d480bbfd232853e020a"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "12d6369074713db573c90716da965f2e4653f583a5faca4b8842f75d96e3ea59"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\validation\\functionalmlds_invariant_validation.json",
+          "sha256": "fc6e78ea8667c984b56070b8ef063a1f8feab2408d0f1bac1e7bb3dc5553e918"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "prompt_version": "functionalmlds_assembly_v1",
+        "deterministic": true,
+        "metrics": {
+          "requirement_count": 6,
+          "use_case_count": 1,
+          "entity_count": 54,
+          "semantic_zone_entity_count": 8,
+          "object_group_entity_count": 9,
+          "scene_object_entity_count": 30,
+          "room_answer_capability_count": 1,
+          "handoff_capability_count": 1,
+          "handoff_runtime_binding_count": 1,
+          "handoff_runtime_action_count": 1,
+          "capability_count": 9,
+          "capability_use_count": 10,
+          "runtime_binding_count": 9,
+          "validation_case_count": 6,
+          "capability_use_coverage": 9,
+          "runtime_capability_coverage": 9
+        }
+      }
+    },
+    {
+      "stage_id": "handoff_derivation",
+      "status": "success",
+      "updated_at": "2026-07-09T16:04:22+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\agent_roles.generated.json",
+          "sha256": "c89055ca33a21a431e7d4791969c5278aa083a857751d809aa604c92e06e718e"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "de82c9e40bd8927262e6463a0943aaeb5fd576d5096dddacfe13b04a6a5ac532"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\handoff_matrix.json",
+          "sha256": "3068796e8041db94ebf055329c9091d48dacec437f5f6b06d584df05e65dbde6"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\agent_roles.generated.json",
+          "sha256": "c89055ca33a21a431e7d4791969c5278aa083a857751d809aa604c92e06e718e"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "de82c9e40bd8927262e6463a0943aaeb5fd576d5096dddacfe13b04a6a5ac532"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\handoff_matrix.json",
+          "sha256": "3068796e8041db94ebf055329c9091d48dacec437f5f6b06d584df05e65dbde6"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\validation\\handoff_derivation_validation.json",
+          "sha256": "ccff7da2287c9e7703671cfe01e2f02edd6db05e9140071b2a92f2ec5a8412a3"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "agent_count": 6,
+        "handoff_pair_count": 15,
+        "source_agent_with_handoff_count": 6,
+        "fallback_used": false,
+        "unique_pair_count": 15,
+        "role_validation_status": "valid",
+        "derivation_validation_status": "valid"
+      }
+    },
+    {
+      "stage_id": "functionalmlds_invariants",
+      "status": "success",
+      "updated_at": "2026-07-09T16:05:22+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "de82c9e40bd8927262e6463a0943aaeb5fd576d5096dddacfe13b04a6a5ac532"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\validation\\functionalmlds_invariants_validation.json",
+          "sha256": "896c7d12b41848e1c76169fa939c9822a0a487b292d433e5b2526a16400f0724"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "recovered_without_rerun": true,
+        "recovered_without_llm": false,
+        "repair_type": "deterministic_regeneration",
+        "llm_used": false,
+        "attempts_used": 0,
+        "metrics": {
+          "invariant_count": 8,
+          "passed_invariant_count": 8,
+          "failed_invariant_count": 0,
+          "checked_element_count": 52,
+          "error_count": 0
+        }
+      }
+    },
+    {
+      "stage_id": "project_materialization",
+      "status": "success",
+      "updated_at": "2026-07-09T16:05:22+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\input\\source_mlds.json",
+          "sha256": "9233dc567bf56802d5756ab0b08e7ff58eab4295f14f811252944670130ffd65"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\agent_roles.generated.json",
+          "sha256": "c89055ca33a21a431e7d4791969c5278aa083a857751d809aa604c92e06e718e"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\agent_placements.json",
+          "sha256": "0c51e549c8cd21d62d0b69f109b7a5bbf2181f60d2ec379226a020e488949cf3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\knowledge.generated.json",
+          "sha256": "ab735bd94d56f0f1912b691b0e5b70187bc3054185fdeda576cd1007e1adb827"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "de82c9e40bd8927262e6463a0943aaeb5fd576d5096dddacfe13b04a6a5ac532"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\project.json",
+          "sha256": "9902e0b9ece38cb78594a2cf2367d7cbd1687560dea6ad62240f5ebc25c9dc44"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\room_plan.json",
+          "sha256": "9233dc567bf56802d5756ab0b08e7ff58eab4295f14f811252944670130ffd65"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\agents.json",
+          "sha256": "1d1e1cc6dd95865fe7b6c0f4d6149e3389d19ec53a5c3559e424457912e4d2b4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\trace_map.json",
+          "sha256": "0e26902ae141adc84623cf83b7601a0e1a414b0cc7edc90933ee8428da17ebfb"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\validation\\project_materialization_validation.json",
+          "sha256": "3060c3bd2eed2c59a24db4f7af1a2624a41c87769ec450c6c7ab3308877eb193"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\kb\\booth_navigation\\visitor_circulation_path_and_zone_orientation.txt",
+          "sha256": "d641544e0154aca1484adf097614bb3ec86d5f8ffcc623df233151e33331a991"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\kb\\business_discussions\\facilitated_business_and_career_discussions.txt",
+          "sha256": "a838009a4d032d37a238041e0c33027da5eef9e1a9ecb1374cdd9949b96ee650"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\kb\\career_opportunities\\career_and_business_meeting_pods.txt",
+          "sha256": "f2c09e9db4944f71dba28bb7339245fda1a7e1daff7c3997582d8fb1a4b8abce"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\kb\\cheese_production\\cheese_production_demonstration_models.txt",
+          "sha256": "30bddd64ede8e3b753e5c8d51967495711c992bfed4175cc50a964edc3755406"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\kb\\cheese_products\\branding_and_cheese_product_introduction_at_entrance.txt",
+          "sha256": "0d4db7192bd938a7122f316c5608e3eb8868cfe62c0c3893a4138a8b43598059"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\kb\\cheese_varieties\\cheese_product_display_and_varieties.txt",
+          "sha256": "c93d3dc9e50639f4e9b98a568c0cec1a33621525e40de325cfde2c2ce5bbc9d0"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\kb\\customer_engagement\\interactive_customer_engagement_at_product_displays.txt",
+          "sha256": "87b6338a4ac51374a1e927b21fddfbea7fe7e8cea09a86843710b2ef95172f7b"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\kb\\digital_guides\\digital_content_and_guides_via_touch_kiosks.txt",
+          "sha256": "398faf00d9017a277836e2a0b2200db36f4e69c5115e8b3685c8a317149ffb86"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\kb\\energy_measurement\\energy_measurement_stations_for_production_sustainability.txt",
+          "sha256": "de8d93a69e7b24b13c4274c7f14376f6cbf268d721787d20c748a3f473f578e4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\kb\\hospitality\\hospitality_and_visitor_comfort_in_lounge_zone.txt",
+          "sha256": "e45eecda6f97734ab9a57acc4d31bfe8371f10415bdf3da6a2ab4d17a8a621d0"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\kb\\industrial_equipment\\industrial_cheese_manufacturing_equipment_models.txt",
+          "sha256": "f06a0f739c346b3b5f0013cbacc8a9b6d5fdeff1bfccf75de71249cc165d8f36"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\kb\\informal_engagement\\informal_visitor_interaction_in_lounge.txt",
+          "sha256": "5b3a19f8092cb58a5902615e3f5f962ced3a61845a452dd3cd573e06f5f51c7e"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\kb\\interactive_kiosks\\interactive_touchscreen_kiosks.txt",
+          "sha256": "c0f581bcb7a4b92fbc4233ace686f3d82e7602a65063d57d17fb4245f88b8631"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\kb\\product_tasting\\cheese_tasting_and_sampling_area.txt",
+          "sha256": "287cdd06d3eda7645c784c0f134cf95c18c3cf1dc703da4854441876958b08d4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\kb\\training_sessions\\interactive_training_boards_for_career_development.txt",
+          "sha256": "24d5b350ba28a4d2e6a503a6638316e1512944165253a09fbc419013fd996b1b"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\kb\\user_support\\assistance_with_digital_interaction.txt",
+          "sha256": "14d457ac38f404f45e95a7e2724a5b2f24260a7c6a28b51c22c9dbe671daff07"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\kb\\visitor_guidance\\visitor_welcome_and_initial_guidance.txt",
+          "sha256": "f1fd52b0537dfacb61a11b38c147708c6c904db0d00919f901dfa30ce48007b4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\kb\\visitor_relaxation\\lounge_area_for_visitor_comfort.txt",
+          "sha256": "8f3c9284fc305e3e8de53bee31f5ca0bbc6e5697f5d4d3f879cf8e4c5ed7d0e4"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "agent_count": 6,
+        "kb_file_count": 18,
+        "trace_step_count": 12,
+        "trace_runtime_action_count": 12,
+        "trace_validation_case_count": 6
+      }
+    },
+    {
+      "stage_id": "schema_validation",
+      "status": "success",
+      "updated_at": "2026-07-09T16:05:22+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\scene_graph.normalized.json",
+          "sha256": "b3c7d33e599e37fd22c8f49d72759d0915e911b145ad64153704e49319666bff"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\scene_semantics.json",
+          "sha256": "a949df7359615057fe8df9f3340b59b10fe88649a3dcfc81a5bdca5d29fae978"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\agent_roles.generated.json",
+          "sha256": "c89055ca33a21a431e7d4791969c5278aa083a857751d809aa604c92e06e718e"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\handoff_matrix.json",
+          "sha256": "3068796e8041db94ebf055329c9091d48dacec437f5f6b06d584df05e65dbde6"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\knowledge.generated.json",
+          "sha256": "ab735bd94d56f0f1912b691b0e5b70187bc3054185fdeda576cd1007e1adb827"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "de82c9e40bd8927262e6463a0943aaeb5fd576d5096dddacfe13b04a6a5ac532"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\project.json",
+          "sha256": "9902e0b9ece38cb78594a2cf2367d7cbd1687560dea6ad62240f5ebc25c9dc44"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\agents.json",
+          "sha256": "1d1e1cc6dd95865fe7b6c0f4d6149e3389d19ec53a5c3559e424457912e4d2b4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\room_plan.json",
+          "sha256": "9233dc567bf56802d5756ab0b08e7ff58eab4295f14f811252944670130ffd65"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc\\trace_map.json",
+          "sha256": "0e26902ae141adc84623cf83b7601a0e1a414b0cc7edc90933ee8428da17ebfb"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\runtime_logs\\events.jsonl"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\agent_roles.schema.json",
+          "sha256": "8746914c9d3fb27375e0a9a11b8561f388692ca6486107d7fb290c4e35cdbe48"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\functionalmlds_case_study.schema.json",
+          "sha256": "75680e3cd83cb1ac8b63fa77fa47ac93fb7497cb360e70388a3bac7227f1edcc"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\interactive_agents_project.schema.json",
+          "sha256": "c4d59ff746f03825afa506380df5ebbeed905d88a5ccdccba2ae57421dea83e8"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\knowledge.schema.json",
+          "sha256": "c8a2d803e0c0098a675c295b2da618f3364115aa7178738d9f9c040687be1560"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\normalized_scene.schema.json",
+          "sha256": "c4ceaf66757447d2fbc5c6c8c73710c2e7dc4f5b5fecdeb520b1a369263b1d90"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\scene_semantics.schema.json",
+          "sha256": "c4b6a699b6892e7c61cb06dc9772f4750e404732b1f53ec7428e3293ed120615"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\validation\\schema_validation.json",
+          "sha256": "c2e66b89c09119d1f6b90af6de2cba3bc9fbde36c4270cec1056fbb435b408d6"
+        }
+      ],
+      "errors": [],
+      "warnings": [
+        "Runtime-Log fehlt: C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\runtime_logs\\events.jsonl"
+      ],
+      "metadata": {
+        "artifact_count": 6,
+        "valid_artifact_count": 6,
+        "invalid_artifact_count": 0,
+        "schema_count": 6,
+        "runtime_event_count": 0
+      }
+    },
+    {
+      "stage_id": "traceability_metrics",
+      "status": "success",
+      "updated_at": "2026-07-09T16:05:22+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "de82c9e40bd8927262e6463a0943aaeb5fd576d5096dddacfe13b04a6a5ac532"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\scene_graph.normalized.json",
+          "sha256": "b3c7d33e599e37fd22c8f49d72759d0915e911b145ad64153704e49319666bff"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\agent_roles.generated.json",
+          "sha256": "c89055ca33a21a431e7d4791969c5278aa083a857751d809aa604c92e06e718e"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\knowledge.generated.json",
+          "sha256": "ab735bd94d56f0f1912b691b0e5b70187bc3054185fdeda576cd1007e1adb827"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\runtime_logs\\events.jsonl"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\validation\\traceability_metrics.json",
+          "sha256": "8caee0d75b33aa50fc0dc42e5b57894c66f4f93fc0ad9e11cfe9f108a005f7ba"
+        }
+      ],
+      "errors": [],
+      "warnings": [
+        "scenario_step_to_capability_coverage coverage is 0.833333 (10/12).",
+        "runtime_action_to_log_coverage coverage is 0.0 (0/12)."
+      ],
+      "metadata": {
+        "metric_count": 6,
+        "full_coverage_metric_count": 4,
+        "partial_coverage_metric_count": 2,
+        "average_coverage": 0.805555
+      }
+    },
+    {
+      "stage_id": "handoff_metrics",
+      "status": "success",
+      "updated_at": "2026-07-09T16:05:22+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\agent_roles.generated.json",
+          "sha256": "c89055ca33a21a431e7d4791969c5278aa083a857751d809aa604c92e06e718e"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\handoff_matrix.json",
+          "sha256": "3068796e8041db94ebf055329c9091d48dacec437f5f6b06d584df05e65dbde6"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\runtime_logs\\events.jsonl"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\validation\\handoff_metrics.json",
+          "sha256": "e3a6e3c67b0018b635aa1c8c0d5d8c669ecc818a2585fff22d6b6135b4c21fd5"
+        }
+      ],
+      "errors": [],
+      "warnings": [
+        "No handoff decision test results found yet; handoff_decision_accuracy is not evaluated."
+      ],
+      "metadata": {
+        "agent_count": 6,
+        "declared_agent_handoff_target_count": 15,
+        "declared_matrix_handoff_count": 15,
+        "unique_handoff_pair_count": 15,
+        "valid_agent_handoff_target_ratio": 1.0,
+        "valid_handoff_matrix_ratio": 1.0,
+        "valid_handoff_target_ratio": 1.0,
+        "self_handoff_count": 0,
+        "duplicate_agent_handoff_target_count": 0,
+        "duplicate_matrix_handoff_count": 0,
+        "missing_matrix_pair_count": 0,
+        "extra_matrix_pair_count": 0,
+        "handoff_chain_limit": 1,
+        "observed_handoff_event_count": 0,
+        "observed_valid_handoff_event_count": 0,
+        "observed_invalid_handoff_event_count": 0,
+        "observed_invalid_handoff_runtime_action_event_count": 0,
+        "observed_invalid_handoff_runtime_binding_event_count": 0,
+        "observed_max_handoffs_per_logged_session": 0,
+        "runtime_chain_limit_evaluation": "per_request_not_evaluable_without_request_id",
+        "decision_test_count": 0,
+        "correct_handoff_decision_count": 0,
+        "handoff_decision_accuracy": null,
+        "invalid_observed_decision_count": 0
+      }
+    }
+  ],
+  "updated_at": "2026-07-09T16:05:22+00:00"
+}

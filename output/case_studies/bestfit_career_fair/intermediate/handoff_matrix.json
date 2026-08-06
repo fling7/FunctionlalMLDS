@@ -1,0 +1,76 @@
+{
+  "handoffs": [
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "benefits_expert",
+      "condition": "visitor requests detailed information about company benefits or culture",
+      "reason": "Benefits Expert has specialized knowledge on employee benefits and culture"
+    },
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "recruiting_agent",
+      "condition": "visitor inquires about job openings or recruiting process",
+      "reason": "Recruiting Agent specializes in job opportunities and application assistance"
+    },
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "demo_technician",
+      "condition": "visitor wants to interact with product demos or VR/AR experiences",
+      "reason": "Demo Technician manages product showcases and interactive demos"
+    },
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "hospitality_agent",
+      "condition": "visitor seeks refreshments or a place to relax",
+      "reason": "Hospitality Agent provides refreshments and lounge comfort"
+    },
+    {
+      "source_agent_id": "benefits_expert",
+      "target_agent_id": "recruiting_agent",
+      "condition": "visitor expresses interest in job applications after learning about benefits",
+      "reason": "Recruiting Agent can assist with job application details"
+    },
+    {
+      "source_agent_id": "benefits_expert",
+      "target_agent_id": "reception_agent",
+      "condition": "visitor needs general orientation or navigation help",
+      "reason": "Reception Agent provides overall visitor guidance"
+    },
+    {
+      "source_agent_id": "recruiting_agent",
+      "target_agent_id": "benefits_expert",
+      "condition": "visitor asks about company culture or benefits during recruiting discussion",
+      "reason": "Benefits Expert has detailed knowledge on company culture and benefits"
+    },
+    {
+      "source_agent_id": "recruiting_agent",
+      "target_agent_id": "reception_agent",
+      "condition": "visitor requires general information or orientation",
+      "reason": "Reception Agent supports visitor orientation and basic info"
+    },
+    {
+      "source_agent_id": "demo_technician",
+      "target_agent_id": "recruiting_agent",
+      "condition": "visitor wants to know about job opportunities after product demos",
+      "reason": "Recruiting Agent specializes in recruiting information"
+    },
+    {
+      "source_agent_id": "demo_technician",
+      "target_agent_id": "benefits_expert",
+      "condition": "visitor asks about company culture or benefits during demo interaction",
+      "reason": "Benefits Expert provides detailed benefits and culture info"
+    },
+    {
+      "source_agent_id": "demo_technician",
+      "target_agent_id": "reception_agent",
+      "condition": "visitor needs general orientation or assistance",
+      "reason": "Reception Agent provides visitor guidance"
+    },
+    {
+      "source_agent_id": "hospitality_agent",
+      "target_agent_id": "reception_agent",
+      "condition": "visitor seeks information beyond refreshments or lounge services",
+      "reason": "Reception Agent provides comprehensive visitor assistance"
+    }
+  ]
+}

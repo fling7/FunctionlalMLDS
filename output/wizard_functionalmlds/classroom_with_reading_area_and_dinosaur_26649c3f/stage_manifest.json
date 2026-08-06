@@ -1,0 +1,627 @@
+{
+  "case_id": "classroom_with_reading_area_and_dinosaur_26649c3f",
+  "created_at": "2026-07-15T07:26:45+00:00",
+  "stages": [
+    {
+      "stage_id": "case_initialization",
+      "status": "success",
+      "updated_at": "2026-07-31T07:31:01+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\_wizard_inputs\\classroom_with_reading_area_and_dinosaur_26649c3f.source_mlds.json",
+          "sha256": "aebbe4993e7c3672963f76653790e445704ae5e1b976bb179a92ac6a56e4b7e1"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\input\\source_mlds.json",
+          "sha256": "aebbe4993e7c3672963f76653790e445704ae5e1b976bb179a92ac6a56e4b7e1"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\input\\source_mlds.sha256",
+          "sha256": "cb1d234326711338263e5fd0446be1e42bd8de48b82c2dad4fddefdd0e8b25e5"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "case_id": "classroom_with_reading_area_and_dinosaur_26649c3f",
+        "source_sha256": "aebbe4993e7c3672963f76653790e445704ae5e1b976bb179a92ac6a56e4b7e1"
+      }
+    },
+    {
+      "stage_id": "mlds_ingestion",
+      "status": "success",
+      "updated_at": "2026-07-31T07:31:01+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\input\\source_mlds.json",
+          "sha256": "aebbe4993e7c3672963f76653790e445704ae5e1b976bb179a92ac6a56e4b7e1"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\scene_graph.normalized.json",
+          "sha256": "d45cb962c10c7ddafecea2180641863afeac627db2139ef92a7810d707d3cfe8"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\object_group_summary.json",
+          "sha256": "f4fe5fbe11a263a0bb7ad6ac8b18579fa79986ae8aad1d1d7561b44e2c870309"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\validation\\mlds_ingestion_validation.json",
+          "sha256": "6f628ac6fb2e30509bbc9801bcfcedd0e3586fcb98505c40ba11ba5cfbc48cc2"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "recovered_without_rerun": true,
+        "recovered_without_llm": false,
+        "repair_type": "deterministic_normalization",
+        "llm_used": false,
+        "attempts_used": 0,
+        "metrics": {
+          "object_count": 42,
+          "non_structural_group_count": 5
+        }
+      }
+    },
+    {
+      "stage_id": "scene_semantics",
+      "status": "success",
+      "updated_at": "2026-07-31T07:31:01+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\scene_graph.normalized.json",
+          "sha256": "d45cb962c10c7ddafecea2180641863afeac627db2139ef92a7810d707d3cfe8"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\object_group_summary.json",
+          "sha256": "f4fe5fbe11a263a0bb7ad6ac8b18579fa79986ae8aad1d1d7561b44e2c870309"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\scene_semantics_v1.md",
+          "sha256": "8f969a22465731dce45d5883ff9e382b0a2afad32fc4111b864514c4facb09b2"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\repair_invalid_object_refs_v1.md",
+          "sha256": "4ed8ec0ac617348733a44b8867e98ec618005a8f3bbc74a7d1f263020e3ad5ed"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\scene_semantics.json",
+          "sha256": "1bedf1b29c2d7c578e2bfb2d54c52803e4d7fd009d8f1c59f34b2cccc2ece33d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\validation\\scene_semantics_validation.json",
+          "sha256": "25fc010ae73bd81416c6aed18b041797ee33a017afe874c273acb9dd108be4d1"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "recovered_without_rerun": true,
+        "recovered_without_llm": true,
+        "repair_type": "deterministic_recovery",
+        "llm_used": false,
+        "attempts_used": 0,
+        "metrics": {
+          "visitor_goal_count": 7,
+          "semantic_zone_count": 5,
+          "important_object_count": 7,
+          "interaction_topic_count": 5,
+          "agent_role_candidate_count": 3,
+          "covered_object_count": 36
+        }
+      }
+    },
+    {
+      "stage_id": "agent_roles",
+      "status": "success",
+      "updated_at": "2026-07-31T07:31:01+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\scene_graph.normalized.json",
+          "sha256": "d45cb962c10c7ddafecea2180641863afeac627db2139ef92a7810d707d3cfe8"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\object_group_summary.json",
+          "sha256": "f4fe5fbe11a263a0bb7ad6ac8b18579fa79986ae8aad1d1d7561b44e2c870309"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\scene_semantics.json",
+          "sha256": "1bedf1b29c2d7c578e2bfb2d54c52803e4d7fd009d8f1c59f34b2cccc2ece33d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\agent_roles_v1.md",
+          "sha256": "8324a36c46c368ea65fb3210a62fe35fb8f5f8e8587e7543dea8369d8743e99a"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\repair_invalid_handoff_targets_v1.md",
+          "sha256": "f4fe09af976143d0078dfc7dbecb8155d4d6ca0b83dccea237e95c57d1831fd1"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\agent_roles.generated.json",
+          "sha256": "00b3c77a10e3e3bea7036eed38cc2242b869b2ac971b42e247d9209533e50fe2"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\handoff_matrix.json",
+          "sha256": "4adfc0bcef60879247eadab7033bf80b4df430f33cd006bb941c602d9bad6c43"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\validation\\agent_roles_validation.json",
+          "sha256": "a620c2e2f7ffe05aea0bfd44c7672f36b94789363de7902d582c962ede0ca077"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "recovered_without_rerun": true,
+        "recovered_without_llm": true,
+        "repair_type": "deterministic_recovery",
+        "llm_used": false,
+        "attempts_used": 0,
+        "metrics": {
+          "agent_count": 4,
+          "knowledge_tag_count": 20,
+          "handoff_count": 4,
+          "grounded_object_count": 36
+        }
+      }
+    },
+    {
+      "stage_id": "knowledge_synthesis",
+      "status": "success",
+      "updated_at": "2026-07-31T07:31:24+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\scene_graph.normalized.json",
+          "sha256": "d45cb962c10c7ddafecea2180641863afeac627db2139ef92a7810d707d3cfe8"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\scene_semantics.json",
+          "sha256": "1bedf1b29c2d7c578e2bfb2d54c52803e4d7fd009d8f1c59f34b2cccc2ece33d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\agent_roles.generated.json",
+          "sha256": "00b3c77a10e3e3bea7036eed38cc2242b869b2ac971b42e247d9209533e50fe2"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\knowledge_synthesis_v1.md",
+          "sha256": "405365373f9b12f824416a4cb43d2d48242d1b8db2869b82aaedcc191fdc99c9"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\repair_missing_knowledge_entries_v1.md",
+          "sha256": "68c3c267a63e9e3ae326ce83d2772cf2a2c899d28ac022c45b598b33055cb301"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\knowledge.generated.json",
+          "sha256": "29392f9a292cdfd2b93078102f52bac1845e540de9d753e063dece21172f11d3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\validation\\knowledge_synthesis_validation.json",
+          "sha256": "2f3a2c55fd8a202bb57458ca0dc263e000f78050517ebb4874db419d41d6f3d4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\interactive_agents_project\\kb\\teaching_zone\\teaching_and_instruction_zone_overview.txt",
+          "sha256": "86805bb761196a8516506ee73811975677b9b9887b94d87b1c9b9a62b9a56207"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\interactive_agents_project\\kb\\chalkboard\\chalkboard_for_visual_teaching.txt",
+          "sha256": "25e5fd6748678173b5e32ae479fe27e853f2ee1633aaecc2b82df05fb3c5d671"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\interactive_agents_project\\kb\\teacher_desk\\teacher_s_desk_functionality.txt",
+          "sha256": "11b8db8c145a461b5c71dcf73b5de166879e4339bb599e763aede92e05289f29"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\interactive_agents_project\\kb\\student_desks\\student_desk_arrangement_and_use.txt",
+          "sha256": "1b20183a30c9dd5bdbdcce9ccc7467f5da965ab2b2c77b7f9a3e2037f38d49c1"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\interactive_agents_project\\kb\\classroom_management\\classroom_management_essentials.txt",
+          "sha256": "cbe692dd7681b25618f3705c60017ef2c2569b3397af5daaf24e76efac493876"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\interactive_agents_project\\kb\\lesson_planning\\lesson_planning_and_instruction_support.txt",
+          "sha256": "403e1cf79d28a8077cdf322a2dfc080f5dc6c9c9c7fdd8da37700fde1882c1bc"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\interactive_agents_project\\kb\\book_storage_zone\\book_storage_zone_with_bookcase.txt",
+          "sha256": "537d7444dce0eb47d58be37295c4f8d4e2685095770baf172481c8cefebdd298"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\interactive_agents_project\\kb\\reading_area\\reading_and_relaxation_area.txt",
+          "sha256": "32e42e398ce706ac4ef3e92f11771e9a4b03d54f9d8dfd736cfaf603e70bc86b"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\interactive_agents_project\\kb\\bookcase\\bookcase_for_educational_resources.txt",
+          "sha256": "7f49cab91baeff8a1a856be716449c0fe97b50dbbece6c6587d6c5417eb47075"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\interactive_agents_project\\kb\\reading_table\\reading_table_for_group_activities.txt",
+          "sha256": "8bf37aa4bf47e01dbcdc88ea6c580d0a563219ff4e9f652bbcfea05f12500e86"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\interactive_agents_project\\kb\\beanbags\\beanbags_for_comfortable_seating.txt",
+          "sha256": "2ecca28fdd546f07e5aeecd903835fee688fea6c6ceb1c5cfb8d1fa651bfa70f"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\interactive_agents_project\\kb\\reading_promotion\\promoting_reading_and_learning.txt",
+          "sha256": "601f683605543b4caf38d88af2f3b672d2da596cfe89be2bf3b2a410f7a9acdf"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\interactive_agents_project\\kb\\educational_display_zone\\dinosaur_exhibit_and_educational_decor.txt",
+          "sha256": "dfbadd79b4d74cd94b553d93b2cc54d00ce483cbd9e91f269f85fa8440508685"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\interactive_agents_project\\kb\\dinosaur_skeleton\\dinosaur_skeleton_exhibit.txt",
+          "sha256": "05d6f29bab3140eebc442764a2508bceed1a4c00c732b0921e6fede11de8ec83"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\interactive_agents_project\\kb\\pictures\\decorative_artwork_displays.txt",
+          "sha256": "640333eeb79df483a9a92706001eab440465e7fd013ede752be2785ed722ae90"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\interactive_agents_project\\kb\\museum_education\\museum_education_and_interactive_learning.txt",
+          "sha256": "f9eaaf78311cf8bfe031a0d45c25d0a3cf696d89001221466ac54a7d5408f2b7"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\interactive_agents_project\\kb\\plant_decor_zone\\plant_decoration_zone_overview.txt",
+          "sha256": "51bdbb98108aaf9b73eea448c3e84f1ed925cfc7ba922a7b450bb5b8e4795717"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\interactive_agents_project\\kb\\plants\\indoor_plants_for_ambiance_and_comfort.txt",
+          "sha256": "997a30c49c5014acf13f89aeab785535f4056acae749695dbef0d9a13feadab0"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\interactive_agents_project\\kb\\natural_elements\\natural_elements_enhancing_the_room.txt",
+          "sha256": "d843484135887c3fc959804c063d2a4c008ad1869efc10120909ddc8deefe68c"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\interactive_agents_project\\kb\\room_ambiance\\room_ambiance_and_environmental_comfort.txt",
+          "sha256": "16d6144df1d37731b8b8b2697bda3195833255fcf2262bfa6510e5d0df79353e"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "prompt_version": "knowledge_synthesis_v1",
+        "repair_prompt_version": "repair_missing_knowledge_entries_v1",
+        "attempts_used": 1,
+        "llm": {
+          "base_url": "https://api.openai.com/v1/responses",
+          "model": "gpt-4.1-mini",
+          "timeout_seconds": 60,
+          "config_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\config.json",
+          "api_key_present": true
+        },
+        "response": {
+          "response_id": "resp_062cbc76687d95a1006a6c4f3690ec81a0a59794c21b0bb711",
+          "model": "gpt-4.1-mini-2025-04-14",
+          "status": "completed",
+          "usage": {
+            "input_tokens": 8156,
+            "input_tokens_details": {
+              "cache_write_tokens": 0,
+              "cached_tokens": 0
+            },
+            "output_tokens": 1893,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 10049
+          }
+        },
+        "metrics": {
+          "knowledge_entry_count": 20,
+          "required_tag_count": 20,
+          "covered_tag_count": 20,
+          "referenced_object_count": 36,
+          "required_room_group_count": 5,
+          "covered_room_group_count": 5,
+          "room_group_coverage": 1.0
+        }
+      }
+    },
+    {
+      "stage_id": "agent_placement",
+      "status": "success",
+      "updated_at": "2026-07-31T07:31:24+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\scene_graph.normalized.json",
+          "sha256": "d45cb962c10c7ddafecea2180641863afeac627db2139ef92a7810d707d3cfe8"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\scene_semantics.json",
+          "sha256": "1bedf1b29c2d7c578e2bfb2d54c52803e4d7fd009d8f1c59f34b2cccc2ece33d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\agent_roles.generated.json",
+          "sha256": "00b3c77a10e3e3bea7036eed38cc2242b869b2ac971b42e247d9209533e50fe2"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\agent_placements.json",
+          "sha256": "009647a9a366b1276bac00028b679fe09e41d92580e04e1f8a0bce9c5c05418b"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\validation\\agent_placement_validation.json",
+          "sha256": "6966029801c25ec1bd53f4492bded7cef26b97847b5cac7368537dcf17532b3b"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "recovered_without_rerun": true,
+        "recovered_without_llm": false,
+        "repair_type": "deterministic_geometry_recompute",
+        "llm_used": false,
+        "attempts_used": 0,
+        "metrics": {
+          "agent_count": 4,
+          "placement_count": 4,
+          "out_of_bounds_count": 0,
+          "obstacle_overlap_count": 0,
+          "minimum_agent_distance": 2.1305
+        }
+      }
+    },
+    {
+      "stage_id": "placement_metrics",
+      "status": "success",
+      "updated_at": "2026-07-31T07:31:24+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\scene_graph.normalized.json",
+          "sha256": "d45cb962c10c7ddafecea2180641863afeac627db2139ef92a7810d707d3cfe8"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\scene_semantics.json",
+          "sha256": "1bedf1b29c2d7c578e2bfb2d54c52803e4d7fd009d8f1c59f34b2cccc2ece33d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\agent_roles.generated.json",
+          "sha256": "00b3c77a10e3e3bea7036eed38cc2242b869b2ac971b42e247d9209533e50fe2"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\agent_placements.json",
+          "sha256": "009647a9a366b1276bac00028b679fe09e41d92580e04e1f8a0bce9c5c05418b"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\validation\\placement_metrics.json",
+          "sha256": "2ced2bc007ea05ced5e073fca0dc24b7d9cd5b2b2bacbee204c183e9b2bfeae1"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "recovered_without_rerun": true,
+        "recovered_without_llm": false,
+        "repair_type": "deterministic_metrics_regeneration",
+        "llm_used": false,
+        "attempts_used": 0,
+        "metrics": {
+          "agent_count": 4,
+          "placement_count": 4,
+          "valid_position_count": 4,
+          "valid_position_ratio": 1.0,
+          "out_of_bounds_count": 0,
+          "obstacle_overlap_count": 0,
+          "minimum_agent_distance": 2.13055,
+          "minimum_agent_distance_threshold": 1.0,
+          "average_distance_to_target_xz": 1.488244,
+          "max_distance_to_target_xz": 1.600781,
+          "average_nearest_responsible_group_distance": 1.997473,
+          "max_nearest_responsible_group_distance": 2.643896,
+          "average_nearest_responsible_zone_distance": 1.952282,
+          "max_nearest_responsible_zone_distance": 2.553919
+        }
+      }
+    },
+    {
+      "stage_id": "functionalmlds_assembly",
+      "status": "success",
+      "updated_at": "2026-07-31T07:31:24+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\scene_graph.normalized.json",
+          "sha256": "d45cb962c10c7ddafecea2180641863afeac627db2139ef92a7810d707d3cfe8"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\scene_semantics.json",
+          "sha256": "1bedf1b29c2d7c578e2bfb2d54c52803e4d7fd009d8f1c59f34b2cccc2ece33d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\agent_roles.generated.json",
+          "sha256": "00b3c77a10e3e3bea7036eed38cc2242b869b2ac971b42e247d9209533e50fe2"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\agent_placements.json",
+          "sha256": "009647a9a366b1276bac00028b679fe09e41d92580e04e1f8a0bce9c5c05418b"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\functionalmlds_assembly_v1.md",
+          "sha256": "64caf06a68b6c1c3e13df14415b4b9da90809d0c3fe41d480bbfd232853e020a"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\functionalmlds_assembler.py",
+          "sha256": "0b8d061432f44a1d6e6c28848bd36044fc1edee561bb4ea3bf15ea84005082a5"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "67598dab078f5ce1d681116c419b10610a1d19ef540086c99349c2d2f5a6ec5c"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\validation\\functionalmlds_invariant_validation.json",
+          "sha256": "b6a835ec7f266a6051b6ac07fad3b84807ec0081c790290432601b420d88f798"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "prompt_version": "functionalmlds_assembly_v1",
+        "deterministic": true,
+        "metrics": {
+          "requirement_count": 6,
+          "use_case_count": 37,
+          "interaction_use_case_count": 36,
+          "entity_count": 51,
+          "semantic_zone_entity_count": 5,
+          "object_group_entity_count": 5,
+          "scene_object_entity_count": 36,
+          "room_answer_capability_count": 1,
+          "handoff_capability_count": 1,
+          "handoff_runtime_binding_count": 1,
+          "handoff_runtime_action_count": 1,
+          "capability_count": 9,
+          "capability_use_count": 80,
+          "explicit_user_provider_count": 72,
+          "runtime_binding_count": 9,
+          "validation_case_count": 41,
+          "capability_use_coverage": 9,
+          "runtime_capability_coverage": 9
+        }
+      }
+    },
+    {
+      "stage_id": "handoff_derivation",
+      "status": "success",
+      "updated_at": "2026-07-31T07:31:24+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\agent_roles.generated.json",
+          "sha256": "00b3c77a10e3e3bea7036eed38cc2242b869b2ac971b42e247d9209533e50fe2"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "7438883ee6b642a0c023988dffbf515fa939dc12f8f73fab01eee3f9f5a2921e"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\handoff_matrix.json",
+          "sha256": "4adfc0bcef60879247eadab7033bf80b4df430f33cd006bb941c602d9bad6c43"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\agent_roles.generated.json",
+          "sha256": "00b3c77a10e3e3bea7036eed38cc2242b869b2ac971b42e247d9209533e50fe2"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "7438883ee6b642a0c023988dffbf515fa939dc12f8f73fab01eee3f9f5a2921e"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\intermediate\\handoff_matrix.json",
+          "sha256": "4adfc0bcef60879247eadab7033bf80b4df430f33cd006bb941c602d9bad6c43"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\validation\\handoff_derivation_validation.json",
+          "sha256": "8e0b650f28ab7be6ddb051b069ed35f2904d158d98f88e3cc41ad2f0b7c0f0e7"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "agent_count": 4,
+        "handoff_pair_count": 4,
+        "source_agent_with_handoff_count": 3,
+        "fallback_used": false,
+        "unique_pair_count": 4,
+        "role_validation_status": "valid",
+        "derivation_validation_status": "valid"
+      }
+    },
+    {
+      "stage_id": "functionalmlds_v2_assembly",
+      "status": "success",
+      "updated_at": "2026-07-31T07:33:04+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "7438883ee6b642a0c023988dffbf515fa939dc12f8f73fab01eee3f9f5a2921e"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\functionalmlds_v2_assembler.py",
+          "sha256": "645bc378c9a4be3f97f0eb5d4ce11678433e53bef8e0b6081df70e936457e51d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\dynamic_functional_mlds_v2_compat.py",
+          "sha256": "030df93df188001e349b1ae0bab0387244444545397f62e95e287bcad16dae4f"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\dynamic_functional_mlds_v2_model.py",
+          "sha256": "0710b7353459fe64de0692d18ac904b930d07161f6782544ac48d3d4dbaa8dd7"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\validate_dynamic_functional_mlds_v2.py",
+          "sha256": "82e2fe0c506629a4222795d6a81e94f606d7eb1244cc0d594ab14b7e98b989c3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\dynamic_functional_mlds_v2_instance.schema.json",
+          "sha256": "4a2567a6cfc8cdce447a0f776f134c969fcf6af8e26d7b4c84dc31d9c6c68d49"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\functionalmlds\\functionalmlds.v2.instance.json",
+          "sha256": "30c84e734ff2b524f60f6a02bdd1e868c358a0c9d156e3a8bca08990b649fe09"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\functionalmlds\\functionalmlds.v2.assembly_report.json",
+          "sha256": "cb225604f3fba25d125d41b0b37425b733cac7ffbd8e873f4920f1c99160730c"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "deterministic": true,
+        "metamodel_version": "2.0.0-model",
+        "metrics": {
+          "object_count": 1523,
+          "error_count": 0,
+          "warning_count": 0
+        }
+      }
+    },
+    {
+      "stage_id": "functionalmlds_invariants",
+      "status": "success",
+      "updated_at": "2026-07-31T07:33:04+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "7438883ee6b642a0c023988dffbf515fa939dc12f8f73fab01eee3f9f5a2921e"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\classroom_with_reading_area_and_dinosaur_26649c3f\\validation\\functionalmlds_invariants_validation.json",
+          "sha256": "e323b3b44a805eb304c16f5d949dbc89f546e4f10846b86400f58a379132fe21"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "invariant_count": 8,
+        "passed_invariant_count": 8,
+        "failed_invariant_count": 0,
+        "checked_element_count": 334,
+        "error_count": 0
+      }
+    }
+  ],
+  "updated_at": "2026-07-31T07:33:04+00:00"
+}

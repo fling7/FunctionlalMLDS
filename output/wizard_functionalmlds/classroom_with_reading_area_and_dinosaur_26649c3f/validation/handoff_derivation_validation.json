@@ -1,0 +1,37 @@
+{
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "agent_count": 4,
+    "handoff_pair_count": 4,
+    "source_agent_with_handoff_count": 3,
+    "fallback_used": false,
+    "unique_pair_count": 4,
+    "role_validation_status": "valid",
+    "derivation_validation_status": "valid"
+  },
+  "role_validation": {
+    "status": "valid",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "agent_count": 4,
+      "knowledge_tag_count": 20,
+      "handoff_count": 4,
+      "grounded_object_count": 36
+    }
+  },
+  "derivation_validation": {
+    "status": "valid",
+    "errors": [],
+    "warnings": [],
+    "metrics": {
+      "agent_count": 4,
+      "agent_handoff_target_count": 4,
+      "matrix_handoff_count": 4,
+      "source_agent_with_handoff_count": 3,
+      "self_handoff_count": 0
+    }
+  }
+}

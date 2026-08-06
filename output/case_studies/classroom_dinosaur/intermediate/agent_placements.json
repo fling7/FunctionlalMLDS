@@ -1,0 +1,142 @@
+{
+  "schema": "functionalmlds_agent_placements",
+  "schema_version": "2.0",
+  "placement_algorithm_version": "2.0.0",
+  "origin": "deterministic",
+  "room_bounds": {
+    "min_x": -5.0,
+    "max_x": 5.0,
+    "min_z": -7.0,
+    "max_z": 7.0
+  },
+  "agent_placements": [
+    {
+      "id": "teacher_agent",
+      "display_name": "Teacher Agent",
+      "position": {
+        "x": 1.0,
+        "y": 0.0,
+        "z": -1.15
+      },
+      "forward": {
+        "x": -0.6246950475544243,
+        "y": 0.0,
+        "z": -0.7808688094430304
+      },
+      "target_xz": {
+        "x": 0.0,
+        "z": -2.4
+      },
+      "responsible_zone_ids": [
+        "instruction_zone"
+      ],
+      "grounded_object_ids": [
+        "chalkboard",
+        "teacher_desk",
+        "student_desk1",
+        "student_desk2",
+        "student_desk3",
+        "student_desk4",
+        "student_desk5",
+        "student_desk6",
+        "student_desk7",
+        "student_desk8",
+        "student_desk9",
+        "student_desk10",
+        "student_desk11",
+        "student_desk12",
+        "student_desk13",
+        "student_desk14",
+        "student_desk15",
+        "student_desk16",
+        "student_desk17",
+        "student_desk18",
+        "student_desk19",
+        "student_desk20"
+      ]
+    },
+    {
+      "id": "reading_area_guide",
+      "display_name": "Reading Area Guide",
+      "position": {
+        "x": 0.272,
+        "y": 0.0,
+        "z": 2.657
+      },
+      "forward": {
+        "x": 0.10243498137307994,
+        "y": 0.0,
+        "z": 0.9947397019276433
+      },
+      "target_xz": {
+        "x": 0.4,
+        "z": 3.9
+      },
+      "responsible_zone_ids": [
+        "reading_area"
+      ],
+      "grounded_object_ids": [
+        "reading_table",
+        "beanbag1",
+        "beanbag2",
+        "beanbag3",
+        "beanbag4",
+        "bookcase",
+        "plant5"
+      ]
+    },
+    {
+      "id": "exhibit_interpreter",
+      "display_name": "Exhibit Interpreter",
+      "position": {
+        "x": 2.337,
+        "y": 0.0,
+        "z": 4.008
+      },
+      "forward": {
+        "x": 0.10860314034209603,
+        "y": 0.0,
+        "z": 0.9940851864442176
+      },
+      "target_xz": {
+        "x": 2.5,
+        "z": 5.5
+      },
+      "responsible_zone_ids": [
+        "dinosaur_display_zone"
+      ],
+      "grounded_object_ids": [
+        "dinosaur_skeleton"
+      ]
+    },
+    {
+      "id": "decorative_zone_ambassador",
+      "display_name": "Decorative Zone Ambassador",
+      "position": {
+        "x": 1.0,
+        "y": 0.0,
+        "z": -3.95
+      },
+      "forward": {
+        "x": -0.6246950475544243,
+        "y": 0.0,
+        "z": -0.7808688094430304
+      },
+      "target_xz": {
+        "x": 0.0,
+        "z": -5.2
+      },
+      "responsible_zone_ids": [
+        "decorative_zone"
+      ],
+      "grounded_object_ids": [
+        "picture1",
+        "picture2",
+        "plant1",
+        "plant2",
+        "plant3",
+        "plant4"
+      ]
+    }
+  ]
+}

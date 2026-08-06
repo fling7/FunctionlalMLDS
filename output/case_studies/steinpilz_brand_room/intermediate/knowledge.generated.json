@@ -1,0 +1,275 @@
+{
+  "knowledge_entries": [
+    {
+      "tag": "visitor_orientation",
+      "name": "welcome_and_orientation_at_reception",
+      "source_object_ids": [
+        "reception_desk",
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "text": "Visitors are greeted at the reception desk in the entrance zone, where the reception agent provides a friendly welcome and initial guidance. Brand panels nearby convey the company's heritage and vision, helping visitors orient themselves within the booth.",
+      "intended_agents": [
+        "reception_agent"
+      ]
+    },
+    {
+      "tag": "company_overview",
+      "name": "company_branding_and_messaging",
+      "source_object_ids": [
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4",
+        "reception_desk"
+      ],
+      "text": "The entrance zone features brand panels with high-resolution graphics that communicate the company's heritage and forward-looking spirit. The reception desk supports initial company information delivery by the reception agent.",
+      "intended_agents": [
+        "reception_agent"
+      ]
+    },
+    {
+      "tag": "booth_navigation",
+      "name": "visitor_circulation_guidance",
+      "source_object_ids": [
+        "floor_marking_path1",
+        "reception_desk",
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "text": "A floor marking path guides visitors smoothly through the booth, connecting key zones. The reception agent at the desk assists visitors in navigating to product displays, production models, interactive kiosks, career areas, and the lounge.",
+      "intended_agents": [
+        "reception_agent"
+      ]
+    },
+    {
+      "tag": "cheese_products",
+      "name": "cheese_product_display_and_information",
+      "source_object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ],
+      "text": "Cheese products are showcased in refrigerated counters and on pedestals, each designed to highlight individual samples or packaged visuals. The product specialist agent provides detailed information about product characteristics and varieties.",
+      "intended_agents": [
+        "product_specialist_agent"
+      ]
+    },
+    {
+      "tag": "product_sampling",
+      "name": "facilitated_cheese_sampling",
+      "source_object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ],
+      "text": "Visitors can sample cheese products displayed on pedestals and refrigerated counters. The product specialist agent facilitates sampling experiences, ensuring hygienic and engaging interactions.",
+      "intended_agents": [
+        "product_specialist_agent"
+      ]
+    },
+    {
+      "tag": "customer_engagement",
+      "name": "engaging_visitors_with_cheese_expertise",
+      "source_object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ],
+      "text": "The product specialist agent actively engages visitors by sharing expert knowledge about cheese products, answering questions, and encouraging sampling to enhance visitor experience.",
+      "intended_agents": [
+        "product_specialist_agent"
+      ]
+    },
+    {
+      "tag": "production_process",
+      "name": "cheese_production_technology_explanation",
+      "source_object_ids": [
+        "production_model1",
+        "production_model2",
+        "energy_station1",
+        "energy_station2"
+      ],
+      "text": "Detailed large-scale production models replicate industrial cheese manufacturing equipment, illustrating the production process. Energy measurement stations provide data on sustainability. The production expert agent explains these technologies clearly to visitors.",
+      "intended_agents": [
+        "production_expert_agent"
+      ]
+    },
+    {
+      "tag": "energy_management",
+      "name": "energy_measurement_and_sustainability_displays",
+      "source_object_ids": [
+        "energy_station1",
+        "energy_station2",
+        "production_model1",
+        "production_model2"
+      ],
+      "text": "Energy stations showcase real-time energy measurement and sustainability data related to cheese production. The production expert agent highlights the company's commitment to energy efficiency and environmental responsibility.",
+      "intended_agents": [
+        "production_expert_agent"
+      ]
+    },
+    {
+      "tag": "sustainability",
+      "name": "sustainability_commitment_in_production",
+      "source_object_ids": [
+        "production_model1",
+        "production_model2",
+        "energy_station1",
+        "energy_station2"
+      ],
+      "text": "Sustainability is emphasized through displays of production technology and energy monitoring. The production expert agent informs visitors about sustainable practices integrated into cheese manufacturing processes.",
+      "intended_agents": [
+        "production_expert_agent"
+      ]
+    },
+    {
+      "tag": "digital_interaction",
+      "name": "interactive_digital_kiosks",
+      "source_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "text": "Interactive touch kiosks provide visitors with digital content about products, production, and company information. The digital interaction agent assists visitors in navigating the kiosks and accessing relevant information.",
+      "intended_agents": [
+        "digital_interaction_agent"
+      ]
+    },
+    {
+      "tag": "content_navigation",
+      "name": "guidance_through_digital_content",
+      "source_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "text": "The digital interaction agent helps visitors explore interactive content on kiosks, ensuring easy navigation through product details, production explanations, and company messaging.",
+      "intended_agents": [
+        "digital_interaction_agent"
+      ]
+    },
+    {
+      "tag": "technical_support",
+      "name": "technical_assistance_for_digital_interfaces",
+      "source_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "text": "The digital interaction agent provides technical support for the touch kiosks, troubleshooting issues and ensuring smooth visitor interaction with digital content.",
+      "intended_agents": [
+        "digital_interaction_agent"
+      ]
+    },
+    {
+      "tag": "career_opportunities",
+      "name": "career_discussions_and_opportunities",
+      "source_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "text": "The career and training area features meeting pods and interactive training boards where the career advisor agent facilitates discussions about career paths, training programs, and company culture.",
+      "intended_agents": [
+        "career_advisor_agent"
+      ]
+    },
+    {
+      "tag": "training_programs",
+      "name": "training_program_information",
+      "source_object_ids": [
+        "training_board1",
+        "training_board2",
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3"
+      ],
+      "text": "Interactive training boards present recruiting and training content. The career advisor agent guides visitors through available training programs and supports inquiries about professional development.",
+      "intended_agents": [
+        "career_advisor_agent"
+      ]
+    },
+    {
+      "tag": "company_culture",
+      "name": "insights_into_company_culture",
+      "source_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "text": "Visitors learn about the company's culture and values through discussions facilitated by the career advisor agent in comfortable meeting pods, supported by informative training boards.",
+      "intended_agents": [
+        "career_advisor_agent"
+      ]
+    },
+    {
+      "tag": "visitor_comfort",
+      "name": "lounge_area_comfort_and_hospitality",
+      "source_object_ids": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "text": "The lounge area offers comfortable seating including sofas and ergonomic chairs around a lounge table. The lounge host agent ensures visitor comfort and a welcoming atmosphere for relaxation and informal meetings.",
+      "intended_agents": [
+        "lounge_host_agent"
+      ]
+    },
+    {
+      "tag": "networking",
+      "name": "facilitated_networking_in_lounge",
+      "source_object_ids": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "text": "The lounge host agent encourages networking among visitors in the lounge area, providing a warm and hospitable environment conducive to informal conversations and connections.",
+      "intended_agents": [
+        "lounge_host_agent"
+      ]
+    },
+    {
+      "tag": "hospitality",
+      "name": "warm_hospitality_in_lounge_area",
+      "source_object_ids": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "text": "Hospitality is a priority in the lounge zone, where the lounge host agent offers attentive service and a relaxed setting to enhance visitor experience and satisfaction.",
+      "intended_agents": [
+        "lounge_host_agent"
+      ]
+    }
+  ]
+}

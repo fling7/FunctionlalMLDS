@@ -1,0 +1,418 @@
+{
+  "schema": "functionalmlds_trace_map",
+  "case_id": "mldssteinpilz_e2e_1783611970",
+  "functionalmlds_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\mldssteinpilz_e2e_1783611970\\functionalmlds\\functionalmlds.instance.generated.json",
+  "project_files": {
+    "project": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\mldssteinpilz_e2e_1783611970\\project.json",
+    "room_plan": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\mldssteinpilz_e2e_1783611970\\room_plan.json",
+    "agents": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\mldssteinpilz_e2e_1783611970\\agents.json",
+    "kb_root": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\mldssteinpilz_e2e_1783611970\\kb"
+  },
+  "use_case_id": "UC-MLDSSTEINPILZ_E2E_1783611970-01",
+  "main_scenario_id": "SC-MLDSSTEINPILZ_E2E_1783611970-MAIN",
+  "scenario_steps": [
+    {
+      "scenario_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S01",
+      "step_number": 1,
+      "capability_use_ids": [],
+      "resulting_state_ids": []
+    },
+    {
+      "scenario_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S02",
+      "step_number": 2,
+      "capability_use_ids": [
+        "CU-MLDSSTEINPILZ_E2E_1783611970-S02-ANALYZE-MLDS-SCENE"
+      ],
+      "resulting_state_ids": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-NORMALIZED-SCENE-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S03",
+      "step_number": 3,
+      "capability_use_ids": [
+        "CU-MLDSSTEINPILZ_E2E_1783611970-S03-ANALYZE-MLDS-SCENE"
+      ],
+      "resulting_state_ids": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-SCENE-SEMANTICS-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S04",
+      "step_number": 4,
+      "capability_use_ids": [
+        "CU-MLDSSTEINPILZ_E2E_1783611970-S04-DERIVE-SPATIAL-AGENT-ROLES"
+      ],
+      "resulting_state_ids": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-AGENT-ROLES-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S05",
+      "step_number": 5,
+      "capability_use_ids": [
+        "CU-MLDSSTEINPILZ_E2E_1783611970-S05-GENERATE-ROOM-KNOWLEDGE"
+      ],
+      "resulting_state_ids": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-KNOWLEDGE-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S06",
+      "step_number": 6,
+      "capability_use_ids": [
+        "CU-MLDSSTEINPILZ_E2E_1783611970-S06-PLACE-AGENTS-IN-SCENE"
+      ],
+      "resulting_state_ids": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-PLACEMENT-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S07",
+      "step_number": 7,
+      "capability_use_ids": [
+        "CU-MLDSSTEINPILZ_E2E_1783611970-S07-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "resulting_state_ids": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-FUNCTIONALMLDS-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S08",
+      "step_number": 8,
+      "capability_use_ids": [
+        "CU-MLDSSTEINPILZ_E2E_1783611970-S08-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "resulting_state_ids": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-PROJECT-MATERIALIZED"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S09",
+      "step_number": 9,
+      "capability_use_ids": [
+        "CU-MLDSSTEINPILZ_E2E_1783611970-S09-SETUP-INTERACTIVE-SESSION"
+      ],
+      "resulting_state_ids": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-SETUP-VALID"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S10",
+      "step_number": 10,
+      "capability_use_ids": [],
+      "resulting_state_ids": []
+    },
+    {
+      "scenario_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S11",
+      "step_number": 11,
+      "capability_use_ids": [
+        "CU-MLDSSTEINPILZ_E2E_1783611970-S11-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "resulting_state_ids": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-ANSWER-GROUNDED"
+      ]
+    },
+    {
+      "scenario_step_id": "STEP-MLDSSTEINPILZ_E2E_1783611970-S12",
+      "step_number": 12,
+      "capability_use_ids": [
+        "CU-MLDSSTEINPILZ_E2E_1783611970-S12-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "resulting_state_ids": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-VALID"
+      ]
+    }
+  ],
+  "capabilities": [
+    {
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-ANALYZE-MLDS-SCENE",
+      "effect_ids": [
+        "EFF-MLDSSTEINPILZ_E2E_1783611970-ANALYZE-MLDS-SCENE-01",
+        "EFF-MLDSSTEINPILZ_E2E_1783611970-ANALYZE-MLDS-SCENE-02"
+      ]
+    },
+    {
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-DERIVE-SPATIAL-AGENT-ROLES",
+      "effect_ids": [
+        "EFF-MLDSSTEINPILZ_E2E_1783611970-DERIVE-SPATIAL-AGENT-ROLES-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-GENERATE-ROOM-KNOWLEDGE",
+      "effect_ids": [
+        "EFF-MLDSSTEINPILZ_E2E_1783611970-GENERATE-ROOM-KNOWLEDGE-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-PLACE-AGENTS-IN-SCENE",
+      "effect_ids": [
+        "EFF-MLDSSTEINPILZ_E2E_1783611970-PLACE-AGENTS-IN-SCENE-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-ASSEMBLE-FUNCTIONAL-MLDS",
+      "effect_ids": [
+        "EFF-MLDSSTEINPILZ_E2E_1783611970-ASSEMBLE-FUNCTIONAL-MLDS-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "effect_ids": [
+        "EFF-MLDSSTEINPILZ_E2E_1783611970-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-SETUP-INTERACTIVE-SESSION",
+      "effect_ids": [
+        "EFF-MLDSSTEINPILZ_E2E_1783611970-SETUP-INTERACTIVE-SESSION-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-ANSWER-ROOM-GROUNDED-QUESTION",
+      "effect_ids": [
+        "EFF-MLDSSTEINPILZ_E2E_1783611970-ANSWER-ROOM-GROUNDED-QUESTION-01"
+      ]
+    },
+    {
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "effect_ids": [
+        "EFF-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-TO-RESPONSIBLE-AGENT-01"
+      ]
+    }
+  ],
+  "runtime_actions": [
+    {
+      "runtime_binding_id": "RB-MLDSSTEINPILZ_E2E_1783611970-ANALYZE-MLDS-SCENE",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-ANALYZE-MLDS-SCENE",
+      "runtime_action_id": "RA-MLDSSTEINPILZ_E2E_1783611970-RUN-MLDS-INGESTION",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.mlds_ingestion.run_ingestion_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-MLDSSTEINPILZ_E2E_1783611970-ANALYZE-MLDS-SCENE",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-ANALYZE-MLDS-SCENE",
+      "runtime_action_id": "RA-MLDSSTEINPILZ_E2E_1783611970-RUN-SCENE-SEMANTICS",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.scene_semantics.run_scene_semantics_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-MLDSSTEINPILZ_E2E_1783611970-ANALYZE-MLDS-SCENE",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-ANALYZE-MLDS-SCENE",
+      "runtime_action_id": "RA-MLDSSTEINPILZ_E2E_1783611970-ARROW-ANALYZE",
+      "endpoint": "POST /projects/arrow/analyze",
+      "tool": null,
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-MLDSSTEINPILZ_E2E_1783611970-DERIVE-SPATIAL-AGENT-ROLES",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-DERIVE-SPATIAL-AGENT-ROLES",
+      "runtime_action_id": "RA-MLDSSTEINPILZ_E2E_1783611970-RUN-AGENT-ROLES",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.agent_roles.run_agent_roles_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-MLDSSTEINPILZ_E2E_1783611970-GENERATE-ROOM-KNOWLEDGE",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-GENERATE-ROOM-KNOWLEDGE",
+      "runtime_action_id": "RA-MLDSSTEINPILZ_E2E_1783611970-RUN-KNOWLEDGE-SYNTHESIS",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.knowledge_synthesis.run_knowledge_synthesis_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-MLDSSTEINPILZ_E2E_1783611970-PLACE-AGENTS-IN-SCENE",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-PLACE-AGENTS-IN-SCENE",
+      "runtime_action_id": "RA-MLDSSTEINPILZ_E2E_1783611970-RUN-AGENT-PLACEMENT",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.agent_placement.run_agent_placement_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-MLDSSTEINPILZ_E2E_1783611970-ASSEMBLE-FUNCTIONAL-MLDS",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-ASSEMBLE-FUNCTIONAL-MLDS",
+      "runtime_action_id": "RA-MLDSSTEINPILZ_E2E_1783611970-RUN-FUNCTIONALMLDS-ASSEMBLER",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.functionalmlds_assembler.run_functionalmlds_assembly_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-MLDSSTEINPILZ_E2E_1783611970-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "runtime_action_id": "RA-MLDSSTEINPILZ_E2E_1783611970-ARROW-COMMIT",
+      "endpoint": "POST /projects/arrow/commit",
+      "tool": null,
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-MLDSSTEINPILZ_E2E_1783611970-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "runtime_action_id": "RA-MLDSSTEINPILZ_E2E_1783611970-WRITE-PROJECT-FILES",
+      "endpoint": null,
+      "tool": "tools.case_study_pipeline.project_materializer.run_project_materializer_for_case",
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-MLDSSTEINPILZ_E2E_1783611970-SETUP-INTERACTIVE-SESSION",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-SETUP-INTERACTIVE-SESSION",
+      "runtime_action_id": "RA-MLDSSTEINPILZ_E2E_1783611970-BACKEND-SETUP",
+      "endpoint": "POST /setup",
+      "tool": null,
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-MLDSSTEINPILZ_E2E_1783611970-ANSWER-ROOM-GROUNDED-QUESTION",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-ANSWER-ROOM-GROUNDED-QUESTION",
+      "runtime_action_id": "RA-MLDSSTEINPILZ_E2E_1783611970-BACKEND-CHAT",
+      "endpoint": "POST /chat",
+      "tool": null,
+      "topic": null
+    },
+    {
+      "runtime_binding_id": "RB-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "capability_id": "CAP-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "runtime_action_id": "RA-MLDSSTEINPILZ_E2E_1783611970-BACKEND-CHAT-HANDOFF",
+      "endpoint": "POST /chat",
+      "tool": null,
+      "topic": null
+    }
+  ],
+  "validation_cases": [
+    {
+      "validation_case_id": "VC-MLDSSTEINPILZ_E2E_1783611970-MLDS-INGESTION",
+      "runtime_binding_ids": [
+        "RB-MLDSSTEINPILZ_E2E_1783611970-ANALYZE-MLDS-SCENE"
+      ],
+      "expected_outcome_ids": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-NORMALIZED-SCENE-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-MLDSSTEINPILZ_E2E_1783611970-MODEL-INVARIANTS",
+      "runtime_binding_ids": [
+        "RB-MLDSSTEINPILZ_E2E_1783611970-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "expected_outcome_ids": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-FUNCTIONALMLDS-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-MLDSSTEINPILZ_E2E_1783611970-PROJECT-MATERIALIZATION",
+      "runtime_binding_ids": [
+        "RB-MLDSSTEINPILZ_E2E_1783611970-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "expected_outcome_ids": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-PROJECT-MATERIALIZED"
+      ]
+    },
+    {
+      "validation_case_id": "VC-MLDSSTEINPILZ_E2E_1783611970-SETUP",
+      "runtime_binding_ids": [
+        "RB-MLDSSTEINPILZ_E2E_1783611970-SETUP-INTERACTIVE-SESSION"
+      ],
+      "expected_outcome_ids": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-SETUP-VALID"
+      ]
+    },
+    {
+      "validation_case_id": "VC-MLDSSTEINPILZ_E2E_1783611970-CHAT-GROUNDING",
+      "runtime_binding_ids": [
+        "RB-MLDSSTEINPILZ_E2E_1783611970-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "expected_outcome_ids": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-ANSWER-GROUNDED"
+      ]
+    },
+    {
+      "validation_case_id": "VC-MLDSSTEINPILZ_E2E_1783611970-HANDOFF",
+      "runtime_binding_ids": [
+        "RB-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expected_outcome_ids": [
+        "SA-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-VALID"
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "agent_id": "receptionist_agent",
+      "functionalmlds_agent_id": "AG-MLDSSTEINPILZ_E2E_1783611970-RECEPTIONIST_AGENT",
+      "entity_id": "ENT-AGENT-RECEPTIONIST_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "brand_information",
+        "visitor_assistance",
+        "navigation_guidance"
+      ]
+    },
+    {
+      "agent_id": "product_specialist_agent",
+      "functionalmlds_agent_id": "AG-MLDSSTEINPILZ_E2E_1783611970-PRODUCT_SPECIALIST_AGENT",
+      "entity_id": "ENT-AGENT-PRODUCT_SPECIALIST_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "cheese_products",
+        "sampling",
+        "customer_interaction"
+      ]
+    },
+    {
+      "agent_id": "production_expert_agent",
+      "functionalmlds_agent_id": "AG-MLDSSTEINPILZ_E2E_1783611970-PRODUCTION_EXPERT_AGENT",
+      "entity_id": "ENT-AGENT-PRODUCTION_EXPERT_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "production_technology",
+        "energy_efficiency",
+        "technical_details"
+      ]
+    },
+    {
+      "agent_id": "digital_interaction_agent",
+      "functionalmlds_agent_id": "AG-MLDSSTEINPILZ_E2E_1783611970-DIGITAL_INTERACTION_AGENT",
+      "entity_id": "ENT-AGENT-DIGITAL_INTERACTION_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "digital_interaction",
+        "content_navigation",
+        "visitor_support"
+      ]
+    },
+    {
+      "agent_id": "career_consultant_agent",
+      "functionalmlds_agent_id": "AG-MLDSSTEINPILZ_E2E_1783611970-CAREER_CONSULTANT_AGENT",
+      "entity_id": "ENT-AGENT-CAREER_CONSULTANT_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "career_opportunities",
+        "business_discussions",
+        "training"
+      ]
+    },
+    {
+      "agent_id": "lounge_host_agent",
+      "functionalmlds_agent_id": "AG-MLDSSTEINPILZ_E2E_1783611970-LOUNGE_HOST_AGENT",
+      "entity_id": "ENT-AGENT-LOUNGE_HOST_AGENT",
+      "plays_actor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "knowledge_tags": [
+        "visitor_comfort",
+        "networking",
+        "hospitality"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,385 @@
+{
+  "knowledge_entries": [
+    {
+      "tag": "visitor_orientation",
+      "name": "visitor_orientation_at_entrance_zone",
+      "source_object_ids": [
+        "reception_desk",
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "text": "The entrance zone features a reception desk where visitors are welcomed and provided with initial guidance. Surrounding the desk are four brand panels displaying the company's heritage and product highlights, helping visitors orient themselves to the booth's offerings and layout.",
+      "intended_agents": [
+        "reception_agent"
+      ]
+    },
+    {
+      "tag": "product_overview",
+      "name": "overview_of_cheese_products_and_branding",
+      "source_object_ids": [
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "text": "Brand panels located near the entrance present detailed information about the cheese products, including their qualities and heritage. These panels serve as an introduction to the product range and set the context for further exploration in the product display zone.",
+      "intended_agents": [
+        "reception_agent"
+      ]
+    },
+    {
+      "tag": "basic_inquiries",
+      "name": "basic_visitor_inquiries_handling",
+      "source_object_ids": [
+        "reception_desk",
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "text": "Visitors can approach the reception desk to ask general questions about the booth, product offerings, and navigation. The reception agent uses the brand panels and reception desk as reference points to provide clear and friendly information.",
+      "intended_agents": [
+        "reception_agent"
+      ]
+    },
+    {
+      "tag": "entrance_zone",
+      "name": "entrance_and_reception_area",
+      "source_object_ids": [
+        "reception_desk",
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "text": "This zone serves as the welcoming point with a sleek reception desk centrally located and surrounded by four vertical brand panels. It provides visitors with initial information and sets the tone for the exhibition experience.",
+      "intended_agents": [
+        "reception_agent"
+      ]
+    },
+    {
+      "tag": "brand_panels",
+      "name": "brand_information_panels",
+      "source_object_ids": [
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "text": "Four slim vertical brand panels positioned near the reception desk display high-resolution graphics and typography that communicate the brand's heritage and product qualities, aiding visitor understanding and engagement.",
+      "intended_agents": [
+        "reception_agent"
+      ]
+    },
+    {
+      "tag": "reception_desk",
+      "name": "reception_desk_features",
+      "source_object_ids": [
+        "reception_desk"
+      ],
+      "text": "The reception desk is a minimalist, warm wood-veneered counter located at the entrance zone. It serves as the primary point for visitor welcome, information dissemination, and guidance within the booth.",
+      "intended_agents": [
+        "reception_agent"
+      ]
+    },
+    {
+      "tag": "cheese_products",
+      "name": "cheese_product_presentation",
+      "source_object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ],
+      "text": "Cheese products are displayed in refrigerated counters and on product pedestals within the product display zone. These setups showcase various cheese types with optimal temperature control and visual prominence for visitor inspection and sampling.",
+      "intended_agents": [
+        "product_expert_agent"
+      ]
+    },
+    {
+      "tag": "sampling",
+      "name": "cheese_sampling_setup",
+      "source_object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ],
+      "text": "Sampling opportunities are provided via refrigerated counters and pedestals that hold individual cheese samples. Visitors can taste different varieties, guided by the product expert agent who explains qualities and origins.",
+      "intended_agents": [
+        "product_expert_agent"
+      ]
+    },
+    {
+      "tag": "product_display_zone",
+      "name": "cheese_product_display_zone",
+      "source_object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ],
+      "text": "Located to the left side of the booth, this zone contains refrigerated counters and product pedestals arranged to display cheese products attractively and maintain freshness, supporting visitor exploration and sampling.",
+      "intended_agents": [
+        "product_expert_agent"
+      ]
+    },
+    {
+      "tag": "refrigerated_counters",
+      "name": "refrigerated_display_counters",
+      "source_object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4"
+      ],
+      "text": "Four refrigerated counters with glass tops and LED lighting showcase cheese samples while maintaining optimal temperature. They feature stainless steel bases with warm neutral accent panels to enhance product visibility.",
+      "intended_agents": [
+        "product_expert_agent"
+      ]
+    },
+    {
+      "tag": "product_pedestals",
+      "name": "cheese_product_pedestals",
+      "source_object_ids": [
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ],
+      "text": "Six compact pedestals with light neutral finishes elevate individual cheese samples or packaged products for clear viewing and easy access, complementing the refrigerated counters in the product display zone.",
+      "intended_agents": [
+        "product_expert_agent"
+      ]
+    },
+    {
+      "tag": "production_process",
+      "name": "cheese_production_process_models",
+      "source_object_ids": [
+        "production_model1",
+        "production_model2",
+        "energy_station1",
+        "energy_station2"
+      ],
+      "text": "The production model zone features two detailed large-scale models replicating industrial cheese manufacturing equipment, alongside two energy measurement stations demonstrating sustainability and energy use in production.",
+      "intended_agents": [
+        "production_technology_agent"
+      ]
+    },
+    {
+      "tag": "energy_station_zone",
+      "name": "energy_measurement_station_zone",
+      "source_object_ids": [
+        "energy_station1",
+        "energy_station2"
+      ],
+      "text": "This zone contains two energy measurement stations equipped with digital displays and controls, illustrating energy consumption and sustainability aspects related to cheese production processes.",
+      "intended_agents": [
+        "production_technology_agent"
+      ]
+    },
+    {
+      "tag": "production_model_zone",
+      "name": "cheese_production_model_zone",
+      "source_object_ids": [
+        "production_model1",
+        "production_model2"
+      ],
+      "text": "Two large-scale, metallic-finished production models showcase the machinery and steps involved in cheese manufacturing, providing visitors with a tangible understanding of industrial processes.",
+      "intended_agents": [
+        "production_technology_agent"
+      ]
+    },
+    {
+      "tag": "production_models",
+      "name": "industrial_cheese_production_models",
+      "source_object_ids": [
+        "production_model1",
+        "production_model2"
+      ],
+      "text": "Detailed production models replicate key industrial equipment used in cheese manufacturing, highlighting mechanical components and workflow in a realistic factory style within the production model zone.",
+      "intended_agents": [
+        "production_technology_agent"
+      ]
+    },
+    {
+      "tag": "energy_stations",
+      "name": "energy_measurement_stations",
+      "source_object_ids": [
+        "energy_station1",
+        "energy_station2"
+      ],
+      "text": "Two energy stations with integrated digital displays provide real-time data and visual feedback on energy usage and efficiency in cheese production, emphasizing sustainability efforts.",
+      "intended_agents": [
+        "production_technology_agent"
+      ]
+    },
+    {
+      "tag": "interactive_kiosks",
+      "name": "interactive_touchscreen_kiosks",
+      "source_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "text": "Two interactive kiosks with vertically mounted touchscreens offer visitors multimedia content and detailed product information, enhancing engagement through digital interaction in the interactive zone.",
+      "intended_agents": [
+        "digital_interaction_agent"
+      ]
+    },
+    {
+      "tag": "digital_content",
+      "name": "digital_content_via_interactive_kiosks",
+      "source_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "text": "The kiosks provide access to rich digital content including product details, videos, and interactive guides, allowing visitors to explore cheese products and production technology at their own pace.",
+      "intended_agents": [
+        "digital_interaction_agent"
+      ]
+    },
+    {
+      "tag": "interactive_zone",
+      "name": "interactive_information_zone",
+      "source_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "text": "Situated near the production and career zones, the interactive zone houses two touchscreen kiosks designed for visitor engagement through digital exploration of products and production processes.",
+      "intended_agents": [
+        "digital_interaction_agent"
+      ]
+    },
+    {
+      "tag": "touch_kiosks",
+      "name": "touch_kiosk_details",
+      "source_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "text": "Each touch kiosk stands about 1.2 meters tall with a sleek warm neutral enclosure and easy-access interface, facilitating intuitive visitor interaction with digital content.",
+      "intended_agents": [
+        "digital_interaction_agent"
+      ]
+    },
+    {
+      "tag": "career_zone",
+      "name": "career_and_meeting_area",
+      "source_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "text": "This zone includes three circular meeting pods with semi-enclosed walls and comfortable seating for private discussions, plus two interactive training boards for career talks and business meetings.",
+      "intended_agents": [
+        "career_consultant_agent"
+      ]
+    },
+    {
+      "tag": "meetings",
+      "name": "meeting_pods_for_career_discussions",
+      "source_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3"
+      ],
+      "text": "Three circular meeting pods provide semi-private spaces with upholstered seating for career consultations, business meetings, and informal discussions within the career zone.",
+      "intended_agents": [
+        "career_consultant_agent"
+      ]
+    },
+    {
+      "tag": "training_sessions",
+      "name": "interactive_training_boards",
+      "source_object_ids": [
+        "training_board1",
+        "training_board2"
+      ],
+      "text": "Two interactive training boards with touch-enabled surfaces offer recruiting and training content, supporting career development and business discussions in the career zone.",
+      "intended_agents": [
+        "career_consultant_agent"
+      ]
+    },
+    {
+      "tag": "career_discussions",
+      "name": "career_and_business_discussions_area",
+      "source_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "text": "The career zone facilitates professional conversations and training sessions using meeting pods and interactive boards, creating a supportive environment for visitor engagement in career opportunities.",
+      "intended_agents": [
+        "career_consultant_agent"
+      ]
+    },
+    {
+      "tag": "lounge_zone",
+      "name": "lounge_and_networking_area",
+      "source_object_ids": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "text": "The lounge zone offers comfortable seating including a sofa, two lounge chairs, and a low-profile table, providing a relaxed space for visitors to network and unwind within the booth.",
+      "intended_agents": [
+        "lounge_host_agent"
+      ]
+    },
+    {
+      "tag": "visitor_relaxation",
+      "name": "visitor_relaxation_facilities",
+      "source_object_ids": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "text": "Visitors can relax in the lounge area furnished with plush seating and a lounge table, designed to create a welcoming atmosphere for informal networking and comfort.",
+      "intended_agents": [
+        "lounge_host_agent"
+      ]
+    },
+    {
+      "tag": "networking",
+      "name": "networking_opportunities_in_lounge",
+      "source_object_ids": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "text": "The lounge area supports informal networking with its arrangement of comfortable chairs and sofa around a central table, encouraging visitor interaction and socializing in a casual setting.",
+      "intended_agents": [
+        "lounge_host_agent"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+# Validation Repair
+
+| case_id | repair_log_entries | llm_generation_attempts | llm_repair_attempts | deterministic_recoveries | accepted_warnings | final_schema_errors | final_invariant_errors | final_stage_completion | final_status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bestfit_career_fair | 4 | 3 | 0 | 0 | 1 | 0 | 0 | 1.000 | valid |
+| classroom_dinosaur | 4 | 3 | 0 | 0 | 1 | 0 | 0 | 1.000 | valid |
+| steinpilz_brand_room | 4 | 2 | 0 | 1 | 1 | 0 | 0 | 1.000 | valid |

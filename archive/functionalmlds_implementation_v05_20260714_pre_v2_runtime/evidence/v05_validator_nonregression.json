@@ -1,0 +1,70 @@
+{
+  "case_count": 7,
+  "cases": [
+    {
+      "case_id": "bestfit_career_fair",
+      "invariant_count": 8,
+      "invariant_errors": [],
+      "invariant_status": "valid",
+      "reverse_projection_equal": true,
+      "schema_errors": [],
+      "schema_status": "valid"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "invariant_count": 8,
+      "invariant_errors": [],
+      "invariant_status": "valid",
+      "reverse_projection_equal": true,
+      "schema_errors": [],
+      "schema_status": "valid"
+    },
+    {
+      "case_id": "steinpilz_brand_room",
+      "invariant_count": 8,
+      "invariant_errors": [],
+      "invariant_status": "valid",
+      "reverse_projection_equal": true,
+      "schema_errors": [],
+      "schema_status": "valid"
+    },
+    {
+      "case_id": "cheese_factory_tradefair_booth_36f00adc",
+      "invariant_count": 8,
+      "invariant_errors": [],
+      "invariant_status": "valid",
+      "reverse_projection_equal": true,
+      "schema_errors": [],
+      "schema_status": "valid"
+    },
+    {
+      "case_id": "mldssteinpilz_e2e_1783611970",
+      "invariant_count": 8,
+      "invariant_errors": [],
+      "invariant_status": "valid",
+      "reverse_projection_equal": true,
+      "schema_errors": [],
+      "schema_status": "valid"
+    },
+    {
+      "case_id": "mldssteinpilz_probe",
+      "invariant_count": 8,
+      "invariant_errors": [],
+      "invariant_status": "valid",
+      "reverse_projection_equal": true,
+      "schema_errors": [],
+      "schema_status": "valid"
+    },
+    {
+      "case_id": "mldssteinpilz_uidiag_abs_repair_1783611709",
+      "invariant_count": 8,
+      "invariant_errors": [],
+      "invariant_status": "valid",
+      "reverse_projection_equal": true,
+      "schema_errors": [],
+      "schema_status": "valid"
+    }
+  ],
+  "schema": "tools/case_study_pipeline/schemas/functionalmlds_case_study.schema.json",
+  "status": "pass"
+}

@@ -1,0 +1,26 @@
+{
+  "testedUnityVersion": "6000.4.5f1",
+  "requiredForCoreCompile": [],
+  "recommendedForFeatureParity": {
+    "com.unity.inputsystem": "1.19.0",
+    "com.unity.xr.interaction.toolkit": "3.5.0",
+    "com.unity.ugui": "2.0.0",
+    "com.de-panther.webxr": "0.23.0",
+    "com.de-panther.webxr-interactions": "0.23.0"
+  },
+  "scopedRegistries": [
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.de-panther.webxr",
+        "com.de-panther.webxr-interactions"
+      ]
+    }
+  ],
+  "notes": [
+    "The backend service is not bundled in the Unity package.",
+    "The core scripts compile without WebXR packages because WebXR is used through project setup and assets rather than direct C# API references.",
+    "Import the character-assets package when the target project should use the included avatar FBX assets instead of fallback cube avatars."
+  ]
+}

@@ -1,0 +1,961 @@
+{
+  "commands": [
+    {
+      "command": [
+        "C:\\Users\\burklo\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\generate_dynamic_functional_mlds_v2.py"
+      ],
+      "returncode": 0,
+      "status": "pass",
+      "stderr": "",
+      "stdout": "Generated 27 deterministic artifacts in C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\metamodel_v2\\generated (set AF6B248D133F41583B3EE0644825B96B1BF0F913168F5B3499BD3B3457B7F5F8)\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\burklo\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\generate_dynamic_functional_mlds_v2.py"
+      ],
+      "returncode": 0,
+      "status": "pass",
+      "stderr": "",
+      "stdout": "Generated 27 deterministic artifacts in C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\metamodel_v2\\generated (set AF6B248D133F41583B3EE0644825B96B1BF0F913168F5B3499BD3B3457B7F5F8)\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\burklo\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\validate_dynamic_functional_mlds_v2_diagrams.py"
+      ],
+      "returncode": 0,
+      "status": "pass",
+      "stderr": "",
+      "stdout": "Diagram geometry QA: PASS (8 views; totals={'diagonal_segments': 0, 'foreign_card_hits': 0, 'proper_crossings': 0, 'overlapping_segments': 0, 'label_card_overlaps': 0})\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\burklo\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\dynamic_functional_mlds_v2_compat.py"
+      ],
+      "returncode": 0,
+      "status": "pass",
+      "stderr": "",
+      "stdout": "{\n  \"passed\": true,\n  \"fixtures\": 7,\n  \"mappingPaths\": 173,\n  \"written\": [\n    \"C:\\\\Users\\\\burklo\\\\Documents\\\\FunctionalMLDS\\\\output\\\\metamodel_v2\\\\evidence\\\\v05_compatibility_mapping.json\",\n    \"C:\\\\Users\\\\burklo\\\\Documents\\\\FunctionalMLDS\\\\output\\\\metamodel_v2\\\\evidence\\\\v05_compatibility_mapping.md\",\n    \"C:\\\\Users\\\\burklo\\\\Documents\\\\FunctionalMLDS\\\\output\\\\metamodel_v2\\\\evidence\\\\v05_field_coverage.json\",\n    \"C:\\\\Users\\\\burklo\\\\Documents\\\\FunctionalMLDS\\\\output\\\\metamodel_v2\\\\evidence\\\\v05_roundtrip_report.json\",\n    \"C:\\\\Users\\\\burklo\\\\Documents\\\\FunctionalMLDS\\\\output\\\\metamodel_v2\\\\evidence\\\\v05_roundtrip_report.md\",\n    \"C:\\\\Users\\\\burklo\\\\Documents\\\\FunctionalMLDS\\\\output\\\\metamodel_v2\\\\evidence\\\\v05_projections\\\\bestfit_career_fair.v2.projection.json\",\n    \"C:\\\\Users\\\\burklo\\\\Documents\\\\FunctionalMLDS\\\\output\\\\metamodel_v2\\\\evidence\\\\v05_projections\\\\bestfit_career_fair.v05.roundtrip.json\",\n    \"C:\\\\Users\\\\burklo\\\\Documents\\\\FunctionalMLDS\\\\output\\\\metamodel_v2\\\\evidence\\\\v05_projections\\\\classroom_dinosaur.v2.projection.json\",\n    \"C:\\\\Users\\\\burklo\\\\Documents\\\\FunctionalMLDS\\\\output\\\\metamodel_v2\\\\evidence\\\\v05_projections\\\\classroom_dinosaur.v05.roundtrip.json\",\n    \"C:\\\\Users\\\\burklo\\\\Documents\\\\FunctionalMLDS\\\\output\\\\metamodel_v2\\\\evidence\\\\v05_projections\\\\steinpilz_brand_room.v2.projection.json\",\n    \"C:\\\\Users\\\\burklo\\\\Documents\\\\FunctionalMLDS\\\\output\\\\metamodel_v2\\\\evidence\\\\v05_projections\\\\steinpilz_brand_room.v05.roundtrip.json\",\n    \"C:\\\\Users\\\\burklo\\\\Documents\\\\FunctionalMLDS\\\\output\\\\metamodel_v2\\\\evidence\\\\v05_projections\\\\cheese_factory_tradefair_booth_36f00adc.v2.projection.json\",\n    \"C:\\\\Users\\\\burklo\\\\Documents\\\\FunctionalMLDS\\\\output\\\\metamodel_v2\\\\evidence\\\\v05_projections\\\\cheese_factory_tradefair_booth_36f00adc.v05.roundtrip.json\",\n    \"C:\\\\Users\\\\burklo\\\\Documents\\\\FunctionalMLDS\\\\output\\\\metamodel_v2\\\\evidence\\\\v05_projections\\\\mldssteinpilz_e2e_1783611970.v2.projection.json\",\n    \"C:\\\\Users\\\\burklo\\\\Documents\\\\FunctionalMLDS\\\\output\\\\metamodel_v2\\\\evidence\\\\v05_projections\\\\mldssteinpilz_e2e_1783611970.v05.roundtrip.json\",\n    \"C:\\\\Users\\\\burklo\\\\Documents\\\\FunctionalMLDS\\\\output\\\\metamodel_v2\\\\evidence\\\\v05_projections\\\\mldssteinpilz_probe.v2.projection.json\",\n    \"C:\\\\Users\\\\burklo\\\\Documents\\\\FunctionalMLDS\\\\output\\\\metamodel_v2\\\\evidence\\\\v05_projections\\\\mldssteinpilz_probe.v05.roundtrip.json\",\n    \"C:\\\\Users\\\\burklo\\\\Documents\\\\FunctionalMLDS\\\\output\\\\metamodel_v2\\\\evidence\\\\v05_projections\\\\mldssteinpilz_uidiag_abs_repair_1783611709.v2.projection.json\",\n    \"C:\\\\Users\\\\burklo\\\\Documents\\\\FunctionalMLDS\\\\output\\\\metamodel_v2\\\\evidence\\\\v05_projections\\\\mldssteinpilz_uidiag_abs_repair_1783611709.v05.roundtrip.json\"\n  ]\n}\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\burklo\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\validate_dynamic_functional_mlds_v2.py"
+      ],
+      "returncode": 0,
+      "status": "pass",
+      "stderr": "",
+      "stdout": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\metamodel_v2\\evidence\\v2_validation_report.json\nC:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\metamodel_v2\\evidence\\v2_validation_report.md\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\burklo\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\tests\\test_dynamic_functional_mlds_v2_compat.py",
+        "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\tests\\test_dynamic_functional_mlds_v2_validation.py"
+      ],
+      "returncode": 0,
+      "status": "pass",
+      "stderr": "",
+      "stdout": ".....................................                      [100%]\n37 passed, 14 subtests passed in 21.40s\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\burklo\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\tests\\test_backend_endpoints_smoke.py"
+      ],
+      "returncode": 0,
+      "status": "pass",
+      "stderr": "",
+      "stdout": ".                                                 [100%]\n1 passed, 23 subtests passed in 0.67s\n\n[scope-cleanup] restored output/case_studies/classroom_dinosaur/runtime_logs/events.jsonl after verified seven-event smoke session ca390f76-4e6d-46a5-99ca-ab640f2d82ea\n"
+    }
+  ],
+  "diagram_geometry": {
+    "acceptance_thresholds": {
+      "diagonal_segments": 0,
+      "foreign_card_hits": 0,
+      "label_card_overlaps": 0,
+      "overlapping_segments": 0,
+      "proper_crossings": 0
+    },
+    "model_version": "2.0.0-model",
+    "status": "pass",
+    "totals": {
+      "diagonal_segments": 0,
+      "foreign_card_hits": 0,
+      "label_card_overlaps": 0,
+      "overlapping_segments": 0,
+      "proper_crossings": 0
+    },
+    "validator_returncode": 0,
+    "view_count": 8,
+    "views": {
+      "01_east_adl_infrastructure": {
+        "formats": {
+          "checks": {
+            "mermaid_has_no_note_for": true,
+            "overview_mermaid_contains_model_nodes": true,
+            "png_dimensions_match_scene": true,
+            "svg_dimensions_match_scene": true,
+            "svg_is_xml": true
+          },
+          "png_dimensions": [
+            2186,
+            1742
+          ],
+          "status": "PASS",
+          "svg_dimensions": [
+            2186,
+            1742
+          ]
+        },
+        "geometry": {
+          "counts": {
+            "diagonal_segments": 0,
+            "foreign_card_hits": 0,
+            "label_card_overlaps": 0,
+            "overlapping_segments": 0,
+            "proper_crossings": 0
+          },
+          "edge_count": 5,
+          "incidents": {
+            "diagonal_segments": [],
+            "foreign_card_hits": [],
+            "label_card_overlaps": [],
+            "overlapping_segments": [],
+            "proper_crossings": []
+          },
+          "status": "PASS"
+        },
+        "status": "PASS",
+        "title": "EAST-ADL V2.1.12 – verwendeter Infrastruktur-Ausschnitt"
+      },
+      "02_east_adl_requirements_usecases": {
+        "formats": {
+          "checks": {
+            "mermaid_has_no_note_for": true,
+            "overview_mermaid_contains_model_nodes": true,
+            "png_dimensions_match_scene": true,
+            "svg_dimensions_match_scene": true,
+            "svg_is_xml": true
+          },
+          "png_dimensions": [
+            2186,
+            1576
+          ],
+          "status": "PASS",
+          "svg_dimensions": [
+            2186,
+            1576
+          ]
+        },
+        "geometry": {
+          "counts": {
+            "diagonal_segments": 0,
+            "foreign_card_hits": 0,
+            "label_card_overlaps": 0,
+            "overlapping_segments": 0,
+            "proper_crossings": 0
+          },
+          "edge_count": 5,
+          "incidents": {
+            "diagonal_segments": [],
+            "foreign_card_hits": [],
+            "label_card_overlaps": [],
+            "overlapping_segments": [],
+            "proper_crossings": []
+          },
+          "status": "PASS"
+        },
+        "status": "PASS",
+        "title": "EAST-ADL Requirements/UseCases – verwendeter Ausschnitt"
+      },
+      "03_east_adl_function_system_behavior": {
+        "formats": {
+          "checks": {
+            "mermaid_has_no_note_for": true,
+            "overview_mermaid_contains_model_nodes": true,
+            "png_dimensions_match_scene": true,
+            "svg_dimensions_match_scene": true,
+            "svg_is_xml": true
+          },
+          "png_dimensions": [
+            2506,
+            1576
+          ],
+          "status": "PASS",
+          "svg_dimensions": [
+            2506,
+            1576
+          ]
+        },
+        "geometry": {
+          "counts": {
+            "diagonal_segments": 0,
+            "foreign_card_hits": 0,
+            "label_card_overlaps": 0,
+            "overlapping_segments": 0,
+            "proper_crossings": 0
+          },
+          "edge_count": 8,
+          "incidents": {
+            "diagonal_segments": [],
+            "foreign_card_hits": [],
+            "label_card_overlaps": [],
+            "overlapping_segments": [],
+            "proper_crossings": []
+          },
+          "status": "PASS"
+        },
+        "status": "PASS",
+        "title": "EAST-ADL Function/System/Behavior – verwendeter Ausschnitt"
+      },
+      "04_dfmlds_scenario_flow": {
+        "formats": {
+          "checks": {
+            "mermaid_has_no_note_for": true,
+            "overview_mermaid_contains_model_nodes": true,
+            "png_dimensions_match_scene": true,
+            "svg_dimensions_match_scene": true,
+            "svg_is_xml": true
+          },
+          "png_dimensions": [
+            2506,
+            2622
+          ],
+          "status": "PASS",
+          "svg_dimensions": [
+            2506,
+            2622
+          ]
+        },
+        "geometry": {
+          "counts": {
+            "diagonal_segments": 0,
+            "foreign_card_hits": 0,
+            "label_card_overlaps": 0,
+            "overlapping_segments": 0,
+            "proper_crossings": 0
+          },
+          "edge_count": 9,
+          "incidents": {
+            "diagonal_segments": [],
+            "foreign_card_hits": [],
+            "label_card_overlaps": [],
+            "overlapping_segments": [],
+            "proper_crossings": []
+          },
+          "status": "PASS"
+        },
+        "status": "PASS",
+        "title": "DFMLDS V2 – konservativer Szenario- und Ablaufkern"
+      },
+      "05_dfmlds_capability_runtime": {
+        "formats": {
+          "checks": {
+            "mermaid_has_no_note_for": true,
+            "overview_mermaid_contains_model_nodes": true,
+            "png_dimensions_match_scene": true,
+            "svg_dimensions_match_scene": true,
+            "svg_is_xml": true
+          },
+          "png_dimensions": [
+            2700,
+            2223
+          ],
+          "status": "PASS",
+          "svg_dimensions": [
+            2700,
+            2223
+          ]
+        },
+        "geometry": {
+          "counts": {
+            "diagonal_segments": 0,
+            "foreign_card_hits": 0,
+            "label_card_overlaps": 0,
+            "overlapping_segments": 0,
+            "proper_crossings": 0
+          },
+          "edge_count": 11,
+          "incidents": {
+            "diagonal_segments": [],
+            "foreign_card_hits": [],
+            "label_card_overlaps": [],
+            "overlapping_segments": [],
+            "proper_crossings": []
+          },
+          "status": "PASS"
+        },
+        "status": "PASS",
+        "title": "DFMLDS V2 – Capability-, Function- und Runtime-Bridge"
+      },
+      "06_east_adl_dfmlds_verification_validation": {
+        "formats": {
+          "checks": {
+            "mermaid_has_no_note_for": true,
+            "overview_mermaid_contains_model_nodes": true,
+            "png_dimensions_match_scene": true,
+            "svg_dimensions_match_scene": true,
+            "svg_is_xml": true
+          },
+          "png_dimensions": [
+            2826,
+            2009
+          ],
+          "status": "PASS",
+          "svg_dimensions": [
+            2826,
+            2009
+          ]
+        },
+        "geometry": {
+          "counts": {
+            "diagonal_segments": 0,
+            "foreign_card_hits": 0,
+            "label_card_overlaps": 0,
+            "overlapping_segments": 0,
+            "proper_crossings": 0
+          },
+          "edge_count": 11,
+          "incidents": {
+            "diagonal_segments": [],
+            "foreign_card_hits": [],
+            "label_card_overlaps": [],
+            "overlapping_segments": [],
+            "proper_crossings": []
+          },
+          "status": "PASS"
+        },
+        "status": "PASS",
+        "title": "EAST-ADL / DFMLDS V2 – Verification & Validation"
+      },
+      "07_optional_annex_feature_knowledge": {
+        "formats": {
+          "checks": {
+            "mermaid_has_no_note_for": true,
+            "overview_mermaid_contains_model_nodes": true,
+            "png_dimensions_match_scene": true,
+            "svg_dimensions_match_scene": true,
+            "svg_is_xml": true
+          },
+          "png_dimensions": [
+            3000,
+            1788
+          ],
+          "status": "PASS",
+          "svg_dimensions": [
+            3000,
+            1788
+          ]
+        },
+        "geometry": {
+          "counts": {
+            "diagonal_segments": 0,
+            "foreign_card_hits": 0,
+            "label_card_overlaps": 0,
+            "overlapping_segments": 0,
+            "proper_crossings": 0
+          },
+          "edge_count": 10,
+          "incidents": {
+            "diagonal_segments": [],
+            "foreign_card_hits": [],
+            "label_card_overlaps": [],
+            "overlapping_segments": [],
+            "proper_crossings": []
+          },
+          "status": "PASS"
+        },
+        "status": "PASS",
+        "title": "DFMLDS V2 – optionale Annex-C-, Feature- und Wissensmodule"
+      },
+      "dynamic_functional_mlds_v2_metamodel": {
+        "formats": {
+          "checks": {
+            "mermaid_has_no_note_for": true,
+            "overview_mermaid_contains_model_nodes": true,
+            "png_dimensions_match_scene": true,
+            "svg_dimensions_match_scene": true,
+            "svg_is_xml": true
+          },
+          "png_dimensions": [
+            3200,
+            2520
+          ],
+          "status": "PASS",
+          "svg_dimensions": [
+            3200,
+            2520
+          ]
+        },
+        "geometry": {
+          "counts": {
+            "diagonal_segments": 0,
+            "foreign_card_hits": 0,
+            "label_card_overlaps": 0,
+            "overlapping_segments": 0,
+            "proper_crossings": 0
+          },
+          "edge_count": 40,
+          "incidents": {
+            "diagonal_segments": [],
+            "foreign_card_hits": [],
+            "label_card_overlaps": [],
+            "overlapping_segments": [],
+            "proper_crossings": []
+          },
+          "status": "PASS"
+        },
+        "status": "PASS",
+        "title": "Kompaktes Metamodell für Dynamic Functional MLDS (V2.0)"
+      }
+    }
+  },
+  "format_consistency": {
+    "association_count": 157,
+    "canonical_model": "output/metamodel_v2/generated/dynamic_functional_mlds_v2.model.json",
+    "class_count": 118,
+    "invariant_count": 74,
+    "mermaid_count": 8,
+    "png_count": 8,
+    "status": "pass",
+    "svg_count": 8,
+    "view_count": 8,
+    "view_names": [
+      "01_east_adl_infrastructure",
+      "02_east_adl_requirements_usecases",
+      "03_east_adl_function_system_behavior",
+      "04_dfmlds_scenario_flow",
+      "05_dfmlds_capability_runtime",
+      "06_east_adl_dfmlds_verification_validation",
+      "07_optional_annex_feature_knowledge",
+      "dynamic_functional_mlds_v2_metamodel"
+    ]
+  },
+  "implementation": {
+    "baseline": "output/metamodel_v2/implementation_baseline.sha256.csv",
+    "checked_bytes": 2449211010,
+    "claim": "Unity, Backend, Pipeline und v0.5-Generator sind bytegenau unveraendert.",
+    "file_count": 1715,
+    "hash_mismatches": [],
+    "missing": [],
+    "size_mismatches": [],
+    "status": "pass"
+  },
+  "instance_surface": {
+    "case_count": 7,
+    "cases": [
+      {
+        "case_id": "bestfit_career_fair",
+        "path": "output/case_studies/bestfit_career_fair/functionalmlds/functionalmlds.instance.generated.json",
+        "sha256": "B3F47EE37FD58329D321487946187FE041BFBD07EC5B295D9AA0A92C2F7CE50F",
+        "top_level_fields": [
+          "schema",
+          "metamodelVersion",
+          "caseId",
+          "requirementsModel",
+          "actors",
+          "entities",
+          "agents",
+          "events",
+          "conditions",
+          "stateAssertions",
+          "capabilityUses",
+          "capabilities",
+          "runtimeBindings",
+          "validationCases",
+          "satisfyRelationships"
+        ]
+      },
+      {
+        "case_id": "classroom_dinosaur",
+        "path": "output/case_studies/classroom_dinosaur/functionalmlds/functionalmlds.instance.generated.json",
+        "sha256": "090F630C2C1ECA565171C8DFCC60FB6F4E91378B901D6B3C8653BC13FDD1EE27",
+        "top_level_fields": [
+          "schema",
+          "metamodelVersion",
+          "caseId",
+          "requirementsModel",
+          "actors",
+          "entities",
+          "agents",
+          "events",
+          "conditions",
+          "stateAssertions",
+          "capabilityUses",
+          "capabilities",
+          "runtimeBindings",
+          "validationCases",
+          "satisfyRelationships"
+        ]
+      },
+      {
+        "case_id": "steinpilz_brand_room",
+        "path": "output/case_studies/steinpilz_brand_room/functionalmlds/functionalmlds.instance.generated.json",
+        "sha256": "D58ED1279973D816DF3F6E08D4ADBE0881AC8B372654B9ED858906A80FC1A71D",
+        "top_level_fields": [
+          "schema",
+          "metamodelVersion",
+          "caseId",
+          "requirementsModel",
+          "actors",
+          "entities",
+          "agents",
+          "events",
+          "conditions",
+          "stateAssertions",
+          "capabilityUses",
+          "capabilities",
+          "runtimeBindings",
+          "validationCases",
+          "satisfyRelationships"
+        ]
+      },
+      {
+        "case_id": "cheese_factory_tradefair_booth_36f00adc",
+        "path": "output/wizard_functionalmlds/cheese_factory_tradefair_booth_36f00adc/functionalmlds/functionalmlds.instance.generated.json",
+        "sha256": "DE82C9E40BD8927262E6463A0943AAEB5FD576D5096DDDACFE13B04A6A5AC532",
+        "top_level_fields": [
+          "schema",
+          "metamodelVersion",
+          "caseId",
+          "requirementsModel",
+          "actors",
+          "entities",
+          "agents",
+          "events",
+          "conditions",
+          "stateAssertions",
+          "capabilityUses",
+          "capabilities",
+          "runtimeBindings",
+          "validationCases",
+          "satisfyRelationships"
+        ]
+      },
+      {
+        "case_id": "mldssteinpilz_e2e_1783611970",
+        "path": "output/wizard_functionalmlds/mldssteinpilz_e2e_1783611970/functionalmlds/functionalmlds.instance.generated.json",
+        "sha256": "3E87DFB4F588634760BAB5A7B85FA0805649D60D9ACD28B9786FFE0D97921EF1",
+        "top_level_fields": [
+          "schema",
+          "metamodelVersion",
+          "caseId",
+          "requirementsModel",
+          "actors",
+          "entities",
+          "agents",
+          "events",
+          "conditions",
+          "stateAssertions",
+          "capabilityUses",
+          "capabilities",
+          "runtimeBindings",
+          "validationCases",
+          "satisfyRelationships"
+        ]
+      },
+      {
+        "case_id": "mldssteinpilz_probe",
+        "path": "output/wizard_functionalmlds/mldssteinpilz_probe/functionalmlds/functionalmlds.instance.generated.json",
+        "sha256": "2EEAAC3F6E9A9E03ADAA32C2E4D6EE8FD0E9874DF725F3CBEF26B51562E99190",
+        "top_level_fields": [
+          "schema",
+          "metamodelVersion",
+          "caseId",
+          "requirementsModel",
+          "actors",
+          "entities",
+          "agents",
+          "events",
+          "conditions",
+          "stateAssertions",
+          "capabilityUses",
+          "capabilities",
+          "runtimeBindings",
+          "validationCases",
+          "satisfyRelationships"
+        ]
+      },
+      {
+        "case_id": "mldssteinpilz_uidiag_abs_repair_1783611709",
+        "path": "output/wizard_functionalmlds/mldssteinpilz_uidiag_abs_repair_1783611709/functionalmlds/functionalmlds.instance.generated.json",
+        "sha256": "B6748607D61295DF26733AE0DFBE80B8217604DAF8C49F01737E050E85EDBBD8",
+        "top_level_fields": [
+          "schema",
+          "metamodelVersion",
+          "caseId",
+          "requirementsModel",
+          "actors",
+          "entities",
+          "agents",
+          "events",
+          "conditions",
+          "stateAssertions",
+          "capabilityUses",
+          "capabilities",
+          "runtimeBindings",
+          "validationCases",
+          "satisfyRelationships"
+        ]
+      }
+    ],
+    "leaf_path_count": 101,
+    "normalized_path_count": 173,
+    "paths": [
+      "/",
+      "/actors/*",
+      "/actors/*/description",
+      "/actors/*/id",
+      "/actors/*/name",
+      "/actors[]",
+      "/agents/*",
+      "/agents/*/display_name",
+      "/agents/*/entity_id",
+      "/agents/*/expertise/*",
+      "/agents/*/expertise[]",
+      "/agents/*/groundedAssetEntityIds/*",
+      "/agents/*/groundedAssetEntityIds[]",
+      "/agents/*/groundedObjectGroupEntityIds/*",
+      "/agents/*/groundedObjectGroupEntityIds[]",
+      "/agents/*/grounded_object_groups/*",
+      "/agents/*/grounded_object_groups[]",
+      "/agents/*/grounded_object_ids/*",
+      "/agents/*/grounded_object_ids[]",
+      "/agents/*/handoffTargetAgentIds/*",
+      "/agents/*/handoffTargetAgentIds[]",
+      "/agents/*/handoff_targets/*",
+      "/agents/*/handoff_targets[]",
+      "/agents/*/id",
+      "/agents/*/knowledge_tags/*",
+      "/agents/*/knowledge_tags[]",
+      "/agents/*/persona",
+      "/agents/*/playsActor/*",
+      "/agents/*/playsActor[]",
+      "/agents/*/providedCapabilityIds/*",
+      "/agents/*/providedCapabilityIds[]",
+      "/agents/*/responsibleZoneEntityIds/*",
+      "/agents/*/responsibleZoneEntityIds[]",
+      "/agents/*/responsible_zone_ids/*",
+      "/agents/*/responsible_zone_ids[]",
+      "/agents/*/source_agent_id",
+      "/agents/*/tts_model",
+      "/agents/*/voice",
+      "/agents/*/voice_gender",
+      "/agents/*/voice_style",
+      "/agents[]",
+      "/capabilities/*",
+      "/capabilities/*/effects/*",
+      "/capabilities/*/effects/*/evidencedBy/*",
+      "/capabilities/*/effects/*/evidencedBy[]",
+      "/capabilities/*/effects/*/id",
+      "/capabilities/*/effects/*/text",
+      "/capabilities/*/effects[]",
+      "/capabilities/*/id",
+      "/capabilities/*/name",
+      "/capabilities/*/precondition_ids[]",
+      "/capabilities/*/text",
+      "/capabilities[]",
+      "/capabilityUses/*",
+      "/capabilityUses/*/capability_id",
+      "/capabilityUses/*/id",
+      "/capabilityUses/*/parameters[]",
+      "/capabilityUses/*/step_id",
+      "/capabilityUses[]",
+      "/caseId",
+      "/conditions/*",
+      "/conditions/*/expression",
+      "/conditions/*/id",
+      "/conditions/*/kind",
+      "/conditions[]",
+      "/entities/*",
+      "/entities/*/entityRole",
+      "/entities/*/id",
+      "/entities/*/kind",
+      "/entities/*/name",
+      "/entities/*/object_group_entity_id",
+      "/entities/*/object_type",
+      "/entities/*/purpose",
+      "/entities/*/source_group",
+      "/entities/*/source_id",
+      "/entities/*/source_object_ids/*",
+      "/entities/*/source_object_ids[]",
+      "/entities[]",
+      "/events/*",
+      "/events/*/expression",
+      "/events/*/id",
+      "/events/*/kind",
+      "/events[]",
+      "/metamodelVersion",
+      "/requirementsModel",
+      "/requirementsModel/id",
+      "/requirementsModel/requirements/*",
+      "/requirementsModel/requirements/*/id",
+      "/requirementsModel/requirements/*/text",
+      "/requirementsModel/requirements[]",
+      "/requirementsModel/useCases/*",
+      "/requirementsModel/useCases/*/actor_ids/*",
+      "/requirementsModel/useCases/*/actor_ids[]",
+      "/requirementsModel/useCases/*/extends[]",
+      "/requirementsModel/useCases/*/extensionPoints[]",
+      "/requirementsModel/useCases/*/id",
+      "/requirementsModel/useCases/*/includes[]",
+      "/requirementsModel/useCases/*/name",
+      "/requirementsModel/useCases/*/scenarios/*",
+      "/requirementsModel/useCases/*/scenarios/*/description",
+      "/requirementsModel/useCases/*/scenarios/*/id",
+      "/requirementsModel/useCases/*/scenarios/*/kind",
+      "/requirementsModel/useCases/*/scenarios/*/parallelGroups[]",
+      "/requirementsModel/useCases/*/scenarios/*/postcondition_ids/*",
+      "/requirementsModel/useCases/*/scenarios/*/postcondition_ids[]",
+      "/requirementsModel/useCases/*/scenarios/*/precondition_ids/*",
+      "/requirementsModel/useCases/*/scenarios/*/precondition_ids[]",
+      "/requirementsModel/useCases/*/scenarios/*/stepRelations/*",
+      "/requirementsModel/useCases/*/scenarios/*/stepRelations/*/guard",
+      "/requirementsModel/useCases/*/scenarios/*/stepRelations/*/id",
+      "/requirementsModel/useCases/*/scenarios/*/stepRelations/*/kind",
+      "/requirementsModel/useCases/*/scenarios/*/stepRelations/*/probability",
+      "/requirementsModel/useCases/*/scenarios/*/stepRelations/*/source_step_id",
+      "/requirementsModel/useCases/*/scenarios/*/stepRelations/*/target_step_id",
+      "/requirementsModel/useCases/*/scenarios/*/stepRelations[]",
+      "/requirementsModel/useCases/*/scenarios/*/steps/*",
+      "/requirementsModel/useCases/*/scenarios/*/steps/*/capabilityUseIds/*",
+      "/requirementsModel/useCases/*/scenarios/*/steps/*/capabilityUseIds[]",
+      "/requirementsModel/useCases/*/scenarios/*/steps/*/guard",
+      "/requirementsModel/useCases/*/scenarios/*/steps/*/id",
+      "/requirementsModel/useCases/*/scenarios/*/steps/*/kind",
+      "/requirementsModel/useCases/*/scenarios/*/steps/*/occurrenceProbability",
+      "/requirementsModel/useCases/*/scenarios/*/steps/*/performedBy",
+      "/requirementsModel/useCases/*/scenarios/*/steps/*/resultingState/*",
+      "/requirementsModel/useCases/*/scenarios/*/steps/*/resultingState[]",
+      "/requirementsModel/useCases/*/scenarios/*/steps/*/stepNumber",
+      "/requirementsModel/useCases/*/scenarios/*/steps/*/text",
+      "/requirementsModel/useCases/*/scenarios/*/steps/*/triggeredBy/*",
+      "/requirementsModel/useCases/*/scenarios/*/steps/*/triggeredBy[]",
+      "/requirementsModel/useCases/*/scenarios/*/steps[]",
+      "/requirementsModel/useCases/*/scenarios[]",
+      "/requirementsModel/useCases[]",
+      "/runtimeBindings/*",
+      "/runtimeBindings/*/capability_id",
+      "/runtimeBindings/*/id",
+      "/runtimeBindings/*/runtimeActions/*",
+      "/runtimeBindings/*/runtimeActions/*/endpoint",
+      "/runtimeBindings/*/runtimeActions/*/id",
+      "/runtimeBindings/*/runtimeActions/*/inputSchema",
+      "/runtimeBindings/*/runtimeActions/*/outputSchema",
+      "/runtimeBindings/*/runtimeActions/*/tool",
+      "/runtimeBindings/*/runtimeActions/*/topic",
+      "/runtimeBindings/*/runtimeActions[]",
+      "/runtimeBindings/*/targetPlatform",
+      "/runtimeBindings[]",
+      "/satisfyRelationships/*",
+      "/satisfyRelationships/*/id",
+      "/satisfyRelationships/*/satisfiedBy/*",
+      "/satisfyRelationships/*/satisfiedBy[]",
+      "/satisfyRelationships/*/satisfiedRequirement/*",
+      "/satisfyRelationships/*/satisfiedRequirement[]",
+      "/satisfyRelationships/*/satisfiedUseCase[]",
+      "/satisfyRelationships[]",
+      "/schema",
+      "/stateAssertions/*",
+      "/stateAssertions/*/expression",
+      "/stateAssertions/*/id",
+      "/stateAssertions/*/subject_id",
+      "/stateAssertions[]",
+      "/validationCases/*",
+      "/validationCases/*/expectedOutcome/*",
+      "/validationCases/*/expectedOutcome[]",
+      "/validationCases/*/id",
+      "/validationCases/*/level",
+      "/validationCases/*/runtime_binding_ids/*",
+      "/validationCases/*/runtime_binding_ids[]",
+      "/validationCases/*/stimulus_ids/*",
+      "/validationCases/*/stimulus_ids[]",
+      "/validationCases/*/validates_use_case_ids/*",
+      "/validationCases/*/validates_use_case_ids[]",
+      "/validationCases/*/verifies_requirement_ids/*",
+      "/validationCases/*/verifies_requirement_ids[]",
+      "/validationCases[]"
+    ],
+    "status": "pass",
+    "structure_path_count": 72
+  },
+  "reproducibility": {
+    "artifact_count": 27,
+    "first_run_returncode": 0,
+    "hashes": {
+      "output/metamodel_v2/generated/01_east_adl_infrastructure.mmd": "A98193049F2014EFA16D5E0C0DDD7BA7EA87084BFE441BCB5BE616D84150735F",
+      "output/metamodel_v2/generated/01_east_adl_infrastructure.png": "37AB2757307873D1DACF629153805A58D8FDC6BD7A71B699E1C571797473AC0D",
+      "output/metamodel_v2/generated/01_east_adl_infrastructure.svg": "FD840A669B60895DE5D06E27BF59BA2FA85863984088FFB95E05AA31088CADA4",
+      "output/metamodel_v2/generated/02_east_adl_requirements_usecases.mmd": "068EE2D4BC818EC5A21377E314B5C4AB3A6F741822478D3863056AA5AC75C94A",
+      "output/metamodel_v2/generated/02_east_adl_requirements_usecases.png": "B2D318E4E92B9E1F6E764CE626A5C902AF7B2324188E7BF0DA03C530A2FF8098",
+      "output/metamodel_v2/generated/02_east_adl_requirements_usecases.svg": "98C22E100EB23359645D3A3A8D1ED40809657DF803F9FE7117D2BD3B3507F351",
+      "output/metamodel_v2/generated/03_east_adl_function_system_behavior.mmd": "DAAA01F55C9B02F0ED260B379476963DED46B9D95187C1956B0469C2CD4CF45C",
+      "output/metamodel_v2/generated/03_east_adl_function_system_behavior.png": "6BBC15B52BDD4459019B48794CE66539F8887F84F8552D46D2D2CF97C952BF66",
+      "output/metamodel_v2/generated/03_east_adl_function_system_behavior.svg": "B066CD893316E79CDFBE01CBC64DFC64707562BAAFE33B3C2FE6283D6817810B",
+      "output/metamodel_v2/generated/04_dfmlds_scenario_flow.mmd": "C93D076C008C1D0CD3C9F15531AC81CCC25FCF7416FAA07C8C3A06E5CB6B4800",
+      "output/metamodel_v2/generated/04_dfmlds_scenario_flow.png": "DEA1F489ACA13460EF22DC1611C747600BF64C0E9E608BFF6F3493DE542B693E",
+      "output/metamodel_v2/generated/04_dfmlds_scenario_flow.svg": "9708E0BC42083C62FC44CD5A870CF41B7B7CC3AD0AF209F3D11689C1F030A24D",
+      "output/metamodel_v2/generated/05_dfmlds_capability_runtime.mmd": "05113E4F44BD7F6F679C7CCF3806F7A8E945BF174EE0F03F0401891606C49105",
+      "output/metamodel_v2/generated/05_dfmlds_capability_runtime.png": "472CC9D9540CE04E2F60C7937DCF6C4B361EBC3DD4B315B74FDE90623F2D93F6",
+      "output/metamodel_v2/generated/05_dfmlds_capability_runtime.svg": "7DBD2BA4688BC9C76BB85C7DD61AEA6E8059423B350DB202BECF5D66C3163C8F",
+      "output/metamodel_v2/generated/06_east_adl_dfmlds_verification_validation.mmd": "25843D9630E35532697BF3A546B4D48CEDCE9E776274D3E47200580E36AF13A6",
+      "output/metamodel_v2/generated/06_east_adl_dfmlds_verification_validation.png": "5C329CFB92A1633AFC3CEC301BE6916CF297FFA4D2224F728C8514D4FE57FAE4",
+      "output/metamodel_v2/generated/06_east_adl_dfmlds_verification_validation.svg": "D4A72F23247D03B75A6770978BE25C09D461B073FD3DECD57E7CBD435870456B",
+      "output/metamodel_v2/generated/07_optional_annex_feature_knowledge.mmd": "FE925BF91C7453EC0629345854E8244E05AB219B628EE8ECF62041FA03F9BB44",
+      "output/metamodel_v2/generated/07_optional_annex_feature_knowledge.png": "883235C558B66521D80C0BD3C390123046A7BAA27C502445670C408F20150241",
+      "output/metamodel_v2/generated/07_optional_annex_feature_knowledge.svg": "520BD13BC2B157DCC7A27CB06A6F86A66FDC18810E078D1ADE7528E6C805B0B0",
+      "output/metamodel_v2/generated/dynamic_functional_mlds_v2.model.json": "32149B858C9E2DF44FA62093745796E86E4A8A778F3F67AD4C22A53E37116566",
+      "output/metamodel_v2/generated/dynamic_functional_mlds_v2_metamodel.mmd": "845507F8396FB7AAB6AE26B1DED3D6AF2F415BDCD70888DCBF74DDD83AAF2A8F",
+      "output/metamodel_v2/generated/dynamic_functional_mlds_v2_metamodel.png": "BB6274A05CA7966A1969D705070AC35CA0FD59FB6375D614E6C9C41F330DA556",
+      "output/metamodel_v2/generated/dynamic_functional_mlds_v2_metamodel.svg": "3D14A7AA651F8710224286139DE48DDF38C3E7511603C7D26CDD03D53813433D",
+      "output/metamodel_v2/generated/dynamic_functional_mlds_v2_specification.md": "417A6875E1FD51D4966F238EB38671F90DDFBB828EB5047AAADE31356C4FDD6B",
+      "output/metamodel_v2/generated/generation_manifest.sha256.json": "0ECAB462D9DE4A04019E4DBA8020D7C028F66437DA17A915EB4CC630AED24E81"
+    },
+    "identical_hashes": true,
+    "second_run_returncode": 0,
+    "status": "pass"
+  },
+  "runtime_traces": {
+    "cases": [
+      {
+        "case_id": "bestfit_career_fair",
+        "chat_endpoint": true,
+        "events": 64,
+        "handoff_action": true,
+        "log": "output/case_studies/bestfit_career_fair/runtime_logs/events.jsonl",
+        "setup_endpoint": true,
+        "step_suffixes": [
+          "S09",
+          "S11",
+          "S12"
+        ],
+        "trace_map": "InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/projects/bestfit_career_fair/trace_map.json"
+      },
+      {
+        "case_id": "classroom_dinosaur",
+        "chat_endpoint": true,
+        "events": 119,
+        "handoff_action": true,
+        "log": "output/case_studies/classroom_dinosaur/runtime_logs/events.jsonl",
+        "setup_endpoint": true,
+        "step_suffixes": [
+          "S09",
+          "S11",
+          "S12"
+        ],
+        "trace_map": "InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/projects/classroom_dinosaur/trace_map.json"
+      },
+      {
+        "case_id": "steinpilz_brand_room",
+        "chat_endpoint": true,
+        "events": 77,
+        "handoff_action": true,
+        "log": "output/case_studies/steinpilz_brand_room/runtime_logs/events.jsonl",
+        "setup_endpoint": true,
+        "step_suffixes": [
+          "S09",
+          "S11",
+          "S12"
+        ],
+        "trace_map": "InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/projects/steinpilz_brand_room/trace_map.json"
+      }
+    ],
+    "event_count": 260,
+    "log_count": 3,
+    "minimum_event_count": 260,
+    "status": "pass",
+    "unresolved": []
+  },
+  "snapshot": {
+    "current_v05_hash_mismatches": [],
+    "file_count": 132,
+    "manifest": "archive/metamodel_snapshot_20260714_084522_pre_v2/manifest.sha256.csv",
+    "missing_current": [],
+    "missing_snapshot": [],
+    "snapshot": "archive/metamodel_snapshot_20260714_084522_pre_v2",
+    "snapshot_hash_mismatches": [],
+    "status": "pass",
+    "zip": "archive/metamodel_snapshot_20260714_084522_pre_v2.zip"
+  },
+  "status": "pass",
+  "v05_validators": {
+    "case_count": 7,
+    "cases": [
+      {
+        "case_id": "bestfit_career_fair",
+        "invariant_count": 8,
+        "invariant_errors": [],
+        "invariant_status": "valid",
+        "reverse_projection_equal": true,
+        "schema_errors": [],
+        "schema_status": "valid"
+      },
+      {
+        "case_id": "classroom_dinosaur",
+        "invariant_count": 8,
+        "invariant_errors": [],
+        "invariant_status": "valid",
+        "reverse_projection_equal": true,
+        "schema_errors": [],
+        "schema_status": "valid"
+      },
+      {
+        "case_id": "steinpilz_brand_room",
+        "invariant_count": 8,
+        "invariant_errors": [],
+        "invariant_status": "valid",
+        "reverse_projection_equal": true,
+        "schema_errors": [],
+        "schema_status": "valid"
+      },
+      {
+        "case_id": "cheese_factory_tradefair_booth_36f00adc",
+        "invariant_count": 8,
+        "invariant_errors": [],
+        "invariant_status": "valid",
+        "reverse_projection_equal": true,
+        "schema_errors": [],
+        "schema_status": "valid"
+      },
+      {
+        "case_id": "mldssteinpilz_e2e_1783611970",
+        "invariant_count": 8,
+        "invariant_errors": [],
+        "invariant_status": "valid",
+        "reverse_projection_equal": true,
+        "schema_errors": [],
+        "schema_status": "valid"
+      },
+      {
+        "case_id": "mldssteinpilz_probe",
+        "invariant_count": 8,
+        "invariant_errors": [],
+        "invariant_status": "valid",
+        "reverse_projection_equal": true,
+        "schema_errors": [],
+        "schema_status": "valid"
+      },
+      {
+        "case_id": "mldssteinpilz_uidiag_abs_repair_1783611709",
+        "invariant_count": 8,
+        "invariant_errors": [],
+        "invariant_status": "valid",
+        "reverse_projection_equal": true,
+        "schema_errors": [],
+        "schema_status": "valid"
+      }
+    ],
+    "schema": "tools/case_study_pipeline/schemas/functionalmlds_case_study.schema.json",
+    "status": "pass"
+  }
+}

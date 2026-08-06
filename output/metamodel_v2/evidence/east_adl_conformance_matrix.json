@@ -1,0 +1,2456 @@
+{
+  "schema": "dfmlds_v2_east_adl_conformance_matrix",
+  "version": "1.0",
+  "generated_from": "tools/dynamic_functional_mlds_v2_model.py",
+  "generated_from_sha256": "C585ED1DC9BFB7080A976D2491149B5D07DB87D1EE25C8CF0AE8E87C15A2A442",
+  "east_adl_version": "2.1.12",
+  "east_adl_specification_sha256": "6B1645C4FA668DBFA8AF24C37B83BC0B7343B9B6284E1DD29E1085B10BC59C3D",
+  "scope": "Every EAST-ADL class, locally imported attribute, enumeration and EAST-ADL-owned association present in the canonical V2 model. Omitted EAST-ADL declarations are not claimed by this selected slice.",
+  "status_semantics": {
+    "model-evidence": "Declaration exists in the canonical model and is tied to the cited PDF page.",
+    "optional-preliminary": "Declaration belongs to the optional preliminary Annex C profile.",
+    "optional-profile": "Declaration belongs to an optional profile.",
+    "open-difference": "A direct source comparison still differs; no conformance claim is made for that element."
+  },
+  "coverage": {
+    "canonical_east_adl_class_count": 71,
+    "matrix_class_count": 71,
+    "canonical_local_property_count": 28,
+    "matrix_local_property_count": 28,
+    "canonical_east_adl_association_count": 68,
+    "matrix_association_count": 68,
+    "canonical_east_adl_enum_count": 3,
+    "matrix_enum_count": 3,
+    "enumeration_status": "complete-enumeration"
+  },
+  "open_differences": [],
+  "classes": [
+    {
+      "qualified_name": "EAST-ADL::Elements::Comment",
+      "package": "EAST-ADL::Elements",
+      "abstract": false,
+      "exact_generalizations": [],
+      "stereotypes": [],
+      "local_property_count": 1,
+      "pdf_reference": "25.2.1, pp. 188-189",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Elements::Referrable",
+      "package": "EAST-ADL::Elements",
+      "abstract": true,
+      "exact_generalizations": [],
+      "stereotypes": [],
+      "local_property_count": 1,
+      "pdf_reference": "25.2.14, p. 194",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Elements::Identifiable",
+      "package": "EAST-ADL::Elements",
+      "abstract": true,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::Referrable"
+      ],
+      "stereotypes": [],
+      "local_property_count": 2,
+      "pdf_reference": "25.2.11, pp. 192-193",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Elements::EAElement",
+      "package": "EAST-ADL::Elements",
+      "abstract": true,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::Identifiable"
+      ],
+      "stereotypes": [],
+      "local_property_count": 1,
+      "pdf_reference": "25.2.4, pp. 189-190",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Elements::EAPackageableElement",
+      "package": "EAST-ADL::Elements",
+      "abstract": true,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::EAElement"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "25.2.6, pp. 190-191",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Elements::Context",
+      "package": "EAST-ADL::Elements",
+      "abstract": true,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::EAPackageableElement"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "25.2.2, p. 189",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Elements::Relationship",
+      "package": "EAST-ADL::Elements",
+      "abstract": true,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::EAElement"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "25.2.15, pp. 194-195",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Elements::TraceableSpecification",
+      "package": "EAST-ADL::Elements",
+      "abstract": true,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::EAPackageableElement"
+      ],
+      "stereotypes": [],
+      "local_property_count": 1,
+      "pdf_reference": "25.2.16, p. 195",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Elements::EAType",
+      "package": "EAST-ADL::Elements",
+      "abstract": true,
+      "exact_generalizations": [],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "25.2.9, p. 191",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Elements::EAPrototype",
+      "package": "EAST-ADL::Elements",
+      "abstract": true,
+      "exact_generalizations": [],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "25.2.8, p. 191",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Elements::EAPort",
+      "package": "EAST-ADL::Elements",
+      "abstract": true,
+      "exact_generalizations": [],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "25.2.7, p. 191",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Elements::EAConnector",
+      "package": "EAST-ADL::Elements",
+      "abstract": true,
+      "exact_generalizations": [],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "25.2.3, p. 189",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Datatypes::EADatatype",
+      "package": "EAST-ADL::Datatypes",
+      "abstract": true,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::TraceableSpecification"
+      ],
+      "stereotypes": [
+        "atpType"
+      ],
+      "local_property_count": 0,
+      "pdf_reference": "23.2.4, p. 178",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Datatypes::EADatatypePrototype",
+      "package": "EAST-ADL::Datatypes",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::EAElement"
+      ],
+      "stereotypes": [
+        "atpPrototype"
+      ],
+      "local_property_count": 0,
+      "pdf_reference": "23.2.5, p. 178",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Datatypes::EABoolean",
+      "package": "EAST-ADL::Datatypes",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Datatypes::EADatatype"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "23.2.3, p. 177",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Datatypes::EANumerical",
+      "package": "EAST-ADL::Datatypes",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Datatypes::EADatatype"
+      ],
+      "stereotypes": [],
+      "local_property_count": 2,
+      "pdf_reference": "23.2.6, pp. 178-179",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Values::EAValue",
+      "package": "EAST-ADL::Values",
+      "abstract": true,
+      "exact_generalizations": [],
+      "stereotypes": [
+        "atpPrototype"
+      ],
+      "local_property_count": 0,
+      "pdf_reference": "24.2.8, p. 186",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Values::EAExpression",
+      "package": "EAST-ADL::Values",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Values::EAValue"
+      ],
+      "stereotypes": [
+        "atpMixedString"
+      ],
+      "local_property_count": 0,
+      "pdf_reference": "24.2.5, p. 185",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Values::EANumericalValue",
+      "package": "EAST-ADL::Values",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Values::EAValue"
+      ],
+      "stereotypes": [],
+      "local_property_count": 1,
+      "pdf_reference": "24.2.6, p. 185",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Requirements::RequirementsRelationship",
+      "package": "EAST-ADL::Requirements",
+      "abstract": true,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::Relationship"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "11.2.10, p. 97",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Requirements::Requirement",
+      "package": "EAST-ADL::Requirements",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::TraceableSpecification"
+      ],
+      "stereotypes": [],
+      "local_property_count": 2,
+      "pdf_reference": "11.2.6, pp. 94-95",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Requirements::RequirementsModel",
+      "package": "EAST-ADL::Requirements",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::Context"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "11.2.9, p. 97",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Requirements::Satisfy",
+      "package": "EAST-ADL::Requirements",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Requirements::RequirementsRelationship"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "11.2.12, pp. 98-99",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Requirements::Refine",
+      "package": "EAST-ADL::Requirements",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Requirements::RequirementsRelationship"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "11.2.5, p. 94",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::UseCases::Actor",
+      "package": "EAST-ADL::UseCases",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::TraceableSpecification"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "12.2.1, p. 101",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::UseCases::RedefinableElement",
+      "package": "EAST-ADL::UseCases",
+      "abstract": true,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::EAElement"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "12.2.5, pp. 102-103",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::UseCases::ExtensionPoint",
+      "package": "EAST-ADL::UseCases",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::UseCases::RedefinableElement"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "12.2.3, p. 102",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::UseCases::Include",
+      "package": "EAST-ADL::UseCases",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::Relationship"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "12.2.4, p. 102",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::UseCases::Extend",
+      "package": "EAST-ADL::UseCases",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::Relationship"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "12.2.2, pp. 101-102",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::UseCases::UseCase",
+      "package": "EAST-ADL::UseCases",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::TraceableSpecification"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "12.2.6, p. 103",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::FunctionModeling::AllocateableElement",
+      "package": "EAST-ADL::FunctionModeling",
+      "abstract": true,
+      "exact_generalizations": [],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "6.2.1, p. 41",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::FunctionModeling::FunctionPort",
+      "package": "EAST-ADL::FunctionModeling",
+      "abstract": true,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::EAPort",
+        "EAST-ADL::Elements::EAElement"
+      ],
+      "stereotypes": [
+        "atpPrototype"
+      ],
+      "local_property_count": 0,
+      "pdf_reference": "6.2.16, pp. 49-50",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::FunctionModeling::FunctionFlowPort",
+      "package": "EAST-ADL::FunctionModeling",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::FunctionModeling::FunctionPort"
+      ],
+      "stereotypes": [],
+      "local_property_count": 1,
+      "pdf_reference": "6.2.15, pp. 48-49",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::FunctionModeling::FunctionConnector",
+      "package": "EAST-ADL::FunctionModeling",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::FunctionModeling::AllocateableElement",
+        "EAST-ADL::Elements::EAConnector",
+        "EAST-ADL::Elements::EAElement"
+      ],
+      "stereotypes": [
+        "atpStructureElement"
+      ],
+      "local_property_count": 0,
+      "pdf_reference": "6.2.14, pp. 47-48",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::FunctionModeling::PortGroup",
+      "package": "EAST-ADL::FunctionModeling",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::EAElement"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "6.2.23, p. 54",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::FunctionModeling::FunctionPrototype",
+      "package": "EAST-ADL::FunctionModeling",
+      "abstract": true,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::EAElement",
+        "EAST-ADL::Elements::EAPrototype"
+      ],
+      "stereotypes": [
+        "atpPrototype"
+      ],
+      "local_property_count": 0,
+      "pdf_reference": "6.2.18, pp. 50-51",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::FunctionModeling::FunctionType",
+      "package": "EAST-ADL::FunctionModeling",
+      "abstract": true,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::EAType",
+        "EAST-ADL::Elements::Context"
+      ],
+      "stereotypes": [
+        "atpType"
+      ],
+      "local_property_count": 1,
+      "pdf_reference": "6.2.19, p. 51",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::FunctionModeling::AnalysisFunctionPrototype",
+      "package": "EAST-ADL::FunctionModeling",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::FunctionModeling::FunctionPrototype"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "6.2.3, p. 42",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::FunctionModeling::AnalysisFunctionType",
+      "package": "EAST-ADL::FunctionModeling",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::FunctionModeling::FunctionType"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "6.2.4, pp. 42-43",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::FunctionModeling::DesignFunctionPrototype",
+      "package": "EAST-ADL::FunctionModeling",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::FunctionModeling::AllocateableElement",
+        "EAST-ADL::FunctionModeling::FunctionPrototype"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "6.2.7, p. 44",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::FunctionModeling::DesignFunctionType",
+      "package": "EAST-ADL::FunctionModeling",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::FunctionModeling::FunctionType"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "6.2.8, pp. 44-45",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::SystemModeling::AnalysisLevel",
+      "package": "EAST-ADL::SystemModeling",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::Context"
+      ],
+      "stereotypes": [
+        "atpStructureElement"
+      ],
+      "local_property_count": 0,
+      "pdf_reference": "3.2.1, pp. 20-21",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::SystemModeling::DesignLevel",
+      "package": "EAST-ADL::SystemModeling",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::Context"
+      ],
+      "stereotypes": [
+        "atpStructureElement"
+      ],
+      "local_property_count": 0,
+      "pdf_reference": "3.2.2, pp. 21-22",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Behavior::Mode",
+      "package": "EAST-ADL::Behavior",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::EAElement"
+      ],
+      "stereotypes": [],
+      "local_property_count": 1,
+      "pdf_reference": "9.2.5, p. 72",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Behavior::FunctionBehavior",
+      "package": "EAST-ADL::Behavior",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::Context"
+      ],
+      "stereotypes": [],
+      "local_property_count": 2,
+      "pdf_reference": "9.2.2, pp. 69-70",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Behavior::FunctionTrigger",
+      "package": "EAST-ADL::Behavior",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Values::EAExpression",
+        "EAST-ADL::Elements::EAElement"
+      ],
+      "stereotypes": [],
+      "local_property_count": 1,
+      "pdf_reference": "9.2.4, pp. 71-72",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Timing::TimingDescription",
+      "package": "EAST-ADL::Timing",
+      "abstract": true,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::EAElement"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "14.2.6, p. 116",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Timing::Event",
+      "package": "EAST-ADL::Timing",
+      "abstract": true,
+      "exact_generalizations": [
+        "EAST-ADL::Timing::TimingDescription"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "14.2.1, pp. 113-114",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Events::ExternalEvent",
+      "package": "EAST-ADL::Events",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Timing::Event"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "16.2.8, p. 139",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::VerificationValidation::VerificationValidation",
+      "package": "EAST-ADL::VerificationValidation",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::Context"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "13.2.1, p. 106",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::VerificationValidation::Verify",
+      "package": "EAST-ADL::VerificationValidation",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Requirements::RequirementsRelationship"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "13.2.2, pp. 106-107",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::VerificationValidation::VVActualOutcome",
+      "package": "EAST-ADL::VerificationValidation",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::TraceableSpecification"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "13.2.3, p. 107",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::VerificationValidation::VVCase",
+      "package": "EAST-ADL::VerificationValidation",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::TraceableSpecification"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "13.2.4, pp. 107-108",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::VerificationValidation::VVIntendedOutcome",
+      "package": "EAST-ADL::VerificationValidation",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::TraceableSpecification"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "13.2.5, p. 108",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::VerificationValidation::VVLog",
+      "package": "EAST-ADL::VerificationValidation",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::TraceableSpecification"
+      ],
+      "stereotypes": [],
+      "local_property_count": 1,
+      "pdf_reference": "13.2.6, pp. 108-109",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::VerificationValidation::VVProcedure",
+      "package": "EAST-ADL::VerificationValidation",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::TraceableSpecification"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "13.2.7, pp. 109-110",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::VerificationValidation::VVStimuli",
+      "package": "EAST-ADL::VerificationValidation",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::TraceableSpecification"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "13.2.8, p. 110",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::VerificationValidation::VVTarget",
+      "package": "EAST-ADL::VerificationValidation",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::TraceableSpecification"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "13.2.9, pp. 110-111",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::AnnexC::BehaviorDescription::BehaviorConstraintParameter",
+      "package": "EAST-ADL::AnnexC::BehaviorDescription",
+      "abstract": true,
+      "exact_generalizations": [],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "Annex C 30.2.4, p. 217",
+      "status": "model-evidence; optional-preliminary"
+    },
+    {
+      "qualified_name": "EAST-ADL::AnnexC::BehaviorDescription::BehaviorConstraintType",
+      "package": "EAST-ADL::AnnexC::BehaviorDescription",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::Context"
+      ],
+      "stereotypes": [
+        "atpType"
+      ],
+      "local_property_count": 0,
+      "pdf_reference": "Annex C 30.2.7, pp. 219-220",
+      "status": "model-evidence; optional-preliminary"
+    },
+    {
+      "qualified_name": "EAST-ADL::AnnexC::BehaviorDescription::BehaviorConstraintTargetBinding",
+      "package": "EAST-ADL::AnnexC::BehaviorDescription",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::Relationship"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "Annex C 30.2.6, pp. 218-219",
+      "status": "model-evidence; optional-preliminary"
+    },
+    {
+      "qualified_name": "EAST-ADL::AnnexC::AttributeQuantificationConstraint::Quantification",
+      "package": "EAST-ADL::AnnexC::AttributeQuantificationConstraint",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::EAElement",
+        "EAST-ADL::Values::EAExpression"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "Annex C 31.2.5, pp. 223-224",
+      "status": "model-evidence; optional-preliminary"
+    },
+    {
+      "qualified_name": "EAST-ADL::AnnexC::ComputationConstraint::LogicalPath",
+      "package": "EAST-ADL::AnnexC::ComputationConstraint",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::EAElement"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "Annex C 32.2.2, pp. 226-227",
+      "status": "model-evidence; optional-preliminary"
+    },
+    {
+      "qualified_name": "EAST-ADL::AnnexC::ComputationConstraint::LogicalTransformation",
+      "package": "EAST-ADL::AnnexC::ComputationConstraint",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::EAElement"
+      ],
+      "stereotypes": [],
+      "local_property_count": 1,
+      "pdf_reference": "Annex C 32.2.3, pp. 227-228",
+      "status": "model-evidence; optional-preliminary"
+    },
+    {
+      "qualified_name": "EAST-ADL::AnnexC::ComputationConstraint::TransformationOccurrence",
+      "package": "EAST-ADL::AnnexC::ComputationConstraint",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::EAElement"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "Annex C 32.2.4, pp. 228-229",
+      "status": "model-evidence; optional-preliminary"
+    },
+    {
+      "qualified_name": "EAST-ADL::AnnexC::TemporalConstraint::LogicalTimeCondition",
+      "package": "EAST-ADL::AnnexC::TemporalConstraint",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::EAElement"
+      ],
+      "stereotypes": [],
+      "local_property_count": 1,
+      "pdf_reference": "Annex C 33.2.1, p. 232",
+      "status": "model-evidence; optional-preliminary"
+    },
+    {
+      "qualified_name": "EAST-ADL::AnnexC::TemporalConstraint::State",
+      "package": "EAST-ADL::AnnexC::TemporalConstraint",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::EAElement"
+      ],
+      "stereotypes": [],
+      "local_property_count": 4,
+      "pdf_reference": "Annex C 33.2.2, pp. 232-233",
+      "status": "model-evidence; optional-preliminary"
+    },
+    {
+      "qualified_name": "EAST-ADL::AnnexC::TemporalConstraint::TransitionEvent",
+      "package": "EAST-ADL::AnnexC::TemporalConstraint",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::EAElement",
+        "EAST-ADL::AnnexC::BehaviorDescription::BehaviorConstraintParameter"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "Annex C 33.2.7, p. 236",
+      "status": "model-evidence; optional-preliminary"
+    },
+    {
+      "qualified_name": "EAST-ADL::FeatureModeling::FeatureTreeNode",
+      "package": "EAST-ADL::FeatureModeling",
+      "abstract": true,
+      "exact_generalizations": [
+        "EAST-ADL::Elements::Context"
+      ],
+      "stereotypes": [],
+      "local_property_count": 0,
+      "pdf_reference": "4.2.8, p. 32",
+      "status": "model-evidence; optional-profile"
+    },
+    {
+      "qualified_name": "EAST-ADL::FeatureModeling::Feature",
+      "package": "EAST-ADL::FeatureModeling",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::FeatureModeling::FeatureTreeNode"
+      ],
+      "stereotypes": [
+        "atpStructureElement"
+      ],
+      "local_property_count": 1,
+      "pdf_reference": "4.2.3, pp. 28-29",
+      "status": "model-evidence; optional-profile"
+    },
+    {
+      "qualified_name": "EAST-ADL::VehicleFeatureModeling::VehicleFeature",
+      "package": "EAST-ADL::VehicleFeatureModeling",
+      "abstract": false,
+      "exact_generalizations": [
+        "EAST-ADL::FeatureModeling::Feature"
+      ],
+      "stereotypes": [],
+      "local_property_count": 3,
+      "pdf_reference": "5.2.3, pp. 38-39",
+      "status": "model-evidence; optional-profile"
+    }
+  ],
+  "properties": [
+    {
+      "owner": "EAST-ADL::Elements::Comment",
+      "name": "body",
+      "type": "String",
+      "multiplicity": "1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "25.2.1, pp. 188-189",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::Elements::Referrable",
+      "name": "shortName",
+      "type": "Identifier",
+      "multiplicity": "1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "25.2.14, p. 194",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::Elements::Identifiable",
+      "name": "category",
+      "type": "Identifier",
+      "multiplicity": "0..1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "25.2.11, pp. 192-193",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::Elements::Identifiable",
+      "name": "uuid",
+      "type": "String",
+      "multiplicity": "0..1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "25.2.11, pp. 192-193",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::Elements::EAElement",
+      "name": "name",
+      "type": "String",
+      "multiplicity": "0..1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "25.2.4, pp. 189-190",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::Elements::TraceableSpecification",
+      "name": "text",
+      "type": "String",
+      "multiplicity": "0..1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "25.2.16, p. 195",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::Datatypes::EANumerical",
+      "name": "max",
+      "type": "Numerical",
+      "multiplicity": "0..1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "23.2.6, pp. 178-179",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::Datatypes::EANumerical",
+      "name": "min",
+      "type": "Numerical",
+      "multiplicity": "0..1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "23.2.6, pp. 178-179",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::Values::EANumericalValue",
+      "name": "value",
+      "type": "Numerical",
+      "multiplicity": "1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "24.2.6, p. 185",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::Requirements::Requirement",
+      "name": "formalism",
+      "type": "String",
+      "multiplicity": "0..1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "11.2.6, pp. 94-95",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::Requirements::Requirement",
+      "name": "url",
+      "type": "String",
+      "multiplicity": "0..1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "11.2.6, pp. 94-95",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::FunctionModeling::FunctionType",
+      "name": "isElementary",
+      "type": "Boolean",
+      "multiplicity": "1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "6.2.19, p. 51",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::FunctionModeling::FunctionFlowPort",
+      "name": "direction",
+      "type": "EAST-ADL::FunctionModeling::EADirectionKind",
+      "multiplicity": "1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "6.2.15, pp. 48-49",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::Behavior::Mode",
+      "name": "condition",
+      "type": "String",
+      "multiplicity": "1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "9.2.5, p. 72",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::Behavior::FunctionBehavior",
+      "name": "path",
+      "type": "String",
+      "multiplicity": "1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "9.2.2, pp. 69-70",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::Behavior::FunctionBehavior",
+      "name": "representation",
+      "type": "EAST-ADL::Behavior::FunctionBehaviorKind",
+      "multiplicity": "1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "9.2.2, pp. 69-70",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::Behavior::FunctionTrigger",
+      "name": "triggerPolicy",
+      "type": "EAST-ADL::Behavior::TriggerPolicyKind",
+      "multiplicity": "1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "9.2.4, pp. 71-72",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::VerificationValidation::VVLog",
+      "name": "date",
+      "type": "String",
+      "multiplicity": "1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "13.2.6, pp. 108-109",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::AnnexC::ComputationConstraint::LogicalTransformation",
+      "name": "isClientServerInterface",
+      "type": "Boolean",
+      "multiplicity": "1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "Annex C 32.2.3, pp. 227-228",
+      "status": "model-evidence",
+      "default": false
+    },
+    {
+      "owner": "EAST-ADL::AnnexC::TemporalConstraint::LogicalTimeCondition",
+      "name": "isLogicalTimeSuspended",
+      "type": "Boolean",
+      "multiplicity": "1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "Annex C 33.2.1, p. 232",
+      "status": "model-evidence",
+      "default": false
+    },
+    {
+      "owner": "EAST-ADL::AnnexC::TemporalConstraint::State",
+      "name": "isErrorState",
+      "type": "Boolean",
+      "multiplicity": "1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "Annex C 33.2.2, pp. 232-233",
+      "status": "model-evidence",
+      "default": false
+    },
+    {
+      "owner": "EAST-ADL::AnnexC::TemporalConstraint::State",
+      "name": "isHazard",
+      "type": "Boolean",
+      "multiplicity": "1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "Annex C 33.2.2, pp. 232-233",
+      "status": "model-evidence",
+      "default": false
+    },
+    {
+      "owner": "EAST-ADL::AnnexC::TemporalConstraint::State",
+      "name": "isInitState",
+      "type": "Boolean",
+      "multiplicity": "1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "Annex C 33.2.2, pp. 232-233",
+      "status": "model-evidence",
+      "default": false
+    },
+    {
+      "owner": "EAST-ADL::AnnexC::TemporalConstraint::State",
+      "name": "isMode",
+      "type": "Boolean",
+      "multiplicity": "1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "Annex C 33.2.2, pp. 232-233",
+      "status": "model-evidence",
+      "default": false
+    },
+    {
+      "owner": "EAST-ADL::FeatureModeling::Feature",
+      "name": "cardinality",
+      "type": "String",
+      "multiplicity": "1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "4.2.3, pp. 28-29",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::VehicleFeatureModeling::VehicleFeature",
+      "name": "isCustomerVisible",
+      "type": "Boolean",
+      "multiplicity": "1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "5.2.3, pp. 38-39",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::VehicleFeatureModeling::VehicleFeature",
+      "name": "isDesignVariabilityRationale",
+      "type": "Boolean",
+      "multiplicity": "1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "5.2.3, pp. 38-39",
+      "status": "model-evidence"
+    },
+    {
+      "owner": "EAST-ADL::VehicleFeatureModeling::VehicleFeature",
+      "name": "isRemoved",
+      "type": "Boolean",
+      "multiplicity": "1",
+      "derived": false,
+      "ordered": false,
+      "pdf_reference": "5.2.3, pp. 38-39",
+      "status": "model-evidence"
+    }
+  ],
+  "enumerations": [
+    {
+      "qualified_name": "EAST-ADL::FunctionModeling::EADirectionKind",
+      "literals": [
+        "in",
+        "inout",
+        "out"
+      ],
+      "pdf_reference": "6.2.9, p. 45",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Behavior::FunctionBehaviorKind",
+      "literals": [
+        "ASCET",
+        "MARTE",
+        "OTHER",
+        "SCADE",
+        "SCILAB",
+        "SDL",
+        "SIMULINK",
+        "STATEMATE",
+        "UML"
+      ],
+      "pdf_reference": "9.2.3, pp. 70-71",
+      "status": "model-evidence"
+    },
+    {
+      "qualified_name": "EAST-ADL::Behavior::TriggerPolicyKind",
+      "literals": [
+        "EVENT",
+        "TIME"
+      ],
+      "pdf_reference": "9.2.7, p. 74",
+      "status": "model-evidence"
+    }
+  ],
+  "associations": [
+    {
+      "id": "EAElement_ownedComment",
+      "package": "EAST-ADL::Elements",
+      "source": "EAST-ADL::Elements::EAElement",
+      "source_role": "commentOwner",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::Elements::Comment",
+      "target_role": "ownedComment",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "25.2.4, pp. 189-190",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "Context_ownedRelationship",
+      "package": "EAST-ADL::Elements",
+      "source": "EAST-ADL::Elements::Context",
+      "source_role": "owningContext",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::Elements::Relationship",
+      "target_role": "ownedRelationship",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "25.2.2, p. 189",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "Context_traceableSpecification",
+      "package": "EAST-ADL::Elements",
+      "source": "EAST-ADL::Elements::Context",
+      "source_role": "context",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::Elements::TraceableSpecification",
+      "target_role": "traceableSpecification",
+      "target_multiplicity": "*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "25.2.2, p. 189",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "EADatatypePrototype_type",
+      "package": "EAST-ADL::Datatypes",
+      "source": "EAST-ADL::Datatypes::EADatatypePrototype",
+      "source_role": "typedPrototype",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::Datatypes::EADatatype",
+      "target_role": "type",
+      "target_multiplicity": "1",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": "isOfType",
+      "optional": false,
+      "pdf_reference": "23.2.5, p. 178",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "EAValue_type",
+      "package": "EAST-ADL::Values",
+      "source": "EAST-ADL::Values::EAValue",
+      "source_role": "typedValue",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::Datatypes::EADatatype",
+      "target_role": "type",
+      "target_multiplicity": "1",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": "isOfType",
+      "optional": false,
+      "pdf_reference": "24.2.8, p. 186",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "Requirement_mode",
+      "package": "EAST-ADL::Requirements",
+      "source": "EAST-ADL::Requirements::Requirement",
+      "source_role": "validRequirement",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::Behavior::Mode",
+      "target_role": "mode",
+      "target_multiplicity": "*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "11.2.6, p. 95",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "RequirementsModel_requirement",
+      "package": "EAST-ADL::Requirements",
+      "source": "EAST-ADL::Requirements::RequirementsModel",
+      "source_role": "requirementsModel",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::Requirements::Requirement",
+      "target_role": "requirement",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "11.2.9, p. 97",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "RequirementsModel_useCase",
+      "package": "EAST-ADL::Requirements",
+      "source": "EAST-ADL::Requirements::RequirementsModel",
+      "source_role": "requirementsModel",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::UseCases::UseCase",
+      "target_role": "useCase",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "11.2.9, p. 97",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "Satisfy_satisfiedRequirement",
+      "package": "EAST-ADL::Requirements",
+      "source": "EAST-ADL::Requirements::Satisfy",
+      "source_role": "satisfy",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::Requirements::Requirement",
+      "target_role": "satisfiedRequirement",
+      "target_multiplicity": "*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "11.2.12, pp. 98-99",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "Refine_refinedRequirement",
+      "package": "EAST-ADL::Requirements",
+      "source": "EAST-ADL::Requirements::Refine",
+      "source_role": "refine",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::Requirements::Requirement",
+      "target_role": "refinedRequirement",
+      "target_multiplicity": "1..*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "11.2.5, p. 94",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "Refine_refinedBy",
+      "package": "EAST-ADL::Requirements",
+      "source": "EAST-ADL::Requirements::Refine",
+      "source_role": "refine",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::Elements::EAElement",
+      "target_role": "refinedBy",
+      "target_multiplicity": "1..*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": "instanceRef",
+      "optional": false,
+      "pdf_reference": "11.2.5, p. 94",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "Satisfy_satisfiedUseCase",
+      "package": "EAST-ADL::Requirements",
+      "source": "EAST-ADL::Requirements::Satisfy",
+      "source_role": "satisfy",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::UseCases::UseCase",
+      "target_role": "satisfiedUseCase",
+      "target_multiplicity": "*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "11.2.12, pp. 98-99",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "Satisfy_satisfiedBy",
+      "package": "EAST-ADL::Requirements",
+      "source": "EAST-ADL::Requirements::Satisfy",
+      "source_role": "satisfy",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::Elements::Identifiable",
+      "target_role": "satisfiedBy",
+      "target_multiplicity": "1..*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": "instanceRef",
+      "optional": false,
+      "pdf_reference": "11.2.12, pp. 98-99",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "UseCase_extensionPoint",
+      "package": "EAST-ADL::UseCases",
+      "source": "EAST-ADL::UseCases::UseCase",
+      "source_role": "useCase",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::UseCases::ExtensionPoint",
+      "target_role": "extensionPoint",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "12.2.6, p. 103",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "UseCase_include",
+      "package": "EAST-ADL::UseCases",
+      "source": "EAST-ADL::UseCases::UseCase",
+      "source_role": "includingUseCase",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::UseCases::Include",
+      "target_role": "include",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "12.2.6, p. 103",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "UseCase_extend",
+      "package": "EAST-ADL::UseCases",
+      "source": "EAST-ADL::UseCases::UseCase",
+      "source_role": "extendingUseCase",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::UseCases::Extend",
+      "target_role": "extend",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "12.2.6, p. 103",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "Include_addition",
+      "package": "EAST-ADL::UseCases",
+      "source": "EAST-ADL::UseCases::Include",
+      "source_role": "include",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::UseCases::UseCase",
+      "target_role": "addition",
+      "target_multiplicity": "1",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "12.2.4, p. 102",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "Extend_extendedCase",
+      "package": "EAST-ADL::UseCases",
+      "source": "EAST-ADL::UseCases::Extend",
+      "source_role": "extend",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::UseCases::UseCase",
+      "target_role": "extendedCase",
+      "target_multiplicity": "1",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "12.2.2, pp. 101-102",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "Extend_extensionLocation",
+      "package": "EAST-ADL::UseCases",
+      "source": "EAST-ADL::UseCases::Extend",
+      "source_role": "extend",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::UseCases::ExtensionPoint",
+      "target_role": "extensionLocation",
+      "target_multiplicity": "1..*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "12.2.2, pp. 101-102",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "FunctionConnector_port",
+      "package": "EAST-ADL::FunctionModeling",
+      "source": "EAST-ADL::FunctionModeling::FunctionConnector",
+      "source_role": "functionConnector",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::FunctionModeling::FunctionPort",
+      "target_role": "port",
+      "target_multiplicity": "2",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": "instanceRef",
+      "optional": false,
+      "pdf_reference": "6.2.14, pp. 47-48",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "FunctionType_port",
+      "package": "EAST-ADL::FunctionModeling",
+      "source": "EAST-ADL::FunctionModeling::FunctionType",
+      "source_role": "functionType",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::FunctionModeling::FunctionPort",
+      "target_role": "port",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "6.2.19, p. 51",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "FunctionType_connector",
+      "package": "EAST-ADL::FunctionModeling",
+      "source": "EAST-ADL::FunctionModeling::FunctionType",
+      "source_role": "functionType",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::FunctionModeling::FunctionConnector",
+      "target_role": "connector",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "6.2.19, p. 51",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "FunctionType_portGroup",
+      "package": "EAST-ADL::FunctionModeling",
+      "source": "EAST-ADL::FunctionModeling::FunctionType",
+      "source_role": "functionType",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::FunctionModeling::PortGroup",
+      "target_role": "portGroup",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "6.2.19, p. 51",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "PortGroup_port",
+      "package": "EAST-ADL::FunctionModeling",
+      "source": "EAST-ADL::FunctionModeling::PortGroup",
+      "source_role": "portGroup",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::FunctionModeling::FunctionPort",
+      "target_role": "port",
+      "target_multiplicity": "*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "6.2.23, p. 54",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "PortGroup_portGroup",
+      "package": "EAST-ADL::FunctionModeling",
+      "source": "EAST-ADL::FunctionModeling::PortGroup",
+      "source_role": "parentPortGroup",
+      "source_multiplicity": "0..1",
+      "target": "EAST-ADL::FunctionModeling::PortGroup",
+      "target_role": "portGroup",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "6.2.23, p. 54",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "AnalysisFunctionPrototype_type",
+      "package": "EAST-ADL::FunctionModeling",
+      "source": "EAST-ADL::FunctionModeling::AnalysisFunctionPrototype",
+      "source_role": "typedPrototype",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::FunctionModeling::AnalysisFunctionType",
+      "target_role": "type",
+      "target_multiplicity": "1",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": "isOfType",
+      "optional": false,
+      "pdf_reference": "6.2.3, p. 42",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "AnalysisFunctionType_part",
+      "package": "EAST-ADL::FunctionModeling",
+      "source": "EAST-ADL::FunctionModeling::AnalysisFunctionType",
+      "source_role": "analysisFunctionType",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::FunctionModeling::AnalysisFunctionPrototype",
+      "target_role": "part",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "6.2.4, pp. 42-43",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "DesignFunctionPrototype_type",
+      "package": "EAST-ADL::FunctionModeling",
+      "source": "EAST-ADL::FunctionModeling::DesignFunctionPrototype",
+      "source_role": "typedPrototype",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::FunctionModeling::DesignFunctionType",
+      "target_role": "type",
+      "target_multiplicity": "1",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": "isOfType",
+      "optional": false,
+      "pdf_reference": "6.2.7, p. 44",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "DesignFunctionType_part",
+      "package": "EAST-ADL::FunctionModeling",
+      "source": "EAST-ADL::FunctionModeling::DesignFunctionType",
+      "source_role": "designFunctionType",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::FunctionModeling::DesignFunctionPrototype",
+      "target_role": "part",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "6.2.8, pp. 44-45",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "AnalysisLevel_functionalAnalysisArchitecture",
+      "package": "EAST-ADL::SystemModeling",
+      "source": "EAST-ADL::SystemModeling::AnalysisLevel",
+      "source_role": "analysisLevel",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::FunctionModeling::AnalysisFunctionPrototype",
+      "target_role": "functionalAnalysisArchitecture",
+      "target_multiplicity": "0..1",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "3.2.1, pp. 20-21",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "DesignLevel_functionalDesignArchitecture",
+      "package": "EAST-ADL::SystemModeling",
+      "source": "EAST-ADL::SystemModeling::DesignLevel",
+      "source_role": "designLevel",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::FunctionModeling::DesignFunctionPrototype",
+      "target_role": "functionalDesignArchitecture",
+      "target_multiplicity": "0..1",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "3.2.2, pp. 21-22",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "FunctionBehavior_function",
+      "package": "EAST-ADL::Behavior",
+      "source": "EAST-ADL::Behavior::FunctionBehavior",
+      "source_role": "functionBehavior",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::FunctionModeling::FunctionType",
+      "target_role": "function",
+      "target_multiplicity": "0..1",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "9.2.2, pp. 69-70",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "FunctionBehavior_mode",
+      "package": "EAST-ADL::Behavior",
+      "source": "EAST-ADL::Behavior::FunctionBehavior",
+      "source_role": "functionBehavior",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::Behavior::Mode",
+      "target_role": "mode",
+      "target_multiplicity": "*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "9.2.2, pp. 69-70",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "VerificationValidation_vvTarget",
+      "package": "EAST-ADL::VerificationValidation",
+      "source": "EAST-ADL::VerificationValidation::VerificationValidation",
+      "source_role": "verificationValidation",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::VerificationValidation::VVTarget",
+      "target_role": "vvTarget",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "13.2.1, p. 106",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "VerificationValidation_vvCase",
+      "package": "EAST-ADL::VerificationValidation",
+      "source": "EAST-ADL::VerificationValidation::VerificationValidation",
+      "source_role": "verificationValidation",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::VerificationValidation::VVCase",
+      "target_role": "vvCase",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "13.2.1, p. 106",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "VerificationValidation_verify",
+      "package": "EAST-ADL::VerificationValidation",
+      "source": "EAST-ADL::VerificationValidation::VerificationValidation",
+      "source_role": "verificationValidation",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::VerificationValidation::Verify",
+      "target_role": "verify",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "13.2.1, p. 106",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "Verify_verifiedRequirement",
+      "package": "EAST-ADL::VerificationValidation",
+      "source": "EAST-ADL::VerificationValidation::Verify",
+      "source_role": "verify",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::Requirements::Requirement",
+      "target_role": "verifiedRequirement",
+      "target_multiplicity": "1..*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "13.2.2, pp. 106-107",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "Verify_verifiedByProcedure",
+      "package": "EAST-ADL::VerificationValidation",
+      "source": "EAST-ADL::VerificationValidation::Verify",
+      "source_role": "verify",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::VerificationValidation::VVProcedure",
+      "target_role": "verifiedByProcedure",
+      "target_multiplicity": "*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "13.2.2, pp. 106-107",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "Verify_verifiedByCase",
+      "package": "EAST-ADL::VerificationValidation",
+      "source": "EAST-ADL::VerificationValidation::Verify",
+      "source_role": "verify",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::VerificationValidation::VVCase",
+      "target_role": "verifiedByCase",
+      "target_multiplicity": "1..*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "13.2.2, pp. 106-107",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "VVActualOutcome_intendedOutcome",
+      "package": "EAST-ADL::VerificationValidation",
+      "source": "EAST-ADL::VerificationValidation::VVActualOutcome",
+      "source_role": "actualOutcome",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::VerificationValidation::VVIntendedOutcome",
+      "target_role": "intendedOutcome",
+      "target_multiplicity": "0..1",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "13.2.3, p. 107",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "VVCase_vvProcedure",
+      "package": "EAST-ADL::VerificationValidation",
+      "source": "EAST-ADL::VerificationValidation::VVCase",
+      "source_role": "vvCase",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::VerificationValidation::VVProcedure",
+      "target_role": "vvProcedure",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": true,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "13.2.4, pp. 107-108",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "VVCase_vvTarget",
+      "package": "EAST-ADL::VerificationValidation",
+      "source": "EAST-ADL::VerificationValidation::VVCase",
+      "source_role": "vvCase",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::VerificationValidation::VVTarget",
+      "target_role": "vvTarget",
+      "target_multiplicity": "*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "13.2.4, pp. 107-108",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "VVCase_vvLog",
+      "package": "EAST-ADL::VerificationValidation",
+      "source": "EAST-ADL::VerificationValidation::VVCase",
+      "source_role": "vvCase",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::VerificationValidation::VVLog",
+      "target_role": "vvLog",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "13.2.4, pp. 107-108",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "VVCase_abstractVVCase",
+      "package": "EAST-ADL::VerificationValidation",
+      "source": "EAST-ADL::VerificationValidation::VVCase",
+      "source_role": "concreteVVCase",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::VerificationValidation::VVCase",
+      "target_role": "abstractVVCase",
+      "target_multiplicity": "0..1",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "13.2.4, pp. 107-108",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "VVCase_vvSubject",
+      "package": "EAST-ADL::VerificationValidation",
+      "source": "EAST-ADL::VerificationValidation::VVCase",
+      "source_role": "vvCase",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::Elements::Identifiable",
+      "target_role": "vvSubject",
+      "target_multiplicity": "*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": "instanceRef",
+      "optional": false,
+      "pdf_reference": "13.2.4, pp. 107-108",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "VVLog_performedVVProcedure",
+      "package": "EAST-ADL::VerificationValidation",
+      "source": "EAST-ADL::VerificationValidation::VVLog",
+      "source_role": "vvLog",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::VerificationValidation::VVProcedure",
+      "target_role": "performedVVProcedure",
+      "target_multiplicity": "1",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "13.2.6, pp. 108-109",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "VVLog_vvActualOutcome",
+      "package": "EAST-ADL::VerificationValidation",
+      "source": "EAST-ADL::VerificationValidation::VVLog",
+      "source_role": "vvLog",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::VerificationValidation::VVActualOutcome",
+      "target_role": "vvActualOutcome",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "13.2.6, pp. 108-109",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "VVProcedure_abstractVVProcedure",
+      "package": "EAST-ADL::VerificationValidation",
+      "source": "EAST-ADL::VerificationValidation::VVProcedure",
+      "source_role": "concreteVVProcedure",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::VerificationValidation::VVProcedure",
+      "target_role": "abstractVVProcedure",
+      "target_multiplicity": "0..1",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "13.2.7, pp. 109-110",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "VVProcedure_vvStimuli",
+      "package": "EAST-ADL::VerificationValidation",
+      "source": "EAST-ADL::VerificationValidation::VVProcedure",
+      "source_role": "vvProcedure",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::VerificationValidation::VVStimuli",
+      "target_role": "vvStimuli",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "13.2.7, pp. 109-110",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "VVProcedure_vvIntendedOutcome",
+      "package": "EAST-ADL::VerificationValidation",
+      "source": "EAST-ADL::VerificationValidation::VVProcedure",
+      "source_role": "vvProcedure",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::VerificationValidation::VVIntendedOutcome",
+      "target_role": "vvIntendedOutcome",
+      "target_multiplicity": "*",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "13.2.7, pp. 109-110",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "VVTarget_element",
+      "package": "EAST-ADL::VerificationValidation",
+      "source": "EAST-ADL::VerificationValidation::VVTarget",
+      "source_role": "vvTarget",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::Elements::Identifiable",
+      "target_role": "element",
+      "target_multiplicity": "*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": "instanceRef",
+      "optional": false,
+      "pdf_reference": "13.2.9, pp. 110-111",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "BehaviorConstraintTargetBinding_behaviorConstraintType",
+      "package": "EAST-ADL::AnnexC::BehaviorDescription",
+      "source": "EAST-ADL::AnnexC::BehaviorDescription::BehaviorConstraintTargetBinding",
+      "source_role": "targetBinding",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::AnnexC::BehaviorDescription::BehaviorConstraintType",
+      "target_role": "behaviorConstraintType",
+      "target_multiplicity": "1",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": true,
+      "pdf_reference": "Annex C 30.2.6, pp. 218-219",
+      "status": "model-evidence; optional-preliminary",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "BehaviorConstraintTargetBinding_targetedFunctionType",
+      "package": "EAST-ADL::AnnexC::BehaviorDescription",
+      "source": "EAST-ADL::AnnexC::BehaviorDescription::BehaviorConstraintTargetBinding",
+      "source_role": "targetBinding",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::FunctionModeling::FunctionType",
+      "target_role": "targetedFunctionType",
+      "target_multiplicity": "*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": true,
+      "pdf_reference": "Annex C 30.2.6, pp. 218-219",
+      "status": "model-evidence; optional-preliminary",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "BehaviorConstraintTargetBinding_targetedVehicleFeature",
+      "package": "EAST-ADL::AnnexC::BehaviorDescription",
+      "source": "EAST-ADL::AnnexC::BehaviorDescription::BehaviorConstraintTargetBinding",
+      "source_role": "targetBinding",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::VehicleFeatureModeling::VehicleFeature",
+      "target_role": "targetedVehicleFeature",
+      "target_multiplicity": "*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": true,
+      "pdf_reference": "Annex C 30.2.6, pp. 218-219",
+      "status": "model-evidence; optional-preliminary",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "BehaviorConstraintTargetBinding_constrainedModeBehavior",
+      "package": "EAST-ADL::AnnexC::BehaviorDescription",
+      "source": "EAST-ADL::AnnexC::BehaviorDescription::BehaviorConstraintTargetBinding",
+      "source_role": "targetBinding",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::Behavior::Mode",
+      "target_role": "constrainedModeBehavior",
+      "target_multiplicity": "*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": true,
+      "pdf_reference": "Annex C 30.2.6, pp. 218-219",
+      "status": "model-evidence; optional-preliminary",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "BehaviorConstraintTargetBinding_constrainedFunctionBehavior",
+      "package": "EAST-ADL::AnnexC::BehaviorDescription",
+      "source": "EAST-ADL::AnnexC::BehaviorDescription::BehaviorConstraintTargetBinding",
+      "source_role": "targetBinding",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::Behavior::FunctionBehavior",
+      "target_role": "constrainedFunctionBehavior",
+      "target_multiplicity": "*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": true,
+      "pdf_reference": "Annex C 30.2.6, pp. 218-219",
+      "status": "model-evidence; optional-preliminary",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "BehaviorConstraintTargetBinding_constrainedFunctionTriggering",
+      "package": "EAST-ADL::AnnexC::BehaviorDescription",
+      "source": "EAST-ADL::AnnexC::BehaviorDescription::BehaviorConstraintTargetBinding",
+      "source_role": "targetBinding",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::Behavior::FunctionTrigger",
+      "target_role": "constrainedFunctionTriggering",
+      "target_multiplicity": "*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": true,
+      "pdf_reference": "Annex C 30.2.6, pp. 218-219",
+      "status": "model-evidence; optional-preliminary",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "LogicalPath_segment",
+      "package": "EAST-ADL::AnnexC::ComputationConstraint",
+      "source": "EAST-ADL::AnnexC::ComputationConstraint::LogicalPath",
+      "source_role": "logicalPath",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::AnnexC::ComputationConstraint::LogicalPath",
+      "target_role": "segment",
+      "target_multiplicity": "*",
+      "composition": false,
+      "owner": null,
+      "ordered": true,
+      "stereotype": null,
+      "optional": true,
+      "pdf_reference": "Annex C 32.2.2, pp. 226-227",
+      "status": "model-evidence; optional-preliminary",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "LogicalPath_strand",
+      "package": "EAST-ADL::AnnexC::ComputationConstraint",
+      "source": "EAST-ADL::AnnexC::ComputationConstraint::LogicalPath",
+      "source_role": "logicalPath",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::AnnexC::ComputationConstraint::LogicalPath",
+      "target_role": "strand",
+      "target_multiplicity": "*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": true,
+      "pdf_reference": "Annex C 32.2.2, pp. 226-227",
+      "status": "model-evidence; optional-preliminary",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "LogicalPath_transformationOccurrence",
+      "package": "EAST-ADL::AnnexC::ComputationConstraint",
+      "source": "EAST-ADL::AnnexC::ComputationConstraint::LogicalPath",
+      "source_role": "logicalPath",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::AnnexC::ComputationConstraint::TransformationOccurrence",
+      "target_role": "transformationOccurrence",
+      "target_multiplicity": "0..1",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": true,
+      "pdf_reference": "Annex C 32.2.2, pp. 226-227",
+      "status": "model-evidence; optional-preliminary",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "TransformationOccurrence_invokedLogicalTransformation",
+      "package": "EAST-ADL::AnnexC::ComputationConstraint",
+      "source": "EAST-ADL::AnnexC::ComputationConstraint::TransformationOccurrence",
+      "source_role": "transformationOccurrence",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::AnnexC::ComputationConstraint::LogicalTransformation",
+      "target_role": "invokedLogicalTransformation",
+      "target_multiplicity": "1",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": true,
+      "pdf_reference": "Annex C 32.2.4, pp. 228-229",
+      "status": "model-evidence; optional-preliminary",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "TransitionEvent_occurredExecutionEvent",
+      "package": "EAST-ADL::AnnexC::TemporalConstraint",
+      "source": "EAST-ADL::AnnexC::TemporalConstraint::TransitionEvent",
+      "source_role": "transitionEvent",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::Timing::Event",
+      "target_role": "occurredExecutionEvent",
+      "target_multiplicity": "*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": true,
+      "pdf_reference": "Annex C 33.2.7, p. 236",
+      "status": "model-evidence; optional-preliminary",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "FunctionFlowPort_type",
+      "package": "EAST-ADL::FunctionModeling",
+      "source": "EAST-ADL::FunctionModeling::FunctionFlowPort",
+      "source_role": "typedPort",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::Datatypes::EADatatype",
+      "target_role": "type",
+      "target_multiplicity": "1",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": "isOfType",
+      "optional": false,
+      "pdf_reference": "6.2.15, pp. 48-49",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "FunctionFlowPort_defaultValue",
+      "package": "EAST-ADL::FunctionModeling",
+      "source": "EAST-ADL::FunctionModeling::FunctionFlowPort",
+      "source_role": "functionFlowPort",
+      "source_multiplicity": "1",
+      "target": "EAST-ADL::Values::EAValue",
+      "target_role": "defaultValue",
+      "target_multiplicity": "0..1",
+      "composition": true,
+      "owner": "source",
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "6.2.15, pp. 48-49",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "FunctionTrigger_port",
+      "package": "EAST-ADL::Behavior",
+      "source": "EAST-ADL::Behavior::FunctionTrigger",
+      "source_role": "functionTrigger",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::FunctionModeling::FunctionPort",
+      "target_role": "port",
+      "target_multiplicity": "*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "9.2.4, pp. 71-72",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "FunctionTrigger_function",
+      "package": "EAST-ADL::Behavior",
+      "source": "EAST-ADL::Behavior::FunctionTrigger",
+      "source_role": "functionTrigger",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::FunctionModeling::FunctionType",
+      "target_role": "function",
+      "target_multiplicity": "0..1",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "9.2.4, pp. 71-72",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "FunctionTrigger_functionPrototype",
+      "package": "EAST-ADL::Behavior",
+      "source": "EAST-ADL::Behavior::FunctionTrigger",
+      "source_role": "functionTrigger",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::FunctionModeling::FunctionPrototype",
+      "target_role": "functionPrototype",
+      "target_multiplicity": "0..1",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "9.2.4, pp. 71-72",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    },
+    {
+      "id": "FunctionTrigger_mode",
+      "package": "EAST-ADL::Behavior",
+      "source": "EAST-ADL::Behavior::FunctionTrigger",
+      "source_role": "functionTrigger",
+      "source_multiplicity": "*",
+      "target": "EAST-ADL::Behavior::Mode",
+      "target_role": "mode",
+      "target_multiplicity": "*",
+      "composition": false,
+      "owner": null,
+      "ordered": false,
+      "stereotype": null,
+      "optional": false,
+      "pdf_reference": "9.2.4, pp. 71-72",
+      "status": "model-evidence",
+      "end_note": "The target-end role and multiplicity are the normative navigable declaration. A source-end multiplicity without a named reverse role in EAST-ADL is a tooling inverse and does not add EAST-ADL semantics."
+    }
+  ],
+  "guardrails": [
+    "TraceableSpecification has only local text:String[0..1]; Requirement and UseCase inherit it.",
+    "EAType, EAPrototype, EAPort and EAConnector have no EAST-ADL generalization in this version.",
+    "EAValue is non-identifiable and is typed by EADatatype[1].",
+    "FAA and FDA are architecture roles on AnalysisLevel and DesignLevel, not metaclasses.",
+    "VVCase.vvSubject and VVTarget.element are semantically distinct.",
+    "VVActualOutcome is composed under VVLog, never directly under VVCase or VVProcedure.",
+    "Annex C TransitionEvent is EAElement plus BehaviorConstraintParameter and only associates to Timing::Event."
+  ]
+}

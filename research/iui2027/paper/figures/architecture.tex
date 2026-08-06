@@ -1,0 +1,78 @@
+\begin{figure}[t]
+  \centering
+  \resizebox{\linewidth}{!}{%
+    \begin{tikzpicture}[
+      alt={Two linked left-to-right flows show authoring and runtime. Authoring
+      turns a structured scene description into AI-assisted proposals, an
+      executable contract, an inspected preview, and Unity plus backend
+      artifacts. Runtime turns a ray-selected object into a stable entity,
+      trusted routing, a permitted action, and assertion evidence.},
+      font=\small,
+      box/.style={
+        draw,
+        rounded corners=2pt,
+        align=center,
+        minimum height=9mm,
+        text width=27mm,
+        fill=black!4
+      },
+      model/.style={
+        box,
+        double,
+        double distance=0.7pt,
+        fill=black!10
+      },
+      arrow/.style={-{Latex[length=2.2mm]},thick},
+      feedback/.style={-{Latex[length=2.2mm]},thick,dashed}
+    ]
+      \node[box] (scene) {structured\\scene description};
+      \node[font=\bfseries,anchor=south west] at
+        ([yshift=1.5mm]scene.north west) {(a) Authoring};
+      \node[box,right=7mm of scene] (proposals) {AI-assisted\\role and link\\proposals};
+      \node[model,right=7mm of proposals] (contract) {executable\\interaction\\contract};
+      \node[box,right=7mm of contract] (preview) {inspect, edit,\\validate, and\\preview};
+      \node[box,right=7mm of preview] (materialize) {Unity scene +\\agent backend};
+      \draw[arrow] (scene) -- (proposals);
+      \draw[arrow] (proposals) -- (contract);
+      \draw[arrow] (contract) -- (preview);
+      \draw[arrow] (preview) -- (materialize);
+      \draw[feedback] (preview.south) to[bend left=24]
+        node[below,align=center,font=\scriptsize]{accepted correction} (contract.south);
+
+      \node[box] (selection) at (0,-25mm) {ray-selected\\Unity object};
+      \node[font=\bfseries,anchor=south west] at
+        ([yshift=1.5mm]selection.north west) {(b) Runtime};
+      \node[box,right=7mm of selection] (entity) {stable model\\entity + hash};
+      \node[model,right=7mm of entity] (routing) {trusted target\\and agent\\resolution};
+      \node[box,right=7mm of routing] (action) {capability +\\backend action};
+      \node[box,right=7mm of action] (evidence) {response +\\assertion\\evidence};
+      \draw[arrow] (selection) -- node[above,font=\scriptsize]{binding} (entity);
+      \draw[arrow] (entity) -- node[above,font=\scriptsize]{validate} (routing);
+      \draw[arrow] (routing) -- node[above,font=\scriptsize]{permit} (action);
+      \draw[arrow] (action) -- node[above,font=\scriptsize]{observe} (evidence);
+
+      \node[
+        draw,
+        rounded corners=3pt,
+        dashed,
+        fit=(contract)(routing),
+        inner sep=2.7mm,
+        label={[font=\scriptsize]below:shared FunctionalMLDS identifiers and relations}
+      ] {};
+    \end{tikzpicture}%
+  }
+  \caption{The authoring and runtime paths share an executable interaction
+  contract. AI proposes semantic links, but deterministic validation gates
+  materialization. At runtime, a selected scene object is resolved and routed
+  before a backend action is permitted; observations return as assertion
+  evidence. Dashed lines denote revision or a shared boundary, not runtime
+  control flow.}
+  \Description{Two left-to-right flows. The authoring flow turns a structured
+  scene description into AI-assisted proposals, an executable interaction
+  contract, an inspect-edit-validate preview, and Unity plus backend artifacts.
+  The runtime flow turns a ray-selected Unity object into a stable entity and
+  model hash, trusted target and agent resolution, a permitted capability and
+  backend action, and response assertion evidence. The interaction contract is
+  shared across both flows.}
+  \label{fig:architecture}
+\end{figure}

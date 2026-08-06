@@ -1,0 +1,1268 @@
+{
+  "case_id": "steinpilz_brand_room",
+  "created_at": "2026-07-08T07:58:34+00:00",
+  "stages": [
+    {
+      "stage_id": "agent_roles",
+      "status": "success",
+      "updated_at": "2026-07-08T08:17:06+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_graph.normalized.json",
+          "sha256": "b3c7d33e599e37fd22c8f49d72759d0915e911b145ad64153704e49319666bff"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\object_group_summary.json",
+          "sha256": "07e917bbfc401ed6f6918645eca3efa8e7777f64f74ae7b97577173f1acaea6a"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_semantics.json",
+          "sha256": "ff509fe7ec471a2401cafb5235cd2e1794ac0c23b2528a4df35f5042b9fd2417"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\agent_roles_v1.md",
+          "sha256": "010b2de35b0678390d93044035db01effe0317105b5f22770d5ae749f93cc6dd"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\agent_roles.generated.json",
+          "sha256": "55171ea3cec78efb20c02177ee921627d57b63f43fc937cdf98fa655ab2aa38c"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\handoff_matrix.json",
+          "sha256": "481443ecd5469744e3d2ab2affc2bc042f9138e5af84a1a8b0ff165956136d29"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\agent_roles_validation.json",
+          "sha256": "70e1f17fa0d204fc27f2a1ae9336ba978c6dd63db8358aca7fe46c609cd37fdb"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "prompt_version": "agent_roles_v1",
+        "attempts_used": 1,
+        "llm": {
+          "base_url": "https://api.openai.com/v1/responses",
+          "model": "gpt-4.1-mini",
+          "timeout_seconds": 60,
+          "config_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\config.json",
+          "api_key_present": true
+        },
+        "response": {
+          "response_id": "resp_0893e5315c399c45006a4e076c45148192a33b8069141c0739",
+          "model": "gpt-4.1-mini-2025-04-14",
+          "status": "completed",
+          "usage": {
+            "input_tokens": 5199,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 1508,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 6707
+          }
+        },
+        "metrics": {
+          "agent_count": 6,
+          "knowledge_tag_count": 18,
+          "handoff_count": 15,
+          "grounded_object_count": 30
+        }
+      }
+    },
+    {
+      "stage_id": "knowledge_synthesis",
+      "status": "success",
+      "updated_at": "2026-07-08T08:17:26+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_graph.normalized.json",
+          "sha256": "b3c7d33e599e37fd22c8f49d72759d0915e911b145ad64153704e49319666bff"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_semantics.json",
+          "sha256": "ff509fe7ec471a2401cafb5235cd2e1794ac0c23b2528a4df35f5042b9fd2417"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\agent_roles.generated.json",
+          "sha256": "55171ea3cec78efb20c02177ee921627d57b63f43fc937cdf98fa655ab2aa38c"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\knowledge_synthesis_v1.md",
+          "sha256": "171a038508ff9a621b89934eb92aad901911179888ce6f559463bb8865cef727"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\knowledge.generated.json",
+          "sha256": "7dff1f33aa0d0433f986148878b765f50ad1980645373f53e163fc486bce87ef"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\knowledge_synthesis_validation.json",
+          "sha256": "a5aad345b065de51d82be6a46c7adaafd4ec8298f729cc84c976a76cd7096cb0"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\interactive_agents_project\\kb\\visitor_orientation\\welcome_and_orientation_at_reception.txt",
+          "sha256": "03f2d0cfc3dba20140696f03c732dc2f9896dc2459cf2726d14ba3087ec69edd"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\interactive_agents_project\\kb\\company_overview\\company_branding_and_messaging.txt",
+          "sha256": "53562872362d1222f61fb28f201a47089b2b80457a04e4cc066512e6bf643c06"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\interactive_agents_project\\kb\\booth_navigation\\visitor_circulation_guidance.txt",
+          "sha256": "2d3f9244a3f9f51bc7c4eee2f30e48029feef0723c41517b42cffbce4af98e46"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\interactive_agents_project\\kb\\cheese_products\\cheese_product_display_and_information.txt",
+          "sha256": "332d8be0180308f20c233b9f5036ca877071b012e9af6e705847174e0ea8d692"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\interactive_agents_project\\kb\\product_sampling\\facilitated_cheese_sampling.txt",
+          "sha256": "c5098c392e50f72f5e1b054d754b854c5bf8110beba13540df84f22a4ebbbecd"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\interactive_agents_project\\kb\\customer_engagement\\engaging_visitors_with_cheese_expertise.txt",
+          "sha256": "12e74ef6ec0837ff5239904fd46668aedc14e5a1bb78244717f153602f4b69c2"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\interactive_agents_project\\kb\\production_process\\cheese_production_technology_explanation.txt",
+          "sha256": "e020da1e629fc7916787f0c22691692bde4673478752c4b7b703c15628c37e2d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\interactive_agents_project\\kb\\energy_management\\energy_measurement_and_sustainability_displays.txt",
+          "sha256": "f63c69256c2c5ab4ace2b57de554ee34fc074d9d83d0288414639f87d46f046d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\interactive_agents_project\\kb\\sustainability\\sustainability_commitment_in_production.txt",
+          "sha256": "5bab689e0a2feceeaf9c2cc7931decddebe555dd23da0cfc58d68d5457d8dba2"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\interactive_agents_project\\kb\\digital_interaction\\interactive_digital_kiosks.txt",
+          "sha256": "dfea0a1eb91a6e5c715023120dc634ecd9269563da6a685246badc7a637766b4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\interactive_agents_project\\kb\\content_navigation\\guidance_through_digital_content.txt",
+          "sha256": "9ce01c8211ec88410b01fadeb5b3be9e146923a0f9062e1568d3043c30bd9d84"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\interactive_agents_project\\kb\\technical_support\\technical_assistance_for_digital_interfaces.txt",
+          "sha256": "6adf2befc894b79be039cc3bc104e59aff58f188c5ebd45706e31ddc0d9877de"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\interactive_agents_project\\kb\\career_opportunities\\career_discussions_and_opportunities.txt",
+          "sha256": "d886d4aca437be6f6a74f2dfefa174f3b25cfc9bd3ebf45aa91a6c1a1fbf54ed"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\interactive_agents_project\\kb\\training_programs\\training_program_information.txt",
+          "sha256": "caa24d774d03c3fc97521985792607270acebd6445333b1df154de394bf2f17e"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\interactive_agents_project\\kb\\company_culture\\insights_into_company_culture.txt",
+          "sha256": "19cd43c98b7bc224e89b4ae1f8e1e86b5906b90b5079f83c569767075e99d0f1"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\interactive_agents_project\\kb\\visitor_comfort\\lounge_area_comfort_and_hospitality.txt",
+          "sha256": "580b0fef86b36a50e952e8566c46bc4f4a54c0fb579e16a1628b1136bc9d11d3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\interactive_agents_project\\kb\\networking\\facilitated_networking_in_lounge.txt",
+          "sha256": "c9e5fb70b146f6960ec875bbe87fd462589eda273f6157a97d57e5d43b2bee2a"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\interactive_agents_project\\kb\\hospitality\\warm_hospitality_in_lounge_area.txt",
+          "sha256": "60f7bf178e453d5fc3d53cba79b615c71f10cdb4ed01ceb8a949a5c64d5c44fc"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "prompt_version": "knowledge_synthesis_v1",
+        "attempts_used": 1,
+        "llm": {
+          "base_url": "https://api.openai.com/v1/responses",
+          "model": "gpt-4.1-mini",
+          "timeout_seconds": 60,
+          "config_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\config.json",
+          "api_key_present": true
+        },
+        "response": {
+          "response_id": "resp_0dada392e0280ea5006a4e0783f220819faa48b8f3df94529c",
+          "model": "gpt-4.1-mini-2025-04-14",
+          "status": "completed",
+          "usage": {
+            "input_tokens": 6269,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 1552,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 7821
+          }
+        },
+        "metrics": {
+          "knowledge_entry_count": 18,
+          "required_tag_count": 18,
+          "covered_tag_count": 18,
+          "referenced_object_count": 31
+        }
+      }
+    },
+    {
+      "stage_id": "scene_semantics",
+      "status": "success",
+      "updated_at": "2026-07-08T08:21:52+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_graph.normalized.json",
+          "sha256": "b3c7d33e599e37fd22c8f49d72759d0915e911b145ad64153704e49319666bff"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\object_group_summary.json",
+          "sha256": "07e917bbfc401ed6f6918645eca3efa8e7777f64f74ae7b97577173f1acaea6a"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\scene_semantics_v1.md",
+          "sha256": "8f969a22465731dce45d5883ff9e382b0a2afad32fc4111b864514c4facb09b2"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_semantics.json",
+          "sha256": "ff509fe7ec471a2401cafb5235cd2e1794ac0c23b2528a4df35f5042b9fd2417"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\scene_semantics_validation.json",
+          "sha256": "924f6d314b604678de625b0e46be5511e79392457b5eb04ee2bc8245e42c832d"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "recovered_without_llm": true,
+        "metrics": {
+          "visitor_goal_count": 6,
+          "semantic_zone_count": 8,
+          "important_object_count": 11,
+          "interaction_topic_count": 4,
+          "agent_role_candidate_count": 6,
+          "covered_object_count": 31
+        }
+      }
+    },
+    {
+      "stage_id": "runtime_setup",
+      "status": "success",
+      "updated_at": "2026-07-08T09:29:44+00:00",
+      "inputs": [
+        {
+          "path": "output\\case_studies\\steinpilz_brand_room\\runtime_logs\\setup_response.json",
+          "sha256": "aa20a28baa81fe8ece9555c698fb5217cfb3fe780c64767d93d0d734db1d5c5b"
+        },
+        {
+          "path": "output\\case_studies\\steinpilz_brand_room\\runtime_logs\\events.jsonl",
+          "sha256": "bc7f922508072d2b12308caab0a96a6e6d9a23176731a7da841ebf2bc427625c"
+        },
+        {
+          "path": "InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\agents.json",
+          "sha256": "f5e12f0bed43dcaa385595f4ee1f433f2ec7e5bbe622cc0d89f16dd5bfbd67f6"
+        },
+        {
+          "path": "InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\trace_map.json",
+          "sha256": "4a7651ad28e250fc50b887f3d3b27c28727d9ac59ccdcddc475e6255034cb3b8"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "output\\case_studies\\steinpilz_brand_room\\validation\\runtime_setup_validation.json",
+          "sha256": "2453f3622d88f26028a880084a570f2f2936add72db36c1c7c277df47f171cfd"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "session_id_present": true,
+        "expected_agent_count": 6,
+        "actual_agent_count": 6,
+        "agents_with_position_and_forward": 6,
+        "backend_setup_event_count": 3,
+        "runtime_event_validation_error_count": 0
+      }
+    },
+    {
+      "stage_id": "case_initialization",
+      "status": "success",
+      "updated_at": "2026-07-08T09:36:37+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\InteractiveAgents2\\Assets\\Scripting\\MLDSSteinpilz.json",
+          "sha256": "be5f3a875eea8557012abaeba060a9dad6496884e7e1e1d1b52ce20195f22e78"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\input\\source_mlds.json",
+          "sha256": "be5f3a875eea8557012abaeba060a9dad6496884e7e1e1d1b52ce20195f22e78"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\input\\source_mlds.sha256",
+          "sha256": "1f6da8e3fcafddc8f25f2b50613f0ad9758aafb18dff1e8860eddb761d09d9c4"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "case_id": "steinpilz_brand_room",
+        "source_sha256": "be5f3a875eea8557012abaeba060a9dad6496884e7e1e1d1b52ce20195f22e78"
+      }
+    },
+    {
+      "stage_id": "mlds_ingestion",
+      "status": "success",
+      "updated_at": "2026-07-08T09:36:37+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\input\\source_mlds.json",
+          "sha256": "be5f3a875eea8557012abaeba060a9dad6496884e7e1e1d1b52ce20195f22e78"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_graph.normalized.json",
+          "sha256": "b3c7d33e599e37fd22c8f49d72759d0915e911b145ad64153704e49319666bff"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\object_group_summary.json",
+          "sha256": "07e917bbfc401ed6f6918645eca3efa8e7777f64f74ae7b97577173f1acaea6a"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\mlds_ingestion_validation.json",
+          "sha256": "b7db41abd807baec63b11789053335d66187041e3a0f1e4897eca7c93fc928db"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "object_count": 36,
+        "non_structural_group_count": 10
+      }
+    },
+    {
+      "stage_id": "placement_metrics",
+      "status": "success",
+      "updated_at": "2026-07-08T09:36:37+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_graph.normalized.json",
+          "sha256": "b3c7d33e599e37fd22c8f49d72759d0915e911b145ad64153704e49319666bff"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_semantics.json",
+          "sha256": "ff509fe7ec471a2401cafb5235cd2e1794ac0c23b2528a4df35f5042b9fd2417"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\agent_roles.generated.json",
+          "sha256": "55171ea3cec78efb20c02177ee921627d57b63f43fc937cdf98fa655ab2aa38c"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\agent_placements.json",
+          "sha256": "551530ccf90278182bd24bcfb07bb2e37eca4f7a9e256db3492113bdf38251f9"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\placement_metrics.json",
+          "sha256": "82fe867d00b6ab01ea0280b3d883a6b1b928d1e2454aa3e6819bf3eccc68ad60"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "agent_count": 6,
+        "placement_count": 6,
+        "valid_position_count": 6,
+        "valid_position_ratio": 1.0,
+        "out_of_bounds_count": 0,
+        "obstacle_overlap_count": 0,
+        "minimum_agent_distance": 0.985146,
+        "minimum_agent_distance_threshold": 0.75,
+        "average_distance_to_target_xz": 1.424488,
+        "max_distance_to_target_xz": 1.904608,
+        "average_nearest_responsible_group_distance": 1.872293,
+        "max_nearest_responsible_group_distance": 5.310176,
+        "average_nearest_responsible_zone_distance": 2.137813,
+        "max_nearest_responsible_zone_distance": 5.310176
+      }
+    },
+    {
+      "stage_id": "evaluation_questions",
+      "status": "success",
+      "updated_at": "2026-07-08T09:36:37+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_semantics.json",
+          "sha256": "ff509fe7ec471a2401cafb5235cd2e1794ac0c23b2528a4df35f5042b9fd2417"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\agent_roles.generated.json",
+          "sha256": "55171ea3cec78efb20c02177ee921627d57b63f43fc937cdf98fa655ab2aa38c"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\handoff_matrix.json",
+          "sha256": "481443ecd5469744e3d2ab2affc2bc042f9138e5af84a1a8b0ff165956136d29"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\evaluation_questions.json",
+          "sha256": "710f7d1402a158680239b33a76eb21c2a8d20e806da95a6bdd7893f68107222e"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "question_count": 29,
+        "zone_question_count": 8,
+        "semantic_zone_count": 8,
+        "agent_responsibility_question_count": 6,
+        "agent_count": 6,
+        "handoff_question_count": 15,
+        "declared_handoff_pair_count": 15,
+        "zone_question_coverage": 1.0,
+        "agent_question_coverage": 1.0,
+        "handoff_pair_question_coverage": 1.0
+      }
+    },
+    {
+      "stage_id": "chat_tests",
+      "status": "success",
+      "updated_at": "2026-07-08T09:46:22+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\evaluation_questions.json",
+          "sha256": "710f7d1402a158680239b33a76eb21c2a8d20e806da95a6bdd7893f68107222e"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\chat_test_results.json",
+          "sha256": "88cacdc28beb7a82aa7cbedd4b548a13217a6b31fcd0e81fd6b822a6060152a4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\runtime_logs\\chat_responses.json",
+          "sha256": "41d8226988e2235427257bd55841a0d2e92008f69dd74870ce927fcd4f390b68"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "selected_question_count": 29,
+        "executed_chat_count": 29,
+        "successful_chat_count": 29,
+        "failed_chat_count": 0,
+        "http_200_count": 29,
+        "say_event_coverage": 1.0,
+        "nonempty_answer_coverage": 1.0,
+        "handoff_question_count": 15,
+        "observed_handoff_count": 15,
+        "isolated_session_per_question": true
+      }
+    },
+    {
+      "stage_id": "handoff_tests",
+      "status": "success",
+      "updated_at": "2026-07-08T09:51:30+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\chat_test_results.json",
+          "sha256": "88cacdc28beb7a82aa7cbedd4b548a13217a6b31fcd0e81fd6b822a6060152a4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\handoff_matrix.json",
+          "sha256": "481443ecd5469744e3d2ab2affc2bc042f9138e5af84a1a8b0ff165956136d29"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\handoff_test_results.json",
+          "sha256": "1c1d7761e9da7aa8e63924b97c1b40bbf8b6be1e8962e28ec1ce18e831b3370f"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "declared_handoff_pair_count": 15,
+        "handoff_test_count": 15,
+        "passed_handoff_test_count": 15,
+        "failed_handoff_test_count": 0,
+        "handoff_test_success_rate": 1.0,
+        "declared_pair_test_coverage": 1.0,
+        "observed_declared_pair_count": 15,
+        "observed_pair_coverage": 1.0
+      }
+    },
+    {
+      "stage_id": "answer_grounding",
+      "status": "success",
+      "updated_at": "2026-07-08T09:57:05+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\chat_test_results.json",
+          "sha256": "88cacdc28beb7a82aa7cbedd4b548a13217a6b31fcd0e81fd6b822a6060152a4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\runtime_logs\\chat_responses.json",
+          "sha256": "41d8226988e2235427257bd55841a0d2e92008f69dd74870ce927fcd4f390b68"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\agent_roles.generated.json",
+          "sha256": "55171ea3cec78efb20c02177ee921627d57b63f43fc937cdf98fa655ab2aa38c"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_semantics.json",
+          "sha256": "ff509fe7ec471a2401cafb5235cd2e1794ac0c23b2528a4df35f5042b9fd2417"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_graph.normalized.json",
+          "sha256": "b3c7d33e599e37fd22c8f49d72759d0915e911b145ad64153704e49319666bff"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\knowledge.generated.json",
+          "sha256": "7dff1f33aa0d0433f986148878b765f50ad1980645373f53e163fc486bce87ef"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\answer_grounding_results.json",
+          "sha256": "2547706b7944f6dcbc7aba318e2217f34d1e13aa77fd6ab961d4d850547ebd0f"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "answer_count": 29,
+        "grounded_answer_count": 29,
+        "ungrounded_answer_count": 0,
+        "grounded_answer_ratio": 1.0,
+        "agent_grounding_coverage": 1.0,
+        "context_grounding_coverage": 1.0,
+        "negative_marker_count": 0,
+        "llm_judge_used": false
+      }
+    },
+    {
+      "stage_id": "stage_completion",
+      "status": "success",
+      "updated_at": "2026-07-08T10:05:51+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\stage_manifest.json",
+          "sha256": "d0447b89ca7db2aac07b481216932421bc60e18fd4d4d169cd72ec9a18cbc00c"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "620fb461c701fff151d7383438ec8c91fb658d79690a126fa96013933b278e5c"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\mlds_ingestion_validation.json",
+          "sha256": "b7db41abd807baec63b11789053335d66187041e3a0f1e4897eca7c93fc928db"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\scene_semantics_validation.json",
+          "sha256": "924f6d314b604678de625b0e46be5511e79392457b5eb04ee2bc8245e42c832d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\agent_roles_validation.json",
+          "sha256": "70e1f17fa0d204fc27f2a1ae9336ba978c6dd63db8358aca7fe46c609cd37fdb"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\knowledge_synthesis_validation.json",
+          "sha256": "a5aad345b065de51d82be6a46c7adaafd4ec8298f729cc84c976a76cd7096cb0"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\agent_placement_validation.json",
+          "sha256": "865c04301fc584154c754829278a6d94b06233800ee3660fb44c9bcbd04f6c43"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\functionalmlds_invariants_validation.json",
+          "sha256": "1d64d8bd36056d4c33daf439f7c3d541d932b4b2e2eee6c8468968195b6fcc72"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\project_materialization_validation.json",
+          "sha256": "3060c3bd2eed2c59a24db4f7af1a2624a41c87769ec450c6c7ab3308877eb193"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\runtime_setup_validation.json",
+          "sha256": "2453f3622d88f26028a880084a570f2f2936add72db36c1c7c277df47f171cfd"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\schema_validation.json",
+          "sha256": "22fabb16d70e45208f30acf2906ac4b0bd7a8b8b3bf2084bff610bf27461b9cf"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\traceability_metrics.json",
+          "sha256": "c2cf52f06ac704824c432745976f2793ddd9fab708e82bad99ffba8d7c024c75"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\placement_metrics.json",
+          "sha256": "82fe867d00b6ab01ea0280b3d883a6b1b928d1e2454aa3e6819bf3eccc68ad60"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\handoff_metrics.json",
+          "sha256": "be8f16741f5bef90e38ae677e410184278084c9f908efaf6ee2a5dcb7517f633"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\evaluation_questions.json",
+          "sha256": "710f7d1402a158680239b33a76eb21c2a8d20e806da95a6bdd7893f68107222e"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\chat_test_results.json",
+          "sha256": "88cacdc28beb7a82aa7cbedd4b548a13217a6b31fcd0e81fd6b822a6060152a4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\handoff_test_results.json",
+          "sha256": "1c1d7761e9da7aa8e63924b97c1b40bbf8b6be1e8962e28ec1ce18e831b3370f"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\answer_grounding_results.json",
+          "sha256": "2547706b7944f6dcbc7aba318e2217f34d1e13aa77fd6ab961d4d850547ebd0f"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\stage_completion_report.json",
+          "sha256": "5380222063c2552091d3d638e3c4ba9c79f4dbedd92cb740623a447afbc363f5"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "required_stage_count": 18,
+        "present_stage_count": 18,
+        "successful_stage_count": 18,
+        "required_artifact_count": 2,
+        "present_artifact_count": 2,
+        "required_validation_report_count": 16,
+        "valid_validation_report_count": 16,
+        "completion_ratio": 1.0
+      }
+    },
+    {
+      "stage_id": "traceability_metrics",
+      "status": "success",
+      "updated_at": "2026-07-09T10:44:44+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "d58ed1279973d816df3f6e08d4adbe0881ac8b372654b9ed858906a80fc1a71d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_graph.normalized.json",
+          "sha256": "b3c7d33e599e37fd22c8f49d72759d0915e911b145ad64153704e49319666bff"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\agent_roles.generated.json",
+          "sha256": "00f2b0213c842979cb8b83d5012d54885373ec57d63a574ffec4f78db7a590c8"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\knowledge.generated.json",
+          "sha256": "7dff1f33aa0d0433f986148878b765f50ad1980645373f53e163fc486bce87ef"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\runtime_logs\\events.jsonl",
+          "sha256": "22dbc6d9e704ebae5d4ad2d710f60dd2bbbb766795cf3ef9f67ffa35085a8ea1"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\traceability_metrics.json",
+          "sha256": "5bc4cc4e23cacacebe42f69616fc2eb4d5e30a9265e49786db1fdf5c1acc8718"
+        }
+      ],
+      "errors": [],
+      "warnings": [
+        "scenario_step_to_capability_coverage coverage is 0.833333 (10/12).",
+        "runtime_action_to_log_coverage coverage is 0.25 (3/12)."
+      ],
+      "metadata": {
+        "metric_count": 6,
+        "full_coverage_metric_count": 4,
+        "partial_coverage_metric_count": 2,
+        "average_coverage": 0.847222
+      }
+    },
+    {
+      "stage_id": "handoff_metrics",
+      "status": "success",
+      "updated_at": "2026-07-09T10:44:44+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\agent_roles.generated.json",
+          "sha256": "00f2b0213c842979cb8b83d5012d54885373ec57d63a574ffec4f78db7a590c8"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\handoff_matrix.json",
+          "sha256": "481443ecd5469744e3d2ab2affc2bc042f9138e5af84a1a8b0ff165956136d29"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\runtime_logs\\events.jsonl",
+          "sha256": "22dbc6d9e704ebae5d4ad2d710f60dd2bbbb766795cf3ef9f67ffa35085a8ea1"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\handoff_test_results.json",
+          "sha256": "1c1d7761e9da7aa8e63924b97c1b40bbf8b6be1e8962e28ec1ce18e831b3370f"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\chat_test_results.json",
+          "sha256": "88cacdc28beb7a82aa7cbedd4b548a13217a6b31fcd0e81fd6b822a6060152a4"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\handoff_metrics.json",
+          "sha256": "e76bc38bd7a63a9ad1872c7deef3c6864db9b45e979be5aa2edea874d9ef907b"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "agent_count": 6,
+        "declared_agent_handoff_target_count": 15,
+        "declared_matrix_handoff_count": 15,
+        "unique_handoff_pair_count": 15,
+        "valid_agent_handoff_target_ratio": 1.0,
+        "valid_handoff_matrix_ratio": 1.0,
+        "valid_handoff_target_ratio": 1.0,
+        "self_handoff_count": 0,
+        "duplicate_agent_handoff_target_count": 0,
+        "duplicate_matrix_handoff_count": 0,
+        "missing_matrix_pair_count": 0,
+        "extra_matrix_pair_count": 0,
+        "handoff_chain_limit": 1,
+        "observed_handoff_event_count": 15,
+        "observed_valid_handoff_event_count": 15,
+        "observed_invalid_handoff_event_count": 0,
+        "observed_invalid_handoff_runtime_action_event_count": 0,
+        "observed_invalid_handoff_runtime_binding_event_count": 0,
+        "observed_max_handoffs_per_logged_session": 1,
+        "runtime_chain_limit_evaluation": "per_request_not_evaluable_without_request_id",
+        "decision_test_count": 29,
+        "correct_handoff_decision_count": 29,
+        "handoff_decision_accuracy": 1.0,
+        "invalid_observed_decision_count": 0
+      }
+    },
+    {
+      "stage_id": "agent_placement",
+      "status": "success",
+      "updated_at": "2026-07-28T17:53:39+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_graph.normalized.json",
+          "sha256": "b3c7d33e599e37fd22c8f49d72759d0915e911b145ad64153704e49319666bff"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_semantics.json",
+          "sha256": "ff509fe7ec471a2401cafb5235cd2e1794ac0c23b2528a4df35f5042b9fd2417"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\agent_roles.generated.json",
+          "sha256": "00f2b0213c842979cb8b83d5012d54885373ec57d63a574ffec4f78db7a590c8"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\agent_placements.json",
+          "sha256": "fe3bf78d827c3c82ce813c74f24bb0aba9dc0a859924cd53cdf9c9fb561d8581"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\agent_placement_validation.json",
+          "sha256": "3a1c5717c9d029e7d925d2e444b5eee6620bd2e2e229922fb90f77062e84c293"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "agent_count": 6,
+        "placement_count": 6,
+        "out_of_bounds_count": 0,
+        "obstacle_overlap_count": 0,
+        "minimum_agent_distance": 2.1585
+      }
+    },
+    {
+      "stage_id": "functionalmlds_assembly",
+      "status": "success",
+      "updated_at": "2026-07-28T17:53:39+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_graph.normalized.json",
+          "sha256": "b3c7d33e599e37fd22c8f49d72759d0915e911b145ad64153704e49319666bff"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_semantics.json",
+          "sha256": "ff509fe7ec471a2401cafb5235cd2e1794ac0c23b2528a4df35f5042b9fd2417"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\agent_roles.generated.json",
+          "sha256": "00f2b0213c842979cb8b83d5012d54885373ec57d63a574ffec4f78db7a590c8"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\agent_placements.json",
+          "sha256": "fe3bf78d827c3c82ce813c74f24bb0aba9dc0a859924cd53cdf9c9fb561d8581"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\functionalmlds_assembly_v1.md",
+          "sha256": "64caf06a68b6c1c3e13df14415b4b9da90809d0c3fe41d480bbfd232853e020a"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\functionalmlds_assembler.py",
+          "sha256": "0b8d061432f44a1d6e6c28848bd36044fc1edee561bb4ea3bf15ea84005082a5"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "fa9b915ccbb5474bdad10bc70da7f17464b93d0f8ce4700bfd18d397945aa598"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\functionalmlds_invariant_validation.json",
+          "sha256": "7100d35577ff43175e6de14eb5261c822d5d627b6024853e33018e801e892df6"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "prompt_version": "functionalmlds_assembly_v1",
+        "deterministic": true,
+        "metrics": {
+          "requirement_count": 6,
+          "use_case_count": 31,
+          "interaction_use_case_count": 30,
+          "entity_count": 54,
+          "semantic_zone_entity_count": 8,
+          "object_group_entity_count": 9,
+          "scene_object_entity_count": 30,
+          "room_answer_capability_count": 1,
+          "handoff_capability_count": 1,
+          "handoff_runtime_binding_count": 1,
+          "handoff_runtime_action_count": 1,
+          "capability_count": 9,
+          "capability_use_count": 68,
+          "explicit_user_provider_count": 60,
+          "runtime_binding_count": 9,
+          "validation_case_count": 35,
+          "capability_use_coverage": 9,
+          "runtime_capability_coverage": 9
+        }
+      }
+    },
+    {
+      "stage_id": "handoff_derivation",
+      "status": "success",
+      "updated_at": "2026-07-28T17:53:39+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\agent_roles.generated.json",
+          "sha256": "00f2b0213c842979cb8b83d5012d54885373ec57d63a574ffec4f78db7a590c8"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "fa9b915ccbb5474bdad10bc70da7f17464b93d0f8ce4700bfd18d397945aa598"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\agent_roles.generated.json",
+          "sha256": "00f2b0213c842979cb8b83d5012d54885373ec57d63a574ffec4f78db7a590c8"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "fa9b915ccbb5474bdad10bc70da7f17464b93d0f8ce4700bfd18d397945aa598"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\handoff_matrix.json",
+          "sha256": "481443ecd5469744e3d2ab2affc2bc042f9138e5af84a1a8b0ff165956136d29"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\handoff_derivation_validation.json",
+          "sha256": "409e7b439185b0defa3a78507d00c4c320265c37aaa8ba07fe802536b755cbe0"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "agent_count": 6,
+        "handoff_pair_count": 15,
+        "source_agent_with_handoff_count": 6,
+        "fallback_used": false,
+        "unique_pair_count": 15,
+        "role_validation_status": "valid",
+        "derivation_validation_status": "valid",
+        "frozen_role_unchanged": true
+      }
+    },
+    {
+      "stage_id": "functionalmlds_v2_assembly",
+      "status": "success",
+      "updated_at": "2026-07-28T17:54:16+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "fa9b915ccbb5474bdad10bc70da7f17464b93d0f8ce4700bfd18d397945aa598"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\functionalmlds_v2_assembler.py",
+          "sha256": "645bc378c9a4be3f97f0eb5d4ce11678433e53bef8e0b6081df70e936457e51d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\dynamic_functional_mlds_v2_compat.py",
+          "sha256": "030df93df188001e349b1ae0bab0387244444545397f62e95e287bcad16dae4f"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\dynamic_functional_mlds_v2_model.py",
+          "sha256": "0710b7353459fe64de0692d18ac904b930d07161f6782544ac48d3d4dbaa8dd7"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\validate_dynamic_functional_mlds_v2.py",
+          "sha256": "82e2fe0c506629a4222795d6a81e94f606d7eb1244cc0d594ab14b7e98b989c3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\dynamic_functional_mlds_v2_instance.schema.json",
+          "sha256": "4a2567a6cfc8cdce447a0f776f134c969fcf6af8e26d7b4c84dc31d9c6c68d49"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\functionalmlds\\functionalmlds.v2.instance.json",
+          "sha256": "5615722da2d20f2cd850f69dd27a8501f7939f581514aa79d75b2ee2526216bf"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\functionalmlds\\functionalmlds.v2.assembly_report.json",
+          "sha256": "ef1e0502028b83530478090c889d8c96e569a0297eea3103ba1b8d1c12d7dc96"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "deterministic": true,
+        "metamodel_version": "2.0.0-model",
+        "metrics": {
+          "object_count": 1316,
+          "error_count": 0,
+          "warning_count": 0
+        }
+      }
+    },
+    {
+      "stage_id": "project_materialization",
+      "status": "success",
+      "updated_at": "2026-07-28T17:54:16+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\input\\source_mlds.json",
+          "sha256": "be5f3a875eea8557012abaeba060a9dad6496884e7e1e1d1b52ce20195f22e78"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\agent_roles.generated.json",
+          "sha256": "00f2b0213c842979cb8b83d5012d54885373ec57d63a574ffec4f78db7a590c8"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\agent_placements.json",
+          "sha256": "fe3bf78d827c3c82ce813c74f24bb0aba9dc0a859924cd53cdf9c9fb561d8581"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\knowledge.generated.json",
+          "sha256": "7dff1f33aa0d0433f986148878b765f50ad1980645373f53e163fc486bce87ef"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "fa9b915ccbb5474bdad10bc70da7f17464b93d0f8ce4700bfd18d397945aa598"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\functionalmlds\\functionalmlds.v2.instance.json",
+          "sha256": "5615722da2d20f2cd850f69dd27a8501f7939f581514aa79d75b2ee2526216bf"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\project_materializer.py",
+          "sha256": "eae58667c5ad6923686d6fb4896fdb3ce4f48fcacd4cfedb35dc09f2d89f5ec0"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\project.json",
+          "sha256": "12d194d4b6b7b633d8ffb82030aeca9a2211c7e117d8a5e01769e027598a9328"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\room_plan.json",
+          "sha256": "be5f3a875eea8557012abaeba060a9dad6496884e7e1e1d1b52ce20195f22e78"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\agents.json",
+          "sha256": "27a582d313966df0f4dbe0cb0d6364f4360aa84a16014bb9b8b0215d7ff41168"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\trace_map.json",
+          "sha256": "e244982771c8086667742fc0cdd7f1332a09a5fd3c3f49dd7fc02a7011307859"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\trace_map.v2.json",
+          "sha256": "e244982771c8086667742fc0cdd7f1332a09a5fd3c3f49dd7fc02a7011307859"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\trace_map.v05.json",
+          "sha256": "7a038d44cc4f2521b8e9390e4b943febb0130127065c514b7ce2eb9471fa5b5c"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\functionalmlds.v2.instance.json",
+          "sha256": "5615722da2d20f2cd850f69dd27a8501f7939f581514aa79d75b2ee2526216bf"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\functionalmlds.v05.instance.json",
+          "sha256": "fa9b915ccbb5474bdad10bc70da7f17464b93d0f8ce4700bfd18d397945aa598"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\project_materialization_validation.json",
+          "sha256": "c4775ca7c07822b4e8529ac57dcdcb77bc7aa7a9401fc32abbaae878e597b2e2"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\kb\\booth_navigation\\visitor_circulation_guidance.txt",
+          "sha256": "2d3f9244a3f9f51bc7c4eee2f30e48029feef0723c41517b42cffbce4af98e46"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\kb\\career_opportunities\\career_discussions_and_opportunities.txt",
+          "sha256": "d886d4aca437be6f6a74f2dfefa174f3b25cfc9bd3ebf45aa91a6c1a1fbf54ed"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\kb\\cheese_products\\cheese_product_display_and_information.txt",
+          "sha256": "332d8be0180308f20c233b9f5036ca877071b012e9af6e705847174e0ea8d692"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\kb\\company_culture\\insights_into_company_culture.txt",
+          "sha256": "19cd43c98b7bc224e89b4ae1f8e1e86b5906b90b5079f83c569767075e99d0f1"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\kb\\company_overview\\company_branding_and_messaging.txt",
+          "sha256": "53562872362d1222f61fb28f201a47089b2b80457a04e4cc066512e6bf643c06"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\kb\\content_navigation\\guidance_through_digital_content.txt",
+          "sha256": "9ce01c8211ec88410b01fadeb5b3be9e146923a0f9062e1568d3043c30bd9d84"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\kb\\customer_engagement\\engaging_visitors_with_cheese_expertise.txt",
+          "sha256": "12e74ef6ec0837ff5239904fd46668aedc14e5a1bb78244717f153602f4b69c2"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\kb\\digital_interaction\\interactive_digital_kiosks.txt",
+          "sha256": "dfea0a1eb91a6e5c715023120dc634ecd9269563da6a685246badc7a637766b4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\kb\\energy_management\\energy_measurement_and_sustainability_displays.txt",
+          "sha256": "f63c69256c2c5ab4ace2b57de554ee34fc074d9d83d0288414639f87d46f046d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\kb\\hospitality\\warm_hospitality_in_lounge_area.txt",
+          "sha256": "60f7bf178e453d5fc3d53cba79b615c71f10cdb4ed01ceb8a949a5c64d5c44fc"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\kb\\networking\\facilitated_networking_in_lounge.txt",
+          "sha256": "c9e5fb70b146f6960ec875bbe87fd462589eda273f6157a97d57e5d43b2bee2a"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\kb\\production_process\\cheese_production_technology_explanation.txt",
+          "sha256": "e020da1e629fc7916787f0c22691692bde4673478752c4b7b703c15628c37e2d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\kb\\product_sampling\\facilitated_cheese_sampling.txt",
+          "sha256": "c5098c392e50f72f5e1b054d754b854c5bf8110beba13540df84f22a4ebbbecd"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\kb\\sustainability\\sustainability_commitment_in_production.txt",
+          "sha256": "5bab689e0a2feceeaf9c2cc7931decddebe555dd23da0cfc58d68d5457d8dba2"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\kb\\technical_support\\technical_assistance_for_digital_interfaces.txt",
+          "sha256": "6adf2befc894b79be039cc3bc104e59aff58f188c5ebd45706e31ddc0d9877de"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\kb\\training_programs\\training_program_information.txt",
+          "sha256": "caa24d774d03c3fc97521985792607270acebd6445333b1df154de394bf2f17e"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\kb\\visitor_comfort\\lounge_area_comfort_and_hospitality.txt",
+          "sha256": "580b0fef86b36a50e952e8566c46bc4f4a54c0fb579e16a1628b1136bc9d11d3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\kb\\visitor_orientation\\welcome_and_orientation_at_reception.txt",
+          "sha256": "03f2d0cfc3dba20140696f03c732dc2f9896dc2459cf2726d14ba3087ec69edd"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "agent_count": 6,
+        "kb_file_count": 18,
+        "trace_step_count": 99,
+        "trace_runtime_action_count": 73,
+        "trace_validation_case_count": 35
+      }
+    },
+    {
+      "stage_id": "schema_validation",
+      "status": "success",
+      "updated_at": "2026-07-28T17:54:33+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_graph.normalized.json",
+          "sha256": "b3c7d33e599e37fd22c8f49d72759d0915e911b145ad64153704e49319666bff"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\scene_semantics.json",
+          "sha256": "ff509fe7ec471a2401cafb5235cd2e1794ac0c23b2528a4df35f5042b9fd2417"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\agent_roles.generated.json",
+          "sha256": "00f2b0213c842979cb8b83d5012d54885373ec57d63a574ffec4f78db7a590c8"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\handoff_matrix.json",
+          "sha256": "481443ecd5469744e3d2ab2affc2bc042f9138e5af84a1a8b0ff165956136d29"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\intermediate\\knowledge.generated.json",
+          "sha256": "7dff1f33aa0d0433f986148878b765f50ad1980645373f53e163fc486bce87ef"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\project.json",
+          "sha256": "12d194d4b6b7b633d8ffb82030aeca9a2211c7e117d8a5e01769e027598a9328"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\agents.json",
+          "sha256": "27a582d313966df0f4dbe0cb0d6364f4360aa84a16014bb9b8b0215d7ff41168"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\room_plan.json",
+          "sha256": "be5f3a875eea8557012abaeba060a9dad6496884e7e1e1d1b52ce20195f22e78"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\runtime_logs\\events.jsonl"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\runtime_logs\\runtime_validation.v2.jsonl"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\functionalmlds.v2.instance.json",
+          "sha256": "5615722da2d20f2cd850f69dd27a8501f7939f581514aa79d75b2ee2526216bf"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\functionalmlds.v05.instance.json",
+          "sha256": "fa9b915ccbb5474bdad10bc70da7f17464b93d0f8ce4700bfd18d397945aa598"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\trace_map.v2.json",
+          "sha256": "e244982771c8086667742fc0cdd7f1332a09a5fd3c3f49dd7fc02a7011307859"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\trace_map.v05.json",
+          "sha256": "7a038d44cc4f2521b8e9390e4b943febb0130127065c514b7ce2eb9471fa5b5c"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\steinpilz_brand_room\\trace_map.json",
+          "sha256": "e244982771c8086667742fc0cdd7f1332a09a5fd3c3f49dd7fc02a7011307859"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\functionalmlds\\functionalmlds.v2.instance.json",
+          "sha256": "5615722da2d20f2cd850f69dd27a8501f7939f581514aa79d75b2ee2526216bf"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\functionalmlds\\functionalmlds.v2.assembly_report.json",
+          "sha256": "ef1e0502028b83530478090c889d8c96e569a0297eea3103ba1b8d1c12d7dc96"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "fa9b915ccbb5474bdad10bc70da7f17464b93d0f8ce4700bfd18d397945aa598"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\agent_roles.schema.json",
+          "sha256": "8746914c9d3fb27375e0a9a11b8561f388692ca6486107d7fb290c4e35cdbe48"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\dynamic_functional_mlds_v2_instance.schema.json",
+          "sha256": "4a2567a6cfc8cdce447a0f776f134c969fcf6af8e26d7b4c84dc31d9c6c68d49"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\functionalmlds_case_study.schema.json",
+          "sha256": "75680e3cd83cb1ac8b63fa77fa47ac93fb7497cb360e70388a3bac7227f1edcc"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\interactive_agents_project.schema.json",
+          "sha256": "d8aa2724bfc1eb6522e328f5cdd6853abbdeed19e7fc648bb370ecdc99d4b1b2"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\knowledge.schema.json",
+          "sha256": "c8a2d803e0c0098a675c295b2da618f3364115aa7178738d9f9c040687be1560"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\normalized_scene.schema.json",
+          "sha256": "c4ceaf66757447d2fbc5c6c8c73710c2e7dc4f5b5fecdeb520b1a369263b1d90"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\scene_semantics.schema.json",
+          "sha256": "c4b6a699b6892e7c61cb06dc9772f4750e404732b1f53ec7428e3293ed120615"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\schema_validation.json",
+          "sha256": "6ee59829399f1994ed62996a9824031ac0f451ec50a0401e573f22c6426e86b1"
+        }
+      ],
+      "errors": [],
+      "warnings": [
+        "Runtime-Log fehlt: C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\runtime_logs\\events.jsonl"
+      ],
+      "metadata": {
+        "artifact_count": 7,
+        "valid_artifact_count": 7,
+        "invalid_artifact_count": 0,
+        "schema_count": 7,
+        "runtime_event_count": 0,
+        "contract_mode": "v2-dual"
+      }
+    },
+    {
+      "stage_id": "functionalmlds_invariants",
+      "status": "success",
+      "updated_at": "2026-07-28T17:54:33+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "fa9b915ccbb5474bdad10bc70da7f17464b93d0f8ce4700bfd18d397945aa598"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\functionalmlds_invariants_validation.json",
+          "sha256": "c6654e2de6e71451578fb72a9cd5e15c4e87990f69bf1a2d7a161142e619a9ab"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "invariant_count": 8,
+        "passed_invariant_count": 8,
+        "failed_invariant_count": 0,
+        "checked_element_count": 286,
+        "error_count": 0
+      }
+    }
+  ],
+  "updated_at": "2026-07-28T17:54:33+00:00"
+}

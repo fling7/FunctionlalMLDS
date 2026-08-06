@@ -1,0 +1,127 @@
+{
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "agent_count": 4,
+    "placement_count": 4,
+    "valid_position_count": 4,
+    "valid_position_ratio": 1.0,
+    "out_of_bounds_count": 0,
+    "obstacle_overlap_count": 0,
+    "minimum_agent_distance": 1.288,
+    "minimum_agent_distance_threshold": 0.75,
+    "average_distance_to_target_xz": 1.395665,
+    "max_distance_to_target_xz": 2.079096,
+    "average_nearest_responsible_group_distance": 1.463051,
+    "max_nearest_responsible_group_distance": 1.862968,
+    "average_nearest_responsible_zone_distance": 1.971276,
+    "max_nearest_responsible_zone_distance": 3.363835
+  },
+  "per_agent": [
+    {
+      "agent_id": "teacher_agent",
+      "valid_position": true,
+      "position": {
+        "x": 0.996,
+        "z": -0.287
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 2.079096,
+      "responsible_group_count": 2,
+      "distance_to_responsible_object_groups": {
+        "count": 2,
+        "nearest": 1.827344,
+        "average": 4.245104,
+        "maximum": 6.662864
+      },
+      "responsible_zone_count": 1,
+      "distance_to_responsible_zones": {
+        "count": 1,
+        "nearest": 3.363835,
+        "average": 3.363835,
+        "maximum": 3.363835
+      }
+    },
+    {
+      "agent_id": "reading_area_guide",
+      "valid_position": true,
+      "position": {
+        "x": -0.149,
+        "z": 2.989
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 1.467556,
+      "responsible_group_count": 3,
+      "distance_to_responsible_object_groups": {
+        "count": 3,
+        "nearest": 1.021921,
+        "average": 2.313284,
+        "maximum": 3.118801
+      },
+      "responsible_zone_count": 1,
+      "distance_to_responsible_zones": {
+        "count": 1,
+        "nearest": 1.518329,
+        "average": 1.518329,
+        "maximum": 1.518329
+      }
+    },
+    {
+      "agent_id": "exhibit_interpreter",
+      "valid_position": true,
+      "position": {
+        "x": 2.433,
+        "z": 4.362
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 1.139971,
+      "responsible_group_count": 1,
+      "distance_to_responsible_object_groups": {
+        "count": 1,
+        "nearest": 1.139971,
+        "average": 1.139971,
+        "maximum": 1.139971
+      },
+      "responsible_zone_count": 1,
+      "distance_to_responsible_zones": {
+        "count": 1,
+        "nearest": 1.139971,
+        "average": 1.139971,
+        "maximum": 1.139971
+      }
+    },
+    {
+      "agent_id": "decorative_zone_ambassador",
+      "valid_position": true,
+      "position": {
+        "x": 0.995,
+        "z": -1.575
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 0.896037,
+      "responsible_group_count": 2,
+      "distance_to_responsible_object_groups": {
+        "count": 2,
+        "nearest": 1.862968,
+        "average": 2.232099,
+        "maximum": 2.60123
+      },
+      "responsible_zone_count": 1,
+      "distance_to_responsible_zones": {
+        "count": 1,
+        "nearest": 1.862968,
+        "average": 1.862968,
+        "maximum": 1.862968
+      }
+    }
+  ]
+}

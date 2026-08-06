@@ -1,0 +1,319 @@
+{
+  "knowledge_entries": [
+    {
+      "tag": "teaching_zone",
+      "name": "teaching_and_instruction_zone_overview",
+      "source_object_ids": [
+        "chalkboard",
+        "teacher_desk",
+        "student_desk1",
+        "student_desk2",
+        "student_desk3",
+        "student_desk4",
+        "student_desk5",
+        "student_desk6",
+        "student_desk7",
+        "student_desk8",
+        "student_desk9",
+        "student_desk10",
+        "student_desk11",
+        "student_desk12",
+        "student_desk13",
+        "student_desk14",
+        "student_desk15",
+        "student_desk16",
+        "student_desk17",
+        "student_desk18",
+        "student_desk19",
+        "student_desk20"
+      ],
+      "text": "The teaching zone is the primary area for instruction and learning, centered around the teacher's desk and a large chalkboard at the front wall. It includes twenty student desks arranged to facilitate writing, studying, and interaction between teacher and students. This zone supports classroom activities and engagement.",
+      "intended_agents": [
+        "teacher_agent"
+      ]
+    },
+    {
+      "tag": "chalkboard",
+      "name": "chalkboard_for_visual_teaching",
+      "source_object_ids": [
+        "chalkboard"
+      ],
+      "text": "The chalkboard is a large, modern writing surface with a dark green matte finish, framed by a slim metallic border. Positioned at the front of the teaching zone, it is used by the teacher to present lessons, write notes, and visually engage students during instruction.",
+      "intended_agents": [
+        "teacher_agent"
+      ]
+    },
+    {
+      "tag": "teacher_desk",
+      "name": "teacher_s_desk_functionality",
+      "source_object_ids": [
+        "teacher_desk"
+      ],
+      "text": "The teacher's desk features a warm walnut wood veneer top with slim black metal legs, offering a functional workspace for lesson planning, organizing materials, and managing classroom activities. It is centrally located near the chalkboard for easy access during teaching.",
+      "intended_agents": [
+        "teacher_agent"
+      ]
+    },
+    {
+      "tag": "student_desks",
+      "name": "student_desk_arrangement_and_use",
+      "source_object_ids": [
+        "student_desk1",
+        "student_desk2",
+        "student_desk3",
+        "student_desk4",
+        "student_desk5",
+        "student_desk6",
+        "student_desk7",
+        "student_desk8",
+        "student_desk9",
+        "student_desk10",
+        "student_desk11",
+        "student_desk12",
+        "student_desk13",
+        "student_desk14",
+        "student_desk15",
+        "student_desk16",
+        "student_desk17",
+        "student_desk18",
+        "student_desk19",
+        "student_desk20"
+      ],
+      "text": "Twenty modern student desks with light oak laminate tops and powder-coated metal legs are arranged in rows within the teaching zone. They provide individual workspaces for writing, studying, and participating in class activities, supporting both independent and collaborative learning.",
+      "intended_agents": [
+        "teacher_agent"
+      ]
+    },
+    {
+      "tag": "classroom_management",
+      "name": "classroom_management_essentials",
+      "source_object_ids": [
+        "chalkboard",
+        "teacher_desk",
+        "student_desk1",
+        "student_desk2",
+        "student_desk3",
+        "student_desk4",
+        "student_desk5",
+        "student_desk6",
+        "student_desk7",
+        "student_desk8",
+        "student_desk9",
+        "student_desk10",
+        "student_desk11",
+        "student_desk12",
+        "student_desk13",
+        "student_desk14",
+        "student_desk15",
+        "student_desk16",
+        "student_desk17",
+        "student_desk18",
+        "student_desk19",
+        "student_desk20"
+      ],
+      "text": "Effective classroom management is supported by the spatial arrangement of student desks facing the chalkboard and teacher's desk, enabling clear communication and supervision. The teacher uses these elements to facilitate engagement, maintain order, and support learning activities.",
+      "intended_agents": [
+        "teacher_agent"
+      ]
+    },
+    {
+      "tag": "lesson_planning",
+      "name": "lesson_planning_and_instruction_support",
+      "source_object_ids": [
+        "teacher_desk",
+        "chalkboard"
+      ],
+      "text": "The teacher's desk and chalkboard serve as key tools for lesson planning and delivery. The desk provides space for organizing materials and preparing lessons, while the chalkboard allows dynamic presentation of information to students during class.",
+      "intended_agents": [
+        "teacher_agent"
+      ]
+    },
+    {
+      "tag": "book_storage_zone",
+      "name": "book_storage_zone_with_bookcase",
+      "source_object_ids": [
+        "bookcase"
+      ],
+      "text": "The book storage zone features a modern dark wood veneer bookcase with multiple open shelves, located near the reading area. It stores educational materials and books accessible to students for study and reference.",
+      "intended_agents": [
+        "librarian_agent"
+      ]
+    },
+    {
+      "tag": "reading_area",
+      "name": "reading_and_relaxation_area",
+      "source_object_ids": [
+        "reading_table",
+        "beanbag1",
+        "beanbag2",
+        "beanbag3",
+        "beanbag4"
+      ],
+      "text": "The reading area provides a quiet space for individual reading and group discussions. It includes a small rectangular reading table with a light wood surface and four plush, vibrant beanbags arranged around it, offering comfortable informal seating.",
+      "intended_agents": [
+        "librarian_agent"
+      ]
+    },
+    {
+      "tag": "bookcase",
+      "name": "bookcase_for_educational_resources",
+      "source_object_ids": [
+        "bookcase"
+      ],
+      "text": "The bookcase is a low-profile, modern furniture piece with dark wood veneer and clean lines. It holds a variety of books and educational materials, facilitating easy access for students and supporting resource-based learning.",
+      "intended_agents": [
+        "librarian_agent"
+      ]
+    },
+    {
+      "tag": "reading_table",
+      "name": "reading_table_for_group_activities",
+      "source_object_ids": [
+        "reading_table"
+      ],
+      "text": "The reading table is a small, modern rectangular table with a light wood top and angled black metal legs. Positioned centrally in the reading area, it serves as a focal point for quiet reading and group learning activities.",
+      "intended_agents": [
+        "librarian_agent"
+      ]
+    },
+    {
+      "tag": "beanbags",
+      "name": "beanbags_for_comfortable_seating",
+      "source_object_ids": [
+        "beanbag1",
+        "beanbag2",
+        "beanbag3",
+        "beanbag4"
+      ],
+      "text": "Four soft, plush fabric beanbags with rounded forms and vibrant upholstery provide casual and comfortable seating in the reading area. They encourage relaxed learning and informal group discussions.",
+      "intended_agents": [
+        "librarian_agent"
+      ]
+    },
+    {
+      "tag": "reading_promotion",
+      "name": "promoting_reading_and_learning",
+      "source_object_ids": [
+        "bookcase",
+        "reading_table",
+        "beanbag1",
+        "beanbag2",
+        "beanbag3",
+        "beanbag4"
+      ],
+      "text": "The combination of accessible books in the bookcase, the inviting reading table, and comfortable beanbags creates an environment that promotes a love for reading and supports student engagement in quiet study and group discussions.",
+      "intended_agents": [
+        "librarian_agent"
+      ]
+    },
+    {
+      "tag": "educational_display_zone",
+      "name": "dinosaur_exhibit_and_educational_decor",
+      "source_object_ids": [
+        "dinosaur_skeleton",
+        "picture1",
+        "picture2"
+      ],
+      "text": "The educational display zone showcases a detailed museum-quality dinosaur skeleton model mounted on a minimal metal base, accompanied by two framed abstract artwork prints. This area enriches the classroom environment with educational and decorative elements.",
+      "intended_agents": [
+        "museum_guide_agent"
+      ]
+    },
+    {
+      "tag": "dinosaur_skeleton",
+      "name": "dinosaur_skeleton_exhibit",
+      "source_object_ids": [
+        "dinosaur_skeleton"
+      ],
+      "text": "The dinosaur skeleton is a detailed, articulated model in an off-white finish, serving as a visual and educational aid. It provides students with a tangible example of prehistoric life and supports interactive learning about natural history.",
+      "intended_agents": [
+        "museum_guide_agent"
+      ]
+    },
+    {
+      "tag": "pictures",
+      "name": "decorative_artwork_displays",
+      "source_object_ids": [
+        "picture1",
+        "picture2"
+      ],
+      "text": "Two framed abstract artworks with thin black frames flank the dinosaur exhibit. These modern decorative prints add aesthetic balance and visual interest to the educational display zone.",
+      "intended_agents": [
+        "museum_guide_agent"
+      ]
+    },
+    {
+      "tag": "museum_education",
+      "name": "museum_education_and_interactive_learning",
+      "source_object_ids": [
+        "dinosaur_skeleton",
+        "picture1",
+        "picture2"
+      ],
+      "text": "The dinosaur skeleton and accompanying artwork create an interactive educational display that engages students in learning about natural history and art, enhancing the classroom's instructional environment.",
+      "intended_agents": [
+        "museum_guide_agent"
+      ]
+    },
+    {
+      "tag": "plant_decor_zone",
+      "name": "plant_decoration_zone_overview",
+      "source_object_ids": [
+        "plant1",
+        "plant2",
+        "plant3",
+        "plant4",
+        "plant5"
+      ],
+      "text": "The plant decoration zone includes five potted indoor plants with lush green foliage in modern planters. Positioned around the room, these plants enhance the ambiance, contributing to a pleasant and natural classroom environment.",
+      "intended_agents": [
+        "plant_decorator_agent"
+      ]
+    },
+    {
+      "tag": "plants",
+      "name": "indoor_plants_for_ambiance_and_comfort",
+      "source_object_ids": [
+        "plant1",
+        "plant2",
+        "plant3",
+        "plant4",
+        "plant5"
+      ],
+      "text": "Five indoor plants with vibrant green leaves are placed in simple modern planters throughout the classroom. They improve air quality and add natural beauty, supporting a comfortable and inviting learning space.",
+      "intended_agents": [
+        "plant_decorator_agent"
+      ]
+    },
+    {
+      "tag": "natural_elements",
+      "name": "natural_elements_enhancing_the_room",
+      "source_object_ids": [
+        "plant1",
+        "plant2",
+        "plant3",
+        "plant4",
+        "plant5"
+      ],
+      "text": "Natural elements such as the indoor plants bring life and a calming effect to the classroom. Their presence supports environmental comfort and creates a balanced atmosphere conducive to learning.",
+      "intended_agents": [
+        "plant_decorator_agent"
+      ]
+    },
+    {
+      "tag": "room_ambiance",
+      "name": "room_ambiance_and_environmental_comfort",
+      "source_object_ids": [
+        "plant1",
+        "plant2",
+        "plant3",
+        "plant4",
+        "plant5"
+      ],
+      "text": "The inclusion of multiple plants throughout the room contributes to a warm and welcoming ambiance. These natural decorations help reduce stress and improve focus, enhancing overall classroom comfort.",
+      "intended_agents": [
+        "plant_decorator_agent"
+      ]
+    }
+  ]
+}

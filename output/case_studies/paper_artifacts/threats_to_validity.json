@@ -1,0 +1,103 @@
+{
+  "schema": "functionalmlds_threats_to_validity",
+  "schema_version": "1.0",
+  "status": "valid",
+  "case_study_scope": {
+    "case_count": 3,
+    "domain_count": 3,
+    "chat_tests": 66,
+    "handoff_decision_tests": 66,
+    "generalizability_score": 1.0,
+    "average_trace_coverage": 0.847222
+  },
+  "threats": [
+    {
+      "id": "INT-01",
+      "category": "internal_validity",
+      "threat": "LLM-generated intermediate artefacts can vary between runs.",
+      "impact": "Different scene semantics, agent roles or knowledge entries may change downstream validation results.",
+      "mitigation": "Prompt versions, stage manifests, input/output hashes and bounded repair attempts are recorded. Deterministic validators are used after each LLM stage.",
+      "residual_risk": "A full replication study should rerun the pipeline multiple times per case and report variance."
+    },
+    {
+      "id": "INT-02",
+      "category": "internal_validity",
+      "threat": "Repair loops may hide initial generation errors if only final artefacts are reported.",
+      "impact": "The final success rate may overstate one-shot generation reliability.",
+      "mitigation": "Repair attempts are aggregated in the stage manifest and paper tables report pre-final repair attempts separately from final errors.",
+      "residual_risk": "The next repair-log task should add per-error JSONL records for exact before/after failure analysis."
+    },
+    {
+      "id": "INT-03",
+      "category": "internal_validity",
+      "threat": "The backend runtime state can influence chat and handoff tests.",
+      "impact": "Session history, cached project data or backend configuration could bias test outcomes.",
+      "mitigation": "Chat tests use isolated sessions per question and record runtime setup and response logs.",
+      "residual_risk": "Unity-side interaction timing and visual navigation are not fully exercised by backend-only runtime tests."
+    },
+    {
+      "id": "EXT-01",
+      "category": "external_validity",
+      "threat": "The corpus currently contains three MLDS domains.",
+      "impact": "Results may not generalize to safety-critical automotive scenarios, industrial production cells or complex multi-room environments.",
+      "mitigation": "The pipeline accepts arbitrary MLDS inputs through CLI arguments and the generalizability check verifies absence of hard-coded domain terms in Python code.",
+      "residual_risk": "Additional domains are required before claiming broad industrial generality."
+    },
+    {
+      "id": "EXT-02",
+      "category": "external_validity",
+      "threat": "The Interactive Agents system is a prototype with Unity and Python backend components.",
+      "impact": "Findings may depend on prototype-specific project formats, endpoints or runtime assumptions.",
+      "mitigation": "The comparison separates deployable target artefacts from metamodel-added evidence and documents the exact backend endpoints and files.",
+      "residual_risk": "A production AUTOSAR/EAST-ADL toolchain integration remains future work."
+    },
+    {
+      "id": "EXT-03",
+      "category": "external_validity",
+      "threat": "The case study focuses on room-based agent interaction, not all possible FunctionalMLDS use cases.",
+      "impact": "Interaction-object scenarios, stateful object manipulation and non-dialogue behaviours may require additional extension models.",
+      "mitigation": "The metamodel keeps RuntimeBinding and Capability separate from Scenario, enabling extension without changing the core use-case structure.",
+      "residual_risk": "A separate object-interaction case study should validate stateful devices such as a coffee machine."
+    },
+    {
+      "id": "CON-01",
+      "category": "construct_validity",
+      "threat": "Trace coverage may not fully capture semantic correctness.",
+      "impact": "A trace link can exist even if the generated role or knowledge is semantically weak.",
+      "mitigation": "Traceability metrics are combined with runtime chat tests, handoff tests and deterministic answer-grounding checks.",
+      "residual_risk": "Expert review of selected trace chains is still needed for qualitative semantic adequacy."
+    },
+    {
+      "id": "CON-02",
+      "category": "construct_validity",
+      "threat": "Answer grounding uses deterministic token overlap and no LLM judge in the current run.",
+      "impact": "Lexical overlap may miss paraphrases or falsely accept shallow mentions.",
+      "mitigation": "The grounding report explicitly records `llm_judge_used=false` and combines agent/context grounding with negative-marker checks.",
+      "residual_risk": "For publication, a small expert-labelled sample should calibrate deterministic grounding thresholds."
+    },
+    {
+      "id": "CON-03",
+      "category": "construct_validity",
+      "threat": "RuntimeAction-to-log coverage is intentionally lower than other trace metrics.",
+      "impact": "Readers may misinterpret the 0.25 coverage as a failure of the metamodel rather than a boundary of observable runtime logging.",
+      "mitigation": "Reports state that only runtime-observable actions are expected to have backend log evidence.",
+      "residual_risk": "The runtime logging schema should be extended if more pipeline actions need direct runtime observation."
+    },
+    {
+      "id": "CONC-01",
+      "category": "conclusion_validity",
+      "threat": "The study has no completed Baseline A run over the same corpus yet.",
+      "impact": "Current comparison can support metamodel-added evidence, but direct superiority claims over the baseline remain limited.",
+      "mitigation": "The metric catalogue distinguishes direct comparison metrics from metamodel-added evidence metrics.",
+      "residual_risk": "A future baseline execution is required for statistical or quantitative baseline-vs-treatment claims."
+    },
+    {
+      "id": "CONC-02",
+      "category": "conclusion_validity",
+      "threat": "The number of cases and tests is sufficient for a case study but not for statistical generalization.",
+      "impact": "Perfect scores such as 66/66 chat tests should be interpreted as case-study evidence, not population-level proof.",
+      "mitigation": "The paper should report exact corpus size, number of questions and domains alongside all averages.",
+      "residual_risk": "Confidence intervals or repeated-run statistics require more cases and repeated runs."
+    }
+  ]
+}

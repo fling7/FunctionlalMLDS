@@ -1,0 +1,1268 @@
+{
+  "case_id": "bestfit_career_fair",
+  "created_at": "2026-07-08T07:58:34+00:00",
+  "stages": [
+    {
+      "stage_id": "scene_semantics",
+      "status": "success",
+      "updated_at": "2026-07-08T08:19:02+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_graph.normalized.json",
+          "sha256": "ca6f8bf6f497cc6cc91c2d549ee404e96777f8e68a2446f0f6cd2b2051f10610"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\object_group_summary.json",
+          "sha256": "156658f555b8c3794f108e4dad7250c632463cc135635eaf989f8825fa679912"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\scene_semantics_v1.md",
+          "sha256": "8f969a22465731dce45d5883ff9e382b0a2afad32fc4111b864514c4facb09b2"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_semantics.json",
+          "sha256": "81a76712eafc96ae21aff368b51e5eb132f5648e5bff811b35c18fd80a8b44dc"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\scene_semantics_validation.json",
+          "sha256": "279cbab1511d6fdb3b19240e244552de5a1b66b3223007f2012fddb3301ace3e"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "prompt_version": "scene_semantics_v1",
+        "attempts_used": 1,
+        "llm": {
+          "base_url": "https://api.openai.com/v1/responses",
+          "model": "gpt-4.1-mini",
+          "timeout_seconds": 60,
+          "config_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\config.json",
+          "api_key_present": true
+        },
+        "response": {
+          "response_id": "resp_016a776a69bd38af006a4e07dd8c20819d8180054ba340affd",
+          "model": "gpt-4.1-mini-2025-04-14",
+          "status": "completed",
+          "usage": {
+            "input_tokens": 5970,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 1627,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 7597
+          }
+        },
+        "metrics": {
+          "visitor_goal_count": 5,
+          "semantic_zone_count": 6,
+          "important_object_count": 11,
+          "interaction_topic_count": 3,
+          "agent_role_candidate_count": 5,
+          "covered_object_count": 27
+        }
+      }
+    },
+    {
+      "stage_id": "agent_roles",
+      "status": "success",
+      "updated_at": "2026-07-08T08:19:35+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_graph.normalized.json",
+          "sha256": "ca6f8bf6f497cc6cc91c2d549ee404e96777f8e68a2446f0f6cd2b2051f10610"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\object_group_summary.json",
+          "sha256": "156658f555b8c3794f108e4dad7250c632463cc135635eaf989f8825fa679912"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_semantics.json",
+          "sha256": "81a76712eafc96ae21aff368b51e5eb132f5648e5bff811b35c18fd80a8b44dc"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\agent_roles_v1.md",
+          "sha256": "010b2de35b0678390d93044035db01effe0317105b5f22770d5ae749f93cc6dd"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\agent_roles.generated.json",
+          "sha256": "0d3c1360814a4ec85a2aedf6420a44f4377897a5d05de3fd4d6446ab61a44a5b"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\handoff_matrix.json",
+          "sha256": "08d10263d03fbdfbf270ac1a27fb430e6e2603c544c9ec2e3354a18d29357fdf"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\agent_roles_validation.json",
+          "sha256": "d5285c88f5f45ba6eaca8045cab9c8b1235b1734c77d342b5cb1bda3e6f76524"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "prompt_version": "agent_roles_v1",
+        "attempts_used": 1,
+        "llm": {
+          "base_url": "https://api.openai.com/v1/responses",
+          "model": "gpt-4.1-mini",
+          "timeout_seconds": 60,
+          "config_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\config.json",
+          "api_key_present": true
+        },
+        "response": {
+          "response_id": "resp_0b4bf6cc954ae2a3006a4e0802c1b881a1aec084b491b6119f",
+          "model": "gpt-4.1-mini-2025-04-14",
+          "status": "completed",
+          "usage": {
+            "input_tokens": 5154,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 1284,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 6438
+          }
+        },
+        "metrics": {
+          "agent_count": 5,
+          "knowledge_tag_count": 15,
+          "handoff_count": 12,
+          "grounded_object_count": 27
+        }
+      }
+    },
+    {
+      "stage_id": "knowledge_synthesis",
+      "status": "success",
+      "updated_at": "2026-07-08T08:20:06+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_graph.normalized.json",
+          "sha256": "ca6f8bf6f497cc6cc91c2d549ee404e96777f8e68a2446f0f6cd2b2051f10610"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_semantics.json",
+          "sha256": "81a76712eafc96ae21aff368b51e5eb132f5648e5bff811b35c18fd80a8b44dc"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\agent_roles.generated.json",
+          "sha256": "0d3c1360814a4ec85a2aedf6420a44f4377897a5d05de3fd4d6446ab61a44a5b"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\knowledge_synthesis_v1.md",
+          "sha256": "171a038508ff9a621b89934eb92aad901911179888ce6f559463bb8865cef727"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\knowledge.generated.json",
+          "sha256": "29e0f4329fcc83a72239ef63a3859072bc81165c6dd7d853c3887163c6907cc3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\knowledge_synthesis_validation.json",
+          "sha256": "be574bb8823cb3e131f37950354894e94e694930ddfc1b21f4f87c16e1402fe5"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\interactive_agents_project\\kb\\visitor_orientation\\reception_area_orientation.txt",
+          "sha256": "9d17736f10c3da9ce7bbc9b9256106d73a49fbb86c007cbd299adcc91c13589c"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\interactive_agents_project\\kb\\company_basics\\basic_company_information_at_reception.txt",
+          "sha256": "904f7588b6f936eaa6fe862a13fa49dde2c765a3c3655fcf0648feedd6d49404"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\interactive_agents_project\\kb\\navigation\\booth_navigation_assistance.txt",
+          "sha256": "922ec9c20b2b28fe3f3b2460c48e7e801acc3c2206b8dd0ebdc6fb3d95999a77"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\interactive_agents_project\\kb\\company_benefits\\employee_benefits_information.txt",
+          "sha256": "71ece7c4684181558c14535e562e56fb3f9c67cdcc283f9a5980138b3ede6ce7"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\interactive_agents_project\\kb\\employee_wellbeing\\wellbeing_programs_overview.txt",
+          "sha256": "9fbee94413b0e03cc7643db077bf9cf46d97181ec45986927e886b161f783cc5"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\interactive_agents_project\\kb\\interactive_terminals\\interactive_benefits_terminals.txt",
+          "sha256": "18a656bd497bc1b3e22c03f1e25e1be9340cbb83baa0428be5b4168368e6f240"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\interactive_agents_project\\kb\\job_recruiting\\job_openings_and_recruiting_info.txt",
+          "sha256": "45886b0672fc635d0990b89c1977a6633e5f091526501ca014d2fdf3a9ca8650"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\interactive_agents_project\\kb\\application_process\\job_application_guidance.txt",
+          "sha256": "98b14544361213cb4837a7fcfb9cf18c103f814e2bfb21b4f9ff25a0ac628768"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\interactive_agents_project\\kb\\career_opportunities\\career_development_opportunities.txt",
+          "sha256": "93236bb807eec90f77c8b352f292c00af559b526e525b1b88ecea073e5fb827b"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\interactive_agents_project\\kb\\product_demos\\product_showcase_and_demonstrations.txt",
+          "sha256": "506a9f79a7c418aea8a2bdbe3679f8d8b3927541d4927ce91997c21c761f93af"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\interactive_agents_project\\kb\\vr_ar_technology\\vr_ar_demo_stations.txt",
+          "sha256": "7787c28bc8d4e4af0bfb979021794b6e4566d50e91271e0dd0523a17aee44c55"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\interactive_agents_project\\kb\\interactive_kiosks\\demo_kiosk_interaction.txt",
+          "sha256": "e99928e6c8299e258d083ceadde9f455cb00c384c9f731749aafaca4f9cdd2d6"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\interactive_agents_project\\kb\\visitor_comfort\\lounge_seating_and_comfort.txt",
+          "sha256": "703fef750212f8d06bf182c359c2d7c6cda75693b7293cb288ff09a5b913cab3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\interactive_agents_project\\kb\\refreshments\\refreshment_counter_and_seating.txt",
+          "sha256": "9f87d07387ea7345684a492abd6b9474d5c4e89a65816379bc1c963546c3febb"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\interactive_agents_project\\kb\\lounge_services\\hospitality_and_visitor_services.txt",
+          "sha256": "520e2ff4bbc3dffc2c0fb50e204ec47a606da83a29928aaf68c422b1b729972f"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "prompt_version": "knowledge_synthesis_v1",
+        "attempts_used": 1,
+        "llm": {
+          "base_url": "https://api.openai.com/v1/responses",
+          "model": "gpt-4.1-mini",
+          "timeout_seconds": 60,
+          "config_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\config.json",
+          "api_key_present": true
+        },
+        "response": {
+          "response_id": "resp_0f5f76bbcdbbb6db006a4e0828551c81a19c621317a0a76381",
+          "model": "gpt-4.1-mini-2025-04-14",
+          "status": "completed",
+          "usage": {
+            "input_tokens": 5865,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 1212,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 7077
+          }
+        },
+        "metrics": {
+          "knowledge_entry_count": 15,
+          "required_tag_count": 15,
+          "covered_tag_count": 15,
+          "referenced_object_count": 27
+        }
+      }
+    },
+    {
+      "stage_id": "runtime_setup",
+      "status": "success",
+      "updated_at": "2026-07-08T09:29:44+00:00",
+      "inputs": [
+        {
+          "path": "output\\case_studies\\bestfit_career_fair\\runtime_logs\\setup_response.json",
+          "sha256": "347aa5ba9a233b5dfdb2c314c82f11e5864f379633145d5c22a7781881392181"
+        },
+        {
+          "path": "output\\case_studies\\bestfit_career_fair\\runtime_logs\\events.jsonl",
+          "sha256": "05e5d4ca21e7177d1f318dd041af753efd54b5421ac67ccf40ce933151bd216e"
+        },
+        {
+          "path": "InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\agents.json",
+          "sha256": "979aaaaab5b01dbc0f88a188f8c21261413bf381b9138445ec09381970cfec3d"
+        },
+        {
+          "path": "InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\trace_map.json",
+          "sha256": "8fa805eda2914eef9f2881e339030ca09ee9e9f9e42aa56a7439832c46905832"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "output\\case_studies\\bestfit_career_fair\\validation\\runtime_setup_validation.json",
+          "sha256": "877c2316ba35752d81591054d24cd1d1400a726a75d64ebf0429dd7095a80ce0"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "session_id_present": true,
+        "expected_agent_count": 5,
+        "actual_agent_count": 5,
+        "agents_with_position_and_forward": 5,
+        "backend_setup_event_count": 1,
+        "runtime_event_validation_error_count": 0
+      }
+    },
+    {
+      "stage_id": "case_initialization",
+      "status": "success",
+      "updated_at": "2026-07-08T09:36:37+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\InteractiveAgents2\\Assets\\Scripting\\BestfitMLDS.json",
+          "sha256": "b749a695fa7cc7307db08217f88fdc587780d14e5096e7e06a43f0d3a4f0ece3"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\input\\source_mlds.json",
+          "sha256": "b749a695fa7cc7307db08217f88fdc587780d14e5096e7e06a43f0d3a4f0ece3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\input\\source_mlds.sha256",
+          "sha256": "20c4a5b388c382137b734f42fca244cddc0f5b61f5eb92515446f922fa718480"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "case_id": "bestfit_career_fair",
+        "source_sha256": "b749a695fa7cc7307db08217f88fdc587780d14e5096e7e06a43f0d3a4f0ece3"
+      }
+    },
+    {
+      "stage_id": "mlds_ingestion",
+      "status": "success",
+      "updated_at": "2026-07-08T09:36:37+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\input\\source_mlds.json",
+          "sha256": "b749a695fa7cc7307db08217f88fdc587780d14e5096e7e06a43f0d3a4f0ece3"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_graph.normalized.json",
+          "sha256": "ca6f8bf6f497cc6cc91c2d549ee404e96777f8e68a2446f0f6cd2b2051f10610"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\object_group_summary.json",
+          "sha256": "156658f555b8c3794f108e4dad7250c632463cc135635eaf989f8825fa679912"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\mlds_ingestion_validation.json",
+          "sha256": "8d34aedacba6d11e1db58ffdc9456a2ed793caa146e4d9e1697a0b840d7c88ea"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "object_count": 34,
+        "non_structural_group_count": 14
+      }
+    },
+    {
+      "stage_id": "placement_metrics",
+      "status": "success",
+      "updated_at": "2026-07-08T09:36:37+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_graph.normalized.json",
+          "sha256": "ca6f8bf6f497cc6cc91c2d549ee404e96777f8e68a2446f0f6cd2b2051f10610"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_semantics.json",
+          "sha256": "81a76712eafc96ae21aff368b51e5eb132f5648e5bff811b35c18fd80a8b44dc"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\agent_roles.generated.json",
+          "sha256": "0d3c1360814a4ec85a2aedf6420a44f4377897a5d05de3fd4d6446ab61a44a5b"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\agent_placements.json",
+          "sha256": "424a98c6dc51eb6ce6a57294d9242413abaf37020cbe0fb1c4e24fdcf9163b07"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\placement_metrics.json",
+          "sha256": "e5b564fa6917c09df066aab04b3fe1cfd1c0799d9a2bf0e671b22d0fd4e4fcbe"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "agent_count": 5,
+        "placement_count": 5,
+        "valid_position_count": 5,
+        "valid_position_ratio": 1.0,
+        "out_of_bounds_count": 0,
+        "obstacle_overlap_count": 0,
+        "minimum_agent_distance": 0.753558,
+        "minimum_agent_distance_threshold": 0.75,
+        "average_distance_to_target_xz": 1.871651,
+        "max_distance_to_target_xz": 2.741989,
+        "average_nearest_responsible_group_distance": 1.175277,
+        "max_nearest_responsible_group_distance": 1.625316,
+        "average_nearest_responsible_zone_distance": 1.941798,
+        "max_nearest_responsible_zone_distance": 2.596624
+      }
+    },
+    {
+      "stage_id": "evaluation_questions",
+      "status": "success",
+      "updated_at": "2026-07-08T09:36:37+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_semantics.json",
+          "sha256": "81a76712eafc96ae21aff368b51e5eb132f5648e5bff811b35c18fd80a8b44dc"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\agent_roles.generated.json",
+          "sha256": "0d3c1360814a4ec85a2aedf6420a44f4377897a5d05de3fd4d6446ab61a44a5b"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\handoff_matrix.json",
+          "sha256": "08d10263d03fbdfbf270ac1a27fb430e6e2603c544c9ec2e3354a18d29357fdf"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\evaluation_questions.json",
+          "sha256": "170527051502d07379f0b12e0f95d240f062d85a6274ceaeb7cd6ec3c2b51e45"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "question_count": 23,
+        "zone_question_count": 6,
+        "semantic_zone_count": 6,
+        "agent_responsibility_question_count": 5,
+        "agent_count": 5,
+        "handoff_question_count": 12,
+        "declared_handoff_pair_count": 12,
+        "zone_question_coverage": 1.0,
+        "agent_question_coverage": 1.0,
+        "handoff_pair_question_coverage": 1.0
+      }
+    },
+    {
+      "stage_id": "chat_tests",
+      "status": "success",
+      "updated_at": "2026-07-08T09:44:39+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\evaluation_questions.json",
+          "sha256": "170527051502d07379f0b12e0f95d240f062d85a6274ceaeb7cd6ec3c2b51e45"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\chat_test_results.json",
+          "sha256": "a51ce0f7c9b6ed8ed3af3fa6ab821355af82c6f803fe26d9fb7f8af7ef61e757"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\runtime_logs\\chat_responses.json",
+          "sha256": "ba7da30275d442f5525f5ec38a5d140932603a1df221caae19ede1184e09373f"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "selected_question_count": 23,
+        "executed_chat_count": 23,
+        "successful_chat_count": 23,
+        "failed_chat_count": 0,
+        "http_200_count": 23,
+        "say_event_coverage": 1.0,
+        "nonempty_answer_coverage": 1.0,
+        "handoff_question_count": 12,
+        "observed_handoff_count": 12,
+        "isolated_session_per_question": true
+      }
+    },
+    {
+      "stage_id": "handoff_tests",
+      "status": "success",
+      "updated_at": "2026-07-08T09:51:30+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\chat_test_results.json",
+          "sha256": "a51ce0f7c9b6ed8ed3af3fa6ab821355af82c6f803fe26d9fb7f8af7ef61e757"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\handoff_matrix.json",
+          "sha256": "08d10263d03fbdfbf270ac1a27fb430e6e2603c544c9ec2e3354a18d29357fdf"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\handoff_test_results.json",
+          "sha256": "a0c5e1466fb0efcb1ab3531befba54d9189699c20e42ec3ceabd9c8f4aa06501"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "declared_handoff_pair_count": 12,
+        "handoff_test_count": 12,
+        "passed_handoff_test_count": 12,
+        "failed_handoff_test_count": 0,
+        "handoff_test_success_rate": 1.0,
+        "declared_pair_test_coverage": 1.0,
+        "observed_declared_pair_count": 12,
+        "observed_pair_coverage": 1.0
+      }
+    },
+    {
+      "stage_id": "answer_grounding",
+      "status": "success",
+      "updated_at": "2026-07-08T09:57:04+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\chat_test_results.json",
+          "sha256": "a51ce0f7c9b6ed8ed3af3fa6ab821355af82c6f803fe26d9fb7f8af7ef61e757"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\runtime_logs\\chat_responses.json",
+          "sha256": "ba7da30275d442f5525f5ec38a5d140932603a1df221caae19ede1184e09373f"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\agent_roles.generated.json",
+          "sha256": "0d3c1360814a4ec85a2aedf6420a44f4377897a5d05de3fd4d6446ab61a44a5b"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_semantics.json",
+          "sha256": "81a76712eafc96ae21aff368b51e5eb132f5648e5bff811b35c18fd80a8b44dc"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_graph.normalized.json",
+          "sha256": "ca6f8bf6f497cc6cc91c2d549ee404e96777f8e68a2446f0f6cd2b2051f10610"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\knowledge.generated.json",
+          "sha256": "29e0f4329fcc83a72239ef63a3859072bc81165c6dd7d853c3887163c6907cc3"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\answer_grounding_results.json",
+          "sha256": "3b06601c4e730c736b43788dc086ee64793e7f3add0cc4ffc5e6f4ba7c190b72"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "answer_count": 23,
+        "grounded_answer_count": 23,
+        "ungrounded_answer_count": 0,
+        "grounded_answer_ratio": 1.0,
+        "agent_grounding_coverage": 1.0,
+        "context_grounding_coverage": 1.0,
+        "negative_marker_count": 0,
+        "llm_judge_used": false
+      }
+    },
+    {
+      "stage_id": "stage_completion",
+      "status": "success",
+      "updated_at": "2026-07-08T10:05:51+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\stage_manifest.json",
+          "sha256": "2d397e12d2c02b8872a09c3cc583ab776e2bd495b276cb241bd8fe7626c62dd8"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "c75d50dccf833493498674c05383d19f7fb668b4472070ee382c2443a85c6f8d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\mlds_ingestion_validation.json",
+          "sha256": "8d34aedacba6d11e1db58ffdc9456a2ed793caa146e4d9e1697a0b840d7c88ea"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\scene_semantics_validation.json",
+          "sha256": "279cbab1511d6fdb3b19240e244552de5a1b66b3223007f2012fddb3301ace3e"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\agent_roles_validation.json",
+          "sha256": "d5285c88f5f45ba6eaca8045cab9c8b1235b1734c77d342b5cb1bda3e6f76524"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\knowledge_synthesis_validation.json",
+          "sha256": "be574bb8823cb3e131f37950354894e94e694930ddfc1b21f4f87c16e1402fe5"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\agent_placement_validation.json",
+          "sha256": "eb7053aaec4df33c9132a02ff47bb8b1da52ac9932c03a00f017867d49d3e282"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\functionalmlds_invariants_validation.json",
+          "sha256": "1d64d8bd36056d4c33daf439f7c3d541d932b4b2e2eee6c8468968195b6fcc72"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\project_materialization_validation.json",
+          "sha256": "100dc8ea0edca58a399bd25c6dfddbfe3329fa7cf5c6de91c73c1023882fd61f"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\runtime_setup_validation.json",
+          "sha256": "877c2316ba35752d81591054d24cd1d1400a726a75d64ebf0429dd7095a80ce0"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\schema_validation.json",
+          "sha256": "be58e04be36b275a9e961a2f544617423506c301fdb66550e30860e1c008e486"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\traceability_metrics.json",
+          "sha256": "06cd7dc73f399c313d094863ca8e94b7408c57ee873e848669bf8b79428b6eb1"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\placement_metrics.json",
+          "sha256": "e5b564fa6917c09df066aab04b3fe1cfd1c0799d9a2bf0e671b22d0fd4e4fcbe"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\handoff_metrics.json",
+          "sha256": "a9507fa83c07213fb770cb1e7cda8c6aa89fcb86684ac58d911a3f615900c0c7"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\evaluation_questions.json",
+          "sha256": "170527051502d07379f0b12e0f95d240f062d85a6274ceaeb7cd6ec3c2b51e45"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\chat_test_results.json",
+          "sha256": "a51ce0f7c9b6ed8ed3af3fa6ab821355af82c6f803fe26d9fb7f8af7ef61e757"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\handoff_test_results.json",
+          "sha256": "a0c5e1466fb0efcb1ab3531befba54d9189699c20e42ec3ceabd9c8f4aa06501"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\answer_grounding_results.json",
+          "sha256": "3b06601c4e730c736b43788dc086ee64793e7f3add0cc4ffc5e6f4ba7c190b72"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\stage_completion_report.json",
+          "sha256": "a0a65aa2bb9cd68ffe5795477b52a05bb7525a9f8995c2a103a6b0e3139c6648"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "required_stage_count": 18,
+        "present_stage_count": 18,
+        "successful_stage_count": 18,
+        "required_artifact_count": 2,
+        "present_artifact_count": 2,
+        "required_validation_report_count": 16,
+        "valid_validation_report_count": 16,
+        "completion_ratio": 1.0
+      }
+    },
+    {
+      "stage_id": "traceability_metrics",
+      "status": "success",
+      "updated_at": "2026-07-09T10:44:44+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "b3f47ee37fd58329d321487946187fe041bfbd07ec5b295d9aa0a92c2f7ce50f"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_graph.normalized.json",
+          "sha256": "ca6f8bf6f497cc6cc91c2d549ee404e96777f8e68a2446f0f6cd2b2051f10610"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\agent_roles.generated.json",
+          "sha256": "c66cb3428008e391c43b17049141d99063a6ecf3fe29d84ac4d8d55562e1b2de"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\knowledge.generated.json",
+          "sha256": "29e0f4329fcc83a72239ef63a3859072bc81165c6dd7d853c3887163c6907cc3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\runtime_logs\\events.jsonl",
+          "sha256": "950c770c111ecab26144d5dd442cd7c36173f518c229a59508ca715458408076"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\traceability_metrics.json",
+          "sha256": "7ad9a2e3d1322420f8640872e73c5e4cd84965ff87985f14b55664c9f0271930"
+        }
+      ],
+      "errors": [],
+      "warnings": [
+        "scenario_step_to_capability_coverage coverage is 0.833333 (10/12).",
+        "runtime_action_to_log_coverage coverage is 0.25 (3/12)."
+      ],
+      "metadata": {
+        "metric_count": 6,
+        "full_coverage_metric_count": 4,
+        "partial_coverage_metric_count": 2,
+        "average_coverage": 0.847222
+      }
+    },
+    {
+      "stage_id": "handoff_metrics",
+      "status": "success",
+      "updated_at": "2026-07-09T10:44:44+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\agent_roles.generated.json",
+          "sha256": "c66cb3428008e391c43b17049141d99063a6ecf3fe29d84ac4d8d55562e1b2de"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\handoff_matrix.json",
+          "sha256": "08d10263d03fbdfbf270ac1a27fb430e6e2603c544c9ec2e3354a18d29357fdf"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\runtime_logs\\events.jsonl",
+          "sha256": "950c770c111ecab26144d5dd442cd7c36173f518c229a59508ca715458408076"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\handoff_test_results.json",
+          "sha256": "a0c5e1466fb0efcb1ab3531befba54d9189699c20e42ec3ceabd9c8f4aa06501"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\chat_test_results.json",
+          "sha256": "a51ce0f7c9b6ed8ed3af3fa6ab821355af82c6f803fe26d9fb7f8af7ef61e757"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\handoff_metrics.json",
+          "sha256": "0dfd987eefb2e3b001d8cfc858d5a55825ed08daf2f62fa4d7948e84e280d1d6"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "agent_count": 5,
+        "declared_agent_handoff_target_count": 12,
+        "declared_matrix_handoff_count": 12,
+        "unique_handoff_pair_count": 12,
+        "valid_agent_handoff_target_ratio": 1.0,
+        "valid_handoff_matrix_ratio": 1.0,
+        "valid_handoff_target_ratio": 1.0,
+        "self_handoff_count": 0,
+        "duplicate_agent_handoff_target_count": 0,
+        "duplicate_matrix_handoff_count": 0,
+        "missing_matrix_pair_count": 0,
+        "extra_matrix_pair_count": 0,
+        "handoff_chain_limit": 1,
+        "observed_handoff_event_count": 12,
+        "observed_valid_handoff_event_count": 12,
+        "observed_invalid_handoff_event_count": 0,
+        "observed_invalid_handoff_runtime_action_event_count": 0,
+        "observed_invalid_handoff_runtime_binding_event_count": 0,
+        "observed_max_handoffs_per_logged_session": 1,
+        "runtime_chain_limit_evaluation": "per_request_not_evaluable_without_request_id",
+        "decision_test_count": 23,
+        "correct_handoff_decision_count": 23,
+        "handoff_decision_accuracy": 1.0,
+        "invalid_observed_decision_count": 0
+      }
+    },
+    {
+      "stage_id": "agent_placement",
+      "status": "success",
+      "updated_at": "2026-07-28T17:49:09+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_graph.normalized.json",
+          "sha256": "ca6f8bf6f497cc6cc91c2d549ee404e96777f8e68a2446f0f6cd2b2051f10610"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_semantics.json",
+          "sha256": "81a76712eafc96ae21aff368b51e5eb132f5648e5bff811b35c18fd80a8b44dc"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\agent_roles.generated.json",
+          "sha256": "c66cb3428008e391c43b17049141d99063a6ecf3fe29d84ac4d8d55562e1b2de"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\agent_placements.json",
+          "sha256": "6708881c60fce4505cf8be078292d7e3b564202038b3ca3ec7b64582dca533e1"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\agent_placement_validation.json",
+          "sha256": "a17e64ff1dcbc58d9a91b2151dd6db5c88aba4b17d6876db2918e53558e9281d"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "agent_count": 5,
+        "placement_count": 5,
+        "out_of_bounds_count": 0,
+        "obstacle_overlap_count": 0,
+        "minimum_agent_distance": 1.1268
+      }
+    },
+    {
+      "stage_id": "functionalmlds_assembly",
+      "status": "success",
+      "updated_at": "2026-07-28T17:49:09+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_graph.normalized.json",
+          "sha256": "ca6f8bf6f497cc6cc91c2d549ee404e96777f8e68a2446f0f6cd2b2051f10610"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_semantics.json",
+          "sha256": "81a76712eafc96ae21aff368b51e5eb132f5648e5bff811b35c18fd80a8b44dc"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\agent_roles.generated.json",
+          "sha256": "c66cb3428008e391c43b17049141d99063a6ecf3fe29d84ac4d8d55562e1b2de"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\agent_placements.json",
+          "sha256": "6708881c60fce4505cf8be078292d7e3b564202038b3ca3ec7b64582dca533e1"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\functionalmlds_assembly_v1.md",
+          "sha256": "64caf06a68b6c1c3e13df14415b4b9da90809d0c3fe41d480bbfd232853e020a"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\functionalmlds_assembler.py",
+          "sha256": "0b8d061432f44a1d6e6c28848bd36044fc1edee561bb4ea3bf15ea84005082a5"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "9ee614b0e7999ec536fee33b300e43a4160fb3e6aa6e39ba5c04a847bf7c1322"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\functionalmlds_invariant_validation.json",
+          "sha256": "152800f844eafd887e8204ffdd43d50934f5e9c25c68faa8d737676e2a2c62ee"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "prompt_version": "functionalmlds_assembly_v1",
+        "deterministic": true,
+        "metrics": {
+          "requirement_count": 6,
+          "use_case_count": 28,
+          "interaction_use_case_count": 27,
+          "entity_count": 51,
+          "semantic_zone_entity_count": 6,
+          "object_group_entity_count": 12,
+          "scene_object_entity_count": 27,
+          "room_answer_capability_count": 1,
+          "handoff_capability_count": 1,
+          "handoff_runtime_binding_count": 1,
+          "handoff_runtime_action_count": 1,
+          "capability_count": 9,
+          "capability_use_count": 62,
+          "explicit_user_provider_count": 54,
+          "runtime_binding_count": 9,
+          "validation_case_count": 32,
+          "capability_use_coverage": 9,
+          "runtime_capability_coverage": 9
+        }
+      }
+    },
+    {
+      "stage_id": "handoff_derivation",
+      "status": "success",
+      "updated_at": "2026-07-28T17:49:09+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\agent_roles.generated.json",
+          "sha256": "c66cb3428008e391c43b17049141d99063a6ecf3fe29d84ac4d8d55562e1b2de"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "9ee614b0e7999ec536fee33b300e43a4160fb3e6aa6e39ba5c04a847bf7c1322"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\agent_roles.generated.json",
+          "sha256": "c66cb3428008e391c43b17049141d99063a6ecf3fe29d84ac4d8d55562e1b2de"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "9ee614b0e7999ec536fee33b300e43a4160fb3e6aa6e39ba5c04a847bf7c1322"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\handoff_matrix.json",
+          "sha256": "08d10263d03fbdfbf270ac1a27fb430e6e2603c544c9ec2e3354a18d29357fdf"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\handoff_derivation_validation.json",
+          "sha256": "1b880e869d6b3c865bb84cbc96f0b942efb1808fd74f47d24c24d54bc1ade9d9"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "agent_count": 5,
+        "handoff_pair_count": 12,
+        "source_agent_with_handoff_count": 5,
+        "fallback_used": false,
+        "unique_pair_count": 12,
+        "role_validation_status": "valid",
+        "derivation_validation_status": "valid",
+        "frozen_role_unchanged": true
+      }
+    },
+    {
+      "stage_id": "functionalmlds_v2_assembly",
+      "status": "success",
+      "updated_at": "2026-07-28T17:50:31+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "9ee614b0e7999ec536fee33b300e43a4160fb3e6aa6e39ba5c04a847bf7c1322"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\functionalmlds_v2_assembler.py",
+          "sha256": "645bc378c9a4be3f97f0eb5d4ce11678433e53bef8e0b6081df70e936457e51d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\dynamic_functional_mlds_v2_compat.py",
+          "sha256": "030df93df188001e349b1ae0bab0387244444545397f62e95e287bcad16dae4f"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\dynamic_functional_mlds_v2_model.py",
+          "sha256": "0710b7353459fe64de0692d18ac904b930d07161f6782544ac48d3d4dbaa8dd7"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\validate_dynamic_functional_mlds_v2.py",
+          "sha256": "82e2fe0c506629a4222795d6a81e94f606d7eb1244cc0d594ab14b7e98b989c3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\dynamic_functional_mlds_v2_instance.schema.json",
+          "sha256": "4a2567a6cfc8cdce447a0f776f134c969fcf6af8e26d7b4c84dc31d9c6c68d49"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\functionalmlds\\functionalmlds.v2.instance.json",
+          "sha256": "6231d576becf69ae3e593e75e5075329c530285fb4aebd36d5182c16f2697c17"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\functionalmlds\\functionalmlds.v2.assembly_report.json",
+          "sha256": "fa801c5eaf48d4cef5fbd5c5371cb3c4f9f3dc8ff4e2665b1e066ef047243ff9"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "deterministic": true,
+        "metamodel_version": "2.0.0-model",
+        "metrics": {
+          "object_count": 1208,
+          "error_count": 0,
+          "warning_count": 0
+        }
+      }
+    },
+    {
+      "stage_id": "project_materialization",
+      "status": "success",
+      "updated_at": "2026-07-28T17:50:33+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\input\\source_mlds.json",
+          "sha256": "b749a695fa7cc7307db08217f88fdc587780d14e5096e7e06a43f0d3a4f0ece3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\agent_roles.generated.json",
+          "sha256": "c66cb3428008e391c43b17049141d99063a6ecf3fe29d84ac4d8d55562e1b2de"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\agent_placements.json",
+          "sha256": "6708881c60fce4505cf8be078292d7e3b564202038b3ca3ec7b64582dca533e1"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\knowledge.generated.json",
+          "sha256": "29e0f4329fcc83a72239ef63a3859072bc81165c6dd7d853c3887163c6907cc3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "9ee614b0e7999ec536fee33b300e43a4160fb3e6aa6e39ba5c04a847bf7c1322"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\functionalmlds\\functionalmlds.v2.instance.json",
+          "sha256": "6231d576becf69ae3e593e75e5075329c530285fb4aebd36d5182c16f2697c17"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\project_materializer.py",
+          "sha256": "eae58667c5ad6923686d6fb4896fdb3ce4f48fcacd4cfedb35dc09f2d89f5ec0"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\project.json",
+          "sha256": "ca037ce777ef997fe840457f8963725f71a05bfd0aa841101dcbd2826e070a51"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\room_plan.json",
+          "sha256": "b749a695fa7cc7307db08217f88fdc587780d14e5096e7e06a43f0d3a4f0ece3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\agents.json",
+          "sha256": "53f674f1c2f0ef792f44bdf5619e7870cb6952534d8cb3eb1c68f4ff4fb20084"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\trace_map.json",
+          "sha256": "938c09f53f44da4c7cb7613ada3d2b8b501e3d026ab8ef4f0d93968491bdd0e4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\trace_map.v2.json",
+          "sha256": "938c09f53f44da4c7cb7613ada3d2b8b501e3d026ab8ef4f0d93968491bdd0e4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\trace_map.v05.json",
+          "sha256": "a8a57a061ebd7cea036b968e159ae1247408d32ff8489c16af5e47be900e6e7d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\functionalmlds.v2.instance.json",
+          "sha256": "6231d576becf69ae3e593e75e5075329c530285fb4aebd36d5182c16f2697c17"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\functionalmlds.v05.instance.json",
+          "sha256": "9ee614b0e7999ec536fee33b300e43a4160fb3e6aa6e39ba5c04a847bf7c1322"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\project_materialization_validation.json",
+          "sha256": "84d717969e34f7576ed54710a4b4bb2ec8e7975cc4f94c6164c1aeff5a6813de"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\kb\\application_process\\job_application_guidance.txt",
+          "sha256": "98b14544361213cb4837a7fcfb9cf18c103f814e2bfb21b4f9ff25a0ac628768"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\kb\\career_opportunities\\career_development_opportunities.txt",
+          "sha256": "93236bb807eec90f77c8b352f292c00af559b526e525b1b88ecea073e5fb827b"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\kb\\company_basics\\basic_company_information_at_reception.txt",
+          "sha256": "904f7588b6f936eaa6fe862a13fa49dde2c765a3c3655fcf0648feedd6d49404"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\kb\\company_benefits\\employee_benefits_information.txt",
+          "sha256": "71ece7c4684181558c14535e562e56fb3f9c67cdcc283f9a5980138b3ede6ce7"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\kb\\employee_wellbeing\\wellbeing_programs_overview.txt",
+          "sha256": "9fbee94413b0e03cc7643db077bf9cf46d97181ec45986927e886b161f783cc5"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\kb\\interactive_kiosks\\demo_kiosk_interaction.txt",
+          "sha256": "e99928e6c8299e258d083ceadde9f455cb00c384c9f731749aafaca4f9cdd2d6"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\kb\\interactive_terminals\\interactive_benefits_terminals.txt",
+          "sha256": "18a656bd497bc1b3e22c03f1e25e1be9340cbb83baa0428be5b4168368e6f240"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\kb\\job_recruiting\\job_openings_and_recruiting_info.txt",
+          "sha256": "45886b0672fc635d0990b89c1977a6633e5f091526501ca014d2fdf3a9ca8650"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\kb\\lounge_services\\hospitality_and_visitor_services.txt",
+          "sha256": "520e2ff4bbc3dffc2c0fb50e204ec47a606da83a29928aaf68c422b1b729972f"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\kb\\navigation\\booth_navigation_assistance.txt",
+          "sha256": "922ec9c20b2b28fe3f3b2460c48e7e801acc3c2206b8dd0ebdc6fb3d95999a77"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\kb\\product_demos\\product_showcase_and_demonstrations.txt",
+          "sha256": "506a9f79a7c418aea8a2bdbe3679f8d8b3927541d4927ce91997c21c761f93af"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\kb\\refreshments\\refreshment_counter_and_seating.txt",
+          "sha256": "9f87d07387ea7345684a492abd6b9474d5c4e89a65816379bc1c963546c3febb"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\kb\\visitor_comfort\\lounge_seating_and_comfort.txt",
+          "sha256": "703fef750212f8d06bf182c359c2d7c6cda75693b7293cb288ff09a5b913cab3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\kb\\visitor_orientation\\reception_area_orientation.txt",
+          "sha256": "9d17736f10c3da9ce7bbc9b9256106d73a49fbb86c007cbd299adcc91c13589c"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\kb\\vr_ar_technology\\vr_ar_demo_stations.txt",
+          "sha256": "7787c28bc8d4e4af0bfb979021794b6e4566d50e91271e0dd0523a17aee44c55"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "agent_count": 5,
+        "kb_file_count": 15,
+        "trace_step_count": 90,
+        "trace_runtime_action_count": 67,
+        "trace_validation_case_count": 32
+      }
+    },
+    {
+      "stage_id": "schema_validation",
+      "status": "success",
+      "updated_at": "2026-07-28T17:51:34+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_graph.normalized.json",
+          "sha256": "ca6f8bf6f497cc6cc91c2d549ee404e96777f8e68a2446f0f6cd2b2051f10610"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\scene_semantics.json",
+          "sha256": "81a76712eafc96ae21aff368b51e5eb132f5648e5bff811b35c18fd80a8b44dc"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\agent_roles.generated.json",
+          "sha256": "c66cb3428008e391c43b17049141d99063a6ecf3fe29d84ac4d8d55562e1b2de"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\handoff_matrix.json",
+          "sha256": "08d10263d03fbdfbf270ac1a27fb430e6e2603c544c9ec2e3354a18d29357fdf"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\intermediate\\knowledge.generated.json",
+          "sha256": "29e0f4329fcc83a72239ef63a3859072bc81165c6dd7d853c3887163c6907cc3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\project.json",
+          "sha256": "ca037ce777ef997fe840457f8963725f71a05bfd0aa841101dcbd2826e070a51"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\agents.json",
+          "sha256": "53f674f1c2f0ef792f44bdf5619e7870cb6952534d8cb3eb1c68f4ff4fb20084"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\room_plan.json",
+          "sha256": "b749a695fa7cc7307db08217f88fdc587780d14e5096e7e06a43f0d3a4f0ece3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\runtime_logs\\events.jsonl"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\runtime_logs\\runtime_validation.v2.jsonl"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\functionalmlds.v2.instance.json",
+          "sha256": "6231d576becf69ae3e593e75e5075329c530285fb4aebd36d5182c16f2697c17"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\functionalmlds.v05.instance.json",
+          "sha256": "9ee614b0e7999ec536fee33b300e43a4160fb3e6aa6e39ba5c04a847bf7c1322"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\trace_map.v2.json",
+          "sha256": "938c09f53f44da4c7cb7613ada3d2b8b501e3d026ab8ef4f0d93968491bdd0e4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\trace_map.v05.json",
+          "sha256": "a8a57a061ebd7cea036b968e159ae1247408d32ff8489c16af5e47be900e6e7d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\bestfit_career_fair\\trace_map.json",
+          "sha256": "938c09f53f44da4c7cb7613ada3d2b8b501e3d026ab8ef4f0d93968491bdd0e4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\functionalmlds\\functionalmlds.v2.instance.json",
+          "sha256": "6231d576becf69ae3e593e75e5075329c530285fb4aebd36d5182c16f2697c17"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\functionalmlds\\functionalmlds.v2.assembly_report.json",
+          "sha256": "fa801c5eaf48d4cef5fbd5c5371cb3c4f9f3dc8ff4e2665b1e066ef047243ff9"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "9ee614b0e7999ec536fee33b300e43a4160fb3e6aa6e39ba5c04a847bf7c1322"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\agent_roles.schema.json",
+          "sha256": "8746914c9d3fb27375e0a9a11b8561f388692ca6486107d7fb290c4e35cdbe48"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\dynamic_functional_mlds_v2_instance.schema.json",
+          "sha256": "4a2567a6cfc8cdce447a0f776f134c969fcf6af8e26d7b4c84dc31d9c6c68d49"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\functionalmlds_case_study.schema.json",
+          "sha256": "75680e3cd83cb1ac8b63fa77fa47ac93fb7497cb360e70388a3bac7227f1edcc"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\interactive_agents_project.schema.json",
+          "sha256": "d8aa2724bfc1eb6522e328f5cdd6853abbdeed19e7fc648bb370ecdc99d4b1b2"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\knowledge.schema.json",
+          "sha256": "c8a2d803e0c0098a675c295b2da618f3364115aa7178738d9f9c040687be1560"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\normalized_scene.schema.json",
+          "sha256": "c4ceaf66757447d2fbc5c6c8c73710c2e7dc4f5b5fecdeb520b1a369263b1d90"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\scene_semantics.schema.json",
+          "sha256": "c4b6a699b6892e7c61cb06dc9772f4750e404732b1f53ec7428e3293ed120615"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\schema_validation.json",
+          "sha256": "1dbbb0645f4587237163cd712971a536189684ad3a3a2d213cd719e8ca7feb88"
+        }
+      ],
+      "errors": [],
+      "warnings": [
+        "Runtime-Log fehlt: C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\runtime_logs\\events.jsonl"
+      ],
+      "metadata": {
+        "artifact_count": 7,
+        "valid_artifact_count": 7,
+        "invalid_artifact_count": 0,
+        "schema_count": 7,
+        "runtime_event_count": 0,
+        "contract_mode": "v2-dual"
+      }
+    },
+    {
+      "stage_id": "functionalmlds_invariants",
+      "status": "success",
+      "updated_at": "2026-07-28T17:51:34+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "9ee614b0e7999ec536fee33b300e43a4160fb3e6aa6e39ba5c04a847bf7c1322"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\functionalmlds_invariants_validation.json",
+          "sha256": "06938936f9f27231a254d929ccc61bb38a999815cfa818d046256c1c08b0a5ad"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "invariant_count": 8,
+        "passed_invariant_count": 8,
+        "failed_invariant_count": 0,
+        "checked_element_count": 262,
+        "error_count": 0
+      }
+    }
+  ],
+  "updated_at": "2026-07-28T17:51:34+00:00"
+}

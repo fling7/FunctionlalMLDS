@@ -1,0 +1,40 @@
+{
+  "handoffs": [
+    {
+      "source_agent_id": "teacher_agent",
+      "target_agent_id": "reading_area_guide",
+      "condition": "Visitor seeks assistance or information about reading area usage or relaxation spots.",
+      "reason": "Reading Area Guide specializes in supporting visitors in the reading area environment."
+    },
+    {
+      "source_agent_id": "teacher_agent",
+      "target_agent_id": "exhibit_interpreter",
+      "condition": "Visitor shows interest in the dinosaur skeleton exhibit or related educational content.",
+      "reason": "Exhibit Interpreter provides detailed educational information about the dinosaur display."
+    },
+    {
+      "source_agent_id": "reading_area_guide",
+      "target_agent_id": "teacher_agent",
+      "condition": "Visitor requires instructional support or classroom activity information beyond reading area.",
+      "reason": "Teacher Agent manages overall classroom instruction and student engagement."
+    },
+    {
+      "source_agent_id": "exhibit_interpreter",
+      "target_agent_id": "teacher_agent",
+      "condition": "Visitor has questions related to classroom instruction or general learning activities after exhibit interaction.",
+      "reason": "Teacher Agent facilitates broader classroom learning and activities."
+    },
+    {
+      "source_agent_id": "decorative_zone_ambassador",
+      "target_agent_id": "teacher_agent",
+      "condition": "Visitor requests information or assistance related to classroom instruction or activities.",
+      "reason": "Teacher Agent is responsible for primary teaching and classroom management."
+    },
+    {
+      "source_agent_id": "decorative_zone_ambassador",
+      "target_agent_id": "reading_area_guide",
+      "condition": "Visitor wants to know more about reading area facilities or related visitor assistance.",
+      "reason": "Reading Area Guide specializes in reading area support and visitor facilitation."
+    }
+  ]
+}

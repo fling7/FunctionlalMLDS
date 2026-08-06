@@ -1,0 +1,262 @@
+\section{Detailed Positioning and Enforcement Matrices}
+
+Figure~\ref{fig:contract-model} retains the complete metamodel-to-runtime
+overview. It is intentionally supplementary to the concrete main-text
+walkthrough: the former explains type relations and validation boundaries,
+whereas Figure~\ref{fig:unity-walkthrough} follows one implemented interaction.
+
+\input{figures/contract-model}
+
+Table~\ref{tab:steinpilz-chain} spells out the exact model objects used by the
+running example in Section~\ref{sec:system}.
+
+\begin{table*}[!htbp]
+  \caption{Exact model objects for the Steinpilz
+  \texttt{brand\_panel3} walkthrough.}
+  \Description{A table maps each interaction-model element to the exact
+  Steinpilz identifier used by the implementation. The chain proceeds from the
+  selected brand panel through the Reception Agent and grounded-question
+  capability to the backend chat action and grounded-answer assertion.}
+  \label{tab:steinpilz-chain}
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{@{}p{.15\textwidth}p{.39\textwidth}p{.36\textwidth}@{}}
+    \toprule
+    Element & Exact instance & Runtime meaning \\
+    \midrule
+    Target &
+    \nolinkurl{brand_panel3} $\rightarrow$
+    \nolinkurl{ENT-ASSET-BRAND_PANEL3}; group
+    \nolinkurl{ENT-GROUP-BRANDING}; zone
+    \nolinkurl{ENT-ZONE-ENTRANCE_ZONE} &
+    Collider observation and trusted model referent \\
+    Use case and scenario &
+    \nolinkurl{UC-STEINPILZ_BRAND_ROOM-INTERACT-BRAND_PANEL3};
+    \nolinkurl{SC-STEINPILZ_BRAND_ROOM-INTERACT-BRAND_PANEL3-MAIN} &
+    User-facing interaction and its executable flow \\
+    Answer step &
+    \nolinkurl{STEP-STEINPILZ_BRAND_ROOM-INTERACT-BRAND_PANEL3-ANSWER} &
+    Scenario step whose capability use must resolve \\
+    Capability use &
+    \nolinkurl{CU-STEINPILZ_BRAND_ROOM-INTERACT-BRAND_PANEL3-ANSWER-ROOM-GROUNDED-QUESTION};
+    provider \nolinkurl{ENT-AGENT-RECEPTION_AGENT} &
+    One occurrence with an explicit provider and target tuple \\
+    Capability &
+    \nolinkurl{CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION} &
+    Operation declared for the Reception Agent \\
+    Binding and action &
+    \nolinkurl{RB-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION};
+    \nolinkurl{RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT} &
+    Exact mapping to \texttt{POST /chat} \\
+    Assertion and case &
+    \nolinkurl{SA-STEINPILZ_BRAND_ROOM-ANSWER-GROUNDED};
+    \nolinkurl{VC-STEINPILZ_BRAND_ROOM-INTERACT-BRAND_PANEL3} &
+    Expected identifier agreement and its validation scope \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+Table~\ref{tab:closest-work} expands the closest-work positioning in
+Section~\ref{sec:related-work}. It compares each contribution's stated primary
+unit and emphasis; an empty cell is not evidence that a cited system lacks an
+unlisted mechanism.
+
+\begin{table*}[!htbp]
+  \caption{Closest-work comparison by primary represented unit and assurance
+  locus.}
+  \Description{A table compares LLMR, Tell-XR, a model-driven augmented-reality
+  approach, a model-based virtual-reality requirements approach, an AI-service
+  gateway, a scenario-controlled embodied agent, a multimodal grounding
+  benchmark, and FunctionalMLDS. FunctionalMLDS emphasizes a cross-runtime
+  interaction contract from selected target and responsible agent to action and
+  assertion.}
+  \label{tab:closest-work}
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{@{}p{.12\textwidth}p{.20\textwidth}p{.21\textwidth}p{.37\textwidth}@{}}
+    \toprule
+    Work & Represented unit & Interface/runtime emphasis &
+    Distinction of this work \\
+    \midrule
+    LLMR \cite{delatorre2024llmr} &
+    Plans and edits to a mixed-reality world &
+    Prompting, scene understanding, execution, and self-debugging &
+    We constrain a declared path through target, provider, capability, and
+    action instead of generating worlds. \\
+    Tell-XR \cite{carcangiu2025tellxr} &
+    Event--condition--action automation &
+    Conversational end-user development of XR behavior &
+    We study responsibility and evidence across a multi-agent interaction, not
+    automation-language expressiveness. \\
+    Prompt-to-Service \cite{nisiotis2026prompt} &
+    Prompt intent and AI-service registry &
+    Learned routing to heterogeneous virtual-world backends &
+    We validate an authored target--provider--capability--action chain rather
+    than infer a service from the utterance. \\
+    ARdena \cite{borozan2026ardena} &
+    Persistent context, scenario constraints, and interaction state &
+    Prompt-level control of a real-time multimodal embodied agent &
+    Our executable restriction is a typed runtime binding outside the
+    probabilistic prompt-following path. \\
+    MM-Conv \cite{deichler2026mmconv} &
+    Referring expressions with synchronized multimodal context &
+    Disambiguation and visual localization in dynamic 3D dialogue &
+    We begin after target selection and check whether the chosen target may
+    reach a specific provider and action. \\
+    Campos-López et al.\ \cite{camposlopez2023mdear} &
+    Domain concepts, AR representations, and external interactions &
+    Model-to-application generation and user evaluation &
+    Our model remains active as an admission and diagnostic boundary after
+    scene materialization. \\
+    Karre and Reddy \cite{karre2024vrrequirements} &
+    VR requirements and role-based scene/action/state templates &
+    Requirements and mappings to VR application elements &
+    We specialize the runtime link to assets, agent authority, actions, and
+    observed assertions. \\
+    \systemname{} &
+    Scenario, target, provider, capability, action, and assertion contract &
+    Unity selection, fail-closed routing, and relation-level evidence &
+    The contribution is the composed guarantee enforced on the evaluated
+    admission path and its failure localization, not a general XR authoring
+    language. \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+Table~\ref{tab:enforcement-layers} expands the staged enforcement account in
+Section~\ref{sec:system}. The backend remains authoritative even when the
+client performs an earlier equivalent check.
+
+\begin{table*}[!htbp]
+  \caption{Invariant-enforcement layers in the implemented interaction path.}
+  \Description{A table lists five enforcement layers: JSON schema, canonical
+  model, executable pipeline profile, backend runtime, and Unity client. For
+  each layer it gives example invariants and where invalid data is blocked.}
+  \label{tab:enforcement-layers}
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{@{}p{.13\textwidth}p{.46\textwidth}p{.32\textwidth}@{}}
+    \toprule
+    Layer & Representative invariant & Failure boundary \\
+    \midrule
+    JSON schema &
+    Required fields, value types, enumerations, and reference shapes &
+    Before constructing a model instance. \\
+    Canonical V2 model &
+    Referential closure, typed cardinalities, assertion/VV ownership, and no
+    direct step-to-action shortcut &
+    The instance is rejected before materialization. \\
+    Executable profile &
+    One main scenario, one provider, provider/performer/capability agreement,
+    and target coherence &
+    Only chains surviving every stage validator are published. \\
+    Backend runtime &
+    Pinned hash, trusted entity, derived group and zone, exact target/provider/
+    action mapping, permitted handoff, and request/response schemas &
+    Before session mutation and, when request-decidable, before a model call. \\
+    Unity client &
+    Stable collider binding, explicit unresolved states, and returned
+    model/target/provider/route/action agreement &
+    Before serialization or answer presentation; backend checks remain
+    authoritative. \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\clearpage
+\section{Detailed Evaluation Tables}
+
+\begin{table}[!htbp]
+  \caption{Complete model-grounded interaction chains. ``Pairs'' are
+  asset-targeting \texttt{ScenarioStep}/\texttt{CapabilityUse} pairs.}
+  \label{tab:rq1-chains}
+  \centering
+  \begin{tabular}{@{}lrrrr@{}}
+    \toprule
+    Case & Assets & Complete & Pairs & Complete \\
+    \midrule
+    Career fair & 27 & 27 & 54 & 54 \\
+    Classroom & 36 & 36 & 72 & 72 \\
+    Food/trade fair & 30 & 30 & 60 & 60 \\
+    \midrule
+    Total & 93 & 93 & 186 & 186 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+  \caption{Offline structural routing from every start agent. ``Reach.''
+  includes transitive graph paths; it is not online task completion.}
+  \label{tab:rq1-routing}
+  \centering
+  \begin{tabular}{@{}lrrrrrr@{}}
+    \toprule
+    Case & $n$ & Local & Direct & Trans. & Unreach. & Reach. \\
+    \midrule
+    Career fair & 135 & 27 & 53 & 55 & 0 & 135 \\
+    Classroom & 144 & 36 & 81 & 9 & 18 & 126 \\
+    Food/trade fair & 180 & 30 & 71 & 79 & 0 & 180 \\
+    \midrule
+    Total & 459 & 93 & 205 & 143 & 18 & 441 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+  \caption{Common-fault validation and deterministic patch counts. Artifact
+  and reference edits describe scripted representation changes, not developer
+  actions or time.}
+  \label{tab:rq2-faults}
+  \centering
+  \begin{tabular}{@{}lrrrrr@{}}
+    \toprule
+    Adapter & FP & Detected & Localized & Artifacts & Refs. \\
+    \midrule
+    Direct artifact & 0/3 & 9/9 & 9/9 & 15 & 15 \\
+    Model grounded & 0/3 & 9/9 & 9/9 & 9 & 18 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table*}[!htbp]
+  \caption{Local structural runtime over 40 repetitions per adapter and case,
+  in milliseconds: median [Q1, Q3] (minimum--maximum).}
+  \label{tab:rq2-runtime}
+  \centering
+  \begin{tabular}{@{}lccc@{}}
+    \toprule
+    Case & Direct artifact & Fresh V2 & Median ratio \\
+    \midrule
+    Career fair
+      & 0.744 [0.693, 0.998] (0.653--1.575)
+      & 4.068 [3.976, 4.577] (3.581--7.796)
+      & 5.47 \\
+    Classroom
+      & 0.760 [0.724, 0.794] (0.683--1.638)
+      & 4.868 [4.791, 5.726] (4.661--8.433)
+      & 6.41 \\
+    Food/trade fair
+      & 1.776 [1.661, 1.928] (0.990--2.286)
+      & 8.298 [7.895, 8.712] (5.559--10.797)
+      & 4.67 \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\clearpage
+\section{Supplementary Evaluation and Artifact Checklist}
+
+The anonymous supplement contains:
+
+\begin{itemize}
+  \item immutable scene and agent inputs;
+  \item the fixed authored probe corpus and expected structural outcomes;
+  \item direct-artifact and model-grounded condition definitions;
+  \item change-task patches and fault-mutation catalog;
+  \item raw machine-readable outcomes;
+  \item scripts that regenerate tables and figures; and
+  \item environment and content-hash manifests.
+\end{itemize}
+
+Repository URLs, file metadata, screenshots, and videos supplied for review are
+checked for identifying information.

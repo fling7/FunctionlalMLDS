@@ -1,0 +1,4 @@
+case_id,requirements,use_cases,scenario_steps,actors,entities,agents,capabilities,capability_uses,runtime_bindings,validation_cases,satisfy_relationships,invariant_status
+bestfit_career_fair,6,1,12,3,39,5,9,10,9,6,6,valid
+classroom_dinosaur,6,1,12,3,45,4,9,10,9,6,6,valid
+steinpilz_brand_room,6,1,12,3,45,6,9,10,9,6,6,valid

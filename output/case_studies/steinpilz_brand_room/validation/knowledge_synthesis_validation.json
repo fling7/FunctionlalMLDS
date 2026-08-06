@@ -1,0 +1,11 @@
+{
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "knowledge_entry_count": 18,
+    "required_tag_count": 18,
+    "covered_tag_count": 18,
+    "referenced_object_count": 31
+  }
+}

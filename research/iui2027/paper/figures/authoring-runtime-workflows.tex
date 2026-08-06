@@ -1,0 +1,145 @@
+\begin{figure*}[t]
+  \centering
+  \resizebox{\textwidth}{!}{%
+    \begin{tikzpicture}[
+      alt={Two workflows. Placement authoring proceeds from inspection through
+      preview, guarded apply, regeneration, validation, and accept, discard, or
+      one-level undo. Visitor interaction proceeds from ray selection through
+      exact target and route resolution to chat and assertion evidence, with
+      invalid or ambiguous states blocked before execution.},
+      font=\scriptsize,
+      flowstep/.style={
+        draw,
+        rounded corners=1.5pt,
+        align=center,
+        minimum height=12mm,
+        text width=28mm,
+        inner sep=2mm,
+        fill=black!3
+      },
+      gate/.style={
+        flowstep,
+        double,
+        double distance=0.6pt,
+        fill=black!10
+      },
+      terminal/.style={
+        flowstep,
+        text width=31mm,
+        fill=black!7
+      },
+      note/.style={
+        draw,
+        dashed,
+        rounded corners=1.5pt,
+        align=left,
+        text width=37mm,
+        inner sep=2mm,
+        fill=black!2
+      },
+      arrow/.style={-{Latex[length=2mm]},semithick},
+      return/.style={arrow,dashed},
+      blocked/.style={-{Bar[width=2.8mm]},semithick},
+      edgelabel/.style={font=\tiny,align=center,fill=white,inner sep=1pt}
+    ]
+      \node[font=\bfseries,anchor=west] at (0,1.1)
+        {(a) Placement-authoring transaction};
+
+      \node[flowstep] (inspect) at (0,0) {\textbf{Inspect}\\current revision,
+        stable agent IDs,\\content hash};
+      \node[flowstep,right=8mm of inspect] (preview) {\textbf{Preview}\\structured
+        before/after\\without file writes};
+      \node[gate,right=8mm of preview,text width=38mm] (apply)
+        {\textbf{Apply + regenerate + validate}\\write placement change; run
+        deterministic stages and model checks};
+      \node[gate,right=8mm of apply] (decision) {\textbf{Pending decision}\\
+        validated working copy};
+      \node[flowstep,right=8mm of decision] (accept) {\textbf{Accept}\\promote the
+        working copy\\to accepted revision};
+
+      \draw[arrow] (inspect) -- (preview);
+      \draw[arrow] (preview) -- node[edgelabel,above] {explicit apply} (apply);
+      \draw[arrow] (apply) -- node[edgelabel,above] {valid} (decision);
+      \draw[arrow] (decision) -- node[edgelabel,above] {accept} (accept);
+
+      \node[flowstep,below=10mm of decision] (discard) {\textbf{Discard}\\restore the
+        byte-exact snapshot;\\then inspect restored revision};
+      \node[flowstep,below=10mm of apply] (rollback) {\textbf{Automatic rollback}\\
+        restore snapshot after\\regeneration or validation\\failure; then inspect};
+      \node[flowstep,below=10mm of accept] (undo) {\textbf{Undo (one level)}\\
+        restore the revision before\\the last accepted placement;\\then inspect};
+      \draw[arrow] (decision) -- node[edgelabel,right] {discard} (discard);
+      \draw[blocked] (apply) -- node[edgelabel,right] {failure} (rollback);
+      \draw[arrow] (accept) -- node[edgelabel,right] {optional} (undo);
+
+      \node[note,above=7mm of decision] (authoringnote)
+        {Commit is disabled while a change awaits accept/discard. A revision
+        mismatch rejects the apply. Free-text chat is reported as
+        \emph{not applied}, not interpreted as a model edit.};
+      \draw[return] (authoringnote.south) -- (decision.north);
+
+      \node[font=\bfseries,anchor=west] at
+        ([yshift=-44mm]inspect.south west) {(b) Visitor's grounded interaction};
+      \node[flowstep,anchor=north west] (select) at
+        ([yshift=-47mm]inspect.south west) {\textbf{Select}\\desktop camera ray
+        hits a\\stable scene binding};
+      \node[gate,right=8mm of select] (selectionstate)
+        {\textbf{Selection state}\\resolved, no target,\\or ambiguous};
+      \node[gate,right=8mm of selectionstate,text width=37mm] (route)
+        {\textbf{Route}\\validate hash + entity; derive group/zone; resolve owner
+        and permitted handoff};
+      \node[flowstep,right=8mm of route] (chat) {\textbf{Chat action}\\send explicit
+        deictic request\\with grounded context};
+      \node[terminal,right=8mm of chat] (assert)
+        {\textbf{Assert and present}\\compare target, provider, route, and
+        observation; retain structured verdict};
+      \draw[arrow] (select) -- (selectionstate);
+      \draw[arrow] (selectionstate) -- node[edgelabel,above] {exactly one target} (route);
+      \draw[arrow] (route) -- node[edgelabel,above] {one permitted route} (chat);
+      \draw[arrow] (chat) -- node[edgelabel,above] {observation} (assert);
+
+      \node[terminal,below=10mm of selectionstate] (selectionblock)
+        {\textbf{Block before chat}\\ambiguous target, stale/unknown entity, or
+        deictic request without a target};
+      \node[terminal,below=10mm of route] (routeblock)
+        {\textbf{Reject route}\\no responsible owner, top-tier ambiguity, or
+        disallowed handoff};
+      \node[terminal,below=10mm of assert] (verdict)
+        {\textbf{Evidence state}\\pass; contradiction is fail; missing
+        observation is inconclusive};
+      \draw[blocked] (selectionstate) -- node[edgelabel,right] {invalid/ambiguous} (selectionblock);
+      \draw[blocked] (route) -- node[edgelabel,right] {unresolved} (routeblock);
+      \draw[arrow] (assert) -- (verdict);
+
+      \node[note,below=10mm of chat] (nontarget)
+        {With no selected target, only an explicit non-deictic request is
+        admissible. The spatial flow shown above requires a resolved target.};
+    \end{tikzpicture}%
+  }
+  \caption{Implemented authoring and visitor workflows. Placement editing is a
+  revision-guarded transaction: preview does not write files; apply triggers
+  deterministic regeneration and validation; accept promotes the result,
+  discard and failure restore the prior bytes, and one-level undo is available
+  after acceptance. In the visitor flow, a desktop selection must resolve to
+  one stable entity and one permitted route before the deictic chat action;
+  invalid, ambiguous, or disallowed states are blocked and observations produce
+  structured assertion verdicts.}
+  \Description{Two workflow diagrams. The authoring workflow starts by
+  inspecting a content-hashed revision, previews structured before-and-after
+  placement values without writing files, and applies a change through
+  deterministic regeneration and validation. A valid working copy waits for
+  an explicit decision. Accept creates an accepted revision from which one
+  level of undo can restore the prior accepted revision. Discard restores the
+  pre-apply byte snapshot, and regeneration or validation failure rolls back
+  automatically. Commit is blocked while a decision is pending, revision
+  conflicts reject apply, and free text is not treated as a model edit. The
+  visitor workflow begins with a desktop camera-ray selection and classifies it
+  as one target, no target, or ambiguous. A single target proceeds to backend
+  validation and responsibility routing, then to the deictic chat action and
+  assertion evaluation. Ambiguous or invalid selections are blocked before
+  chat; unresolved responsibility or a disallowed handoff rejects routing. A
+  contradiction yields fail, a missing observation yields inconclusive, and a
+  successful observation yields pass. No target permits only an explicitly
+  non-deictic request outside the depicted spatial flow.}
+  \label{fig:authoring-runtime-workflows}
+\end{figure*}

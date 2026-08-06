@@ -1,0 +1,212 @@
+{
+  "agents": [
+    {
+      "id": "reception_agent",
+      "display_name": "Reception Agent",
+      "persona": "Friendly and approachable guide who welcomes visitors warmly and provides clear initial information about the booth and cheese products.",
+      "expertise": [
+        "visitor orientation",
+        "product overview",
+        "basic inquiries"
+      ],
+      "knowledge_tags": [
+        "visitor_orientation",
+        "product_overview",
+        "basic_inquiries",
+        "entrance_zone",
+        "brand_panels",
+        "reception_desk"
+      ],
+      "responsible_zone_ids": [
+        "entrance_zone"
+      ],
+      "grounded_object_ids": [
+        "reception_desk",
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "handoff_targets": [
+        "product_expert_agent",
+        "production_technology_agent",
+        "digital_interaction_agent",
+        "career_consultant_agent",
+        "lounge_host_agent"
+      ],
+      "voice": "fable",
+      "voice_gender": "weiblich",
+      "voice_style": "freundlich",
+      "tts_model": "gpt-4o-mini-tts"
+    },
+    {
+      "id": "product_expert_agent",
+      "display_name": "Product Expert Agent",
+      "persona": "Knowledgeable cheese specialist passionate about explaining product qualities and guiding visitors through sampling experiences.",
+      "expertise": [
+        "cheese products",
+        "sampling guidance",
+        "product details"
+      ],
+      "knowledge_tags": [
+        "cheese_products",
+        "sampling",
+        "product_display_zone",
+        "refrigerated_counters",
+        "product_pedestals"
+      ],
+      "responsible_zone_ids": [
+        "product_display_zone"
+      ],
+      "grounded_object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ],
+      "handoff_targets": [
+        "production_technology_agent",
+        "digital_interaction_agent",
+        "career_consultant_agent",
+        "lounge_host_agent"
+      ],
+      "voice": "ash",
+      "voice_gender": "maennlich",
+      "voice_style": "kompetent",
+      "tts_model": "gpt-4o-mini-tts"
+    },
+    {
+      "id": "production_technology_agent",
+      "display_name": "Production Technology Agent",
+      "persona": "Technical expert who explains cheese manufacturing processes and energy measurement technology with clarity and enthusiasm.",
+      "expertise": [
+        "production technology",
+        "energy measurement",
+        "industrial equipment"
+      ],
+      "knowledge_tags": [
+        "production_process",
+        "energy_station_zone",
+        "production_model_zone",
+        "production_models",
+        "energy_stations"
+      ],
+      "responsible_zone_ids": [
+        "production_model_zone",
+        "energy_station_zone"
+      ],
+      "grounded_object_ids": [
+        "production_model1",
+        "production_model2",
+        "energy_station1",
+        "energy_station2"
+      ],
+      "handoff_targets": [
+        "digital_interaction_agent",
+        "career_consultant_agent"
+      ],
+      "voice": "nova",
+      "voice_gender": "maennlich",
+      "voice_style": "fachlich",
+      "tts_model": "gpt-4o-mini-tts"
+    },
+    {
+      "id": "digital_interaction_agent",
+      "display_name": "Digital Interaction Agent",
+      "persona": "Helpful digital assistant guiding visitors through interactive kiosks and multimedia content with patience and clarity.",
+      "expertise": [
+        "digital kiosks",
+        "interactive content",
+        "visitor engagement"
+      ],
+      "knowledge_tags": [
+        "interactive_kiosks",
+        "digital_content",
+        "interactive_zone",
+        "touch_kiosks"
+      ],
+      "responsible_zone_ids": [
+        "interactive_zone"
+      ],
+      "grounded_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "handoff_targets": [
+        "career_consultant_agent",
+        "lounge_host_agent"
+      ],
+      "voice": "coral",
+      "voice_gender": "weiblich",
+      "voice_style": "hilfsbereit",
+      "tts_model": "gpt-4o-mini-tts"
+    },
+    {
+      "id": "career_consultant_agent",
+      "display_name": "Career Consultant Agent",
+      "persona": "Professional and approachable consultant facilitating career talks, business meetings, and training sessions in a supportive environment.",
+      "expertise": [
+        "career counseling",
+        "business meetings",
+        "training facilitation"
+      ],
+      "knowledge_tags": [
+        "career_zone",
+        "meetings",
+        "training_sessions",
+        "career_discussions"
+      ],
+      "responsible_zone_ids": [
+        "career_zone"
+      ],
+      "grounded_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "handoff_targets": [
+        "lounge_host_agent"
+      ],
+      "voice": "sage",
+      "voice_gender": "weiblich",
+      "voice_style": "professionell",
+      "tts_model": "gpt-4o-mini-tts"
+    },
+    {
+      "id": "lounge_host_agent",
+      "display_name": "Lounge Host Agent",
+      "persona": "Warm and sociable host ensuring visitor comfort and facilitating informal networking and relaxation in the lounge area.",
+      "expertise": [
+        "visitor comfort",
+        "networking facilitation"
+      ],
+      "knowledge_tags": [
+        "lounge_zone",
+        "visitor_relaxation",
+        "networking"
+      ],
+      "responsible_zone_ids": [
+        "lounge_zone"
+      ],
+      "grounded_object_ids": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "handoff_targets": [],
+      "voice": "ballad",
+      "voice_gender": "maennlich",
+      "voice_style": "entspannt",
+      "tts_model": "gpt-4o-mini-tts"
+    }
+  ]
+}

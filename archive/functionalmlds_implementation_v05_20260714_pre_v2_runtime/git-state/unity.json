@@ -1,0 +1,31 @@
+{
+  "branch": "main",
+  "changedEntryCount": 7,
+  "head": "c5bc0804de3ad834f7d4f033a172b2efa3d408b8",
+  "remotes": [
+    {
+      "direction": "fetch",
+      "name": "github",
+      "url": "https://github.com/fling7/InteractiveAgentsUnity.git"
+    },
+    {
+      "direction": "push",
+      "name": "github",
+      "url": "https://github.com/fling7/InteractiveAgentsUnity.git"
+    },
+    {
+      "direction": "fetch",
+      "name": "origin",
+      "url": "https://git.informatik.fh-nuernberg.de/jobboerse/forschung/doktoranden/interactiveworlds/interactiveagentsfrontendunity.git"
+    },
+    {
+      "direction": "push",
+      "name": "origin",
+      "url": "https://git.informatik.fh-nuernberg.de/jobboerse/forschung/doktoranden/interactiveworlds/interactiveagentsfrontendunity.git"
+    }
+  ],
+  "statusEntryCount": 9,
+  "trackedFileCount": 1375,
+  "untrackedEntryCount": 2,
+  "workspacePath": "InteractivAgents/InteractiveAgents2"
+}

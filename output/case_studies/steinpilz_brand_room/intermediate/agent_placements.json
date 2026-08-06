@@ -1,0 +1,183 @@
+{
+  "schema": "functionalmlds_agent_placements",
+  "schema_version": "2.0",
+  "placement_algorithm_version": "2.0.0",
+  "origin": "deterministic",
+  "room_bounds": {
+    "min_x": -7.5,
+    "max_x": 7.5,
+    "min_z": -5.0,
+    "max_z": 5.0
+  },
+  "agent_placements": [
+    {
+      "id": "reception_agent",
+      "display_name": "Reception Agent",
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 2.75
+      },
+      "forward": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+      },
+      "target_xz": {
+        "x": 0.0,
+        "z": 4.0
+      },
+      "responsible_zone_ids": [
+        "entrance_zone"
+      ],
+      "grounded_object_ids": [
+        "reception_desk",
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ]
+    },
+    {
+      "id": "product_specialist_agent",
+      "display_name": "Product Specialist Agent",
+      "position": {
+        "x": -3.506,
+        "y": 0.0,
+        "z": 0.376
+      },
+      "forward": {
+        "x": -0.9965733052854592,
+        "y": 0.0,
+        "z": 0.08271425023788281
+      },
+      "target_xz": {
+        "x": -5.0,
+        "z": 0.5
+      },
+      "responsible_zone_ids": [
+        "product_display_zone"
+      ],
+      "grounded_object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ]
+    },
+    {
+      "id": "production_expert_agent",
+      "display_name": "Production Expert Agent",
+      "position": {
+        "x": 5.414,
+        "y": 0.0,
+        "z": 2.125
+      },
+      "forward": {
+        "x": 0.710870637256426,
+        "y": 0.0,
+        "z": -0.703322782999842
+      },
+      "target_xz": {
+        "x": 6.45,
+        "z": 1.1
+      },
+      "responsible_zone_ids": [
+        "production_model_zone",
+        "energy_monitoring_zone"
+      ],
+      "grounded_object_ids": [
+        "production_model1",
+        "production_model2",
+        "energy_station1",
+        "energy_station2"
+      ]
+    },
+    {
+      "id": "digital_interaction_agent",
+      "display_name": "Digital Interaction Agent",
+      "position": {
+        "x": 5.024,
+        "y": 0.0,
+        "z": 0.002
+      },
+      "forward": {
+        "x": -0.07394530070873036,
+        "y": 0.0,
+        "z": 0.9972622987474737
+      },
+      "target_xz": {
+        "x": 4.95,
+        "z": 1.0
+      },
+      "responsible_zone_ids": [
+        "interactive_zone"
+      ],
+      "grounded_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ]
+    },
+    {
+      "id": "career_advisor_agent",
+      "display_name": "Career Advisor Agent",
+      "position": {
+        "x": 1.895,
+        "y": 0.0,
+        "z": 0.298
+      },
+      "forward": {
+        "x": 0.9114273292988607,
+        "y": 0.0,
+        "z": 0.4114610837091962
+      },
+      "target_xz": {
+        "x": 3.45,
+        "z": 1.0
+      },
+      "responsible_zone_ids": [
+        "career_zone"
+      ],
+      "grounded_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ]
+    },
+    {
+      "id": "lounge_host_agent",
+      "display_name": "Lounge Host Agent",
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -0.75
+      },
+      "forward": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -1.0
+      },
+      "target_xz": {
+        "x": 0.0,
+        "z": -2.0
+      },
+      "responsible_zone_ids": [
+        "lounge_zone"
+      ],
+      "grounded_object_ids": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ]
+    }
+  ]
+}

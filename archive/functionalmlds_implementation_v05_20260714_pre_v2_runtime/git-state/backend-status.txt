@@ -1,0 +1,134 @@
+ M backend/__pycache__/app.cpython-312.pyc
+ M backend/__pycache__/kb.cpython-312.pyc
+ M backend/__pycache__/openai_client.cpython-312.pyc
+ M backend/__pycache__/placement.cpython-312.pyc
+ M backend/__pycache__/schemas.cpython-312.pyc
+ M backend/__pycache__/server.cpython-312.pyc
+ M backend/__pycache__/state.cpython-312.pyc
+ M backend/app.py
+ M backend/kb.py
+ M backend/server.py
+ M backend/state.py
+ M unity_scripts/QuickAgentManager.cs
+?? backend/functionalmlds_adapter.py
+?? backend/runtime_trace.py
+?? projects/bestfit_career_fair/agents.json
+?? projects/bestfit_career_fair/kb/application_process/job_application_guidance.txt
+?? projects/bestfit_career_fair/kb/career_opportunities/career_development_opportunities.txt
+?? projects/bestfit_career_fair/kb/company_basics/basic_company_information_at_reception.txt
+?? projects/bestfit_career_fair/kb/company_benefits/employee_benefits_information.txt
+?? projects/bestfit_career_fair/kb/employee_wellbeing/wellbeing_programs_overview.txt
+?? projects/bestfit_career_fair/kb/interactive_kiosks/demo_kiosk_interaction.txt
+?? projects/bestfit_career_fair/kb/interactive_terminals/interactive_benefits_terminals.txt
+?? projects/bestfit_career_fair/kb/job_recruiting/job_openings_and_recruiting_info.txt
+?? projects/bestfit_career_fair/kb/lounge_services/hospitality_and_visitor_services.txt
+?? projects/bestfit_career_fair/kb/navigation/booth_navigation_assistance.txt
+?? projects/bestfit_career_fair/kb/product_demos/product_showcase_and_demonstrations.txt
+?? projects/bestfit_career_fair/kb/refreshments/refreshment_counter_and_seating.txt
+?? projects/bestfit_career_fair/kb/visitor_comfort/lounge_seating_and_comfort.txt
+?? projects/bestfit_career_fair/kb/visitor_orientation/reception_area_orientation.txt
+?? projects/bestfit_career_fair/kb/vr_ar_technology/vr_ar_demo_stations.txt
+?? projects/bestfit_career_fair/project.json
+?? projects/bestfit_career_fair/room_plan.json
+?? projects/bestfit_career_fair/trace_map.json
+?? projects/cheese_factory_tradefair_booth_36f00adc/agents.json
+?? projects/cheese_factory_tradefair_booth_36f00adc/kb/booth_navigation/visitor_circulation_path_and_zone_orientation.txt
+?? projects/cheese_factory_tradefair_booth_36f00adc/kb/business_discussions/facilitated_business_and_career_discussions.txt
+?? projects/cheese_factory_tradefair_booth_36f00adc/kb/career_opportunities/career_and_business_meeting_pods.txt
+?? projects/cheese_factory_tradefair_booth_36f00adc/kb/cheese_production/cheese_production_demonstration_models.txt
+?? projects/cheese_factory_tradefair_booth_36f00adc/kb/cheese_products/branding_and_cheese_product_introduction_at_entrance.txt
+?? projects/cheese_factory_tradefair_booth_36f00adc/kb/cheese_varieties/cheese_product_display_and_varieties.txt
+?? projects/cheese_factory_tradefair_booth_36f00adc/kb/customer_engagement/interactive_customer_engagement_at_product_displays.txt
+?? projects/cheese_factory_tradefair_booth_36f00adc/kb/digital_guides/digital_content_and_guides_via_touch_kiosks.txt
+?? projects/cheese_factory_tradefair_booth_36f00adc/kb/energy_measurement/energy_measurement_stations_for_production_sustainability.txt
+?? projects/cheese_factory_tradefair_booth_36f00adc/kb/hospitality/hospitality_and_visitor_comfort_in_lounge_zone.txt
+?? projects/cheese_factory_tradefair_booth_36f00adc/kb/industrial_equipment/industrial_cheese_manufacturing_equipment_models.txt
+?? projects/cheese_factory_tradefair_booth_36f00adc/kb/informal_engagement/informal_visitor_interaction_in_lounge.txt
+?? projects/cheese_factory_tradefair_booth_36f00adc/kb/interactive_kiosks/interactive_touchscreen_kiosks.txt
+?? projects/cheese_factory_tradefair_booth_36f00adc/kb/product_tasting/cheese_tasting_and_sampling_area.txt
+?? projects/cheese_factory_tradefair_booth_36f00adc/kb/training_sessions/interactive_training_boards_for_career_development.txt
+?? projects/cheese_factory_tradefair_booth_36f00adc/kb/user_support/assistance_with_digital_interaction.txt
+?? projects/cheese_factory_tradefair_booth_36f00adc/kb/visitor_guidance/visitor_welcome_and_initial_guidance.txt
+?? projects/cheese_factory_tradefair_booth_36f00adc/kb/visitor_relaxation/lounge_area_for_visitor_comfort.txt
+?? projects/cheese_factory_tradefair_booth_36f00adc/project.json
+?? projects/cheese_factory_tradefair_booth_36f00adc/room_plan.json
+?? projects/cheese_factory_tradefair_booth_36f00adc/trace_map.json
+?? projects/classroom_dinosaur/agents.json
+?? projects/classroom_dinosaur/kb/chalkboard_usage/effective_chalkboard_use_in_lessons.txt
+?? projects/classroom_dinosaur/kb/decorative_zone/decorative_art_and_plants_for_ambiance.txt
+?? projects/classroom_dinosaur/kb/dinosaur_display_zone/dinosaur_skeleton_exhibit_zone.txt
+?? projects/classroom_dinosaur/kb/dinosaur_education/educational_insights_on_the_dinosaur_skeleton.txt
+?? projects/classroom_dinosaur/kb/instruction_zone/classroom_instruction_zone_overview.txt
+?? projects/classroom_dinosaur/kb/reading_area/reading_area_setup.txt
+?? projects/classroom_dinosaur/kb/reading_area_usage/using_the_reading_area_for_study_and_relaxation.txt
+?? projects/classroom_dinosaur/kb/student_seating_arrangement/student_desk_arrangement_for_learning.txt
+?? projects/classroom_dinosaur/project.json
+?? projects/classroom_dinosaur/room_plan.json
+?? projects/classroom_dinosaur/trace_map.json
+?? "projects/k\303\244serei_steinpilz_markenerlebnisraum/agents.json"
+?? "projects/k\303\244serei_steinpilz_markenerlebnisraum/kb/marke/markenwerte_der_k\303\244serei_steinpilz.txt"
+?? "projects/k\303\244serei_steinpilz_markenerlebnisraum/kb/produkt/steinpilz-k\303\244se_das_hero-produkt.txt"
+?? "projects/k\303\244serei_steinpilz_markenerlebnisraum/kb/produktion/handwerkliche_k\303\244seherstellung.txt"
+?? "projects/k\303\244serei_steinpilz_markenerlebnisraum/kb/tradition/familientradition_herkunft.txt"
+?? "projects/k\303\244serei_steinpilz_markenerlebnisraum/kb/verkostung/k\303\244severkostung_sensorik.txt"
+?? "projects/k\303\244serei_steinpilz_markenerlebnisraum/project.json"
+?? "projects/k\303\244serei_steinpilz_markenerlebnisraum/room_plan.json"
+?? projects/mldssteinpilz_e2e_1783611970/agents.json
+?? projects/mldssteinpilz_e2e_1783611970/kb/brand_information/brand_information_at_entrance_zone.txt
+?? projects/mldssteinpilz_e2e_1783611970/kb/business_discussions/business_discussions_and_meetings.txt
+?? projects/mldssteinpilz_e2e_1783611970/kb/career_opportunities/career_and_business_meeting_area.txt
+?? projects/mldssteinpilz_e2e_1783611970/kb/cheese_products/cheese_products_display.txt
+?? projects/mldssteinpilz_e2e_1783611970/kb/content_navigation/digital_content_navigation.txt
+?? projects/mldssteinpilz_e2e_1783611970/kb/customer_interaction/customer_interaction_at_product_displays.txt
+?? projects/mldssteinpilz_e2e_1783611970/kb/digital_interaction/interactive_information_kiosks.txt
+?? projects/mldssteinpilz_e2e_1783611970/kb/energy_efficiency/energy_measurement_stations.txt
+?? projects/mldssteinpilz_e2e_1783611970/kb/hospitality/hospitality_services_in_lounge.txt
+?? projects/mldssteinpilz_e2e_1783611970/kb/navigation_guidance/navigation_guidance_from_entrance.txt
+?? projects/mldssteinpilz_e2e_1783611970/kb/networking/networking_in_lounge_area.txt
+?? projects/mldssteinpilz_e2e_1783611970/kb/production_technology/cheese_production_technology_models.txt
+?? projects/mldssteinpilz_e2e_1783611970/kb/sampling/cheese_sampling_area.txt
+?? projects/mldssteinpilz_e2e_1783611970/kb/technical_details/technical_details_of_production.txt
+?? projects/mldssteinpilz_e2e_1783611970/kb/training/training_facilities.txt
+?? projects/mldssteinpilz_e2e_1783611970/kb/visitor_assistance/visitor_assistance_at_reception.txt
+?? projects/mldssteinpilz_e2e_1783611970/kb/visitor_comfort/lounge_and_visitor_comfort_area.txt
+?? projects/mldssteinpilz_e2e_1783611970/kb/visitor_support/visitor_support_via_digital_kiosks.txt
+?? projects/mldssteinpilz_e2e_1783611970/project.json
+?? projects/mldssteinpilz_e2e_1783611970/room_plan.json
+?? projects/mldssteinpilz_e2e_1783611970/trace_map.json
+?? projects/steinpilz_brand_room/agents.json
+?? projects/steinpilz_brand_room/kb/booth_navigation/visitor_circulation_guidance.txt
+?? projects/steinpilz_brand_room/kb/career_opportunities/career_discussions_and_opportunities.txt
+?? projects/steinpilz_brand_room/kb/cheese_products/cheese_product_display_and_information.txt
+?? projects/steinpilz_brand_room/kb/company_culture/insights_into_company_culture.txt
+?? projects/steinpilz_brand_room/kb/company_overview/company_branding_and_messaging.txt
+?? projects/steinpilz_brand_room/kb/content_navigation/guidance_through_digital_content.txt
+?? projects/steinpilz_brand_room/kb/customer_engagement/engaging_visitors_with_cheese_expertise.txt
+?? projects/steinpilz_brand_room/kb/digital_interaction/interactive_digital_kiosks.txt
+?? projects/steinpilz_brand_room/kb/energy_management/energy_measurement_and_sustainability_displays.txt
+?? projects/steinpilz_brand_room/kb/hospitality/warm_hospitality_in_lounge_area.txt
+?? projects/steinpilz_brand_room/kb/networking/facilitated_networking_in_lounge.txt
+?? projects/steinpilz_brand_room/kb/product_sampling/facilitated_cheese_sampling.txt
+?? projects/steinpilz_brand_room/kb/production_process/cheese_production_technology_explanation.txt
+?? projects/steinpilz_brand_room/kb/sustainability/sustainability_commitment_in_production.txt
+?? projects/steinpilz_brand_room/kb/technical_support/technical_assistance_for_digital_interfaces.txt
+?? projects/steinpilz_brand_room/kb/training_programs/training_program_information.txt
+?? projects/steinpilz_brand_room/kb/visitor_comfort/lounge_area_comfort_and_hospitality.txt
+?? projects/steinpilz_brand_room/kb/visitor_orientation/welcome_and_orientation_at_reception.txt
+?? projects/steinpilz_brand_room/project.json
+?? projects/steinpilz_brand_room/room_plan.json
+?? projects/steinpilz_brand_room/trace_map.json
+?? runtime_logs/backend_restart_20260709_171542.err.log
+?? runtime_logs/backend_restart_20260709_171542.out.log
+?? runtime_logs/backend_restart_abs_20260709_173906.err.log
+?? runtime_logs/backend_restart_abs_20260709_173906.out.log
+?? runtime_logs/backend_restart_codex_20260709_173539.err.log
+?? runtime_logs/backend_restart_codex_20260709_173539.out.log
+?? runtime_logs/backend_restart_fixed_20260709_172347.err.log
+?? runtime_logs/backend_restart_fixed_20260709_172347.out.log
+?? runtime_logs/backend_restart_single_20260709_173807.err.log
+?? runtime_logs/backend_restart_single_20260709_173807.out.log
+?? runtime_logs/backend_stderr.log
+?? runtime_logs/backend_stdout.log
+?? tests/test_backend_endpoints_smoke.py
+?? tests/test_functionalmlds_adapter_smoke.py
+?? unity_scripts/FunctionalMLDSUnityRuntimeLogger.cs

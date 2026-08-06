@@ -1,0 +1,393 @@
+{
+  "case_scene_name": "Career_Fair_Booth_Layout",
+  "schema_kind": "mlds_scene",
+  "groups": [
+    {
+      "group": "demo_kiosks",
+      "object_count": 3,
+      "object_types": {
+        "kiosk": 3
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": 9.0,
+        "z": 0.0
+      },
+      "example_objects": [
+        {
+          "object_id": "kiosk_demo1",
+          "object_type": "kiosk",
+          "specification_excerpt": "An interactive touchscreen kiosk with a compact rectangular form, thin bezel around the screen, and a vibrant matte body. It features rounded corners, an integrated reader slot, and a stable pedestal base designed for ergonomic height inter"
+        },
+        {
+          "object_id": "kiosk_demo2",
+          "object_type": "kiosk",
+          "specification_excerpt": "An interactive touchscreen kiosk with a compact rectangular form, thin bezel around the screen, and a vibrant matte body. It features rounded corners, an integrated reader slot, and a stable pedestal base designed for ergonomic height inter"
+        },
+        {
+          "object_id": "kiosk_demo3",
+          "object_type": "kiosk",
+          "specification_excerpt": "An interactive touchscreen kiosk with a compact rectangular form, thin bezel around the screen, and a vibrant matte body. It features rounded corners, an integrated reader slot, and a stable pedestal base designed for ergonomic height inter"
+        }
+      ]
+    },
+    {
+      "group": "floor",
+      "object_count": 1,
+      "object_types": {
+        "floor": 1
+      },
+      "is_structural": true,
+      "centroid_xz": {
+        "x": 0.0,
+        "z": 0.0
+      },
+      "example_objects": [
+        {
+          "object_id": "floor_base",
+          "object_type": "floor",
+          "specification_excerpt": "A large rectangular floor base with a smooth matte finish in a light neutral tone that provides subtle visual emphasis on colored booth elements. The surface has a slight texture to simulate durable material and ensures realistic shading. T"
+        }
+      ]
+    },
+    {
+      "group": "kiosks",
+      "object_count": 1,
+      "object_types": {
+        "kiosk": 1
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": -5.5,
+        "z": -6.0
+      },
+      "example_objects": [
+        {
+          "object_id": "kiosk_reception",
+          "object_type": "kiosk",
+          "specification_excerpt": "An interactive touchscreen kiosk with a compact rectangular form, thin bezel around the screen, and a vibrant matte body. It features rounded corners, an integrated reader slot, and a stable pedestal base designed for ergonomic height inter"
+        }
+      ]
+    },
+    {
+      "group": "lights",
+      "object_count": 1,
+      "object_types": {
+        "ceiling_strip_light": 1
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": 0.0,
+        "z": 0.0
+      },
+      "example_objects": [
+        {
+          "object_id": "led_light_strip",
+          "object_type": "ceiling_strip_light",
+          "specification_excerpt": "A slim linear LED strip light with an integrated diffuser for even illumination. The fixture has a white housing with capped ends and emits a bright, energetic glow."
+        }
+      ]
+    },
+    {
+      "group": "lounge",
+      "object_count": 1,
+      "object_types": {
+        "sofa": 1
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": 5.0,
+        "z": -2.0
+      },
+      "example_objects": [
+        {
+          "object_id": "lounge_seating",
+          "object_type": "sofa",
+          "specification_excerpt": "A contemporary lounge sofa with plush cushions and a low profile, upholstered in warm brown fabric with clean stitching. The seating features a gently curved backrest and tapered metal legs for a refined yet inviting look."
+        }
+      ]
+    },
+    {
+      "group": "overhead_lights",
+      "object_count": 2,
+      "object_types": {
+        "ceiling_light": 2
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": 9.0,
+        "z": 1.0
+      },
+      "example_objects": [
+        {
+          "object_id": "overhead_light_fixture1",
+          "object_type": "ceiling_light",
+          "specification_excerpt": "A compact ceiling-mounted light fixture with a translucent diffuser and thin neutral-white housing, featuring soft rounded edges and focused downward illumination."
+        },
+        {
+          "object_id": "overhead_light_fixture2",
+          "object_type": "ceiling_light",
+          "specification_excerpt": "A compact ceiling-mounted light fixture with a translucent diffuser and thin neutral-white housing, featuring soft rounded edges and focused downward illumination."
+        }
+      ]
+    },
+    {
+      "group": "panels",
+      "object_count": 3,
+      "object_types": {
+        "panel": 3
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": 6.3333,
+        "z": -3.0
+      },
+      "example_objects": [
+        {
+          "object_id": "benefits_panel1",
+          "object_type": "panel",
+          "specification_excerpt": "A freestanding display panel with a flat white surface and thin metallic frame. The panel face has a glossy finish for clear poster presentation and a minimal stable base."
+        },
+        {
+          "object_id": "benefits_panel2",
+          "object_type": "panel",
+          "specification_excerpt": "A freestanding display panel with a flat white surface and thin metallic frame. The panel face has a glossy finish for clear poster presentation and a minimal stable base."
+        },
+        {
+          "object_id": "benefits_panel3",
+          "object_type": "panel",
+          "specification_excerpt": "A freestanding display panel with a flat white surface and thin metallic frame. The panel face has a glossy finish for clear poster presentation and a minimal stable base."
+        }
+      ]
+    },
+    {
+      "group": "reception",
+      "object_count": 1,
+      "object_types": {
+        "totem": 1
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": -7.0,
+        "z": -6.0
+      },
+      "example_objects": [
+        {
+          "object_id": "totem_reception",
+          "object_type": "totem",
+          "specification_excerpt": "A tall slender totem with a deep royal blue finish featuring the BestFit logo in crisp white. The front face displays a bold headline in a clean sans-serif font, with a subtly glossy material and a weighted base for stability."
+        }
+      ]
+    },
+    {
+      "group": "recruiting",
+      "object_count": 5,
+      "object_types": {
+        "terminal": 2,
+        "chair": 1,
+        "poster": 2
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": 6.0,
+        "z": 4.4
+      },
+      "example_objects": [
+        {
+          "object_id": "touch_terminal_recruiting1",
+          "object_type": "terminal",
+          "specification_excerpt": "A user-friendly interactive terminal with a touchscreen interface at ergonomic height, a thin profile accented by brand color around the display, and a sturdy pedestal stand with a slight forward tilt for optimal viewing."
+        },
+        {
+          "object_id": "touch_terminal_recruiting2",
+          "object_type": "terminal",
+          "specification_excerpt": "A user-friendly interactive terminal with a touchscreen interface at ergonomic height, a thin profile accented by brand color around the display, and a sturdy pedestal stand with a slight forward tilt for optimal viewing."
+        },
+        {
+          "object_id": "chair_recruiting",
+          "object_type": "chair",
+          "specification_excerpt": "A simple visitor chair with a cushioned seat and backrest upholstered in dark fabric, supported by a sturdy matte metal frame. The design is ergonomic, armless, and slightly reclined for comfort."
+        }
+      ]
+    },
+    {
+      "group": "refreshment",
+      "object_count": 1,
+      "object_types": {
+        "counter": 1
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": 4.0,
+        "z": -3.0
+      },
+      "example_objects": [
+        {
+          "object_id": "refreshment_counter",
+          "object_type": "counter",
+          "specification_excerpt": "A sleek refreshment counter with a clean neutral finish, spacious top surface for serving, softly rounded edges, and hidden supports that give the impression of a floating form."
+        }
+      ]
+    },
+    {
+      "group": "showcase",
+      "object_count": 2,
+      "object_types": {
+        "treadmill": 1,
+        "weights_rack": 1
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": 1.55,
+        "z": 0.0
+      },
+      "example_objects": [
+        {
+          "object_id": "showcase_equipment_treadmill",
+          "object_type": "treadmill",
+          "specification_excerpt": "A realistic treadmill model with a textured rubber running belt, sleek dark metal frame, and subtle curved side rails. The console panel displays minimalistic controls and a central display, mounted on sturdy supports."
+        },
+        {
+          "object_id": "showcase_equipment_weights_rack",
+          "object_type": "weights_rack",
+          "specification_excerpt": "A heavy-duty steel dumbbell rack with multiple tiers, powder-coated in dark matte finish. It holds realistic weight plates with engraved markers, combining industrial robustness and refined detailing."
+        }
+      ]
+    },
+    {
+      "group": "steles",
+      "object_count": 3,
+      "object_types": {
+        "info_stele": 3
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": -0.1,
+        "z": 1.4333
+      },
+      "example_objects": [
+        {
+          "object_id": "info_stele_studio1",
+          "object_type": "info_stele",
+          "specification_excerpt": "A tall slim information stele with a high-resolution printed front, slim frame, and minimal base. The graphic panel uses contrasting colors for text and icons, and the surface has a smooth satin finish."
+        },
+        {
+          "object_id": "info_stele_studio2",
+          "object_type": "info_stele",
+          "specification_excerpt": "A tall slim information stele with a high-resolution printed front, slim frame, and minimal base. The graphic panel uses contrasting colors for text and icons, and the surface has a smooth satin finish."
+        },
+        {
+          "object_id": "info_stele_studio3",
+          "object_type": "info_stele",
+          "specification_excerpt": "A tall slim information stele with a high-resolution printed front, slim frame, and minimal base. The graphic panel uses contrasting colors for text and icons, and the surface has a smooth satin finish."
+        }
+      ]
+    },
+    {
+      "group": "stools",
+      "object_count": 3,
+      "object_types": {
+        "bar_stool": 3
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": 3.5,
+        "z": -2.3
+      },
+      "example_objects": [
+        {
+          "object_id": "bar_stool_refreshment1",
+          "object_type": "bar_stool",
+          "specification_excerpt": "A bar-height stool with a round cushioned seat upholstered in neutral fabric and slender powder-coated metal legs. It includes a circular footrest and a minimalist silhouette."
+        },
+        {
+          "object_id": "bar_stool_refreshment2",
+          "object_type": "bar_stool",
+          "specification_excerpt": "A bar-height stool with a round cushioned seat upholstered in neutral fabric and slender powder-coated metal legs. It includes a circular footrest and a minimalist silhouette."
+        },
+        {
+          "object_id": "bar_stool_refreshment3",
+          "object_type": "bar_stool",
+          "specification_excerpt": "A bar-height stool with a round cushioned seat upholstered in neutral fabric and slender powder-coated metal legs. It includes a circular footrest and a minimalist silhouette."
+        }
+      ]
+    },
+    {
+      "group": "terminals",
+      "object_count": 2,
+      "object_types": {
+        "terminal": 2
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": 4.5,
+        "z": -1.0
+      },
+      "example_objects": [
+        {
+          "object_id": "interactive_terminal_benefits1",
+          "object_type": "terminal",
+          "specification_excerpt": "A user-friendly interactive terminal with a touchscreen interface at ergonomic height, a thin profile accented by brand color around the display, and a sturdy pedestal stand with a slight forward tilt for optimal viewing."
+        },
+        {
+          "object_id": "interactive_terminal_benefits2",
+          "object_type": "terminal",
+          "specification_excerpt": "A user-friendly interactive terminal with a touchscreen interface at ergonomic height, a thin profile accented by brand color around the display, and a sturdy pedestal stand with a slight forward tilt for optimal viewing."
+        }
+      ]
+    },
+    {
+      "group": "vr_stations",
+      "object_count": 2,
+      "object_types": {
+        "vr_station": 2
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": 0.0,
+        "z": 1.5
+      },
+      "example_objects": [
+        {
+          "object_id": "vr_ar_station1",
+          "object_type": "vr_station",
+          "specification_excerpt": "A VR/AR demo station featuring a robust metallic frame, adjustable harness, and a raised dark-finish platform. Integrated ambient lighting strips circle the base, offering an industrial-modern aesthetic."
+        },
+        {
+          "object_id": "vr_ar_station2",
+          "object_type": "vr_station",
+          "specification_excerpt": "A VR/AR demo station featuring a robust metallic frame, adjustable harness, and a raised dark-finish platform. Integrated ambient lighting strips circle the base, offering an industrial-modern aesthetic."
+        }
+      ]
+    },
+    {
+      "group": "walls",
+      "object_count": 3,
+      "object_types": {
+        "wall": 3
+      },
+      "is_structural": true,
+      "centroid_xz": {
+        "x": 0.0,
+        "z": 2.4833
+      },
+      "example_objects": [
+        {
+          "object_id": "wall_left",
+          "object_type": "wall",
+          "specification_excerpt": "A modern freestanding wall panel with a sleek white finish, subtle bevel along the edges, and a fine surface texture to catch light softly. The profile is thin yet sturdy, creating a minimalist backdrop that enhances booth elements."
+        },
+        {
+          "object_id": "wall_right",
+          "object_type": "wall",
+          "specification_excerpt": "A modern freestanding wall panel with a sleek white finish, subtle bevel along the edges, and a fine surface texture to catch light softly. The profile is thin yet sturdy, creating a minimalist backdrop that enhances booth elements."
+        },
+        {
+          "object_id": "wall_back",
+          "object_type": "wall",
+          "specification_excerpt": "A modern freestanding wall panel with a sleek white finish, subtle bevel along the edges, and a fine surface texture to catch light softly. The profile is thin yet sturdy, creating a minimalist backdrop that enhances booth elements."
+        }
+      ]
+    }
+  ]
+}

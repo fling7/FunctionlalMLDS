@@ -1,0 +1,492 @@
+{
+  "schema": "functionalmlds_evaluation_questions",
+  "schema_version": "1.0",
+  "case_id": "classroom_dinosaur",
+  "generation_mode": "deterministic",
+  "prompt_version": null,
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "question_count": 14,
+    "zone_question_count": 4,
+    "semantic_zone_count": 4,
+    "agent_responsibility_question_count": 4,
+    "agent_count": 4,
+    "handoff_question_count": 6,
+    "declared_handoff_pair_count": 6,
+    "zone_question_coverage": 1.0,
+    "agent_question_coverage": 1.0,
+    "handoff_pair_question_coverage": 1.0
+  },
+  "questions": [
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-ZONE-INSTRUCTION_ZONE",
+      "case_id": "classroom_dinosaur",
+      "kind": "zone_grounding",
+      "text": "What can I do in the Instruction Zone area, and which objects there are relevant for primary teaching area for lessons and instruction?",
+      "active_agent_id": "teacher_agent",
+      "expected_agent_id": "teacher_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "instruction_zone"
+      ],
+      "expected_object_ids": [
+        "chalkboard",
+        "teacher_desk",
+        "student_desk1",
+        "student_desk2",
+        "student_desk3",
+        "student_desk4"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "scene_semantics.semantic_zones",
+        "zone_id": "instruction_zone",
+        "object_ids": [
+          "chalkboard",
+          "teacher_desk",
+          "student_desk1",
+          "student_desk2",
+          "student_desk3",
+          "student_desk4",
+          "student_desk5",
+          "student_desk6",
+          "student_desk7",
+          "student_desk8",
+          "student_desk9",
+          "student_desk10",
+          "student_desk11",
+          "student_desk12",
+          "student_desk13",
+          "student_desk14",
+          "student_desk15",
+          "student_desk16",
+          "student_desk17",
+          "student_desk18",
+          "student_desk19",
+          "student_desk20"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-ZONE-READING_AREA",
+      "case_id": "classroom_dinosaur",
+      "kind": "zone_grounding",
+      "text": "What can I do in the Reading Area area, and which objects there are relevant for cozy space for reading and quiet study?",
+      "active_agent_id": "reading_area_guide",
+      "expected_agent_id": "reading_area_guide",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "reading_area"
+      ],
+      "expected_object_ids": [
+        "reading_table",
+        "beanbag1",
+        "beanbag2",
+        "beanbag3",
+        "beanbag4",
+        "bookcase"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "scene_semantics.semantic_zones",
+        "zone_id": "reading_area",
+        "object_ids": [
+          "reading_table",
+          "beanbag1",
+          "beanbag2",
+          "beanbag3",
+          "beanbag4",
+          "bookcase",
+          "plant5"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-ZONE-DINOSAUR_DISPLAY_ZONE",
+      "case_id": "classroom_dinosaur",
+      "kind": "zone_grounding",
+      "text": "What can I do in the Dinosaur Display Zone area, and which objects there are relevant for exhibit area for educational dinosaur skeleton model?",
+      "active_agent_id": "exhibit_interpreter",
+      "expected_agent_id": "exhibit_interpreter",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "dinosaur_display_zone"
+      ],
+      "expected_object_ids": [
+        "dinosaur_skeleton"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "scene_semantics.semantic_zones",
+        "zone_id": "dinosaur_display_zone",
+        "object_ids": [
+          "dinosaur_skeleton"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-ZONE-DECORATIVE_ZONE",
+      "case_id": "classroom_dinosaur",
+      "kind": "zone_grounding",
+      "text": "What can I do in the Decorative Zone area, and which objects there are relevant for enhance room ambiance and aesthetics?",
+      "active_agent_id": "decorative_zone_ambassador",
+      "expected_agent_id": "decorative_zone_ambassador",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "decorative_zone"
+      ],
+      "expected_object_ids": [
+        "picture1",
+        "picture2",
+        "plant1",
+        "plant2",
+        "plant3",
+        "plant4"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "scene_semantics.semantic_zones",
+        "zone_id": "decorative_zone",
+        "object_ids": [
+          "picture1",
+          "picture2",
+          "plant1",
+          "plant2",
+          "plant3",
+          "plant4"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-AGENT-TEACHER_AGENT",
+      "case_id": "classroom_dinosaur",
+      "kind": "agent_responsibility",
+      "text": "Teacher Agent, what are you responsible for in this room, especially regarding instruction, classroom management, student engagement?",
+      "active_agent_id": "teacher_agent",
+      "expected_agent_id": "teacher_agent",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "instruction_zone"
+      ],
+      "expected_object_ids": [
+        "chalkboard",
+        "teacher_desk",
+        "student_desk1",
+        "student_desk2",
+        "student_desk3",
+        "student_desk4",
+        "student_desk5",
+        "student_desk6"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "agent_roles.agents",
+        "agent_id": "teacher_agent",
+        "knowledge_tags": [
+          "instruction_zone",
+          "chalkboard_usage",
+          "student_seating_arrangement"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-AGENT-READING_AREA_GUIDE",
+      "case_id": "classroom_dinosaur",
+      "kind": "agent_responsibility",
+      "text": "Reading Area Guide, what are you responsible for in this room, especially regarding reading facilitation, visitor assistance, environment management?",
+      "active_agent_id": "reading_area_guide",
+      "expected_agent_id": "reading_area_guide",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "reading_area"
+      ],
+      "expected_object_ids": [
+        "reading_table",
+        "beanbag1",
+        "beanbag2",
+        "beanbag3",
+        "beanbag4",
+        "bookcase",
+        "plant5"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "agent_roles.agents",
+        "agent_id": "reading_area_guide",
+        "knowledge_tags": [
+          "reading_area",
+          "reading_area_usage"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-AGENT-EXHIBIT_INTERPRETER",
+      "case_id": "classroom_dinosaur",
+      "kind": "agent_responsibility",
+      "text": "Exhibit Interpreter, what are you responsible for in this room, especially regarding museum education, paleontology basics, visitor engagement?",
+      "active_agent_id": "exhibit_interpreter",
+      "expected_agent_id": "exhibit_interpreter",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "dinosaur_display_zone"
+      ],
+      "expected_object_ids": [
+        "dinosaur_skeleton"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "agent_roles.agents",
+        "agent_id": "exhibit_interpreter",
+        "knowledge_tags": [
+          "dinosaur_display_zone",
+          "dinosaur_education"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-AGENT-DECORATIVE_ZONE_AMBASSADOR",
+      "case_id": "classroom_dinosaur",
+      "kind": "agent_responsibility",
+      "text": "Decorative Zone Ambassador, what are you responsible for in this room, especially regarding art appreciation, environment aesthetics, visitor engagement?",
+      "active_agent_id": "decorative_zone_ambassador",
+      "expected_agent_id": "decorative_zone_ambassador",
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "expected_zone_ids": [
+        "decorative_zone"
+      ],
+      "expected_object_ids": [
+        "picture1",
+        "picture2",
+        "plant1",
+        "plant2",
+        "plant3",
+        "plant4"
+      ],
+      "source_agent_id": null,
+      "target_agent_id": null,
+      "handoff_condition": null,
+      "handoff_reason": null,
+      "provenance": {
+        "source": "agent_roles.agents",
+        "agent_id": "decorative_zone_ambassador",
+        "knowledge_tags": [
+          "decorative_zone"
+        ]
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-HANDOFF-TEACHER_AGENT_TO_READING_AREA_GUIDE",
+      "case_id": "classroom_dinosaur",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor seeks assistance or information about reading area usage or relaxation spots.. Please connect me to the right expert if Reading Area Guide should handle it.",
+      "active_agent_id": "teacher_agent",
+      "expected_agent_id": "reading_area_guide",
+      "expected_handoff": true,
+      "expected_handoff_to": "reading_area_guide",
+      "expected_zone_ids": [
+        "reading_area"
+      ],
+      "expected_object_ids": [
+        "reading_table",
+        "beanbag1",
+        "beanbag2",
+        "beanbag3",
+        "beanbag4",
+        "bookcase",
+        "plant5"
+      ],
+      "source_agent_id": "teacher_agent",
+      "target_agent_id": "reading_area_guide",
+      "handoff_condition": "Visitor seeks assistance or information about reading area usage or relaxation spots.",
+      "handoff_reason": "Reading Area Guide specializes in supporting visitors in the reading area environment.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "teacher_agent",
+        "target_agent_id": "reading_area_guide"
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-HANDOFF-TEACHER_AGENT_TO_EXHIBIT_INTERPRETER",
+      "case_id": "classroom_dinosaur",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor shows interest in the dinosaur skeleton exhibit or related educational content.. Please connect me to the right expert if Exhibit Interpreter should handle it.",
+      "active_agent_id": "teacher_agent",
+      "expected_agent_id": "exhibit_interpreter",
+      "expected_handoff": true,
+      "expected_handoff_to": "exhibit_interpreter",
+      "expected_zone_ids": [
+        "dinosaur_display_zone"
+      ],
+      "expected_object_ids": [
+        "dinosaur_skeleton"
+      ],
+      "source_agent_id": "teacher_agent",
+      "target_agent_id": "exhibit_interpreter",
+      "handoff_condition": "Visitor shows interest in the dinosaur skeleton exhibit or related educational content.",
+      "handoff_reason": "Exhibit Interpreter provides detailed educational information about the dinosaur display.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "teacher_agent",
+        "target_agent_id": "exhibit_interpreter"
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-HANDOFF-READING_AREA_GUIDE_TO_TEACHER_AGENT",
+      "case_id": "classroom_dinosaur",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor requires instructional support or classroom activity information beyond reading area.. Please connect me to the right expert if Teacher Agent should handle it.",
+      "active_agent_id": "reading_area_guide",
+      "expected_agent_id": "teacher_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "teacher_agent",
+      "expected_zone_ids": [
+        "instruction_zone"
+      ],
+      "expected_object_ids": [
+        "chalkboard",
+        "teacher_desk",
+        "student_desk1",
+        "student_desk2",
+        "student_desk3",
+        "student_desk4",
+        "student_desk5",
+        "student_desk6"
+      ],
+      "source_agent_id": "reading_area_guide",
+      "target_agent_id": "teacher_agent",
+      "handoff_condition": "Visitor requires instructional support or classroom activity information beyond reading area.",
+      "handoff_reason": "Teacher Agent manages overall classroom instruction and student engagement.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "reading_area_guide",
+        "target_agent_id": "teacher_agent"
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-HANDOFF-EXHIBIT_INTERPRETER_TO_TEACHER_AGENT",
+      "case_id": "classroom_dinosaur",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor has questions related to classroom instruction or general learning activities after exhibit interaction.. Please connect me to the right expert if Teacher Agent should handle it.",
+      "active_agent_id": "exhibit_interpreter",
+      "expected_agent_id": "teacher_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "teacher_agent",
+      "expected_zone_ids": [
+        "instruction_zone"
+      ],
+      "expected_object_ids": [
+        "chalkboard",
+        "teacher_desk",
+        "student_desk1",
+        "student_desk2",
+        "student_desk3",
+        "student_desk4",
+        "student_desk5",
+        "student_desk6"
+      ],
+      "source_agent_id": "exhibit_interpreter",
+      "target_agent_id": "teacher_agent",
+      "handoff_condition": "Visitor has questions related to classroom instruction or general learning activities after exhibit interaction.",
+      "handoff_reason": "Teacher Agent facilitates broader classroom learning and activities.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "exhibit_interpreter",
+        "target_agent_id": "teacher_agent"
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-HANDOFF-DECORATIVE_ZONE_AMBASSADOR_TO_TEACHER_AGENT",
+      "case_id": "classroom_dinosaur",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor requests information or assistance related to classroom instruction or activities.. Please connect me to the right expert if Teacher Agent should handle it.",
+      "active_agent_id": "decorative_zone_ambassador",
+      "expected_agent_id": "teacher_agent",
+      "expected_handoff": true,
+      "expected_handoff_to": "teacher_agent",
+      "expected_zone_ids": [
+        "instruction_zone"
+      ],
+      "expected_object_ids": [
+        "chalkboard",
+        "teacher_desk",
+        "student_desk1",
+        "student_desk2",
+        "student_desk3",
+        "student_desk4",
+        "student_desk5",
+        "student_desk6"
+      ],
+      "source_agent_id": "decorative_zone_ambassador",
+      "target_agent_id": "teacher_agent",
+      "handoff_condition": "Visitor requests information or assistance related to classroom instruction or activities.",
+      "handoff_reason": "Teacher Agent is responsible for primary teaching and classroom management.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "decorative_zone_ambassador",
+        "target_agent_id": "teacher_agent"
+      }
+    },
+    {
+      "question_id": "EQ-CLASSROOM_DINOSAUR-HANDOFF-DECORATIVE_ZONE_AMBASSADOR_TO_READING_AREA_GUIDE",
+      "case_id": "classroom_dinosaur",
+      "kind": "handoff_decision",
+      "text": "I am asking you, but my topic is this: Visitor wants to know more about reading area facilities or related visitor assistance.. Please connect me to the right expert if Reading Area Guide should handle it.",
+      "active_agent_id": "decorative_zone_ambassador",
+      "expected_agent_id": "reading_area_guide",
+      "expected_handoff": true,
+      "expected_handoff_to": "reading_area_guide",
+      "expected_zone_ids": [
+        "reading_area"
+      ],
+      "expected_object_ids": [
+        "reading_table",
+        "beanbag1",
+        "beanbag2",
+        "beanbag3",
+        "beanbag4",
+        "bookcase",
+        "plant5"
+      ],
+      "source_agent_id": "decorative_zone_ambassador",
+      "target_agent_id": "reading_area_guide",
+      "handoff_condition": "Visitor wants to know more about reading area facilities or related visitor assistance.",
+      "handoff_reason": "Reading Area Guide specializes in reading area support and visitor facilitation.",
+      "provenance": {
+        "source": "handoff_matrix.handoffs",
+        "source_agent_id": "decorative_zone_ambassador",
+        "target_agent_id": "reading_area_guide"
+      }
+    }
+  ]
+}

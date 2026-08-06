@@ -1,0 +1,14 @@
+{
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "knowledge_entry_count": 22,
+    "required_tag_count": 22,
+    "covered_tag_count": 22,
+    "referenced_object_count": 31,
+    "required_room_group_count": 10,
+    "covered_room_group_count": 10,
+    "room_group_coverage": 1.0
+  }
+}

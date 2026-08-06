@@ -1,0 +1,23 @@
+\section*{GenAI Usage Disclosure}
+
+The case-study pipeline made eight successful structured-output calls to OpenAI
+\texttt{gpt-4.1-mini-2025-04-14} at temperature 0.2 to propose two
+scene-semantics artifacts, three agent-role artifacts with handoff declarations,
+and three sets of local knowledge entries. The remaining scene-semantics
+artifact was recovered deterministically without a model call.
+The prompts, returned JSON, model identifiers, token metadata, and validation
+records are stored with the case artifacts. No repair call was needed for the
+fixed outputs used in the evaluation; the API did not expose a sampling seed.
+The authors reviewed these artifacts and then froze them as inputs. Evaluation
+utterances, model assembly, fault injection, measurements, and tables are
+deterministic, and the reported structural benchmark made no model or network
+calls. No generative model was used as a semantic answer-quality judge.
+
+OpenAI Codex, for which the available interface identified the GPT-5 model
+family rather than a more specific deployment identifier, assisted with
+prototype hardening, test and analysis code, literature-search support, and
+drafting and editing this manuscript. The authors inspected and revised the
+resulting code, verified cited sources and generated evidence, and remain
+accountable for all claims and prose. The paperreview.ai reviewer service was
+used only for editorial feedback on submission drafts and did not supply
+scientific evidence or reported measurements.

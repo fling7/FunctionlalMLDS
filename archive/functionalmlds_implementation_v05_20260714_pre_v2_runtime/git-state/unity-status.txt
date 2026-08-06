@@ -1,0 +1,9 @@
+ M Assets/Resources/Characters/Textures/Ch01_hair.mat
+ M Assets/Resources/Characters/Textures/Ch08_hair.mat
+ M Assets/Resources/Characters/Textures/Ch21_hair.mat
+ M Assets/Resources/Characters/Textures/Ch22_hair.mat
+ M Assets/Resources/Characters/Textures/Ch23_hair.mat
+ M Assets/Scripting/ArrowProjectWizard.cs
+ M Assets/Scripting/QuickAgentManager.cs
+?? Assets/InteractiveAgents/Editor/QuickAgentManagerFunctionalMldsSmoke.cs
+?? Assets/InteractiveAgents/Editor/QuickAgentManagerFunctionalMldsSmoke.cs.meta

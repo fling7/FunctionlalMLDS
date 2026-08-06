@@ -1,0 +1,69 @@
+{
+  "schema": "functionalmlds_stage_completion_report_aggregate",
+  "schema_version": "1.0",
+  "case_count": 3,
+  "success_count": 3,
+  "failure_count": 0,
+  "results": [
+    {
+      "case_id": "bestfit_career_fair",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "required_stage_count": 18,
+          "present_stage_count": 18,
+          "successful_stage_count": 18,
+          "required_artifact_count": 2,
+          "present_artifact_count": 2,
+          "required_validation_report_count": 16,
+          "valid_validation_report_count": 16,
+          "completion_ratio": 1.0
+        }
+      },
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\bestfit_career_fair\\validation\\stage_completion_report.json"
+    },
+    {
+      "case_id": "classroom_dinosaur",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "required_stage_count": 18,
+          "present_stage_count": 18,
+          "successful_stage_count": 18,
+          "required_artifact_count": 2,
+          "present_artifact_count": 2,
+          "required_validation_report_count": 16,
+          "valid_validation_report_count": 16,
+          "completion_ratio": 1.0
+        }
+      },
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\classroom_dinosaur\\validation\\stage_completion_report.json"
+    },
+    {
+      "case_id": "steinpilz_brand_room",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "required_stage_count": 18,
+          "present_stage_count": 18,
+          "successful_stage_count": 18,
+          "required_artifact_count": 2,
+          "present_artifact_count": 2,
+          "required_validation_report_count": 16,
+          "valid_validation_report_count": 16,
+          "completion_ratio": 1.0
+        }
+      },
+      "validation_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\validation\\stage_completion_report.json"
+    }
+  ]
+}

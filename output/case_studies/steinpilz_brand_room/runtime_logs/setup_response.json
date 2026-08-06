@@ -1,0 +1,126 @@
+{
+  "session_id": "66426cee-256f-43e5-b102-0d5195bb31bb",
+  "memory_mode": "agent_private_history",
+  "agents": [
+    {
+      "id": "reception_agent",
+      "display_name": "Reception Agent",
+      "voice": "fable",
+      "voice_style": "warm and approachable",
+      "tts_model": "gpt-4o-mini-tts",
+      "position": {
+        "x": -1.111,
+        "y": 0.0,
+        "z": 2.286
+      },
+      "forward": {
+        "x": 0.5831,
+        "y": 0.0,
+        "z": 0.8124
+      },
+      "spawn_point_id": null,
+      "zone_id": null,
+      "tags": []
+    },
+    {
+      "id": "product_specialist_agent",
+      "display_name": "Product Specialist Agent",
+      "voice": "sage",
+      "voice_style": "enthusiastic and clear",
+      "tts_model": "gpt-4o-mini-tts",
+      "position": {
+        "x": -3.818,
+        "y": 0.0,
+        "z": 0.021
+      },
+      "forward": {
+        "x": -1.0,
+        "y": 0.0,
+        "z": 0.0036
+      },
+      "spawn_point_id": null,
+      "zone_id": null,
+      "tags": []
+    },
+    {
+      "id": "production_expert_agent",
+      "display_name": "Production Expert Agent",
+      "voice": "onyx",
+      "voice_style": "professional and informative",
+      "tts_model": "gpt-4o-mini-tts",
+      "position": {
+        "x": 1.142,
+        "y": 0.0,
+        "z": 0.152
+      },
+      "forward": {
+        "x": -0.6981,
+        "y": 0.0,
+        "z": 0.716
+      },
+      "spawn_point_id": null,
+      "zone_id": null,
+      "tags": []
+    },
+    {
+      "id": "digital_interaction_agent",
+      "display_name": "Digital Interaction Agent",
+      "voice": "coral",
+      "voice_style": "clear and supportive",
+      "tts_model": "gpt-4o-mini-tts",
+      "position": {
+        "x": 5.2,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "forward": {
+        "x": -1.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "spawn_point_id": null,
+      "zone_id": null,
+      "tags": []
+    },
+    {
+      "id": "career_advisor_agent",
+      "display_name": "Career Advisor Agent",
+      "voice": "ballad",
+      "voice_style": "motivational and empathetic",
+      "tts_model": "gpt-4o-mini-tts",
+      "position": {
+        "x": 1.759,
+        "y": 0.0,
+        "z": 0.92
+      },
+      "forward": {
+        "x": 0.886,
+        "y": 0.0,
+        "z": 0.4636
+      },
+      "spawn_point_id": null,
+      "zone_id": null,
+      "tags": []
+    },
+    {
+      "id": "lounge_host_agent",
+      "display_name": "Lounge Host Agent",
+      "voice": "ash",
+      "voice_style": "relaxed and friendly",
+      "tts_model": "gpt-4o-mini-tts",
+      "position": {
+        "x": 1.15,
+        "y": 0.0,
+        "z": -1.375
+      },
+      "forward": {
+        "x": -0.6771,
+        "y": 0.0,
+        "z": -0.7359
+      },
+      "spawn_point_id": null,
+      "zone_id": null,
+      "tags": []
+    }
+  ]
+}

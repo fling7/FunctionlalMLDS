@@ -1,0 +1,207 @@
+{
+  "knowledge_entries": [
+    {
+      "tag": "visitor_orientation",
+      "name": "reception_area_orientation",
+      "source_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ],
+      "text": "The reception zone features a branded totem and an interactive kiosk to welcome visitors and provide initial orientation about the company and booth layout. Visitors can get basic information and directions here.",
+      "intended_agents": [
+        "reception_agent"
+      ]
+    },
+    {
+      "tag": "company_basics",
+      "name": "basic_company_information_at_reception",
+      "source_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ],
+      "text": "Visitors can learn about the company's mission, values, and overview at the reception area via the totem and kiosk, which offer concise introductory content to help understand the company culture.",
+      "intended_agents": [
+        "reception_agent"
+      ]
+    },
+    {
+      "tag": "navigation",
+      "name": "booth_navigation_assistance",
+      "source_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ],
+      "text": "The reception area provides guidance to visitors on how to navigate the booth, including directions to benefits info, recruiting, demo, and refreshment zones using the interactive kiosk and signage.",
+      "intended_agents": [
+        "reception_agent"
+      ]
+    },
+    {
+      "tag": "company_benefits",
+      "name": "employee_benefits_information",
+      "source_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ],
+      "text": "The benefits info zone offers detailed panels and interactive terminals presenting employee benefits such as health plans, retirement options, and wellness programs, highlighting the company's supportive culture.",
+      "intended_agents": [
+        "benefits_expert"
+      ]
+    },
+    {
+      "tag": "employee_wellbeing",
+      "name": "wellbeing_programs_overview",
+      "source_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ],
+      "text": "Information panels and terminals in the benefits zone explain the company's commitment to employee wellbeing, including mental health resources, flexible work policies, and fitness initiatives.",
+      "intended_agents": [
+        "benefits_expert"
+      ]
+    },
+    {
+      "tag": "interactive_terminals",
+      "name": "interactive_benefits_terminals",
+      "source_object_ids": [
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ],
+      "text": "User-friendly touchscreen terminals allow visitors to explore detailed benefits information interactively, with options to view FAQs, videos, and personalized content about company culture and perks.",
+      "intended_agents": [
+        "benefits_expert"
+      ]
+    },
+    {
+      "tag": "job_recruiting",
+      "name": "job_openings_and_recruiting_info",
+      "source_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "poster_recruiting1",
+        "poster_recruiting2",
+        "chair_recruiting"
+      ],
+      "text": "The recruiting zone features interactive terminals and posters displaying current job openings, company roles, and recruiting events. Seating is available for discussions with recruiting staff.",
+      "intended_agents": [
+        "recruiting_agent"
+      ]
+    },
+    {
+      "tag": "application_process",
+      "name": "job_application_guidance",
+      "source_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "poster_recruiting1",
+        "poster_recruiting2",
+        "chair_recruiting"
+      ],
+      "text": "Visitors can use recruiting terminals to learn about the application process, submit applications, and receive assistance from recruiting agents seated nearby to answer questions and provide support.",
+      "intended_agents": [
+        "recruiting_agent"
+      ]
+    },
+    {
+      "tag": "career_opportunities",
+      "name": "career_development_opportunities",
+      "source_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "poster_recruiting1",
+        "poster_recruiting2",
+        "chair_recruiting"
+      ],
+      "text": "Recruiting materials highlight career paths, growth opportunities, and training programs available within the company, helping visitors understand potential long-term prospects.",
+      "intended_agents": [
+        "recruiting_agent"
+      ]
+    },
+    {
+      "tag": "product_demos",
+      "name": "product_showcase_and_demonstrations",
+      "source_object_ids": [
+        "showcase_equipment_treadmill",
+        "showcase_equipment_weights_rack",
+        "info_stele_studio1",
+        "info_stele_studio2",
+        "info_stele_studio3"
+      ],
+      "text": "The showcase zone displays company products including fitness equipment with detailed info steles. Demo technicians guide visitors through hands-on demonstrations to engage interest.",
+      "intended_agents": [
+        "demo_technician"
+      ]
+    },
+    {
+      "tag": "vr_ar_technology",
+      "name": "vr_ar_demo_stations",
+      "source_object_ids": [
+        "vr_ar_station1",
+        "vr_ar_station2"
+      ],
+      "text": "Two VR/AR stations provide immersive experiences demonstrating company technology. Visitors can try interactive simulations with assistance from demo technicians.",
+      "intended_agents": [
+        "demo_technician"
+      ]
+    },
+    {
+      "tag": "interactive_kiosks",
+      "name": "demo_kiosk_interaction",
+      "source_object_ids": [
+        "kiosk_demo1",
+        "kiosk_demo2",
+        "kiosk_demo3"
+      ],
+      "text": "Interactive demo kiosks offer touchscreen access to product videos, specs, and company information. Demo technicians support visitors in navigating these kiosks for an engaging experience.",
+      "intended_agents": [
+        "demo_technician"
+      ]
+    },
+    {
+      "tag": "visitor_comfort",
+      "name": "lounge_seating_and_comfort",
+      "source_object_ids": [
+        "lounge_seating"
+      ],
+      "text": "The refreshment zone includes comfortable lounge seating where visitors can relax and have informal conversations, enhancing their comfort during the visit.",
+      "intended_agents": [
+        "hospitality_agent"
+      ]
+    },
+    {
+      "tag": "refreshments",
+      "name": "refreshment_counter_and_seating",
+      "source_object_ids": [
+        "refreshment_counter",
+        "bar_stool_refreshment1",
+        "bar_stool_refreshment2",
+        "bar_stool_refreshment3"
+      ],
+      "text": "A sleek refreshment counter serves beverages and snacks. Bar stools provide seating for visitors to enjoy refreshments in a casual setting.",
+      "intended_agents": [
+        "hospitality_agent"
+      ]
+    },
+    {
+      "tag": "lounge_services",
+      "name": "hospitality_and_visitor_services",
+      "source_object_ids": [
+        "refreshment_counter",
+        "bar_stool_refreshment1",
+        "bar_stool_refreshment2",
+        "bar_stool_refreshment3",
+        "lounge_seating"
+      ],
+      "text": "Hospitality agents manage the refreshment area, ensuring visitors receive attentive service and a welcoming atmosphere to enhance their overall experience at the booth.",
+      "intended_agents": [
+        "hospitality_agent"
+      ]
+    }
+  ]
+}

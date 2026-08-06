@@ -1,0 +1,58 @@
+\section{Discussion}
+
+\subsection{Implications for intelligent-interface authoring}
+
+The explicit path gives developers a pre-interaction view of responsibility,
+permitted behavior, expected outcomes, and failures such as unknown targets,
+ambiguous owners, missing bindings, or contradictory observations. This is a
+diagnostic claim, not an explanation of model reasoning, and a static
+single-chatbot interface may not justify the added structure. The workbench
+currently revises placement only. Responsibility, capability, and handoff
+relations are a roadmap: they should become typed preview--validate--commit
+transactions rather than unrestricted graph edits.
+
+\subsection{Control and failure recovery}
+
+Silent fallback after failed grounding can produce a fluent but misleading
+response. The visitor path instead exposes no-target and ambiguity status and
+blocks the answer transition; route and assertion details remain
+developer-facing. Clarification, transparent-handoff, and abstention dialogues
+are future interaction work.
+
+\subsection{Composing interaction and authorization policy}
+
+``Authorized'' is local to the interaction model: the scenario declares this
+provider and capability for this target. It neither authenticates a person nor
+grants access to a protected resource. A deployment can resolve the exact
+target--provider--action tuple with \systemname{} and then require an external
+relationship- or capability-based policy to approve it; lifecycle governance
+can separately decide which implementation may be active. The preflight
+boundary permits this composition, but the prototype integrates neither
+mechanism.
+
+\subsection{Practical and societal considerations}
+
+Spatial-agent traces can expose rooms, locations, speech, and interaction
+histories. The backend receives the utterance, target identifiers, ray
+metadata, and modality; the model provider receives bounded history and trusted
+entity/group/zone context but not raw ray coordinates. Persistent traces omit
+utterance text, yet the prototype lacks visitor-facing consent, retention,
+export, and deletion controls. Deployments should minimize data and separate
+technical identifiers from personal identities. Agent roles can also encode
+organizational bias: inspectability does not replace review of representation,
+authority, refusal, safeguards, or knowledge provenance.
+
+\subsection{Artifact-release boundary}
+
+The review artifact supports local replication but grants no blanket
+redistribution license. Public release requires an owner-approved license, a
+third-party inventory, and removal or replacement of restricted Unity/media
+assets. The intended path is a clean tagged snapshot plus a newly licensed
+minimal scene that runs the same contract tests.
+
+\subsection{When a model helps---and when it does not}
+
+The approach trades authoring structure for evidence and helps only while model
+and runtime remain synchronized. Both adapters detected the common faults;
+model-grounded patches changed fewer artifacts but more references and ran
+slower locally. Whether this trade helps authors requires human evaluation.

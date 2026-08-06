@@ -1,0 +1,7 @@
+# Case Corpus
+
+| case_id | domain | room_purpose | objects | semantic_zones | agents | questions | chat_tests | chat_success | trace_coverage | handoff_accuracy | grounding |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| bestfit_career_fair | Career Fair / Recruiting Event | To showcase company culture, benefits, and job opportunities to attract and engage potential candidates. | 34 | 6 | 5 | 23 | 23 | 23 | 0.847 | 1.000 | 1.000 |
+| classroom_dinosaur | education | classroom for teaching and learning with a dedicated reading and display area | 42 | 4 | 4 | 14 | 14 | 14 | 0.847 | 1.000 | 1.000 |
+| steinpilz_brand_room | Food Industry Trade Fair | Exhibition booth for showcasing cheese products, production technology, and company branding at a trade fair | 36 | 8 | 6 | 29 | 29 | 29 | 0.847 | 1.000 | 1.000 |

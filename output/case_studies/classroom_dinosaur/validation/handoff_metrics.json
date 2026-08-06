@@ -1,0 +1,152 @@
+{
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "agent_count": 4,
+    "declared_agent_handoff_target_count": 6,
+    "declared_matrix_handoff_count": 6,
+    "unique_handoff_pair_count": 6,
+    "valid_agent_handoff_target_ratio": 1.0,
+    "valid_handoff_matrix_ratio": 1.0,
+    "valid_handoff_target_ratio": 1.0,
+    "self_handoff_count": 0,
+    "duplicate_agent_handoff_target_count": 0,
+    "duplicate_matrix_handoff_count": 0,
+    "missing_matrix_pair_count": 0,
+    "extra_matrix_pair_count": 0,
+    "handoff_chain_limit": 1,
+    "observed_handoff_event_count": 6,
+    "observed_valid_handoff_event_count": 6,
+    "observed_invalid_handoff_event_count": 0,
+    "observed_invalid_handoff_runtime_action_event_count": 0,
+    "observed_invalid_handoff_runtime_binding_event_count": 0,
+    "observed_max_handoffs_per_logged_session": 1,
+    "runtime_chain_limit_evaluation": "per_request_not_evaluable_without_request_id",
+    "decision_test_count": 14,
+    "correct_handoff_decision_count": 14,
+    "handoff_decision_accuracy": 1.0,
+    "invalid_observed_decision_count": 0
+  },
+  "invalid_agent_handoff_targets": [],
+  "invalid_matrix_handoffs": [],
+  "missing_matrix_pairs": [],
+  "extra_matrix_pairs": [],
+  "observed_invalid_handoff_pairs": [],
+  "observed_invalid_handoff_runtime_action_events": [],
+  "observed_invalid_handoff_runtime_binding_events": [],
+  "handoff_decision_tests": [
+    {
+      "index": 0,
+      "expected_handoff": true,
+      "expected_handoff_to": "reading_area_guide",
+      "observed_handoff": true,
+      "observed_handoff_to": "reading_area_guide",
+      "correct": true
+    },
+    {
+      "index": 1,
+      "expected_handoff": true,
+      "expected_handoff_to": "exhibit_interpreter",
+      "observed_handoff": true,
+      "observed_handoff_to": "exhibit_interpreter",
+      "correct": true
+    },
+    {
+      "index": 2,
+      "expected_handoff": true,
+      "expected_handoff_to": "teacher_agent",
+      "observed_handoff": true,
+      "observed_handoff_to": "teacher_agent",
+      "correct": true
+    },
+    {
+      "index": 3,
+      "expected_handoff": true,
+      "expected_handoff_to": "teacher_agent",
+      "observed_handoff": true,
+      "observed_handoff_to": "teacher_agent",
+      "correct": true
+    },
+    {
+      "index": 4,
+      "expected_handoff": true,
+      "expected_handoff_to": "teacher_agent",
+      "observed_handoff": true,
+      "observed_handoff_to": "teacher_agent",
+      "correct": true
+    },
+    {
+      "index": 5,
+      "expected_handoff": true,
+      "expected_handoff_to": "reading_area_guide",
+      "observed_handoff": true,
+      "observed_handoff_to": "reading_area_guide",
+      "correct": true
+    },
+    {
+      "index": 6,
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "observed_handoff": false,
+      "observed_handoff_to": null,
+      "correct": true
+    },
+    {
+      "index": 7,
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "observed_handoff": false,
+      "observed_handoff_to": null,
+      "correct": true
+    },
+    {
+      "index": 8,
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "observed_handoff": false,
+      "observed_handoff_to": null,
+      "correct": true
+    },
+    {
+      "index": 9,
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "observed_handoff": false,
+      "observed_handoff_to": null,
+      "correct": true
+    },
+    {
+      "index": 10,
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "observed_handoff": false,
+      "observed_handoff_to": null,
+      "correct": true
+    },
+    {
+      "index": 11,
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "observed_handoff": false,
+      "observed_handoff_to": null,
+      "correct": true
+    },
+    {
+      "index": 12,
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "observed_handoff": false,
+      "observed_handoff_to": null,
+      "correct": true
+    },
+    {
+      "index": 13,
+      "expected_handoff": false,
+      "expected_handoff_to": null,
+      "observed_handoff": false,
+      "observed_handoff_to": null,
+      "correct": true
+    }
+  ]
+}

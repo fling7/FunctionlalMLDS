@@ -1,0 +1,7 @@
+flowchart LR
+  A["MLDS object group / zone: instruction_zone"] --> B["Agent role: teacher_agent"]
+  B --> C["Knowledge tag: instruction_zone"]
+  C --> D["Capability: CAP-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION"]
+  D --> E["RuntimeBinding: RB-CLASSROOM_DINOSAUR-ANSWER-ROOM-GROUNDED-QUESTION"]
+  E --> F["RuntimeAction: RA-CLASSROOM_DINOSAUR-BACKEND-CHAT"]
+  F --> G["Chat test event: EQ-CLASSROOM_DINOSAUR-ZONE-INSTRUCTION_ZONE"]

@@ -1,0 +1,2269 @@
+{
+  "mappingVersion": "1.0",
+  "sourceContract": "functionalmlds_case_study/v0.5",
+  "targetContract": "v2.0",
+  "entryCount": 173,
+  "structurePathCount": 72,
+  "leafPathCount": 101,
+  "coverage": {
+    "covered": true,
+    "coveredPathCount": 173,
+    "resolvedTargetCount": 173,
+    "unresolvedTargets": [],
+    "missingStructurePaths": [],
+    "missingLeafPaths": [],
+    "declaredButUnobservedStructurePaths": [],
+    "declaredButUnobservedLeafPaths": []
+  },
+  "entries": [
+    {
+      "v05Path": "$",
+      "pathKind": "structure",
+      "v2Target": "DynamicFunctionalModel",
+      "targetResolution": {
+        "target": "DynamicFunctionalModel",
+        "normalizedTarget": "DynamicFunctionalModel",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as DynamicFunctionalModel."
+    },
+    {
+      "v05Path": "$.actors",
+      "pathKind": "structure",
+      "v2Target": "DynamicFunctionalModel.actor[*]",
+      "targetResolution": {
+        "target": "DynamicFunctionalModel.actor[*]",
+        "normalizedTarget": "DynamicFunctionalModel.actor",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as DynamicFunctionalModel.actor[*]."
+    },
+    {
+      "v05Path": "$.actors[]",
+      "pathKind": "structure",
+      "v2Target": "Actor",
+      "targetResolution": {
+        "target": "Actor",
+        "normalizedTarget": "Actor",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Actor."
+    },
+    {
+      "v05Path": "$.actors[].description",
+      "pathKind": "leaf",
+      "v2Target": "Actor.text",
+      "targetResolution": {
+        "target": "Actor.text",
+        "normalizedTarget": "Actor.text",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Actor.text; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.actors[].id",
+      "pathKind": "leaf",
+      "v2Target": "Actor.shortName",
+      "targetResolution": {
+        "target": "Actor.shortName",
+        "normalizedTarget": "Actor.shortName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Actor.shortName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.actors[].name",
+      "pathKind": "leaf",
+      "v2Target": "Actor.name",
+      "targetResolution": {
+        "target": "Actor.name",
+        "normalizedTarget": "Actor.name",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Actor.name; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.agents",
+      "pathKind": "structure",
+      "v2Target": "DynamicFunctionalModel.entity[*] (Agent specialization; alias order in ledger)",
+      "targetResolution": {
+        "target": "DynamicFunctionalModel.entity[*] (Agent specialization; alias order in ledger)",
+        "normalizedTarget": "DynamicFunctionalModel.entity",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as DynamicFunctionalModel.entity[*] (Agent specialization; alias order in ledger)."
+    },
+    {
+      "v05Path": "$.agents[]",
+      "pathKind": "structure",
+      "v2Target": "Agent",
+      "targetResolution": {
+        "target": "Agent",
+        "normalizedTarget": "Agent",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Agent."
+    },
+    {
+      "v05Path": "$.agents[].display_name",
+      "pathKind": "leaf",
+      "v2Target": "Agent.displayName",
+      "targetResolution": {
+        "target": "Agent.displayName",
+        "normalizedTarget": "Agent.displayName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Agent.displayName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.agents[].entity_id",
+      "pathKind": "leaf",
+      "v2Target": "Agent.shortName",
+      "targetResolution": {
+        "target": "Agent.shortName",
+        "normalizedTarget": "Agent.shortName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Agent.shortName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.agents[].expertise",
+      "pathKind": "structure",
+      "v2Target": "Agent.expertise[*]",
+      "targetResolution": {
+        "target": "Agent.expertise[*]",
+        "normalizedTarget": "Agent.expertise",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Agent.expertise[*]."
+    },
+    {
+      "v05Path": "$.agents[].expertise[]",
+      "pathKind": "leaf",
+      "v2Target": "Agent.expertise",
+      "targetResolution": {
+        "target": "Agent.expertise",
+        "normalizedTarget": "Agent.expertise",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Agent.expertise; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.agents[].groundedAssetEntityIds",
+      "pathKind": "structure",
+      "v2Target": "Agent.groundedAsset[*]",
+      "targetResolution": {
+        "target": "Agent.groundedAsset[*]",
+        "normalizedTarget": "Agent.groundedAsset",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Agent.groundedAsset[*]."
+    },
+    {
+      "v05Path": "$.agents[].groundedAssetEntityIds[]",
+      "pathKind": "leaf",
+      "v2Target": "Agent.groundedAsset",
+      "targetResolution": {
+        "target": "Agent.groundedAsset",
+        "normalizedTarget": "Agent.groundedAsset",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Agent.groundedAsset; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.agents[].groundedObjectGroupEntityIds",
+      "pathKind": "structure",
+      "v2Target": "Agent.groundedObjectGroup[*]",
+      "targetResolution": {
+        "target": "Agent.groundedObjectGroup[*]",
+        "normalizedTarget": "Agent.groundedObjectGroup",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Agent.groundedObjectGroup[*]."
+    },
+    {
+      "v05Path": "$.agents[].groundedObjectGroupEntityIds[]",
+      "pathKind": "leaf",
+      "v2Target": "Agent.groundedObjectGroup",
+      "targetResolution": {
+        "target": "Agent.groundedObjectGroup",
+        "normalizedTarget": "Agent.groundedObjectGroup",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Agent.groundedObjectGroup; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.agents[].grounded_object_groups",
+      "pathKind": "structure",
+      "v2Target": "V05ProjectionLedger.agentAliases.groundedObjectGroup.source[*]",
+      "targetResolution": {
+        "target": "V05ProjectionLedger.agentAliases.groundedObjectGroup.source[*]",
+        "normalizedTarget": "V05ProjectionLedger.agentAliases.groundedObjectGroup.source",
+        "resolved": true,
+        "resolution": "compatibility-ledger"
+      },
+      "preservation": "compatibility-ledger",
+      "rule": "Preserve exact compatibility lexeme/presence in V05ProjectionLedger.agentAliases.groundedObjectGroup.source[*]; do not infer an EAST-ADL value."
+    },
+    {
+      "v05Path": "$.agents[].grounded_object_groups[]",
+      "pathKind": "leaf",
+      "v2Target": "V05ProjectionLedger.agentAliases.groundedObjectGroup.source",
+      "targetResolution": {
+        "target": "V05ProjectionLedger.agentAliases.groundedObjectGroup.source",
+        "normalizedTarget": "V05ProjectionLedger.agentAliases.groundedObjectGroup.source",
+        "resolved": true,
+        "resolution": "compatibility-ledger"
+      },
+      "preservation": "compatibility-ledger",
+      "rule": "Preserve exact compatibility lexeme/presence in V05ProjectionLedger.agentAliases.groundedObjectGroup.source; do not infer an EAST-ADL value."
+    },
+    {
+      "v05Path": "$.agents[].grounded_object_ids",
+      "pathKind": "structure",
+      "v2Target": "V05ProjectionLedger.agentAliases.groundedAsset.source[*]",
+      "targetResolution": {
+        "target": "V05ProjectionLedger.agentAliases.groundedAsset.source[*]",
+        "normalizedTarget": "V05ProjectionLedger.agentAliases.groundedAsset.source",
+        "resolved": true,
+        "resolution": "compatibility-ledger"
+      },
+      "preservation": "compatibility-ledger",
+      "rule": "Preserve exact compatibility lexeme/presence in V05ProjectionLedger.agentAliases.groundedAsset.source[*]; do not infer an EAST-ADL value."
+    },
+    {
+      "v05Path": "$.agents[].grounded_object_ids[]",
+      "pathKind": "leaf",
+      "v2Target": "V05ProjectionLedger.agentAliases.groundedAsset.source",
+      "targetResolution": {
+        "target": "V05ProjectionLedger.agentAliases.groundedAsset.source",
+        "normalizedTarget": "V05ProjectionLedger.agentAliases.groundedAsset.source",
+        "resolved": true,
+        "resolution": "compatibility-ledger"
+      },
+      "preservation": "compatibility-ledger",
+      "rule": "Preserve exact compatibility lexeme/presence in V05ProjectionLedger.agentAliases.groundedAsset.source; do not infer an EAST-ADL value."
+    },
+    {
+      "v05Path": "$.agents[].handoffTargetAgentIds",
+      "pathKind": "structure",
+      "v2Target": "Agent.handoffTarget[*]",
+      "targetResolution": {
+        "target": "Agent.handoffTarget[*]",
+        "normalizedTarget": "Agent.handoffTarget",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Agent.handoffTarget[*]."
+    },
+    {
+      "v05Path": "$.agents[].handoffTargetAgentIds[]",
+      "pathKind": "leaf",
+      "v2Target": "Agent.handoffTarget",
+      "targetResolution": {
+        "target": "Agent.handoffTarget",
+        "normalizedTarget": "Agent.handoffTarget",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Agent.handoffTarget; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.agents[].handoff_targets",
+      "pathKind": "structure",
+      "v2Target": "V05ProjectionLedger.agentAliases.handoffTarget.source[*]",
+      "targetResolution": {
+        "target": "V05ProjectionLedger.agentAliases.handoffTarget.source[*]",
+        "normalizedTarget": "V05ProjectionLedger.agentAliases.handoffTarget.source",
+        "resolved": true,
+        "resolution": "compatibility-ledger"
+      },
+      "preservation": "compatibility-ledger",
+      "rule": "Preserve exact compatibility lexeme/presence in V05ProjectionLedger.agentAliases.handoffTarget.source[*]; do not infer an EAST-ADL value."
+    },
+    {
+      "v05Path": "$.agents[].handoff_targets[]",
+      "pathKind": "leaf",
+      "v2Target": "V05ProjectionLedger.agentAliases.handoffTarget.source",
+      "targetResolution": {
+        "target": "V05ProjectionLedger.agentAliases.handoffTarget.source",
+        "normalizedTarget": "V05ProjectionLedger.agentAliases.handoffTarget.source",
+        "resolved": true,
+        "resolution": "compatibility-ledger"
+      },
+      "preservation": "compatibility-ledger",
+      "rule": "Preserve exact compatibility lexeme/presence in V05ProjectionLedger.agentAliases.handoffTarget.source; do not infer an EAST-ADL value."
+    },
+    {
+      "v05Path": "$.agents[].id",
+      "pathKind": "leaf",
+      "v2Target": "V05ProjectionLedger.agentAliases.agentId",
+      "targetResolution": {
+        "target": "V05ProjectionLedger.agentAliases.agentId",
+        "normalizedTarget": "V05ProjectionLedger.agentAliases.agentId",
+        "resolved": true,
+        "resolution": "compatibility-ledger"
+      },
+      "preservation": "compatibility-ledger",
+      "rule": "Preserve exact compatibility lexeme/presence in V05ProjectionLedger.agentAliases.agentId; do not infer an EAST-ADL value."
+    },
+    {
+      "v05Path": "$.agents[].knowledge_tags",
+      "pathKind": "structure",
+      "v2Target": "Agent.knowledgeTag[*]",
+      "targetResolution": {
+        "target": "Agent.knowledgeTag[*]",
+        "normalizedTarget": "Agent.knowledgeTag",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Agent.knowledgeTag[*]."
+    },
+    {
+      "v05Path": "$.agents[].knowledge_tags[]",
+      "pathKind": "leaf",
+      "v2Target": "Agent.knowledgeTag",
+      "targetResolution": {
+        "target": "Agent.knowledgeTag",
+        "normalizedTarget": "Agent.knowledgeTag",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Agent.knowledgeTag; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.agents[].persona",
+      "pathKind": "leaf",
+      "v2Target": "Agent.persona",
+      "targetResolution": {
+        "target": "Agent.persona",
+        "normalizedTarget": "Agent.persona",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Agent.persona; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.agents[].playsActor",
+      "pathKind": "structure",
+      "v2Target": "Entity.playsActor[*]",
+      "targetResolution": {
+        "target": "Entity.playsActor[*]",
+        "normalizedTarget": "Entity.playsActor",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Entity.playsActor[*]."
+    },
+    {
+      "v05Path": "$.agents[].playsActor[]",
+      "pathKind": "leaf",
+      "v2Target": "Entity.playsActor",
+      "targetResolution": {
+        "target": "Entity.playsActor",
+        "normalizedTarget": "Entity.playsActor",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Entity.playsActor; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.agents[].providedCapabilityIds",
+      "pathKind": "structure",
+      "v2Target": "Agent.providedCapability[*]",
+      "targetResolution": {
+        "target": "Agent.providedCapability[*]",
+        "normalizedTarget": "Agent.providedCapability",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Agent.providedCapability[*]."
+    },
+    {
+      "v05Path": "$.agents[].providedCapabilityIds[]",
+      "pathKind": "leaf",
+      "v2Target": "Agent.providedCapability",
+      "targetResolution": {
+        "target": "Agent.providedCapability",
+        "normalizedTarget": "Agent.providedCapability",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Agent.providedCapability; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.agents[].responsibleZoneEntityIds",
+      "pathKind": "structure",
+      "v2Target": "Agent.responsibleZone[*]",
+      "targetResolution": {
+        "target": "Agent.responsibleZone[*]",
+        "normalizedTarget": "Agent.responsibleZone",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Agent.responsibleZone[*]."
+    },
+    {
+      "v05Path": "$.agents[].responsibleZoneEntityIds[]",
+      "pathKind": "leaf",
+      "v2Target": "Agent.responsibleZone",
+      "targetResolution": {
+        "target": "Agent.responsibleZone",
+        "normalizedTarget": "Agent.responsibleZone",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Agent.responsibleZone; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.agents[].responsible_zone_ids",
+      "pathKind": "structure",
+      "v2Target": "V05ProjectionLedger.agentAliases.responsibleZone.source[*]",
+      "targetResolution": {
+        "target": "V05ProjectionLedger.agentAliases.responsibleZone.source[*]",
+        "normalizedTarget": "V05ProjectionLedger.agentAliases.responsibleZone.source",
+        "resolved": true,
+        "resolution": "compatibility-ledger"
+      },
+      "preservation": "compatibility-ledger",
+      "rule": "Preserve exact compatibility lexeme/presence in V05ProjectionLedger.agentAliases.responsibleZone.source[*]; do not infer an EAST-ADL value."
+    },
+    {
+      "v05Path": "$.agents[].responsible_zone_ids[]",
+      "pathKind": "leaf",
+      "v2Target": "V05ProjectionLedger.agentAliases.responsibleZone.source",
+      "targetResolution": {
+        "target": "V05ProjectionLedger.agentAliases.responsibleZone.source",
+        "normalizedTarget": "V05ProjectionLedger.agentAliases.responsibleZone.source",
+        "resolved": true,
+        "resolution": "compatibility-ledger"
+      },
+      "preservation": "compatibility-ledger",
+      "rule": "Preserve exact compatibility lexeme/presence in V05ProjectionLedger.agentAliases.responsibleZone.source; do not infer an EAST-ADL value."
+    },
+    {
+      "v05Path": "$.agents[].source_agent_id",
+      "pathKind": "leaf",
+      "v2Target": "Agent.sourceAgentId",
+      "targetResolution": {
+        "target": "Agent.sourceAgentId",
+        "normalizedTarget": "Agent.sourceAgentId",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Agent.sourceAgentId; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.agents[].tts_model",
+      "pathKind": "leaf",
+      "v2Target": "Agent.ttsModel",
+      "targetResolution": {
+        "target": "Agent.ttsModel",
+        "normalizedTarget": "Agent.ttsModel",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Agent.ttsModel; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.agents[].voice",
+      "pathKind": "leaf",
+      "v2Target": "Agent.voice",
+      "targetResolution": {
+        "target": "Agent.voice",
+        "normalizedTarget": "Agent.voice",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Agent.voice; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.agents[].voice_gender",
+      "pathKind": "leaf",
+      "v2Target": "Agent.voiceGender",
+      "targetResolution": {
+        "target": "Agent.voiceGender",
+        "normalizedTarget": "Agent.voiceGender",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Agent.voiceGender; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.agents[].voice_style",
+      "pathKind": "leaf",
+      "v2Target": "Agent.voiceStyle",
+      "targetResolution": {
+        "target": "Agent.voiceStyle",
+        "normalizedTarget": "Agent.voiceStyle",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Agent.voiceStyle; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.capabilities",
+      "pathKind": "structure",
+      "v2Target": "DynamicFunctionalModel.capability[*]",
+      "targetResolution": {
+        "target": "DynamicFunctionalModel.capability[*]",
+        "normalizedTarget": "DynamicFunctionalModel.capability",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as DynamicFunctionalModel.capability[*]."
+    },
+    {
+      "v05Path": "$.capabilities[]",
+      "pathKind": "structure",
+      "v2Target": "Capability",
+      "targetResolution": {
+        "target": "Capability",
+        "normalizedTarget": "Capability",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Capability."
+    },
+    {
+      "v05Path": "$.capabilities[].effects",
+      "pathKind": "structure",
+      "v2Target": "Capability.effect[*]",
+      "targetResolution": {
+        "target": "Capability.effect[*]",
+        "normalizedTarget": "Capability.effect",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Capability.effect[*]."
+    },
+    {
+      "v05Path": "$.capabilities[].effects[]",
+      "pathKind": "structure",
+      "v2Target": "Effect",
+      "targetResolution": {
+        "target": "Effect",
+        "normalizedTarget": "Effect",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Effect."
+    },
+    {
+      "v05Path": "$.capabilities[].effects[].evidencedBy",
+      "pathKind": "structure",
+      "v2Target": "Effect.specifiedBy[*] (legacy field name preserved only in v0.5)",
+      "targetResolution": {
+        "target": "Effect.specifiedBy[*] (legacy field name preserved only in v0.5)",
+        "normalizedTarget": "Effect.specifiedBy",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Effect.specifiedBy[*] (legacy field name preserved only in v0.5)."
+    },
+    {
+      "v05Path": "$.capabilities[].effects[].evidencedBy[]",
+      "pathKind": "leaf",
+      "v2Target": "Effect.specifiedBy:StateAssertion",
+      "targetResolution": {
+        "target": "Effect.specifiedBy:StateAssertion",
+        "normalizedTarget": "Effect.specifiedBy",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Effect.specifiedBy:StateAssertion; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.capabilities[].effects[].id",
+      "pathKind": "leaf",
+      "v2Target": "Effect.shortName",
+      "targetResolution": {
+        "target": "Effect.shortName",
+        "normalizedTarget": "Effect.shortName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Effect.shortName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.capabilities[].effects[].text",
+      "pathKind": "leaf",
+      "v2Target": "Effect.text",
+      "targetResolution": {
+        "target": "Effect.text",
+        "normalizedTarget": "Effect.text",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Effect.text; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.capabilities[].id",
+      "pathKind": "leaf",
+      "v2Target": "Capability.shortName",
+      "targetResolution": {
+        "target": "Capability.shortName",
+        "normalizedTarget": "Capability.shortName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Capability.shortName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.capabilities[].name",
+      "pathKind": "leaf",
+      "v2Target": "Capability.name",
+      "targetResolution": {
+        "target": "Capability.name",
+        "normalizedTarget": "Capability.name",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Capability.name; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.capabilities[].precondition_ids",
+      "pathKind": "structure",
+      "v2Target": "Capability.precondition[*]",
+      "targetResolution": {
+        "target": "Capability.precondition[*]",
+        "normalizedTarget": "Capability.precondition",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Capability.precondition[*]."
+    },
+    {
+      "v05Path": "$.capabilities[].text",
+      "pathKind": "leaf",
+      "v2Target": "Capability.text",
+      "targetResolution": {
+        "target": "Capability.text",
+        "normalizedTarget": "Capability.text",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Capability.text; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.capabilityUses",
+      "pathKind": "structure",
+      "v2Target": "ScenarioStep.capabilityUse[*] (legacy top-level order in ledger)",
+      "targetResolution": {
+        "target": "ScenarioStep.capabilityUse[*] (legacy top-level order in ledger)",
+        "normalizedTarget": "ScenarioStep.capabilityUse",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as ScenarioStep.capabilityUse[*] (legacy top-level order in ledger)."
+    },
+    {
+      "v05Path": "$.capabilityUses[]",
+      "pathKind": "structure",
+      "v2Target": "CapabilityUse",
+      "targetResolution": {
+        "target": "CapabilityUse",
+        "normalizedTarget": "CapabilityUse",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as CapabilityUse."
+    },
+    {
+      "v05Path": "$.capabilityUses[].capability_id",
+      "pathKind": "leaf",
+      "v2Target": "CapabilityUse.type:Capability",
+      "targetResolution": {
+        "target": "CapabilityUse.type:Capability",
+        "normalizedTarget": "CapabilityUse.type",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as CapabilityUse.type:Capability; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.capabilityUses[].id",
+      "pathKind": "leaf",
+      "v2Target": "CapabilityUse.shortName",
+      "targetResolution": {
+        "target": "CapabilityUse.shortName",
+        "normalizedTarget": "CapabilityUse.shortName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as CapabilityUse.shortName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.capabilityUses[].parameters",
+      "pathKind": "structure",
+      "v2Target": "CapabilityUse.parameter[*]",
+      "targetResolution": {
+        "target": "CapabilityUse.parameter[*]",
+        "normalizedTarget": "CapabilityUse.parameter",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as CapabilityUse.parameter[*]."
+    },
+    {
+      "v05Path": "$.capabilityUses[].step_id",
+      "pathKind": "leaf",
+      "v2Target": "ScenarioStep.capabilityUse",
+      "targetResolution": {
+        "target": "ScenarioStep.capabilityUse",
+        "normalizedTarget": "ScenarioStep.capabilityUse",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as ScenarioStep.capabilityUse; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.caseId",
+      "pathKind": "leaf",
+      "v2Target": "DynamicFunctionalModel.shortName",
+      "targetResolution": {
+        "target": "DynamicFunctionalModel.shortName",
+        "normalizedTarget": "DynamicFunctionalModel.shortName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as DynamicFunctionalModel.shortName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.conditions",
+      "pathKind": "structure",
+      "v2Target": "DynamicFunctionalModel.scenarioCondition[*]",
+      "targetResolution": {
+        "target": "DynamicFunctionalModel.scenarioCondition[*]",
+        "normalizedTarget": "DynamicFunctionalModel.scenarioCondition",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as DynamicFunctionalModel.scenarioCondition[*]."
+    },
+    {
+      "v05Path": "$.conditions[]",
+      "pathKind": "structure",
+      "v2Target": "ScenarioCondition",
+      "targetResolution": {
+        "target": "ScenarioCondition",
+        "normalizedTarget": "ScenarioCondition",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as ScenarioCondition."
+    },
+    {
+      "v05Path": "$.conditions[].expression",
+      "pathKind": "leaf",
+      "v2Target": "EAExpression.mixedStringContent:EABoolean",
+      "targetResolution": {
+        "target": "EAExpression.mixedStringContent:EABoolean",
+        "normalizedTarget": "EAExpression.mixedStringContent",
+        "resolved": true,
+        "resolution": "atpMixedString-surface"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as EAExpression.mixedStringContent:EABoolean; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.conditions[].id",
+      "pathKind": "leaf",
+      "v2Target": "ScenarioCondition.shortName",
+      "targetResolution": {
+        "target": "ScenarioCondition.shortName",
+        "normalizedTarget": "ScenarioCondition.shortName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as ScenarioCondition.shortName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.conditions[].kind",
+      "pathKind": "leaf",
+      "v2Target": "ScenarioCondition.kind",
+      "targetResolution": {
+        "target": "ScenarioCondition.kind",
+        "normalizedTarget": "ScenarioCondition.kind",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as ScenarioCondition.kind; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.entities",
+      "pathKind": "structure",
+      "v2Target": "DynamicFunctionalModel.entity[*]",
+      "targetResolution": {
+        "target": "DynamicFunctionalModel.entity[*]",
+        "normalizedTarget": "DynamicFunctionalModel.entity",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as DynamicFunctionalModel.entity[*]."
+    },
+    {
+      "v05Path": "$.entities[]",
+      "pathKind": "structure",
+      "v2Target": "Entity",
+      "targetResolution": {
+        "target": "Entity",
+        "normalizedTarget": "Entity",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Entity."
+    },
+    {
+      "v05Path": "$.entities[].entityRole",
+      "pathKind": "leaf",
+      "v2Target": "Entity.entityRole",
+      "targetResolution": {
+        "target": "Entity.entityRole",
+        "normalizedTarget": "Entity.entityRole",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Entity.entityRole; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.entities[].id",
+      "pathKind": "leaf",
+      "v2Target": "Entity.shortName",
+      "targetResolution": {
+        "target": "Entity.shortName",
+        "normalizedTarget": "Entity.shortName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Entity.shortName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.entities[].kind",
+      "pathKind": "leaf",
+      "v2Target": "Entity.kind",
+      "targetResolution": {
+        "target": "Entity.kind",
+        "normalizedTarget": "Entity.kind",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Entity.kind; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.entities[].name",
+      "pathKind": "leaf",
+      "v2Target": "Entity.name",
+      "targetResolution": {
+        "target": "Entity.name",
+        "normalizedTarget": "Entity.name",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Entity.name; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.entities[].object_group_entity_id",
+      "pathKind": "leaf",
+      "v2Target": "Entity.objectGroup",
+      "targetResolution": {
+        "target": "Entity.objectGroup",
+        "normalizedTarget": "Entity.objectGroup",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Entity.objectGroup; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.entities[].object_type",
+      "pathKind": "leaf",
+      "v2Target": "Entity.objectType",
+      "targetResolution": {
+        "target": "Entity.objectType",
+        "normalizedTarget": "Entity.objectType",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Entity.objectType; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.entities[].purpose",
+      "pathKind": "leaf",
+      "v2Target": "Entity.purpose",
+      "targetResolution": {
+        "target": "Entity.purpose",
+        "normalizedTarget": "Entity.purpose",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Entity.purpose; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.entities[].source_group",
+      "pathKind": "leaf",
+      "v2Target": "Entity.sourceGroup",
+      "targetResolution": {
+        "target": "Entity.sourceGroup",
+        "normalizedTarget": "Entity.sourceGroup",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Entity.sourceGroup; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.entities[].source_id",
+      "pathKind": "leaf",
+      "v2Target": "Entity.sourceId",
+      "targetResolution": {
+        "target": "Entity.sourceId",
+        "normalizedTarget": "Entity.sourceId",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Entity.sourceId; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.entities[].source_object_ids",
+      "pathKind": "structure",
+      "v2Target": "Entity.sourceObjectId[*]",
+      "targetResolution": {
+        "target": "Entity.sourceObjectId[*]",
+        "normalizedTarget": "Entity.sourceObjectId",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Entity.sourceObjectId[*]."
+    },
+    {
+      "v05Path": "$.entities[].source_object_ids[]",
+      "pathKind": "leaf",
+      "v2Target": "Entity.sourceObjectId",
+      "targetResolution": {
+        "target": "Entity.sourceObjectId",
+        "normalizedTarget": "Entity.sourceObjectId",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Entity.sourceObjectId; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.events",
+      "pathKind": "structure",
+      "v2Target": "DynamicFunctionalModel.scenarioEvent[*]",
+      "targetResolution": {
+        "target": "DynamicFunctionalModel.scenarioEvent[*]",
+        "normalizedTarget": "DynamicFunctionalModel.scenarioEvent",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as DynamicFunctionalModel.scenarioEvent[*]."
+    },
+    {
+      "v05Path": "$.events[]",
+      "pathKind": "structure",
+      "v2Target": "ScenarioEvent",
+      "targetResolution": {
+        "target": "ScenarioEvent",
+        "normalizedTarget": "ScenarioEvent",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as ScenarioEvent."
+    },
+    {
+      "v05Path": "$.events[].expression",
+      "pathKind": "leaf",
+      "v2Target": "EAExpression.mixedStringContent",
+      "targetResolution": {
+        "target": "EAExpression.mixedStringContent",
+        "normalizedTarget": "EAExpression.mixedStringContent",
+        "resolved": true,
+        "resolution": "atpMixedString-surface"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as EAExpression.mixedStringContent; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.events[].id",
+      "pathKind": "leaf",
+      "v2Target": "ScenarioEvent.shortName",
+      "targetResolution": {
+        "target": "ScenarioEvent.shortName",
+        "normalizedTarget": "ScenarioEvent.shortName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as ScenarioEvent.shortName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.events[].kind",
+      "pathKind": "leaf",
+      "v2Target": "ScenarioEvent.kind",
+      "targetResolution": {
+        "target": "ScenarioEvent.kind",
+        "normalizedTarget": "ScenarioEvent.kind",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as ScenarioEvent.kind; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.metamodelVersion",
+      "pathKind": "leaf",
+      "v2Target": "V05ProjectionLedger.envelopeIdentifiers.metamodelVersion",
+      "targetResolution": {
+        "target": "V05ProjectionLedger.envelopeIdentifiers.metamodelVersion",
+        "normalizedTarget": "V05ProjectionLedger.envelopeIdentifiers.metamodelVersion",
+        "resolved": true,
+        "resolution": "compatibility-ledger"
+      },
+      "preservation": "compatibility-ledger",
+      "rule": "Preserve exact compatibility lexeme/presence in V05ProjectionLedger.envelopeIdentifiers.metamodelVersion; do not infer an EAST-ADL value."
+    },
+    {
+      "v05Path": "$.requirementsModel",
+      "pathKind": "structure",
+      "v2Target": "RequirementsModel",
+      "targetResolution": {
+        "target": "RequirementsModel",
+        "normalizedTarget": "RequirementsModel",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as RequirementsModel."
+    },
+    {
+      "v05Path": "$.requirementsModel.id",
+      "pathKind": "leaf",
+      "v2Target": "RequirementsModel.shortName",
+      "targetResolution": {
+        "target": "RequirementsModel.shortName",
+        "normalizedTarget": "RequirementsModel.shortName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as RequirementsModel.shortName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.requirements",
+      "pathKind": "structure",
+      "v2Target": "RequirementsModel.requirement[*]",
+      "targetResolution": {
+        "target": "RequirementsModel.requirement[*]",
+        "normalizedTarget": "RequirementsModel.requirement",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as RequirementsModel.requirement[*]."
+    },
+    {
+      "v05Path": "$.requirementsModel.requirements[]",
+      "pathKind": "structure",
+      "v2Target": "Requirement",
+      "targetResolution": {
+        "target": "Requirement",
+        "normalizedTarget": "Requirement",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Requirement."
+    },
+    {
+      "v05Path": "$.requirementsModel.requirements[].id",
+      "pathKind": "leaf",
+      "v2Target": "Requirement.shortName",
+      "targetResolution": {
+        "target": "Requirement.shortName",
+        "normalizedTarget": "Requirement.shortName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Requirement.shortName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.requirements[].text",
+      "pathKind": "leaf",
+      "v2Target": "Requirement.text",
+      "targetResolution": {
+        "target": "Requirement.text",
+        "normalizedTarget": "Requirement.text",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Requirement.text; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases",
+      "pathKind": "structure",
+      "v2Target": "RequirementsModel.useCase[*]",
+      "targetResolution": {
+        "target": "RequirementsModel.useCase[*]",
+        "normalizedTarget": "RequirementsModel.useCase",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as RequirementsModel.useCase[*]."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[]",
+      "pathKind": "structure",
+      "v2Target": "UseCase",
+      "targetResolution": {
+        "target": "UseCase",
+        "normalizedTarget": "UseCase",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as UseCase."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].actor_ids",
+      "pathKind": "structure",
+      "v2Target": "ActorParticipation[*]",
+      "targetResolution": {
+        "target": "ActorParticipation[*]",
+        "normalizedTarget": "ActorParticipation",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as ActorParticipation[*]."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].actor_ids[]",
+      "pathKind": "leaf",
+      "v2Target": "ActorParticipation.actor",
+      "targetResolution": {
+        "target": "ActorParticipation.actor",
+        "normalizedTarget": "ActorParticipation.actor",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as ActorParticipation.actor; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].extends",
+      "pathKind": "structure",
+      "v2Target": "UseCase.extend[*]",
+      "targetResolution": {
+        "target": "UseCase.extend[*]",
+        "normalizedTarget": "UseCase.extend",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as UseCase.extend[*]."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].extensionPoints",
+      "pathKind": "structure",
+      "v2Target": "UseCase.extensionPoint[*]",
+      "targetResolution": {
+        "target": "UseCase.extensionPoint[*]",
+        "normalizedTarget": "UseCase.extensionPoint",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as UseCase.extensionPoint[*]."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].id",
+      "pathKind": "leaf",
+      "v2Target": "UseCase.shortName",
+      "targetResolution": {
+        "target": "UseCase.shortName",
+        "normalizedTarget": "UseCase.shortName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as UseCase.shortName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].includes",
+      "pathKind": "structure",
+      "v2Target": "UseCase.include[*]",
+      "targetResolution": {
+        "target": "UseCase.include[*]",
+        "normalizedTarget": "UseCase.include",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as UseCase.include[*]."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].name",
+      "pathKind": "leaf",
+      "v2Target": "UseCase.name",
+      "targetResolution": {
+        "target": "UseCase.name",
+        "normalizedTarget": "UseCase.name",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as UseCase.name; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios",
+      "pathKind": "structure",
+      "v2Target": "UseCaseScenarioSpecification[*]",
+      "targetResolution": {
+        "target": "UseCaseScenarioSpecification[*]",
+        "normalizedTarget": "UseCaseScenarioSpecification",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as UseCaseScenarioSpecification[*]."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[]",
+      "pathKind": "structure",
+      "v2Target": "Scenario",
+      "targetResolution": {
+        "target": "Scenario",
+        "normalizedTarget": "Scenario",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Scenario."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].description",
+      "pathKind": "leaf",
+      "v2Target": "Scenario.text",
+      "targetResolution": {
+        "target": "Scenario.text",
+        "normalizedTarget": "Scenario.text",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Scenario.text; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].id",
+      "pathKind": "leaf",
+      "v2Target": "Scenario.shortName",
+      "targetResolution": {
+        "target": "Scenario.shortName",
+        "normalizedTarget": "Scenario.shortName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Scenario.shortName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].kind",
+      "pathKind": "leaf",
+      "v2Target": "V05ProjectionLedger.enumLexemes.scenarioKind",
+      "targetResolution": {
+        "target": "V05ProjectionLedger.enumLexemes.scenarioKind",
+        "normalizedTarget": "V05ProjectionLedger.enumLexemes.scenarioKind",
+        "resolved": true,
+        "resolution": "compatibility-ledger"
+      },
+      "preservation": "compatibility-ledger",
+      "rule": "Preserve exact compatibility lexeme/presence in V05ProjectionLedger.enumLexemes.scenarioKind; do not infer an EAST-ADL value."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].parallelGroups",
+      "pathKind": "structure",
+      "v2Target": "Scenario.parallelGroup[*]",
+      "targetResolution": {
+        "target": "Scenario.parallelGroup[*]",
+        "normalizedTarget": "Scenario.parallelGroup",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Scenario.parallelGroup[*]."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].postcondition_ids",
+      "pathKind": "structure",
+      "v2Target": "Scenario.postcondition[*]",
+      "targetResolution": {
+        "target": "Scenario.postcondition[*]",
+        "normalizedTarget": "Scenario.postcondition",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Scenario.postcondition[*]."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].postcondition_ids[]",
+      "pathKind": "leaf",
+      "v2Target": "Scenario.postcondition",
+      "targetResolution": {
+        "target": "Scenario.postcondition",
+        "normalizedTarget": "Scenario.postcondition",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Scenario.postcondition; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].precondition_ids",
+      "pathKind": "structure",
+      "v2Target": "Scenario.precondition[*]",
+      "targetResolution": {
+        "target": "Scenario.precondition[*]",
+        "normalizedTarget": "Scenario.precondition",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Scenario.precondition[*]."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].precondition_ids[]",
+      "pathKind": "leaf",
+      "v2Target": "Scenario.precondition",
+      "targetResolution": {
+        "target": "Scenario.precondition",
+        "normalizedTarget": "Scenario.precondition",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Scenario.precondition; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].stepRelations",
+      "pathKind": "structure",
+      "v2Target": "Scenario.stepRelation[*]",
+      "targetResolution": {
+        "target": "Scenario.stepRelation[*]",
+        "normalizedTarget": "Scenario.stepRelation",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Scenario.stepRelation[*]."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].stepRelations[]",
+      "pathKind": "structure",
+      "v2Target": "StepRelation",
+      "targetResolution": {
+        "target": "StepRelation",
+        "normalizedTarget": "StepRelation",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as StepRelation."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].stepRelations[].guard",
+      "pathKind": "leaf",
+      "v2Target": "StepRelation.guard:ScenarioCondition",
+      "targetResolution": {
+        "target": "StepRelation.guard:ScenarioCondition",
+        "normalizedTarget": "StepRelation.guard",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as StepRelation.guard:ScenarioCondition; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].stepRelations[].id",
+      "pathKind": "leaf",
+      "v2Target": "StepRelation.shortName",
+      "targetResolution": {
+        "target": "StepRelation.shortName",
+        "normalizedTarget": "StepRelation.shortName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as StepRelation.shortName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].stepRelations[].kind",
+      "pathKind": "leaf",
+      "v2Target": "StepRelation.kind",
+      "targetResolution": {
+        "target": "StepRelation.kind",
+        "normalizedTarget": "StepRelation.kind",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as StepRelation.kind; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].stepRelations[].probability",
+      "pathKind": "leaf",
+      "v2Target": "StepRelation.probability:Probability (alternative/exception only; otherwise preserved in V05ProjectionLedger)",
+      "targetResolution": {
+        "target": "StepRelation.probability:Probability (alternative/exception only; otherwise preserved in V05ProjectionLedger)",
+        "normalizedTarget": "StepRelation.probability",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as StepRelation.probability:Probability (alternative/exception only; otherwise preserved in V05ProjectionLedger); retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].stepRelations[].source_step_id",
+      "pathKind": "leaf",
+      "v2Target": "StepRelation.sourceStep",
+      "targetResolution": {
+        "target": "StepRelation.sourceStep",
+        "normalizedTarget": "StepRelation.sourceStep",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as StepRelation.sourceStep; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].stepRelations[].target_step_id",
+      "pathKind": "leaf",
+      "v2Target": "StepRelation.targetStep",
+      "targetResolution": {
+        "target": "StepRelation.targetStep",
+        "normalizedTarget": "StepRelation.targetStep",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as StepRelation.targetStep; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].steps",
+      "pathKind": "structure",
+      "v2Target": "Scenario.step[*]",
+      "targetResolution": {
+        "target": "Scenario.step[*]",
+        "normalizedTarget": "Scenario.step",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Scenario.step[*]."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].steps[]",
+      "pathKind": "structure",
+      "v2Target": "ScenarioStep",
+      "targetResolution": {
+        "target": "ScenarioStep",
+        "normalizedTarget": "ScenarioStep",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as ScenarioStep."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].steps[].capabilityUseIds",
+      "pathKind": "structure",
+      "v2Target": "ScenarioStep.capabilityUse[*]",
+      "targetResolution": {
+        "target": "ScenarioStep.capabilityUse[*]",
+        "normalizedTarget": "ScenarioStep.capabilityUse",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as ScenarioStep.capabilityUse[*]."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].steps[].capabilityUseIds[]",
+      "pathKind": "leaf",
+      "v2Target": "ScenarioStep.capabilityUse:CapabilityUse",
+      "targetResolution": {
+        "target": "ScenarioStep.capabilityUse:CapabilityUse",
+        "normalizedTarget": "ScenarioStep.capabilityUse",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as ScenarioStep.capabilityUse:CapabilityUse; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].steps[].guard",
+      "pathKind": "leaf",
+      "v2Target": "ScenarioStep.guard:ScenarioCondition",
+      "targetResolution": {
+        "target": "ScenarioStep.guard:ScenarioCondition",
+        "normalizedTarget": "ScenarioStep.guard",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as ScenarioStep.guard:ScenarioCondition; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].steps[].id",
+      "pathKind": "leaf",
+      "v2Target": "ScenarioStep.shortName",
+      "targetResolution": {
+        "target": "ScenarioStep.shortName",
+        "normalizedTarget": "ScenarioStep.shortName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as ScenarioStep.shortName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].steps[].kind",
+      "pathKind": "leaf",
+      "v2Target": "ScenarioStep.kind",
+      "targetResolution": {
+        "target": "ScenarioStep.kind",
+        "normalizedTarget": "ScenarioStep.kind",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as ScenarioStep.kind; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].steps[].occurrenceProbability",
+      "pathKind": "leaf",
+      "v2Target": "ScenarioStep.occurrenceProbability:Probability",
+      "targetResolution": {
+        "target": "ScenarioStep.occurrenceProbability:Probability",
+        "normalizedTarget": "ScenarioStep.occurrenceProbability",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as ScenarioStep.occurrenceProbability:Probability; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].steps[].performedBy",
+      "pathKind": "leaf",
+      "v2Target": "ScenarioStep.actorRole",
+      "targetResolution": {
+        "target": "ScenarioStep.actorRole",
+        "normalizedTarget": "ScenarioStep.actorRole",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as ScenarioStep.actorRole; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].steps[].resultingState",
+      "pathKind": "structure",
+      "v2Target": "ScenarioStep.resultingAssertion[*] (StateAssertion subset)",
+      "targetResolution": {
+        "target": "ScenarioStep.resultingAssertion[*] (StateAssertion subset)",
+        "normalizedTarget": "ScenarioStep.resultingAssertion",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as ScenarioStep.resultingAssertion[*] (StateAssertion subset)."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].steps[].resultingState[]",
+      "pathKind": "leaf",
+      "v2Target": "ScenarioStep.resultingAssertion:StateAssertion",
+      "targetResolution": {
+        "target": "ScenarioStep.resultingAssertion:StateAssertion",
+        "normalizedTarget": "ScenarioStep.resultingAssertion",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as ScenarioStep.resultingAssertion:StateAssertion; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].steps[].stepNumber",
+      "pathKind": "leaf",
+      "v2Target": "V05ProjectionLedger.stepNumbers",
+      "targetResolution": {
+        "target": "V05ProjectionLedger.stepNumbers",
+        "normalizedTarget": "V05ProjectionLedger.stepNumbers",
+        "resolved": true,
+        "resolution": "compatibility-ledger"
+      },
+      "preservation": "compatibility-ledger",
+      "rule": "Preserve exact compatibility lexeme/presence in V05ProjectionLedger.stepNumbers; do not infer an EAST-ADL value."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].steps[].text",
+      "pathKind": "leaf",
+      "v2Target": "ScenarioStep.text",
+      "targetResolution": {
+        "target": "ScenarioStep.text",
+        "normalizedTarget": "ScenarioStep.text",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as ScenarioStep.text; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].steps[].triggeredBy",
+      "pathKind": "structure",
+      "v2Target": "ScenarioStep.triggeredBy[*]",
+      "targetResolution": {
+        "target": "ScenarioStep.triggeredBy[*]",
+        "normalizedTarget": "ScenarioStep.triggeredBy",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as ScenarioStep.triggeredBy[*]."
+    },
+    {
+      "v05Path": "$.requirementsModel.useCases[].scenarios[].steps[].triggeredBy[]",
+      "pathKind": "leaf",
+      "v2Target": "ScenarioStep.triggeredBy:ScenarioEvent",
+      "targetResolution": {
+        "target": "ScenarioStep.triggeredBy:ScenarioEvent",
+        "normalizedTarget": "ScenarioStep.triggeredBy",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as ScenarioStep.triggeredBy:ScenarioEvent; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.runtimeBindings",
+      "pathKind": "structure",
+      "v2Target": "DynamicFunctionalModel.runtimeBinding[*]",
+      "targetResolution": {
+        "target": "DynamicFunctionalModel.runtimeBinding[*]",
+        "normalizedTarget": "DynamicFunctionalModel.runtimeBinding",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as DynamicFunctionalModel.runtimeBinding[*]."
+    },
+    {
+      "v05Path": "$.runtimeBindings[]",
+      "pathKind": "structure",
+      "v2Target": "RuntimeBinding",
+      "targetResolution": {
+        "target": "RuntimeBinding",
+        "normalizedTarget": "RuntimeBinding",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as RuntimeBinding."
+    },
+    {
+      "v05Path": "$.runtimeBindings[].capability_id",
+      "pathKind": "leaf",
+      "v2Target": "RuntimeBinding.capability",
+      "targetResolution": {
+        "target": "RuntimeBinding.capability",
+        "normalizedTarget": "RuntimeBinding.capability",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as RuntimeBinding.capability; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.runtimeBindings[].id",
+      "pathKind": "leaf",
+      "v2Target": "RuntimeBinding.shortName",
+      "targetResolution": {
+        "target": "RuntimeBinding.shortName",
+        "normalizedTarget": "RuntimeBinding.shortName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as RuntimeBinding.shortName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.runtimeBindings[].runtimeActions",
+      "pathKind": "structure",
+      "v2Target": "RuntimeBinding.runtimeAction[*]",
+      "targetResolution": {
+        "target": "RuntimeBinding.runtimeAction[*]",
+        "normalizedTarget": "RuntimeBinding.runtimeAction",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as RuntimeBinding.runtimeAction[*]."
+    },
+    {
+      "v05Path": "$.runtimeBindings[].runtimeActions[]",
+      "pathKind": "structure",
+      "v2Target": "RuntimeAction",
+      "targetResolution": {
+        "target": "RuntimeAction",
+        "normalizedTarget": "RuntimeAction",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as RuntimeAction."
+    },
+    {
+      "v05Path": "$.runtimeBindings[].runtimeActions[].endpoint",
+      "pathKind": "leaf",
+      "v2Target": "V05ProjectionLedger.runtimeActionLocatorSlots.endpoint",
+      "targetResolution": {
+        "target": "V05ProjectionLedger.runtimeActionLocatorSlots.endpoint",
+        "normalizedTarget": "V05ProjectionLedger.runtimeActionLocatorSlots.endpoint",
+        "resolved": true,
+        "resolution": "compatibility-ledger"
+      },
+      "preservation": "compatibility-ledger",
+      "rule": "Preserve exact compatibility lexeme/presence in V05ProjectionLedger.runtimeActionLocatorSlots.endpoint; do not infer an EAST-ADL value."
+    },
+    {
+      "v05Path": "$.runtimeBindings[].runtimeActions[].id",
+      "pathKind": "leaf",
+      "v2Target": "RuntimeAction.shortName",
+      "targetResolution": {
+        "target": "RuntimeAction.shortName",
+        "normalizedTarget": "RuntimeAction.shortName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as RuntimeAction.shortName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.runtimeBindings[].runtimeActions[].inputSchema",
+      "pathKind": "leaf",
+      "v2Target": "RuntimeAction.inputSchema:SchemaReference",
+      "targetResolution": {
+        "target": "RuntimeAction.inputSchema:SchemaReference",
+        "normalizedTarget": "RuntimeAction.inputSchema",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as RuntimeAction.inputSchema:SchemaReference; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.runtimeBindings[].runtimeActions[].outputSchema",
+      "pathKind": "leaf",
+      "v2Target": "RuntimeAction.outputSchema:SchemaReference",
+      "targetResolution": {
+        "target": "RuntimeAction.outputSchema:SchemaReference",
+        "normalizedTarget": "RuntimeAction.outputSchema",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as RuntimeAction.outputSchema:SchemaReference; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.runtimeBindings[].runtimeActions[].tool",
+      "pathKind": "leaf",
+      "v2Target": "V05ProjectionLedger.runtimeActionLocatorSlots.tool",
+      "targetResolution": {
+        "target": "V05ProjectionLedger.runtimeActionLocatorSlots.tool",
+        "normalizedTarget": "V05ProjectionLedger.runtimeActionLocatorSlots.tool",
+        "resolved": true,
+        "resolution": "compatibility-ledger"
+      },
+      "preservation": "compatibility-ledger",
+      "rule": "Preserve exact compatibility lexeme/presence in V05ProjectionLedger.runtimeActionLocatorSlots.tool; do not infer an EAST-ADL value."
+    },
+    {
+      "v05Path": "$.runtimeBindings[].runtimeActions[].topic",
+      "pathKind": "leaf",
+      "v2Target": "V05ProjectionLedger.runtimeActionLocatorSlots.topic",
+      "targetResolution": {
+        "target": "V05ProjectionLedger.runtimeActionLocatorSlots.topic",
+        "normalizedTarget": "V05ProjectionLedger.runtimeActionLocatorSlots.topic",
+        "resolved": true,
+        "resolution": "compatibility-ledger"
+      },
+      "preservation": "compatibility-ledger",
+      "rule": "Preserve exact compatibility lexeme/presence in V05ProjectionLedger.runtimeActionLocatorSlots.topic; do not infer an EAST-ADL value."
+    },
+    {
+      "v05Path": "$.runtimeBindings[].targetPlatform",
+      "pathKind": "leaf",
+      "v2Target": "RuntimeBinding.targetPlatform",
+      "targetResolution": {
+        "target": "RuntimeBinding.targetPlatform",
+        "normalizedTarget": "RuntimeBinding.targetPlatform",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as RuntimeBinding.targetPlatform; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.satisfyRelationships",
+      "pathKind": "structure",
+      "v2Target": "Context.ownedRelationship[*] (RequirementsModel context)",
+      "targetResolution": {
+        "target": "Context.ownedRelationship[*] (RequirementsModel context)",
+        "normalizedTarget": "Context.ownedRelationship",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Context.ownedRelationship[*] (RequirementsModel context)."
+    },
+    {
+      "v05Path": "$.satisfyRelationships[]",
+      "pathKind": "structure",
+      "v2Target": "Satisfy",
+      "targetResolution": {
+        "target": "Satisfy",
+        "normalizedTarget": "Satisfy",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Satisfy."
+    },
+    {
+      "v05Path": "$.satisfyRelationships[].id",
+      "pathKind": "leaf",
+      "v2Target": "Satisfy.shortName",
+      "targetResolution": {
+        "target": "Satisfy.shortName",
+        "normalizedTarget": "Satisfy.shortName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Satisfy.shortName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.satisfyRelationships[].satisfiedBy",
+      "pathKind": "structure",
+      "v2Target": "Satisfy.satisfiedBy[*]",
+      "targetResolution": {
+        "target": "Satisfy.satisfiedBy[*]",
+        "normalizedTarget": "Satisfy.satisfiedBy",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Satisfy.satisfiedBy[*]."
+    },
+    {
+      "v05Path": "$.satisfyRelationships[].satisfiedBy[]",
+      "pathKind": "leaf",
+      "v2Target": "Satisfy.satisfiedBy",
+      "targetResolution": {
+        "target": "Satisfy.satisfiedBy",
+        "normalizedTarget": "Satisfy.satisfiedBy",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Satisfy.satisfiedBy; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.satisfyRelationships[].satisfiedRequirement",
+      "pathKind": "structure",
+      "v2Target": "Satisfy.satisfiedRequirement[*]",
+      "targetResolution": {
+        "target": "Satisfy.satisfiedRequirement[*]",
+        "normalizedTarget": "Satisfy.satisfiedRequirement",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Satisfy.satisfiedRequirement[*]."
+    },
+    {
+      "v05Path": "$.satisfyRelationships[].satisfiedRequirement[]",
+      "pathKind": "leaf",
+      "v2Target": "Satisfy.satisfiedRequirement",
+      "targetResolution": {
+        "target": "Satisfy.satisfiedRequirement",
+        "normalizedTarget": "Satisfy.satisfiedRequirement",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Satisfy.satisfiedRequirement; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.satisfyRelationships[].satisfiedUseCase",
+      "pathKind": "structure",
+      "v2Target": "Satisfy.satisfiedUseCase[*]",
+      "targetResolution": {
+        "target": "Satisfy.satisfiedUseCase[*]",
+        "normalizedTarget": "Satisfy.satisfiedUseCase",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Satisfy.satisfiedUseCase[*]."
+    },
+    {
+      "v05Path": "$.schema",
+      "pathKind": "leaf",
+      "v2Target": "V05ProjectionLedger.envelopeIdentifiers.schema",
+      "targetResolution": {
+        "target": "V05ProjectionLedger.envelopeIdentifiers.schema",
+        "normalizedTarget": "V05ProjectionLedger.envelopeIdentifiers.schema",
+        "resolved": true,
+        "resolution": "compatibility-ledger"
+      },
+      "preservation": "compatibility-ledger",
+      "rule": "Preserve exact compatibility lexeme/presence in V05ProjectionLedger.envelopeIdentifiers.schema; do not infer an EAST-ADL value."
+    },
+    {
+      "v05Path": "$.stateAssertions",
+      "pathKind": "structure",
+      "v2Target": "DynamicFunctionalModel.assertion[*] (StateAssertion subset)",
+      "targetResolution": {
+        "target": "DynamicFunctionalModel.assertion[*] (StateAssertion subset)",
+        "normalizedTarget": "DynamicFunctionalModel.assertion",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as DynamicFunctionalModel.assertion[*] (StateAssertion subset)."
+    },
+    {
+      "v05Path": "$.stateAssertions[]",
+      "pathKind": "structure",
+      "v2Target": "StateAssertion",
+      "targetResolution": {
+        "target": "StateAssertion",
+        "normalizedTarget": "StateAssertion",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as StateAssertion."
+    },
+    {
+      "v05Path": "$.stateAssertions[].expression",
+      "pathKind": "leaf",
+      "v2Target": "Assertion.expression:EAExpression (expressionText is derived)",
+      "targetResolution": {
+        "target": "Assertion.expression:EAExpression (expressionText is derived)",
+        "normalizedTarget": "Assertion.expression",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Assertion.expression:EAExpression (expressionText is derived); retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.stateAssertions[].id",
+      "pathKind": "leaf",
+      "v2Target": "StateAssertion.shortName",
+      "targetResolution": {
+        "target": "StateAssertion.shortName",
+        "normalizedTarget": "StateAssertion.shortName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as StateAssertion.shortName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.stateAssertions[].subject_id",
+      "pathKind": "leaf",
+      "v2Target": "Assertion.subject",
+      "targetResolution": {
+        "target": "Assertion.subject",
+        "normalizedTarget": "Assertion.subject",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Assertion.subject; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.validationCases",
+      "pathKind": "structure",
+      "v2Target": "VerificationValidation.vvCase[*]",
+      "targetResolution": {
+        "target": "VerificationValidation.vvCase[*]",
+        "normalizedTarget": "VerificationValidation.vvCase",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as VerificationValidation.vvCase[*]."
+    },
+    {
+      "v05Path": "$.validationCases[]",
+      "pathKind": "structure",
+      "v2Target": "ValidationCase",
+      "targetResolution": {
+        "target": "ValidationCase",
+        "normalizedTarget": "ValidationCase",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as ValidationCase."
+    },
+    {
+      "v05Path": "$.validationCases[].expectedOutcome",
+      "pathKind": "structure",
+      "v2Target": "VVProcedure.vvIntendedOutcome[*]",
+      "targetResolution": {
+        "target": "VVProcedure.vvIntendedOutcome[*]",
+        "normalizedTarget": "VVProcedure.vvIntendedOutcome",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as VVProcedure.vvIntendedOutcome[*]."
+    },
+    {
+      "v05Path": "$.validationCases[].expectedOutcome[]",
+      "pathKind": "leaf",
+      "v2Target": "VVProcedure.vvIntendedOutcome",
+      "targetResolution": {
+        "target": "VVProcedure.vvIntendedOutcome",
+        "normalizedTarget": "VVProcedure.vvIntendedOutcome",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as VVProcedure.vvIntendedOutcome; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.validationCases[].id",
+      "pathKind": "leaf",
+      "v2Target": "ValidationCase.shortName",
+      "targetResolution": {
+        "target": "ValidationCase.shortName",
+        "normalizedTarget": "ValidationCase.shortName",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as ValidationCase.shortName; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.validationCases[].level",
+      "pathKind": "leaf",
+      "v2Target": "V05ProjectionLedger.enumLexemes.validationLevel",
+      "targetResolution": {
+        "target": "V05ProjectionLedger.enumLexemes.validationLevel",
+        "normalizedTarget": "V05ProjectionLedger.enumLexemes.validationLevel",
+        "resolved": true,
+        "resolution": "compatibility-ledger"
+      },
+      "preservation": "compatibility-ledger",
+      "rule": "Preserve exact compatibility lexeme/presence in V05ProjectionLedger.enumLexemes.validationLevel; do not infer an EAST-ADL value."
+    },
+    {
+      "v05Path": "$.validationCases[].runtime_binding_ids",
+      "pathKind": "structure",
+      "v2Target": "ValidationCase.vvSubject[*]",
+      "targetResolution": {
+        "target": "ValidationCase.vvSubject[*]",
+        "normalizedTarget": "ValidationCase.vvSubject",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as ValidationCase.vvSubject[*]."
+    },
+    {
+      "v05Path": "$.validationCases[].runtime_binding_ids[]",
+      "pathKind": "leaf",
+      "v2Target": "ValidationCase.vvSubject",
+      "targetResolution": {
+        "target": "ValidationCase.vvSubject",
+        "normalizedTarget": "ValidationCase.vvSubject",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as ValidationCase.vvSubject; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.validationCases[].stimulus_ids",
+      "pathKind": "structure",
+      "v2Target": "VVProcedure.vvStimuli[*]",
+      "targetResolution": {
+        "target": "VVProcedure.vvStimuli[*]",
+        "normalizedTarget": "VVProcedure.vvStimuli",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as VVProcedure.vvStimuli[*]."
+    },
+    {
+      "v05Path": "$.validationCases[].stimulus_ids[]",
+      "pathKind": "leaf",
+      "v2Target": "VVProcedure.vvStimuli",
+      "targetResolution": {
+        "target": "VVProcedure.vvStimuli",
+        "normalizedTarget": "VVProcedure.vvStimuli",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as VVProcedure.vvStimuli; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.validationCases[].validates_use_case_ids",
+      "pathKind": "structure",
+      "v2Target": "ValidationCaseUseCaseBinding[*]",
+      "targetResolution": {
+        "target": "ValidationCaseUseCaseBinding[*]",
+        "normalizedTarget": "ValidationCaseUseCaseBinding",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as ValidationCaseUseCaseBinding[*]."
+    },
+    {
+      "v05Path": "$.validationCases[].validates_use_case_ids[]",
+      "pathKind": "leaf",
+      "v2Target": "ValidationCaseUseCaseBinding.useCase",
+      "targetResolution": {
+        "target": "ValidationCaseUseCaseBinding.useCase",
+        "normalizedTarget": "ValidationCaseUseCaseBinding.useCase",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as ValidationCaseUseCaseBinding.useCase; retain exact presence, null and lexeme in V05ProjectionLedger."
+    },
+    {
+      "v05Path": "$.validationCases[].verifies_requirement_ids",
+      "pathKind": "structure",
+      "v2Target": "Verify[*]",
+      "targetResolution": {
+        "target": "Verify[*]",
+        "normalizedTarget": "Verify",
+        "resolved": true,
+        "resolution": "canonical-class"
+      },
+      "preservation": "container-and-order",
+      "rule": "Preserve the object/array boundary and order while projecting it as Verify[*]."
+    },
+    {
+      "v05Path": "$.validationCases[].verifies_requirement_ids[]",
+      "pathKind": "leaf",
+      "v2Target": "Verify.verifiedRequirement",
+      "targetResolution": {
+        "target": "Verify.verifiedRequirement",
+        "normalizedTarget": "Verify.verifiedRequirement",
+        "resolved": true,
+        "resolution": "canonical-member"
+      },
+      "preservation": "semantic-projection+ledger",
+      "rule": "Project the value as Verify.verifiedRequirement; retain exact presence, null and lexeme in V05ProjectionLedger."
+    }
+  ]
+}

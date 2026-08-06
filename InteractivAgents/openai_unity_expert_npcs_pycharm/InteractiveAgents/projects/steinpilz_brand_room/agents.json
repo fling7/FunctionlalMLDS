@@ -1,0 +1,345 @@
+{
+  "placement_schema": "functionalmlds_agent_placements",
+  "placement_schema_version": "2.0",
+  "placement_algorithm_version": "2.0.0",
+  "placement_origin": "deterministic",
+  "placement_artifact_sha256": "e14dc7f7c42a8ac3317766b03023578aff0b840c2b3ec8677f94cfacb473a2f9",
+  "placement_projection_sha256": "34397b435f56e060b979e67bebe641f59398aa15645c74e2c5601e8bfdf8ea3d",
+  "agents": [
+    {
+      "id": "reception_agent",
+      "display_name": "Reception Agent",
+      "persona": "Friendly and welcoming guide who provides initial orientation and general information about the booth and company.",
+      "voice": "fable",
+      "voice_gender": "maennlich",
+      "voice_style": "warm and approachable",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "visitor orientation",
+        "basic product knowledge",
+        "booth navigation"
+      ],
+      "knowledge_tags": [
+        "visitor_orientation",
+        "company_overview",
+        "booth_navigation"
+      ],
+      "responsible_zone_ids": [
+        "entrance_zone"
+      ],
+      "grounded_object_ids": [
+        "reception_desk",
+        "brand_panel1",
+        "brand_panel2",
+        "brand_panel3",
+        "brand_panel4"
+      ],
+      "handoff_targets": [
+        "product_specialist_agent",
+        "production_expert_agent",
+        "digital_interaction_agent",
+        "career_advisor_agent",
+        "lounge_host_agent"
+      ],
+      "preferred_zone_ids": [
+        "entrance_zone"
+      ],
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 2.75
+      },
+      "forward": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+      },
+      "functionalmlds_agent_ref": "ENT-AGENT-RECEPTION_AGENT",
+      "functionalmlds_entity_ref": "ENT-AGENT-RECEPTION_AGENT",
+      "provided_capability_ids": [
+        "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "plays_actor_ids": [
+        "ACT-ROOM-GUIDE"
+      ]
+    },
+    {
+      "id": "product_specialist_agent",
+      "display_name": "Product Specialist Agent",
+      "persona": "Knowledgeable cheese expert passionate about explaining products and facilitating sampling experiences.",
+      "voice": "sage",
+      "voice_gender": "weiblich",
+      "voice_style": "enthusiastic and clear",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "cheese product knowledge",
+        "sampling facilitation",
+        "customer engagement"
+      ],
+      "knowledge_tags": [
+        "cheese_products",
+        "product_sampling",
+        "customer_engagement"
+      ],
+      "responsible_zone_ids": [
+        "product_display_zone"
+      ],
+      "grounded_object_ids": [
+        "refrigerated_counter1",
+        "refrigerated_counter2",
+        "refrigerated_counter3",
+        "refrigerated_counter4",
+        "product_pedestal1",
+        "product_pedestal2",
+        "product_pedestal3",
+        "product_pedestal4",
+        "product_pedestal5",
+        "product_pedestal6"
+      ],
+      "handoff_targets": [
+        "production_expert_agent",
+        "digital_interaction_agent",
+        "career_advisor_agent"
+      ],
+      "preferred_zone_ids": [
+        "product_display_zone"
+      ],
+      "position": {
+        "x": -3.506,
+        "y": 0.0,
+        "z": 0.376
+      },
+      "forward": {
+        "x": -0.9965733052854592,
+        "y": 0.0,
+        "z": 0.08271425023788281
+      },
+      "functionalmlds_agent_ref": "ENT-AGENT-PRODUCT_SPECIALIST_AGENT",
+      "functionalmlds_entity_ref": "ENT-AGENT-PRODUCT_SPECIALIST_AGENT",
+      "provided_capability_ids": [
+        "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "plays_actor_ids": [
+        "ACT-ROOM-GUIDE"
+      ]
+    },
+    {
+      "id": "production_expert_agent",
+      "display_name": "Production Expert Agent",
+      "persona": "Technical specialist explaining cheese production technology and sustainability with detailed knowledge and clarity.",
+      "voice": "onyx",
+      "voice_gender": "maennlich",
+      "voice_style": "professional and informative",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "production technology",
+        "energy management",
+        "sustainability"
+      ],
+      "knowledge_tags": [
+        "production_process",
+        "energy_management",
+        "sustainability"
+      ],
+      "responsible_zone_ids": [
+        "production_model_zone",
+        "energy_monitoring_zone"
+      ],
+      "grounded_object_ids": [
+        "production_model1",
+        "production_model2",
+        "energy_station1",
+        "energy_station2"
+      ],
+      "handoff_targets": [
+        "digital_interaction_agent",
+        "career_advisor_agent"
+      ],
+      "preferred_zone_ids": [
+        "production_model_zone",
+        "energy_monitoring_zone"
+      ],
+      "position": {
+        "x": 5.414,
+        "y": 0.0,
+        "z": 2.125
+      },
+      "forward": {
+        "x": 0.710870637256426,
+        "y": 0.0,
+        "z": -0.703322782999842
+      },
+      "functionalmlds_agent_ref": "ENT-AGENT-PRODUCTION_EXPERT_AGENT",
+      "functionalmlds_entity_ref": "ENT-AGENT-PRODUCTION_EXPERT_AGENT",
+      "provided_capability_ids": [
+        "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "plays_actor_ids": [
+        "ACT-ROOM-GUIDE"
+      ]
+    },
+    {
+      "id": "digital_interaction_agent",
+      "display_name": "Digital Interaction Agent",
+      "persona": "Helpful digital assistant guiding visitors through interactive kiosks and digital content with patience and clarity.",
+      "voice": "coral",
+      "voice_gender": "weiblich",
+      "voice_style": "clear and supportive",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "digital kiosk operation",
+        "content guidance",
+        "technical support"
+      ],
+      "knowledge_tags": [
+        "digital_interaction",
+        "content_navigation",
+        "technical_support"
+      ],
+      "responsible_zone_ids": [
+        "interactive_zone"
+      ],
+      "grounded_object_ids": [
+        "touch_kiosk1",
+        "touch_kiosk2"
+      ],
+      "handoff_targets": [
+        "product_specialist_agent",
+        "production_expert_agent",
+        "career_advisor_agent"
+      ],
+      "preferred_zone_ids": [
+        "interactive_zone"
+      ],
+      "position": {
+        "x": 5.024,
+        "y": 0.0,
+        "z": 0.002
+      },
+      "forward": {
+        "x": -0.07394530070873036,
+        "y": 0.0,
+        "z": 0.9972622987474737
+      },
+      "functionalmlds_agent_ref": "ENT-AGENT-DIGITAL_INTERACTION_AGENT",
+      "functionalmlds_entity_ref": "ENT-AGENT-DIGITAL_INTERACTION_AGENT",
+      "provided_capability_ids": [
+        "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "plays_actor_ids": [
+        "ACT-ROOM-GUIDE"
+      ]
+    },
+    {
+      "id": "career_advisor_agent",
+      "display_name": "Career Advisor Agent",
+      "persona": "Encouraging and knowledgeable career counselor facilitating discussions about opportunities and training programs.",
+      "voice": "ballad",
+      "voice_gender": "maennlich",
+      "voice_style": "motivational and empathetic",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "career counseling",
+        "training program knowledge",
+        "meeting facilitation"
+      ],
+      "knowledge_tags": [
+        "career_opportunities",
+        "training_programs",
+        "company_culture"
+      ],
+      "responsible_zone_ids": [
+        "career_zone"
+      ],
+      "grounded_object_ids": [
+        "meeting_pod1",
+        "meeting_pod2",
+        "meeting_pod3",
+        "training_board1",
+        "training_board2"
+      ],
+      "handoff_targets": [
+        "lounge_host_agent"
+      ],
+      "preferred_zone_ids": [
+        "career_zone"
+      ],
+      "position": {
+        "x": 1.895,
+        "y": 0.0,
+        "z": 0.298
+      },
+      "forward": {
+        "x": 0.9114273292988607,
+        "y": 0.0,
+        "z": 0.4114610837091962
+      },
+      "functionalmlds_agent_ref": "ENT-AGENT-CAREER_ADVISOR_AGENT",
+      "functionalmlds_entity_ref": "ENT-AGENT-CAREER_ADVISOR_AGENT",
+      "provided_capability_ids": [
+        "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "plays_actor_ids": [
+        "ACT-ROOM-GUIDE"
+      ]
+    },
+    {
+      "id": "lounge_host_agent",
+      "display_name": "Lounge Host Agent",
+      "persona": "Warm and hospitable host ensuring visitor comfort and encouraging networking in the lounge area.",
+      "voice": "ash",
+      "voice_gender": "maennlich",
+      "voice_style": "relaxed and friendly",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "visitor comfort",
+        "networking facilitation",
+        "hospitality"
+      ],
+      "knowledge_tags": [
+        "visitor_comfort",
+        "networking",
+        "hospitality"
+      ],
+      "responsible_zone_ids": [
+        "lounge_zone"
+      ],
+      "grounded_object_ids": [
+        "sofa1",
+        "lounge_table",
+        "chair1",
+        "chair2"
+      ],
+      "handoff_targets": [
+        "reception_agent"
+      ],
+      "preferred_zone_ids": [
+        "lounge_zone"
+      ],
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -0.75
+      },
+      "forward": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -1.0
+      },
+      "functionalmlds_agent_ref": "ENT-AGENT-LOUNGE_HOST_AGENT",
+      "functionalmlds_entity_ref": "ENT-AGENT-LOUNGE_HOST_AGENT",
+      "provided_capability_ids": [
+        "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "plays_actor_ids": [
+        "ACT-ROOM-GUIDE"
+      ]
+    }
+  ]
+}

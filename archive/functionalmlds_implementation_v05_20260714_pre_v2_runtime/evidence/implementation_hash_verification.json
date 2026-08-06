@@ -1,0 +1,10 @@
+{
+  "baseline": "output/metamodel_v2/implementation_baseline.sha256.csv",
+  "checked_bytes": 2449211010,
+  "claim": "Unity, Backend, Pipeline und v0.5-Generator sind bytegenau unveraendert.",
+  "file_count": 1715,
+  "hash_mismatches": [],
+  "missing": [],
+  "size_mismatches": [],
+  "status": "pass"
+}

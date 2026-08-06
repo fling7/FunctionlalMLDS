@@ -1,0 +1,132 @@
+{
+  "audit": "Dynamic Functional MLDS V2 v0.5 compatibility",
+  "passed": true,
+  "fixtureCount": 7,
+  "expectedFixtureCount": 7,
+  "foundCaseIds": [
+    "bestfit_career_fair",
+    "cheese_factory_tradefair_booth_36f00adc",
+    "classroom_dinosaur",
+    "mldssteinpilz_e2e_1783611970",
+    "mldssteinpilz_probe",
+    "mldssteinpilz_uidiag_abs_repair_1783611709",
+    "steinpilz_brand_room"
+  ],
+  "missingCaseIds": [],
+  "unexpectedCaseIds": [],
+  "mappingSummary": {
+    "entryCount": 173,
+    "structurePathCount": 72,
+    "leafPathCount": 101,
+    "coverage": {
+      "covered": true,
+      "coveredPathCount": 173,
+      "resolvedTargetCount": 173,
+      "unresolvedTargets": [],
+      "missingStructurePaths": [],
+      "missingLeafPaths": [],
+      "declaredButUnobservedStructurePaths": [],
+      "declaredButUnobservedLeafPaths": []
+    }
+  },
+  "cases": [
+    {
+      "caseId": "bestfit_career_fair",
+      "source": "output/case_studies/bestfit_career_fair/functionalmlds/functionalmlds.instance.generated.json",
+      "roundTripStructuralEqual": true,
+      "objectAndArrayOrderEqual": true,
+      "sourceStructuralSha256": "e5fe1e165a6f3dc6939a836e14d764cb2a8e708f065be1b82e6c28b0a02e4fd1",
+      "presencePointerCount": 1523,
+      "nullPointerCount": 54,
+      "emptyContainerPointerCount": 45,
+      "runtimeActionLocatorCount": 12,
+      "agentAliasCount": 5,
+      "validationLevelCount": 6,
+      "mainFirst": true
+    },
+    {
+      "caseId": "classroom_dinosaur",
+      "source": "output/case_studies/classroom_dinosaur/functionalmlds/functionalmlds.instance.generated.json",
+      "roundTripStructuralEqual": true,
+      "objectAndArrayOrderEqual": true,
+      "sourceStructuralSha256": "c947890df91f6f806fb86a7fa121bde36b6f1d69dbf1277a2d642ed082763bdf",
+      "presencePointerCount": 1503,
+      "nullPointerCount": 54,
+      "emptyContainerPointerCount": 45,
+      "runtimeActionLocatorCount": 12,
+      "agentAliasCount": 4,
+      "validationLevelCount": 6,
+      "mainFirst": true
+    },
+    {
+      "caseId": "steinpilz_brand_room",
+      "source": "output/case_studies/steinpilz_brand_room/functionalmlds/functionalmlds.instance.generated.json",
+      "roundTripStructuralEqual": true,
+      "objectAndArrayOrderEqual": true,
+      "sourceStructuralSha256": "2bc8ad92bf861485c62b4a3753cd3a4856c75e6cde42fd572fddde27572fe002",
+      "presencePointerCount": 1594,
+      "nullPointerCount": 54,
+      "emptyContainerPointerCount": 45,
+      "runtimeActionLocatorCount": 12,
+      "agentAliasCount": 6,
+      "validationLevelCount": 6,
+      "mainFirst": true
+    },
+    {
+      "caseId": "cheese_factory_tradefair_booth_36f00adc",
+      "source": "output/wizard_functionalmlds/cheese_factory_tradefair_booth_36f00adc/functionalmlds/functionalmlds.instance.generated.json",
+      "roundTripStructuralEqual": true,
+      "objectAndArrayOrderEqual": true,
+      "sourceStructuralSha256": "0eba4a864cfb730d8005a8717ad3b2f0508340a22e4bd85b4673615e502d309d",
+      "presencePointerCount": 1594,
+      "nullPointerCount": 54,
+      "emptyContainerPointerCount": 45,
+      "runtimeActionLocatorCount": 12,
+      "agentAliasCount": 6,
+      "validationLevelCount": 6,
+      "mainFirst": true
+    },
+    {
+      "caseId": "mldssteinpilz_e2e_1783611970",
+      "source": "output/wizard_functionalmlds/mldssteinpilz_e2e_1783611970/functionalmlds/functionalmlds.instance.generated.json",
+      "roundTripStructuralEqual": true,
+      "objectAndArrayOrderEqual": true,
+      "sourceStructuralSha256": "7fe96146b36221da0dfcdc942ede2bcf3c50a196fb9b9a47a1b6c2e7a104096c",
+      "presencePointerCount": 1589,
+      "nullPointerCount": 54,
+      "emptyContainerPointerCount": 45,
+      "runtimeActionLocatorCount": 12,
+      "agentAliasCount": 6,
+      "validationLevelCount": 6,
+      "mainFirst": true
+    },
+    {
+      "caseId": "mldssteinpilz_probe",
+      "source": "output/wizard_functionalmlds/mldssteinpilz_probe/functionalmlds/functionalmlds.instance.generated.json",
+      "roundTripStructuralEqual": true,
+      "objectAndArrayOrderEqual": true,
+      "sourceStructuralSha256": "30615dc65a5984e14b152f2c19265183fb6934860dd2b8d3888a7a639c63c5d1",
+      "presencePointerCount": 1591,
+      "nullPointerCount": 54,
+      "emptyContainerPointerCount": 45,
+      "runtimeActionLocatorCount": 12,
+      "agentAliasCount": 6,
+      "validationLevelCount": 6,
+      "mainFirst": true
+    },
+    {
+      "caseId": "mldssteinpilz_uidiag_abs_repair_1783611709",
+      "source": "output/wizard_functionalmlds/mldssteinpilz_uidiag_abs_repair_1783611709/functionalmlds/functionalmlds.instance.generated.json",
+      "roundTripStructuralEqual": true,
+      "objectAndArrayOrderEqual": true,
+      "sourceStructuralSha256": "ce5365b74b372346e2766af7618cd3faea260b25de8cdb705568cf5e139dd652",
+      "presencePointerCount": 1579,
+      "nullPointerCount": 54,
+      "emptyContainerPointerCount": 45,
+      "runtimeActionLocatorCount": 12,
+      "agentAliasCount": 6,
+      "validationLevelCount": 6,
+      "mainFirst": true
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "stage": "mlds_ingestion",
+  "case_count": 1,
+  "success_count": 1,
+  "failure_count": 0,
+  "llm_enabled": false,
+  "runtime_enabled": false,
+  "max_repair_attempts": 3,
+  "cases": [
+    {
+      "case_id": "classroom_dinosaur",
+      "status": "success",
+      "validation": {
+        "status": "valid",
+        "errors": [],
+        "warnings": [],
+        "metrics": {
+          "object_count": 42,
+          "non_structural_group_count": 5
+        }
+      },
+      "normalized_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_study_batch_runner_smoke\\classroom_dinosaur\\intermediate\\scene_graph.normalized.json",
+      "group_summary_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_study_batch_runner_smoke\\classroom_dinosaur\\intermediate\\object_group_summary.json"
+    }
+  ],
+  "scene_semantics": [],
+  "agent_roles": [],
+  "knowledge_synthesis": [],
+  "agent_placement": [],
+  "functionalmlds_assembly": [],
+  "project_materialization": [],
+  "schema_validation": [],
+  "functionalmlds_invariants": [],
+  "traceability_metrics": [],
+  "placement_metrics": [],
+  "handoff_metrics": [],
+  "evaluation_questions": [],
+  "chat_tests": [],
+  "handoff_tests": [],
+  "answer_grounding": []
+}

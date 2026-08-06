@@ -1,0 +1,28 @@
+{
+  "handoffs": [
+    {
+      "source_agent_id": "teacher_agent",
+      "target_agent_id": "librarian_agent",
+      "condition": "visitor asks for books or reading materials",
+      "reason": "Librarian Agent specializes in managing educational resources and reading areas."
+    },
+    {
+      "source_agent_id": "teacher_agent",
+      "target_agent_id": "museum_guide_agent",
+      "condition": "visitor shows interest in dinosaur exhibit",
+      "reason": "Museum Guide Agent provides detailed information about the dinosaur skeleton and related exhibits."
+    },
+    {
+      "source_agent_id": "librarian_agent",
+      "target_agent_id": "teacher_agent",
+      "condition": "visitor needs help with classroom activities or instruction",
+      "reason": "Teacher Agent is responsible for teaching and classroom management."
+    },
+    {
+      "source_agent_id": "museum_guide_agent",
+      "target_agent_id": "teacher_agent",
+      "condition": "visitor wants to connect exhibit knowledge with classroom lessons",
+      "reason": "Teacher Agent integrates exhibit information into broader educational context."
+    }
+  ]
+}

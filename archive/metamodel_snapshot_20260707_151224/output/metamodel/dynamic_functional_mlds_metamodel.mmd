@@ -1,0 +1,126 @@
+classDiagram
+  class Identifiable {
+    <<abstract>>
+    uuid: Identifier
+    shortName: String
+  }
+  class TraceableSpecification {
+    <<abstract>>
+    text: String
+    formalism: String [0..1]
+  }
+  class RedefinableElement {
+    <<abstract>>
+  }
+  class RequirementsModel {
+    <<Context>>
+  }
+  class Requirement
+  class Actor
+  class UseCase
+  class ExtensionPoint
+  class Include {
+    addition: UseCase [1]
+  }
+  class Extend {
+    extendedCase: UseCase [1]
+    extensionLocation: ExtensionPoint [1..*]
+    condition: Condition [0..1]
+  }
+  class Satisfy {
+    satisfiedRequirement: Requirement [0..*]
+    satisfiedUseCase: UseCase [0..*]
+    satisfiedBy: Identifiable [1..*]
+    xor requirementOrUseCase
+  }
+  class Scenario {
+    kind: main|alternative|exception
+    goal: String
+  }
+  class ScenarioStep {
+    stepNumber: int
+    kind: actorIntent|systemResponse|environmentObservation
+    text: String
+  }
+  class StepRelation {
+    kind: sequence|alternative|exception|fork|join|loop
+    probability: float [0..1]
+  }
+  class ParallelGroup {
+    memberSteps: ScenarioStep [2..*]
+  }
+  class Event {
+    kind: temporal|spatial|signal|user|environment
+    expression: String
+  }
+  class Condition {
+    kind: guard|pre|post|spatial|timing
+    expression: String
+  }
+  class StateAssertion {
+    subjectRef: Identifiable [1]
+    expectedState: String
+  }
+  class RandomVariable {
+    distribution: exponential|normal|uniform|custom
+  }
+  class Entity
+  class Agent
+  class Capability
+  class CapabilityUse
+  class Effect
+  class RuntimeBinding
+  class RuntimeAction
+  class ValidationCase
+  class FunctionBehavior
+
+  TraceableSpecification --|> Identifiable
+  RedefinableElement --|> Identifiable
+  Requirement --|> TraceableSpecification
+  Actor --|> TraceableSpecification
+  UseCase --|> TraceableSpecification
+  ExtensionPoint --|> RedefinableElement
+  Scenario --|> TraceableSpecification
+  ScenarioStep --|> TraceableSpecification
+  Entity --|> TraceableSpecification
+  Agent --|> Entity
+  Capability --|> TraceableSpecification
+  ValidationCase --|> TraceableSpecification
+
+  RequirementsModel "1" *-- "0..*" Requirement
+  RequirementsModel "1" *-- "0..*" UseCase
+  Actor "0..*" -- "0..*" UseCase : interactsWith
+  UseCase "1" *-- "0..*" ExtensionPoint
+  UseCase "1" *-- "0..*" Include
+  UseCase "1" *-- "0..*" Extend
+  Include --> "1" UseCase : addition
+  Extend --> "1" UseCase : extendedCase
+  Extend --> "1..*" ExtensionPoint : extensionLocation
+  Satisfy --> "0..*" Requirement : satisfiedRequirement
+  Satisfy --> "0..*" UseCase : satisfiedUseCase
+  Satisfy ..> "1..*" Identifiable : satisfiedBy
+
+  UseCase "1" *-- "1..*" Scenario
+  Scenario "1" *-- "1..*" ScenarioStep
+  Scenario "1" *-- "0..*" StepRelation
+  Scenario "1" *-- "0..*" ParallelGroup
+  ScenarioStep --> "0..1" Actor : performedBy
+  ScenarioStep --> "0..*" Event : triggeredBy
+  ScenarioStep --> "0..1" Condition : guard
+  ScenarioStep --> "0..*" StateAssertion : resultingState
+  StepRelation --> "1" ScenarioStep : source
+  StepRelation --> "1" ScenarioStep : target
+  ParallelGroup --> "2..*" ScenarioStep : memberSteps
+  Condition --> "0..*" RandomVariable : uses
+
+  Entity --> "0..*" Capability : provides
+  Agent ..> "0..*" Actor : playsRole
+  ScenarioStep "1" *-- "0..*" CapabilityUse : requires
+  CapabilityUse --> "1" Capability
+  Capability "1" *-- "1..*" Effect : promisedEffect
+  Capability ..> "0..*" FunctionBehavior : refines
+  Capability --> "0..*" RuntimeBinding : binding
+  RuntimeBinding "1" *-- "1..*" RuntimeAction : mapsTo
+  ValidationCase ..> "0..*" Requirement : verifies
+  ValidationCase ..> "0..*" UseCase : validates
+  ValidationCase ..> "0..*" RuntimeBinding : executes/checks

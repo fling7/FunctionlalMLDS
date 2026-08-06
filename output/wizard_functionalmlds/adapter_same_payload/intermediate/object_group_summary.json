@@ -1,0 +1,193 @@
+{
+  "case_scene_name": "Classroom_With_Reading_Area_And_Dinosaur",
+  "schema_kind": "mlds_scene",
+  "groups": [
+    {
+      "group": "decor",
+      "object_count": 3,
+      "object_types": {
+        "dinosaur_skeleton": 1,
+        "picture": 2
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": 0.8333,
+        "z": 1.8333
+      },
+      "example_objects": [
+        {
+          "object_id": "dinosaur_skeleton",
+          "object_type": "dinosaur_skeleton",
+          "specification_excerpt": "A detailed museum-quality dinosaur skeleton model with articulated bone-like elements in a clean off-white finish, mounted on a minimal metal base for display."
+        },
+        {
+          "object_id": "picture1",
+          "object_type": "picture",
+          "specification_excerpt": "A framed abstract artwork print with a thin black frame, showcasing modern decorative style and a balanced composition."
+        },
+        {
+          "object_id": "picture2",
+          "object_type": "picture",
+          "specification_excerpt": "A framed abstract artwork print with a thin black frame, showcasing modern decorative style and a balanced composition."
+        }
+      ]
+    },
+    {
+      "group": "equipment",
+      "object_count": 1,
+      "object_types": {
+        "chalkboard": 1
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": 0.0,
+        "z": -6.875
+      },
+      "example_objects": [
+        {
+          "object_id": "chalkboard",
+          "object_type": "chalkboard",
+          "specification_excerpt": "A large modern chalkboard with a deep matte dark green writing surface framed by a slim metallic frame, featuring crisp edges for an educational environment."
+        }
+      ]
+    },
+    {
+      "group": "floor",
+      "object_count": 1,
+      "object_types": {
+        "floor": 1
+      },
+      "is_structural": true,
+      "centroid_xz": {
+        "x": 0.0,
+        "z": 0.0
+      },
+      "example_objects": [
+        {
+          "object_id": "floor",
+          "object_type": "floor",
+          "specification_excerpt": "A flat, smooth concrete floor panel with a subtle modern texture and uniform light gray color, providing a clean and durable foundation for the interior space."
+        }
+      ]
+    },
+    {
+      "group": "furniture",
+      "object_count": 23,
+      "object_types": {
+        "desk": 21,
+        "bookcase": 1,
+        "table": 1
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": 0.2043,
+        "z": -1.2913
+      },
+      "example_objects": [
+        {
+          "object_id": "teacher_desk",
+          "object_type": "desk",
+          "specification_excerpt": "A contemporary teacher's desk featuring a rectangular wood veneer top with a warm walnut finish, supported by slim black metal legs, with a streamlined and functional design."
+        },
+        {
+          "object_id": "student_desk1",
+          "object_type": "desk",
+          "specification_excerpt": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic."
+        },
+        {
+          "object_id": "student_desk2",
+          "object_type": "desk",
+          "specification_excerpt": "A modern student desk featuring a rectangular wood laminate top in light oak finish, supported by powder-coated metal legs with an integrated modesty panel, designed for durability and contemporary classroom aesthetic."
+        }
+      ]
+    },
+    {
+      "group": "plants",
+      "object_count": 5,
+      "object_types": {
+        "plant": 5
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": 0.56,
+        "z": -2.18
+      },
+      "example_objects": [
+        {
+          "object_id": "plant1",
+          "object_type": "plant",
+          "specification_excerpt": "A potted indoor plant with lush green foliage in a simple modern planter with a matte finish, adding a touch of nature to the room."
+        },
+        {
+          "object_id": "plant2",
+          "object_type": "plant",
+          "specification_excerpt": "A potted indoor plant with lush green foliage in a simple modern planter with a matte finish, adding a touch of nature to the room."
+        },
+        {
+          "object_id": "plant3",
+          "object_type": "plant",
+          "specification_excerpt": "A small potted indoor plant with delicate greenery in a compact modern planter, perfect for tabletop or shelf display."
+        }
+      ]
+    },
+    {
+      "group": "seating",
+      "object_count": 4,
+      "object_types": {
+        "beanbag": 4
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": 0.0,
+        "z": 4.0
+      },
+      "example_objects": [
+        {
+          "object_id": "beanbag1",
+          "object_type": "beanbag",
+          "specification_excerpt": "A soft, plush fabric beanbag with a rounded form and vibrant upholstery, offering comfortable casual seating with a contemporary lounge style."
+        },
+        {
+          "object_id": "beanbag2",
+          "object_type": "beanbag",
+          "specification_excerpt": "A soft, plush fabric beanbag with a rounded form and vibrant upholstery, offering comfortable casual seating with a contemporary lounge style."
+        },
+        {
+          "object_id": "beanbag3",
+          "object_type": "beanbag",
+          "specification_excerpt": "A soft, plush fabric beanbag with a rounded form and vibrant upholstery, offering comfortable casual seating with a contemporary lounge style."
+        }
+      ]
+    },
+    {
+      "group": "structural",
+      "object_count": 5,
+      "object_types": {
+        "ceiling": 1,
+        "wall": 4
+      },
+      "is_structural": true,
+      "centroid_xz": {
+        "x": 0.0,
+        "z": 0.0
+      },
+      "example_objects": [
+        {
+          "object_id": "ceiling",
+          "object_type": "ceiling",
+          "specification_excerpt": "A flat, smooth white ceiling panel with a modern matte finish, minimalistic aesthetic, and subtle integrated mounting points for overhead lighting fixtures."
+        },
+        {
+          "object_id": "wall_front",
+          "object_type": "wall",
+          "specification_excerpt": "A tall vertical modern drywall wall painted in crisp white with clean sharp edges and minimalistic trim."
+        },
+        {
+          "object_id": "wall_back",
+          "object_type": "wall",
+          "specification_excerpt": "A tall vertical modern drywall wall painted in crisp white with clean sharp edges and minimalistic trim."
+        }
+      ]
+    }
+  ]
+}

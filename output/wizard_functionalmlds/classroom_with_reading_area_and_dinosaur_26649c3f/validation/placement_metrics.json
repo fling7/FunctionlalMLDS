@@ -1,0 +1,127 @@
+{
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "agent_count": 4,
+    "placement_count": 4,
+    "valid_position_count": 4,
+    "valid_position_ratio": 1.0,
+    "out_of_bounds_count": 0,
+    "obstacle_overlap_count": 0,
+    "minimum_agent_distance": 2.13055,
+    "minimum_agent_distance_threshold": 1.0,
+    "average_distance_to_target_xz": 1.488244,
+    "max_distance_to_target_xz": 1.600781,
+    "average_nearest_responsible_group_distance": 1.997473,
+    "max_nearest_responsible_group_distance": 2.643896,
+    "average_nearest_responsible_zone_distance": 1.952282,
+    "max_nearest_responsible_zone_distance": 2.553919
+  },
+  "per_agent": [
+    {
+      "agent_id": "teacher_agent",
+      "valid_position": true,
+      "position": {
+        "x": 1.0,
+        "z": -1.15
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 1.600781,
+      "responsible_group_count": 2,
+      "distance_to_responsible_object_groups": {
+        "count": 2,
+        "nearest": 1.203173,
+        "average": 3.507426,
+        "maximum": 5.81168
+      },
+      "responsible_zone_count": 1,
+      "distance_to_responsible_zones": {
+        "count": 1,
+        "nearest": 2.553919,
+        "average": 2.553919,
+        "maximum": 2.553919
+      }
+    },
+    {
+      "agent_id": "librarian_agent",
+      "valid_position": true,
+      "position": {
+        "x": 3.646,
+        "z": 2.327
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 1.250538,
+      "responsible_group_count": 2,
+      "distance_to_responsible_object_groups": {
+        "count": 2,
+        "nearest": 2.318953,
+        "average": 3.165234,
+        "maximum": 4.011514
+      },
+      "responsible_zone_count": 2,
+      "distance_to_responsible_zones": {
+        "count": 2,
+        "nearest": 1.250538,
+        "average": 2.716179,
+        "maximum": 4.18182
+      }
+    },
+    {
+      "agent_id": "museum_guide_agent",
+      "valid_position": true,
+      "position": {
+        "x": 2.337,
+        "z": 4.008
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 1.500877,
+      "responsible_group_count": 1,
+      "distance_to_responsible_object_groups": {
+        "count": 1,
+        "nearest": 2.643896,
+        "average": 2.643896,
+        "maximum": 2.643896
+      },
+      "responsible_zone_count": 1,
+      "distance_to_responsible_zones": {
+        "count": 1,
+        "nearest": 2.1808,
+        "average": 2.1808,
+        "maximum": 2.1808
+      }
+    },
+    {
+      "agent_id": "plant_decorator_agent",
+      "valid_position": true,
+      "position": {
+        "x": 1.0,
+        "z": -3.95
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 1.600781,
+      "responsible_group_count": 1,
+      "distance_to_responsible_object_groups": {
+        "count": 1,
+        "nearest": 1.82387,
+        "average": 1.82387,
+        "maximum": 1.82387
+      },
+      "responsible_zone_count": 1,
+      "distance_to_responsible_zones": {
+        "count": 1,
+        "nearest": 1.82387,
+        "average": 1.82387,
+        "maximum": 1.82387
+      }
+    }
+  ]
+}

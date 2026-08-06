@@ -1,0 +1,269 @@
+{
+  "status": "valid",
+  "errors": [],
+  "warnings": [
+    "scenario_step_to_capability_coverage coverage is 0.833333 (10/12).",
+    "runtime_action_to_log_coverage coverage is 0.25 (3/12)."
+  ],
+  "metrics": {
+    "metric_count": 6,
+    "full_coverage_metric_count": 4,
+    "partial_coverage_metric_count": 2,
+    "average_coverage": 0.847222
+  },
+  "traceability_metrics": [
+    {
+      "metric_id": "requirement_to_validation_coverage",
+      "description": "Share of Requirements referenced by at least one ValidationCase.",
+      "numerator": 6,
+      "denominator": 6,
+      "coverage": 1.0,
+      "covered_ids": [
+        "REQ-STEINPILZ_BRAND_ROOM-001",
+        "REQ-STEINPILZ_BRAND_ROOM-002",
+        "REQ-STEINPILZ_BRAND_ROOM-003",
+        "REQ-STEINPILZ_BRAND_ROOM-004",
+        "REQ-STEINPILZ_BRAND_ROOM-005",
+        "REQ-STEINPILZ_BRAND_ROOM-006"
+      ],
+      "uncovered_ids": [],
+      "details": {
+        "validation_cases_by_requirement": {
+          "REQ-STEINPILZ_BRAND_ROOM-006": [
+            "VC-STEINPILZ_BRAND_ROOM-MODEL-INVARIANTS",
+            "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING",
+            "VC-STEINPILZ_BRAND_ROOM-HANDOFF"
+          ],
+          "REQ-STEINPILZ_BRAND_ROOM-002": [
+            "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING"
+          ],
+          "REQ-STEINPILZ_BRAND_ROOM-004": [
+            "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION",
+            "VC-STEINPILZ_BRAND_ROOM-CHAT-GROUNDING"
+          ],
+          "REQ-STEINPILZ_BRAND_ROOM-005": [
+            "VC-STEINPILZ_BRAND_ROOM-PROJECT-MATERIALIZATION",
+            "VC-STEINPILZ_BRAND_ROOM-SETUP"
+          ],
+          "REQ-STEINPILZ_BRAND_ROOM-001": [
+            "VC-STEINPILZ_BRAND_ROOM-MLDS-INGESTION"
+          ],
+          "REQ-STEINPILZ_BRAND_ROOM-003": [
+            "VC-STEINPILZ_BRAND_ROOM-SETUP",
+            "VC-STEINPILZ_BRAND_ROOM-HANDOFF"
+          ]
+        }
+      }
+    },
+    {
+      "metric_id": "scenario_step_to_capability_coverage",
+      "description": "Share of ScenarioSteps operationalized by at least one existing CapabilityUse.",
+      "numerator": 10,
+      "denominator": 12,
+      "coverage": 0.833333,
+      "covered_ids": [
+        "STEP-STEINPILZ_BRAND_ROOM-S02",
+        "STEP-STEINPILZ_BRAND_ROOM-S03",
+        "STEP-STEINPILZ_BRAND_ROOM-S04",
+        "STEP-STEINPILZ_BRAND_ROOM-S05",
+        "STEP-STEINPILZ_BRAND_ROOM-S06",
+        "STEP-STEINPILZ_BRAND_ROOM-S07",
+        "STEP-STEINPILZ_BRAND_ROOM-S08",
+        "STEP-STEINPILZ_BRAND_ROOM-S09",
+        "STEP-STEINPILZ_BRAND_ROOM-S11",
+        "STEP-STEINPILZ_BRAND_ROOM-S12"
+      ],
+      "uncovered_ids": [
+        "STEP-STEINPILZ_BRAND_ROOM-S01",
+        "STEP-STEINPILZ_BRAND_ROOM-S10"
+      ],
+      "details": {
+        "invalid_capability_use_refs": {},
+        "uncovered_step_kinds": {
+          "STEP-STEINPILZ_BRAND_ROOM-S01": "actorIntent",
+          "STEP-STEINPILZ_BRAND_ROOM-S10": "actorIntent"
+        }
+      }
+    },
+    {
+      "metric_id": "capability_to_runtime_binding_coverage",
+      "description": "Share of Capabilities with at least one RuntimeBinding.",
+      "numerator": 9,
+      "denominator": 9,
+      "coverage": 1.0,
+      "covered_ids": [
+        "CAP-STEINPILZ_BRAND_ROOM-ANALYZE-MLDS-SCENE",
+        "CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-STEINPILZ_BRAND_ROOM-ASSEMBLE-FUNCTIONAL-MLDS",
+        "CAP-STEINPILZ_BRAND_ROOM-DERIVE-SPATIAL-AGENT-ROLES",
+        "CAP-STEINPILZ_BRAND_ROOM-GENERATE-ROOM-KNOWLEDGE",
+        "CAP-STEINPILZ_BRAND_ROOM-HANDOFF-TO-RESPONSIBLE-AGENT",
+        "CAP-STEINPILZ_BRAND_ROOM-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+        "CAP-STEINPILZ_BRAND_ROOM-PLACE-AGENTS-IN-SCENE",
+        "CAP-STEINPILZ_BRAND_ROOM-SETUP-INTERACTIVE-SESSION"
+      ],
+      "uncovered_ids": [],
+      "details": {}
+    },
+    {
+      "metric_id": "runtime_action_to_log_coverage",
+      "description": "Share of RuntimeActions observed in runtime_logs/events.jsonl.",
+      "numerator": 3,
+      "denominator": 12,
+      "coverage": 0.25,
+      "covered_ids": [
+        "RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT",
+        "RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT-HANDOFF",
+        "RA-STEINPILZ_BRAND_ROOM-BACKEND-SETUP"
+      ],
+      "uncovered_ids": [
+        "RA-STEINPILZ_BRAND_ROOM-ARROW-ANALYZE",
+        "RA-STEINPILZ_BRAND_ROOM-ARROW-COMMIT",
+        "RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-PLACEMENT",
+        "RA-STEINPILZ_BRAND_ROOM-RUN-AGENT-ROLES",
+        "RA-STEINPILZ_BRAND_ROOM-RUN-FUNCTIONALMLDS-ASSEMBLER",
+        "RA-STEINPILZ_BRAND_ROOM-RUN-KNOWLEDGE-SYNTHESIS",
+        "RA-STEINPILZ_BRAND_ROOM-RUN-MLDS-INGESTION",
+        "RA-STEINPILZ_BRAND_ROOM-RUN-SCENE-SEMANTICS",
+        "RA-STEINPILZ_BRAND_ROOM-WRITE-PROJECT-FILES"
+      ],
+      "details": {
+        "runtime_log_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\steinpilz_brand_room\\runtime_logs\\events.jsonl",
+        "logged_runtime_action_ids": [
+          "RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT",
+          "RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT-HANDOFF",
+          "RA-STEINPILZ_BRAND_ROOM-BACKEND-SETUP"
+        ]
+      }
+    },
+    {
+      "metric_id": "agent_to_knowledge_tag_coverage",
+      "description": "Share of Agents whose knowledge_tags are fully backed by generated knowledge entries.",
+      "numerator": 6,
+      "denominator": 6,
+      "coverage": 1.0,
+      "covered_ids": [
+        "career_advisor_agent",
+        "digital_interaction_agent",
+        "lounge_host_agent",
+        "product_specialist_agent",
+        "production_expert_agent",
+        "reception_agent"
+      ],
+      "uncovered_ids": [],
+      "details": {
+        "available_knowledge_tags": [
+          "booth_navigation",
+          "career_opportunities",
+          "cheese_products",
+          "company_culture",
+          "company_overview",
+          "content_navigation",
+          "customer_engagement",
+          "digital_interaction",
+          "energy_management",
+          "hospitality",
+          "networking",
+          "product_sampling",
+          "production_process",
+          "sustainability",
+          "technical_support",
+          "training_programs",
+          "visitor_comfort",
+          "visitor_orientation"
+        ],
+        "missing_tags_by_agent": {}
+      }
+    },
+    {
+      "metric_id": "object_group_to_agent_role_grounding",
+      "description": "Share of semantic MLDS object groups grounded by at least one AgentRole grounded_object_id.",
+      "numerator": 9,
+      "denominator": 9,
+      "coverage": 1.0,
+      "covered_ids": [
+        "branding",
+        "career",
+        "energy",
+        "entrance",
+        "interactive",
+        "lounge",
+        "product_counters",
+        "product_pedestals",
+        "production_models"
+      ],
+      "uncovered_ids": [],
+      "details": {
+        "all_object_groups": [
+          "branding",
+          "career",
+          "energy",
+          "entrance",
+          "floor",
+          "floor_markings",
+          "interactive",
+          "lounge",
+          "product_counters",
+          "product_pedestals",
+          "production_models",
+          "walls"
+        ],
+        "excluded_structural_groups": [
+          "floor",
+          "floor_markings",
+          "walls"
+        ],
+        "grounded_objects_by_group": {
+          "product_counters": [
+            "refrigerated_counter1",
+            "refrigerated_counter2",
+            "refrigerated_counter3",
+            "refrigerated_counter4"
+          ],
+          "energy": [
+            "energy_station1",
+            "energy_station2"
+          ],
+          "production_models": [
+            "production_model1",
+            "production_model2"
+          ],
+          "product_pedestals": [
+            "product_pedestal1",
+            "product_pedestal2",
+            "product_pedestal3",
+            "product_pedestal4",
+            "product_pedestal5",
+            "product_pedestal6"
+          ],
+          "entrance": [
+            "reception_desk"
+          ],
+          "career": [
+            "meeting_pod1",
+            "meeting_pod2",
+            "meeting_pod3",
+            "training_board1",
+            "training_board2"
+          ],
+          "branding": [
+            "brand_panel1",
+            "brand_panel2",
+            "brand_panel3",
+            "brand_panel4"
+          ],
+          "lounge": [
+            "chair1",
+            "chair2",
+            "lounge_table",
+            "sofa1"
+          ],
+          "interactive": [
+            "touch_kiosk1",
+            "touch_kiosk2"
+          ]
+        }
+      }
+    }
+  ]
+}

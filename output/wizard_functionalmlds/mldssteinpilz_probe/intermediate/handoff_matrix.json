@@ -1,0 +1,100 @@
+{
+  "handoffs": [
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "product_specialist_agent",
+      "condition": "Visitor requests detailed product information or sampling assistance",
+      "reason": "Product Specialist has in-depth product knowledge and handles sampling and sales."
+    },
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "production_expert_agent",
+      "condition": "Visitor wants to understand cheese production process or energy technology",
+      "reason": "Production Expert provides technical explanations and insights."
+    },
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "interactive_guide_agent",
+      "condition": "Visitor seeks help with digital kiosks or interactive content",
+      "reason": "Interactive Guide assists with digital engagement and kiosk navigation."
+    },
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "career_coach_agent",
+      "condition": "Visitor is interested in career opportunities or business discussions",
+      "reason": "Career Coach facilitates career and business meetings."
+    },
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "lounge_host_agent",
+      "condition": "Visitor wants to relax or network informally",
+      "reason": "Lounge Host manages comfort and informal networking."
+    },
+    {
+      "source_agent_id": "product_specialist_agent",
+      "target_agent_id": "reception_agent",
+      "condition": "Visitor question belongs to the target agent expertise.",
+      "reason": "Target agent is responsible for the referenced zone or topic."
+    },
+    {
+      "source_agent_id": "product_specialist_agent",
+      "target_agent_id": "production_expert_agent",
+      "condition": "Visitor asks technical questions about production process beyond product details",
+      "reason": "Production Expert has specialized technical knowledge."
+    },
+    {
+      "source_agent_id": "product_specialist_agent",
+      "target_agent_id": "interactive_guide_agent",
+      "condition": "Visitor wants to explore digital content related to products",
+      "reason": "Interactive Guide supports digital content interaction."
+    },
+    {
+      "source_agent_id": "production_expert_agent",
+      "target_agent_id": "product_specialist_agent",
+      "condition": "Visitor inquires about product details after learning about production",
+      "reason": "Product Specialist provides product-specific information."
+    },
+    {
+      "source_agent_id": "production_expert_agent",
+      "target_agent_id": "interactive_guide_agent",
+      "condition": "Visitor wants to access digital content about production technology",
+      "reason": "Interactive Guide facilitates digital exploration."
+    },
+    {
+      "source_agent_id": "interactive_guide_agent",
+      "target_agent_id": "product_specialist_agent",
+      "condition": "Visitor needs human assistance after digital interaction with products",
+      "reason": "Product Specialist offers personal product support."
+    },
+    {
+      "source_agent_id": "interactive_guide_agent",
+      "target_agent_id": "production_expert_agent",
+      "condition": "Visitor requires expert explanation after digital content on production",
+      "reason": "Production Expert provides detailed technical insights."
+    },
+    {
+      "source_agent_id": "career_coach_agent",
+      "target_agent_id": "reception_agent",
+      "condition": "Visitor finishes career discussion and seeks general information or other zones",
+      "reason": "Reception Agent provides general guidance and navigation."
+    },
+    {
+      "source_agent_id": "career_coach_agent",
+      "target_agent_id": "lounge_host_agent",
+      "condition": "Visitor wants to relax or network after career discussions",
+      "reason": "Lounge Host supports informal networking and comfort."
+    },
+    {
+      "source_agent_id": "lounge_host_agent",
+      "target_agent_id": "reception_agent",
+      "condition": "Visitor wants to explore other zones or needs general information after relaxing",
+      "reason": "Reception Agent offers orientation and information."
+    },
+    {
+      "source_agent_id": "lounge_host_agent",
+      "target_agent_id": "career_coach_agent",
+      "condition": "Visitor interested in career opportunities after networking",
+      "reason": "Career Coach facilitates career-related engagement."
+    }
+  ]
+}

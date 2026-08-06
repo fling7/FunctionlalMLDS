@@ -1,0 +1,76 @@
+{
+  "handoffs": [
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "product_specialist_agent",
+      "condition": "Visitor requests detailed cheese product information or sampling assistance",
+      "reason": "Product Specialist has expertise in cheese products and sampling guidance"
+    },
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "production_expert_agent",
+      "condition": "Visitor wants to understand cheese production process or energy usage",
+      "reason": "Production Expert specializes in production technology and energy monitoring"
+    },
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "digital_interaction_agent",
+      "condition": "Visitor wants help with digital kiosks or interactive content",
+      "reason": "Digital Interaction Agent assists with digital interfaces and content navigation"
+    },
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "career_consultant_agent",
+      "condition": "Visitor is interested in career or business discussions",
+      "reason": "Career Consultant facilitates career counseling and business communication"
+    },
+    {
+      "source_agent_id": "reception_agent",
+      "target_agent_id": "lounge_host_agent",
+      "condition": "Visitor seeks a place to relax or informal networking",
+      "reason": "Lounge Host ensures visitor comfort and networking facilitation"
+    },
+    {
+      "source_agent_id": "product_specialist_agent",
+      "target_agent_id": "reception_agent",
+      "condition": "Visitor needs general information or directions beyond product details",
+      "reason": "Reception Agent provides overall visitor assistance and guidance"
+    },
+    {
+      "source_agent_id": "product_specialist_agent",
+      "target_agent_id": "production_expert_agent",
+      "condition": "Visitor asks technical questions about production related to products",
+      "reason": "Production Expert has detailed knowledge of production technology"
+    },
+    {
+      "source_agent_id": "production_expert_agent",
+      "target_agent_id": "reception_agent",
+      "condition": "Visitor requires general brand or navigation information",
+      "reason": "Reception Agent covers visitor assistance and brand knowledge"
+    },
+    {
+      "source_agent_id": "production_expert_agent",
+      "target_agent_id": "product_specialist_agent",
+      "condition": "Visitor inquires about product details linked to production",
+      "reason": "Product Specialist focuses on product knowledge and customer interaction"
+    },
+    {
+      "source_agent_id": "digital_interaction_agent",
+      "target_agent_id": "reception_agent",
+      "condition": "Visitor needs broader assistance beyond digital content",
+      "reason": "Reception Agent provides comprehensive visitor guidance"
+    },
+    {
+      "source_agent_id": "career_consultant_agent",
+      "target_agent_id": "reception_agent",
+      "condition": "Visitor requests general information or directions",
+      "reason": "Reception Agent manages visitor assistance and navigation"
+    },
+    {
+      "source_agent_id": "lounge_host_agent",
+      "target_agent_id": "reception_agent",
+      "condition": "Visitor wants information or to continue exploring other zones",
+      "reason": "Reception Agent supports visitor orientation and information"
+    }
+  ]
+}

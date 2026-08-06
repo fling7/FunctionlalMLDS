@@ -1,0 +1,95 @@
+\section{Introduction}
+
+Imagine a visitor standing in a virtual classroom, pointing at a skeleton, and
+asking an embodied agent, ``What is this?'' The visible object, the visitor's
+selection, the responsible agent, and the relevant knowledge are all part of the
+interaction. The system must resolve the object, select the declared agent and
+capability, and expose ambiguity or failure instead of guessing.
+
+This apparently simple interaction crosses two development worlds. Unity
+contains rooms, zones, assets, colliders, avatars, and interaction components.
+The agent backend contains personas, knowledge, routing rules, and model calls.
+Direct wiring distributes their relationships across files and code. An
+endpoint can succeed while the answer concerns the wrong object or comes from
+the wrong agent, and scene changes can leave stale links hidden until runtime.
+
+We investigate whether an explicit model-grounding layer can make these
+relationships executable and observable. \systemname{} expands to
+\emph{Functional Meta-Language-defined Structure}. It builds on the
+Meta-Language-defined Structure (MLDS) idea of a machine-readable artifact
+governed by a meta-language specification \cite{fischer2025machinereadable},
+but makes functional interaction relations first-class. Our system represents
+user-facing scenarios, spatial targets, embodied agents, capabilities, runtime
+bindings, expected assertions, and observed outcomes in a shared interaction
+model. A generation pipeline materializes this model in a Unity desktop client
+and a multi-agent backend. Unity supplies a ray-selected target candidate; the
+contract validates its stable identity, determines the declared provider and
+route, and permits a model call only after those request-decidable checks pass.
+Runtime events
+carry model identifiers back into a validation layer, allowing a developer to
+follow an interaction from a user request to its outcome.
+
+We call an interaction \emph{interaction-model-grounded} when the selected
+entity, responsible provider, invoked capability, concrete runtime action, and
+expected assertion all resolve from the same pinned model instance. This is a
+conditional assurance guarantee: if the backend admits a spatial request, its
+preflight found one complete model-local path. Request-decidable failures stop
+before a model call or state mutation; response-dependent postconditions can
+reject a generated proposal and roll back its provisional state. In either
+case, the violated relation and enforcement stage are identified. The guarantee
+concerns identity, declared responsibility, and trace coherence. It
+does not establish that the selected object matches an unobserved user
+intention or that a generated answer is factually correct.
+
+This problem connects areas usually treated separately: embodied agents
+\cite{cassell1999embodiment,kopp2005museum}, situated reference
+\cite{gorniak2005grounding,lemaignan2012grounding}, conversational XR
+\cite{delatorre2024llmr,carcangiu2025tellxr,buldu2025cuify,liu2026agenthands},
+and model-based interface engineering
+\cite{puerta1999framework,calvary2003cameleon,paterno2009maria}. We ask whether
+their explicit connection can provide a control and evidence boundary for a
+spatial multi-agent interface, not whether any ingredient is new.
+
+The model is infrastructure for an intelligent interface: it determines what a
+spatial request refers to, which agent may act, which operation is invoked, and
+what evidence explains the result. The claimed novelty is the composed
+assurance boundary, in which the same typed relations constrain generation,
+backend admission, UI presentation, and diagnostics.
+
+We ask three questions:
+
+\begin{description}
+  \item[RQ1: Representation.] Can assets in
+  heterogeneous scenes be represented as provider-coherent interaction chains
+  and resolved to a responsible agent under explicit asset, group, and zone
+  rules?
+
+  \item[RQ2: Representation tradeoffs.] Under semantically matched
+  executable adapters, how do the direct-artifact and model-grounded
+  representations compare in routing parity, detection and localization of
+  common faults, representation edits, and local execution time?
+
+  \item[RQ3: Contract enforcement.] Which invalid
+  selections, routes, and traces are rejected before state mutation, and can an
+  author preview, validate, discard, or undo a placement change without
+  breaking the model-to-runtime chain?
+\end{description}
+
+This paper makes four contributions:
+
+\begin{enumerate}
+  \item a model-grounded interaction-assurance architecture for spatial
+  embodied-agent interfaces, implemented across a Unity desktop prototype and
+  conversational-agent backend;
+  \item an executable interaction chain linking scenarios, targets, agents,
+  capabilities, runtime actions, assertions, and evidence, with staged
+  fail-closed enforcement and relation-level diagnostics;
+  \item a reproducible, API-free structural benchmark over three environments,
+  plus deliberately valid and broken Unity/backend interaction traces; and
+  \item an executable comparison with a normalized adapter over the direct
+  pre-model artifacts, with claims bounded to routing parity, synthetic
+  mutations, representation edits, and descriptive local runtime.
+\end{enumerate}
+
+This system evaluation makes no claim about preference, trust, workload, or
+perceived usability.

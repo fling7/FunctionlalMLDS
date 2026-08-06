@@ -1,0 +1,157 @@
+{
+  "schema": "functionalmlds_agent_placements",
+  "schema_version": "2.0",
+  "placement_algorithm_version": "2.0.0",
+  "origin": "deterministic",
+  "room_bounds": {
+    "min_x": -10.0,
+    "max_x": 10.0,
+    "min_z": -7.5,
+    "max_z": 7.5
+  },
+  "agent_placements": [
+    {
+      "id": "reception_agent",
+      "display_name": "Reception Agent",
+      "position": {
+        "x": -4.655,
+        "y": 0.0,
+        "z": -5.079
+      },
+      "forward": {
+        "x": -0.676050624566222,
+        "y": 0.0,
+        "z": -0.736855177781646
+      },
+      "target_xz": {
+        "x": -5.5,
+        "z": -6.0
+      },
+      "responsible_zone_ids": [
+        "reception_zone"
+      ],
+      "grounded_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ]
+    },
+    {
+      "id": "benefits_expert",
+      "display_name": "Benefits Information Specialist",
+      "position": {
+        "x": 3.358,
+        "y": 0.0,
+        "z": -1.58
+      },
+      "forward": {
+        "x": 0.8808348242988157,
+        "y": 0.0,
+        "z": -0.4734237132870243
+      },
+      "target_xz": {
+        "x": 6.0,
+        "z": -3.0
+      },
+      "responsible_zone_ids": [
+        "benefits_info_zone"
+      ],
+      "grounded_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ]
+    },
+    {
+      "id": "recruiting_agent",
+      "display_name": "Recruiting Agent",
+      "position": {
+        "x": 4.743,
+        "y": 0.0,
+        "z": 3.182
+      },
+      "forward": {
+        "x": 0.8381540482450448,
+        "y": 0.0,
+        "z": 0.5454335811173007
+      },
+      "target_xz": {
+        "x": 6.0,
+        "z": 4.0
+      },
+      "responsible_zone_ids": [
+        "recruiting_zone"
+      ],
+      "grounded_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ]
+    },
+    {
+      "id": "demo_technician",
+      "display_name": "Demo Technician",
+      "position": {
+        "x": -0.065,
+        "y": 0.0,
+        "z": 0.991
+      },
+      "forward": {
+        "x": 0.06428696184217006,
+        "y": 0.0,
+        "z": 0.9979314538269166
+      },
+      "target_xz": {
+        "x": 0.0,
+        "z": 2.0
+      },
+      "responsible_zone_ids": [
+        "showcase_zone",
+        "demo_kiosk_zone"
+      ],
+      "grounded_object_ids": [
+        "showcase_equipment_treadmill",
+        "showcase_equipment_weights_rack",
+        "vr_ar_station1",
+        "vr_ar_station2",
+        "kiosk_demo1",
+        "kiosk_demo2",
+        "kiosk_demo3",
+        "info_stele_studio1",
+        "info_stele_studio2",
+        "info_stele_studio3"
+      ]
+    },
+    {
+      "id": "hospitality_agent",
+      "display_name": "Hospitality Agent",
+      "position": {
+        "x": 2.266,
+        "y": 0.0,
+        "z": -1.302
+      },
+      "forward": {
+        "x": 0.8667010397030608,
+        "y": 0.0,
+        "z": -0.49882793403901643
+      },
+      "target_xz": {
+        "x": 4.0,
+        "z": -2.3
+      },
+      "responsible_zone_ids": [
+        "refreshment_zone"
+      ],
+      "grounded_object_ids": [
+        "refreshment_counter",
+        "bar_stool_refreshment1",
+        "bar_stool_refreshment2",
+        "bar_stool_refreshment3",
+        "lounge_seating"
+      ]
+    }
+  ]
+}

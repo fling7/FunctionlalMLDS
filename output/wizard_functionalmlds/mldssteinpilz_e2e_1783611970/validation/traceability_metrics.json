@@ -1,0 +1,264 @@
+{
+  "status": "valid",
+  "errors": [],
+  "warnings": [
+    "scenario_step_to_capability_coverage coverage is 0.833333 (10/12).",
+    "runtime_action_to_log_coverage coverage is 0.0 (0/12)."
+  ],
+  "metrics": {
+    "metric_count": 6,
+    "full_coverage_metric_count": 4,
+    "partial_coverage_metric_count": 2,
+    "average_coverage": 0.805555
+  },
+  "traceability_metrics": [
+    {
+      "metric_id": "requirement_to_validation_coverage",
+      "description": "Share of Requirements referenced by at least one ValidationCase.",
+      "numerator": 6,
+      "denominator": 6,
+      "coverage": 1.0,
+      "covered_ids": [
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-001",
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-002",
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-003",
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-004",
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-005",
+        "REQ-MLDSSTEINPILZ_E2E_1783611970-006"
+      ],
+      "uncovered_ids": [],
+      "details": {
+        "validation_cases_by_requirement": {
+          "REQ-MLDSSTEINPILZ_E2E_1783611970-005": [
+            "VC-MLDSSTEINPILZ_E2E_1783611970-PROJECT-MATERIALIZATION",
+            "VC-MLDSSTEINPILZ_E2E_1783611970-SETUP"
+          ],
+          "REQ-MLDSSTEINPILZ_E2E_1783611970-006": [
+            "VC-MLDSSTEINPILZ_E2E_1783611970-MODEL-INVARIANTS",
+            "VC-MLDSSTEINPILZ_E2E_1783611970-CHAT-GROUNDING",
+            "VC-MLDSSTEINPILZ_E2E_1783611970-HANDOFF"
+          ],
+          "REQ-MLDSSTEINPILZ_E2E_1783611970-004": [
+            "VC-MLDSSTEINPILZ_E2E_1783611970-PROJECT-MATERIALIZATION",
+            "VC-MLDSSTEINPILZ_E2E_1783611970-CHAT-GROUNDING"
+          ],
+          "REQ-MLDSSTEINPILZ_E2E_1783611970-001": [
+            "VC-MLDSSTEINPILZ_E2E_1783611970-MLDS-INGESTION"
+          ],
+          "REQ-MLDSSTEINPILZ_E2E_1783611970-003": [
+            "VC-MLDSSTEINPILZ_E2E_1783611970-SETUP",
+            "VC-MLDSSTEINPILZ_E2E_1783611970-HANDOFF"
+          ],
+          "REQ-MLDSSTEINPILZ_E2E_1783611970-002": [
+            "VC-MLDSSTEINPILZ_E2E_1783611970-CHAT-GROUNDING"
+          ]
+        }
+      }
+    },
+    {
+      "metric_id": "scenario_step_to_capability_coverage",
+      "description": "Share of ScenarioSteps operationalized by at least one existing CapabilityUse.",
+      "numerator": 10,
+      "denominator": 12,
+      "coverage": 0.833333,
+      "covered_ids": [
+        "STEP-MLDSSTEINPILZ_E2E_1783611970-S02",
+        "STEP-MLDSSTEINPILZ_E2E_1783611970-S03",
+        "STEP-MLDSSTEINPILZ_E2E_1783611970-S04",
+        "STEP-MLDSSTEINPILZ_E2E_1783611970-S05",
+        "STEP-MLDSSTEINPILZ_E2E_1783611970-S06",
+        "STEP-MLDSSTEINPILZ_E2E_1783611970-S07",
+        "STEP-MLDSSTEINPILZ_E2E_1783611970-S08",
+        "STEP-MLDSSTEINPILZ_E2E_1783611970-S09",
+        "STEP-MLDSSTEINPILZ_E2E_1783611970-S11",
+        "STEP-MLDSSTEINPILZ_E2E_1783611970-S12"
+      ],
+      "uncovered_ids": [
+        "STEP-MLDSSTEINPILZ_E2E_1783611970-S01",
+        "STEP-MLDSSTEINPILZ_E2E_1783611970-S10"
+      ],
+      "details": {
+        "invalid_capability_use_refs": {},
+        "uncovered_step_kinds": {
+          "STEP-MLDSSTEINPILZ_E2E_1783611970-S01": "actorIntent",
+          "STEP-MLDSSTEINPILZ_E2E_1783611970-S10": "actorIntent"
+        }
+      }
+    },
+    {
+      "metric_id": "capability_to_runtime_binding_coverage",
+      "description": "Share of Capabilities with at least one RuntimeBinding.",
+      "numerator": 9,
+      "denominator": 9,
+      "coverage": 1.0,
+      "covered_ids": [
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-ANALYZE-MLDS-SCENE",
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-ASSEMBLE-FUNCTIONAL-MLDS",
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-DERIVE-SPATIAL-AGENT-ROLES",
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-GENERATE-ROOM-KNOWLEDGE",
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-HANDOFF-TO-RESPONSIBLE-AGENT",
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-PLACE-AGENTS-IN-SCENE",
+        "CAP-MLDSSTEINPILZ_E2E_1783611970-SETUP-INTERACTIVE-SESSION"
+      ],
+      "uncovered_ids": [],
+      "details": {}
+    },
+    {
+      "metric_id": "runtime_action_to_log_coverage",
+      "description": "Share of RuntimeActions observed in runtime_logs/events.jsonl.",
+      "numerator": 0,
+      "denominator": 12,
+      "coverage": 0.0,
+      "covered_ids": [],
+      "uncovered_ids": [
+        "RA-MLDSSTEINPILZ_E2E_1783611970-ARROW-ANALYZE",
+        "RA-MLDSSTEINPILZ_E2E_1783611970-ARROW-COMMIT",
+        "RA-MLDSSTEINPILZ_E2E_1783611970-BACKEND-CHAT",
+        "RA-MLDSSTEINPILZ_E2E_1783611970-BACKEND-CHAT-HANDOFF",
+        "RA-MLDSSTEINPILZ_E2E_1783611970-BACKEND-SETUP",
+        "RA-MLDSSTEINPILZ_E2E_1783611970-RUN-AGENT-PLACEMENT",
+        "RA-MLDSSTEINPILZ_E2E_1783611970-RUN-AGENT-ROLES",
+        "RA-MLDSSTEINPILZ_E2E_1783611970-RUN-FUNCTIONALMLDS-ASSEMBLER",
+        "RA-MLDSSTEINPILZ_E2E_1783611970-RUN-KNOWLEDGE-SYNTHESIS",
+        "RA-MLDSSTEINPILZ_E2E_1783611970-RUN-MLDS-INGESTION",
+        "RA-MLDSSTEINPILZ_E2E_1783611970-RUN-SCENE-SEMANTICS",
+        "RA-MLDSSTEINPILZ_E2E_1783611970-WRITE-PROJECT-FILES"
+      ],
+      "details": {
+        "runtime_log_path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\mldssteinpilz_e2e_1783611970\\runtime_logs\\events.jsonl",
+        "logged_runtime_action_ids": []
+      }
+    },
+    {
+      "metric_id": "agent_to_knowledge_tag_coverage",
+      "description": "Share of Agents whose knowledge_tags are fully backed by generated knowledge entries.",
+      "numerator": 6,
+      "denominator": 6,
+      "coverage": 1.0,
+      "covered_ids": [
+        "career_consultant_agent",
+        "digital_interaction_agent",
+        "lounge_host_agent",
+        "product_specialist_agent",
+        "production_expert_agent",
+        "receptionist_agent"
+      ],
+      "uncovered_ids": [],
+      "details": {
+        "available_knowledge_tags": [
+          "brand_information",
+          "business_discussions",
+          "career_opportunities",
+          "cheese_products",
+          "content_navigation",
+          "customer_interaction",
+          "digital_interaction",
+          "energy_efficiency",
+          "hospitality",
+          "navigation_guidance",
+          "networking",
+          "production_technology",
+          "sampling",
+          "technical_details",
+          "training",
+          "visitor_assistance",
+          "visitor_comfort",
+          "visitor_support"
+        ],
+        "missing_tags_by_agent": {}
+      }
+    },
+    {
+      "metric_id": "object_group_to_agent_role_grounding",
+      "description": "Share of semantic MLDS object groups grounded by at least one AgentRole grounded_object_id.",
+      "numerator": 9,
+      "denominator": 9,
+      "coverage": 1.0,
+      "covered_ids": [
+        "branding",
+        "career",
+        "energy",
+        "entrance",
+        "interactive",
+        "lounge",
+        "product_counters",
+        "product_pedestals",
+        "production_models"
+      ],
+      "uncovered_ids": [],
+      "details": {
+        "all_object_groups": [
+          "branding",
+          "career",
+          "energy",
+          "entrance",
+          "floor",
+          "floor_markings",
+          "interactive",
+          "lounge",
+          "product_counters",
+          "product_pedestals",
+          "production_models",
+          "walls"
+        ],
+        "excluded_structural_groups": [
+          "floor",
+          "floor_markings",
+          "walls"
+        ],
+        "grounded_objects_by_group": {
+          "entrance": [
+            "reception_desk"
+          ],
+          "lounge": [
+            "chair1",
+            "chair2",
+            "lounge_table",
+            "sofa1"
+          ],
+          "branding": [
+            "brand_panel1",
+            "brand_panel2",
+            "brand_panel3",
+            "brand_panel4"
+          ],
+          "energy": [
+            "energy_station1",
+            "energy_station2"
+          ],
+          "product_counters": [
+            "refrigerated_counter1",
+            "refrigerated_counter2",
+            "refrigerated_counter3",
+            "refrigerated_counter4"
+          ],
+          "production_models": [
+            "production_model1",
+            "production_model2"
+          ],
+          "interactive": [
+            "touch_kiosk1",
+            "touch_kiosk2"
+          ],
+          "product_pedestals": [
+            "product_pedestal1",
+            "product_pedestal2",
+            "product_pedestal3",
+            "product_pedestal4",
+            "product_pedestal5",
+            "product_pedestal6"
+          ],
+          "career": [
+            "meeting_pod1",
+            "meeting_pod2",
+            "meeting_pod3",
+            "training_board1",
+            "training_board2"
+          ]
+        }
+      }
+    }
+  ]
+}

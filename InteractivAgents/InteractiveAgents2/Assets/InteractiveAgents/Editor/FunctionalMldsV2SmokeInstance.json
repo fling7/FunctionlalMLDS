@@ -1,0 +1,186 @@
+{
+  "schema": "dynamic_functional_mlds_v2_instance",
+  "id": "root",
+  "metamodelVersion": "2.0.0-model",
+  "serializationVersion": "1.0",
+  "caseId": "unity_v2_native_smoke",
+  "profile": "executable",
+  "fixture_profile": "executable",
+  "sourceContract": {
+    "schema": "unity_v2_native_smoke_fixture",
+    "metamodelVersion": "2.0.0-model",
+    "semanticProjectionSha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "objects": [
+    {
+      "id": "root",
+      "type": "DynamicFunctionalModel",
+      "requirementsModel": ["requirements"],
+      "verificationValidation": ["vv"],
+      "scenarioSpecification": ["scenario-spec"],
+      "scenario": ["main"],
+      "assertion": ["assert-state", "assert-event", "assert-output", "assert-grounding", "assert-relation"],
+      "entity": ["provider-agent", "specialist-agent", "target-asset"],
+      "capability": ["capability-chat"],
+      "runtimeBinding": ["binding-chat"],
+      "verify": ["verify-requirement"]
+    },
+    { "id": "requirements", "type": "RequirementsModel" },
+    { "id": "requirement", "type": "Requirement", "text": "The runtime executes and validates the V2 flow." },
+    { "id": "use-case", "type": "UseCase", "text": "Execute a native V2 interaction." },
+    { "id": "scenario-spec", "type": "UseCaseScenarioSpecification", "useCase": ["use-case"], "scenario": ["main"] },
+
+    {
+      "id": "main",
+      "type": "Scenario",
+      "kind": "main",
+      "step": ["step-start", "step-left", "step-right", "step-joined", "step-dispatch", "step-success", "step-exception"],
+      "stepRelation": ["rel-fork-left", "rel-fork-right", "rel-join-left", "rel-join-right", "rel-sequence", "rel-alternative", "rel-exception", "rel-loop"],
+      "parallelGroup": ["parallel-work"]
+    },
+    { "id": "step-start", "type": "ScenarioStep", "kind": "environmentObservation", "occurrenceProbability": ["prob-step-start"] },
+    { "id": "step-left", "type": "ScenarioStep", "kind": "systemResponse", "occurrenceProbability": ["prob-step-left"] },
+    { "id": "step-right", "type": "ScenarioStep", "kind": "systemResponse", "occurrenceProbability": ["prob-step-right"] },
+    { "id": "step-joined", "type": "ScenarioStep", "kind": "systemResponse", "occurrenceProbability": ["prob-step-joined"] },
+    {
+      "id": "step-dispatch",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "performedBy": ["provider-agent"],
+      "capabilityUse": ["capability-use-chat"],
+      "resultingAssertion": ["assert-state"]
+    },
+    { "id": "step-success", "type": "ScenarioStep", "kind": "systemResponse", "occurrenceProbability": ["prob-step-success"] },
+    { "id": "step-exception", "type": "ScenarioStep", "kind": "systemResponse", "occurrenceProbability": ["prob-step-exception"] },
+
+    { "id": "rel-fork-left", "type": "StepRelation", "kind": "fork", "sourceStep": ["step-start"], "targetStep": ["step-left"], "source": ["step-start"], "target": ["step-left"] },
+    { "id": "rel-fork-right", "type": "StepRelation", "kind": "fork", "sourceStep": ["step-start"], "targetStep": ["step-right"], "source": ["step-start"], "target": ["step-right"] },
+    { "id": "rel-join-left", "type": "StepRelation", "kind": "join", "sourceStep": ["step-left"], "targetStep": ["step-joined"], "source": ["step-left"], "target": ["step-joined"] },
+    { "id": "rel-join-right", "type": "StepRelation", "kind": "join", "sourceStep": ["step-right"], "targetStep": ["step-joined"], "source": ["step-right"], "target": ["step-joined"] },
+    { "id": "rel-sequence", "type": "StepRelation", "kind": "sequence", "sourceStep": ["step-joined"], "targetStep": ["step-dispatch"], "source": ["step-joined"], "target": ["step-dispatch"] },
+    { "id": "rel-alternative", "type": "StepRelation", "kind": "alternative", "sourceStep": ["step-dispatch"], "targetStep": ["step-success"], "source": ["step-dispatch"], "target": ["step-success"], "probability": ["prob-alternative"] },
+    { "id": "rel-exception", "type": "StepRelation", "kind": "exception", "sourceStep": ["step-dispatch"], "targetStep": ["step-exception"], "source": ["step-dispatch"], "target": ["step-exception"], "probability": ["prob-exception"] },
+    { "id": "rel-loop", "type": "StepRelation", "kind": "loop", "sourceStep": ["step-exception"], "targetStep": ["step-dispatch"], "source": ["step-exception"], "target": ["step-dispatch"], "guard": ["guard-retry"] },
+    { "id": "prob-step-start", "type": "ProbabilityValue", "value": 1.0 },
+    { "id": "prob-step-left", "type": "ProbabilityValue", "value": 1.0 },
+    { "id": "prob-step-right", "type": "ProbabilityValue", "value": 1.0 },
+    { "id": "prob-step-joined", "type": "ProbabilityValue", "value": 1.0 },
+    { "id": "prob-step-success", "type": "ProbabilityValue", "value": 0.8 },
+    { "id": "prob-step-exception", "type": "ProbabilityValue", "value": 0.2 },
+    { "id": "prob-alternative", "type": "ProbabilityValue", "value": 0.8 },
+    { "id": "prob-exception", "type": "ProbabilityValue", "value": 0.2 },
+    { "id": "parallel-work", "type": "ParallelGroup", "memberStep": ["step-left", "step-right"] },
+    { "id": "guard-retry", "type": "ScenarioCondition", "kind": "guard", "datatype": "EABoolean", "value": true, "operator": "truthy" },
+
+    {
+      "id": "provider-agent",
+      "type": "Agent",
+      "kind": "agent",
+      "sourceId": "runtime-agent",
+      "sourceAgentId": "runtime-agent",
+      "providedCapability": ["capability-chat"],
+      "groundedAsset": ["target-asset"],
+      "handoffTarget": ["specialist-agent"]
+    },
+    {
+      "id": "specialist-agent",
+      "type": "Agent",
+      "kind": "agent",
+      "sourceId": "specialist-agent",
+      "sourceAgentId": "specialist-agent",
+      "providedCapability": ["capability-chat"],
+      "groundedAsset": ["target-asset"],
+      "handoffTarget": ["provider-agent"]
+    },
+    { "id": "target-asset", "type": "Entity", "kind": "asset", "sourceId": "target-asset-source" },
+    {
+      "id": "capability-use-chat",
+      "type": "CapabilityUse",
+      "typeRef": ["capability-chat"],
+      "provider": ["provider-agent"],
+      "target": ["target-asset"],
+      "parameter": []
+    },
+    { "id": "capability-chat", "type": "Capability", "effect": ["effect-chat"] },
+    {
+      "id": "effect-chat",
+      "type": "Effect",
+      "specifiedBy": ["assert-state", "assert-event", "assert-output", "assert-grounding", "assert-relation"]
+    },
+    {
+      "id": "binding-chat",
+      "type": "RuntimeBinding",
+      "targetPlatform": "Unity",
+      "capability": ["capability-chat"],
+      "runtimeAction": ["action-endpoint", "action-tool", "action-topic"]
+    },
+    { "id": "action-endpoint", "type": "RuntimeAction", "locator": ["locator-endpoint"], "inputSchema": ["schema-setup"], "runtimeParameter": [] },
+    { "id": "action-tool", "type": "RuntimeAction", "locator": ["locator-tool"], "inputSchema": ["schema-chat"], "runtimeParameter": [] },
+    { "id": "action-topic", "type": "RuntimeAction", "locator": ["locator-topic"], "inputSchema": ["schema-handoff"], "runtimeParameter": [] },
+    { "id": "locator-endpoint", "type": "RuntimeActionLocator", "kind": "endpoint", "value": "POST /chat" },
+    { "id": "locator-tool", "type": "RuntimeActionLocator", "kind": "tool", "value": "unity.chat" },
+    { "id": "locator-topic", "type": "RuntimeActionLocator", "kind": "topic", "value": "agent.events" },
+    { "id": "schema-setup", "type": "SchemaReference", "uri": "urn:functionalmlds:smoke:setup", "text": "{\"applicationActionKind\":\"setup\"}" },
+    { "id": "schema-chat", "type": "SchemaReference", "uri": "urn:functionalmlds:smoke:chat", "text": "{\"applicationActionKind\":\"chat\"}" },
+    { "id": "schema-handoff", "type": "SchemaReference", "uri": "urn:functionalmlds:smoke:handoff", "text": "{\"applicationActionKind\":\"handoff\"}" },
+
+    { "id": "runtime-event", "type": "ScenarioExternalEvent", "kind": "user", "expressionText": "Visitor asks a question." },
+    { "id": "assert-state", "type": "StateAssertion", "subject": ["step-dispatch"], "expression": ["expr-state"], "severity": "error" },
+    { "id": "assert-event", "type": "EventAssertion", "subject": ["runtime-event"], "expression": ["expr-event"], "severity": "warning" },
+    { "id": "assert-output", "type": "OutputAssertion", "subject": ["binding-chat"], "expression": ["expr-output"] },
+    { "id": "assert-grounding", "type": "GroundingAssertion", "subject": ["target-asset"], "expression": ["expr-grounding"] },
+    { "id": "assert-relation", "type": "RelationAssertion", "subject": ["capability-use-chat"], "expression": ["expr-relation"] },
+    { "id": "expr-state", "type": "ScenarioCondition", "kind": "postcondition", "datatype": "EABoolean", "operator": "equals", "expectedValue": "ready" },
+    { "id": "expr-event", "type": "ScenarioCondition", "kind": "postcondition", "datatype": "EABoolean", "operator": "equals", "expectedValue": "expected-event" },
+    { "id": "expr-output", "type": "ScenarioCondition", "kind": "postcondition", "datatype": "EABoolean", "operator": "exists" },
+    { "id": "expr-grounding", "type": "ScenarioCondition", "kind": "postcondition", "datatype": "EABoolean", "operator": "greaterThan", "expectedValue": 3 },
+    { "id": "expr-relation", "type": "ScenarioCondition", "kind": "postcondition", "datatype": "EABoolean", "operator": "unsupported-smoke-operator" },
+
+    {
+      "id": "vv",
+      "type": "VerificationValidation",
+      "vvCase": ["validation-case"],
+      "vvTarget": ["validation-target"],
+      "verify": ["verify-requirement"]
+    },
+    {
+      "id": "validation-case",
+      "type": "ValidationCase",
+      "isConcrete": true,
+      "vvSubject": ["binding-chat"],
+      "vvTarget": ["validation-target"],
+      "vvProcedure": ["validation-procedure"],
+      "vvLog": ["existing-log"]
+    },
+    {
+      "id": "validation-procedure",
+      "type": "RuntimeValidationProcedure",
+      "isConcrete": true,
+      "vvStimuli": ["validation-stimulus"],
+      "vvIntendedOutcome": ["intended-outcome"]
+    },
+    { "id": "validation-stimulus", "type": "RuntimeStimulus", "runtimeAction": ["action-endpoint"] },
+    { "id": "intended-outcome", "type": "StateAssertionOutcome", "assertion": ["assert-state"] },
+    {
+      "id": "validation-target",
+      "type": "RuntimeValidationTarget",
+      "platform": "Unity",
+      "environmentRef": "editor-smoke",
+      "element": ["binding-chat"],
+      "runtimeBinding": ["binding-chat"]
+    },
+    { "id": "existing-log", "type": "RuntimeValidationLog", "date": "2026-07-14T12:00:00Z", "vvActualOutcome": ["existing-actual"], "actualOutcome": ["existing-actual"] },
+    { "id": "existing-actual", "type": "RuntimeActualOutcome", "result": ["existing-result"] },
+    {
+      "id": "existing-result",
+      "type": "AssertionResult",
+      "assertion": ["assert-state"],
+      "verdict": "pass",
+      "observedValue": ["existing-observed"],
+      "evidenceRef": "smoke://existing",
+      "timestamp": "2026-07-14T12:00:00Z"
+    },
+    { "id": "existing-observed", "type": "EANumericalValue", "value": 1 },
+    { "id": "verify-requirement", "type": "Verify", "requirement": ["requirement"], "vvCase": ["validation-case"] }
+  ]
+}

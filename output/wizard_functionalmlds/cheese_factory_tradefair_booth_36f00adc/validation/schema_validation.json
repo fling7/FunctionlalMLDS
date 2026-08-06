@@ -1,0 +1,73 @@
+{
+  "case_id": "cheese_factory_tradefair_booth_36f00adc",
+  "status": "valid",
+  "errors": [],
+  "warnings": [
+    "Runtime-Log fehlt: C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\runtime_logs\\events.jsonl"
+  ],
+  "metrics": {
+    "artifact_count": 6,
+    "valid_artifact_count": 6,
+    "invalid_artifact_count": 0,
+    "schema_count": 6,
+    "runtime_event_count": 0
+  },
+  "artifacts": [
+    {
+      "artifact_id": "normalized_scene",
+      "schema": "normalized_scene.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\scene_graph.normalized.json",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "artifact_id": "scene_semantics",
+      "schema": "scene_semantics.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\scene_semantics.json",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "artifact_id": "knowledge",
+      "schema": "knowledge.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate\\knowledge.generated.json",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "artifact_id": "functionalmlds_instance",
+      "schema": "functionalmlds_case_study.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\functionalmlds\\functionalmlds.instance.generated.json",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "artifact_id": "agent_roles",
+      "schema": "agent_roles.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\cheese_factory_tradefair_booth_36f00adc\\intermediate",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "artifact_id": "interactive_agents_project",
+      "schema": "interactive_agents_project.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\cheese_factory_tradefair_booth_36f00adc",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    }
+  ],
+  "schemas": [
+    "agent_roles.schema.json",
+    "functionalmlds_case_study.schema.json",
+    "interactive_agents_project.schema.json",
+    "knowledge.schema.json",
+    "normalized_scene.schema.json",
+    "scene_semantics.schema.json"
+  ]
+}

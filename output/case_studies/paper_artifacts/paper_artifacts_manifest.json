@@ -1,0 +1,42 @@
+{
+  "schema": "functionalmlds_paper_artifacts",
+  "schema_version": "1.0",
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "case_count": 3,
+    "table_count": 4,
+    "figure_count": 3,
+    "example_count": 1,
+    "document_count": 11,
+    "output_count": 25
+  },
+  "outputs": [
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\tables\\case_corpus.csv",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\tables\\case_corpus.md",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\tables\\metamodel_coverage.csv",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\tables\\metamodel_coverage.md",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\tables\\validation_repair.csv",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\tables\\validation_repair.md",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\tables\\runtime_test_results.csv",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\tables\\runtime_test_results.md",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\examples\\trace_chain_example.md",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\figures\\pipeline_architecture.mmd",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\figures\\trace_chain_example.mmd",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\figures\\agent_placement_classroom_dinosaur.mmd",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\paper_artifacts_index.md",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\paper_artifacts_manifest.json",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\research_questions.md",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\baseline_definition.md",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\baseline_definition.json",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\comparison_metrics.md",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\comparison_metrics.json",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\repair_prompt_registry.md",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\repair_prompt_registry.json",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\deterministic_repair_policy.md",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\deterministic_repair_policy_report.md",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\threats_to_validity.md",
+    "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\case_studies\\paper_artifacts\\threats_to_validity.json"
+  ]
+}

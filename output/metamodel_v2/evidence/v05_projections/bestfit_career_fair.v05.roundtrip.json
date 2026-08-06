@@ -1,0 +1,1880 @@
+{
+  "schema": "functionalmlds_case_study",
+  "metamodelVersion": "v0.5",
+  "caseId": "bestfit_career_fair",
+  "requirementsModel": {
+    "id": "RM-BESTFIT_CAREER_FAIR",
+    "requirements": [
+      {
+        "id": "REQ-BESTFIT_CAREER_FAIR-001",
+        "text": "The pipeline shall ingest an MLDS scene and preserve stable object identities."
+      },
+      {
+        "id": "REQ-BESTFIT_CAREER_FAIR-002",
+        "text": "The pipeline shall derive room semantics grounded in existing MLDS objects."
+      },
+      {
+        "id": "REQ-BESTFIT_CAREER_FAIR-003",
+        "text": "The pipeline shall synthesize backend-compatible spatial agent roles."
+      },
+      {
+        "id": "REQ-BESTFIT_CAREER_FAIR-004",
+        "text": "Every generated agent knowledge tag shall be covered by materialized knowledge."
+      },
+      {
+        "id": "REQ-BESTFIT_CAREER_FAIR-005",
+        "text": "Every generated agent shall be placed inside the room without obstacle overlap."
+      },
+      {
+        "id": "REQ-BESTFIT_CAREER_FAIR-006",
+        "text": "The generated behavior shall be traceable from requirements to runtime actions and validation cases."
+      }
+    ],
+    "useCases": [
+      {
+        "id": "UC-BESTFIT_CAREER_FAIR-01",
+        "name": "Generate and use spatially grounded multi-agent guide",
+        "actor_ids": [
+          "ACT-CASE-STUDY-ENGINEER",
+          "ACT-VISITOR",
+          "ACT-ROOM-GUIDE"
+        ],
+        "extensionPoints": [],
+        "includes": [],
+        "extends": [],
+        "scenarios": [
+          {
+            "id": "SC-BESTFIT_CAREER_FAIR-MAIN",
+            "kind": "main",
+            "description": "Main scenario for generating and using a spatially grounded multi-agent room guide.",
+            "precondition_ids": [
+              "COND-BESTFIT_CAREER_FAIR-VALID-INPUT"
+            ],
+            "postcondition_ids": [
+              "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED"
+            ],
+            "steps": [
+              {
+                "id": "STEP-BESTFIT_CAREER_FAIR-S01",
+                "stepNumber": 1,
+                "kind": "actorIntent",
+                "performedBy": "ACT-CASE-STUDY-ENGINEER",
+                "text": "Provide an MLDS file as case-study input.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [
+                  "EV-BESTFIT_CAREER_FAIR-MLDS-PROVIDED"
+                ],
+                "guard": "COND-BESTFIT_CAREER_FAIR-VALID-INPUT",
+                "resultingState": [],
+                "capabilityUseIds": []
+              },
+              {
+                "id": "STEP-BESTFIT_CAREER_FAIR-S02",
+                "stepNumber": 2,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Load and normalize the MLDS scene.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-BESTFIT_CAREER_FAIR-NORMALIZED-SCENE-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-BESTFIT_CAREER_FAIR-S02-ANALYZE-MLDS-SCENE"
+                ]
+              },
+              {
+                "id": "STEP-BESTFIT_CAREER_FAIR-S03",
+                "stepNumber": 3,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Derive semantic zones, visitor goals and interaction topics.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-BESTFIT_CAREER_FAIR-SCENE-SEMANTICS-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-BESTFIT_CAREER_FAIR-S03-ANALYZE-MLDS-SCENE"
+                ]
+              },
+              {
+                "id": "STEP-BESTFIT_CAREER_FAIR-S04",
+                "stepNumber": 4,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Generate spatially grounded agent roles and handoff rules.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-BESTFIT_CAREER_FAIR-AGENT-ROLES-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-BESTFIT_CAREER_FAIR-S04-DERIVE-SPATIAL-AGENT-ROLES"
+                ]
+              },
+              {
+                "id": "STEP-BESTFIT_CAREER_FAIR-S05",
+                "stepNumber": 5,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Generate materialized knowledge entries for all agent knowledge tags.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-BESTFIT_CAREER_FAIR-KNOWLEDGE-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-BESTFIT_CAREER_FAIR-S05-GENERATE-ROOM-KNOWLEDGE"
+                ]
+              },
+              {
+                "id": "STEP-BESTFIT_CAREER_FAIR-S06",
+                "stepNumber": 6,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Place generated agents inside the room near their responsibilities.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-BESTFIT_CAREER_FAIR-PLACEMENT-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-BESTFIT_CAREER_FAIR-S06-PLACE-AGENTS-IN-SCENE"
+                ]
+              },
+              {
+                "id": "STEP-BESTFIT_CAREER_FAIR-S07",
+                "stepNumber": 7,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Assemble and validate the FunctionalMLDS trace instance.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-BESTFIT_CAREER_FAIR-FUNCTIONALMLDS-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-BESTFIT_CAREER_FAIR-S07-ASSEMBLE-FUNCTIONAL-MLDS"
+                ]
+              },
+              {
+                "id": "STEP-BESTFIT_CAREER_FAIR-S08",
+                "stepNumber": 8,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Materialize the Interactive Agents project files.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZED"
+                ],
+                "capabilityUseIds": [
+                  "CU-BESTFIT_CAREER_FAIR-S08-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+                ]
+              },
+              {
+                "id": "STEP-BESTFIT_CAREER_FAIR-S09",
+                "stepNumber": 9,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Set up an Interactive Agents runtime session.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": "COND-BESTFIT_CAREER_FAIR-AGENTS-AVAILABLE",
+                "resultingState": [
+                  "SA-BESTFIT_CAREER_FAIR-SETUP-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-BESTFIT_CAREER_FAIR-S09-SETUP-INTERACTIVE-SESSION"
+                ]
+              },
+              {
+                "id": "STEP-BESTFIT_CAREER_FAIR-S10",
+                "stepNumber": 10,
+                "kind": "actorIntent",
+                "performedBy": "ACT-VISITOR",
+                "text": "Ask a room-related question to an agent.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [
+                  "EV-BESTFIT_CAREER_FAIR-VISITOR-QUESTION"
+                ],
+                "guard": null,
+                "resultingState": [],
+                "capabilityUseIds": []
+              },
+              {
+                "id": "STEP-BESTFIT_CAREER_FAIR-S11",
+                "stepNumber": 11,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Answer the visitor question using grounded room knowledge.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [],
+                "guard": null,
+                "resultingState": [
+                  "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED"
+                ],
+                "capabilityUseIds": [
+                  "CU-BESTFIT_CAREER_FAIR-S11-ANSWER-ROOM-GROUNDED-QUESTION"
+                ]
+              },
+              {
+                "id": "STEP-BESTFIT_CAREER_FAIR-S12",
+                "stepNumber": 12,
+                "kind": "systemResponse",
+                "performedBy": null,
+                "text": "Optionally hand off to the responsible specialist agent.",
+                "occurrenceProbability": 1.0,
+                "triggeredBy": [
+                  "EV-BESTFIT_CAREER_FAIR-HANDOFF-NEEDED"
+                ],
+                "guard": "COND-BESTFIT_CAREER_FAIR-HANDOFF-TARGET-AVAILABLE",
+                "resultingState": [
+                  "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+                ],
+                "capabilityUseIds": [
+                  "CU-BESTFIT_CAREER_FAIR-S12-HANDOFF-TO-RESPONSIBLE-AGENT"
+                ]
+              }
+            ],
+            "stepRelations": [
+              {
+                "id": "REL-BESTFIT_CAREER_FAIR-01-02",
+                "kind": "sequence",
+                "source_step_id": "STEP-BESTFIT_CAREER_FAIR-S01",
+                "target_step_id": "STEP-BESTFIT_CAREER_FAIR-S02",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-BESTFIT_CAREER_FAIR-02-03",
+                "kind": "sequence",
+                "source_step_id": "STEP-BESTFIT_CAREER_FAIR-S02",
+                "target_step_id": "STEP-BESTFIT_CAREER_FAIR-S03",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-BESTFIT_CAREER_FAIR-03-04",
+                "kind": "sequence",
+                "source_step_id": "STEP-BESTFIT_CAREER_FAIR-S03",
+                "target_step_id": "STEP-BESTFIT_CAREER_FAIR-S04",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-BESTFIT_CAREER_FAIR-04-05",
+                "kind": "sequence",
+                "source_step_id": "STEP-BESTFIT_CAREER_FAIR-S04",
+                "target_step_id": "STEP-BESTFIT_CAREER_FAIR-S05",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-BESTFIT_CAREER_FAIR-05-06",
+                "kind": "sequence",
+                "source_step_id": "STEP-BESTFIT_CAREER_FAIR-S05",
+                "target_step_id": "STEP-BESTFIT_CAREER_FAIR-S06",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-BESTFIT_CAREER_FAIR-06-07",
+                "kind": "sequence",
+                "source_step_id": "STEP-BESTFIT_CAREER_FAIR-S06",
+                "target_step_id": "STEP-BESTFIT_CAREER_FAIR-S07",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-BESTFIT_CAREER_FAIR-07-08",
+                "kind": "sequence",
+                "source_step_id": "STEP-BESTFIT_CAREER_FAIR-S07",
+                "target_step_id": "STEP-BESTFIT_CAREER_FAIR-S08",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-BESTFIT_CAREER_FAIR-08-09",
+                "kind": "sequence",
+                "source_step_id": "STEP-BESTFIT_CAREER_FAIR-S08",
+                "target_step_id": "STEP-BESTFIT_CAREER_FAIR-S09",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-BESTFIT_CAREER_FAIR-09-10",
+                "kind": "sequence",
+                "source_step_id": "STEP-BESTFIT_CAREER_FAIR-S09",
+                "target_step_id": "STEP-BESTFIT_CAREER_FAIR-S10",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-BESTFIT_CAREER_FAIR-10-11",
+                "kind": "sequence",
+                "source_step_id": "STEP-BESTFIT_CAREER_FAIR-S10",
+                "target_step_id": "STEP-BESTFIT_CAREER_FAIR-S11",
+                "guard": null,
+                "probability": 1.0
+              },
+              {
+                "id": "REL-BESTFIT_CAREER_FAIR-11-12",
+                "kind": "sequence",
+                "source_step_id": "STEP-BESTFIT_CAREER_FAIR-S11",
+                "target_step_id": "STEP-BESTFIT_CAREER_FAIR-S12",
+                "guard": null,
+                "probability": 1.0
+              }
+            ],
+            "parallelGroups": []
+          }
+        ]
+      }
+    ]
+  },
+  "actors": [
+    {
+      "id": "ACT-CASE-STUDY-ENGINEER",
+      "name": "Case Study Engineer",
+      "description": "Provides MLDS input and runs the validation pipeline."
+    },
+    {
+      "id": "ACT-VISITOR",
+      "name": "Visitor",
+      "description": "Asks room-related questions in the generated immersive environment."
+    },
+    {
+      "id": "ACT-ROOM-GUIDE",
+      "name": "Room Guide",
+      "description": "Role played by generated interactive agents."
+    }
+  ],
+  "entities": [
+    {
+      "id": "ENT-ZONE-RECEPTION_ZONE",
+      "name": "Reception and Welcome Area",
+      "kind": "zone",
+      "source_id": "reception_zone",
+      "entityRole": "semanticZone",
+      "source_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ],
+      "purpose": "Initial visitor greeting and orientation with branding and basic info."
+    },
+    {
+      "id": "ENT-ZONE-SHOWCASE_ZONE",
+      "name": "Product Showcase Area",
+      "kind": "zone",
+      "source_id": "showcase_zone",
+      "entityRole": "semanticZone",
+      "source_object_ids": [
+        "showcase_equipment_treadmill",
+        "showcase_equipment_weights_rack",
+        "vr_ar_station1",
+        "vr_ar_station2",
+        "info_stele_studio1",
+        "info_stele_studio2",
+        "info_stele_studio3"
+      ],
+      "purpose": "Display and demonstration of company products and technologies to attract interest."
+    },
+    {
+      "id": "ENT-ZONE-BENEFITS_INFO_ZONE",
+      "name": "Company Benefits Information Zone",
+      "kind": "zone",
+      "source_id": "benefits_info_zone",
+      "entityRole": "semanticZone",
+      "source_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ],
+      "purpose": "Provide detailed information about employee benefits and company values via panels and interactive terminals."
+    },
+    {
+      "id": "ENT-ZONE-RECRUITING_ZONE",
+      "name": "Recruiting and Job Application Area",
+      "kind": "zone",
+      "source_id": "recruiting_zone",
+      "entityRole": "semanticZone",
+      "source_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ],
+      "purpose": "Interactive terminals and posters for job listings and application processes, with seating for discussions."
+    },
+    {
+      "id": "ENT-ZONE-DEMO_KIOSK_ZONE",
+      "name": "Demo Kiosk Interaction Zone",
+      "kind": "zone",
+      "source_id": "demo_kiosk_zone",
+      "entityRole": "semanticZone",
+      "source_object_ids": [
+        "kiosk_demo1",
+        "kiosk_demo2",
+        "kiosk_demo3"
+      ],
+      "purpose": "Interactive kiosks for product demos or company information accessible via touchscreen interfaces."
+    },
+    {
+      "id": "ENT-ZONE-REFRESHMENT_ZONE",
+      "name": "Refreshment and Lounge Area",
+      "kind": "zone",
+      "source_id": "refreshment_zone",
+      "entityRole": "semanticZone",
+      "source_object_ids": [
+        "refreshment_counter",
+        "bar_stool_refreshment1",
+        "bar_stool_refreshment2",
+        "bar_stool_refreshment3",
+        "lounge_seating"
+      ],
+      "purpose": "Area for visitors to relax, have refreshments, and informal conversations."
+    },
+    {
+      "id": "ENT-GROUP-DEMO_KIOSKS",
+      "name": "Object group: demo_kiosks",
+      "kind": "asset",
+      "source_id": "group:demo_kiosks",
+      "entityRole": "objectGroup",
+      "source_group": "demo_kiosks",
+      "source_object_ids": [
+        "kiosk_demo1",
+        "kiosk_demo2",
+        "kiosk_demo3"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-KIOSKS",
+      "name": "Object group: kiosks",
+      "kind": "asset",
+      "source_id": "group:kiosks",
+      "entityRole": "objectGroup",
+      "source_group": "kiosks",
+      "source_object_ids": [
+        "kiosk_reception"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-LOUNGE",
+      "name": "Object group: lounge",
+      "kind": "asset",
+      "source_id": "group:lounge",
+      "entityRole": "objectGroup",
+      "source_group": "lounge",
+      "source_object_ids": [
+        "lounge_seating"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-PANELS",
+      "name": "Object group: panels",
+      "kind": "asset",
+      "source_id": "group:panels",
+      "entityRole": "objectGroup",
+      "source_group": "panels",
+      "source_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-RECEPTION",
+      "name": "Object group: reception",
+      "kind": "asset",
+      "source_id": "group:reception",
+      "entityRole": "objectGroup",
+      "source_group": "reception",
+      "source_object_ids": [
+        "totem_reception"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-RECRUITING",
+      "name": "Object group: recruiting",
+      "kind": "asset",
+      "source_id": "group:recruiting",
+      "entityRole": "objectGroup",
+      "source_group": "recruiting",
+      "source_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-REFRESHMENT",
+      "name": "Object group: refreshment",
+      "kind": "asset",
+      "source_id": "group:refreshment",
+      "entityRole": "objectGroup",
+      "source_group": "refreshment",
+      "source_object_ids": [
+        "refreshment_counter"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-SHOWCASE",
+      "name": "Object group: showcase",
+      "kind": "asset",
+      "source_id": "group:showcase",
+      "entityRole": "objectGroup",
+      "source_group": "showcase",
+      "source_object_ids": [
+        "showcase_equipment_treadmill",
+        "showcase_equipment_weights_rack"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-STELES",
+      "name": "Object group: steles",
+      "kind": "asset",
+      "source_id": "group:steles",
+      "entityRole": "objectGroup",
+      "source_group": "steles",
+      "source_object_ids": [
+        "info_stele_studio1",
+        "info_stele_studio2",
+        "info_stele_studio3"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-STOOLS",
+      "name": "Object group: stools",
+      "kind": "asset",
+      "source_id": "group:stools",
+      "entityRole": "objectGroup",
+      "source_group": "stools",
+      "source_object_ids": [
+        "bar_stool_refreshment1",
+        "bar_stool_refreshment2",
+        "bar_stool_refreshment3"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-TERMINALS",
+      "name": "Object group: terminals",
+      "kind": "asset",
+      "source_id": "group:terminals",
+      "entityRole": "objectGroup",
+      "source_group": "terminals",
+      "source_object_ids": [
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ]
+    },
+    {
+      "id": "ENT-GROUP-VR_STATIONS",
+      "name": "Object group: vr_stations",
+      "kind": "asset",
+      "source_id": "group:vr_stations",
+      "entityRole": "objectGroup",
+      "source_group": "vr_stations",
+      "source_object_ids": [
+        "vr_ar_station1",
+        "vr_ar_station2"
+      ]
+    },
+    {
+      "id": "ENT-ASSET-BAR_STOOL_REFRESHMENT1",
+      "name": "bar_stool",
+      "kind": "asset",
+      "source_id": "bar_stool_refreshment1",
+      "entityRole": "sceneObject",
+      "source_group": "stools",
+      "object_type": "bar_stool",
+      "object_group_entity_id": "ENT-GROUP-STOOLS"
+    },
+    {
+      "id": "ENT-ASSET-BAR_STOOL_REFRESHMENT2",
+      "name": "bar_stool",
+      "kind": "asset",
+      "source_id": "bar_stool_refreshment2",
+      "entityRole": "sceneObject",
+      "source_group": "stools",
+      "object_type": "bar_stool",
+      "object_group_entity_id": "ENT-GROUP-STOOLS"
+    },
+    {
+      "id": "ENT-ASSET-BAR_STOOL_REFRESHMENT3",
+      "name": "bar_stool",
+      "kind": "asset",
+      "source_id": "bar_stool_refreshment3",
+      "entityRole": "sceneObject",
+      "source_group": "stools",
+      "object_type": "bar_stool",
+      "object_group_entity_id": "ENT-GROUP-STOOLS"
+    },
+    {
+      "id": "ENT-ASSET-BENEFITS_PANEL1",
+      "name": "panel",
+      "kind": "asset",
+      "source_id": "benefits_panel1",
+      "entityRole": "sceneObject",
+      "source_group": "panels",
+      "object_type": "panel",
+      "object_group_entity_id": "ENT-GROUP-PANELS"
+    },
+    {
+      "id": "ENT-ASSET-BENEFITS_PANEL2",
+      "name": "panel",
+      "kind": "asset",
+      "source_id": "benefits_panel2",
+      "entityRole": "sceneObject",
+      "source_group": "panels",
+      "object_type": "panel",
+      "object_group_entity_id": "ENT-GROUP-PANELS"
+    },
+    {
+      "id": "ENT-ASSET-BENEFITS_PANEL3",
+      "name": "panel",
+      "kind": "asset",
+      "source_id": "benefits_panel3",
+      "entityRole": "sceneObject",
+      "source_group": "panels",
+      "object_type": "panel",
+      "object_group_entity_id": "ENT-GROUP-PANELS"
+    },
+    {
+      "id": "ENT-ASSET-CHAIR_RECRUITING",
+      "name": "chair",
+      "kind": "asset",
+      "source_id": "chair_recruiting",
+      "entityRole": "sceneObject",
+      "source_group": "recruiting",
+      "object_type": "chair",
+      "object_group_entity_id": "ENT-GROUP-RECRUITING"
+    },
+    {
+      "id": "ENT-ASSET-INFO_STELE_STUDIO1",
+      "name": "info_stele",
+      "kind": "asset",
+      "source_id": "info_stele_studio1",
+      "entityRole": "sceneObject",
+      "source_group": "steles",
+      "object_type": "info_stele",
+      "object_group_entity_id": "ENT-GROUP-STELES"
+    },
+    {
+      "id": "ENT-ASSET-INFO_STELE_STUDIO2",
+      "name": "info_stele",
+      "kind": "asset",
+      "source_id": "info_stele_studio2",
+      "entityRole": "sceneObject",
+      "source_group": "steles",
+      "object_type": "info_stele",
+      "object_group_entity_id": "ENT-GROUP-STELES"
+    },
+    {
+      "id": "ENT-ASSET-INFO_STELE_STUDIO3",
+      "name": "info_stele",
+      "kind": "asset",
+      "source_id": "info_stele_studio3",
+      "entityRole": "sceneObject",
+      "source_group": "steles",
+      "object_type": "info_stele",
+      "object_group_entity_id": "ENT-GROUP-STELES"
+    },
+    {
+      "id": "ENT-ASSET-INTERACTIVE_TERMINAL_BENEFITS1",
+      "name": "terminal",
+      "kind": "asset",
+      "source_id": "interactive_terminal_benefits1",
+      "entityRole": "sceneObject",
+      "source_group": "terminals",
+      "object_type": "terminal",
+      "object_group_entity_id": "ENT-GROUP-TERMINALS"
+    },
+    {
+      "id": "ENT-ASSET-INTERACTIVE_TERMINAL_BENEFITS2",
+      "name": "terminal",
+      "kind": "asset",
+      "source_id": "interactive_terminal_benefits2",
+      "entityRole": "sceneObject",
+      "source_group": "terminals",
+      "object_type": "terminal",
+      "object_group_entity_id": "ENT-GROUP-TERMINALS"
+    },
+    {
+      "id": "ENT-ASSET-KIOSK_DEMO1",
+      "name": "kiosk",
+      "kind": "asset",
+      "source_id": "kiosk_demo1",
+      "entityRole": "sceneObject",
+      "source_group": "demo_kiosks",
+      "object_type": "kiosk",
+      "object_group_entity_id": "ENT-GROUP-DEMO_KIOSKS"
+    },
+    {
+      "id": "ENT-ASSET-KIOSK_DEMO2",
+      "name": "kiosk",
+      "kind": "asset",
+      "source_id": "kiosk_demo2",
+      "entityRole": "sceneObject",
+      "source_group": "demo_kiosks",
+      "object_type": "kiosk",
+      "object_group_entity_id": "ENT-GROUP-DEMO_KIOSKS"
+    },
+    {
+      "id": "ENT-ASSET-KIOSK_DEMO3",
+      "name": "kiosk",
+      "kind": "asset",
+      "source_id": "kiosk_demo3",
+      "entityRole": "sceneObject",
+      "source_group": "demo_kiosks",
+      "object_type": "kiosk",
+      "object_group_entity_id": "ENT-GROUP-DEMO_KIOSKS"
+    },
+    {
+      "id": "ENT-ASSET-KIOSK_RECEPTION",
+      "name": "kiosk",
+      "kind": "asset",
+      "source_id": "kiosk_reception",
+      "entityRole": "sceneObject",
+      "source_group": "kiosks",
+      "object_type": "kiosk",
+      "object_group_entity_id": "ENT-GROUP-KIOSKS"
+    },
+    {
+      "id": "ENT-ASSET-LOUNGE_SEATING",
+      "name": "sofa",
+      "kind": "asset",
+      "source_id": "lounge_seating",
+      "entityRole": "sceneObject",
+      "source_group": "lounge",
+      "object_type": "sofa",
+      "object_group_entity_id": "ENT-GROUP-LOUNGE"
+    },
+    {
+      "id": "ENT-ASSET-POSTER_RECRUITING1",
+      "name": "poster",
+      "kind": "asset",
+      "source_id": "poster_recruiting1",
+      "entityRole": "sceneObject",
+      "source_group": "recruiting",
+      "object_type": "poster",
+      "object_group_entity_id": "ENT-GROUP-RECRUITING"
+    },
+    {
+      "id": "ENT-ASSET-POSTER_RECRUITING2",
+      "name": "poster",
+      "kind": "asset",
+      "source_id": "poster_recruiting2",
+      "entityRole": "sceneObject",
+      "source_group": "recruiting",
+      "object_type": "poster",
+      "object_group_entity_id": "ENT-GROUP-RECRUITING"
+    },
+    {
+      "id": "ENT-ASSET-REFRESHMENT_COUNTER",
+      "name": "counter",
+      "kind": "asset",
+      "source_id": "refreshment_counter",
+      "entityRole": "sceneObject",
+      "source_group": "refreshment",
+      "object_type": "counter",
+      "object_group_entity_id": "ENT-GROUP-REFRESHMENT"
+    },
+    {
+      "id": "ENT-ASSET-SHOWCASE_EQUIPMENT_TREADMILL",
+      "name": "treadmill",
+      "kind": "asset",
+      "source_id": "showcase_equipment_treadmill",
+      "entityRole": "sceneObject",
+      "source_group": "showcase",
+      "object_type": "treadmill",
+      "object_group_entity_id": "ENT-GROUP-SHOWCASE"
+    },
+    {
+      "id": "ENT-ASSET-SHOWCASE_EQUIPMENT_WEIGHTS_RACK",
+      "name": "weights_rack",
+      "kind": "asset",
+      "source_id": "showcase_equipment_weights_rack",
+      "entityRole": "sceneObject",
+      "source_group": "showcase",
+      "object_type": "weights_rack",
+      "object_group_entity_id": "ENT-GROUP-SHOWCASE"
+    },
+    {
+      "id": "ENT-ASSET-TOTEM_RECEPTION",
+      "name": "totem",
+      "kind": "asset",
+      "source_id": "totem_reception",
+      "entityRole": "sceneObject",
+      "source_group": "reception",
+      "object_type": "totem",
+      "object_group_entity_id": "ENT-GROUP-RECEPTION"
+    },
+    {
+      "id": "ENT-ASSET-TOUCH_TERMINAL_RECRUITING1",
+      "name": "terminal",
+      "kind": "asset",
+      "source_id": "touch_terminal_recruiting1",
+      "entityRole": "sceneObject",
+      "source_group": "recruiting",
+      "object_type": "terminal",
+      "object_group_entity_id": "ENT-GROUP-RECRUITING"
+    },
+    {
+      "id": "ENT-ASSET-TOUCH_TERMINAL_RECRUITING2",
+      "name": "terminal",
+      "kind": "asset",
+      "source_id": "touch_terminal_recruiting2",
+      "entityRole": "sceneObject",
+      "source_group": "recruiting",
+      "object_type": "terminal",
+      "object_group_entity_id": "ENT-GROUP-RECRUITING"
+    },
+    {
+      "id": "ENT-ASSET-VR_AR_STATION1",
+      "name": "vr_station",
+      "kind": "asset",
+      "source_id": "vr_ar_station1",
+      "entityRole": "sceneObject",
+      "source_group": "vr_stations",
+      "object_type": "vr_station",
+      "object_group_entity_id": "ENT-GROUP-VR_STATIONS"
+    },
+    {
+      "id": "ENT-ASSET-VR_AR_STATION2",
+      "name": "vr_station",
+      "kind": "asset",
+      "source_id": "vr_ar_station2",
+      "entityRole": "sceneObject",
+      "source_group": "vr_stations",
+      "object_type": "vr_station",
+      "object_group_entity_id": "ENT-GROUP-VR_STATIONS"
+    },
+    {
+      "id": "ENT-AGENT-RECEPTION_AGENT",
+      "name": "Reception Agent",
+      "kind": "agent",
+      "source_id": "reception_agent",
+      "entityRole": "interactiveAgent"
+    },
+    {
+      "id": "ENT-AGENT-BENEFITS_EXPERT",
+      "name": "Benefits Information Specialist",
+      "kind": "agent",
+      "source_id": "benefits_expert",
+      "entityRole": "interactiveAgent"
+    },
+    {
+      "id": "ENT-AGENT-RECRUITING_AGENT",
+      "name": "Recruiting Agent",
+      "kind": "agent",
+      "source_id": "recruiting_agent",
+      "entityRole": "interactiveAgent"
+    },
+    {
+      "id": "ENT-AGENT-DEMO_TECHNICIAN",
+      "name": "Demo Technician",
+      "kind": "agent",
+      "source_id": "demo_technician",
+      "entityRole": "interactiveAgent"
+    },
+    {
+      "id": "ENT-AGENT-HOSPITALITY_AGENT",
+      "name": "Hospitality Agent",
+      "kind": "agent",
+      "source_id": "hospitality_agent",
+      "entityRole": "interactiveAgent"
+    },
+    {
+      "id": "ENT-STATE-BESTFIT_CAREER_FAIR",
+      "name": "Case study validation state",
+      "kind": "stateObject",
+      "source_id": "validation_state"
+    }
+  ],
+  "agents": [
+    {
+      "id": "AG-BESTFIT_CAREER_FAIR-RECEPTION_AGENT",
+      "source_agent_id": "reception_agent",
+      "entity_id": "ENT-AGENT-RECEPTION_AGENT",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapabilityIds": [
+        "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "display_name": "Reception Agent",
+      "persona": "Friendly and welcoming guide who provides initial orientation and basic company information to visitors, helping them navigate the booth efficiently.",
+      "expertise": [
+        "visitor orientation",
+        "basic company info",
+        "navigation assistance"
+      ],
+      "knowledge_tags": [
+        "visitor_orientation",
+        "company_basics",
+        "navigation"
+      ],
+      "voice": "sage",
+      "voice_gender": "weiblich",
+      "voice_style": "warm and clear",
+      "tts_model": "gpt-4o-mini-tts",
+      "responsible_zone_ids": [
+        "reception_zone"
+      ],
+      "responsibleZoneEntityIds": [
+        "ENT-ZONE-RECEPTION_ZONE"
+      ],
+      "grounded_object_ids": [
+        "totem_reception",
+        "kiosk_reception"
+      ],
+      "groundedAssetEntityIds": [
+        "ENT-ASSET-TOTEM_RECEPTION",
+        "ENT-ASSET-KIOSK_RECEPTION"
+      ],
+      "grounded_object_groups": [
+        "reception",
+        "kiosks"
+      ],
+      "groundedObjectGroupEntityIds": [
+        "ENT-GROUP-RECEPTION",
+        "ENT-GROUP-KIOSKS"
+      ],
+      "handoff_targets": [
+        "benefits_expert",
+        "recruiting_agent",
+        "demo_technician",
+        "hospitality_agent"
+      ],
+      "handoffTargetAgentIds": [
+        "AG-BESTFIT_CAREER_FAIR-BENEFITS_EXPERT",
+        "AG-BESTFIT_CAREER_FAIR-RECRUITING_AGENT",
+        "AG-BESTFIT_CAREER_FAIR-DEMO_TECHNICIAN",
+        "AG-BESTFIT_CAREER_FAIR-HOSPITALITY_AGENT"
+      ]
+    },
+    {
+      "id": "AG-BESTFIT_CAREER_FAIR-BENEFITS_EXPERT",
+      "source_agent_id": "benefits_expert",
+      "entity_id": "ENT-AGENT-BENEFITS_EXPERT",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapabilityIds": [
+        "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "display_name": "Benefits Information Specialist",
+      "persona": "Knowledgeable and approachable specialist focused on explaining employee benefits and company culture, assisting visitors with interactive terminals and panels.",
+      "expertise": [
+        "employee benefits",
+        "company culture",
+        "interactive terminal assistance"
+      ],
+      "knowledge_tags": [
+        "company_benefits",
+        "employee_wellbeing",
+        "interactive_terminals"
+      ],
+      "voice": "coral",
+      "voice_gender": "weiblich",
+      "voice_style": "informative and friendly",
+      "tts_model": "gpt-4o-mini-tts",
+      "responsible_zone_ids": [
+        "benefits_info_zone"
+      ],
+      "responsibleZoneEntityIds": [
+        "ENT-ZONE-BENEFITS_INFO_ZONE"
+      ],
+      "grounded_object_ids": [
+        "benefits_panel1",
+        "benefits_panel2",
+        "benefits_panel3",
+        "interactive_terminal_benefits1",
+        "interactive_terminal_benefits2"
+      ],
+      "groundedAssetEntityIds": [
+        "ENT-ASSET-BENEFITS_PANEL1",
+        "ENT-ASSET-BENEFITS_PANEL2",
+        "ENT-ASSET-BENEFITS_PANEL3",
+        "ENT-ASSET-INTERACTIVE_TERMINAL_BENEFITS1",
+        "ENT-ASSET-INTERACTIVE_TERMINAL_BENEFITS2"
+      ],
+      "grounded_object_groups": [
+        "panels",
+        "terminals"
+      ],
+      "groundedObjectGroupEntityIds": [
+        "ENT-GROUP-PANELS",
+        "ENT-GROUP-TERMINALS"
+      ],
+      "handoff_targets": [
+        "recruiting_agent",
+        "reception_agent"
+      ],
+      "handoffTargetAgentIds": [
+        "AG-BESTFIT_CAREER_FAIR-RECRUITING_AGENT",
+        "AG-BESTFIT_CAREER_FAIR-RECEPTION_AGENT"
+      ]
+    },
+    {
+      "id": "AG-BESTFIT_CAREER_FAIR-RECRUITING_AGENT",
+      "source_agent_id": "recruiting_agent",
+      "entity_id": "ENT-AGENT-RECRUITING_AGENT",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapabilityIds": [
+        "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "display_name": "Recruiting Agent",
+      "persona": "Professional and helpful recruiting expert who assists visitors with job applications, provides detailed recruiting information, and answers related questions.",
+      "expertise": [
+        "job openings",
+        "application process",
+        "recruiting info"
+      ],
+      "knowledge_tags": [
+        "job_recruiting",
+        "application_process",
+        "career_opportunities"
+      ],
+      "voice": "onyx",
+      "voice_gender": "maennlich",
+      "voice_style": "professional and clear",
+      "tts_model": "gpt-4o-mini-tts",
+      "responsible_zone_ids": [
+        "recruiting_zone"
+      ],
+      "responsibleZoneEntityIds": [
+        "ENT-ZONE-RECRUITING_ZONE"
+      ],
+      "grounded_object_ids": [
+        "touch_terminal_recruiting1",
+        "touch_terminal_recruiting2",
+        "chair_recruiting",
+        "poster_recruiting1",
+        "poster_recruiting2"
+      ],
+      "groundedAssetEntityIds": [
+        "ENT-ASSET-TOUCH_TERMINAL_RECRUITING1",
+        "ENT-ASSET-TOUCH_TERMINAL_RECRUITING2",
+        "ENT-ASSET-CHAIR_RECRUITING",
+        "ENT-ASSET-POSTER_RECRUITING1",
+        "ENT-ASSET-POSTER_RECRUITING2"
+      ],
+      "grounded_object_groups": [
+        "recruiting"
+      ],
+      "groundedObjectGroupEntityIds": [
+        "ENT-GROUP-RECRUITING"
+      ],
+      "handoff_targets": [
+        "benefits_expert",
+        "reception_agent"
+      ],
+      "handoffTargetAgentIds": [
+        "AG-BESTFIT_CAREER_FAIR-BENEFITS_EXPERT",
+        "AG-BESTFIT_CAREER_FAIR-RECEPTION_AGENT"
+      ]
+    },
+    {
+      "id": "AG-BESTFIT_CAREER_FAIR-DEMO_TECHNICIAN",
+      "source_agent_id": "demo_technician",
+      "entity_id": "ENT-AGENT-DEMO_TECHNICIAN",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapabilityIds": [
+        "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "display_name": "Demo Technician",
+      "persona": "Enthusiastic and tech-savvy specialist who manages product showcases and VR/AR stations, guiding visitors through interactive demos and answering technical questions.",
+      "expertise": [
+        "product knowledge",
+        "VR/AR technology",
+        "interactive kiosk support"
+      ],
+      "knowledge_tags": [
+        "product_demos",
+        "vr_ar_technology",
+        "interactive_kiosks"
+      ],
+      "voice": "fable",
+      "voice_gender": "maennlich",
+      "voice_style": "enthusiastic and engaging",
+      "tts_model": "gpt-4o-mini-tts",
+      "responsible_zone_ids": [
+        "showcase_zone",
+        "demo_kiosk_zone"
+      ],
+      "responsibleZoneEntityIds": [
+        "ENT-ZONE-SHOWCASE_ZONE",
+        "ENT-ZONE-DEMO_KIOSK_ZONE"
+      ],
+      "grounded_object_ids": [
+        "showcase_equipment_treadmill",
+        "showcase_equipment_weights_rack",
+        "vr_ar_station1",
+        "vr_ar_station2",
+        "kiosk_demo1",
+        "kiosk_demo2",
+        "kiosk_demo3",
+        "info_stele_studio1",
+        "info_stele_studio2",
+        "info_stele_studio3"
+      ],
+      "groundedAssetEntityIds": [
+        "ENT-ASSET-SHOWCASE_EQUIPMENT_TREADMILL",
+        "ENT-ASSET-SHOWCASE_EQUIPMENT_WEIGHTS_RACK",
+        "ENT-ASSET-VR_AR_STATION1",
+        "ENT-ASSET-VR_AR_STATION2",
+        "ENT-ASSET-KIOSK_DEMO1",
+        "ENT-ASSET-KIOSK_DEMO2",
+        "ENT-ASSET-KIOSK_DEMO3",
+        "ENT-ASSET-INFO_STELE_STUDIO1",
+        "ENT-ASSET-INFO_STELE_STUDIO2",
+        "ENT-ASSET-INFO_STELE_STUDIO3"
+      ],
+      "grounded_object_groups": [
+        "showcase",
+        "vr_stations",
+        "demo_kiosks",
+        "steles"
+      ],
+      "groundedObjectGroupEntityIds": [
+        "ENT-GROUP-SHOWCASE",
+        "ENT-GROUP-VR_STATIONS",
+        "ENT-GROUP-DEMO_KIOSKS",
+        "ENT-GROUP-STELES"
+      ],
+      "handoff_targets": [
+        "recruiting_agent",
+        "benefits_expert",
+        "reception_agent"
+      ],
+      "handoffTargetAgentIds": [
+        "AG-BESTFIT_CAREER_FAIR-RECRUITING_AGENT",
+        "AG-BESTFIT_CAREER_FAIR-BENEFITS_EXPERT",
+        "AG-BESTFIT_CAREER_FAIR-RECEPTION_AGENT"
+      ]
+    },
+    {
+      "id": "AG-BESTFIT_CAREER_FAIR-HOSPITALITY_AGENT",
+      "source_agent_id": "hospitality_agent",
+      "entity_id": "ENT-AGENT-HOSPITALITY_AGENT",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapabilityIds": [
+        "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "display_name": "Hospitality Agent",
+      "persona": "Warm and attentive hospitality professional dedicated to providing refreshments and ensuring visitor comfort in the lounge area.",
+      "expertise": [
+        "customer service",
+        "refreshment management",
+        "visitor comfort"
+      ],
+      "knowledge_tags": [
+        "visitor_comfort",
+        "refreshments",
+        "lounge_services"
+      ],
+      "voice": "ash",
+      "voice_gender": "maennlich",
+      "voice_style": "warm and caring",
+      "tts_model": "gpt-4o-mini-tts",
+      "responsible_zone_ids": [
+        "refreshment_zone"
+      ],
+      "responsibleZoneEntityIds": [
+        "ENT-ZONE-REFRESHMENT_ZONE"
+      ],
+      "grounded_object_ids": [
+        "refreshment_counter",
+        "bar_stool_refreshment1",
+        "bar_stool_refreshment2",
+        "bar_stool_refreshment3",
+        "lounge_seating"
+      ],
+      "groundedAssetEntityIds": [
+        "ENT-ASSET-REFRESHMENT_COUNTER",
+        "ENT-ASSET-BAR_STOOL_REFRESHMENT1",
+        "ENT-ASSET-BAR_STOOL_REFRESHMENT2",
+        "ENT-ASSET-BAR_STOOL_REFRESHMENT3",
+        "ENT-ASSET-LOUNGE_SEATING"
+      ],
+      "grounded_object_groups": [
+        "refreshment",
+        "stools",
+        "lounge"
+      ],
+      "groundedObjectGroupEntityIds": [
+        "ENT-GROUP-REFRESHMENT",
+        "ENT-GROUP-STOOLS",
+        "ENT-GROUP-LOUNGE"
+      ],
+      "handoff_targets": [
+        "reception_agent"
+      ],
+      "handoffTargetAgentIds": [
+        "AG-BESTFIT_CAREER_FAIR-RECEPTION_AGENT"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "EV-BESTFIT_CAREER_FAIR-MLDS-PROVIDED",
+      "kind": "environment",
+      "expression": "source_mlds.json available"
+    },
+    {
+      "id": "EV-BESTFIT_CAREER_FAIR-VISITOR-QUESTION",
+      "kind": "user",
+      "expression": "visitor asks a room-related question"
+    },
+    {
+      "id": "EV-BESTFIT_CAREER_FAIR-HANDOFF-NEEDED",
+      "kind": "user",
+      "expression": "visitor question belongs to another agent expertise"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "COND-BESTFIT_CAREER_FAIR-VALID-INPUT",
+      "kind": "precondition",
+      "expression": "MLDS input parses successfully"
+    },
+    {
+      "id": "COND-BESTFIT_CAREER_FAIR-AGENTS-AVAILABLE",
+      "kind": "guard",
+      "expression": "at least two valid agents exist"
+    },
+    {
+      "id": "COND-BESTFIT_CAREER_FAIR-HANDOFF-TARGET-AVAILABLE",
+      "kind": "guard",
+      "expression": "handoff target exists and is not the source agent"
+    }
+  ],
+  "stateAssertions": [
+    {
+      "id": "SA-BESTFIT_CAREER_FAIR-NORMALIZED-SCENE-VALID",
+      "subject_id": "ENT-STATE-BESTFIT_CAREER_FAIR",
+      "expression": "Normalized MLDS scene is valid and object IDs are unique."
+    },
+    {
+      "id": "SA-BESTFIT_CAREER_FAIR-SCENE-SEMANTICS-VALID",
+      "subject_id": "ENT-STATE-BESTFIT_CAREER_FAIR",
+      "expression": "Scene semantics are grounded in existing object IDs."
+    },
+    {
+      "id": "SA-BESTFIT_CAREER_FAIR-AGENT-ROLES-VALID",
+      "subject_id": "ENT-STATE-BESTFIT_CAREER_FAIR",
+      "expression": "Generated agents have valid zones, objects, knowledge tags and handoff targets."
+    },
+    {
+      "id": "SA-BESTFIT_CAREER_FAIR-KNOWLEDGE-VALID",
+      "subject_id": "ENT-STATE-BESTFIT_CAREER_FAIR",
+      "expression": "Every agent knowledge tag has at least one materialized knowledge entry."
+    },
+    {
+      "id": "SA-BESTFIT_CAREER_FAIR-PLACEMENT-VALID",
+      "subject_id": "ENT-STATE-BESTFIT_CAREER_FAIR",
+      "expression": "Every generated agent has a valid room position and forward vector."
+    },
+    {
+      "id": "SA-BESTFIT_CAREER_FAIR-FUNCTIONALMLDS-VALID",
+      "subject_id": "ENT-STATE-BESTFIT_CAREER_FAIR",
+      "expression": "FunctionalMLDS instance satisfies all core invariants."
+    },
+    {
+      "id": "SA-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZED",
+      "subject_id": "ENT-STATE-BESTFIT_CAREER_FAIR",
+      "expression": "Interactive Agents project files are present and backend-readable."
+    },
+    {
+      "id": "SA-BESTFIT_CAREER_FAIR-SETUP-VALID",
+      "subject_id": "ENT-STATE-BESTFIT_CAREER_FAIR",
+      "expression": "Interactive Agents backend setup returns a valid session with all agents."
+    },
+    {
+      "id": "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED",
+      "subject_id": "ENT-STATE-BESTFIT_CAREER_FAIR",
+      "expression": "A visitor question is answered using room-grounded agent knowledge."
+    },
+    {
+      "id": "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID",
+      "subject_id": "ENT-STATE-BESTFIT_CAREER_FAIR",
+      "expression": "A specialist handoff targets an existing responsible agent when needed."
+    }
+  ],
+  "capabilityUses": [
+    {
+      "id": "CU-BESTFIT_CAREER_FAIR-S02-ANALYZE-MLDS-SCENE",
+      "step_id": "STEP-BESTFIT_CAREER_FAIR-S02",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE",
+      "parameters": []
+    },
+    {
+      "id": "CU-BESTFIT_CAREER_FAIR-S03-ANALYZE-MLDS-SCENE",
+      "step_id": "STEP-BESTFIT_CAREER_FAIR-S03",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE",
+      "parameters": []
+    },
+    {
+      "id": "CU-BESTFIT_CAREER_FAIR-S04-DERIVE-SPATIAL-AGENT-ROLES",
+      "step_id": "STEP-BESTFIT_CAREER_FAIR-S04",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-DERIVE-SPATIAL-AGENT-ROLES",
+      "parameters": []
+    },
+    {
+      "id": "CU-BESTFIT_CAREER_FAIR-S05-GENERATE-ROOM-KNOWLEDGE",
+      "step_id": "STEP-BESTFIT_CAREER_FAIR-S05",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-GENERATE-ROOM-KNOWLEDGE",
+      "parameters": []
+    },
+    {
+      "id": "CU-BESTFIT_CAREER_FAIR-S06-PLACE-AGENTS-IN-SCENE",
+      "step_id": "STEP-BESTFIT_CAREER_FAIR-S06",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-PLACE-AGENTS-IN-SCENE",
+      "parameters": []
+    },
+    {
+      "id": "CU-BESTFIT_CAREER_FAIR-S07-ASSEMBLE-FUNCTIONAL-MLDS",
+      "step_id": "STEP-BESTFIT_CAREER_FAIR-S07",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS",
+      "parameters": []
+    },
+    {
+      "id": "CU-BESTFIT_CAREER_FAIR-S08-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "step_id": "STEP-BESTFIT_CAREER_FAIR-S08",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "parameters": []
+    },
+    {
+      "id": "CU-BESTFIT_CAREER_FAIR-S09-SETUP-INTERACTIVE-SESSION",
+      "step_id": "STEP-BESTFIT_CAREER_FAIR-S09",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION",
+      "parameters": []
+    },
+    {
+      "id": "CU-BESTFIT_CAREER_FAIR-S11-ANSWER-ROOM-GROUNDED-QUESTION",
+      "step_id": "STEP-BESTFIT_CAREER_FAIR-S11",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+      "parameters": []
+    },
+    {
+      "id": "CU-BESTFIT_CAREER_FAIR-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "step_id": "STEP-BESTFIT_CAREER_FAIR-S12",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "parameters": []
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "CAP-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE",
+      "name": "Analyze Mlds Scene",
+      "text": "Analyze MLDS scene structure and normalize room objects.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE-01",
+          "text": "Effect of ANALYZE-MLDS-SCENE: normalized scene valid.",
+          "evidencedBy": [
+            "SA-BESTFIT_CAREER_FAIR-NORMALIZED-SCENE-VALID"
+          ]
+        },
+        {
+          "id": "EFF-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE-02",
+          "text": "Effect of ANALYZE-MLDS-SCENE: scene semantics valid.",
+          "evidencedBy": [
+            "SA-BESTFIT_CAREER_FAIR-SCENE-SEMANTICS-VALID"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-BESTFIT_CAREER_FAIR-DERIVE-SPATIAL-AGENT-ROLES",
+      "name": "Derive Spatial Agent Roles",
+      "text": "Derive agent roles grounded in semantic zones and objects.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-BESTFIT_CAREER_FAIR-DERIVE-SPATIAL-AGENT-ROLES-01",
+          "text": "Effect of DERIVE-SPATIAL-AGENT-ROLES: agent roles valid.",
+          "evidencedBy": [
+            "SA-BESTFIT_CAREER_FAIR-AGENT-ROLES-VALID"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-BESTFIT_CAREER_FAIR-GENERATE-ROOM-KNOWLEDGE",
+      "name": "Generate Room Knowledge",
+      "text": "Generate local knowledge entries for all agent knowledge tags.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-BESTFIT_CAREER_FAIR-GENERATE-ROOM-KNOWLEDGE-01",
+          "text": "Effect of GENERATE-ROOM-KNOWLEDGE: knowledge valid.",
+          "evidencedBy": [
+            "SA-BESTFIT_CAREER_FAIR-KNOWLEDGE-VALID"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-BESTFIT_CAREER_FAIR-PLACE-AGENTS-IN-SCENE",
+      "name": "Place Agents In Scene",
+      "text": "Place agents in valid positions near their responsible zones.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-BESTFIT_CAREER_FAIR-PLACE-AGENTS-IN-SCENE-01",
+          "text": "Effect of PLACE-AGENTS-IN-SCENE: placement valid.",
+          "evidencedBy": [
+            "SA-BESTFIT_CAREER_FAIR-PLACEMENT-VALID"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS",
+      "name": "Assemble Functional Mlds",
+      "text": "Assemble a valid FunctionalMLDS instance for the case study.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS-01",
+          "text": "Effect of ASSEMBLE-FUNCTIONAL-MLDS: functionalmlds valid.",
+          "evidencedBy": [
+            "SA-BESTFIT_CAREER_FAIR-FUNCTIONALMLDS-VALID"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "name": "Materialize Interactive Agents Project",
+      "text": "Write backend-compatible Interactive Agents project files.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT-01",
+          "text": "Effect of MATERIALIZE-INTERACTIVE-AGENTS-PROJECT: project materialized.",
+          "evidencedBy": [
+            "SA-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZED"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION",
+      "name": "Setup Interactive Session",
+      "text": "Initialize the runtime session for the generated project.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION-01",
+          "text": "Effect of SETUP-INTERACTIVE-SESSION: setup valid.",
+          "evidencedBy": [
+            "SA-BESTFIT_CAREER_FAIR-SETUP-VALID"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+      "name": "Answer Room Grounded Question",
+      "text": "Answer visitor questions using room-grounded agent knowledge.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION-01",
+          "text": "Effect of ANSWER-ROOM-GROUNDED-QUESTION: answer grounded.",
+          "evidencedBy": [
+            "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "name": "Handoff To Responsible Agent",
+      "text": "Forward a question to an existing responsible specialist agent.",
+      "precondition_ids": [],
+      "effects": [
+        {
+          "id": "EFF-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT-01",
+          "text": "Effect of HANDOFF-TO-RESPONSIBLE-AGENT: handoff valid.",
+          "evidencedBy": [
+            "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+          ]
+        }
+      ]
+    }
+  ],
+  "runtimeBindings": [
+    {
+      "id": "RB-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE",
+      "targetPlatform": "CaseStudyPipeline",
+      "runtimeActions": [
+        {
+          "id": "RA-BESTFIT_CAREER_FAIR-RUN-MLDS-INGESTION",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.mlds_ingestion.run_ingestion_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        },
+        {
+          "id": "RA-BESTFIT_CAREER_FAIR-RUN-SCENE-SEMANTICS",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.scene_semantics.run_scene_semantics_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        },
+        {
+          "id": "RA-BESTFIT_CAREER_FAIR-ARROW-ANALYZE",
+          "endpoint": "POST /projects/arrow/analyze",
+          "tool": null,
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-BESTFIT_CAREER_FAIR-DERIVE-SPATIAL-AGENT-ROLES",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-DERIVE-SPATIAL-AGENT-ROLES",
+      "targetPlatform": "CaseStudyPipeline",
+      "runtimeActions": [
+        {
+          "id": "RA-BESTFIT_CAREER_FAIR-RUN-AGENT-ROLES",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.agent_roles.run_agent_roles_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-BESTFIT_CAREER_FAIR-GENERATE-ROOM-KNOWLEDGE",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-GENERATE-ROOM-KNOWLEDGE",
+      "targetPlatform": "CaseStudyPipeline",
+      "runtimeActions": [
+        {
+          "id": "RA-BESTFIT_CAREER_FAIR-RUN-KNOWLEDGE-SYNTHESIS",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.knowledge_synthesis.run_knowledge_synthesis_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-BESTFIT_CAREER_FAIR-PLACE-AGENTS-IN-SCENE",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-PLACE-AGENTS-IN-SCENE",
+      "targetPlatform": "CaseStudyPipeline",
+      "runtimeActions": [
+        {
+          "id": "RA-BESTFIT_CAREER_FAIR-RUN-AGENT-PLACEMENT",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.agent_placement.run_agent_placement_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS",
+      "targetPlatform": "CaseStudyPipeline",
+      "runtimeActions": [
+        {
+          "id": "RA-BESTFIT_CAREER_FAIR-RUN-FUNCTIONALMLDS-ASSEMBLER",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.functionalmlds_assembler.run_functionalmlds_assembly_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "runtimeActions": [
+        {
+          "id": "RA-BESTFIT_CAREER_FAIR-ARROW-COMMIT",
+          "endpoint": "POST /projects/arrow/commit",
+          "tool": null,
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        },
+        {
+          "id": "RA-BESTFIT_CAREER_FAIR-WRITE-PROJECT-FILES",
+          "endpoint": null,
+          "tool": "tools.case_study_pipeline.project_materializer.run_project_materializer_for_case",
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "runtimeActions": [
+        {
+          "id": "RA-BESTFIT_CAREER_FAIR-BACKEND-SETUP",
+          "endpoint": "POST /setup",
+          "tool": null,
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "runtimeActions": [
+        {
+          "id": "RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT",
+          "endpoint": "POST /chat",
+          "tool": null,
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    },
+    {
+      "id": "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "capability_id": "CAP-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "targetPlatform": "InteractiveAgentsBackend",
+      "runtimeActions": [
+        {
+          "id": "RA-BESTFIT_CAREER_FAIR-BACKEND-CHAT-HANDOFF",
+          "endpoint": "POST /chat",
+          "tool": null,
+          "topic": null,
+          "inputSchema": "json",
+          "outputSchema": "json"
+        }
+      ]
+    }
+  ],
+  "validationCases": [
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MLDS-INGESTION",
+      "level": "concrete",
+      "validates_use_case_ids": [
+        "UC-BESTFIT_CAREER_FAIR-01"
+      ],
+      "verifies_requirement_ids": [
+        "REQ-BESTFIT_CAREER_FAIR-001"
+      ],
+      "stimulus_ids": [
+        "EV-BESTFIT_CAREER_FAIR-MLDS-PROVIDED"
+      ],
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANALYZE-MLDS-SCENE"
+      ],
+      "expectedOutcome": [
+        "SA-BESTFIT_CAREER_FAIR-NORMALIZED-SCENE-VALID"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS",
+      "level": "concrete",
+      "validates_use_case_ids": [
+        "UC-BESTFIT_CAREER_FAIR-01"
+      ],
+      "verifies_requirement_ids": [
+        "REQ-BESTFIT_CAREER_FAIR-006"
+      ],
+      "stimulus_ids": [],
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ASSEMBLE-FUNCTIONAL-MLDS"
+      ],
+      "expectedOutcome": [
+        "SA-BESTFIT_CAREER_FAIR-FUNCTIONALMLDS-VALID"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZATION",
+      "level": "concrete",
+      "validates_use_case_ids": [
+        "UC-BESTFIT_CAREER_FAIR-01"
+      ],
+      "verifies_requirement_ids": [
+        "REQ-BESTFIT_CAREER_FAIR-004",
+        "REQ-BESTFIT_CAREER_FAIR-005"
+      ],
+      "stimulus_ids": [],
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"
+      ],
+      "expectedOutcome": [
+        "SA-BESTFIT_CAREER_FAIR-PROJECT-MATERIALIZED"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-SETUP",
+      "level": "concrete",
+      "validates_use_case_ids": [
+        "UC-BESTFIT_CAREER_FAIR-01"
+      ],
+      "verifies_requirement_ids": [
+        "REQ-BESTFIT_CAREER_FAIR-003",
+        "REQ-BESTFIT_CAREER_FAIR-005"
+      ],
+      "stimulus_ids": [],
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-SETUP-INTERACTIVE-SESSION"
+      ],
+      "expectedOutcome": [
+        "SA-BESTFIT_CAREER_FAIR-SETUP-VALID"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-CHAT-GROUNDING",
+      "level": "concrete",
+      "validates_use_case_ids": [
+        "UC-BESTFIT_CAREER_FAIR-01"
+      ],
+      "verifies_requirement_ids": [
+        "REQ-BESTFIT_CAREER_FAIR-002",
+        "REQ-BESTFIT_CAREER_FAIR-004",
+        "REQ-BESTFIT_CAREER_FAIR-006"
+      ],
+      "stimulus_ids": [
+        "EV-BESTFIT_CAREER_FAIR-VISITOR-QUESTION"
+      ],
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "expectedOutcome": [
+        "SA-BESTFIT_CAREER_FAIR-ANSWER-GROUNDED"
+      ]
+    },
+    {
+      "id": "VC-BESTFIT_CAREER_FAIR-HANDOFF",
+      "level": "concrete",
+      "validates_use_case_ids": [
+        "UC-BESTFIT_CAREER_FAIR-01"
+      ],
+      "verifies_requirement_ids": [
+        "REQ-BESTFIT_CAREER_FAIR-003",
+        "REQ-BESTFIT_CAREER_FAIR-006"
+      ],
+      "stimulus_ids": [
+        "EV-BESTFIT_CAREER_FAIR-HANDOFF-NEEDED"
+      ],
+      "runtime_binding_ids": [
+        "RB-BESTFIT_CAREER_FAIR-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "expectedOutcome": [
+        "SA-BESTFIT_CAREER_FAIR-HANDOFF-VALID"
+      ]
+    }
+  ],
+  "satisfyRelationships": [
+    {
+      "id": "SAT-REQ-BESTFIT_CAREER_FAIR-001",
+      "satisfiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-001"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-BESTFIT_CAREER_FAIR-01",
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-BESTFIT_CAREER_FAIR-002",
+      "satisfiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-002"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-BESTFIT_CAREER_FAIR-01",
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-BESTFIT_CAREER_FAIR-003",
+      "satisfiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-003"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-BESTFIT_CAREER_FAIR-01",
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-BESTFIT_CAREER_FAIR-004",
+      "satisfiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-004"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-BESTFIT_CAREER_FAIR-01",
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-BESTFIT_CAREER_FAIR-005",
+      "satisfiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-005"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-BESTFIT_CAREER_FAIR-01",
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS"
+      ]
+    },
+    {
+      "id": "SAT-REQ-BESTFIT_CAREER_FAIR-006",
+      "satisfiedRequirement": [
+        "REQ-BESTFIT_CAREER_FAIR-006"
+      ],
+      "satisfiedUseCase": [],
+      "satisfiedBy": [
+        "UC-BESTFIT_CAREER_FAIR-01",
+        "VC-BESTFIT_CAREER_FAIR-MODEL-INVARIANTS"
+      ]
+    }
+  ]
+}

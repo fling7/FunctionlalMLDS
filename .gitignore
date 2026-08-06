@@ -1,0 +1,67 @@
+# Local secrets and machine-specific configuration
+.env
+.env.*
+config.json
+*.pem
+*.key
+research/iui2027/reviewer/*.token
+research/iui2027/reviewer/private/
+
+# Python caches and test artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Unity-generated folders (at any project depth)
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+[Rr]ecordings/
+
+# Generated Unity smoke-test project copies
+output/unity_smoke/
+runtime_logs/
+
+# Unity/IDE generated files
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.csproj.AssemblyReference.cache
+.vs/
+.idea/
+.vscode/
+.git.nested-backup/
+
+# Local build products and OS metadata
+*.apk
+*.aab
+*.app
+*.exe
+*.dmg
+*.xcodeproj
+*.stacktrace
+.DS_Store
+Thumbs.db
+desktop.ini
+research/iui2027/paper/build/
+research/iui2027/paper/.latex-toolchain/
+tmp/
+tmp/pdfs/
+tmp/*.log
