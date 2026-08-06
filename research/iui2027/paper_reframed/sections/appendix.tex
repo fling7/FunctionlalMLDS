@@ -1,0 +1,137 @@
+\section{Detailed Contract and Evaluation Tables}
+
+\subsection{Running-example identifiers}
+
+Table~\ref{tab:running-example} spells out the exact objects used for the
+\path{brand_panel3} walkthrough.  Display labels are shortened in the prose,
+while execution uses these stable identifiers.
+
+\begin{table*}[h]
+  \caption{Exact contract objects for the Steinpilz
+  \texttt{brand\_panel3} interaction.}
+  \label{tab:running-example}
+  \small
+  \begin{tabularx}{\textwidth}{@{}p{28mm}Y Y@{}}
+    \toprule
+    Element & Exact instance & Runtime meaning \\
+    \midrule
+    Target
+      & \path{brand_panel3} $\rightarrow$
+        \path{ENT-ASSET-BRAND_PANEL3}; group
+        \path{ENT-GROUP-BRANDING}; zone
+        \path{ENT-ZONE-ENTRANCE_ZONE}
+      & Collider observation and trusted model referent \\
+    Use case and scenario
+      & \path{UC-STEINPILZ_BRAND_ROOM-INTERACT-BRAND_PANEL3};
+        \path{SC-STEINPILZ_BRAND_ROOM-INTERACT-BRAND_PANEL3-MAIN}
+      & User-facing interaction and executable flow \\
+    Answer step
+      & \path{STEP-STEINPILZ_BRAND_ROOM-INTERACT-BRAND_PANEL3-ANSWER}
+      & Scenario occurrence requiring one capability use \\
+    Capability use
+      & \path{CU-STEINPILZ_BRAND_ROOM-INTERACT-BRAND_PANEL3-ANSWER-ROOM-GROUNDED-QUESTION};
+        provider \path{ENT-AGENT-RECEPTION_AGENT}
+      & Explicit target tuple and provider \\
+    Capability
+      & \path{CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION}
+      & Operation declared for the Reception Agent \\
+    Binding and action
+      & \path{RB-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION};
+        \path{RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT}
+      & Exact realization at \texttt{POST /chat} \\
+    Assertion and case
+      & \path{SA-STEINPILZ_BRAND_ROOM-ANSWER-GROUNDED};
+        \path{VC-STEINPILZ_BRAND_ROOM-INTERACT-BRAND_PANEL3}
+      & Declared identifier agreement and validation scope \\
+    \bottomrule
+  \end{tabularx}
+\end{table*}
+
+\subsection{Per-case structural results}
+
+\begin{table}[h]
+  \caption{Complete interaction paths. ``Pairs'' are asset-targeting
+  \texttt{ScenarioStep}/\texttt{CapabilityUse} pairs.}
+  \label{tab:per-case-chains}
+  \small
+  \begin{tabular}{@{}lrrrr@{}}
+    \toprule
+    Case & Assets & Complete & Pairs & Complete \\
+    \midrule
+    Career fair & 27 & 27 & 54 & 54 \\
+    Classroom & 36 & 36 & 72 & 72 \\
+    Brand room & 30 & 30 & 60 & 60 \\
+    \midrule
+    Total & 93 & 93 & 186 & 186 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table*}[h]
+  \caption{Offline structural routes from every modeled starting agent.
+  ``Transitive'' and ``reachable'' are graph properties, not one-turn online
+  execution.}
+  \label{tab:per-case-routing}
+  \small
+  \begin{tabular}{@{}lrrrrrr@{}}
+    \toprule
+    Case & Probes & Local & Direct & Transitive & Unreachable & Reachable \\
+    \midrule
+    Career fair & 135 & 27 & 53 & 55 & 0 & 135 \\
+    Classroom & 144 & 36 & 81 & 9 & 18 & 126 \\
+    Brand room & 180 & 30 & 71 & 79 & 0 & 180 \\
+    \midrule
+    Total & 459 & 93 & 205 & 143 & 18 & 441 \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\subsection{Enforcement layers}
+
+\begin{table*}[h]
+  \caption{Representative invariants and failure boundaries in the implemented
+  interaction path.}
+  \label{tab:enforcement-layers}
+  \small
+  \begin{tabularx}{\textwidth}{@{}p{31mm}Y Y@{}}
+    \toprule
+    Layer & Representative invariant & Failure boundary \\
+    \midrule
+    JSON schema
+      & Required fields, types, enumerations, reference shapes
+      & Before constructing a model instance \\
+    Canonical V2 model
+      & Referential closure, typed cardinalities, source-ID uniqueness,
+        assertion/validation ownership, no direct step-to-action shortcut
+      & Instance rejected before materialization \\
+    Executable profile
+      & One provider and capability per occurrence, provider/performer/target
+        agreement, complete binding and action
+      & Invalid chains are not published \\
+    Backend runtime
+      & Pinned hash, unique trusted entity, derived group/zone, unique provider,
+        local/direct route, exact target-specific action, request/response schema
+      & Before generation and mutation when request-decidable; rollback after a
+        response-dependent failure \\
+    Unity client
+      & Exact collider binding, explicit unresolved states, returned
+        target/provider/route/action agreement
+      & Before request serialization or answer presentation; backend remains
+        authoritative \\
+    \bottomrule
+  \end{tabularx}
+\end{table*}
+
+\section{Artifact Map}
+
+The reproducible benchmark is rooted at
+\texttt{research/iui2027/evaluation}.  Its \texttt{results.json} contains raw
+records; \texttt{tables.md} contains regenerated paper summaries; and
+\texttt{environment.json} records hashes and the local timing environment.
+The verifier and frozen regeneration entry points are under
+\texttt{research/iui2027/artifact}.  Backend runtime code is under
+\texttt{InteractivAgents/openai\_unity\_expert\_npcs\_pycharm/InteractiveAgents/backend},
+and Unity runtime components are under the corresponding
+\texttt{unity\_scripts/FunctionalMldsV2} directory.  The original manuscript
+remains in \texttt{research/iui2027/paper}; this reframed manuscript is
+deliberately separate.

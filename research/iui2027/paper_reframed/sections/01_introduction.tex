@@ -1,0 +1,160 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Immersive three-dimensional interfaces---including virtual-reality environments
+and desktop 3D applications---can contain several embodied AI agents with
+different knowledge, responsibilities, and capabilities.  A virtual exhibition,
+for example, may include a reception agent, a product specialist, and a career
+advisor.  When a visitor points at a product panel and asks, ``What is this?'',
+the interface must do more than generate a plausible sentence.  It must preserve
+the selected object, determine which agent is responsible for it, verify that
+this agent can perform the requested task, invoke the correct operation, and
+present a response that still refers to the same object.
+
+These decisions usually span several parts of an implementation.  A 3D client,
+implemented for example in a game engine such as Unity, stores scene objects,
+colliders, highlights, and interaction state.  Configuration artifacts describe
+agent roles and knowledge.  Orchestration code chooses among agents, backend
+endpoints invoke language models or tools, and logs may record only that a
+request succeeded.  Each part can therefore appear locally correct while the
+composed interaction is wrong.  A fluent answer may concern the wrong object,
+come from an agent without the required responsibility or capability, or result
+from an operation that was never intended for that target.  Although our
+evaluated prototype uses Unity, this cross-layer mismatch is not specific to one
+3D engine.
+
+For an intelligent user interface, transport success is therefore not the same
+as interaction success.  Before probabilistic generation begins, the system
+must answer four deterministic questions: \emph{Which modeled object did the
+visitor select?  Which of the available agents is responsible for it?  Which
+capability is that agent allowed to use for this request?  Which concrete
+backend action implements that capability?}  After generation, the interface
+must additionally check that the returned result still agrees with the selected
+object and responsible agent.
+
+We investigate an \emph{executable interaction contract} that records and
+checks these decisions.  In plain terms, the contract states which objects and
+agents exist in a spatial scenario, which objects each agent is responsible
+for, which capabilities each agent provides, which backend action realizes each
+capability, and which evidence should accompany a successful interaction.  Its
+current realization, \systemname{} (Functional Meta-Language-defined
+Structure), extends an MLDS-style machine-readable artifact with explicit
+functional interaction relations \cite{fischer2025machinereadable}.  The formal
+model represents the links as scenario steps, capability uses, runtime bindings,
+runtime actions, and assertions; Section~\ref{sec:contract} defines these terms
+in detail.
+
+A generation pipeline turns the shared contract into the artifacts required by
+a 3D client and a multi-agent backend.  In the current prototype, the client is
+implemented in Unity.  It reports a candidate selected by a camera ray, while
+the backend treats the pinned contract as authoritative.  The backend checks
+that the candidate has one stable identity, determines the responsible agent
+from the modeled asset, group, and zone relations, verifies that this agent is
+reachable from the currently active agent, and selects the exact operation
+modeled for that target and provider.  A client-supplied endpoint name cannot
+bypass these checks.
+
+We call a request \emph{contract-grounded} when all of these decisions come from
+the same pinned model version.  For an admitted request, the system has found
+one complete path from the selected target through the responsible agent and
+capability to the concrete action, and the returned evidence agrees with that
+path.  Problems that can already be recognized from the request---for example,
+a stale model version, an ambiguous owner, an unknown target, or an unreachable
+responsible agent---stop the interaction before a response model is called or
+conversation state is changed.  Some problems become visible only after a model
+has proposed a response.  If, for example, the model proposes a handoff to an
+agent that is not declared as a valid destination, the provisional change is
+discarded and the previous session state is restored.  In either case, the
+system can identify the failed stage and relation instead of returning only a
+generic chat error.
+
+The contract begins after the interface has selected a target candidate.  It
+does not determine the visitor's unobserved intention, prove that reported ray
+geometry is physically trustworthy, or establish that generated language is
+factually correct.  A gaze-, gesture-, speech-, or multimodal reference resolver
+may propose an object; the contract decides whether an admissible interaction
+exists for that object.  This separation is useful because uncertainty about
+\emph{what the visitor meant} and inconsistency in \emph{what the system is
+allowed to do} are different failure classes and require different evidence.
+
+The work is motivated by three interaction requirements drawn from the
+implemented visitor path and established human--AI interaction guidance
+\cite{amershi2019guidelines,yang2020reexamining,weisz2024design}:
+
+\begin{description}
+  \item[Stable spatial reference.] The object highlighted by the 3D client
+  remains the target while the visitor composes the request, and the response is
+  presented only if the returned identifiers match that pending selection.
+  \item[Visible unresolved states.] No target and ambiguous target are explicit
+  states.  They block a deictic request rather than falling through to a fluent
+  but ungrounded answer.
+  \item[Capability-aware and inspectable routing.] The interface selects among
+  agents according to their modeled responsibilities and capabilities.  The
+  chosen provider, route reason, capability, binding, and action remain
+  available as structured evidence for developer diagnosis.
+\end{description}
+
+We do not infer that these mechanisms improve trust, preference, or usability;
+that requires human evaluation.  We instead ask whether the system implements
+the claimed control boundary, whether migration preserves the behavior already
+encoded in the direct artifacts, and what assurance and cost the additional
+relations introduce.
+
+Accordingly, we study three research questions:
+
+\begin{description}
+  \item[RQ1---Coverage and non-regression.] Can authored 3D environments with
+  multiple agents and distinct capabilities be migrated to complete
+  target--provider--capability--action paths while preserving their existing
+  ownership and routing decisions under a fixed policy?
+  \item[RQ2---Fail-closed enforcement.] Does the implemented
+  3D-client--backend path, evaluated in the Unity prototype, admit exactly the
+  contract-valid local and one-hop requests, preserve target and provider
+  evidence, and reject stale, ambiguous, unreachable, or contradictory requests
+  without retained side effects?
+  \item[RQ3---Added assurance and cost.] Which cross-layer inconsistencies are
+  expressible and localizable in the contract representation beyond the direct
+  artifacts, and what representation and local execution costs accompany that
+  structure?
+\end{description}
+
+The paper makes four contributions:
+
+\begin{enumerate}
+  \item an interaction-oriented failure model and executable contract for
+  multi-agent 3D interfaces that binds a spatial selection to one responsible
+  provider, capability, action, and evidence path under a pinned model version;
+  \item an implemented fail-closed architecture across a Unity-based 3D client
+  and a conversational multi-agent backend, including authoritative server-side
+  re-resolution, staged admission checks, one-hop handoff constraints, and
+  transactional response validation;
+  \item a reproducible, API-free evaluation over three spatial environments,
+  comprising complete-chain audits, a normalized direct-wiring non-regression
+  comparison, 459 executable routing probes, targeted invalid requests, and
+  Unity batch smokes; and
+  \item a separated analysis of common faults, contract-only cross-layer
+  faults, representation edits, and local structural runtime, exposing both the
+  added invariant scope and its cost.
+\end{enumerate}
+
+The complete prototype, model instances, benchmark scripts, raw results, and
+reproduction instructions are provided in the accompanying anonymous
+repository.  The central claim is not that a metamodel by itself makes an
+interface intelligent.  Rather, the explicit relations determine what the
+intelligent interface is allowed to interpret and present.  This shifts a class
+of wrong-target, wrong-provider, and undeclared-action failures out of
+probabilistic dialogue behavior and into a deterministic, inspectable boundary.
+
+The remainder of the paper is organized as follows.  Section~\ref{sec:related}
+positions the work against embodied agents, spatial reference, conversational
+XR, model-based interface engineering, and runtime assurance.  Section~\ref{sec:contract}
+introduces the executable interaction contract and its guarantees.
+Section~\ref{sec:implementation} describes its realization in the Unity client,
+multi-agent backend, generation pipeline, and runtime evidence path.
+Section~\ref{sec:evaluation} presents the evaluation design, and
+Section~\ref{sec:results} reports the structural, runtime, and fault-injection
+results.  Section~\ref{sec:discussion} discusses implications for intelligent
+interfaces and the cost of the additional structure.
+Section~\ref{sec:limitations} states the limitations and threats to validity,
+and Section~\ref{sec:conclusion} concludes the paper; the appendix provides the
+detailed contract and evaluation tables.

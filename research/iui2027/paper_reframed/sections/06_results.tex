@@ -1,0 +1,191 @@
+\section{Results}
+\label{sec:results}
+
+Table~\ref{tab:main-results} summarizes the principal outcomes.  The values are
+exact for the fixed three-case corpus and deterministic test paths.  They are
+not participant counts or dialogue-quality scores.
+
+\begin{table*}[t]
+  \caption{Main measured results and their interpretation boundary.}
+  \label{tab:main-results}
+  \small
+  \begin{tabularx}{\textwidth}{@{}p{31mm}Y Y@{}}
+    \toprule
+    Check & Observed result & Supported interpretation \\
+    \midrule
+    Complete declarations
+      & 93/93 scene assets and 186/186 asset-targeting
+        step--capability-use pairs complete
+      & The three regenerated models contain provider-coherent paths through
+        binding, action, assertion, and validation coverage. \\
+    Migration non-regression
+      & 93/93 owner decisions and 459/459 route classifications agree
+      & V2 preserves the direct artifacts under the fixed shared resolver; this
+        is not an independent routing oracle. \\
+    Runtime admission
+      & 298/298 local/direct routes admitted; 161/161
+        transitive/unreachable routes rejected before the stub
+      & The implemented one-hop policy is enforced and preserves target and
+        provider evidence without retained mutation on rejection. \\
+    Common injected faults
+      & Both adapters detected and localized 9/9; 0/3 false positives
+      & Parity for the three shared fault types. \\
+    Contract-only faults
+      & Strict provider contract detected and localized 9/9; 0/3 false
+        positives; canonical model validator detected 3/9
+      & The executable profile adds typed cross-layer invariants absent from
+        the direct artifacts. \\
+    Unity execution
+      & 3/3 batch entry points passed; one multi-scenario smoke loaded 31
+        contexts and 73 actions and bound 30/30 scene objects exactly
+      & The evaluated desktop runtime components execute the generated
+        contract; no headset or user outcome is established. \\
+    \bottomrule
+  \end{tabularx}
+\end{table*}
+
+\subsection{RQ1: complete migration with routing non-regression}
+
+All 93 scene assets occurred in at least one declared interaction chain, and
+all 93 satisfied the asset-completeness definition.  The chain audit examined
+186 asset-targeting \texttt{ScenarioStep}/\texttt{CapabilityUse} pairs:
+54 in the career-fair case, 72 in the classroom, and 60 in the brand room.
+Every pair resolved one capability and provider, agreed with its scenario
+performer and target, reached an executable binding and action, resolved all
+resulting assertions, and was covered by an appropriate validation case.
+No asset-chain error was reported.  The two pairs per asset encode answer and
+handoff paths; they are not two executed conversations.
+
+Natural-corpus ownership was unique for 93/93 assets.  Every decision occurred
+at the explicit asset tier; no natural object exercised group or zone fallback,
+and none was ambiguous or unassigned.  In the separate derived priority suite,
+both adapters passed all nine decision cases: three group fallbacks, three zone
+fallbacks, and three ambiguity rejections.  Across both adapters this is 18/18
+expected outcomes, kept separate from natural-corpus frequencies.
+
+The 459 object-by-start-agent routes comprised 93 local-owner cases, 205 direct
+handoffs, 143 transitive-only graph paths, and 18 unreachable pairs.
+Local-or-direct one-hop coverage was therefore 298/459 (64.9\%), while offline
+graph reachability was 441/459 (96.1\%).  The latter does not imply that the
+online runtime traverses several handoffs within one turn.
+
+The direct-wiring and fresh-V2 adapters selected the same owner for all 93
+objects and the same route class for all 459 pairs.  They also remained aligned
+after all nine common mutations.  Because both normalized views are classified
+by one shared policy function, this result establishes migration
+non-regression and serialization parity, not that V2 discovered a more correct
+routing policy.
+
+\subsection{RQ2: fail-closed enforcement}
+
+The executable runtime sweep passed all 459 probes.  It admitted 298/298 local
+or direct routes and made exactly 298 deterministic-stub calls.  Every admitted
+response preserved the expected source object, target entity, and routed
+provider and returned non-empty capability-use, capability, binding, and action
+identifiers that agreed across the checked response, grounding, routing, and
+runtime-action fields.
+
+The runtime rejected 161/161 transitive or unreachable routes before the stub
+and without retained session mutation.  This set contains the 143
+transitive-only and 18 unreachable pairs.  The result demonstrates the current
+one-hop admission boundary, not task failure in principle: a system with a
+different declared policy could permit multi-hop execution, but this
+implementation does not.
+
+The targeted spatial suite accepted its valid deictic request and rejected all
+16 invalid variants without retained mutation.  Fifteen variants were
+request-decidable and stopped before the stub.  The remaining variant used a
+structured response that proposed an undeclared handoff; one stub call was
+necessary to reveal the destination, after which provisional history was
+rolled back.  Rejections included stale model hashes, unknown or contradictory
+identifiers, ambiguous selections, invalid agents, excessive payloads, and
+non-finite or out-of-range spatial values.
+
+All three Unity Editor batch entry points returned success.  Together they
+exercised scenario progression, dispatch, five assertion types, valid and
+deliberately broken evidence, selection-state blocking, and ambiguous
+registries.  The multi-scenario Steinpilz smoke loaded 31 contexts and 73
+actions and established unique exact bindings for 30/30 scene objects without
+UUID-suffix fallback.  These observations confirm that the client-side bridge
+and evidence components execute the materialized contract; they do not measure
+frame rate, end-to-end latency, or human understanding.
+
+\subsection{RQ3: added invariant scope and cost}
+
+On the common mutation denominator, both adapters accepted all three unmodified
+case copies, for 0/3 false positives per adapter.  Both detected and localized
+9/9 changes: one missing owner, one duplicate owner, and one dangling handoff
+per scene.  The result is deliberately neutral.  Direct wiring can enforce
+these three relationships when supplied with a validator and the same policy.
+
+The representation patches expose a mixed trade-off.  Across the nine common
+mutations, the contract representation changed 9 top-level artifacts compared
+with 15 for direct wiring, but changed 18 stored references compared with 15.
+These counts describe the scripted patches and do not establish that a
+developer would work faster or make fewer mistakes.
+
+The contract-only suite provides the positive evidence for additional
+expressiveness.  Table~\ref{tab:v2-only} reports the three typed mutation
+classes.  The canonical model validator detected the duplicated source-agent
+identifier in each case (3/9 overall) but intentionally permits some optional
+relations for compatibility.  The executable pipeline agent--provider contract
+detected and localized all 9/9 mutations with 0/3 false positives on valid
+copies.  The direct artifacts have no typed capability-use provider or
+domain-capability-to-runtime-orchestrator relation, so there is no equivalent
+baseline outcome to score.
+
+\begin{table*}[t]
+  \caption{Contract-only mutations.  ``Not represented'' means that the direct
+  artifacts contain no equivalent typed relation; it is not counted as a
+  baseline miss.}
+  \label{tab:v2-only}
+  \small
+  \begin{tabularx}{\textwidth}{@{}p{38mm}Y p{26mm}p{30mm}@{}}
+    \toprule
+    Mutation (once per scene) & Violated invariant & Direct artifacts &
+    Executable provider contract \\
+    \midrule
+    Remove \texttt{CapabilityUse.provider}
+      & An executable capability occurrence has exactly one provider agreeing
+        with the performing agent and target responsibility.
+      & Not represented & 3/3 detected and localized \\
+    Duplicate \texttt{Agent.sourceAgentId}
+      & Runtime-facing source-agent identity is unique.
+      & No typed equivalent & 3/3 detected and localized \\
+    Assign a domain capability to the runtime orchestrator
+      & Domain behavior is provided by the modeled domain agent, while the
+        orchestrator realizes infrastructure actions.
+      & Not represented & 3/3 detected and localized \\
+    \bottomrule
+  \end{tabularx}
+\end{table*}
+
+Table~\ref{tab:runtime-cost} reports the current benchmark snapshot.  The
+fresh-V2 adapter required 5.89--7.61 times the direct-wiring median for the
+measured in-memory workload.  Absolute medians ranged from 6.15 to 10.06\,ms
+for V2 and 1.04 to 1.32\,ms for direct wiring.  Outputs remained deterministic
+across all repetitions.  These values exclude file parsing, generation,
+Unity, networking, and model inference and must not be read as end-user
+response latency.
+
+\begin{table}[t]
+  \caption{Local structural workload over 40 measured repetitions per adapter
+  and case.  Values are median [Q1, Q3] in milliseconds.}
+  \label{tab:runtime-cost}
+  \small
+  \begin{tabular}{@{}lrrr@{}}
+    \toprule
+    Case & Direct & Fresh V2 & Ratio \\
+    \midrule
+    Career fair & 1.322 [1.167, 1.516] & 10.057 [7.784, 11.573] & 7.61 \\
+    Classroom & 1.246 [0.772, 1.609] & 9.439 [5.681, 13.336] & 7.58 \\
+    Brand room & 1.044 [0.992, 1.694] & 6.151 [4.951, 7.309] & 5.89 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Taken together, RQ3 does not show that an explicit contract is universally
+better than direct artifacts.  It shows a more specific trade: shared
+ownership and handoff faults can be validated in either representation, while
+the contract makes additional provider, identity, capability, binding, and
+evidence relations explicit and enforceable at measurable structural cost.
