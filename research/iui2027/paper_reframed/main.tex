@@ -1,0 +1,91 @@
+\DocumentMetadata{
+  lang=en-US,
+  pdfstandard=UA-2,
+  testphase=latest
+}
+\documentclass[manuscript,review,anonymous]{acmart}
+
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    Bib\TeX}}}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,calc}
+
+\newcommand{\systemname}{FunctionalMLDS}
+\newcommand{\contractpath}{\texttt{target--provider--capability--action}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\title[Executable Contracts for Spatial Agents]{Preventing Wrong-Target Agent Actions in Spatial Interfaces with Executable Interaction Contracts}
+
+\author{Anonymous Author(s)}
+\affiliation{%
+  \institution{Anonymous Institution}
+  \country{Anonymous}}
+
+\begin{abstract}
+Embodied agents in three-dimensional interfaces can return a fluent response
+even when the selected object, responsible agent, invoked operation, and
+reported evidence do not agree.  Such failures are difficult to detect when
+scene bindings, agent roles, handoffs, and backend endpoints are wired in
+separate artifacts.  We present an executable interaction contract for spatial
+multi-agent interfaces, realized as \systemname{} across a Unity desktop client
+and a conversational-agent backend.  The contract pins one model version and
+requires each admitted request to resolve one spatial target, one declared
+provider, one capability use, and one concrete runtime action.  The backend
+re-resolves these relations rather than trusting client fields; stale,
+ambiguous, unreachable, or multiply bound requests fail before a response-model
+call and session mutation whenever the violation is request-decidable.
+Response-dependent violations are rejected transactionally.
+
+We evaluate coverage, migration non-regression, runtime enforcement, added
+cross-layer expressiveness, and structural cost in three authored spatial
+environments.  All 93 scene assets participate in complete declared interaction
+paths (186/186 asset-targeting step--capability-use pairs).  A normalized
+direct-wiring adapter and the contract representation agree on all 93 owner
+decisions and 459 object-by-start-agent route classifications under a fixed
+shared policy.  The executable backend admits all 298 local or directly
+reachable routes with matching target and provider evidence, and rejects all
+161 transitive or unreachable routes before the deterministic response stub
+without retained session mutation.  A stricter provider contract detects and
+localizes 9/9 additional cross-layer mutations with 0/3 false positives; the
+direct artifacts do not represent the corresponding typed relations.  This
+additional structure costs 5.9--7.6 times the local adapter workload in the
+reported microbenchmark.  The contribution is a fail-closed control and
+evidence boundary for an intelligent spatial interface, not a claim about
+answer quality or human experience.
+\end{abstract}
+
+\ccsdesc[500]{Human-centered computing~Intelligent user interfaces}
+\ccsdesc[300]{Human-centered computing~Interactive systems and tools}
+\ccsdesc[300]{Computing methodologies~Intelligent agents}
+
+\keywords{intelligent user interfaces, embodied agents, spatial grounding,
+interaction contracts, runtime assurance, model-driven engineering, Unity}
+
+\begin{document}
+
+\maketitle
+
+\input{sections/01_introduction}
+\input{sections/02_related_work}
+\input{sections/03_contract}
+\input{sections/04_implementation}
+\input{sections/05_evaluation}
+\input{sections/06_results}
+\input{sections/07_discussion}
+\input{sections/08_limitations_conclusion}
+\input{sections/09_genai_disclosure}
+
+\clearpage
+\appendix
+\input{sections/appendix}
+
+\clearpage
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{../paper/references}
+
+\end{document}
