@@ -55,6 +55,13 @@ The manuscript intentionally reuses the existing bibliography and Unity image:
 
 This avoids duplicating or modifying the original paper assets.
 
+## Compiled review PDF
+
+The branch build publishes the current review manuscript as
+`iui2027-reframed.pdf` in this directory. The PDF is generated from `main.tex`
+and the checked-in section, bibliography, and figure sources; the prior paper
+PDF remains unchanged.
+
 ## Evidence sources
 
 Claims in the draft are constrained to the checked-in evidence:
