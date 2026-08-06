@@ -1,0 +1,212 @@
+\section{Interaction Contract}
+\label{sec:contract}
+
+\subsection{Failure model}
+
+The contract targets failures that can remain hidden behind a successful
+language-model response.  Table~\ref{tab:failure-model} separates these failures
+by the relation that becomes inconsistent.  The categories are not claims about
+their prevalence; they define the boundary implemented and tested in this work.
+
+\begin{table*}[t]
+  \caption{Cross-layer failures addressed by the executable contract.}
+  \label{tab:failure-model}
+  \small
+  \begin{tabularx}{\textwidth}{@{}p{22mm}Y Y Y@{}}
+    \toprule
+    Failure & Example & Contract decision & Observable consequence \\
+    \midrule
+    Target identity
+      & A collider reports an unknown entity, an obsolete model hash, or a
+        source identifier shared by several objects.
+      & Reject before routing.
+      & No response-model call; target relation and stage are reported. \\
+    Target ambiguity
+      & The client reports several candidates or a non-resolved deictic state.
+      & Reject rather than selecting a candidate.
+      & The interface remains in an unresolved state. \\
+    Responsibility drift
+      & The active agent is not the unique owner and has no declared direct
+        handoff to the owner.
+      & Resolve asset, then group, then zone ownership; require one owner at the
+        highest matching tier and at most one direct handoff.
+      & Local/direct routes proceed; transitive or unreachable routes stop. \\
+    Action shortcut
+      & A scenario or client attempts to invoke an endpoint without a matching
+        provider-specific capability and runtime binding.
+      & Require an exact scenario-step--capability-use--capability--binding--action
+        path.
+      & Zero or multiple exact mappings fail closed. \\
+    Evidence mismatch
+      & A response names a different target, provider, binding, or action from
+        the pending request.
+      & Reject presentation and retain the failed relation.
+      & A transport-level success is not treated as contract success. \\
+    Undeclared handoff
+      & The response model proposes an agent that is not an allowed handoff
+        target.
+      & Validate the proposed response before commit.
+      & Provisional history is rolled back. \\
+    \bottomrule
+  \end{tabularx}
+\end{table*}
+
+\subsection{Contract objects and executable path}
+
+Let a contract-grounded interaction be represented by the tuple
+\[
+\mathcal{I} =
+\langle m,s,t,p,u,c,b,a,q,o\rangle ,
+\]
+where \(m\) is a pinned model version and content hash, \(s\) is a scenario
+step, \(t\) is the spatial target, \(p\) is the provider, \(u\) is the
+capability use in that scenario, \(c\) is the reusable capability, \(b\) is a
+runtime binding, \(a\) is a concrete runtime action, \(q\) is the set of
+resulting assertions, and \(o\) is runtime observation evidence.  The required
+declaration path is
+\[
+s \rightarrow u \rightarrow c \rightarrow b \rightarrow a.
+\]
+The scenario step cannot call \(a\) directly.  The capability use names both
+\(p\) and its targets, and the executable profile requires exactly one
+capability and provider for the evaluated interaction.  Assertions are linked
+to a validation case that covers the same use case and executable binding.
+
+Spatial responsibility is resolved independently of display names.  For target
+\(t\), the resolver collects candidate agents at three tiers:
+\[
+R(t) =
+\begin{cases}
+R_{\mathrm{asset}}(t), & \text{if non-empty},\\
+R_{\mathrm{group}}(t), & \text{otherwise if non-empty},\\
+R_{\mathrm{zone}}(t), & \text{otherwise}.
+\end{cases}
+\]
+Exactly one agent at the highest active tier is required.  More than one is
+ambiguous; none is unassigned.  If the responsible provider is not the active
+agent, the current online contract permits exactly one declared handoff edge.
+Longer graph paths remain useful offline for diagnosing reachability but are
+not traversed within one request.
+
+\subsection{Admission and response conditions}
+
+A deictic request is admitted only if all of the following hold:
+
+\begin{enumerate}
+  \item the session is pinned to \(m\), and the supplied model hash equals the
+  current project hash and stored contract fingerprint;
+  \item the supplied entity and source identifier resolve to the same unique
+  scene asset in \(m\), with a resolved, non-ambiguous selection state;
+  \item the responsibility rule yields one provider \(p\), and \(p\) is either
+  the active agent or one permitted direct handoff away;
+  \item one capability use \(u\) for the trusted target and provider resolves to
+  one capability \(c\), binding \(b\), and action \(a\);
+  \item the request conforms to the declared action schema.
+\end{enumerate}
+
+Conditions one through five are request-decidable and are checked before a
+response-model call and retained state mutation.  The generated proposal is
+then checked for response-dependent conditions: any proposed handoff must be
+declared, and the returned model, target, provider, capability, binding, and
+action identifiers must agree with the preselected path.  A violation after
+generation causes rollback of the provisional conversation state.  Later
+runtime events can evaluate assertions as pass, fail, inconclusive, or error,
+depending on available observations.
+
+Figure~\ref{fig:admission-boundary} shows the implemented order.  The sequence
+matters: placing a schema check after generation would still allow a stale
+selection to consume a model call, while trusting a client-supplied provider
+would let the caller bypass responsibility resolution.
+
+\begin{figure*}[t]
+  \centering
+  \begin{tikzpicture}[
+    font=\footnotesize,
+    stage/.style={
+      draw,
+      rounded corners=2pt,
+      align=center,
+      text width=28mm,
+      minimum height=17mm,
+      inner sep=2mm
+    },
+    gate/.style={
+      stage,
+      double,
+      double distance=0.6pt
+    },
+    reject/.style={
+      draw,
+      rounded corners=2pt,
+      align=center,
+      text width=38mm,
+      minimum height=14mm,
+      inner sep=2mm,
+      dashed
+    },
+    flow/.style={-{Latex[length=2.2mm]},semithick},
+    fail/.style={-{Latex[length=2.2mm]},dashed},
+    label/.style={font=\scriptsize,align=center,fill=white,inner sep=1pt}
+  ]
+    \node[stage] (select) at (0,0) {\textbf{Unity selection}\\
+      stable entity/source ID\\and selection state};
+    \node[gate] (identity) at (3.35,0) {\textbf{Gate 1: identity}\\
+      pinned hash, unique asset, no ambiguity};
+    \node[gate] (route) at (6.70,0) {\textbf{Gate 2: responsibility}\\
+      asset $>$ group $>$ zone; local or direct};
+    \node[gate] (binding) at (10.05,0) {\textbf{Gate 3: operation}\\
+      exact scenario, provider, capability, binding, action};
+    \node[stage] (model) at (13.40,0) {\textbf{Response model}\\
+      called only after deterministic preflight};
+
+    \draw[flow] (select) -- (identity);
+    \draw[flow] (identity) -- (route);
+    \draw[flow] (route) -- (binding);
+    \draw[flow] (binding) -- (model);
+
+    \node[reject] (reject) at (4.85,-3.25) {\textbf{Reject with location}\\
+      stage + violated relation; no model call or retained mutation};
+    \draw[fail] (identity.south) to[bend right=13]
+      node[label,left,pos=.52] {stale/ambiguous} (reject.north west);
+    \draw[fail] (route.south) --
+      node[label,right,pos=.48] {no unique/permitted provider} (reject.north);
+    \draw[fail] (binding.south) to[bend left=13]
+      node[label,right,pos=.52] {zero/multiple bindings} (reject.north east);
+
+    \node[gate] (evidence) at (13.40,-3.25) {\textbf{Gate 4: response}\\
+      declared handoff and identifier agreement};
+    \node[stage,text width=35mm] (present) at (9.30,-3.25)
+      {\textbf{Commit and present}\\
+      evidence retains target, provider, route, and action};
+    \draw[flow] (model) -- (evidence);
+    \draw[flow] (evidence) -- (present);
+
+    \node[reject] (rollback) at (13.40,-5.65) {\textbf{Rollback}\\
+      discard response-dependent proposal and provisional history};
+    \draw[fail] (evidence) --
+      node[label,right] {undeclared handoff or mismatch} (rollback);
+  \end{tikzpicture}
+  \caption{Fail-closed admission path.  Unity proposes a selected target, but
+  the backend re-resolves identity, responsibility, and the exact operation
+  from the pinned contract before generation.  Request-decidable failures stop
+  before the response model; response-dependent failures roll back the
+  proposal.}
+  \Description{A two-row pipeline begins with a Unity selection and then passes
+  through identity, responsibility, and operation gates before a response
+  model.  Those preflight gates point to a rejection box.  The response then
+  passes through an evidence gate before commit and presentation; a failed
+  response points to a rollback box.}
+  \label{fig:admission-boundary}
+\end{figure*}
+
+\subsection{Guarantee boundary}
+
+The implementation provides a \emph{model-consistency guarantee}, not semantic
+correctness.  If a deictic request is admitted, then under the pinned contract
+it has one trusted asset, one uniquely resolved provider reachable in at most
+one modeled handoff, and one exact capability-to-action binding; the accepted
+response carries matching identifiers.  This statement does not establish that
+the person intended the collider selected by the client, that the provider's
+knowledge is correct, or that generated language answers the question well.
+Those properties require trusted sensing, semantic ground truth, and human or
+task-level evaluation outside the present contract.
