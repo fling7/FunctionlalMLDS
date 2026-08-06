@@ -1,12 +1,18 @@
 \section{Interaction Contract}
 \label{sec:contract}
 
+This section formalizes the contract through one running example.  A visitor
+selects \texttt{brand\_panel3} while the Lounge Host is active.  The model
+assigns the panel to the Reception Agent, which provides a grounded-answer
+capability bound to the backend chat action.  It anchors the failure model and
+checks below.
+
 \subsection{Failure model}
 
-The contract targets failures that can remain hidden behind a successful
-language-model response.  Table~\ref{tab:failure-model} separates these failures
-by the relation that becomes inconsistent.  The categories are not claims about
-their prevalence; they define the boundary implemented and tested in this work.
+A fluent response can still hide an unknown panel, ambiguous responsibility,
+a forbidden handoff, or evidence for another target.  Table~\ref{tab:failure-model}
+groups such failures by the inconsistent relation.  They define the tested
+boundary, not prevalence.
 
 \begin{table*}[t]
   \caption{Cross-layer failures addressed by the executable contract.}
@@ -53,27 +59,31 @@ their prevalence; they define the boundary implemented and tested in this work.
 
 \subsection{Contract objects and executable path}
 
-Let a contract-grounded interaction be represented by the tuple
+A contract-grounded interaction is represented by
 \[
 \mathcal{I} =
 \langle m,s,t,p,u,c,b,a,q,o\rangle ,
 \]
-where \(m\) is a pinned model version and content hash, \(s\) is a scenario
-step, \(t\) is the spatial target, \(p\) is the provider, \(u\) is the
-capability use in that scenario, \(c\) is the reusable capability, \(b\) is a
-runtime binding, \(a\) is a concrete runtime action, \(q\) is the set of
-resulting assertions, and \(o\) is runtime observation evidence.  The required
-declaration path is
+where \(m\) is the pinned model and hash, \(s\) a scenario step, \(t\) the
+target, \(p\) the provider, \(u\) the capability use, \(c\) the capability,
+\(b\) the runtime binding, \(a\) the concrete action, \(q\) the assertions,
+and \(o\) the observation evidence.  In the example, \(t\) is
+\texttt{brand\_panel3}, \(p\) is the Reception Agent, \(s,u,c\) describe the
+grounded answer, \(b,a\) map it to backend chat, and \(q,o\) check the
+returned path.
+
+The required declaration path is
 \[
 s \rightarrow u \rightarrow c \rightarrow b \rightarrow a.
 \]
-The scenario step cannot call \(a\) directly.  The capability use names both
-\(p\) and its targets, and the executable profile requires exactly one
-capability and provider for the evaluated interaction.  Assertions are linked
-to a validation case that covers the same use case and executable binding.
+The step cannot invoke \(a\) directly.  Its capability use must name the
+provider and targets and resolve one capability, binding, and action; a
+validation case covers the same binding and assertions.  Thus, a generic
+\texttt{POST /chat} call cannot replace the declaration that the Reception
+Agent may answer about this panel.
 
-Spatial responsibility is resolved independently of display names.  For target
-\(t\), the resolver collects candidate agents at three tiers:
+The provider \(p\) is resolved independently of display names.  For target
+\(t\), the resolver selects the most specific non-empty tier:
 \[
 R(t) =
 \begin{cases}
@@ -82,15 +92,14 @@ R_{\mathrm{group}}(t), & \text{otherwise if non-empty},\\
 R_{\mathrm{zone}}(t), & \text{otherwise}.
 \end{cases}
 \]
-Exactly one agent at the highest active tier is required.  More than one is
-ambiguous; none is unassigned.  If the responsible provider is not the active
-agent, the current online contract permits exactly one declared handoff edge.
-Longer graph paths remain useful offline for diagnosing reachability but are
-not traversed within one request.
+Exactly one agent at that tier is required; several are ambiguous and none is
+unassigned.  The panel's asset-level owner is the Reception Agent, so group or
+zone owners do not override it.  If another agent is active, one declared
+handoff may reach the provider; longer routes are diagnostic only.
 
 \subsection{Admission and response conditions}
 
-A deictic request is admitted only if all of the following hold:
+A deictic request is admitted only if:
 
 \begin{enumerate}
   \item the session is pinned to \(m\), and the supplied model hash equals the
@@ -104,19 +113,16 @@ A deictic request is admitted only if all of the following hold:
   \item the request conforms to the declared action schema.
 \end{enumerate}
 
-Conditions one through five are request-decidable and are checked before a
-response-model call and retained state mutation.  The generated proposal is
-then checked for response-dependent conditions: any proposed handoff must be
-declared, and the returned model, target, provider, capability, binding, and
-action identifiers must agree with the preselected path.  A violation after
-generation causes rollback of the provisional conversation state.  Later
-runtime events can evaluate assertions as pass, fail, inconclusive, or error,
-depending on available observations.
+These checks confirm the pinned room and panel identity,
+resolve the Reception Agent, permit the Lounge Host's direct handoff, and select
+the grounded-answer action before the response model is called.  The proposal
+is then compared with that path: handoffs must be declared and all returned
+identifiers must agree.  A match is committed with evidence; another target or
+undeclared agent rolls back provisional state.  Later observations evaluate the
+assertions as pass, fail, inconclusive, or error.
 
-Figure~\ref{fig:admission-boundary} shows the implemented order.  The sequence
-matters: placing a schema check after generation would still allow a stale
-selection to consume a model call, while trusting a client-supplied provider
-would let the caller bypass responsibility resolution.
+Figure~\ref{fig:admission-boundary} shows the order.  Identity, responsibility,
+and operation precede generation; response agreement precedes presentation.
 
 \begin{figure*}[t]
   \centering
@@ -202,11 +208,9 @@ would let the caller bypass responsibility resolution.
 \subsection{Guarantee boundary}
 
 The implementation provides a \emph{model-consistency guarantee}, not semantic
-correctness.  If a deictic request is admitted, then under the pinned contract
-it has one trusted asset, one uniquely resolved provider reachable in at most
-one modeled handoff, and one exact capability-to-action binding; the accepted
-response carries matching identifiers.  This statement does not establish that
-the person intended the collider selected by the client, that the provider's
-knowledge is correct, or that generated language answers the question well.
-Those properties require trusted sensing, semantic ground truth, and human or
-task-level evaluation outside the present contract.
+correctness.  If the example is admitted, one trusted panel resolves to one
+provider reachable by at most one handoff and one capability-to-action binding;
+the response carries matching identifiers.  The guarantee does not establish
+that the visitor intended the collider, that the Reception Agent's knowledge is
+correct, or that the generated answer is good.  Those properties require
+trusted sensing, semantic ground truth, and human or task-level evaluation.
