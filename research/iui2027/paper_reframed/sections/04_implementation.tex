@@ -20,6 +20,95 @@ a validator can therefore operate on the same declared structure instead of rely
 on implicit conventions spread across prompts, files, and source code.  In this work,
 each room-specific FunctionalMLDS document is such an MLDS instance.
 
+Figure~\ref{fig:functionalmlds-core} gives a compact map of the resulting
+metamodel.  The following paragraphs explain how the inherited foundation is
+extended and connected to executable behavior and evidence.
+
+\begin{figure*}[!t]
+  \centering
+  \begin{tikzpicture}[
+    font=\scriptsize,
+    layer/.style={draw,rounded corners=2pt,minimum width=49mm,
+      minimum height=66mm,inner sep=2mm},
+    item/.style={draw,rounded corners=1.5pt,align=center,
+      text width=39mm,minimum height=8mm,fill=white,inner sep=1.5mm},
+    root/.style={draw,double,double distance=0.6pt,rounded corners=2pt,
+      align=center,minimum width=158mm,minimum height=8mm,inner sep=1.5mm},
+    flow/.style={-{Latex[length=2mm]},semithick},
+    trace/.style={-{Latex[length=2mm]},dashed},
+    edge/.style={font=\tiny,align=center,fill=white,inner sep=0.8pt}
+  ]
+    \node[root] (root) at (5.4,4.15)
+      {\textbf{DynamicFunctionalModel}: one room-specific root linking requirements,
+       interaction structure, execution, and validation};
+
+    \node[layer,fill=black!3] (foundation) at (0,0) {};
+    \node[font=\bfseries] at (0,2.75) {UML / EAST-ADL foundation};
+    \node[item] (req) at (0,1.35) {\textbf{RequirementsModel}\\requirements and references};
+    \node[item] (uc) at (0,0)
+      {\textbf{UseCaseDefinitionSet}\\
+       $\rightarrow$ \textbf{UseCaseDefinition}\\
+       $\rightarrow$ \textbf{UseCase}};
+    \node[item] (vv) at (0,-1.55)
+      {\textbf{VerificationValidation / VVCase}\\validation definition and scope};
+
+    \node[layer,fill=black!8] (extension) at (5.4,0) {};
+    \node[font=\bfseries] at (5.4,2.75) {FunctionalMLDS interaction extension};
+    \node[item] (roles) at (5.4,1.65)
+      {\textbf{Actor; Entity; Agent $\subseteq$ Entity}\\
+       roles, stable identity, responsibility, handoffs};
+    \node[item] (scenario) at (5.4,0.55)
+      {\textbf{UseCaseScenarioSpecification}\\
+       $\rightarrow$ \textbf{Scenario}
+       $\rightarrow$ \textbf{ScenarioStep}};
+    \node[item] (capability) at (5.4,-0.65)
+      {\textbf{CapabilityUse $\rightarrow$ Capability}\\
+       provider- and target-specific occurrence};
+    \node[item] (assertion) at (5.4,-1.85)
+      {\textbf{Effect $\rightarrow$ Assertion}\\expected observable result};
+
+    \node[layer,fill=black!13] (execution) at (10.8,0) {};
+    \node[font=\bfseries] at (10.8,2.75) {Executable projection and evidence};
+    \node[item] (platform) at (10.8,1.65)
+      {\textbf{RuntimePlatform}\\target execution environment};
+    \node[item] (binding) at (10.8,0.55)
+      {\textbf{RuntimeBinding $\rightarrow$ RuntimeAction}\\
+       exact endpoint, tool, or event};
+    \node[item] (projection) at (10.8,-0.65)
+      {\textbf{Trace map / runtime context}\\minimal executable projection};
+    \node[item] (evidence) at (10.8,-1.85)
+      {\textbf{Runtime observations}\\target, provider, action, assertion verdict};
+
+    \draw[trace] (root.south) -- (foundation.north);
+    \draw[trace] (root.south) -- (extension.north);
+    \draw[trace] (root.south) -- (execution.north);
+
+    \draw[flow] (uc.east) -- node[edge,above]{refined by} (scenario.west);
+    \draw[trace] (roles) -- node[edge,right]{participates / performs} (scenario);
+    \draw[flow] (scenario) -- node[edge,right]{requires} (capability);
+    \draw[flow] (capability) -- node[edge,right]{owns} (assertion);
+    \draw[flow] (capability.east) -- node[edge,above]{realized by} (binding.west);
+    \draw[flow] (platform) -- (binding);
+    \draw[flow] (binding) -- (projection);
+    \draw[flow] (projection) -- (evidence);
+    \draw[trace] (vv.east) -- node[edge,below]{covers} (assertion.west);
+    \draw[trace] (assertion.east) -- node[edge,below]{evaluated from} (evidence.west);
+  \end{tikzpicture}
+  \caption{Selected layers of the FunctionalMLDS metamodel.  Familiar
+  use-case, requirements, and verification concepts form the foundation.
+  FunctionalMLDS adds explicit scenario flow, spatial entities and agents,
+  scenario-specific capability uses, and expected effects.  Runtime bindings
+  then map those declarations to executable actions and observation evidence.
+  Attributes and secondary associations are omitted for readability.}
+  \Description{Three adjacent metamodel layers are connected under a
+  DynamicFunctionalModel root.  The left layer contains requirements, EAST-ADL
+  use-case definitions, and verification cases.  The middle layer contains
+  actors, entities and agents, scenarios and steps, capability uses and
+  capabilities, effects and assertions.  The right layer contains runtime
+  platforms, bindings and actions, executable projections, and observations.}
+  \label{fig:functionalmlds-core}
+\end{figure*}
+
 The conceptual starting point is the familiar UML use-case and scenario view:
 actors participate in use cases, and a concrete scenario refines a user-visible goal
 into ordered steps.  The repository realizes the use-case foundation with selected
@@ -31,7 +120,8 @@ foundation and extends it with the explicit interaction information needed by a
 spatial multi-agent interface.  We do not claim complete UML or EAST-ADL
 conformance.
 
-Figure~\ref{fig:functionalmlds-core} shows the selected core.  A use case is linked
+The middle layer in Figure~\ref{fig:functionalmlds-core} makes the use-case
+flow executable.  A use case is linked
 to a \texttt{Scenario}, whose ordered \texttt{ScenarioStep}s state who acts and
 which interaction occurs.  A reusable \texttt{Capability} describes what an agent
 can do.  A \texttt{CapabilityUse} records one concrete occurrence of that ability
@@ -46,80 +136,6 @@ verification cases describe what should be observable.  The
 \texttt{DynamicFunctionalModel} root connects these requirements, use cases,
 scenarios, entities, capabilities, runtime mappings, and validation elements in one
 room model.
-
-\begin{figure*}[t]
-  \centering
-  \resizebox{\textwidth}{!}{%
-  \begin{tikzpicture}[
-    font=\scriptsize,
-    foundation/.style={draw,rounded corners=1.5pt,align=center,
-      minimum height=11mm,text width=29mm,fill=black!3,inner sep=1.8mm},
-    interaction/.style={draw,rounded corners=1.5pt,align=center,
-      minimum height=11mm,text width=23mm,fill=black!8,inner sep=1.8mm},
-    runtime/.style={draw,rounded corners=1.5pt,align=center,
-      minimum height=11mm,text width=25mm,fill=black!13,inner sep=1.8mm},
-    supporting/.style={draw,rounded corners=1.5pt,align=center,
-      minimum height=10mm,text width=26mm,fill=white,inner sep=1.6mm},
-    flow/.style={-{Latex[length=2mm]},semithick},
-    support/.style={-{Latex[length=2mm]},dashed},
-    edge/.style={font=\tiny,align=center,fill=white,inner sep=0.8pt}
-  ]
-    \node[foundation] (usecase) at (0,0)
-      {\textbf{EAST-ADL use-case foundation}\\
-       \texttt{UseCaseDefinitionSet}\\
-       $\rightarrow$ \texttt{UseCaseDefinition}\\
-       $\rightarrow$ \texttt{UseCase}};
-    \node[interaction,right=8mm of usecase] (scenario)
-      {\textbf{Scenario}\\concrete interaction flow};
-    \node[interaction,right=7mm of scenario] (step)
-      {\textbf{ScenarioStep}\\ordered user/system step};
-    \node[interaction,right=7mm of step] (use)
-      {\textbf{CapabilityUse}\\provider + target occurrence};
-    \node[interaction,right=7mm of use] (capability)
-      {\textbf{Capability}\\reusable functional ability};
-    \node[runtime,right=8mm of capability] (binding)
-      {\textbf{RuntimeBinding}\\platform-specific realization};
-    \node[runtime,right=7mm of binding] (action)
-      {\textbf{RuntimeAction}\\executable endpoint/tool/event};
-
-    \draw[flow] (usecase) -- node[edge,above]{scenario} (scenario);
-    \draw[flow] (scenario) -- node[edge,above]{ordered step} (step);
-    \draw[flow] (step) -- node[edge,above]{requires} (use);
-    \draw[flow] (use) -- node[edge,above]{capability} (capability);
-    \draw[flow] (capability) -- node[edge,above]{realized by} (binding);
-    \draw[flow] (binding) -- node[edge,above]{owns} (action);
-
-    \node[supporting,below=12mm of usecase] (actor)
-      {\textbf{Actor}\\user or system role};
-    \node[supporting,below=12mm of step] (entity)
-      {\textbf{Entity / Agent}\\stable spatial identity; performer,
-       provider, target, responsibility, handoffs};
-    \node[supporting,below=12mm of capability] (effect)
-      {\textbf{Effect / Assertion}\\expected observable outcome};
-    \node[supporting,below=12mm of binding] (vv)
-      {\textbf{VerificationValidation / VVCase}\\validation scope and evidence};
-
-    \draw[support] (actor) -- node[edge,left]{participates in} (usecase);
-    \draw[support] (entity) -- node[edge,left]{performed by} (step);
-    \draw[support] (entity) -- node[edge,below,pos=.55]{provider / target} (use);
-    \draw[support] (entity) -- node[edge,below,pos=.58]{provides} (capability);
-    \draw[support] (capability) -- node[edge,right]{owns} (effect);
-    \draw[support] (vv) -- node[edge,below]{checks binding and assertions} (effect);
-    \draw[support] (vv) -- (binding);
-  \end{tikzpicture}%
-  }
-  \caption{Selected core of FunctionalMLDS.  The EAST-ADL use-case foundation
-  is extended with explicit scenario flow, spatial entities and agents,
-  scenario-specific capability uses, executable runtime mappings, and
-  observation-oriented validation.  Attributes and secondary associations are
-  omitted for readability.}
-  \Description{A metamodel overview runs from an EAST-ADL use-case definition
-  through Scenario, ScenarioStep, CapabilityUse, Capability, RuntimeBinding, and
-  RuntimeAction.  Supporting boxes show Actor, Entity and Agent, Effect and
-  Assertion, and VerificationValidation and VVCase, with dashed links to the
-  elements they participate in or validate.}
-  \label{fig:functionalmlds-core}
-\end{figure*}
 
 \subsection{Model validity and executable profile}
 
