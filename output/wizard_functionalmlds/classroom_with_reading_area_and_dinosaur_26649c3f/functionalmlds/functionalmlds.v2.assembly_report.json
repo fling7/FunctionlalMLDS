@@ -3,13 +3,13 @@
   "errors": [],
   "warnings": [],
   "metrics": {
-    "object_count": 293,
+    "object_count": 1523,
     "error_count": 0,
     "warning_count": 0
   },
   "subject": "native V2 runtime instance classroom_with_reading_area_and_dinosaur_26649c3f",
   "ok": true,
-  "generated_at": "2026-07-27T06:11:12.363136+00:00",
+  "generated_at": "2026-07-31T07:32:16.769776+00:00",
   "error_count": 0,
   "warning_count": 0,
   "checks": [

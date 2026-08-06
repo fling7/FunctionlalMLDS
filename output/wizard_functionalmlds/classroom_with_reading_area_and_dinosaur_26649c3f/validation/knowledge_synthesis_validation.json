@@ -3,9 +3,9 @@
   "errors": [],
   "warnings": [],
   "metrics": {
-    "knowledge_entry_count": 19,
-    "required_tag_count": 19,
-    "covered_tag_count": 19,
+    "knowledge_entry_count": 20,
+    "required_tag_count": 20,
+    "covered_tag_count": 20,
     "referenced_object_count": 36,
     "required_room_group_count": 5,
     "covered_room_group_count": 5,

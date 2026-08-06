@@ -59,22 +59,22 @@
       "id": "librarian_agent",
       "display_name": "Librarian Agent",
       "position": {
-        "x": -0.272,
+        "x": 3.646,
         "y": 0.0,
-        "z": 2.657
+        "z": 2.327
       },
       "forward": {
-        "x": -0.10243498137307994,
+        "x": 0.8428373208488712,
         "y": 0.0,
-        "z": 0.9947397019276433
+        "z": 0.538168422135949
       },
       "target_xz": {
-        "x": -0.4,
-        "z": 3.9
+        "x": 4.7,
+        "z": 3.0
       },
       "responsible_zone_ids": [
-        "reading_area",
-        "book_storage_zone"
+        "book_storage_zone",
+        "reading_area"
       ],
       "grounded_object_ids": [
         "bookcase",
