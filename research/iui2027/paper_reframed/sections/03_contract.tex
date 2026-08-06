@@ -190,7 +190,7 @@ and operation precede generation; response agreement precedes presentation.
     \node[reject] (rollback) at (13.40,-5.65) {\textbf{Rollback}\\
       discard response-dependent proposal and provisional history};
     \draw[fail] (evidence) --
-      node[label,right] {undeclared handoff or mismatch} (rollback);
+      node[label,left] {undeclared handoff or mismatch} (rollback);
   \end{tikzpicture}
   \caption{Fail-closed admission path.  Unity proposes a selected target, but
   the backend re-resolves identity, responsibility, and the exact operation
