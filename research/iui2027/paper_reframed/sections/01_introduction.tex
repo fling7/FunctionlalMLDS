@@ -1,0 +1,121 @@
+\section{Introduction}
+\label{sec:introduction}
+
+A visitor in a virtual exhibition points at a product panel and asks an embodied
+agent, ``What is this?''  The expected interaction appears simple: preserve the
+visible selection, contact an agent that is responsible for the selected
+object, invoke the grounded-answer operation, and present a response that still
+refers to the same object.  Yet those decisions often live in different parts
+of an implementation.  Unity stores colliders and scene objects; configuration
+files assign knowledge and roles; orchestration code selects an agent; an
+endpoint invokes a language model; and logs record only that a request
+succeeded.  Each part can be locally valid while the composed interaction is
+wrong.
+
+This mismatch is particularly consequential in an intelligent interface.  A
+language model can produce a plausible sentence even when the interface has
+lost the user's target, routed to an unrelated agent, or invoked an operation
+that was never declared for that target.  Transport success therefore does not
+establish interaction success.  The interface needs a boundary that answers
+four deterministic questions before probabilistic generation begins:
+\emph{Which modeled entity was selected?  Which agent is responsible?  Which
+capability may be used?  Which concrete action realizes it?}  After generation,
+the same boundary must determine whether the returned evidence still agrees
+with those decisions.
+
+We investigate an \emph{executable interaction contract} for this purpose.
+The contract connects a user-facing scenario and spatial target to a provider,
+capability use, runtime binding, runtime action, expected assertion, and
+observation.  Its current realization, \systemname{} (Functional
+Meta-Language-defined Structure), extends an MLDS-style machine-readable
+artifact with functional interaction relations
+\cite{fischer2025machinereadable}.  A generation pipeline materializes the
+contract for a Unity desktop client and a multi-agent backend.  The client
+provides a ray-selected target candidate, but the backend treats the pinned
+model as authoritative: it validates the candidate's stable identity, derives
+its group and zone, resolves one responsible provider, checks a permitted
+one-hop route, and selects one target- and provider-specific runtime binding.
+No endpoint name supplied by the client can substitute for that path.
+
+We call a request \emph{contract-grounded} when its target, provider,
+capability use, capability, binding, action, and expected assertion resolve
+within one pinned model version.  The guarantee is conditional but concrete.
+For an admitted request, the implemented preflight found one complete,
+model-local path and the response evidence agrees with the trusted target and
+provider.  A request-decidable violation stops before a response-model call or
+session mutation.  A response-dependent violation, such as a generated handoff
+to an undeclared destination, causes transactional rollback.  In both cases the
+system can report the enforcement stage and violated relation rather than a
+generic chat failure.
+
+This guarantee deliberately begins \emph{after} perceptual target selection.
+It does not infer an unobserved intention, prove that ray geometry is honest,
+or establish factual correctness of generated language.  A multimodal
+reference resolver can propose the candidate; the contract determines whether
+that candidate has an admissible path through the interface.  The resulting
+separation is useful because reference inference and action permission fail in
+different ways and require different evidence.
+
+The work is motivated by three interaction requirements drawn from the
+implemented visitor path and established human--AI interaction guidance
+\cite{amershi2019guidelines,yang2020reexamining,weisz2024design}:
+
+\begin{description}
+  \item[Stable reference.] The object highlighted by the client remains the
+  target while the visitor composes the request, and the response is presented
+  only if the returned identifiers match that pending selection.
+  \item[Visible unresolved states.] No target and ambiguous target are explicit
+  states.  They block a deictic request rather than falling through to a fluent
+  ungrounded answer.
+  \item[Inspectable responsibility.] The chosen provider, route reason,
+  capability, binding, and action are retained as structured evidence for
+  developer diagnosis.
+\end{description}
+
+We do not infer that these mechanisms improve trust, preference, or usability;
+that requires human evaluation.  We instead ask whether the system implements
+the claimed control boundary, whether migration preserves the behavior already
+encoded in the direct artifacts, and what assurance and cost the additional
+relations introduce.
+
+Accordingly, we study three research questions:
+
+\begin{description}
+  \item[RQ1---Coverage and non-regression.] Can the authored spatial cases be
+  migrated to complete target--provider--capability--action paths while
+  preserving their existing ownership and routing decisions under a fixed
+  policy?
+  \item[RQ2---Fail-closed enforcement.] Does the implemented Unity--backend
+  path admit exactly the contract-valid local and one-hop requests, preserve
+  target and provider evidence, and reject stale, ambiguous, unreachable, or
+  contradictory requests without retained side effects?
+  \item[RQ3---Added assurance and cost.] Which cross-layer inconsistencies are
+  expressible and localizable in the contract representation beyond the
+  direct artifacts, and what representation and local execution costs
+  accompany that structure?
+\end{description}
+
+The paper makes four contributions:
+
+\begin{enumerate}
+  \item an interaction-oriented failure model and executable contract that
+  binds a spatial selection to one provider, capability, action, and evidence
+  path under a pinned model version;
+  \item an implemented fail-closed architecture across Unity and a
+  conversational-agent backend, including authoritative server-side
+  re-resolution, staged admission checks, one-hop handoff constraints, and
+  transactional response validation;
+  \item a reproducible, API-free evaluation over three spatial environments,
+  comprising complete-chain audits, a normalized direct-wiring
+  non-regression comparison, 459 executable routing probes, targeted invalid
+  requests, and Unity batch smokes; and
+  \item a separated analysis of common faults, contract-only cross-layer
+  faults, representation edits, and local structural runtime, exposing both
+  the added invariant scope and its cost.
+\end{enumerate}
+
+The central claim is not that a metamodel by itself makes an interface
+intelligent.  Rather, the explicit relations determine what the intelligent
+interface is allowed to interpret and present.  This shifts a class of
+wrong-target, wrong-provider, and undeclared-action failures out of
+probabilistic dialogue behavior and into a deterministic, inspectable boundary.
