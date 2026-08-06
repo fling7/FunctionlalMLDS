@@ -40,14 +40,14 @@ jobs:
           if git diff --cached --quiet; then
             echo "Compiled PDF is unchanged."
           else
-            git commit -m "Rebuild reframed IUI PDF after System Realization revision [skip ci]"
+            git commit -m "Rebuild reframed IUI PDF after System Realization figure update [skip ci]"
             git push origin HEAD:paper/iui2027-reframed
           fi
 
       - name: Upload revised manuscript
         uses: actions/upload-artifact@v4
         with:
-          name: iui2027-system-realization-revised
+          name: iui2027-system-realization-revised-v2
           path: research/iui2027/paper_reframed/main.pdf
           if-no-files-found: error
           retention-days: 1
