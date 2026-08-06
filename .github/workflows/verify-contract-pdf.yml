@@ -1,0 +1,26 @@
+name: Verify contract revision PDF
+
+on:
+  push:
+    branches:
+      - paper/iui2027-reframed
+    paths:
+      - ".github/workflows/verify-contract-pdf.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+
+      - name: Upload revised manuscript
+        uses: actions/upload-artifact@v4
+        with:
+          name: iui2027-contract-revised
+          path: research/iui2027/paper_reframed/iui2027-reframed.pdf
+          if-no-files-found: error
+          retention-days: 1
