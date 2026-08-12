@@ -115,14 +115,24 @@ def select_runtime_action(
             if str(item.get("scenario_id") or "").strip() == expected_scenario
         ]
         filters.append(f"scenario_id={expected_scenario!r}")
+    if require_targetless:
+        matches = [
+            item for item in matches if not _refs(item.get("target_ids"))
+        ]
+        filters.append("target_ids=[]")
     if provider_entity_id is not None:
         expected_provider = str(provider_entity_id or "").strip()
-        matches = [
+        provider_matches = [
             item
             for item in matches
             if str(item.get("provider_entity_id") or "").strip()
             == expected_provider
         ]
+        # A targetless chain models general communication and remains valid
+        # when the currently active agent owns only target-bound chains.
+        # Deictic/provider-specific selection stays strict.
+        if provider_matches or not require_targetless:
+            matches = provider_matches
         filters.append(f"provider_entity_id={expected_provider!r}")
     if target_id is not None:
         expected_target = str(target_id or "").strip()
@@ -132,11 +142,6 @@ def select_runtime_action(
             if expected_target in _refs(item.get("target_ids"))
         ]
         filters.append(f"target_id={expected_target!r}")
-    if require_targetless:
-        matches = [
-            item for item in matches if not _refs(item.get("target_ids"))
-        ]
-        filters.append("target_ids=[]")
     if not matches:
         qualifier = f" ({', '.join(filters)})" if filters else ""
         raise FunctionalMldsContractError(

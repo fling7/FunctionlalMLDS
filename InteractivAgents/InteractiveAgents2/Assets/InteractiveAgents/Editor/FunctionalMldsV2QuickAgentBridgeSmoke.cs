@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using FunctionalMlds.V2;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -261,6 +262,7 @@ public static class FunctionalMldsV2QuickAgentBridgeSmoke
             "Missing runtime chain must fail closed.");
 
         RunRealMultiScenarioCorpus();
+        RunKaesesteinpilzCommunicationCorpus();
     }
 
     private static void RunRealMultiScenarioCorpus()
@@ -371,6 +373,414 @@ public static class FunctionalMldsV2QuickAgentBridgeSmoke
                 .Distinct(StringComparer.Ordinal)
                 .Count() == 2,
             "The bridge collapsed two selected scenarios onto one runtime step.");
+    }
+
+    private static void RunKaesesteinpilzCommunicationCorpus()
+    {
+        const string projectId =
+            "kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89";
+        var projectDirectory = Path.GetFullPath(
+            Path.Combine(
+                Application.dataPath,
+                "..",
+                "..",
+                "openai_unity_expert_npcs_pycharm",
+                "InteractiveAgents",
+                "projects",
+                projectId));
+        var modelPath = Path.Combine(projectDirectory, "functionalmlds.v2.instance.json");
+        var tracePath = Path.Combine(projectDirectory, "trace_map.v2.json");
+        Require(
+            File.Exists(modelPath) && File.Exists(tracePath),
+            "The KAESESTEINPILZ communication corpus is missing.");
+
+        var modelJson = File.ReadAllText(modelPath);
+        var trace = JObject.Parse(File.ReadAllText(tracePath));
+        var loaded = FunctionalMldsV2Loader.LoadJson(modelJson, modelPath, validate: true);
+        Require(
+            string.Equals(
+                loaded.Sha256,
+                (string)trace["model_sha256"],
+                StringComparison.Ordinal),
+            "The KAESESTEINPILZ model and trace hashes differ.");
+
+        var setup = new JObject
+        {
+            ["session_id"] = "unity-kaesesteinpilz-communication-smoke",
+            ["metamodel_version"] = "2.0.0-model",
+            ["model_sha256"] = loaded.Sha256,
+            ["functionalmlds_model_endpoint"] =
+                "/projects/" + projectId + "/functionalmlds-v2",
+            ["functionalmlds"] = new JObject
+            {
+                ["schema"] = "functionalmlds_runtime_context_v2",
+                ["case_id"] = (string)trace["case_id"],
+                ["model_version"] = "2.0.0-model",
+                ["model_sha256"] = loaded.Sha256,
+                ["profile"] = "executable",
+                ["main_scenario_id"] = (string)trace["main_scenario_id"],
+                ["runtime_actions"] = trace["runtime_actions"].DeepClone()
+            }
+        };
+        var root = Path.Combine(
+            Application.temporaryCachePath,
+            "functionalmlds-v2-kaesesteinpilz-communication-smoke");
+        if (Directory.Exists(root))
+            Directory.Delete(root, true);
+        var bridge = FunctionalMldsV2QuickAgentBridge.Create(
+            setup.ToString(Formatting.None),
+            modelJson,
+            root);
+        var actions = ((JArray)trace["runtime_actions"]).OfType<JObject>().ToList();
+
+        var setupAction = actions.Single(item => (string)item["action_kind"] == "setup");
+        bridge.RequireAction(
+            "setup",
+            ProviderSourceId(loaded, setupAction),
+            BoundObservation(loaded, setupAction, false));
+
+        var chatActions = actions.Where(item => (string)item["action_kind"] == "chat").ToList();
+        var targetlessChats = chatActions
+            .Where(item => !((JArray)item["target_ids"]).Values<string>().Any())
+            .ToList();
+        Require(
+            targetlessChats.Count == 1,
+            "KAESESTEINPILZ must expose exactly one trusted targetless chat mapping.");
+
+        var providerSourceIds = chatActions
+            .Select(item => ProviderSourceId(loaded, item))
+            .Distinct(StringComparer.Ordinal)
+            .ToList();
+        foreach (var providerSourceId in providerSourceIds)
+        {
+            var genericText = BoundObservation(loaded, targetlessChats[0], false);
+            genericText.InteractionMode =
+                FunctionalMldsV2InteractionEvidenceEvaluator.NonDeicticMode;
+            genericText.RequestedAgentId = providerSourceId;
+            bridge.RequireAction("chat", providerSourceId, genericText);
+
+            var responseObservation = CreateNonDeicticResponseObservationViaManager(
+                loaded.Sha256,
+                providerSourceId,
+                targetlessChats[0]);
+            Require(
+                responseObservation.RequestedAgentId == null,
+                "A non-deictic QuickAgentManager response must not invent a requested agent.");
+            Require(
+                string.Equals(
+                    responseObservation.RoutedAgentId,
+                    providerSourceId,
+                    StringComparison.Ordinal),
+                "QuickAgentManager must fall back to response.active_agent_id when routing is null.");
+            Require(
+                responseObservation.ResponseObserved,
+                "QuickAgentManager must preserve the observed-response flag.");
+            bridge.RequireAction("chat", providerSourceId, responseObservation);
+
+            var genericAssessment = bridge.RecordInteraction(
+                "chat",
+                "unity_qam_non_deictic_null_routing_observed",
+                providerSourceId,
+                responseObservation,
+                new { interaction_mode = "non_deictic" },
+                new { active_agent_id = providerSourceId, routing = (object)null });
+            Require(
+                genericAssessment.Verdict == "pass"
+                && genericAssessment.TargetResolved
+                && genericAssessment.RouteResolved
+                && genericAssessment.CompletionSatisfied,
+                "A QuickAgentManager non-deictic response with null routing must complete successfully.");
+        }
+
+        foreach (var action in chatActions.Where(item => item != targetlessChats[0]))
+        {
+            var providerSourceId = ProviderSourceId(loaded, action);
+            bridge.RequireAction(
+                "chat",
+                providerSourceId,
+                BoundObservation(loaded, action, true));
+        }
+
+        var handoffActions = actions
+            .Where(item => (string)item["action_kind"] == "handoff")
+            .ToList();
+        Require(handoffActions.Count > 0, "KAESESTEINPILZ has no handoff mappings.");
+        var targetlessHandoffs = handoffActions
+            .Where(item => !((JArray)item["target_ids"]).Values<string>().Any())
+            .ToList();
+        Require(
+            targetlessHandoffs.Count == 1,
+            "KAESESTEINPILZ must expose exactly one trusted targetless handoff mapping.");
+
+        var genericProvider = loaded.Index.Require(
+            (string)targetlessChats[0]["provider_entity_id"],
+            "Entity");
+        var genericProviderSourceId = ProviderSourceId(loaded, targetlessChats[0]);
+        var modeledHandoffTarget = loaded.Index.Require(
+            genericProvider.References("handoffTarget").First(),
+            "Entity");
+        var modeledHandoffTargetSourceId = modeledHandoffTarget.OptionalString("sourceAgentId")
+            ?? modeledHandoffTarget.OptionalString("sourceId")
+            ?? modeledHandoffTarget.Id;
+        CreateNonDeicticHandoffObservationsViaManager(
+            loaded.Sha256,
+            genericProviderSourceId,
+            modeledHandoffTargetSourceId,
+            targetlessChats[0],
+            targetlessHandoffs[0],
+            out var chatHandoffObservation,
+            out var handoffObservation);
+        Require(
+            string.Equals(
+                chatHandoffObservation.CapabilityUseId,
+                (string)targetlessChats[0]["capability_use_id"],
+                StringComparison.Ordinal),
+            "QuickAgentManager must bind the chat observation to the S11 chat chain.");
+        Require(
+            string.Equals(
+                handoffObservation.CapabilityUseId,
+                (string)targetlessHandoffs[0]["capability_use_id"],
+                StringComparison.Ordinal),
+            "QuickAgentManager must bind the handoff observation to the S12 handoff chain.");
+        Require(
+            chatHandoffObservation.RoutedAgentId == genericProviderSourceId
+            && handoffObservation.RoutedAgentId == genericProviderSourceId,
+            "Both observations must fall back to active_agent_id when routing is null.");
+        Require(
+            chatHandoffObservation.ModeledHandoff == true
+            && handoffObservation.ModeledHandoff == true,
+            "Both observations must preserve handoff.modeled_handoff when routing is null.");
+
+        var chatWithHandoffAssessment = bridge.RecordInteraction(
+            "chat",
+            "unity_qam_non_deictic_chat_with_handoff_observed",
+            genericProviderSourceId,
+            chatHandoffObservation,
+            new { interaction_mode = "non_deictic" },
+            new
+            {
+                active_agent_id = genericProviderSourceId,
+                routing = (object)null,
+                handoff_to = modeledHandoffTargetSourceId
+            });
+        Require(
+            chatWithHandoffAssessment.Verdict == "pass"
+            && chatWithHandoffAssessment.RouteResolved
+            && chatWithHandoffAssessment.CompletionSatisfied,
+            "The S11 chat side of a non-deictic handoff response must pass.");
+
+        var handoffAssessment = bridge.RecordInteraction(
+            "handoff",
+            "unity_qam_non_deictic_handoff_observed",
+            genericProviderSourceId,
+            handoffObservation,
+            new { interaction_mode = "non_deictic" },
+            new
+            {
+                active_agent_id = genericProviderSourceId,
+                routing = (object)null,
+                handoff_to = modeledHandoffTargetSourceId
+            });
+        Require(
+            handoffAssessment.Verdict == "pass"
+            && handoffAssessment.RouteResolved
+            && handoffAssessment.CompletionSatisfied,
+            "The S12 handoff side of the same non-deictic response must pass.");
+
+        foreach (var providerSourceId in providerSourceIds)
+        {
+            var genericHandoff = BoundObservation(loaded, targetlessHandoffs[0], false);
+            genericHandoff.RequestedAgentId = providerSourceId;
+            bridge.RequireAction("handoff", providerSourceId, genericHandoff);
+        }
+        foreach (var action in handoffActions.Where(item => item != targetlessHandoffs[0]))
+        {
+            var providerSourceId = ProviderSourceId(loaded, action);
+            bridge.RequireAction(
+                "handoff",
+                providerSourceId,
+                BoundObservation(loaded, action, true));
+        }
+    }
+
+    private static string ProviderSourceId(
+        FunctionalMldsV2LoadResult loaded,
+        JObject action)
+    {
+        var provider = loaded.Index.Require((string)action["provider_entity_id"], "Entity");
+        return provider.OptionalString("sourceAgentId")
+            ?? provider.OptionalString("sourceId")
+            ?? provider.Id;
+    }
+
+    private static FunctionalMldsV2InteractionObservation
+        CreateNonDeicticResponseObservationViaManager(
+            string modelSha256,
+            string activeAgentId,
+            JObject action)
+    {
+        var managerObject = new GameObject("FunctionalMLDS_QAM_NonDeictic_Response_Smoke");
+        try
+        {
+            var manager = managerObject.AddComponent<QuickAgentManager>();
+            manager.activeAgentId = activeAgentId;
+
+            var modelHashField = typeof(QuickAgentManager).GetField(
+                "currentModelSha256",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+            Require(modelHashField != null, "QuickAgentManager.currentModelSha256 is unavailable.");
+            modelHashField.SetValue(manager, modelSha256);
+
+            var response = new QuickAgentManager.ChatResponse
+            {
+                active_agent_id = activeAgentId,
+                interaction_mode =
+                    FunctionalMldsV2InteractionEvidenceEvaluator.NonDeicticMode,
+                routing = null,
+                model_binding = new QuickAgentManager.ModelBindingInfo
+                {
+                    capability_use_id = (string)action["capability_use_id"],
+                    capability_id = (string)action["capability_id"],
+                    runtime_binding_id = (string)action["runtime_binding_id"],
+                    runtime_action_id = (string)action["runtime_action_id"]
+                }
+            };
+            return InvokeManagerObservation(
+                manager,
+                "CreateInteractionObservation",
+                response);
+        }
+        finally
+        {
+            UnityEngine.Object.DestroyImmediate(managerObject);
+        }
+    }
+
+    private static void CreateNonDeicticHandoffObservationsViaManager(
+        string modelSha256,
+        string activeAgentId,
+        string handoffTargetAgentId,
+        JObject chatAction,
+        JObject handoffAction,
+        out FunctionalMldsV2InteractionObservation chatObservation,
+        out FunctionalMldsV2InteractionObservation handoffObservation)
+    {
+        var managerObject = new GameObject("FunctionalMLDS_QAM_NonDeictic_Handoff_Smoke");
+        try
+        {
+            var manager = managerObject.AddComponent<QuickAgentManager>();
+            manager.activeAgentId = activeAgentId;
+
+            var modelHashField = typeof(QuickAgentManager).GetField(
+                "currentModelSha256",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+            Require(modelHashField != null, "QuickAgentManager.currentModelSha256 is unavailable.");
+            modelHashField.SetValue(manager, modelSha256);
+
+            var response = new QuickAgentManager.ChatResponse
+            {
+                active_agent_id = activeAgentId,
+                interaction_mode =
+                    FunctionalMldsV2InteractionEvidenceEvaluator.NonDeicticMode,
+                routing = null,
+                model_binding = ModelBinding(chatAction),
+                handoff_model_binding = ModelBinding(handoffAction),
+                handoff = new QuickAgentManager.Handoff
+                {
+                    from = activeAgentId,
+                    to = handoffTargetAgentId,
+                    reason = "modeled regression handoff",
+                    modeled_handoff = true
+                }
+            };
+            chatObservation = InvokeManagerObservation(
+                manager,
+                "CreateInteractionObservation",
+                response);
+            handoffObservation = InvokeManagerObservation(
+                manager,
+                "CreateHandoffInteractionObservation",
+                response);
+        }
+        finally
+        {
+            UnityEngine.Object.DestroyImmediate(managerObject);
+        }
+    }
+
+    private static FunctionalMldsV2InteractionObservation InvokeManagerObservation(
+        QuickAgentManager manager,
+        string methodName,
+        QuickAgentManager.ChatResponse response)
+    {
+        var method = typeof(QuickAgentManager).GetMethod(
+            methodName,
+            BindingFlags.Instance | BindingFlags.NonPublic,
+            null,
+            new[]
+            {
+                typeof(string),
+                typeof(QuickAgentManager.ChatResponse),
+                typeof(bool)
+            },
+            null);
+        Require(method != null, "QuickAgentManager." + methodName + " is unavailable.");
+        var observation = method.Invoke(
+                manager,
+                new object[]
+                {
+                    FunctionalMldsV2InteractionEvidenceEvaluator.NonDeicticMode,
+                    response,
+                    true
+                })
+            as FunctionalMldsV2InteractionObservation;
+        Require(observation != null, "QuickAgentManager returned no interaction observation.");
+        return observation;
+    }
+
+    private static QuickAgentManager.ModelBindingInfo ModelBinding(JObject action)
+    {
+        return new QuickAgentManager.ModelBindingInfo
+        {
+            capability_use_id = (string)action["capability_use_id"],
+            capability_id = (string)action["capability_id"],
+            runtime_binding_id = (string)action["runtime_binding_id"],
+            runtime_action_id = (string)action["runtime_action_id"]
+        };
+    }
+
+    private static FunctionalMldsV2InteractionObservation BoundObservation(
+        FunctionalMldsV2LoadResult loaded,
+        JObject action,
+        bool withTarget)
+    {
+        var providerSourceId = ProviderSourceId(loaded, action);
+        var observation = new FunctionalMldsV2InteractionObservation
+        {
+            InteractionMode = withTarget
+                ? FunctionalMldsV2InteractionEvidenceEvaluator.DeicticMode
+                : FunctionalMldsV2InteractionEvidenceEvaluator.NonDeicticMode,
+            ModelSha256 = loaded.Sha256,
+            BindingRegistryValid = true,
+            RequestedAgentId = providerSourceId,
+            CapabilityUseId = (string)action["capability_use_id"],
+            CapabilityId = (string)action["capability_id"],
+            RuntimeBindingId = (string)action["runtime_binding_id"],
+            RuntimeActionId = (string)action["runtime_action_id"]
+        };
+        if (!withTarget)
+            return observation;
+
+        var targetId = ((JArray)action["target_ids"])
+            .Values<string>()
+            .First(id => loaded.Index.Require(id).Type == "Entity");
+        var target = loaded.Index.Require(targetId, "Entity");
+        observation.SelectionObserved = true;
+        observation.SelectionState =
+            FunctionalMldsV2InteractionEvidenceEvaluator.ResolvedSelectionState;
+        observation.SelectedEntityId = target.Id;
+        observation.SelectedSourceObjectId = target.OptionalString("sourceId");
+        return observation;
     }
 
     private static FunctionalMldsV2InteractionObservation ValidObservation(string modelSha256)

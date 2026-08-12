@@ -1,0 +1,1088 @@
+{
+  "scene": {
+    "sceneName": "kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen",
+    "environment": {
+      "type": "indoor",
+      "dimensions": {
+        "width": 14.2,
+        "height": 4.1,
+        "depth": 10.0
+      },
+      "lighting": [
+        {
+          "lightType": "ambient",
+          "intensity": 0.52,
+          "color": "#F8EEDC"
+        },
+        {
+          "lightType": "directional",
+          "intensity": 0.62,
+          "color": "#FFF4DA"
+        },
+        {
+          "lightType": "spot",
+          "intensity": 1.0,
+          "color": "#FFD88A",
+          "range": 11.0,
+          "spotAngle": 42.0
+        }
+      ],
+      "background": "Spacious fully enclosed warm artisanal cheese experience room with four complete walls and a ceiling. Generous circulation separates the welcome point, hands-on cheese counter, cheese-making machine and craft station, milk-truck and cow exhibits, and the comfortable planted cheese-themed lounge under warm decorative pendant lighting."
+    },
+    "objectGroups": {
+      "architecture": {
+        "color": "#E6DED0"
+      },
+      "brand": {
+        "color": "#6E4932"
+      },
+      "furniture": {
+        "color": "#A87345"
+      },
+      "cheese": {
+        "color": "#E2B84F"
+      },
+      "craft": {
+        "color": "#A8ADB0"
+      },
+      "tactile": {
+        "color": "#C88C61"
+      },
+      "lounge": {
+        "color": "#C98F6C"
+      },
+      "vehicle": {
+        "color": "#79A7B6"
+      },
+      "animal": {
+        "color": "#8B654A"
+      },
+      "seating": {
+        "color": "#6D8F88"
+      },
+      "lighting": {
+        "color": "#FFE29A"
+      },
+      "greenery": {
+        "color": "#557A4B"
+      }
+    },
+    "objects": [
+      {
+        "objectId": "booth_floor",
+        "objectType": "floor",
+        "position": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "dimensions": {
+          "width": 14.2,
+          "height": 0.1,
+          "depth": 10.0
+        },
+        "group": "architecture",
+        "specification": "Continuous warm gray, slip-resistant mineral floor for the enlarged enclosed experience room, with broad circulation aisles and clearly separated display, production, tactile, and lounge zones."
+      },
+      {
+        "objectId": "booth_back_wall",
+        "objectType": "wall",
+        "position": {
+          "x": 0.0,
+          "y": 2.025,
+          "z": 4.95
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "dimensions": {
+          "width": 14.2,
+          "height": 3.95,
+          "depth": 0.1
+        },
+        "group": "architecture",
+        "specification": "Warm lime-plaster back wall with restrained oak detailing; it forms the calm visual background of the cheese stall.",
+        "children": [
+          {
+            "objectId": "steinpilz_header_sign",
+            "objectType": "carved_wood_brand_sign",
+            "relativePositioning": {
+              "referenceObject": "booth_back_wall",
+              "relation": "behind_negative_z",
+              "offset": {
+                "x": 0.0,
+                "y": 2.525,
+                "z": 0.0
+              }
+            },
+            "offset": {
+              "x": 0.0,
+              "y": 2.525,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "dimensions": {
+              "width": 5.0,
+              "height": 0.55,
+              "depth": 0.08
+            },
+            "group": "brand",
+            "specification": "Single hand-carved oak sign reading Kaeserei Steinpilz, with softly rounded edges and a subtle cream inlay; one clear brand element instead of many decorative signs."
+          }
+        ]
+      },
+      {
+        "objectId": "room_left_wall",
+        "objectType": "wall",
+        "position": {
+          "x": -7.05,
+          "y": 2.025,
+          "z": 0.0
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 90.0,
+          "z": 0.0
+        },
+        "dimensions": {
+          "width": 10.0,
+          "height": 3.95,
+          "depth": 0.1
+        },
+        "group": "architecture",
+        "specification": "Complete left wall in warm lime plaster, extending from front to back and closing the experience room."
+      },
+      {
+        "objectId": "room_right_wall",
+        "objectType": "wall",
+        "position": {
+          "x": 7.05,
+          "y": 2.025,
+          "z": 0.0
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 90.0,
+          "z": 0.0
+        },
+        "dimensions": {
+          "width": 10.0,
+          "height": 3.95,
+          "depth": 0.1
+        },
+        "group": "architecture",
+        "specification": "Complete right wall matching the left wall, enclosing the lounge and keeping the room visually calm."
+      },
+      {
+        "objectId": "main_service_counter",
+        "objectType": "oak_cheese_counter",
+        "position": {
+          "x": 0.0,
+          "y": 0.55,
+          "z": 3.35
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "dimensions": {
+          "width": 4.6,
+          "height": 1.0,
+          "depth": 0.95
+        },
+        "group": "furniture",
+        "specification": "Solid oak sales counter with a clean matte top, rounded customer-side corners, and a recessed staff side. The 1.05 m top height is comfortable for standing tactile interaction.",
+        "children": [
+          {
+            "objectId": "counter_whole_cheese",
+            "objectType": "cheese_wheel",
+            "relativePositioning": {
+              "referenceObject": "main_service_counter",
+              "relation": "on_top_of",
+              "offset": {
+                "x": -1.55,
+                "y": 0.0,
+                "z": -0.05
+              }
+            },
+            "offset": {
+              "x": -1.55,
+              "y": 0.0,
+              "z": -0.05
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 8.0,
+              "z": 0.0
+            },
+            "dimensions": {
+              "width": 0.55,
+              "height": 0.2,
+              "depth": 0.55
+            },
+            "group": "cheese",
+            "specification": "One robust whole cheese wheel with a dry natural rind, shallow maker stamp, and enough size to be comfortably grasped and turned with both hands."
+          },
+          {
+            "objectId": "counter_tasting_board",
+            "objectType": "wooden_tasting_board",
+            "relativePositioning": {
+              "referenceObject": "main_service_counter",
+              "relation": "on_top_of",
+              "offset": {
+                "x": 0.25,
+                "y": 0.0,
+                "z": -0.04
+              }
+            },
+            "offset": {
+              "x": 0.25,
+              "y": 0.0,
+              "z": -0.04
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "dimensions": {
+              "width": 0.9,
+              "height": 0.06,
+              "depth": 0.42
+            },
+            "group": "furniture",
+            "specification": "Compact oiled-oak tasting board with two deliberately separated tactile samples and a raised rear lip so every item has a clear place.",
+            "children": [
+              {
+                "objectId": "sample_mild_cheese",
+                "objectType": "cheese_sample_wedge",
+                "relativePositioning": {
+                  "referenceObject": "counter_tasting_board",
+                  "relation": "on_top_of",
+                  "offset": {
+                    "x": -0.28,
+                    "y": 0.0,
+                    "z": 0.0
+                  }
+                },
+                "offset": {
+                  "x": -0.28,
+                  "y": 0.0,
+                  "z": 0.0
+                },
+                "rotation": {
+                  "x": 0.0,
+                  "y": -8.0,
+                  "z": 0.0
+                },
+                "dimensions": {
+                  "width": 0.18,
+                  "height": 0.11,
+                  "depth": 0.16
+                },
+                "group": "cheese",
+                "specification": "Mild young-cheese wedge with a smooth elastic surface and softly rounded edges, clearly separated for one-handed pickup."
+              },
+              {
+                "objectId": "sample_rind_block",
+                "objectType": "cheese_rind_sample",
+                "relativePositioning": {
+                  "referenceObject": "counter_tasting_board",
+                  "relation": "on_top_of",
+                  "offset": {
+                    "x": 0.28,
+                    "y": 0.0,
+                    "z": 0.0
+                  }
+                },
+                "offset": {
+                  "x": 0.28,
+                  "y": 0.0,
+                  "z": 0.0
+                },
+                "rotation": {
+                  "x": 0.0,
+                  "y": 10.0,
+                  "z": 0.0
+                },
+                "dimensions": {
+                  "width": 0.2,
+                  "height": 0.1,
+                  "depth": 0.16
+                },
+                "group": "tactile",
+                "specification": "Thick natural-rind sample block with dry brushed texture, shallow grooves, and rounded safe corners."
+              }
+            ]
+          },
+          {
+            "objectId": "wooden_tasting_tongs",
+            "objectType": "wooden_tongs",
+            "relativePositioning": {
+              "referenceObject": "main_service_counter",
+              "relation": "on_top_of",
+              "offset": {
+                "x": 1.45,
+                "y": 0.0,
+                "z": -0.03
+              }
+            },
+            "offset": {
+              "x": 1.45,
+              "y": 0.0,
+              "z": -0.03
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 18.0,
+              "z": 0.0
+            },
+            "dimensions": {
+              "width": 0.32,
+              "height": 0.05,
+              "depth": 0.12
+            },
+            "group": "tactile",
+            "specification": "One pair of springy beechwood tasting tongs with a broad pinch area, sized for an obvious and satisfying hand interaction."
+          }
+        ]
+      },
+      {
+        "objectId": "central_touch_table",
+        "objectType": "tactile_exploration_table",
+        "position": {
+          "x": 0.0,
+          "y": 0.5,
+          "z": 0.6
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "dimensions": {
+          "width": 2.8,
+          "height": 0.9,
+          "depth": 1.1
+        },
+        "group": "furniture",
+        "specification": "Freestanding rounded oak touch table. It leaves a 1.23 m clear aisle to the service counter and wide circulation on both sides; all four items are within comfortable reach.",
+        "children": [
+          {
+            "objectId": "touchable_cheese_wheel",
+            "objectType": "handled_cheese_wheel",
+            "relativePositioning": {
+              "referenceObject": "central_touch_table",
+              "relation": "on_top_of",
+              "offset": {
+                "x": -0.88,
+                "y": 0.0,
+                "z": 0.0
+              }
+            },
+            "offset": {
+              "x": -0.88,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": -8.0,
+              "z": 0.0
+            },
+            "dimensions": {
+              "width": 0.5,
+              "height": 0.18,
+              "depth": 0.5
+            },
+            "group": "cheese",
+            "specification": "Medium practice wheel with two shallow side grip recesses, a softly textured rind, and enough mass to invite lifting and turning."
+          },
+          {
+            "objectId": "curd_texture_tray",
+            "objectType": "curd_texture_tray",
+            "relativePositioning": {
+              "referenceObject": "central_touch_table",
+              "relation": "on_top_of",
+              "offset": {
+                "x": -0.18,
+                "y": 0.0,
+                "z": 0.0
+              }
+            },
+            "offset": {
+              "x": -0.18,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "dimensions": {
+              "width": 0.45,
+              "height": 0.1,
+              "depth": 0.42
+            },
+            "group": "tactile",
+            "specification": "Shallow rimmed tray with a safe reusable curd-texture insert: soft clustered forms that can be pressed without loose tiny pieces."
+          },
+          {
+            "objectId": "rind_care_brush",
+            "objectType": "rind_brush",
+            "relativePositioning": {
+              "referenceObject": "central_touch_table",
+              "relation": "on_top_of",
+              "offset": {
+                "x": 0.55,
+                "y": 0.0,
+                "z": -0.18
+              }
+            },
+            "offset": {
+              "x": 0.55,
+              "y": 0.0,
+              "z": -0.18
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 12.0,
+              "z": 0.0
+            },
+            "dimensions": {
+              "width": 0.34,
+              "height": 0.12,
+              "depth": 0.18
+            },
+            "group": "tactile",
+            "specification": "Palm-sized rind brush with an oiled beech block, broad finger groove, and resilient natural bristles for an immediately legible brushing action."
+          },
+          {
+            "objectId": "folded_cheesecloth",
+            "objectType": "cheesecloth",
+            "relativePositioning": {
+              "referenceObject": "central_touch_table",
+              "relation": "on_top_of",
+              "offset": {
+                "x": 0.82,
+                "y": 0.0,
+                "z": 0.2
+              }
+            },
+            "offset": {
+              "x": 0.82,
+              "y": 0.0,
+              "z": 0.2
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": -6.0,
+              "z": 0.0
+            },
+            "dimensions": {
+              "width": 0.45,
+              "height": 0.04,
+              "depth": 0.28
+            },
+            "group": "tactile",
+            "specification": "Neatly folded, slightly coarse linen cheesecloth with a thick graspable edge; one textile sample replaces decorative cloth clutter."
+          }
+        ]
+      },
+      {
+        "objectId": "demonstration_cheese_press",
+        "objectType": "hand_cheese_press",
+        "position": {
+          "x": -5.45,
+          "y": 0.85,
+          "z": 3.35
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "dimensions": {
+          "width": 1.05,
+          "height": 1.6,
+          "depth": 0.85
+        },
+        "group": "craft",
+        "specification": "Compact floor-standing manual cheese press in oak and brushed steel, clearly isolated to the left of the counter. The press integrates its existing front-facing wooden hand crank with a thick rounded grip at waist height; broad feet and enclosed pinch points keep the tactile hand motion safe.",
+        "children": [
+          {
+            "objectId": "press_cheese_mould",
+            "objectType": "cheese_mould",
+            "relativePositioning": {
+              "referenceObject": "demonstration_cheese_press",
+              "relation": "on_top_of",
+              "offset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            },
+            "offset": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "dimensions": {
+              "width": 0.38,
+              "height": 0.22,
+              "depth": 0.38
+            },
+            "group": "craft",
+            "specification": "One large perforated cheese mould with a wide rim that can be grasped, lifted, and placed deliberately."
+          }
+        ]
+      },
+      {
+        "objectId": "cheese_kettle",
+        "objectType": "cheese_kettle",
+        "position": {
+          "x": 5.45,
+          "y": 0.75,
+          "z": 3.35
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "dimensions": {
+          "width": 1.6,
+          "height": 1.4,
+          "depth": 1.6
+        },
+        "group": "craft",
+        "specification": "Compact interactive cheese-making kettle machine in brushed stainless steel with a robust circular basin, integrated slow agitator, large rounded control wheel, tactile temperature controls, and a low dispensing outlet for cheese forms. Hot and moving components are guarded while the broad rim and controls remain safely reachable."
+      },
+      {
+        "objectId": "steinpilz_milk_delivery_truck",
+        "objectType": "vintage_milk_truck",
+        "position": {
+          "x": -5.25,
+          "y": 1.25,
+          "z": -2.35
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "dimensions": {
+          "width": 1.9,
+          "height": 2.4,
+          "depth": 3.0
+        },
+        "group": "vehicle",
+        "specification": "Compact vintage Steinpilz milk delivery truck in warm cream and brushed metal, positioned as one readable exhibit along the left wall. It has rounded bodywork, a visible cab, large door handles, steering wheel, milk-tank fittings, and robust tactile surfaces without loose decorative parts."
+      },
+      {
+        "objectId": "steinpilz_dairy_cow",
+        "objectType": "calm_dairy_cow_model",
+        "position": {
+          "x": -1.75,
+          "y": 0.8,
+          "z": -3.45
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "dimensions": {
+          "width": 1.7,
+          "height": 1.5,
+          "depth": 0.7
+        },
+        "group": "animal",
+        "specification": "Friendly life-size dairy cow exhibit with a calm stance, softly modeled hide, clearly shaped ears and horns with rounded safe tips, and broad tactile areas along the shoulder and flank. It stands independently between the truck and the central cheese table."
+      },
+      {
+        "objectId": "steinpilz_welcome_counter",
+        "objectType": "compact_welcome_counter",
+        "position": {
+          "x": 0.9,
+          "y": 0.575,
+          "z": -4.15
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "dimensions": {
+          "width": 1.9,
+          "height": 1.05,
+          "depth": 0.7
+        },
+        "group": "furniture",
+        "specification": "Compact welcoming oak-and-cream reception counter facing into the room, with a softly rounded visitor edge, recessed staff side, integrated Steinpilz emblem, and one broad tactile orientation panel. It forms a clear arrival point without blocking the circulation route."
+      },
+      {
+        "objectId": "left_gallery_green_plant",
+        "objectType": "potted_green_plant",
+        "position": {
+          "x": -6.35,
+          "y": 0.8,
+          "z": 1.1
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": -12.0,
+          "z": 0.0
+        },
+        "dimensions": {
+          "width": 0.7,
+          "height": 1.5,
+          "depth": 0.7
+        },
+        "group": "greenery",
+        "specification": "Healthy medium-height evergreen houseplant with broad soft leaves in a heavy rounded matte-cream floor pot, softening the left gallery wall between the milk exhibit and production area without sharp stems or loose soil."
+      },
+      {
+        "objectId": "right_lounge_green_plant",
+        "objectType": "potted_green_plant",
+        "position": {
+          "x": 6.35,
+          "y": 0.8,
+          "z": 1.1
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 18.0,
+          "z": 0.0
+        },
+        "dimensions": {
+          "width": 0.7,
+          "height": 1.5,
+          "depth": 0.7
+        },
+        "group": "greenery",
+        "specification": "Second lush green indoor plant with layered rounded leaves in a stable warm-gray ceramic floor pot, creating a soft visual transition between the cheese machine and lounge while preserving clear walking space."
+      },
+      {
+        "objectId": "cheese_lounge_rug",
+        "objectType": "round_rug",
+        "position": {
+          "x": 4.8,
+          "y": 0.06,
+          "z": -1.85
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "dimensions": {
+          "width": 3.6,
+          "height": 0.02,
+          "depth": 3.6
+        },
+        "group": "lounge",
+        "specification": "Soft circular-look woven wool rug in warm cream and Steinpilz brown, clearly defining the lounge zone on the right without blocking the central circulation route.",
+        "children": [
+          {
+            "objectId": "round_cheese_lounge_table",
+            "objectType": "round_cheese_wheel_table",
+            "relativePositioning": {
+              "referenceObject": "cheese_lounge_rug",
+              "relation": "on_top_of",
+              "offset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            },
+            "offset": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "dimensions": {
+              "width": 1.2,
+              "height": 0.72,
+              "depth": 1.2
+            },
+            "group": "cheese",
+            "specification": "Round low lounge table shaped like a large stylized cheese wheel, with a honey-gold tactile rind edge, smooth oak top, rounded corners, and a stable central base."
+          },
+          {
+            "objectId": "lounge_chair_front",
+            "objectType": "rounded_lounge_chair",
+            "relativePositioning": {
+              "referenceObject": "cheese_lounge_rug",
+              "relation": "on_top_of",
+              "offset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -1.35
+              }
+            },
+            "offset": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": -1.35
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "dimensions": {
+              "width": 0.58,
+              "height": 0.82,
+              "depth": 0.58
+            },
+            "group": "seating",
+            "specification": "Comfortable rounded lounge chair in cream upholstery, facing the cheese table from the front with clear knee and hand space."
+          },
+          {
+            "objectId": "lounge_chair_left_front",
+            "objectType": "rounded_lounge_chair",
+            "relativePositioning": {
+              "referenceObject": "cheese_lounge_rug",
+              "relation": "on_top_of",
+              "offset": {
+                "x": -1.25,
+                "y": 0.0,
+                "z": -0.52
+              }
+            },
+            "offset": {
+              "x": -1.25,
+              "y": 0.0,
+              "z": -0.52
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 55.0,
+              "z": 0.0
+            },
+            "dimensions": {
+              "width": 0.58,
+              "height": 0.82,
+              "depth": 0.58
+            },
+            "group": "seating",
+            "specification": "Second cream lounge chair angled inward from the left-front side of the round table."
+          },
+          {
+            "objectId": "lounge_chair_left_back",
+            "objectType": "rounded_lounge_chair",
+            "relativePositioning": {
+              "referenceObject": "cheese_lounge_rug",
+              "relation": "on_top_of",
+              "offset": {
+                "x": -0.76,
+                "y": 0.0,
+                "z": 1.25
+              }
+            },
+            "offset": {
+              "x": -0.76,
+              "y": 0.0,
+              "z": 1.25
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 135.0,
+              "z": 0.0
+            },
+            "dimensions": {
+              "width": 0.58,
+              "height": 0.82,
+              "depth": 0.58
+            },
+            "group": "seating",
+            "specification": "Third rounded lounge chair at the left-rear side, turned toward the table and separated from the service counter."
+          },
+          {
+            "objectId": "lounge_chair_right_back",
+            "objectType": "rounded_lounge_chair",
+            "relativePositioning": {
+              "referenceObject": "cheese_lounge_rug",
+              "relation": "on_top_of",
+              "offset": {
+                "x": 0.76,
+                "y": 0.0,
+                "z": 1.25
+              }
+            },
+            "offset": {
+              "x": 0.76,
+              "y": 0.0,
+              "z": 1.25
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": -135.0,
+              "z": 0.0
+            },
+            "dimensions": {
+              "width": 0.58,
+              "height": 0.82,
+              "depth": 0.58
+            },
+            "group": "seating",
+            "specification": "Fourth rounded lounge chair mirroring the left-rear seat and facing the cheese table."
+          },
+          {
+            "objectId": "lounge_chair_right_front",
+            "objectType": "rounded_lounge_chair",
+            "relativePositioning": {
+              "referenceObject": "cheese_lounge_rug",
+              "relation": "on_top_of",
+              "offset": {
+                "x": 1.25,
+                "y": 0.0,
+                "z": -0.52
+              }
+            },
+            "offset": {
+              "x": 1.25,
+              "y": 0.0,
+              "z": -0.52
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": -55.0,
+              "z": 0.0
+            },
+            "dimensions": {
+              "width": 0.58,
+              "height": 0.82,
+              "depth": 0.58
+            },
+            "group": "seating",
+            "specification": "Fifth rounded lounge chair completing the open five-seat ring around the table without crowding the wall."
+          }
+        ]
+      },
+      {
+        "objectId": "room_front_wall",
+        "objectType": "wall",
+        "position": {
+          "x": 0.0,
+          "y": 2.025,
+          "z": -4.95
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "dimensions": {
+          "width": 14.2,
+          "height": 3.95,
+          "depth": 0.1
+        },
+        "group": "architecture",
+        "specification": "Complete insulated front wall that closes the room. A broad closed sliding access panel is integrated flush into the wall so the space reads as enclosed rather than as an open booth."
+      },
+      {
+        "objectId": "room_ceiling",
+        "objectType": "ceiling",
+        "position": {
+          "x": 0.0,
+          "y": 4.05,
+          "z": 0.0
+        },
+        "rotation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "dimensions": {
+          "width": 14.2,
+          "height": 0.1,
+          "depth": 10.0
+        },
+        "group": "architecture",
+        "specification": "Full pale timber acoustic ceiling closing the room at 4.1 m, carrying two cheese-inspired pendant clusters, one focused pendant above the central tactile table, and two long warm linear light strips for even glare-free illumination.",
+        "children": [
+          {
+            "objectId": "counter_pendant_lamp_cluster",
+            "objectType": "decorative_pendant_light_cluster",
+            "relativePositioning": {
+              "referenceObject": "room_ceiling",
+              "relation": "below",
+              "distance": 0.08,
+              "offset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 3.35
+              }
+            },
+            "offset": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 3.35
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "dimensions": {
+              "width": 1.35,
+              "height": 0.75,
+              "depth": 0.75
+            },
+            "group": "lighting",
+            "specification": "Decorative cluster of three individually visible cheese-wheel pendant lamps above the main service counter, with staggered slender dark suspensions, cream-yellow diffusing discs, softly rounded rims, and warm dimmable light. The cables and shades form one coordinated ceiling element."
+          },
+          {
+            "objectId": "lounge_pendant_lamp_cluster",
+            "objectType": "decorative_pendant_light_cluster",
+            "relativePositioning": {
+              "referenceObject": "room_ceiling",
+              "relation": "below",
+              "distance": 0.08,
+              "offset": {
+                "x": 4.8,
+                "y": 0.0,
+                "z": -1.85
+              }
+            },
+            "offset": {
+              "x": 4.8,
+              "y": 0.0,
+              "z": -1.85
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "dimensions": {
+              "width": 1.2,
+              "height": 0.7,
+              "depth": 0.7
+            },
+            "group": "lighting",
+            "specification": "Matching smaller cluster of three cheese-inspired pendants centered over the round lounge table, with gently staggered milk-glass shades and focused warm downward glow that makes the seating area feel intimate."
+          },
+          {
+            "objectId": "touch_table_pendant_lamp",
+            "objectType": "pendant_light",
+            "relativePositioning": {
+              "referenceObject": "room_ceiling",
+              "relation": "below",
+              "distance": 0.1,
+              "offset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.6
+              }
+            },
+            "offset": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.6
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "dimensions": {
+              "width": 0.75,
+              "height": 0.72,
+              "depth": 0.75
+            },
+            "group": "lighting",
+            "specification": "Single warm pendant lamp centered precisely over the central tactile exploration table, with a slim dark cable, rounded milk-glass shade, soft downward beam, and enough head clearance for comfortable standing interaction."
+          },
+          {
+            "objectId": "left_longitudinal_light_strip",
+            "objectType": "linear_light_fixture",
+            "relativePositioning": {
+              "referenceObject": "room_ceiling",
+              "relation": "below",
+              "distance": 0.03,
+              "offset": {
+                "x": -3.2,
+                "y": 0.0,
+                "z": 0.2
+              }
+            },
+            "offset": {
+              "x": -3.2,
+              "y": 0.0,
+              "z": 0.2
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 90.0,
+              "z": 0.0
+            },
+            "dimensions": {
+              "width": 7.6,
+              "height": 0.08,
+              "depth": 0.18
+            },
+            "group": "lighting",
+            "specification": "Long recessed-style warm-white LED light strip running longitudinally along the left half of the room, evenly illuminating the truck, cow, press, and circulation surfaces without hard glare."
+          },
+          {
+            "objectId": "right_longitudinal_light_strip",
+            "objectType": "linear_light_fixture",
+            "relativePositioning": {
+              "referenceObject": "room_ceiling",
+              "relation": "below",
+              "distance": 0.03,
+              "offset": {
+                "x": 3.2,
+                "y": 0.0,
+                "z": 0.2
+              }
+            },
+            "offset": {
+              "x": 3.2,
+              "y": 0.0,
+              "z": 0.2
+            },
+            "rotation": {
+              "x": 0.0,
+              "y": 90.0,
+              "z": 0.0
+            },
+            "dimensions": {
+              "width": 7.6,
+              "height": 0.08,
+              "depth": 0.18
+            },
+            "group": "lighting",
+            "specification": "Matching long warm-white LED light strip along the right half of the room, balancing the service, cheese-machine, welcome, and lounge zones while the pendants provide decorative focal light."
+          }
+        ]
+      }
+    ]
+  }
+}

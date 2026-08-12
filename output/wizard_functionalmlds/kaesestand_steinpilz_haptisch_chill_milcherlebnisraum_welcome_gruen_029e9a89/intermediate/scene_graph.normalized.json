@@ -1,0 +1,430 @@
+{
+  "schema_kind": "mlds_scene",
+  "scene_name": "kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen",
+  "environment_type": "indoor",
+  "dimensions": {
+    "width": 14.2,
+    "height": 4.1,
+    "depth": 10.0
+  },
+  "room_bounds": {
+    "min_x": -7.1,
+    "max_x": 7.1,
+    "min_z": -5.0,
+    "max_z": 5.0
+  },
+  "objects": [
+    {
+      "object_id": "booth_floor",
+      "source_id": "booth_floor",
+      "object_type": "floor",
+      "group": "architecture",
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 14.2,
+        "height": 0.1,
+        "depth": 10.0
+      },
+      "specification": "Continuous warm gray, slip-resistant mineral floor for the enlarged enclosed experience room, with broad circulation aisles and clearly separated display, production, tactile, and lounge zones.",
+      "children_count": 0
+    },
+    {
+      "object_id": "booth_back_wall",
+      "source_id": "booth_back_wall",
+      "object_type": "wall",
+      "group": "architecture",
+      "position": {
+        "x": 0.0,
+        "y": 2.025,
+        "z": 4.95
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 14.2,
+        "height": 3.95,
+        "depth": 0.1
+      },
+      "specification": "Warm lime-plaster back wall with restrained oak detailing; it forms the calm visual background of the cheese stall.",
+      "children_count": 1
+    },
+    {
+      "object_id": "room_left_wall",
+      "source_id": "room_left_wall",
+      "object_type": "wall",
+      "group": "architecture",
+      "position": {
+        "x": -7.05,
+        "y": 2.025,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 90.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 10.0,
+        "height": 3.95,
+        "depth": 0.1
+      },
+      "specification": "Complete left wall in warm lime plaster, extending from front to back and closing the experience room.",
+      "children_count": 0
+    },
+    {
+      "object_id": "room_right_wall",
+      "source_id": "room_right_wall",
+      "object_type": "wall",
+      "group": "architecture",
+      "position": {
+        "x": 7.05,
+        "y": 2.025,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 90.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 10.0,
+        "height": 3.95,
+        "depth": 0.1
+      },
+      "specification": "Complete right wall matching the left wall, enclosing the lounge and keeping the room visually calm.",
+      "children_count": 0
+    },
+    {
+      "object_id": "main_service_counter",
+      "source_id": "main_service_counter",
+      "object_type": "oak_cheese_counter",
+      "group": "furniture",
+      "position": {
+        "x": 0.0,
+        "y": 0.55,
+        "z": 3.35
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 4.6,
+        "height": 1.0,
+        "depth": 0.95
+      },
+      "specification": "Solid oak sales counter with a clean matte top, rounded customer-side corners, and a recessed staff side. The 1.05 m top height is comfortable for standing tactile interaction.",
+      "children_count": 3
+    },
+    {
+      "object_id": "central_touch_table",
+      "source_id": "central_touch_table",
+      "object_type": "tactile_exploration_table",
+      "group": "furniture",
+      "position": {
+        "x": 0.0,
+        "y": 0.5,
+        "z": 0.6
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 2.8,
+        "height": 0.9,
+        "depth": 1.1
+      },
+      "specification": "Freestanding rounded oak touch table. It leaves a 1.23 m clear aisle to the service counter and wide circulation on both sides; all four items are within comfortable reach.",
+      "children_count": 4
+    },
+    {
+      "object_id": "demonstration_cheese_press",
+      "source_id": "demonstration_cheese_press",
+      "object_type": "hand_cheese_press",
+      "group": "craft",
+      "position": {
+        "x": -5.45,
+        "y": 0.85,
+        "z": 3.35
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.05,
+        "height": 1.6,
+        "depth": 0.85
+      },
+      "specification": "Compact floor-standing manual cheese press in oak and brushed steel, clearly isolated to the left of the counter. The press integrates its existing front-facing wooden hand crank with a thick rounded grip at waist height; broad feet and enclosed pinch points keep the tactile hand motion safe.",
+      "children_count": 1
+    },
+    {
+      "object_id": "cheese_kettle",
+      "source_id": "cheese_kettle",
+      "object_type": "cheese_kettle",
+      "group": "craft",
+      "position": {
+        "x": 5.45,
+        "y": 0.75,
+        "z": 3.35
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.6,
+        "height": 1.4,
+        "depth": 1.6
+      },
+      "specification": "Compact interactive cheese-making kettle machine in brushed stainless steel with a robust circular basin, integrated slow agitator, large rounded control wheel, tactile temperature controls, and a low dispensing outlet for cheese forms. Hot and moving components are guarded while the broad rim and controls remain safely reachable.",
+      "children_count": 0
+    },
+    {
+      "object_id": "steinpilz_milk_delivery_truck",
+      "source_id": "steinpilz_milk_delivery_truck",
+      "object_type": "vintage_milk_truck",
+      "group": "vehicle",
+      "position": {
+        "x": -5.25,
+        "y": 1.25,
+        "z": -2.35
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.9,
+        "height": 2.4,
+        "depth": 3.0
+      },
+      "specification": "Compact vintage Steinpilz milk delivery truck in warm cream and brushed metal, positioned as one readable exhibit along the left wall. It has rounded bodywork, a visible cab, large door handles, steering wheel, milk-tank fittings, and robust tactile surfaces without loose decorative parts.",
+      "children_count": 0
+    },
+    {
+      "object_id": "steinpilz_dairy_cow",
+      "source_id": "steinpilz_dairy_cow",
+      "object_type": "calm_dairy_cow_model",
+      "group": "animal",
+      "position": {
+        "x": -1.75,
+        "y": 0.8,
+        "z": -3.45
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.7,
+        "height": 1.5,
+        "depth": 0.7
+      },
+      "specification": "Friendly life-size dairy cow exhibit with a calm stance, softly modeled hide, clearly shaped ears and horns with rounded safe tips, and broad tactile areas along the shoulder and flank. It stands independently between the truck and the central cheese table.",
+      "children_count": 0
+    },
+    {
+      "object_id": "steinpilz_welcome_counter",
+      "source_id": "steinpilz_welcome_counter",
+      "object_type": "compact_welcome_counter",
+      "group": "furniture",
+      "position": {
+        "x": 0.9,
+        "y": 0.575,
+        "z": -4.15
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 1.9,
+        "height": 1.05,
+        "depth": 0.7
+      },
+      "specification": "Compact welcoming oak-and-cream reception counter facing into the room, with a softly rounded visitor edge, recessed staff side, integrated Steinpilz emblem, and one broad tactile orientation panel. It forms a clear arrival point without blocking the circulation route.",
+      "children_count": 0
+    },
+    {
+      "object_id": "left_gallery_green_plant",
+      "source_id": "left_gallery_green_plant",
+      "object_type": "potted_green_plant",
+      "group": "greenery",
+      "position": {
+        "x": -6.35,
+        "y": 0.8,
+        "z": 1.1
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": -12.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 0.7,
+        "height": 1.5,
+        "depth": 0.7
+      },
+      "specification": "Healthy medium-height evergreen houseplant with broad soft leaves in a heavy rounded matte-cream floor pot, softening the left gallery wall between the milk exhibit and production area without sharp stems or loose soil.",
+      "children_count": 0
+    },
+    {
+      "object_id": "right_lounge_green_plant",
+      "source_id": "right_lounge_green_plant",
+      "object_type": "potted_green_plant",
+      "group": "greenery",
+      "position": {
+        "x": 6.35,
+        "y": 0.8,
+        "z": 1.1
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 18.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 0.7,
+        "height": 1.5,
+        "depth": 0.7
+      },
+      "specification": "Second lush green indoor plant with layered rounded leaves in a stable warm-gray ceramic floor pot, creating a soft visual transition between the cheese machine and lounge while preserving clear walking space.",
+      "children_count": 0
+    },
+    {
+      "object_id": "cheese_lounge_rug",
+      "source_id": "cheese_lounge_rug",
+      "object_type": "round_rug",
+      "group": "lounge",
+      "position": {
+        "x": 4.8,
+        "y": 0.06,
+        "z": -1.85
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 3.6,
+        "height": 0.02,
+        "depth": 3.6
+      },
+      "specification": "Soft circular-look woven wool rug in warm cream and Steinpilz brown, clearly defining the lounge zone on the right without blocking the central circulation route.",
+      "children_count": 6
+    },
+    {
+      "object_id": "room_front_wall",
+      "source_id": "room_front_wall",
+      "object_type": "wall",
+      "group": "architecture",
+      "position": {
+        "x": 0.0,
+        "y": 2.025,
+        "z": -4.95
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 14.2,
+        "height": 3.95,
+        "depth": 0.1
+      },
+      "specification": "Complete insulated front wall that closes the room. A broad closed sliding access panel is integrated flush into the wall so the space reads as enclosed rather than as an open booth.",
+      "children_count": 0
+    },
+    {
+      "object_id": "room_ceiling",
+      "source_id": "room_ceiling",
+      "object_type": "ceiling",
+      "group": "architecture",
+      "position": {
+        "x": 0.0,
+        "y": 4.05,
+        "z": 0.0
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "dimensions": {
+        "width": 14.2,
+        "height": 0.1,
+        "depth": 10.0
+      },
+      "specification": "Full pale timber acoustic ceiling closing the room at 4.1 m, carrying two cheese-inspired pendant clusters, one focused pendant above the central tactile table, and two long warm linear light strips for even glare-free illumination.",
+      "children_count": 5
+    }
+  ],
+  "object_groups_declared": {
+    "architecture": {
+      "color": "#E6DED0"
+    },
+    "brand": {
+      "color": "#6E4932"
+    },
+    "furniture": {
+      "color": "#A87345"
+    },
+    "cheese": {
+      "color": "#E2B84F"
+    },
+    "craft": {
+      "color": "#A8ADB0"
+    },
+    "tactile": {
+      "color": "#C88C61"
+    },
+    "lounge": {
+      "color": "#C98F6C"
+    },
+    "vehicle": {
+      "color": "#79A7B6"
+    },
+    "animal": {
+      "color": "#8B654A"
+    },
+    "seating": {
+      "color": "#6D8F88"
+    },
+    "lighting": {
+      "color": "#FFE29A"
+    },
+    "greenery": {
+      "color": "#557A4B"
+    }
+  },
+  "zones": [],
+  "spawn_points": [],
+  "source_stats": {
+    "object_count": 16,
+    "group_count": 7
+  }
+}

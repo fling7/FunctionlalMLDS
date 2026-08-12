@@ -1,0 +1,13 @@
+{
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "visitor_goal_count": 6,
+    "semantic_zone_count": 6,
+    "important_object_count": 8,
+    "interaction_topic_count": 4,
+    "agent_role_candidate_count": 5,
+    "covered_object_count": 10
+  }
+}

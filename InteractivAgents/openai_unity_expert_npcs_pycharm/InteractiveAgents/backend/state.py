@@ -1585,12 +1585,23 @@ class SessionStore:
         *,
         interaction_mode: Optional[str] = None,
         model_binding: Optional[Dict[str, str]] = None,
+        handoff_model_binding: Optional[Dict[str, str]] = None,
     ) -> Dict[str, Any]:
         if interaction_mode is None:
             return response
         out = dict(response)
         out["interaction_mode"] = interaction_mode
         out["model_binding"] = copy.deepcopy(model_binding or {})
+        handoff = out.get("handoff")
+        if isinstance(handoff, dict):
+            # Both spatial and model-produced handoffs reached this point only
+            # after the pinned V2 relation/allow-list was validated.
+            handoff = dict(handoff)
+            handoff["modeled_handoff"] = True
+            out["handoff"] = handoff
+            out["handoff_model_binding"] = copy.deepcopy(
+                handoff_model_binding or {}
+            )
         grounding_fields = (
             "grounded_entity_ids",
             "grounding_evidence",
@@ -2030,6 +2041,7 @@ class SessionStore:
         }
         interaction_mode: Optional[str] = None
         model_binding: Optional[Dict[str, str]] = None
+        handoff_model_binding: Optional[Dict[str, str]] = None
         if st.functionalmlds_contract_kind == "v2":
             interaction_mode = self._v2_interaction_mode_for_context(st, payload)
             has_spatial_context = payload.get("spatial_context") is not None
@@ -2121,12 +2133,23 @@ class SessionStore:
                 grounding=grounding,
                 routing=routing,
             )
+        if (
+            st.functionalmlds_contract_kind == "v2"
+            and isinstance(response.get("handoff"), dict)
+        ):
+            handoff_action = handoff_preflight.get("action")
+            if not isinstance(handoff_action, dict):
+                raise FunctionalMldsContractError(
+                    "Pinned V2 session has no executable handoff action."
+                )
+            handoff_model_binding = self._v2_model_binding(handoff_action)
         decorated = self._decorate_grounded_chat_response(
             response,
             grounding,
             routing,
             interaction_mode=interaction_mode,
             model_binding=model_binding,
+            handoff_model_binding=handoff_model_binding,
         )
         if (
             st.functionalmlds_contract_kind == "v2"
@@ -2217,7 +2240,6 @@ class SessionStore:
         handoff_to = res_a.get("handoff_to", None)
         if handoff_to in st.agents and handoff_to != agent_a.id:
             if self.max_handoffs > 0:
-                self.preflight_runtime_action(session_id, "handoff")
                 agent_b = st.agents[handoff_to]
                 try:
                     res_b = self._call_agent(
@@ -2327,7 +2349,6 @@ class SessionStore:
 
         handoff_to = res_a.get("handoff_to", None)
         if handoff_to in st.agents and handoff_to != agent_a.id and self.max_handoffs > 0:
-            self.preflight_runtime_action(session_id, "handoff")
             agent_b = st.agents[handoff_to]
             handoff_brief = self._handoff_brief(res_a, user_text)
             handoff_reason = res_a.get("handoff_reason")

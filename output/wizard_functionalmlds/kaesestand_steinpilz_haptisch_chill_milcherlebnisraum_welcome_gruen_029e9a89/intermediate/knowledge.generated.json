@@ -1,0 +1,232 @@
+{
+  "knowledge_entries": [
+    {
+      "tag": "visitor_welcome_and_guidance",
+      "name": "visitor_welcome_and_guidance_at_steinpilz_welcome_counter",
+      "source_object_ids": [
+        "steinpilz_welcome_counter"
+      ],
+      "text": "The Steinpilz Welcome Counter is located near the room entrance in the Welcome and Reception Zone. It serves as the initial point for visitor reception, providing information and guidance to orient guests for their cheese experience. The counter features a compact oak-and-cream design with a tactile orientation panel, facilitating friendly and clear visitor assistance.",
+      "intended_agents": [
+        "welcome_host"
+      ]
+    },
+    {
+      "tag": "welcome_zone",
+      "name": "welcome_and_reception_zone_overview",
+      "source_object_ids": [
+        "steinpilz_welcome_counter"
+      ],
+      "text": "The Welcome and Reception Zone is positioned near the front of the room and includes the Steinpilz Welcome Counter. This area is dedicated to warmly receiving visitors, offering orientation and guidance to help them navigate the interactive cheese tasting and educational experience.",
+      "intended_agents": [
+        "welcome_host"
+      ]
+    },
+    {
+      "tag": "steinpilz_welcome_counter",
+      "name": "steinpilz_welcome_counter_details",
+      "source_object_ids": [
+        "steinpilz_welcome_counter"
+      ],
+      "text": "The Steinpilz Welcome Counter is a compact, welcoming oak-and-cream reception desk facing into the room. It features a softly rounded visitor edge, a recessed staff side, and an integrated Steinpilz emblem. A broad tactile orientation panel supports visitor interaction and serves as a clear arrival point without obstructing circulation.",
+      "intended_agents": [
+        "welcome_host"
+      ]
+    },
+    {
+      "tag": "cheese_making_process",
+      "name": "cheese_making_process_explanation",
+      "source_object_ids": [
+        "demonstration_cheese_press",
+        "cheese_kettle",
+        "main_service_counter"
+      ],
+      "text": "The Cheese Production Demonstration Zone showcases traditional and modern cheese making processes. Visitors can learn about cheese production using the hand-operated cheese press and the interactive cheese kettle, both positioned around the main service counter. These objects enable hands-on demonstrations of pressing curds and heating milk mixtures to form cheese.",
+      "intended_agents": [
+        "cheese_expert"
+      ]
+    },
+    {
+      "tag": "cheese_production_zone",
+      "name": "cheese_production_demonstration_zone_overview",
+      "source_object_ids": [
+        "demonstration_cheese_press",
+        "cheese_kettle",
+        "main_service_counter"
+      ],
+      "text": "Located centrally in the room, the Cheese Production Demonstration Zone contains key equipment such as the demonstration cheese press, cheese kettle, and the main service counter. This zone invites visitors to engage interactively with cheese making tools and learn about the production process through tactile and visual experiences.",
+      "intended_agents": [
+        "cheese_expert"
+      ]
+    },
+    {
+      "tag": "demonstration_cheese_press",
+      "name": "demonstration_cheese_press_features",
+      "source_object_ids": [
+        "demonstration_cheese_press"
+      ],
+      "text": "The demonstration cheese press is a compact, floor-standing manual device made of oak and brushed steel. Positioned to the left of the main counter, it includes a front-facing wooden hand crank with a rounded grip at waist height, allowing visitors to physically experience the pressing step in cheese making safely and intuitively.",
+      "intended_agents": [
+        "cheese_expert"
+      ]
+    },
+    {
+      "tag": "cheese_kettle",
+      "name": "interactive_cheese_kettle_description",
+      "source_object_ids": [
+        "cheese_kettle"
+      ],
+      "text": "The cheese kettle is a compact, brushed stainless steel machine with a circular basin and integrated slow agitator. It features tactile temperature controls and a large rounded control wheel, enabling visitors to explore the heating and stirring processes involved in cheese production. The kettle dispenses cheese forms through a low outlet for demonstration purposes.",
+      "intended_agents": [
+        "cheese_expert"
+      ]
+    },
+    {
+      "tag": "main_service_counter",
+      "name": "main_service_counter_role",
+      "source_object_ids": [
+        "main_service_counter"
+      ],
+      "text": "The main service counter is a solid oak sales desk with a clean matte top and rounded corners on the visitor side. At 1.05 meters high, it provides a comfortable standing height for tactile interaction and demonstrations related to cheese production and visitor engagement.",
+      "intended_agents": [
+        "cheese_expert"
+      ]
+    },
+    {
+      "tag": "tactile_cheese_exploration",
+      "name": "tactile_cheese_exploration_experience",
+      "source_object_ids": [
+        "central_touch_table"
+      ],
+      "text": "The Tactile Exploration Zone centers on the rounded oak central touch table, designed for hands-on exploration of cheese textures and materials. Visitors can physically interact with various cheese-related items, enhancing their sensory understanding of cheese characteristics in a comfortable and accessible setting.",
+      "intended_agents": [
+        "tactile_guide"
+      ]
+    },
+    {
+      "tag": "tactile_exploration_zone",
+      "name": "tactile_exploration_zone_overview",
+      "source_object_ids": [
+        "central_touch_table"
+      ],
+      "text": "Situated near the room center, the Tactile Exploration Zone features the central touch table as its focal point. This area encourages visitors to engage with cheese materials through touch, supporting interactive learning and sensory discovery within the overall cheese experience.",
+      "intended_agents": [
+        "tactile_guide"
+      ]
+    },
+    {
+      "tag": "central_touch_table",
+      "name": "central_touch_table_details",
+      "source_object_ids": [
+        "central_touch_table"
+      ],
+      "text": "The central touch table is a freestanding rounded oak table positioned to allow wide circulation and comfortable access from all sides. It offers a clear aisle to the main service counter and hosts tactile cheese exploration materials, inviting visitors to engage physically with cheese textures and related educational content.",
+      "intended_agents": [
+        "tactile_guide"
+      ]
+    },
+    {
+      "tag": "dairy_farming_and_milk_delivery",
+      "name": "dairy_farming_and_milk_delivery_heritage",
+      "source_object_ids": [
+        "steinpilz_dairy_cow",
+        "steinpilz_milk_delivery_truck"
+      ],
+      "text": "The Dairy Farming and Delivery Exhibit Zone presents Steinpilz's heritage through a life-size calm dairy cow model and a vintage milk delivery truck. These exhibits highlight traditional dairy farming practices and the historical milk delivery process, connecting visitors with the brand's roots and agricultural background.",
+      "intended_agents": [
+        "heritage_educator"
+      ]
+    },
+    {
+      "tag": "dairy_farming_exhibit_zone",
+      "name": "dairy_farming_exhibit_zone_overview",
+      "source_object_ids": [
+        "steinpilz_dairy_cow",
+        "steinpilz_milk_delivery_truck"
+      ],
+      "text": "Located along the left side of the room, the Dairy Farming Exhibit Zone features the Steinpilz dairy cow model and the vintage milk delivery truck. This zone educates visitors about the history of dairy farming and milk distribution associated with the Steinpilz brand, enriching the overall experience with heritage storytelling.",
+      "intended_agents": [
+        "heritage_educator"
+      ]
+    },
+    {
+      "tag": "steinpilz_dairy_cow",
+      "name": "steinpilz_dairy_cow_exhibit",
+      "source_object_ids": [
+        "steinpilz_dairy_cow"
+      ],
+      "text": "The Steinpilz dairy cow is a friendly life-size model with a calm stance and softly modeled hide. It includes clearly shaped ears and horns with rounded safe tips, and broad tactile areas along the shoulder and flank, inviting visitors to touch and connect with the dairy farming heritage.",
+      "intended_agents": [
+        "heritage_educator"
+      ]
+    },
+    {
+      "tag": "steinpilz_milk_delivery_truck",
+      "name": "steinpilz_milk_delivery_truck_exhibit",
+      "source_object_ids": [
+        "steinpilz_milk_delivery_truck"
+      ],
+      "text": "The vintage Steinpilz milk delivery truck is a compact exhibit in warm cream and brushed metal, positioned along the left wall. It features rounded bodywork, a visible cab, large door handles, a steering wheel, and milk-tank fittings, providing a tactile and visual representation of historical milk delivery.",
+      "intended_agents": [
+        "heritage_educator"
+      ]
+    },
+    {
+      "tag": "lounge_zone",
+      "name": "lounge_and_relaxation_zone_description",
+      "source_object_ids": [
+        "cheese_lounge_rug",
+        "right_lounge_green_plant"
+      ],
+      "text": "The Lounge and Relaxation Zone is located on the right side of the room, defined by a soft circular woven wool rug in warm cream and Steinpilz brown. It includes lush green plants that create a comfortable and inviting atmosphere for visitors to relax and socialize after exploring the cheese experience.",
+      "intended_agents": [
+        "lounge_host"
+      ]
+    },
+    {
+      "tag": "greenery_zone",
+      "name": "greenery_and_ambiance_zone_overview",
+      "source_object_ids": [
+        "left_gallery_green_plant",
+        "right_lounge_green_plant"
+      ],
+      "text": "The Greenery and Ambiance Zone enhances the room's visual and spatial softness with healthy medium-height evergreen houseplants in rounded floor pots. Positioned near the left gallery wall and the lounge area, these plants contribute to a calming environment that supports visitor relaxation and socializing.",
+      "intended_agents": [
+        "lounge_host"
+      ]
+    },
+    {
+      "tag": "cheese_lounge_rug",
+      "name": "cheese_lounge_rug_features",
+      "source_object_ids": [
+        "cheese_lounge_rug"
+      ],
+      "text": "The cheese lounge rug is a soft, circular woven wool rug in warm cream and Steinpilz brown tones. It clearly defines the lounge zone on the right side of the room without obstructing central circulation, providing a cozy area for visitors to rest and enjoy the ambiance.",
+      "intended_agents": [
+        "lounge_host"
+      ]
+    },
+    {
+      "tag": "right_lounge_green_plant",
+      "name": "right_lounge_green_plant_description",
+      "source_object_ids": [
+        "right_lounge_green_plant"
+      ],
+      "text": "The right lounge green plant is a lush indoor potted plant with layered rounded leaves in a stable warm-gray ceramic floor pot. It visually transitions the space between the cheese production machines and the lounge area, contributing to a soft and inviting atmosphere while maintaining clear walking paths.",
+      "intended_agents": [
+        "lounge_host"
+      ]
+    },
+    {
+      "tag": "left_gallery_green_plant",
+      "name": "left_gallery_green_plant_description",
+      "source_object_ids": [
+        "left_gallery_green_plant"
+      ],
+      "text": "The left gallery green plant is a healthy medium-height evergreen houseplant with broad soft leaves, placed in a heavy rounded matte-cream floor pot. It softens the left gallery wall between the dairy farming exhibits and the cheese production area, enhancing the room's ambiance without sharp stems or loose soil.",
+      "intended_agents": [
+        "lounge_host"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,268 @@
+{
+  "domain": "Food Experience and Education",
+  "room_purpose": "Interactive cheese tasting and educational experience room showcasing cheese production, dairy farming, and Steinpilz brand heritage.",
+  "visitor_goals": [
+    "Learn about cheese making processes",
+    "Interact with cheese production equipment",
+    "Experience tactile exploration of cheese-related materials",
+    "Relax and socialize in a lounge area",
+    "Discover Steinpilz dairy farming and delivery history",
+    "Receive welcome and guidance from staff"
+  ],
+  "semantic_zones": [
+    {
+      "zone_id": "welcome_zone",
+      "name": "Welcome and Reception Zone",
+      "purpose": "Initial visitor reception, information, and guidance area",
+      "object_ids": [
+        "steinpilz_welcome_counter"
+      ],
+      "centroid_xz": {
+        "x": 0.9,
+        "z": -4.15
+      },
+      "visitor_goals_supported": [
+        "Receive welcome and guidance from staff"
+      ]
+    },
+    {
+      "zone_id": "cheese_production_zone",
+      "name": "Cheese Production Demonstration Zone",
+      "purpose": "Hands-on demonstration and interaction with cheese making equipment",
+      "object_ids": [
+        "demonstration_cheese_press",
+        "cheese_kettle",
+        "main_service_counter"
+      ],
+      "centroid_xz": {
+        "x": 0.0,
+        "z": 3.35
+      },
+      "visitor_goals_supported": [
+        "Learn about cheese making processes",
+        "Interact with cheese production equipment"
+      ]
+    },
+    {
+      "zone_id": "tactile_exploration_zone",
+      "name": "Tactile Exploration Zone",
+      "purpose": "Interactive tactile exploration of cheese-related materials and information",
+      "object_ids": [
+        "central_touch_table"
+      ],
+      "centroid_xz": {
+        "x": 0.0,
+        "z": 0.6
+      },
+      "visitor_goals_supported": [
+        "Experience tactile exploration of cheese-related materials"
+      ]
+    },
+    {
+      "zone_id": "dairy_farming_exhibit_zone",
+      "name": "Dairy Farming and Delivery Exhibit Zone",
+      "purpose": "Exhibition of dairy farming and milk delivery heritage related to Steinpilz brand",
+      "object_ids": [
+        "steinpilz_dairy_cow",
+        "steinpilz_milk_delivery_truck"
+      ],
+      "centroid_xz": {
+        "x": -3.5,
+        "z": -2.9
+      },
+      "visitor_goals_supported": [
+        "Discover Steinpilz dairy farming and delivery history"
+      ]
+    },
+    {
+      "zone_id": "lounge_zone",
+      "name": "Lounge and Relaxation Zone",
+      "purpose": "Comfortable area for visitors to relax and socialize",
+      "object_ids": [
+        "cheese_lounge_rug",
+        "right_lounge_green_plant"
+      ],
+      "centroid_xz": {
+        "x": 5.575,
+        "z": -1.475
+      },
+      "visitor_goals_supported": [
+        "Relax and socialize in a lounge area"
+      ]
+    },
+    {
+      "zone_id": "greenery_zone",
+      "name": "Greenery and Ambiance Zone",
+      "purpose": "Visual and spatial softening with plants to enhance ambiance",
+      "object_ids": [
+        "left_gallery_green_plant"
+      ],
+      "centroid_xz": {
+        "x": 0.0,
+        "z": 1.1
+      },
+      "visitor_goals_supported": [
+        "Relax and socialize in a lounge area"
+      ]
+    }
+  ],
+  "important_objects": [
+    {
+      "object_id": "main_service_counter",
+      "reason": "Central point for cheese sales and visitor interaction with staff"
+    },
+    {
+      "object_id": "demonstration_cheese_press",
+      "reason": "Key interactive exhibit demonstrating traditional cheese pressing"
+    },
+    {
+      "object_id": "cheese_kettle",
+      "reason": "Interactive cheese-making machine for visitor engagement"
+    },
+    {
+      "object_id": "steinpilz_welcome_counter",
+      "reason": "Primary visitor reception and information point"
+    },
+    {
+      "object_id": "central_touch_table",
+      "reason": "Facilitates tactile exploration and learning"
+    },
+    {
+      "object_id": "steinpilz_dairy_cow",
+      "reason": "Life-size model to educate about dairy farming"
+    },
+    {
+      "object_id": "steinpilz_milk_delivery_truck",
+      "reason": "Exhibit illustrating historical milk delivery"
+    },
+    {
+      "object_id": "cheese_lounge_rug",
+      "reason": "Defines lounge area for visitor comfort and socializing"
+    }
+  ],
+  "interaction_topics": [
+    {
+      "topic_id": "cheese_making_process",
+      "title": "Cheese Making Process",
+      "description": "Explanation and demonstration of traditional and modern cheese making using the press and kettle.",
+      "related_object_ids": [
+        "demonstration_cheese_press",
+        "cheese_kettle",
+        "main_service_counter"
+      ]
+    },
+    {
+      "topic_id": "dairy_farming_and_milk_delivery",
+      "title": "Dairy Farming and Milk Delivery History",
+      "description": "Educational content about the dairy cow and vintage milk truck exhibits, highlighting Steinpilz's heritage.",
+      "related_object_ids": [
+        "steinpilz_dairy_cow",
+        "steinpilz_milk_delivery_truck"
+      ]
+    },
+    {
+      "topic_id": "tactile_cheese_exploration",
+      "title": "Tactile Cheese Exploration",
+      "description": "Hands-on exploration of cheese textures and materials at the central touch table.",
+      "related_object_ids": [
+        "central_touch_table"
+      ]
+    },
+    {
+      "topic_id": "visitor_welcome_and_guidance",
+      "title": "Visitor Welcome and Guidance",
+      "description": "Information and assistance provided at the welcome counter to orient visitors.",
+      "related_object_ids": [
+        "steinpilz_welcome_counter"
+      ]
+    }
+  ],
+  "agent_role_candidates": [
+    {
+      "role_id": "welcome_host",
+      "display_name": "Welcome Host",
+      "mission": "Greet visitors, provide orientation and information, and assist with navigation.",
+      "expertise": [
+        "visitor guidance",
+        "information provision",
+        "customer service"
+      ],
+      "responsible_zone_ids": [
+        "welcome_zone"
+      ],
+      "grounded_object_ids": [
+        "steinpilz_welcome_counter"
+      ]
+    },
+    {
+      "role_id": "cheese_expert",
+      "display_name": "Cheese Expert",
+      "mission": "Explain cheese making processes, operate demonstration equipment, and answer visitor questions.",
+      "expertise": [
+        "cheese production",
+        "interactive demonstration",
+        "visitor education"
+      ],
+      "responsible_zone_ids": [
+        "cheese_production_zone"
+      ],
+      "grounded_object_ids": [
+        "demonstration_cheese_press",
+        "cheese_kettle",
+        "main_service_counter"
+      ]
+    },
+    {
+      "role_id": "tactile_guide",
+      "display_name": "Tactile Exploration Guide",
+      "mission": "Facilitate tactile learning experiences and engage visitors at the touch table.",
+      "expertise": [
+        "interactive learning",
+        "tactile exploration",
+        "visitor engagement"
+      ],
+      "responsible_zone_ids": [
+        "tactile_exploration_zone"
+      ],
+      "grounded_object_ids": [
+        "central_touch_table"
+      ]
+    },
+    {
+      "role_id": "heritage_educator",
+      "display_name": "Heritage Educator",
+      "mission": "Educate visitors about Steinpilz dairy farming and delivery history using exhibits.",
+      "expertise": [
+        "dairy farming history",
+        "brand heritage",
+        "visitor education"
+      ],
+      "responsible_zone_ids": [
+        "dairy_farming_exhibit_zone"
+      ],
+      "grounded_object_ids": [
+        "steinpilz_dairy_cow",
+        "steinpilz_milk_delivery_truck"
+      ]
+    },
+    {
+      "role_id": "lounge_host",
+      "display_name": "Lounge Host",
+      "mission": "Maintain comfort and ambiance in the lounge area, assist visitors relaxing and socializing.",
+      "expertise": [
+        "visitor comfort",
+        "ambiance management",
+        "customer service"
+      ],
+      "responsible_zone_ids": [
+        "lounge_zone",
+        "greenery_zone"
+      ],
+      "grounded_object_ids": [
+        "cheese_lounge_rug",
+        "right_lounge_green_plant",
+        "left_gallery_green_plant"
+      ]
+    }
+  ]
+}

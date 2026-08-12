@@ -331,6 +331,18 @@ public sealed class FunctionalMldsV2QuickAgentBridge
             if (string.Equals(normalized, "chat", StringComparison.Ordinal))
                 narrowed = FilterExact(narrowed, observation.RuntimeActionId, item => item.Execution.RuntimeActionId);
 
+            // Non-deictic communication is intentionally independent of the
+            // currently active/routed agent. Select the one trusted targetless
+            // chain before provider narrowing; otherwise an active agent that
+            // also owns object-bound mappings can remove the generic chain.
+            if (string.Equals(
+                    observation.InteractionMode,
+                    FunctionalMldsV2InteractionEvidenceEvaluator.NonDeicticMode,
+                    StringComparison.Ordinal))
+            {
+                narrowed = narrowed.Where(item => item.Execution.TargetIds.Count == 0);
+            }
+
             var provider = TextOf(observation.RoutedAgentId, observation.RequestedAgentId);
             if (!string.IsNullOrWhiteSpace(provider))
             {
@@ -339,13 +351,6 @@ public sealed class FunctionalMldsV2QuickAgentBridge
                     narrowed = providerMatches;
             }
 
-            if (string.Equals(
-                    observation.InteractionMode,
-                    FunctionalMldsV2InteractionEvidenceEvaluator.NonDeicticMode,
-                    StringComparison.Ordinal))
-            {
-                narrowed = narrowed.Where(item => item.Execution.TargetIds.Count == 0);
-            }
         }
 
         var exact = narrowed.ToList();

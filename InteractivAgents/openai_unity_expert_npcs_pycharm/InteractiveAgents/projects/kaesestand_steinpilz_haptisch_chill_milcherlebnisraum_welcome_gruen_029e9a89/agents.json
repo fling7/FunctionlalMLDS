@@ -1,0 +1,279 @@
+{
+  "placement_schema": "functionalmlds_agent_placements",
+  "placement_schema_version": "2.0",
+  "placement_algorithm_version": "2.0.0",
+  "placement_origin": "wizard_manual",
+  "placement_artifact_sha256": "d542eb7b0091ca7a55d6b16b5300714be68b6c21266f4264aeeb62bfd8c35f65",
+  "placement_projection_sha256": "726209b077d066397f334e7299c6004c27ef20d18d9332a0a4040760f819bd67",
+  "agents": [
+    {
+      "id": "welcome_host",
+      "display_name": "Welcome Host",
+      "persona": "Friendly and approachable guide who warmly welcomes visitors, provides clear orientation, and assists with navigation throughout the experience.",
+      "voice": "fable",
+      "voice_gender": "weiblich",
+      "voice_style": "freundlich",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "visitor guidance",
+        "information provision",
+        "customer service"
+      ],
+      "knowledge_tags": [
+        "visitor_welcome_and_guidance",
+        "welcome_zone",
+        "steinpilz_welcome_counter"
+      ],
+      "responsible_zone_ids": [
+        "welcome_zone"
+      ],
+      "grounded_object_ids": [
+        "steinpilz_welcome_counter"
+      ],
+      "handoff_targets": [
+        "cheese_expert",
+        "heritage_educator",
+        "tactile_guide",
+        "lounge_host"
+      ],
+      "preferred_zone_ids": [
+        "welcome_zone"
+      ],
+      "position": {
+        "x": 2.567500352859497,
+        "y": 0.0,
+        "z": -4.257224082946777
+      },
+      "forward": {
+        "x": -0.0329468734562397,
+        "y": 0.0,
+        "z": 0.9994571208953857
+      },
+      "functionalmlds_agent_ref": "ENT-AGENT-WELCOME_HOST",
+      "functionalmlds_entity_ref": "ENT-AGENT-WELCOME_HOST",
+      "provided_capability_ids": [
+        "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "plays_actor_ids": [
+        "ACT-ROOM-GUIDE"
+      ]
+    },
+    {
+      "id": "cheese_expert",
+      "display_name": "Cheese Expert",
+      "persona": "Enthusiastic cheese specialist passionate about explaining cheese making processes and demonstrating equipment to engage and educate visitors.",
+      "voice": "ash",
+      "voice_gender": "maennlich",
+      "voice_style": "informativ",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "cheese production",
+        "interactive demonstration",
+        "visitor education"
+      ],
+      "knowledge_tags": [
+        "cheese_making_process",
+        "cheese_production_zone",
+        "demonstration_cheese_press",
+        "cheese_kettle",
+        "main_service_counter"
+      ],
+      "responsible_zone_ids": [
+        "cheese_production_zone"
+      ],
+      "grounded_object_ids": [
+        "demonstration_cheese_press",
+        "cheese_kettle",
+        "main_service_counter"
+      ],
+      "handoff_targets": [
+        "tactile_guide",
+        "heritage_educator",
+        "welcome_host"
+      ],
+      "preferred_zone_ids": [
+        "cheese_production_zone"
+      ],
+      "position": {
+        "x": 0.06583359092473984,
+        "y": 0.0,
+        "z": 4.388887405395508
+      },
+      "forward": {
+        "x": 0.044400617480278015,
+        "y": 0.0,
+        "z": -0.9990138411521912
+      },
+      "functionalmlds_agent_ref": "ENT-AGENT-CHEESE_EXPERT",
+      "functionalmlds_entity_ref": "ENT-AGENT-CHEESE_EXPERT",
+      "provided_capability_ids": [
+        "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "plays_actor_ids": [
+        "ACT-ROOM-GUIDE"
+      ]
+    },
+    {
+      "id": "tactile_guide",
+      "display_name": "Tactile Exploration Guide",
+      "persona": "Engaging and patient facilitator who encourages visitors to explore cheese textures and materials through hands-on tactile experiences.",
+      "voice": "sage",
+      "voice_gender": "weiblich",
+      "voice_style": "einladend",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "interactive learning",
+        "tactile exploration",
+        "visitor engagement"
+      ],
+      "knowledge_tags": [
+        "tactile_cheese_exploration",
+        "tactile_exploration_zone",
+        "central_touch_table"
+      ],
+      "responsible_zone_ids": [
+        "tactile_exploration_zone"
+      ],
+      "grounded_object_ids": [
+        "central_touch_table"
+      ],
+      "handoff_targets": [
+        "cheese_expert",
+        "welcome_host"
+      ],
+      "preferred_zone_ids": [
+        "tactile_exploration_zone"
+      ],
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -0.6499999761581421
+      },
+      "forward": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+      },
+      "functionalmlds_agent_ref": "ENT-AGENT-TACTILE_GUIDE",
+      "functionalmlds_entity_ref": "ENT-AGENT-TACTILE_GUIDE",
+      "provided_capability_ids": [
+        "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "plays_actor_ids": [
+        "ACT-ROOM-GUIDE"
+      ]
+    },
+    {
+      "id": "heritage_educator",
+      "display_name": "Heritage Educator",
+      "persona": "Knowledgeable storyteller who shares the rich history of Steinpilz dairy farming and milk delivery, connecting visitors with the brand heritage.",
+      "voice": "coral",
+      "voice_gender": "maennlich",
+      "voice_style": "erzählerisch",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "dairy farming history",
+        "brand heritage",
+        "visitor education"
+      ],
+      "knowledge_tags": [
+        "dairy_farming_and_milk_delivery",
+        "dairy_farming_exhibit_zone",
+        "steinpilz_dairy_cow",
+        "steinpilz_milk_delivery_truck"
+      ],
+      "responsible_zone_ids": [
+        "dairy_farming_exhibit_zone"
+      ],
+      "grounded_object_ids": [
+        "steinpilz_dairy_cow",
+        "steinpilz_milk_delivery_truck"
+      ],
+      "handoff_targets": [
+        "welcome_host",
+        "cheese_expert"
+      ],
+      "preferred_zone_ids": [
+        "dairy_farming_exhibit_zone"
+      ],
+      "position": {
+        "x": -3.489166498184204,
+        "y": 0.0,
+        "z": -2.6772241592407227
+      },
+      "forward": {
+        "x": 0.5591416954994202,
+        "y": 0.0,
+        "z": 0.8290721774101257
+      },
+      "functionalmlds_agent_ref": "ENT-AGENT-HERITAGE_EDUCATOR",
+      "functionalmlds_entity_ref": "ENT-AGENT-HERITAGE_EDUCATOR",
+      "provided_capability_ids": [
+        "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "plays_actor_ids": [
+        "ACT-ROOM-GUIDE"
+      ]
+    },
+    {
+      "id": "lounge_host",
+      "display_name": "Lounge Host",
+      "persona": "Calm and attentive host who ensures visitor comfort and ambiance in the lounge and greenery zones, assisting with relaxation and socializing needs.",
+      "voice": "shimmer",
+      "voice_gender": "weiblich",
+      "voice_style": "beruhigend",
+      "tts_model": "gpt-4o-mini-tts",
+      "expertise": [
+        "visitor comfort",
+        "ambiance management",
+        "customer service"
+      ],
+      "knowledge_tags": [
+        "lounge_zone",
+        "greenery_zone",
+        "cheese_lounge_rug",
+        "right_lounge_green_plant",
+        "left_gallery_green_plant"
+      ],
+      "responsible_zone_ids": [
+        "lounge_zone",
+        "greenery_zone"
+      ],
+      "grounded_object_ids": [
+        "cheese_lounge_rug",
+        "right_lounge_green_plant",
+        "left_gallery_green_plant"
+      ],
+      "handoff_targets": [
+        "welcome_host"
+      ],
+      "preferred_zone_ids": [
+        "lounge_zone",
+        "greenery_zone"
+      ],
+      "position": {
+        "x": 5.6836113929748535,
+        "y": 0.0,
+        "z": -0.2633351683616638
+      },
+      "forward": {
+        "x": -0.8904346823692322,
+        "y": 0.0,
+        "z": -0.4551111161708832
+      },
+      "functionalmlds_agent_ref": "ENT-AGENT-LOUNGE_HOST",
+      "functionalmlds_entity_ref": "ENT-AGENT-LOUNGE_HOST",
+      "provided_capability_ids": [
+        "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "plays_actor_ids": [
+        "ACT-ROOM-GUIDE"
+      ]
+    }
+  ]
+}

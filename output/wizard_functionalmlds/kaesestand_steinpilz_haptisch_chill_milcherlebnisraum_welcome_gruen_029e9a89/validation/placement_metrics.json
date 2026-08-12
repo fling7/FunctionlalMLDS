@@ -1,0 +1,153 @@
+{
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "metrics": {
+    "agent_count": 5,
+    "placement_count": 5,
+    "valid_position_count": 5,
+    "valid_position_ratio": 1.0,
+    "out_of_bounds_count": 0,
+    "obstacle_overlap_count": 0,
+    "minimum_agent_distance": 4.035334,
+    "minimum_agent_distance_threshold": 1.0,
+    "average_distance_to_target_xz": 1.536231,
+    "max_distance_to_target_xz": 1.903124,
+    "average_nearest_responsible_group_distance": 1.513802,
+    "max_nearest_responsible_group_distance": 1.816115,
+    "average_nearest_responsible_zone_distance": 1.080295,
+    "max_nearest_responsible_zone_distance": 1.670944
+  },
+  "per_agent": [
+    {
+      "agent_id": "welcome_host",
+      "valid_position": true,
+      "position": {
+        "x": 2.5675,
+        "z": -4.257224
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 1.670944,
+      "responsible_group_count": 1,
+      "distance_to_responsible_object_groups": {
+        "count": 1,
+        "nearest": 1.670944,
+        "average": 1.670944,
+        "maximum": 1.670944
+      },
+      "responsible_zone_count": 1,
+      "distance_to_responsible_zones": {
+        "count": 1,
+        "nearest": 1.670944,
+        "average": 1.670944,
+        "maximum": 1.670944
+      }
+    },
+    {
+      "agent_id": "cheese_expert",
+      "valid_position": true,
+      "position": {
+        "x": 0.065834,
+        "z": 4.388887
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 1.040971,
+      "responsible_group_count": 2,
+      "distance_to_responsible_object_groups": {
+        "count": 2,
+        "nearest": 1.040971,
+        "average": 1.040971,
+        "maximum": 1.040971
+      },
+      "responsible_zone_count": 1,
+      "distance_to_responsible_zones": {
+        "count": 1,
+        "nearest": 1.040971,
+        "average": 1.040971,
+        "maximum": 1.040971
+      }
+    },
+    {
+      "agent_id": "tactile_guide",
+      "valid_position": true,
+      "position": {
+        "x": 0.0,
+        "z": -0.65
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 1.25,
+      "responsible_group_count": 1,
+      "distance_to_responsible_object_groups": {
+        "count": 1,
+        "nearest": 1.25,
+        "average": 1.25,
+        "maximum": 1.25
+      },
+      "responsible_zone_count": 1,
+      "distance_to_responsible_zones": {
+        "count": 1,
+        "nearest": 1.25,
+        "average": 1.25,
+        "maximum": 1.25
+      }
+    },
+    {
+      "agent_id": "heritage_educator",
+      "valid_position": true,
+      "position": {
+        "x": -3.489166,
+        "z": -2.677224
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 1.903124,
+      "responsible_group_count": 2,
+      "distance_to_responsible_object_groups": {
+        "count": 2,
+        "nearest": 1.79098,
+        "average": 1.847052,
+        "maximum": 1.903124
+      },
+      "responsible_zone_count": 1,
+      "distance_to_responsible_zones": {
+        "count": 1,
+        "nearest": 0.223039,
+        "average": 0.223039,
+        "maximum": 0.223039
+      }
+    },
+    {
+      "agent_id": "lounge_host",
+      "valid_position": true,
+      "position": {
+        "x": 5.683611,
+        "z": -0.263335
+      },
+      "inside_room_bounds": true,
+      "overlaps_obstacle": false,
+      "valid_forward": true,
+      "distance_to_target_xz": 1.816115,
+      "responsible_group_count": 2,
+      "distance_to_responsible_object_groups": {
+        "count": 2,
+        "nearest": 1.816115,
+        "average": 3.830476,
+        "maximum": 5.844837
+      },
+      "responsible_zone_count": 2,
+      "distance_to_responsible_zones": {
+        "count": 2,
+        "nearest": 1.216523,
+        "average": 3.53068,
+        "maximum": 5.844837
+      }
+    }
+  ]
+}

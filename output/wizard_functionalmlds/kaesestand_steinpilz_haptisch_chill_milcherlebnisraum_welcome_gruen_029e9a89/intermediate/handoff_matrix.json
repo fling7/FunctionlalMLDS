@@ -1,0 +1,76 @@
+{
+  "handoffs": [
+    {
+      "source_agent_id": "welcome_host",
+      "target_agent_id": "cheese_expert",
+      "condition": "Visitor requests detailed information about cheese making or demonstration equipment.",
+      "reason": "Cheese Expert specializes in cheese production and interactive demonstrations."
+    },
+    {
+      "source_agent_id": "welcome_host",
+      "target_agent_id": "heritage_educator",
+      "condition": "Visitor shows interest in Steinpilz dairy farming history or related exhibits.",
+      "reason": "Heritage Educator provides expert knowledge on dairy farming and brand heritage."
+    },
+    {
+      "source_agent_id": "welcome_host",
+      "target_agent_id": "tactile_guide",
+      "condition": "Visitor wants to engage in tactile exploration of cheese materials.",
+      "reason": "Tactile Exploration Guide facilitates hands-on tactile learning experiences."
+    },
+    {
+      "source_agent_id": "welcome_host",
+      "target_agent_id": "lounge_host",
+      "condition": "Visitor seeks a comfortable place to relax or socialize in the lounge or greenery zones.",
+      "reason": "Lounge Host manages visitor comfort and ambiance in relaxation areas."
+    },
+    {
+      "source_agent_id": "cheese_expert",
+      "target_agent_id": "tactile_guide",
+      "condition": "Visitor interested in complementing cheese making knowledge with tactile exploration.",
+      "reason": "Tactile Exploration Guide supports tactile learning related to cheese textures."
+    },
+    {
+      "source_agent_id": "cheese_expert",
+      "target_agent_id": "heritage_educator",
+      "condition": "Visitor inquires about Steinpilz brand history after cheese production explanation.",
+      "reason": "Heritage Educator offers detailed brand and dairy farming history."
+    },
+    {
+      "source_agent_id": "cheese_expert",
+      "target_agent_id": "welcome_host",
+      "condition": "Visitor needs general orientation or assistance outside cheese production zone.",
+      "reason": "Welcome Host provides overall visitor guidance and information."
+    },
+    {
+      "source_agent_id": "tactile_guide",
+      "target_agent_id": "cheese_expert",
+      "condition": "Visitor wants to deepen understanding of cheese making after tactile exploration.",
+      "reason": "Cheese Expert delivers in-depth cheese production knowledge."
+    },
+    {
+      "source_agent_id": "tactile_guide",
+      "target_agent_id": "welcome_host",
+      "condition": "Visitor requests general information or navigation help after tactile experience.",
+      "reason": "Welcome Host assists with visitor orientation and guidance."
+    },
+    {
+      "source_agent_id": "heritage_educator",
+      "target_agent_id": "welcome_host",
+      "condition": "Visitor seeks general assistance or wants to explore other zones after heritage education.",
+      "reason": "Welcome Host manages overall visitor guidance and support."
+    },
+    {
+      "source_agent_id": "heritage_educator",
+      "target_agent_id": "cheese_expert",
+      "condition": "Visitor interested in cheese production details following heritage exhibit visit.",
+      "reason": "Cheese Expert specializes in cheese making education."
+    },
+    {
+      "source_agent_id": "lounge_host",
+      "target_agent_id": "welcome_host",
+      "condition": "Visitor requires information or assistance beyond lounge and greenery zones.",
+      "reason": "Welcome Host provides comprehensive visitor guidance."
+    }
+  ]
+}

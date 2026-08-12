@@ -13,7 +13,10 @@ BACKEND_ROOT = Path(__file__).resolve().parents[1]
 if str(BACKEND_ROOT) not in sys.path:
     sys.path.insert(0, str(BACKEND_ROOT))
 
-from backend.functionalmlds_v2_runtime import FunctionalMldsContractError  # noqa: E402
+from backend.functionalmlds_v2_runtime import (  # noqa: E402
+    FunctionalMldsContractError,
+    select_runtime_action,
+)
 from backend.kb import KnowledgeBase  # noqa: E402
 from backend.projects import ProjectManager  # noqa: E402
 from backend.state import SessionStore  # noqa: E402
@@ -107,6 +110,34 @@ class SpatialChatContractTests(unittest.TestCase):
         context.update(overrides)
         return context
 
+    def test_targetless_chat_survives_active_agent_provider_narrowing(self) -> None:
+        targetless = {
+            "action_kind": "chat",
+            "provider_entity_id": "ENT-AGENT-GENERIC",
+            "target_ids": [],
+            "capability_use_id": "CU-GENERIC-CHAT",
+        }
+        runtime_context = {
+            "runtime_actions": [
+                targetless,
+                {
+                    "action_kind": "chat",
+                    "provider_entity_id": "ENT-AGENT-WELCOME",
+                    "target_ids": ["ENT-ASSET-COUNTER"],
+                    "capability_use_id": "CU-WELCOME-COUNTER",
+                },
+            ]
+        }
+
+        selected = select_runtime_action(
+            runtime_context,
+            "chat",
+            provider_entity_id="ENT-AGENT-WELCOME",
+            require_targetless=True,
+        )
+
+        self.assertEqual(targetless, selected)
+
     def test_resolved_context_routes_by_asset_and_returns_model_evidence(self) -> None:
         # agents.json is only a projection.  Even if its handoff list is widened,
         # setup must replace it with the handoffTarget relation from the V2 model.
@@ -140,6 +171,17 @@ class SpatialChatContractTests(unittest.TestCase):
         self.assertEqual("spatial_route", response["handoff"]["kind"])
         self.assertEqual("teacher_agent", response["handoff"]["from"])
         self.assertEqual("exhibit_interpreter", response["handoff"]["to"])
+        self.assertIs(response["handoff"]["modeled_handoff"], True)
+        expected_handoff = select_runtime_action(
+            state.functionalmlds_runtime_context,
+            "handoff",
+            provider_entity_id="ENT-AGENT-EXHIBIT_INTERPRETER",
+            target_id=DINO_ENTITY_ID,
+        )
+        self.assertEqual(
+            expected_handoff["capability_use_id"],
+            response["handoff_model_binding"]["capability_use_id"],
+        )
         self.assertEqual("asset", response["routing"]["priority"])
         self.assertEqual(
             DINO_ENTITY_ID,

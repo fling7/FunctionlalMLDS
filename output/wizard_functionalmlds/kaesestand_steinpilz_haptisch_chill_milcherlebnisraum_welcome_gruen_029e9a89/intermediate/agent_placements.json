@@ -1,0 +1,140 @@
+{
+  "schema": "functionalmlds_agent_placements",
+  "schema_version": "2.0",
+  "placement_algorithm_version": "2.0.0",
+  "origin": "wizard_manual",
+  "room_bounds": {
+    "min_x": -7.1,
+    "max_x": 7.1,
+    "min_z": -5.0,
+    "max_z": 5.0
+  },
+  "agent_placements": [
+    {
+      "id": "welcome_host",
+      "display_name": "Welcome Host",
+      "position": {
+        "x": 2.567500352859497,
+        "y": 0.0,
+        "z": -4.257224082946777
+      },
+      "forward": {
+        "x": -0.0329468734562397,
+        "y": 0.0,
+        "z": 0.9994571208953857
+      },
+      "target_xz": {
+        "x": 0.9,
+        "z": -4.15
+      },
+      "responsible_zone_ids": [
+        "welcome_zone"
+      ],
+      "grounded_object_ids": [
+        "steinpilz_welcome_counter"
+      ]
+    },
+    {
+      "id": "cheese_expert",
+      "display_name": "Cheese Expert",
+      "position": {
+        "x": 0.06583359092473984,
+        "y": 0.0,
+        "z": 4.388887405395508
+      },
+      "forward": {
+        "x": 0.044400617480278015,
+        "y": 0.0,
+        "z": -0.9990138411521912
+      },
+      "target_xz": {
+        "x": 0.0,
+        "z": 3.35
+      },
+      "responsible_zone_ids": [
+        "cheese_production_zone"
+      ],
+      "grounded_object_ids": [
+        "demonstration_cheese_press",
+        "cheese_kettle",
+        "main_service_counter"
+      ]
+    },
+    {
+      "id": "tactile_guide",
+      "display_name": "Tactile Exploration Guide",
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -0.6499999761581421
+      },
+      "forward": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+      },
+      "target_xz": {
+        "x": 0.0,
+        "z": 0.6
+      },
+      "responsible_zone_ids": [
+        "tactile_exploration_zone"
+      ],
+      "grounded_object_ids": [
+        "central_touch_table"
+      ]
+    },
+    {
+      "id": "heritage_educator",
+      "display_name": "Heritage Educator",
+      "position": {
+        "x": -3.489166498184204,
+        "y": 0.0,
+        "z": -2.6772241592407227
+      },
+      "forward": {
+        "x": 0.5591416954994202,
+        "y": 0.0,
+        "z": 0.8290721774101257
+      },
+      "target_xz": {
+        "x": -1.75,
+        "z": -3.45
+      },
+      "responsible_zone_ids": [
+        "dairy_farming_exhibit_zone"
+      ],
+      "grounded_object_ids": [
+        "steinpilz_dairy_cow",
+        "steinpilz_milk_delivery_truck"
+      ]
+    },
+    {
+      "id": "lounge_host",
+      "display_name": "Lounge Host",
+      "position": {
+        "x": 5.6836113929748535,
+        "y": 0.0,
+        "z": -0.2633351683616638
+      },
+      "forward": {
+        "x": -0.8904346823692322,
+        "y": 0.0,
+        "z": -0.4551111161708832
+      },
+      "target_xz": {
+        "x": 4.8,
+        "z": -1.85
+      },
+      "responsible_zone_ids": [
+        "lounge_zone",
+        "greenery_zone"
+      ],
+      "grounded_object_ids": [
+        "cheese_lounge_rug",
+        "right_lounge_green_plant",
+        "left_gallery_green_plant"
+      ]
+    }
+  ]
+}

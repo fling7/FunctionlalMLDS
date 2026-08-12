@@ -326,6 +326,7 @@ public class QuickAgentManager : MonoBehaviour
         public string to;
         public string reason;
         public string brief;
+        public bool? modeled_handoff;
     }
 
     [Serializable]
@@ -383,6 +384,7 @@ public class QuickAgentManager : MonoBehaviour
         public string memory_mode;
         public string interaction_mode;
         public ModelBindingInfo model_binding;
+        public ModelBindingInfo handoff_model_binding;
         public Handoff handoff;
         public ChatEvent[] events;
         public string[] grounded_entity_ids;
@@ -2076,12 +2078,16 @@ public class QuickAgentManager : MonoBehaviour
                 }
                 if (isHandoff)
                 {
+                    var handoffObservation = CreateHandoffInteractionObservation(
+                        payload.interaction_mode,
+                        resp,
+                        responseObserved: true);
                     FunctionalMldsV2InteractionAssessment handoffAssessment;
-                    if (!TryRequireFunctionalMldsV2Action("handoff", observation)
+                    if (!TryRequireFunctionalMldsV2Action("handoff", handoffObservation)
                         || !TryRecordFunctionalMldsV2Interaction(
                             "handoff",
                             "unity_handoff_observed",
-                            observation,
+                            handoffObservation,
                             payload,
                             resp,
                             (Time.realtimeSinceStartupAsDouble - chatStartedAt) * 1000.0,
@@ -2182,6 +2188,31 @@ public class QuickAgentManager : MonoBehaviour
         ChatResponse response,
         bool responseObserved)
     {
+        return CreateInteractionObservation(
+            interactionMode,
+            response,
+            responseObserved,
+            response?.model_binding);
+    }
+
+    private FunctionalMldsV2InteractionObservation CreateHandoffInteractionObservation(
+        string interactionMode,
+        ChatResponse response,
+        bool responseObserved)
+    {
+        return CreateInteractionObservation(
+            interactionMode,
+            response,
+            responseObserved,
+            response?.handoff_model_binding);
+    }
+
+    private FunctionalMldsV2InteractionObservation CreateInteractionObservation(
+        string interactionMode,
+        ChatResponse response,
+        bool responseObserved,
+        ModelBindingInfo modelBinding)
+    {
         var deictic = string.Equals(
             interactionMode,
             FunctionalMldsV2InteractionEvidenceEvaluator.DeicticMode,
@@ -2220,7 +2251,14 @@ public class QuickAgentManager : MonoBehaviour
                 && !string.IsNullOrWhiteSpace(selectedSpatialTarget.ZoneId)
                     ? new List<string> { selectedSpatialTarget.ZoneId }
                     : new List<string>(),
-            RequestedAgentId = activeAgentId,
+            // General text/voice communication has no trusted spatial/provider
+            // binding yet. Passing the currently active agent here can narrow
+            // away the one targetless V2 chat chain before the backend gets a
+            // chance to route the request. Deictic interactions remain bound.
+            RequestedAgentId = deictic ? activeAgentId : null,
+            // Preflight has no response and therefore no routed agent. Once a
+            // response exists, preserve its explicit route for both modes so
+            // non-deictic chat can satisfy entity/capability evidence.
             RoutedAgentId = response?.routing?.selected_agent_id ?? response?.active_agent_id,
             ResponseObserved = responseObserved,
             ResponseSelectedEntityId = response?.grounding?.selected_entity_id,
@@ -2228,11 +2266,13 @@ public class QuickAgentManager : MonoBehaviour
             HandoffObserved = hasHandoff,
             HandoffFromAgentId = hasHandoff ? response.handoff.from : null,
             HandoffToAgentId = hasHandoff ? response.handoff.to : null,
-            ModeledHandoff = hasHandoff ? response.routing?.modeled_handoff : null,
-            CapabilityUseId = response?.model_binding?.capability_use_id,
-            CapabilityId = response?.model_binding?.capability_id,
-            RuntimeBindingId = response?.model_binding?.runtime_binding_id,
-            RuntimeActionId = response?.model_binding?.runtime_action_id
+            ModeledHandoff = hasHandoff
+                ? response.handoff?.modeled_handoff ?? response.routing?.modeled_handoff
+                : null,
+            CapabilityUseId = modelBinding?.capability_use_id,
+            CapabilityId = modelBinding?.capability_id,
+            RuntimeBindingId = modelBinding?.runtime_binding_id,
+            RuntimeActionId = modelBinding?.runtime_action_id
         };
     }
 
@@ -4310,8 +4350,16 @@ public class QuickAgentManager : MonoBehaviour
             if (req.result != UnityWebRequest.Result.Success)
             {
                 statusMessage = "TTS fehlgeschlagen: " + req.error;
-                chatLog.Add(statusMessage + " | " + req.downloadHandler.text);
-                Debug.LogWarning($"[TTS] Fehler: agent={agentId}, error={req.error}");
+                // DownloadHandlerAudioClip intentionally does not support string
+                // access. Reading .text here used to hide the real HTTP/TTS error
+                // behind a NotSupportedException.
+                var responseSummary = req.responseCode > 0
+                    ? $"HTTP {req.responseCode}"
+                    : "keine HTTP-Antwort";
+                chatLog.Add(statusMessage + " | " + responseSummary);
+                Debug.LogWarning(
+                    $"[TTS] Fehler: agent={agentId}, error={req.error}, "
+                    + $"response={responseSummary}, bytes={req.downloadedBytes}");
                 yield break;
             }
 

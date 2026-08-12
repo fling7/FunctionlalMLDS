@@ -1,0 +1,174 @@
+{
+  "case_scene_name": "kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen",
+  "schema_kind": "mlds_scene",
+  "groups": [
+    {
+      "group": "animal",
+      "object_count": 1,
+      "object_types": {
+        "calm_dairy_cow_model": 1
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": -1.75,
+        "z": -3.45
+      },
+      "example_objects": [
+        {
+          "object_id": "steinpilz_dairy_cow",
+          "object_type": "calm_dairy_cow_model",
+          "specification_excerpt": "Friendly life-size dairy cow exhibit with a calm stance, softly modeled hide, clearly shaped ears and horns with rounded safe tips, and broad tactile areas along the shoulder and flank. It stands independently between the truck and the cent"
+        }
+      ]
+    },
+    {
+      "group": "architecture",
+      "object_count": 6,
+      "object_types": {
+        "floor": 1,
+        "wall": 4,
+        "ceiling": 1
+      },
+      "is_structural": true,
+      "centroid_xz": {
+        "x": 0.0,
+        "z": 0.0
+      },
+      "example_objects": [
+        {
+          "object_id": "booth_floor",
+          "object_type": "floor",
+          "specification_excerpt": "Continuous warm gray, slip-resistant mineral floor for the enlarged enclosed experience room, with broad circulation aisles and clearly separated display, production, tactile, and lounge zones."
+        },
+        {
+          "object_id": "booth_back_wall",
+          "object_type": "wall",
+          "specification_excerpt": "Warm lime-plaster back wall with restrained oak detailing; it forms the calm visual background of the cheese stall."
+        },
+        {
+          "object_id": "room_left_wall",
+          "object_type": "wall",
+          "specification_excerpt": "Complete left wall in warm lime plaster, extending from front to back and closing the experience room."
+        }
+      ]
+    },
+    {
+      "group": "craft",
+      "object_count": 2,
+      "object_types": {
+        "hand_cheese_press": 1,
+        "cheese_kettle": 1
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": 0.0,
+        "z": 3.35
+      },
+      "example_objects": [
+        {
+          "object_id": "demonstration_cheese_press",
+          "object_type": "hand_cheese_press",
+          "specification_excerpt": "Compact floor-standing manual cheese press in oak and brushed steel, clearly isolated to the left of the counter. The press integrates its existing front-facing wooden hand crank with a thick rounded grip at waist height; broad feet and enc"
+        },
+        {
+          "object_id": "cheese_kettle",
+          "object_type": "cheese_kettle",
+          "specification_excerpt": "Compact interactive cheese-making kettle machine in brushed stainless steel with a robust circular basin, integrated slow agitator, large rounded control wheel, tactile temperature controls, and a low dispensing outlet for cheese forms. Hot"
+        }
+      ]
+    },
+    {
+      "group": "furniture",
+      "object_count": 3,
+      "object_types": {
+        "oak_cheese_counter": 1,
+        "tactile_exploration_table": 1,
+        "compact_welcome_counter": 1
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": 0.3,
+        "z": -0.0667
+      },
+      "example_objects": [
+        {
+          "object_id": "main_service_counter",
+          "object_type": "oak_cheese_counter",
+          "specification_excerpt": "Solid oak sales counter with a clean matte top, rounded customer-side corners, and a recessed staff side. The 1.05 m top height is comfortable for standing tactile interaction."
+        },
+        {
+          "object_id": "central_touch_table",
+          "object_type": "tactile_exploration_table",
+          "specification_excerpt": "Freestanding rounded oak touch table. It leaves a 1.23 m clear aisle to the service counter and wide circulation on both sides; all four items are within comfortable reach."
+        },
+        {
+          "object_id": "steinpilz_welcome_counter",
+          "object_type": "compact_welcome_counter",
+          "specification_excerpt": "Compact welcoming oak-and-cream reception counter facing into the room, with a softly rounded visitor edge, recessed staff side, integrated Steinpilz emblem, and one broad tactile orientation panel. It forms a clear arrival point without bl"
+        }
+      ]
+    },
+    {
+      "group": "greenery",
+      "object_count": 2,
+      "object_types": {
+        "potted_green_plant": 2
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": 0.0,
+        "z": 1.1
+      },
+      "example_objects": [
+        {
+          "object_id": "left_gallery_green_plant",
+          "object_type": "potted_green_plant",
+          "specification_excerpt": "Healthy medium-height evergreen houseplant with broad soft leaves in a heavy rounded matte-cream floor pot, softening the left gallery wall between the milk exhibit and production area without sharp stems or loose soil."
+        },
+        {
+          "object_id": "right_lounge_green_plant",
+          "object_type": "potted_green_plant",
+          "specification_excerpt": "Second lush green indoor plant with layered rounded leaves in a stable warm-gray ceramic floor pot, creating a soft visual transition between the cheese machine and lounge while preserving clear walking space."
+        }
+      ]
+    },
+    {
+      "group": "lounge",
+      "object_count": 1,
+      "object_types": {
+        "round_rug": 1
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": 4.8,
+        "z": -1.85
+      },
+      "example_objects": [
+        {
+          "object_id": "cheese_lounge_rug",
+          "object_type": "round_rug",
+          "specification_excerpt": "Soft circular-look woven wool rug in warm cream and Steinpilz brown, clearly defining the lounge zone on the right without blocking the central circulation route."
+        }
+      ]
+    },
+    {
+      "group": "vehicle",
+      "object_count": 1,
+      "object_types": {
+        "vintage_milk_truck": 1
+      },
+      "is_structural": false,
+      "centroid_xz": {
+        "x": -5.25,
+        "z": -2.35
+      },
+      "example_objects": [
+        {
+          "object_id": "steinpilz_milk_delivery_truck",
+          "object_type": "vintage_milk_truck",
+          "specification_excerpt": "Compact vintage Steinpilz milk delivery truck in warm cream and brushed metal, positioned as one readable exhibit along the left wall. It has rounded bodywork, a visible cab, large door handles, steering wheel, milk-tank fittings, and robus"
+        }
+      ]
+    }
+  ]
+}
