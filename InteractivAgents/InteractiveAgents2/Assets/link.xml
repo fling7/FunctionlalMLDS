@@ -1,0 +1,16 @@
+<linker>
+  <!-- The new study component intentionally composes the proven communication core.
+       Preserve its private bridge surface for WebGL/IL2CPP reflection. -->
+  <assembly fullname="Assembly-CSharp">
+    <type fullname="QuickAgentManager" preserve="all" />
+    <type fullname="KaesesteinpilzUserTestQuickAgentManager" preserve="all" />
+  </assembly>
+  <assembly fullname="WebXR">
+    <type fullname="WebXR.WebXRManager" preserve="all" />
+    <type fullname="WebXR.WebXRCameraSettings" preserve="all" />
+  </assembly>
+  <assembly fullname="WebXR.InputSystem">
+    <type fullname="WebXR.InputSystem.WebXRInputSystem" preserve="all" />
+    <type fullname="WebXR.InputSystem.WebXRController" preserve="all" />
+  </assembly>
+</linker>

@@ -5,8 +5,8 @@
   "metrics": {
     "agent_count": 5,
     "kb_file_count": 20,
-    "trace_step_count": 39,
-    "trace_runtime_action_count": 33,
+    "trace_step_count": 42,
+    "trace_runtime_action_count": 35,
     "trace_validation_case_count": 15
   }
 }

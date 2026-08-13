@@ -497,54 +497,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 86354471}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &95665330
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 95665332}
-  - component: {fileID: 95665331}
-  m_Layer: 0
-  m_Name: Evaluation
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &95665331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 95665330}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae70b25833fa1454bac294ae96adffb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SingleJsonFile: {fileID: 4900000, guid: 826df432d252f154ab78eef8298959ce, type: 3}
-  AllFilesInFolder: 1
-  CalculateCFS: 1
-  CalculateIBS: 1
---- !u!4 &95665332
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 95665330}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.9998937, y: -1.5099334, z: 0.56301993}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!21 &120574293
 Material:
   serializedVersion: 8
@@ -3427,62 +3379,6 @@ Material:
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!1 &434225151
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 434225153}
-  - component: {fileID: 434225152}
-  m_Layer: 0
-  m_Name: Visualizer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &434225152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 434225151}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c59fd417635dac43ad09cc4d4cbc17c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  JsonFile: {fileID: 4900000, guid: 15bb838a1a6cf9845b6b26210d57f7ee, type: 3}
-  JsonVersion: 2
-  CollisionColor: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 1}
-  ShouldCheckCollision: 1
-  InstantLoadJson: 1
-  DeleteAll: 1
-  ValidatorIterations: 2
-  SceneName: 
-  Image: {fileID: 2800000, guid: c4d61db065558184480eecdc3904cd79, type: 3}
-  AddDevDescriptionsToGeneratedPlaceholders: 1
-  GenerateTextTo3DModelsAfterLoad: 0
-  TextTo3DApiUrl: http://127.0.0.1:5000
---- !u!4 &434225153
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 434225151}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &446248512
 GameObject:
   m_ObjectHideFlags: 0
@@ -17044,6 +16940,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2063780838}
   - component: {fileID: 2063780839}
+  - component: {fileID: 2063780840}
   m_Layer: 0
   m_Name: AGENTSPAWNER
   m_TagString: Untagged
@@ -17157,6 +17054,34 @@ MonoBehaviour:
   fpvDirectionArrowTint: {r: 1, g: 0.84, b: 0.08, a: 1}
   sessionId: 
   activeAgentId: 
+--- !u!114 &2063780840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2063780837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73efee1a0e6f43e18f755ec512f0e9a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KaesesteinpilzUserTestQuickAgentManager
+  coreManager: {fileID: 2063780839}
+  desktopBackendBaseUrl: http://127.0.0.1:8787
+  webBackendBaseUrl: 
+  autoEnterFlatFpv: 1
+  showIntroduction: 1
+  recordAnonymousStudyEvents: 1
+  flatControlMode: 0
+  moveSpeed: 2.6
+  sprintMultiplier: 1.65
+  mouseLookSensitivity: 0.12
+  touchLookSensitivity: 0.16
+  pitchLimit: 78
+  eyeHeight: 1.68
+  gravity: 18
+  taskText: "Erkunde den K\xC4SESTEINPILZ-Raum. Sprich mit mindestens zwei Agent:innen
+    und untersuche mindestens ein Objekt."
 --- !u!1 &2084977118
 GameObject:
   m_ObjectHideFlags: 0
@@ -17611,8 +17536,6 @@ SceneRoots:
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
-  - {fileID: 434225153}
-  - {fileID: 95665332}
   - {fileID: 537450691}
   - {fileID: 618216004}
   - {fileID: 930229638}

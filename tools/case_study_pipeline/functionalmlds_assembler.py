@@ -232,7 +232,12 @@ def _runtime_bindings(prefix: str) -> List[Dict[str, Any]]:
     return bindings
 
 
-def _scenario_and_capability_uses(prefix: str, uc_id: str) -> tuple[Dict[str, Any], List[Dict[str, Any]]]:
+def _scenario_and_capability_uses(
+    prefix: str,
+    uc_id: str,
+    *,
+    default_agent_provider_entity_id: str,
+) -> tuple[Dict[str, Any], List[Dict[str, Any]]]:
     """Build the authoring pipeline scenario.
 
     User-facing room interactions are deliberately modeled separately by
@@ -251,6 +256,13 @@ def _scenario_and_capability_uses(prefix: str, uc_id: str) -> tuple[Dict[str, An
         ("S07", "systemResponse", None, "Assemble and validate the FunctionalMLDS trace instance.", ["ASSEMBLE-FUNCTIONAL-MLDS"], [], None, ["FUNCTIONALMLDS-VALID"]),
         ("S08", "systemResponse", None, "Materialize the Interactive Agents project files.", ["MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"], [], None, ["PROJECT-MATERIALIZED"]),
         ("S09", "systemResponse", None, "Set up an Interactive Agents runtime session.", ["SETUP-INTERACTIVE-SESSION"], [], "AGENTS-AVAILABLE", ["SETUP-VALID"]),
+        # Keep one targetless chat/handoff chain for ordinary text and voice.
+        # Object-specific deictic chains are modeled separately below and must
+        # never reuse these IDs, otherwise the first scene asset loses its exact
+        # target mapping when the runtime selects the generic chain.
+        ("S10", "actorIntent", "ACT-VISITOR", "Ask a general room-related question to an agent.", [], ["VISITOR-QUESTION"], None, []),
+        ("S11", "systemResponse", None, "Answer a general visitor question without a selected scene object.", ["ANSWER-ROOM-GROUNDED-QUESTION"], [], None, ["ANSWER-GROUNDED"]),
+        ("S12", "systemResponse", None, "Optionally hand off a general question to a responsible specialist agent.", ["HANDOFF-TO-RESPONSIBLE-AGENT"], ["HANDOFF-NEEDED"], "HANDOFF-TARGET-AVAILABLE", ["HANDOFF-VALID"]),
     ]
     capability_uses: List[Dict[str, Any]] = []
     steps = []
@@ -260,14 +272,20 @@ def _scenario_and_capability_uses(prefix: str, uc_id: str) -> tuple[Dict[str, An
         for capability_suffix in capabilities:
             cu_id = f"CU-{prefix}-{step_suffix}-{capability_suffix}"
             use_ids.append(cu_id)
-            capability_uses.append(
-                {
+            capability_use = {
                     "id": cu_id,
                     "step_id": step_id,
                     "capability_id": f"CAP-{prefix}-{capability_suffix}",
                     "parameters": [],
                 }
-            )
+            if capability_suffix in {
+                "ANSWER-ROOM-GROUNDED-QUESTION",
+                "HANDOFF-TO-RESPONSIBLE-AGENT",
+            }:
+                capability_use["preferred_provider_entity_id"] = (
+                    default_agent_provider_entity_id
+                )
+            capability_uses.append(capability_use)
         steps.append(
             {
                 "id": step_id,
@@ -412,7 +430,7 @@ def _interaction_use_cases(
 
     use_cases: List[Dict[str, Any]] = []
     capability_uses: List[Dict[str, Any]] = []
-    for index, target in enumerate(interaction_targets):
+    for target in interaction_targets:
         object_token = target["object_token"]
         object_name = target["object_name"]
         object_id = target["object_id"]
@@ -422,25 +440,15 @@ def _interaction_use_cases(
         use_case_id = f"UC-{prefix}-INTERACT-{object_token}"
         scenario_id = f"SC-{prefix}-INTERACT-{object_token}-MAIN"
 
-        # Preserve the established runtime-trace IDs for the first, stable
-        # representative asset.  Every other asset uses an ID that contains
-        # its exact source-object token.
-        if index == 0:
-            ask_step_id = f"STEP-{prefix}-S10"
-            answer_step_id = f"STEP-{prefix}-S11"
-            handoff_step_id = f"STEP-{prefix}-S12"
-            answer_use_id = f"CU-{prefix}-S11-ANSWER-ROOM-GROUNDED-QUESTION"
-            handoff_use_id = f"CU-{prefix}-S12-HANDOFF-TO-RESPONSIBLE-AGENT"
-        else:
-            ask_step_id = f"STEP-{prefix}-INTERACT-{object_token}-ASK"
-            answer_step_id = f"STEP-{prefix}-INTERACT-{object_token}-ANSWER"
-            handoff_step_id = f"STEP-{prefix}-INTERACT-{object_token}-HANDOFF"
-            answer_use_id = (
-                f"CU-{prefix}-INTERACT-{object_token}-ANSWER-ROOM-GROUNDED-QUESTION"
-            )
-            handoff_use_id = (
-                f"CU-{prefix}-INTERACT-{object_token}-HANDOFF-TO-RESPONSIBLE-AGENT"
-            )
+        ask_step_id = f"STEP-{prefix}-INTERACT-{object_token}-ASK"
+        answer_step_id = f"STEP-{prefix}-INTERACT-{object_token}-ANSWER"
+        handoff_step_id = f"STEP-{prefix}-INTERACT-{object_token}-HANDOFF"
+        answer_use_id = (
+            f"CU-{prefix}-INTERACT-{object_token}-ANSWER-ROOM-GROUNDED-QUESTION"
+        )
+        handoff_use_id = (
+            f"CU-{prefix}-INTERACT-{object_token}-HANDOFF-TO-RESPONSIBLE-AGENT"
+        )
 
         answer_capability_id = f"CAP-{prefix}-ANSWER-ROOM-GROUNDED-QUESTION"
         handoff_capability_id = f"CAP-{prefix}-HANDOFF-TO-RESPONSIBLE-AGENT"
@@ -663,11 +671,15 @@ def assemble_functionalmlds_instance(
     object_lookup = _object_lookup(normalized_scene)
     requirements = _requirements(prefix)
     uc_id = f"UC-{prefix}-01"
-    pipeline_scenario, capability_uses = _scenario_and_capability_uses(prefix, uc_id)
     interaction_targets = _interaction_targets(
         normalized_scene=normalized_scene,
         scene_semantics=scene_semantics,
         agent_roles=agent_roles,
+    )
+    pipeline_scenario, capability_uses = _scenario_and_capability_uses(
+        prefix,
+        uc_id,
+        default_agent_provider_entity_id=interaction_targets[0]["provider_entity_id"],
     )
     interaction_use_cases, interaction_capability_uses = _interaction_use_cases(
         prefix=prefix,
@@ -684,6 +696,7 @@ def assemble_functionalmlds_instance(
         agent_id = str(agent.get("id") or "")
         responsibility_trace = _responsibility_trace(agent, object_lookup)
         voice = str(agent.get("voice") or "alloy").strip() or "alloy"
+        handoff_targets = _unique(agent.get("handoff_targets") or [])
         agents.append(
             {
                 "id": f"AG-{prefix}-{slugify(agent_id, fallback='agent').upper()}",
@@ -693,6 +706,11 @@ def assemble_functionalmlds_instance(
                 "providedCapabilityIds": [
                     f"CAP-{prefix}-ANSWER-ROOM-GROUNDED-QUESTION",
                     f"CAP-{prefix}-HANDOFF-TO-RESPONSIBLE-AGENT",
+                ],
+                "handoff_targets": handoff_targets,
+                "handoffTargetAgentIds": [
+                    f"AG-{prefix}-{slugify(target_id, fallback='agent').upper()}"
+                    for target_id in handoff_targets
                 ],
                 "display_name": agent.get("display_name") or agent_id,
                 "persona": agent.get("persona") or "",
@@ -1037,6 +1055,14 @@ def validate_functionalmlds_instance(instance: Dict[str, Any]) -> Dict[str, Any]
                 f"Capability {capability_id}."
             )
         if not target_entity_ids:
+            generic_targetless_id = str(cu_id).endswith(
+                (
+                    "-S11-ANSWER-ROOM-GROUNDED-QUESTION",
+                    "-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+                )
+            )
+            if generic_targetless_id:
+                continue
             errors.append(f"User-facing CapabilityUse {cu_id} has no explicit target.")
             continue
         unknown_targets = [

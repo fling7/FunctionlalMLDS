@@ -49,6 +49,7 @@ public static class FunctionalMldsSpatialGroundingSmoke
             RunRegistryValidationSmoke();
             RunModelBootstrapSmoke();
             RunChatSerializationSmoke();
+            RunGeneratedInstanceColliderSmoke();
             RunRayAndAgentCompatibilitySmoke();
         }
         finally
@@ -326,6 +327,55 @@ public static class FunctionalMldsSpatialGroundingSmoke
         UnityEngine.Object.DestroyImmediate(agentObject);
         UnityEngine.Object.DestroyImmediate(target.gameObject);
         UnityEngine.Object.DestroyImmediate(managerObject);
+    }
+
+    private static void RunGeneratedInstanceColliderSmoke()
+    {
+        var placeholder = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        placeholder.name = "linked_generated_placeholder";
+        placeholder.transform.position = new Vector3(-30f, 0f, 0f);
+        var placeholderCollider = placeholder.GetComponent<Collider>();
+        var description = placeholder.AddComponent<DevDescription>();
+
+        var generated = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        generated.name = "linked_generated_visible_instance";
+        generated.transform.position = new Vector3(0f, 0.5f, 5f);
+        var generatedCollider = generated.GetComponent<Collider>();
+        description.SetGeneratedResult("job", "fingerprint", "signature", "asset.glb", generated);
+
+        var binding = placeholder.AddComponent<FunctionalMldsSceneObjectBinding>();
+        binding.Configure(
+            "ENT-LINKED-GENERATED",
+            "linked_generated",
+            "ENT-GROUP-LINKED",
+            "ENT-ZONE-LINKED",
+            "Linked generated exhibit",
+            placeholderCollider,
+            new[] { "linked exhibit" });
+
+        var registry = new FunctionalMldsSceneObjectBindingRegistry();
+        registry.Rebuild(new[] { binding });
+        var resolution = registry.ResolveCollider(generatedCollider);
+        Require(registry.IsValid && resolution.IsResolved && resolution.Binding == binding,
+            "A visible generated-instance collider did not resolve to its placeholder binding.");
+
+        var managerObject = new GameObject("linked_generated_manager");
+        var manager = managerObject.AddComponent<QuickAgentManager>();
+        manager.showUi = false;
+        manager.enableTts = false;
+        manager.enableVoiceInput = false;
+        manager.spatialSelectionMaxDistance = 20f;
+        SetPrivate(manager, "currentModelSha256", "LINKED-SMOKE-HASH");
+        manager.RefreshSpatialBindingRegistry();
+        Physics.SyncTransforms();
+        var ray = new Ray(new Vector3(0f, 0.5f, 0f), Vector3.forward);
+        Require(manager.TrySelectSpatialTargetFromRay(ray, "desktop_ray")
+                && manager.SelectedSpatialEntityId == "ENT-LINKED-GENERATED",
+            "The complete QAM ray path did not select the visible generated instance.");
+
+        UnityEngine.Object.DestroyImmediate(managerObject);
+        UnityEngine.Object.DestroyImmediate(generated);
+        UnityEngine.Object.DestroyImmediate(placeholder);
     }
 
     private static FunctionalMldsSceneObjectBinding CreateBoundCube(

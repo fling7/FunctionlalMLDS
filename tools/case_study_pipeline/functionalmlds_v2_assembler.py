@@ -1122,9 +1122,21 @@ def _build_native_instance(projection: Mapping[str, Any]) -> dict[str, Any]:
                         "typeRef": type_refs,
                         "provider": [provider_id],
                         "target": (
-                            explicit_target_refs
-                            if explicit_target_refs
-                            else capability_targets.get(type_refs[0], [orchestrator_id])
+                            []
+                            if not explicit_target_refs
+                            and use_id.endswith(
+                                (
+                                    "-S11-ANSWER-ROOM-GROUNDED-QUESTION",
+                                    "-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+                                )
+                            )
+                            else (
+                                explicit_target_refs
+                                if explicit_target_refs
+                                else capability_targets.get(
+                                    type_refs[0], [orchestrator_id]
+                                )
+                            )
                         ),
                         "parameter": parameter_refs,
                     }

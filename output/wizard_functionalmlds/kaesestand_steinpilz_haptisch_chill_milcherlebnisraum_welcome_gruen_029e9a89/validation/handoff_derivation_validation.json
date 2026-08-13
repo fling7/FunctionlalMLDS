@@ -4,10 +4,10 @@
   "warnings": [],
   "metrics": {
     "agent_count": 5,
-    "handoff_pair_count": 12,
+    "handoff_pair_count": 20,
     "source_agent_with_handoff_count": 5,
     "fallback_used": false,
-    "unique_pair_count": 12,
+    "unique_pair_count": 20,
     "role_validation_status": "valid",
     "derivation_validation_status": "valid"
   },
@@ -18,7 +18,7 @@
     "metrics": {
       "agent_count": 5,
       "knowledge_tag_count": 20,
-      "handoff_count": 12,
+      "handoff_count": 20,
       "grounded_object_count": 10
     }
   },
@@ -28,8 +28,8 @@
     "warnings": [],
     "metrics": {
       "agent_count": 5,
-      "agent_handoff_target_count": 12,
-      "matrix_handoff_count": 12,
+      "agent_handoff_target_count": 20,
+      "matrix_handoff_count": 20,
       "source_agent_with_handoff_count": 5,
       "self_handoff_count": 0
     }

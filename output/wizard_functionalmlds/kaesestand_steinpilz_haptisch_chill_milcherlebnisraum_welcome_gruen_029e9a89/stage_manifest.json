@@ -454,173 +454,6 @@
       }
     },
     {
-      "stage_id": "functionalmlds_assembly",
-      "status": "success",
-      "updated_at": "2026-08-12T07:39:05+00:00",
-      "inputs": [
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\scene_graph.normalized.json",
-          "sha256": "59085b175bc19649829daca3a6b5fc91bb7af852c716a1d82dc2242efe776357"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\scene_semantics.json",
-          "sha256": "6b6195d66e0375d964575470a0795570285eb1470f3ae12d69bbb6eba2d2bce7"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\agent_roles.generated.json",
-          "sha256": "e06163c2a447c31a30833a933214b48c702d7b9b3f99dcfc16f6111da2008f63"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\agent_placements.json",
-          "sha256": "95cecc0a28e60ac0a3b0cf79635be41de3a49ef89dc18dd2d846f83175fe30d7"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\functionalmlds_assembly_v1.md",
-          "sha256": "64caf06a68b6c1c3e13df14415b4b9da90809d0c3fe41d480bbfd232853e020a"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\functionalmlds_assembler.py",
-          "sha256": "0b8d061432f44a1d6e6c28848bd36044fc1edee561bb4ea3bf15ea84005082a5"
-        }
-      ],
-      "outputs": [
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\functionalmlds\\functionalmlds.instance.generated.json",
-          "sha256": "7a6c56e3f4bc31fa21b07e91302eaf0b51a14866005ab4775510eea6305a94d0"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\validation\\functionalmlds_invariant_validation.json",
-          "sha256": "771c24985f8affacaa6875eea619bfa5357811499d819d57c0778f941c5a0115"
-        }
-      ],
-      "errors": [],
-      "warnings": [],
-      "metadata": {
-        "prompt_version": "functionalmlds_assembly_v1",
-        "deterministic": true,
-        "metrics": {
-          "requirement_count": 6,
-          "use_case_count": 11,
-          "interaction_use_case_count": 10,
-          "entity_count": 28,
-          "semantic_zone_entity_count": 6,
-          "object_group_entity_count": 6,
-          "scene_object_entity_count": 10,
-          "room_answer_capability_count": 1,
-          "handoff_capability_count": 1,
-          "handoff_runtime_binding_count": 1,
-          "handoff_runtime_action_count": 1,
-          "capability_count": 9,
-          "capability_use_count": 28,
-          "explicit_user_provider_count": 20,
-          "runtime_binding_count": 9,
-          "validation_case_count": 15,
-          "capability_use_coverage": 9,
-          "runtime_capability_coverage": 9
-        }
-      }
-    },
-    {
-      "stage_id": "handoff_derivation",
-      "status": "success",
-      "updated_at": "2026-08-12T07:39:05+00:00",
-      "inputs": [
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\agent_roles.generated.json",
-          "sha256": "e06163c2a447c31a30833a933214b48c702d7b9b3f99dcfc16f6111da2008f63"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\functionalmlds\\functionalmlds.instance.generated.json",
-          "sha256": "aa23c4156ab7f9d4363e4195fecc12abe8eb65cc182457cfda52e49d5653fd30"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\handoff_matrix.json",
-          "sha256": "556aa865444b65b6b4a29ffea51cd4c491a817a45e714dd8ec32a0c8b22118ac"
-        }
-      ],
-      "outputs": [
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\agent_roles.generated.json",
-          "sha256": "e06163c2a447c31a30833a933214b48c702d7b9b3f99dcfc16f6111da2008f63"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\functionalmlds\\functionalmlds.instance.generated.json",
-          "sha256": "aa23c4156ab7f9d4363e4195fecc12abe8eb65cc182457cfda52e49d5653fd30"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\handoff_matrix.json",
-          "sha256": "556aa865444b65b6b4a29ffea51cd4c491a817a45e714dd8ec32a0c8b22118ac"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\validation\\handoff_derivation_validation.json",
-          "sha256": "16140e8cfd34111487ecc4622af6075bdc2520644d45b96844fa4a98ef65f69b"
-        }
-      ],
-      "errors": [],
-      "warnings": [],
-      "metadata": {
-        "agent_count": 5,
-        "handoff_pair_count": 12,
-        "source_agent_with_handoff_count": 5,
-        "fallback_used": false,
-        "unique_pair_count": 12,
-        "role_validation_status": "valid",
-        "derivation_validation_status": "valid"
-      }
-    },
-    {
-      "stage_id": "functionalmlds_v2_assembly",
-      "status": "success",
-      "updated_at": "2026-08-12T07:39:22+00:00",
-      "inputs": [
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\functionalmlds\\functionalmlds.instance.generated.json",
-          "sha256": "aa23c4156ab7f9d4363e4195fecc12abe8eb65cc182457cfda52e49d5653fd30"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\functionalmlds_v2_assembler.py",
-          "sha256": "645bc378c9a4be3f97f0eb5d4ce11678433e53bef8e0b6081df70e936457e51d"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\dynamic_functional_mlds_v2_compat.py",
-          "sha256": "030df93df188001e349b1ae0bab0387244444545397f62e95e287bcad16dae4f"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\dynamic_functional_mlds_v2_model.py",
-          "sha256": "0710b7353459fe64de0692d18ac904b930d07161f6782544ac48d3d4dbaa8dd7"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\validate_dynamic_functional_mlds_v2.py",
-          "sha256": "82e2fe0c506629a4222795d6a81e94f606d7eb1244cc0d594ab14b7e98b989c3"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\dynamic_functional_mlds_v2_instance.schema.json",
-          "sha256": "4a2567a6cfc8cdce447a0f776f134c969fcf6af8e26d7b4c84dc31d9c6c68d49"
-        }
-      ],
-      "outputs": [
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\functionalmlds\\functionalmlds.v2.instance.json",
-          "sha256": "1b9d725965ed543eea9aa1abacceeda6d993b7b4ade5f6da848fafe2a2255777"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\functionalmlds\\functionalmlds.v2.assembly_report.json",
-          "sha256": "35e5aa18633c1dbe31aa9859249a94c96028ce2cea2a94d5b567de3e7ce23c90"
-        }
-      ],
-      "errors": [],
-      "warnings": [],
-      "metadata": {
-        "deterministic": true,
-        "metamodel_version": "2.0.0-model",
-        "metrics": {
-          "object_count": 590,
-          "error_count": 0,
-          "warning_count": 0
-        }
-      }
-    },
-    {
       "stage_id": "functionalmlds_invariants",
       "status": "success",
       "updated_at": "2026-08-12T07:39:40+00:00",
@@ -651,168 +484,6 @@
           "checked_element_count": 126,
           "error_count": 0
         }
-      }
-    },
-    {
-      "stage_id": "project_materialization",
-      "status": "success",
-      "updated_at": "2026-08-12T07:39:40+00:00",
-      "inputs": [
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\input\\source_mlds.json",
-          "sha256": "c71b6c62a03277684941ec44f40cba2d4b405eea6ac69007da8c4b80bf67d8f5"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\agent_roles.generated.json",
-          "sha256": "e06163c2a447c31a30833a933214b48c702d7b9b3f99dcfc16f6111da2008f63"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\agent_placements.json",
-          "sha256": "95cecc0a28e60ac0a3b0cf79635be41de3a49ef89dc18dd2d846f83175fe30d7"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\knowledge.generated.json",
-          "sha256": "163495008325bf493d2b62acc10c6420342a0a6ec384ec7cca9d0be3c645f57f"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\functionalmlds\\functionalmlds.instance.generated.json",
-          "sha256": "aa23c4156ab7f9d4363e4195fecc12abe8eb65cc182457cfda52e49d5653fd30"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\functionalmlds\\functionalmlds.v2.instance.json",
-          "sha256": "1b9d725965ed543eea9aa1abacceeda6d993b7b4ade5f6da848fafe2a2255777"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\project_materializer.py",
-          "sha256": "eae58667c5ad6923686d6fb4896fdb3ce4f48fcacd4cfedb35dc09f2d89f5ec0"
-        }
-      ],
-      "outputs": [
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\project.json",
-          "sha256": "189196532d940e7b1920c6d83332d0b1dbe2bc8bbd3033dd9265c0b11928c8e0"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\room_plan.json",
-          "sha256": "c71b6c62a03277684941ec44f40cba2d4b405eea6ac69007da8c4b80bf67d8f5"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\agents.json",
-          "sha256": "72e51fc4ce35c0779a2ea4d0ce761f105fd0fa2898d6d7534f788e171b284502"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\trace_map.json",
-          "sha256": "608ef40a9bb4cb44078166434274d3a80cd0ba401a65d395b406abf61095c95d"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\trace_map.v2.json",
-          "sha256": "608ef40a9bb4cb44078166434274d3a80cd0ba401a65d395b406abf61095c95d"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\trace_map.v05.json",
-          "sha256": "59f8c97c6bac0aa30bd5a83a05ffc6ad7914be8eb9d809bc07874b40b1027aab"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\functionalmlds.v2.instance.json",
-          "sha256": "1b9d725965ed543eea9aa1abacceeda6d993b7b4ade5f6da848fafe2a2255777"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\functionalmlds.v05.instance.json",
-          "sha256": "aa23c4156ab7f9d4363e4195fecc12abe8eb65cc182457cfda52e49d5653fd30"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\validation\\project_materialization_validation.json",
-          "sha256": "599f7f734d1326da2e83aacc1d2caf8d5a5481cdc8dd631d0b259fc50ff7fba4"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\central_touch_table\\central_touch_table_details.txt",
-          "sha256": "b7b08a58f2354b05c2ea64b2448d6663630c39f7fdc4a0c35b8ed0ac5aa7d8bd"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\cheese_kettle\\interactive_cheese_kettle_description.txt",
-          "sha256": "7d9776daa34e125f310fb66c20a5d4da1099b4ab12a2a743e3f821b8e77d2c85"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\cheese_lounge_rug\\cheese_lounge_rug_features.txt",
-          "sha256": "d2db5fc881e3f491abcabcf8e36e67d21240bfaa9955acdd0fa802475700ba4d"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\cheese_making_process\\cheese_making_process_explanation.txt",
-          "sha256": "ddb621ee4b1b0ec894b49ef94568cbd0dc9fe47490cbbd22e2b24ea85eb8a015"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\cheese_production_zone\\cheese_production_demonstration_zone_overview.txt",
-          "sha256": "8b630ecd1116a6cbf360e6d186a71fd36080e879ecb7e4069e78d31a82bf68c4"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\dairy_farming_and_milk_delivery\\dairy_farming_and_milk_delivery_heritage.txt",
-          "sha256": "9c9893a1003ad8fdfae09d22ef02c3cf8e8d65729d610af4a4f239a23db8ad44"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\dairy_farming_exhibit_zone\\dairy_farming_exhibit_zone_overview.txt",
-          "sha256": "173fcf2503fb768bd8216743bbca9c531bf50533a655a2abbffd9991cefea450"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\demonstration_cheese_press\\demonstration_cheese_press_features.txt",
-          "sha256": "eb663c94eb34d406b866ad896dc87758d5e653f9995d046494e38bbeeaa38042"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\greenery_zone\\greenery_and_ambiance_zone_overview.txt",
-          "sha256": "43a58759c23592f402bb1da8ac6c4d0bd1a9714c1b9d880e4adff01a7432e240"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\left_gallery_green_plant\\left_gallery_green_plant_description.txt",
-          "sha256": "96828ca2c29a35e0f3c80a5cdfc415eed2e223d1efff801f4069792137a2b8d2"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\lounge_zone\\lounge_and_relaxation_zone_description.txt",
-          "sha256": "3f7d71f1803dcf7e8c684a4a011b4cb67a32f8d014cffd00d6dfa4851e48e101"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\main_service_counter\\main_service_counter_role.txt",
-          "sha256": "ad9aa4fbdb3a13a6a1276b5391ac0939d497212e9e8fd3023554687fc1a7b962"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\right_lounge_green_plant\\right_lounge_green_plant_description.txt",
-          "sha256": "62ed3e345049c67cb0c4c28245a2f521c03b20f6734e37672f0733c897e83daf"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\steinpilz_dairy_cow\\steinpilz_dairy_cow_exhibit.txt",
-          "sha256": "361e6cb8dd7f498357ff9a46e78b8c0d71bb612b2e8abe4dcdfa6d14c1eff626"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\steinpilz_milk_delivery_truck\\steinpilz_milk_delivery_truck_exhibit.txt",
-          "sha256": "febac6d0c01f26904ad2fcd710205c645ae7936075e1312be5986891f0b849ef"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\steinpilz_welcome_counter\\steinpilz_welcome_counter_details.txt",
-          "sha256": "eaf50f9d77316cba7521207579452d8e73dd5b49738061fb0ebe2880603568cb"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\tactile_cheese_exploration\\tactile_cheese_exploration_experience.txt",
-          "sha256": "d3c55d8b147d382cdb13dec51b259ba068f149b2e117ccc197621630065061de"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\tactile_exploration_zone\\tactile_exploration_zone_overview.txt",
-          "sha256": "a1dbae311006805f39e285d64c82bdfeffe412bfbfb0b167d07a9f6f2a28a968"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\visitor_welcome_and_guidance\\visitor_welcome_and_guidance_at_steinpilz_welcome_counter.txt",
-          "sha256": "8aeca4f1ae63be1e4c4dc1c0a1feb03cc824b7767ef65f88de9de24ebd82c480"
-        },
-        {
-          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\welcome_zone\\welcome_and_reception_zone_overview.txt",
-          "sha256": "cafb28bf6022300eb38b79494d0e3875b19d5ac2c9f6eaaa1884c52d3384f16e"
-        }
-      ],
-      "errors": [],
-      "warnings": [],
-      "metadata": {
-        "agent_count": 5,
-        "kb_file_count": 20,
-        "trace_step_count": 39,
-        "trace_runtime_action_count": 33,
-        "trace_validation_case_count": 15
       }
     },
     {
@@ -1043,7 +714,336 @@
         "handoff_decision_accuracy": null,
         "invalid_observed_decision_count": 0
       }
+    },
+    {
+      "stage_id": "functionalmlds_assembly",
+      "status": "success",
+      "updated_at": "2026-08-12T19:18:04+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\scene_graph.normalized.json",
+          "sha256": "59085b175bc19649829daca3a6b5fc91bb7af852c716a1d82dc2242efe776357"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\scene_semantics.json",
+          "sha256": "3cba3b070dc16bbc0483614a96cc85422c578eeda80ff7cf9252715ba388a1e8"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\agent_roles.generated.json",
+          "sha256": "e06163c2a447c31a30833a933214b48c702d7b9b3f99dcfc16f6111da2008f63"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\agent_placements.json",
+          "sha256": "95cecc0a28e60ac0a3b0cf79635be41de3a49ef89dc18dd2d846f83175fe30d7"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\prompts\\functionalmlds_assembly_v1.md",
+          "sha256": "64caf06a68b6c1c3e13df14415b4b9da90809d0c3fe41d480bbfd232853e020a"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\functionalmlds_assembler.py",
+          "sha256": "916278fcbd2498c9bd5d7ab2553963de687e5d63fb3cd154fafe75aaceaf6f1c"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "d05a69d05a698ef9773a8b870fb5cf6b255a2d51767202e4c9a3f340bf485229"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\validation\\functionalmlds_invariant_validation.json",
+          "sha256": "402816d6ae3903f59860bdd666dd96d1f4bf77b54e278a7eb6389b2e534ad000"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "prompt_version": "functionalmlds_assembly_v1",
+        "deterministic": true,
+        "metrics": {
+          "requirement_count": 6,
+          "use_case_count": 11,
+          "interaction_use_case_count": 10,
+          "entity_count": 28,
+          "semantic_zone_entity_count": 6,
+          "object_group_entity_count": 6,
+          "scene_object_entity_count": 10,
+          "room_answer_capability_count": 1,
+          "handoff_capability_count": 1,
+          "handoff_runtime_binding_count": 1,
+          "handoff_runtime_action_count": 1,
+          "capability_count": 9,
+          "capability_use_count": 30,
+          "explicit_user_provider_count": 22,
+          "runtime_binding_count": 9,
+          "validation_case_count": 15,
+          "capability_use_coverage": 9,
+          "runtime_capability_coverage": 9
+        }
+      }
+    },
+    {
+      "stage_id": "handoff_derivation",
+      "status": "success",
+      "updated_at": "2026-08-12T19:18:04+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\agent_roles.generated.json",
+          "sha256": "ae74d52c42a7cb33fc7fa7d4cc7e163589bf8e3e1787fea30389a19f3977c658"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "fbf4e9275cfb5423449dca89a3a63ddb68a3ab42961d7552cca0f6e16291eadc"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\handoff_matrix.json",
+          "sha256": "d2faf8bf1e76d4ddd42ac456f49a0ae4b2a66174815668a6203c00ebba505587"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\agent_roles.generated.json",
+          "sha256": "ae74d52c42a7cb33fc7fa7d4cc7e163589bf8e3e1787fea30389a19f3977c658"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "fbf4e9275cfb5423449dca89a3a63ddb68a3ab42961d7552cca0f6e16291eadc"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\handoff_matrix.json",
+          "sha256": "d2faf8bf1e76d4ddd42ac456f49a0ae4b2a66174815668a6203c00ebba505587"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\validation\\handoff_derivation_validation.json",
+          "sha256": "628f567a67fcfcbbbd9a6cdd40db956796199a94edf2a6f750e6b9161cccdd25"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "agent_count": 5,
+        "handoff_pair_count": 20,
+        "source_agent_with_handoff_count": 5,
+        "fallback_used": false,
+        "unique_pair_count": 20,
+        "role_validation_status": "valid",
+        "derivation_validation_status": "valid"
+      }
+    },
+    {
+      "stage_id": "functionalmlds_v2_assembly",
+      "status": "success",
+      "updated_at": "2026-08-12T19:18:39+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "fbf4e9275cfb5423449dca89a3a63ddb68a3ab42961d7552cca0f6e16291eadc"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\functionalmlds_v2_assembler.py",
+          "sha256": "55e895d7d26c8080160942a1ae71e84f50bf27be72c7579d675063a05292154d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\dynamic_functional_mlds_v2_compat.py",
+          "sha256": "030df93df188001e349b1ae0bab0387244444545397f62e95e287bcad16dae4f"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\dynamic_functional_mlds_v2_model.py",
+          "sha256": "0710b7353459fe64de0692d18ac904b930d07161f6782544ac48d3d4dbaa8dd7"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\validate_dynamic_functional_mlds_v2.py",
+          "sha256": "82e2fe0c506629a4222795d6a81e94f606d7eb1244cc0d594ab14b7e98b989c3"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\schemas\\dynamic_functional_mlds_v2_instance.schema.json",
+          "sha256": "4a2567a6cfc8cdce447a0f776f134c969fcf6af8e26d7b4c84dc31d9c6c68d49"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\functionalmlds\\functionalmlds.v2.instance.json",
+          "sha256": "5cbfa3c732009f243f848c41b6b6e3eeb6e064dbdbbdf3d5ae9c6f25eeb811f1"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\functionalmlds\\functionalmlds.v2.assembly_report.json",
+          "sha256": "261c92974a9e63a4fc382293ff24875d32102680c9ce69044c4e5556aa0e95d7"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "deterministic": true,
+        "metamodel_version": "2.0.0-model",
+        "metrics": {
+          "object_count": 601,
+          "error_count": 0,
+          "warning_count": 0
+        }
+      }
+    },
+    {
+      "stage_id": "project_materialization",
+      "status": "success",
+      "updated_at": "2026-08-12T19:18:40+00:00",
+      "inputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\input\\source_mlds.json",
+          "sha256": "c71b6c62a03277684941ec44f40cba2d4b405eea6ac69007da8c4b80bf67d8f5"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\agent_roles.generated.json",
+          "sha256": "ae74d52c42a7cb33fc7fa7d4cc7e163589bf8e3e1787fea30389a19f3977c658"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\agent_placements.json",
+          "sha256": "95cecc0a28e60ac0a3b0cf79635be41de3a49ef89dc18dd2d846f83175fe30d7"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\intermediate\\knowledge.generated.json",
+          "sha256": "163495008325bf493d2b62acc10c6420342a0a6ec384ec7cca9d0be3c645f57f"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\functionalmlds\\functionalmlds.instance.generated.json",
+          "sha256": "fbf4e9275cfb5423449dca89a3a63ddb68a3ab42961d7552cca0f6e16291eadc"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\functionalmlds\\functionalmlds.v2.instance.json",
+          "sha256": "5cbfa3c732009f243f848c41b6b6e3eeb6e064dbdbbdf3d5ae9c6f25eeb811f1"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\tools\\case_study_pipeline\\project_materializer.py",
+          "sha256": "eae58667c5ad6923686d6fb4896fdb3ce4f48fcacd4cfedb35dc09f2d89f5ec0"
+        }
+      ],
+      "outputs": [
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\project.json",
+          "sha256": "60a61f85107613c55ac8c1f72adc30f061bf96c3c33301e63a9ce2b28a3ae7af"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\room_plan.json",
+          "sha256": "c71b6c62a03277684941ec44f40cba2d4b405eea6ac69007da8c4b80bf67d8f5"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\agents.json",
+          "sha256": "e2a4dfffdeff83aa957ee89541c36ab649a02998cfd5c7f8db6d66edc4f8279d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\trace_map.json",
+          "sha256": "efbc042683e394a40fdcfd629a67730ef0130a6d1a2597bc8c30e0bf8edd55c0"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\trace_map.v2.json",
+          "sha256": "efbc042683e394a40fdcfd629a67730ef0130a6d1a2597bc8c30e0bf8edd55c0"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\trace_map.v05.json",
+          "sha256": "a26000d678a874ff2bb47397d6a4aff2ec57e7e099f06ef096cef2c61f79f2db"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\functionalmlds.v2.instance.json",
+          "sha256": "5cbfa3c732009f243f848c41b6b6e3eeb6e064dbdbbdf3d5ae9c6f25eeb811f1"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\functionalmlds.v05.instance.json",
+          "sha256": "fbf4e9275cfb5423449dca89a3a63ddb68a3ab42961d7552cca0f6e16291eadc"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\validation\\project_materialization_validation.json",
+          "sha256": "e16e92b7e1f6018c1b23edf2145afeb8b050391bc6dc0416b30abaa698afabd9"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\central_touch_table\\central_touch_table_details.txt",
+          "sha256": "b7b08a58f2354b05c2ea64b2448d6663630c39f7fdc4a0c35b8ed0ac5aa7d8bd"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\cheese_kettle\\interactive_cheese_kettle_description.txt",
+          "sha256": "7d9776daa34e125f310fb66c20a5d4da1099b4ab12a2a743e3f821b8e77d2c85"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\cheese_lounge_rug\\cheese_lounge_rug_features.txt",
+          "sha256": "d2db5fc881e3f491abcabcf8e36e67d21240bfaa9955acdd0fa802475700ba4d"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\cheese_making_process\\cheese_making_process_explanation.txt",
+          "sha256": "ddb621ee4b1b0ec894b49ef94568cbd0dc9fe47490cbbd22e2b24ea85eb8a015"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\cheese_production_zone\\cheese_production_demonstration_zone_overview.txt",
+          "sha256": "8b630ecd1116a6cbf360e6d186a71fd36080e879ecb7e4069e78d31a82bf68c4"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\dairy_farming_and_milk_delivery\\dairy_farming_and_milk_delivery_heritage.txt",
+          "sha256": "9c9893a1003ad8fdfae09d22ef02c3cf8e8d65729d610af4a4f239a23db8ad44"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\dairy_farming_exhibit_zone\\dairy_farming_exhibit_zone_overview.txt",
+          "sha256": "173fcf2503fb768bd8216743bbca9c531bf50533a655a2abbffd9991cefea450"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\demonstration_cheese_press\\demonstration_cheese_press_features.txt",
+          "sha256": "eb663c94eb34d406b866ad896dc87758d5e653f9995d046494e38bbeeaa38042"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\greenery_zone\\greenery_and_ambiance_zone_overview.txt",
+          "sha256": "43a58759c23592f402bb1da8ac6c4d0bd1a9714c1b9d880e4adff01a7432e240"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\left_gallery_green_plant\\left_gallery_green_plant_description.txt",
+          "sha256": "96828ca2c29a35e0f3c80a5cdfc415eed2e223d1efff801f4069792137a2b8d2"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\lounge_zone\\lounge_and_relaxation_zone_description.txt",
+          "sha256": "3f7d71f1803dcf7e8c684a4a011b4cb67a32f8d014cffd00d6dfa4851e48e101"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\main_service_counter\\main_service_counter_role.txt",
+          "sha256": "ad9aa4fbdb3a13a6a1276b5391ac0939d497212e9e8fd3023554687fc1a7b962"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\right_lounge_green_plant\\right_lounge_green_plant_description.txt",
+          "sha256": "62ed3e345049c67cb0c4c28245a2f521c03b20f6734e37672f0733c897e83daf"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\steinpilz_dairy_cow\\steinpilz_dairy_cow_exhibit.txt",
+          "sha256": "361e6cb8dd7f498357ff9a46e78b8c0d71bb612b2e8abe4dcdfa6d14c1eff626"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\steinpilz_milk_delivery_truck\\steinpilz_milk_delivery_truck_exhibit.txt",
+          "sha256": "febac6d0c01f26904ad2fcd710205c645ae7936075e1312be5986891f0b849ef"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\steinpilz_welcome_counter\\steinpilz_welcome_counter_details.txt",
+          "sha256": "eaf50f9d77316cba7521207579452d8e73dd5b49738061fb0ebe2880603568cb"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\tactile_cheese_exploration\\tactile_cheese_exploration_experience.txt",
+          "sha256": "d3c55d8b147d382cdb13dec51b259ba068f149b2e117ccc197621630065061de"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\tactile_exploration_zone\\tactile_exploration_zone_overview.txt",
+          "sha256": "a1dbae311006805f39e285d64c82bdfeffe412bfbfb0b167d07a9f6f2a28a968"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\visitor_welcome_and_guidance\\visitor_welcome_and_guidance_at_steinpilz_welcome_counter.txt",
+          "sha256": "8aeca4f1ae63be1e4c4dc1c0a1feb03cc824b7767ef65f88de9de24ebd82c480"
+        },
+        {
+          "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\InteractivAgents\\openai_unity_expert_npcs_pycharm\\InteractiveAgents\\projects\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\kb\\welcome_zone\\welcome_and_reception_zone_overview.txt",
+          "sha256": "cafb28bf6022300eb38b79494d0e3875b19d5ac2c9f6eaaa1884c52d3384f16e"
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "metadata": {
+        "agent_count": 5,
+        "kb_file_count": 20,
+        "trace_step_count": 42,
+        "trace_runtime_action_count": 35,
+        "trace_validation_case_count": 15
+      }
     }
   ],
-  "updated_at": "2026-08-12T07:39:50+00:00"
+  "updated_at": "2026-08-12T19:18:40+00:00"
 }

@@ -114,6 +114,30 @@ public sealed class FunctionalMldsSceneObjectBinding : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Generated GLB instances are intentionally stored outside the disabled design
+    /// placeholder hierarchy. The persistent DevDescription link is the authoritative
+    /// relationship between both objects, so its visible non-trigger colliders may select
+    /// this same semantic entity without relying on mesh names such as "geometry_0".
+    /// </summary>
+    public Collider[] ResolveLinkedGeneratedColliders()
+    {
+        var description = GetComponent<DevDescription>();
+        var generated = description == null ? null : description.GeneratedInstance;
+        if (generated == null || generated == gameObject)
+            return Array.Empty<Collider>();
+
+        var candidates = generated.GetComponentsInChildren<Collider>(true);
+        var result = new List<Collider>();
+        for (var i = 0; i < candidates.Length; i++)
+        {
+            var candidate = candidates[i];
+            if (candidate != null && !candidate.isTrigger && candidate != selectionCollider)
+                result.Add(candidate);
+        }
+        return result.ToArray();
+    }
+
     public void SetHighlighted(bool highlighted, Color color, float emissionStrength)
     {
         if (highlighted == isHighlighted)
@@ -213,7 +237,11 @@ public sealed class FunctionalMldsSceneObjectBinding : MonoBehaviour
         if (highlightRenderers != null && highlightRenderers.Length > 0)
             return highlightRenderers;
 
-        var candidates = GetComponentsInChildren<Renderer>(true);
+        var description = GetComponent<DevDescription>();
+        var generated = description == null ? null : description.GeneratedInstance;
+        var candidates = generated != null && generated != gameObject
+            ? generated.GetComponentsInChildren<Renderer>(true)
+            : GetComponentsInChildren<Renderer>(true);
         var result = new List<Renderer>();
         for (var i = 0; i < candidates.Length; i++)
         {
@@ -414,6 +442,27 @@ public sealed class FunctionalMldsSceneObjectBindingRegistry
                 {
                     byCollider.Add(collider, binding);
                 }
+            }
+
+            var linkedColliders = binding.ResolveLinkedGeneratedColliders();
+            for (var linkedIndex = 0; linkedIndex < linkedColliders.Length; linkedIndex++)
+            {
+                var linkedCollider = linkedColliders[linkedIndex];
+                if (linkedCollider == null || linkedCollider == collider)
+                    continue;
+
+                FunctionalMldsSceneObjectBinding existingLinkedBinding;
+                if (byCollider.TryGetValue(linkedCollider, out existingLinkedBinding))
+                {
+                    if (existingLinkedBinding != binding)
+                    {
+                        validationErrors.Add(
+                            $"Linked collider '{linkedCollider.name}' is shared by "
+                            + $"{Describe(existingLinkedBinding)} and {Describe(binding)}.");
+                    }
+                    continue;
+                }
+                byCollider.Add(linkedCollider, binding);
             }
 
             AddUniqueIdentity(byEntityId, binding.EntityId, binding, "entityId");

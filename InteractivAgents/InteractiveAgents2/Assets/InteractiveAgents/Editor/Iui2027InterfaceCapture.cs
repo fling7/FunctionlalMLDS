@@ -16,10 +16,9 @@ using UnityEngine;
 /// </summary>
 public static class Iui2027InterfaceCapture
 {
-    private const string ScenePath = "Assets/Scenes/MolkereiChampignion.unity";
-    private const string ProjectId = "steinpilz_brand_room";
-    private const string TargetEntityId = "ENT-ASSET-BRAND_PANEL3";
-    private const string TargetSourceObjectId = "brand_panel3";
+    private const string ScenePath = "Assets/Scenes/SampleScene.unity";
+    private const string TargetEntityId = "ENT-ASSET-CENTRAL_TOUCH_TABLE";
+    private const string TargetSourceObjectId = "central_touch_table";
     private const string SuccessMarker = "[Iui2027InterfaceCapture] OK";
     private const double CaptureDelaySeconds = 8.0;
     private const double TimeoutSeconds = 240.0;
@@ -141,26 +140,20 @@ public static class Iui2027InterfaceCapture
     private static void TickCore()
     {
         var now = EditorApplication.timeSinceStartup;
-        var manager = UnityEngine.Object.FindAnyObjectByType<QuickAgentManager>();
-        if (manager == null)
+        var studyManager = UnityEngine.Object.FindAnyObjectByType<KaesesteinpilzUserTestQuickAgentManager>();
+        var manager = studyManager == null ? null : studyManager.CoreManager;
+        if (studyManager == null || manager == null)
         {
             if (now - startedAt > TimeoutSeconds)
             {
-                Fail("QuickAgentManager was not found.");
+                Fail("KAESESTEINPILZ user-test manager was not found.");
             }
             return;
         }
 
         if (!setupStarted)
         {
-            SetPrivateField(manager, "selectedProjectId", ProjectId);
-            var setup = InvokePrivate(manager, "SetupFromServer") as IEnumerator;
-            if (setup == null)
-            {
-                Fail("SetupFromServer did not return a coroutine.");
-                return;
-            }
-            manager.StartCoroutine(setup);
+            studyManager.BeginParticipantSessionForAutomation();
             setupStarted = true;
             return;
         }

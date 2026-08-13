@@ -94,8 +94,21 @@ class SceneSpecificInteractionModelTests(unittest.TestCase):
                     item["id"]: item
                     for item in instance["capabilityUses"]
                     if item.get("preferred_provider_entity_id")
+                    and item.get("target_entity_ids")
                 }
                 self.assertEqual(expected_count * 2, len(uses))
+                generic_uses = [
+                    item
+                    for item in instance["capabilityUses"]
+                    if not item.get("target_entity_ids")
+                    and item["id"].endswith(
+                        (
+                            "S11-ANSWER-ROOM-GROUNDED-QUESTION",
+                            "S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+                        )
+                    )
+                ]
+                self.assertEqual(2, len(generic_uses))
                 self.assertEqual(
                     expected_count,
                     len(
@@ -123,6 +136,19 @@ class SceneSpecificInteractionModelTests(unittest.TestCase):
                                 for target_id in use["target_entity_ids"]
                             )
                         )
+                first_object_id = next(
+                    obj["object_id"]
+                    for obj in _assemble(case_id)[1]["objects"]
+                    if any(
+                        obj["object_id"] in (agent.get("grounded_object_ids") or [])
+                        for agent in _assemble(case_id)[3]["agents"]
+                    )
+                )
+                first_token = first_object_id.upper().replace("-", "_")
+                self.assertIn(
+                    f"CU-{case_id.upper()}-INTERACT-{first_token}-ANSWER-ROOM-GROUNDED-QUESTION",
+                    uses,
+                )
 
                 observed_shapes.add(
                     (
@@ -170,6 +196,22 @@ class SceneSpecificInteractionModelTests(unittest.TestCase):
         )
         self.assertEqual([expected_provider], native_step["performedBy"])
 
+        native_by_id = {
+            item["id"]: item for item in self.classroom_v2["objects"]
+        }
+        self.assertEqual(
+            [],
+            native_by_id[
+                "CU-CLASSROOM_DINOSAUR-S11-ANSWER-ROOM-GROUNDED-QUESTION"
+            ]["target"],
+        )
+        self.assertEqual(
+            [],
+            native_by_id[
+                "CU-CLASSROOM_DINOSAUR-S12-HANDOFF-TO-RESPONSIBLE-AGENT"
+            ]["target"],
+        )
+
     def test_native_validator_rejects_dinosaur_provider_target_mismatch(self) -> None:
         mutated = copy.deepcopy(self.classroom_v2)
         use_id = (
@@ -192,6 +234,34 @@ class SceneSpecificInteractionModelTests(unittest.TestCase):
             "IUI-DOMAIN-TARGET",
             {issue.get("code") for issue in report["errors"]},
         )
+
+    def test_native_agents_preserve_modeled_handoff_targets(self) -> None:
+        source_agents = {
+            item["source_agent_id"]: item
+            for item in self.v05_by_case["classroom_dinosaur"]["agents"]
+        }
+        native_agents = {
+            item.get("sourceAgentId"): item
+            for item in self.classroom_v2["objects"]
+            if item.get("type") == "Agent"
+        }
+        native_agents_by_id = {
+            item["id"]: item
+            for item in self.classroom_v2["objects"]
+            if item.get("type") == "Agent"
+        }
+        for source_id, source in source_agents.items():
+            with self.subTest(source_id=source_id):
+                expected = source.get("handoff_targets") or []
+                actual = native_agents[source_id].get("handoffTarget") or []
+                self.assertEqual(len(expected), len(actual))
+                self.assertEqual(
+                    expected,
+                    [
+                        native_agents_by_id[next_id]["sourceAgentId"]
+                        for next_id in actual
+                    ],
+                )
 
     def test_competing_asset_owner_fails_closed_without_group_or_zone_fallback(self) -> None:
         _, normalized_scene, scene_semantics, agent_roles = _assemble(

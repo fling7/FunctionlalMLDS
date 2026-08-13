@@ -39,6 +39,12 @@ namespace Assets
             return window;
         }
 
+        [MenuItem("GameObject/Show UI")]
+        private static void ShowWindowFromMenu()
+        {
+            OpenWindow();
+        }
+
         public void ShowWindow()
         {
             OpenWindow();

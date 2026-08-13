@@ -9,7 +9,7 @@
   "sourceContract": {
     "schema": "functionalmlds_case_study",
     "metamodelVersion": "v0.5",
-    "semanticProjectionSha256": "565b58222ee9bc252bcd0ba5e7d893ba7096fd7ab263f2261198bcaf1f8fa7a7"
+    "semanticProjectionSha256": "dff5adfa58f2736827d6014dbbfc0c0dbd1087cea1046f708d2d2e884ba6c21f"
   },
   "objects": [
     {
@@ -713,7 +713,8 @@
       "handoffTarget": [
         "ENT-AGENT-TACTILE_GUIDE",
         "ENT-AGENT-HERITAGE_EDUCATOR",
-        "ENT-AGENT-WELCOME_HOST"
+        "ENT-AGENT-WELCOME_HOST",
+        "ENT-AGENT-LOUNGE_HOST"
       ]
     },
     {
@@ -758,7 +759,9 @@
       ],
       "handoffTarget": [
         "ENT-AGENT-CHEESE_EXPERT",
-        "ENT-AGENT-WELCOME_HOST"
+        "ENT-AGENT-WELCOME_HOST",
+        "ENT-AGENT-HERITAGE_EDUCATOR",
+        "ENT-AGENT-LOUNGE_HOST"
       ]
     },
     {
@@ -806,7 +809,9 @@
       ],
       "handoffTarget": [
         "ENT-AGENT-WELCOME_HOST",
-        "ENT-AGENT-CHEESE_EXPERT"
+        "ENT-AGENT-CHEESE_EXPERT",
+        "ENT-AGENT-TACTILE_GUIDE",
+        "ENT-AGENT-LOUNGE_HOST"
       ]
     },
     {
@@ -856,7 +861,10 @@
         "ENT-GROUP-GREENERY"
       ],
       "handoffTarget": [
-        "ENT-AGENT-WELCOME_HOST"
+        "ENT-AGENT-WELCOME_HOST",
+        "ENT-AGENT-CHEESE_EXPERT",
+        "ENT-AGENT-TACTILE_GUIDE",
+        "ENT-AGENT-HERITAGE_EDUCATOR"
       ]
     },
     {
@@ -1679,13 +1687,13 @@
       "id": "SCHEMA-RA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-BACKEND-CHAT-INPUT",
       "type": "SchemaReference",
       "uri": "json",
-      "text": "{\"$id\":\"urn:functionalmlds:wire:chat:request:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"allOf\":[{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"required\":[\"spatial_context\"]}},{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"non_deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"not\":{\"required\":[\"spatial_context\"]}}}],\"applicationActionKind\":\"chat\",\"modelBinding\":{\"capabilityIds\":[\"CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION\"],\"capabilityUseIds\":[\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CENTRAL_TOUCH_TABLE-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-DEMONSTRATION_CHEESE_PRESS-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_KETTLE-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_MILK_DELIVERY_TRUCK-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_DAIRY_COW-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_WELCOME_COUNTER-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-LEFT_GALLERY_GREEN_PLANT-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-RIGHT_LOUNGE_GREEN_PLANT-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_LOUNGE_RUG-ANSWER-ROOM-GROUNDED-QUESTION\"],\"runtimeActionId\":\"RA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-BACKEND-CHAT\",\"runtimeBindingId\":\"RB-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION\"},\"properties\":{\"active_agent_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"interaction_mode\":{\"enum\":[\"deictic\",\"non_deictic\"],\"type\":\"string\"},\"session_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"spatial_context\":{\"additionalProperties\":false,\"anyOf\":[{\"required\":[\"entity_id\"]},{\"required\":[\"source_object_id\"]},{\"required\":[\"source_id\"]}],\"properties\":{\"ambiguity\":{\"oneOf\":[{\"type\":\"boolean\"},{\"additionalProperties\":true,\"maxProperties\":8,\"type\":\"object\"}]},\"ambiguity_reason\":{\"maxLength\":512,\"type\":\"string\"},\"ambiguous\":{\"type\":\"boolean\"},\"candidate_entity_ids\":{\"items\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"maxItems\":16,\"type\":\"array\",\"uniqueItems\":true},\"distance_m\":{\"maximum\":1000000,\"minimum\":0,\"type\":\"number\"},\"entity_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"hit_position\":{\"additionalProperties\":false,\"properties\":{\"x\":{\"maximum\":1000000,\"minimum\":-1000000,\"type\":\"number\"},\"y\":{\"maximum\":1000000,\"minimum\":-1000000,\"type\":\"number\"},\"z\":{\"maximum\":1000000,\"minimum\":-1000000,\"type\":\"number\"}},\"required\":[\"x\",\"y\",\"z\"],\"type\":\"object\"},\"modality\":{\"enum\":[\"desktop_ray\",\"mouse_ray\",\"keyboard_mouse\",\"xr_controller_ray\",\"controller_ray\",\"gaze\",\"touch\",\"direct\",\"programmatic\"],\"type\":\"string\"},\"model_sha256\":{\"pattern\":\"^[0-9A-Fa-f]{64}$\",\"type\":\"string\"},\"object_group_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"selection_modality\":{\"enum\":[\"desktop_ray\",\"mouse_ray\",\"keyboard_mouse\",\"xr_controller_ray\",\"controller_ray\",\"gaze\",\"touch\",\"direct\",\"programmatic\"],\"type\":\"string\"},\"source_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"source_object_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"state\":{\"const\":\"resolved\"},\"zone_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"model_sha256\",\"state\",\"hit_position\",\"distance_m\",\"selection_modality\"],\"type\":\"object\"},\"user_text\":{\"maxLength\":32768,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"session_id\",\"active_agent_id\",\"user_text\",\"interaction_mode\"],\"title\":\"Interactive Agents chat request\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
+      "text": "{\"$id\":\"urn:functionalmlds:wire:chat:request:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"allOf\":[{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"required\":[\"spatial_context\"]}},{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"non_deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"not\":{\"required\":[\"spatial_context\"]}}}],\"applicationActionKind\":\"chat\",\"modelBinding\":{\"capabilityIds\":[\"CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION\"],\"capabilityUseIds\":[\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CENTRAL_TOUCH_TABLE-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-DEMONSTRATION_CHEESE_PRESS-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_KETTLE-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_MILK_DELIVERY_TRUCK-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_DAIRY_COW-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_WELCOME_COUNTER-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-LEFT_GALLERY_GREEN_PLANT-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-RIGHT_LOUNGE_GREEN_PLANT-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_LOUNGE_RUG-ANSWER-ROOM-GROUNDED-QUESTION\"],\"runtimeActionId\":\"RA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-BACKEND-CHAT\",\"runtimeBindingId\":\"RB-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION\"},\"properties\":{\"active_agent_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"interaction_mode\":{\"enum\":[\"deictic\",\"non_deictic\"],\"type\":\"string\"},\"session_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"spatial_context\":{\"additionalProperties\":false,\"anyOf\":[{\"required\":[\"entity_id\"]},{\"required\":[\"source_object_id\"]},{\"required\":[\"source_id\"]}],\"properties\":{\"ambiguity\":{\"oneOf\":[{\"type\":\"boolean\"},{\"additionalProperties\":true,\"maxProperties\":8,\"type\":\"object\"}]},\"ambiguity_reason\":{\"maxLength\":512,\"type\":\"string\"},\"ambiguous\":{\"type\":\"boolean\"},\"candidate_entity_ids\":{\"items\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"maxItems\":16,\"type\":\"array\",\"uniqueItems\":true},\"distance_m\":{\"maximum\":1000000,\"minimum\":0,\"type\":\"number\"},\"entity_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"hit_position\":{\"additionalProperties\":false,\"properties\":{\"x\":{\"maximum\":1000000,\"minimum\":-1000000,\"type\":\"number\"},\"y\":{\"maximum\":1000000,\"minimum\":-1000000,\"type\":\"number\"},\"z\":{\"maximum\":1000000,\"minimum\":-1000000,\"type\":\"number\"}},\"required\":[\"x\",\"y\",\"z\"],\"type\":\"object\"},\"modality\":{\"enum\":[\"desktop_ray\",\"mouse_ray\",\"keyboard_mouse\",\"xr_controller_ray\",\"controller_ray\",\"gaze\",\"touch\",\"direct\",\"programmatic\"],\"type\":\"string\"},\"model_sha256\":{\"pattern\":\"^[0-9A-Fa-f]{64}$\",\"type\":\"string\"},\"object_group_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"selection_modality\":{\"enum\":[\"desktop_ray\",\"mouse_ray\",\"keyboard_mouse\",\"xr_controller_ray\",\"controller_ray\",\"gaze\",\"touch\",\"direct\",\"programmatic\"],\"type\":\"string\"},\"source_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"source_object_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"state\":{\"const\":\"resolved\"},\"zone_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"model_sha256\",\"state\",\"hit_position\",\"distance_m\",\"selection_modality\"],\"type\":\"object\"},\"user_text\":{\"maxLength\":32768,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"session_id\",\"active_agent_id\",\"user_text\",\"interaction_mode\"],\"title\":\"Interactive Agents chat request\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "SCHEMA-RA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-BACKEND-CHAT-OUTPUT",
       "type": "SchemaReference",
       "uri": "json",
-      "text": "{\"$id\":\"urn:functionalmlds:wire:chat:response:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"allOf\":[{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"required\":[\"grounded_entity_ids\",\"grounding_evidence\",\"routing_reason\",\"grounding\",\"routing\"]}},{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"non_deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"not\":{\"anyOf\":[{\"required\":[\"grounded_entity_ids\"]},{\"required\":[\"grounding_evidence\"]},{\"required\":[\"routing_reason\"]},{\"required\":[\"grounding\"]},{\"required\":[\"routing\"]}]}}}],\"applicationActionKind\":\"chat\",\"modelBinding\":{\"capabilityIds\":[\"CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION\"],\"capabilityUseIds\":[\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CENTRAL_TOUCH_TABLE-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-DEMONSTRATION_CHEESE_PRESS-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_KETTLE-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_MILK_DELIVERY_TRUCK-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_DAIRY_COW-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_WELCOME_COUNTER-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-LEFT_GALLERY_GREEN_PLANT-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-RIGHT_LOUNGE_GREEN_PLANT-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_LOUNGE_RUG-ANSWER-ROOM-GROUNDED-QUESTION\"],\"runtimeActionId\":\"RA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-BACKEND-CHAT\",\"runtimeBindingId\":\"RB-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION\"},\"properties\":{\"active_agent_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"events\":{\"type\":\"array\"},\"grounded_entity_ids\":{\"items\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"maxItems\":64,\"minItems\":1,\"type\":\"array\",\"uniqueItems\":true},\"grounding\":{\"type\":\"object\"},\"grounding_evidence\":{\"items\":{\"type\":\"object\"},\"maxItems\":128,\"minItems\":1,\"type\":\"array\"},\"handoff\":{\"type\":[\"object\",\"null\"]},\"interaction_mode\":{\"enum\":[\"deictic\",\"non_deictic\"],\"type\":\"string\"},\"memory_mode\":{\"type\":\"string\"},\"model_binding\":{\"additionalProperties\":false,\"properties\":{\"capability_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"capability_use_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"runtime_action_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"runtime_binding_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"runtime_binding_id\",\"runtime_action_id\",\"capability_id\",\"capability_use_id\"],\"type\":\"object\"},\"routing\":{\"type\":\"object\"},\"routing_reason\":{\"maxLength\":2048,\"minLength\":1,\"type\":\"string\"},\"session_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"session_id\",\"active_agent_id\",\"memory_mode\",\"handoff\",\"events\",\"interaction_mode\",\"model_binding\"],\"title\":\"Interactive Agents chat response\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
+      "text": "{\"$id\":\"urn:functionalmlds:wire:chat:response:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"allOf\":[{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"required\":[\"grounded_entity_ids\",\"grounding_evidence\",\"routing_reason\",\"grounding\",\"routing\"]}},{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"non_deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"not\":{\"anyOf\":[{\"required\":[\"grounded_entity_ids\"]},{\"required\":[\"grounding_evidence\"]},{\"required\":[\"routing_reason\"]},{\"required\":[\"grounding\"]},{\"required\":[\"routing\"]}]}}}],\"applicationActionKind\":\"chat\",\"modelBinding\":{\"capabilityIds\":[\"CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION\"],\"capabilityUseIds\":[\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CENTRAL_TOUCH_TABLE-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-DEMONSTRATION_CHEESE_PRESS-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_KETTLE-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_MILK_DELIVERY_TRUCK-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_DAIRY_COW-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_WELCOME_COUNTER-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-LEFT_GALLERY_GREEN_PLANT-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-RIGHT_LOUNGE_GREEN_PLANT-ANSWER-ROOM-GROUNDED-QUESTION\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_LOUNGE_RUG-ANSWER-ROOM-GROUNDED-QUESTION\"],\"runtimeActionId\":\"RA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-BACKEND-CHAT\",\"runtimeBindingId\":\"RB-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION\"},\"properties\":{\"active_agent_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"events\":{\"type\":\"array\"},\"grounded_entity_ids\":{\"items\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"maxItems\":64,\"minItems\":1,\"type\":\"array\",\"uniqueItems\":true},\"grounding\":{\"type\":\"object\"},\"grounding_evidence\":{\"items\":{\"type\":\"object\"},\"maxItems\":128,\"minItems\":1,\"type\":\"array\"},\"handoff\":{\"type\":[\"object\",\"null\"]},\"interaction_mode\":{\"enum\":[\"deictic\",\"non_deictic\"],\"type\":\"string\"},\"memory_mode\":{\"type\":\"string\"},\"model_binding\":{\"additionalProperties\":false,\"properties\":{\"capability_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"capability_use_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"runtime_action_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"runtime_binding_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"runtime_binding_id\",\"runtime_action_id\",\"capability_id\",\"capability_use_id\"],\"type\":\"object\"},\"routing\":{\"type\":\"object\"},\"routing_reason\":{\"maxLength\":2048,\"minLength\":1,\"type\":\"string\"},\"session_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"session_id\",\"active_agent_id\",\"memory_mode\",\"handoff\",\"events\",\"interaction_mode\",\"model_binding\"],\"title\":\"Interactive Agents chat response\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "RA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-BACKEND-CHAT",
@@ -1722,13 +1730,13 @@
       "id": "SCHEMA-RA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-BACKEND-CHAT-HANDOFF-INPUT",
       "type": "SchemaReference",
       "uri": "json",
-      "text": "{\"$id\":\"urn:functionalmlds:wire:handoff:request:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"allOf\":[{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"required\":[\"spatial_context\"]}},{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"non_deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"not\":{\"required\":[\"spatial_context\"]}}}],\"applicationActionKind\":\"handoff\",\"modelBinding\":{\"capabilityIds\":[\"CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT\"],\"capabilityUseIds\":[\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CENTRAL_TOUCH_TABLE-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-DEMONSTRATION_CHEESE_PRESS-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_KETTLE-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_MILK_DELIVERY_TRUCK-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_DAIRY_COW-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_WELCOME_COUNTER-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-LEFT_GALLERY_GREEN_PLANT-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-RIGHT_LOUNGE_GREEN_PLANT-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_LOUNGE_RUG-HANDOFF-TO-RESPONSIBLE-AGENT\"],\"runtimeActionId\":\"RA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-BACKEND-CHAT-HANDOFF\",\"runtimeBindingId\":\"RB-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT\"},\"properties\":{\"active_agent_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"interaction_mode\":{\"enum\":[\"deictic\",\"non_deictic\"],\"type\":\"string\"},\"session_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"spatial_context\":{\"additionalProperties\":false,\"anyOf\":[{\"required\":[\"entity_id\"]},{\"required\":[\"source_object_id\"]},{\"required\":[\"source_id\"]}],\"properties\":{\"ambiguity\":{\"oneOf\":[{\"type\":\"boolean\"},{\"additionalProperties\":true,\"maxProperties\":8,\"type\":\"object\"}]},\"ambiguity_reason\":{\"maxLength\":512,\"type\":\"string\"},\"ambiguous\":{\"type\":\"boolean\"},\"candidate_entity_ids\":{\"items\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"maxItems\":16,\"type\":\"array\",\"uniqueItems\":true},\"distance_m\":{\"maximum\":1000000,\"minimum\":0,\"type\":\"number\"},\"entity_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"hit_position\":{\"additionalProperties\":false,\"properties\":{\"x\":{\"maximum\":1000000,\"minimum\":-1000000,\"type\":\"number\"},\"y\":{\"maximum\":1000000,\"minimum\":-1000000,\"type\":\"number\"},\"z\":{\"maximum\":1000000,\"minimum\":-1000000,\"type\":\"number\"}},\"required\":[\"x\",\"y\",\"z\"],\"type\":\"object\"},\"modality\":{\"enum\":[\"desktop_ray\",\"mouse_ray\",\"keyboard_mouse\",\"xr_controller_ray\",\"controller_ray\",\"gaze\",\"touch\",\"direct\",\"programmatic\"],\"type\":\"string\"},\"model_sha256\":{\"pattern\":\"^[0-9A-Fa-f]{64}$\",\"type\":\"string\"},\"object_group_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"selection_modality\":{\"enum\":[\"desktop_ray\",\"mouse_ray\",\"keyboard_mouse\",\"xr_controller_ray\",\"controller_ray\",\"gaze\",\"touch\",\"direct\",\"programmatic\"],\"type\":\"string\"},\"source_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"source_object_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"state\":{\"const\":\"resolved\"},\"zone_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"model_sha256\",\"state\",\"hit_position\",\"distance_m\",\"selection_modality\"],\"type\":\"object\"},\"user_text\":{\"maxLength\":32768,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"session_id\",\"active_agent_id\",\"user_text\",\"interaction_mode\"],\"title\":\"Interactive Agents handoff request\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
+      "text": "{\"$id\":\"urn:functionalmlds:wire:handoff:request:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"allOf\":[{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"required\":[\"spatial_context\"]}},{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"non_deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"not\":{\"required\":[\"spatial_context\"]}}}],\"applicationActionKind\":\"handoff\",\"modelBinding\":{\"capabilityIds\":[\"CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT\"],\"capabilityUseIds\":[\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CENTRAL_TOUCH_TABLE-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-DEMONSTRATION_CHEESE_PRESS-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_KETTLE-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_MILK_DELIVERY_TRUCK-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_DAIRY_COW-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_WELCOME_COUNTER-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-LEFT_GALLERY_GREEN_PLANT-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-RIGHT_LOUNGE_GREEN_PLANT-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_LOUNGE_RUG-HANDOFF-TO-RESPONSIBLE-AGENT\"],\"runtimeActionId\":\"RA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-BACKEND-CHAT-HANDOFF\",\"runtimeBindingId\":\"RB-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT\"},\"properties\":{\"active_agent_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"interaction_mode\":{\"enum\":[\"deictic\",\"non_deictic\"],\"type\":\"string\"},\"session_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"spatial_context\":{\"additionalProperties\":false,\"anyOf\":[{\"required\":[\"entity_id\"]},{\"required\":[\"source_object_id\"]},{\"required\":[\"source_id\"]}],\"properties\":{\"ambiguity\":{\"oneOf\":[{\"type\":\"boolean\"},{\"additionalProperties\":true,\"maxProperties\":8,\"type\":\"object\"}]},\"ambiguity_reason\":{\"maxLength\":512,\"type\":\"string\"},\"ambiguous\":{\"type\":\"boolean\"},\"candidate_entity_ids\":{\"items\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"maxItems\":16,\"type\":\"array\",\"uniqueItems\":true},\"distance_m\":{\"maximum\":1000000,\"minimum\":0,\"type\":\"number\"},\"entity_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"hit_position\":{\"additionalProperties\":false,\"properties\":{\"x\":{\"maximum\":1000000,\"minimum\":-1000000,\"type\":\"number\"},\"y\":{\"maximum\":1000000,\"minimum\":-1000000,\"type\":\"number\"},\"z\":{\"maximum\":1000000,\"minimum\":-1000000,\"type\":\"number\"}},\"required\":[\"x\",\"y\",\"z\"],\"type\":\"object\"},\"modality\":{\"enum\":[\"desktop_ray\",\"mouse_ray\",\"keyboard_mouse\",\"xr_controller_ray\",\"controller_ray\",\"gaze\",\"touch\",\"direct\",\"programmatic\"],\"type\":\"string\"},\"model_sha256\":{\"pattern\":\"^[0-9A-Fa-f]{64}$\",\"type\":\"string\"},\"object_group_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"selection_modality\":{\"enum\":[\"desktop_ray\",\"mouse_ray\",\"keyboard_mouse\",\"xr_controller_ray\",\"controller_ray\",\"gaze\",\"touch\",\"direct\",\"programmatic\"],\"type\":\"string\"},\"source_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"source_object_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"state\":{\"const\":\"resolved\"},\"zone_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"model_sha256\",\"state\",\"hit_position\",\"distance_m\",\"selection_modality\"],\"type\":\"object\"},\"user_text\":{\"maxLength\":32768,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"session_id\",\"active_agent_id\",\"user_text\",\"interaction_mode\"],\"title\":\"Interactive Agents handoff request\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "SCHEMA-RA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-BACKEND-CHAT-HANDOFF-OUTPUT",
       "type": "SchemaReference",
       "uri": "json",
-      "text": "{\"$id\":\"urn:functionalmlds:wire:handoff:response:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"allOf\":[{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"required\":[\"grounded_entity_ids\",\"grounding_evidence\",\"routing_reason\",\"grounding\",\"routing\"]}},{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"non_deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"not\":{\"anyOf\":[{\"required\":[\"grounded_entity_ids\"]},{\"required\":[\"grounding_evidence\"]},{\"required\":[\"routing_reason\"]},{\"required\":[\"grounding\"]},{\"required\":[\"routing\"]}]}}}],\"applicationActionKind\":\"handoff\",\"modelBinding\":{\"capabilityIds\":[\"CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT\"],\"capabilityUseIds\":[\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CENTRAL_TOUCH_TABLE-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-DEMONSTRATION_CHEESE_PRESS-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_KETTLE-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_MILK_DELIVERY_TRUCK-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_DAIRY_COW-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_WELCOME_COUNTER-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-LEFT_GALLERY_GREEN_PLANT-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-RIGHT_LOUNGE_GREEN_PLANT-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_LOUNGE_RUG-HANDOFF-TO-RESPONSIBLE-AGENT\"],\"runtimeActionId\":\"RA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-BACKEND-CHAT-HANDOFF\",\"runtimeBindingId\":\"RB-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT\"},\"properties\":{\"active_agent_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"events\":{\"type\":\"array\"},\"grounded_entity_ids\":{\"items\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"maxItems\":64,\"minItems\":1,\"type\":\"array\",\"uniqueItems\":true},\"grounding\":{\"type\":\"object\"},\"grounding_evidence\":{\"items\":{\"type\":\"object\"},\"maxItems\":128,\"minItems\":1,\"type\":\"array\"},\"handoff\":{\"type\":[\"object\",\"null\"]},\"interaction_mode\":{\"enum\":[\"deictic\",\"non_deictic\"],\"type\":\"string\"},\"memory_mode\":{\"type\":\"string\"},\"model_binding\":{\"additionalProperties\":false,\"properties\":{\"capability_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"capability_use_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"runtime_action_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"runtime_binding_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"runtime_binding_id\",\"runtime_action_id\",\"capability_id\",\"capability_use_id\"],\"type\":\"object\"},\"routing\":{\"type\":\"object\"},\"routing_reason\":{\"maxLength\":2048,\"minLength\":1,\"type\":\"string\"},\"session_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"session_id\",\"active_agent_id\",\"memory_mode\",\"handoff\",\"events\",\"interaction_mode\",\"model_binding\"],\"title\":\"Interactive Agents handoff response\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
+      "text": "{\"$id\":\"urn:functionalmlds:wire:handoff:response:2.0\",\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"additionalProperties\":true,\"allOf\":[{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"required\":[\"grounded_entity_ids\",\"grounding_evidence\",\"routing_reason\",\"grounding\",\"routing\"]}},{\"if\":{\"properties\":{\"interaction_mode\":{\"const\":\"non_deictic\"}},\"required\":[\"interaction_mode\"]},\"then\":{\"not\":{\"anyOf\":[{\"required\":[\"grounded_entity_ids\"]},{\"required\":[\"grounding_evidence\"]},{\"required\":[\"routing_reason\"]},{\"required\":[\"grounding\"]},{\"required\":[\"routing\"]}]}}}],\"applicationActionKind\":\"handoff\",\"modelBinding\":{\"capabilityIds\":[\"CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT\"],\"capabilityUseIds\":[\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CENTRAL_TOUCH_TABLE-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-DEMONSTRATION_CHEESE_PRESS-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_KETTLE-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_MILK_DELIVERY_TRUCK-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_DAIRY_COW-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_WELCOME_COUNTER-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-LEFT_GALLERY_GREEN_PLANT-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-RIGHT_LOUNGE_GREEN_PLANT-HANDOFF-TO-RESPONSIBLE-AGENT\",\"CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_LOUNGE_RUG-HANDOFF-TO-RESPONSIBLE-AGENT\"],\"runtimeActionId\":\"RA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-BACKEND-CHAT-HANDOFF\",\"runtimeBindingId\":\"RB-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT\"},\"properties\":{\"active_agent_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"events\":{\"type\":\"array\"},\"grounded_entity_ids\":{\"items\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"maxItems\":64,\"minItems\":1,\"type\":\"array\",\"uniqueItems\":true},\"grounding\":{\"type\":\"object\"},\"grounding_evidence\":{\"items\":{\"type\":\"object\"},\"maxItems\":128,\"minItems\":1,\"type\":\"array\"},\"handoff\":{\"type\":[\"object\",\"null\"]},\"interaction_mode\":{\"enum\":[\"deictic\",\"non_deictic\"],\"type\":\"string\"},\"memory_mode\":{\"type\":\"string\"},\"model_binding\":{\"additionalProperties\":false,\"properties\":{\"capability_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"capability_use_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"runtime_action_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"},\"runtime_binding_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"runtime_binding_id\",\"runtime_action_id\",\"capability_id\",\"capability_use_id\"],\"type\":\"object\"},\"routing\":{\"type\":\"object\"},\"routing_reason\":{\"maxLength\":2048,\"minLength\":1,\"type\":\"string\"},\"session_id\":{\"maxLength\":256,\"minLength\":1,\"type\":\"string\"}},\"required\":[\"session_id\",\"active_agent_id\",\"memory_mode\",\"handoff\",\"events\",\"interaction_mode\",\"model_binding\"],\"title\":\"Interactive Agents handoff response\",\"type\":\"object\",\"wireContractVersion\":\"2.0\"}"
     },
     {
       "id": "RA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-BACKEND-CHAT-HANDOFF",
@@ -2097,6 +2105,108 @@
       ]
     },
     {
+      "id": "PV-STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S10-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S10",
+      "type": "ScenarioStep",
+      "kind": "actorIntent",
+      "actorRole": [
+        "ACT-VISITOR"
+      ],
+      "performedBy": [],
+      "triggeredBy": [
+        "EV-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-VISITOR-QUESTION"
+      ],
+      "resultingAssertion": [],
+      "capabilityUse": [],
+      "text": "Ask a general room-related question to an agent.",
+      "occurrenceProbability": [
+        "PV-STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S10-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11-ANSWER-ROOM-GROUNDED-QUESTION",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "provider": [
+        "ENT-AGENT-CHEESE_EXPERT"
+      ],
+      "target": [],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-AGENT-CHEESE_EXPERT"
+      ],
+      "triggeredBy": [],
+      "resultingAssertion": [
+        "SA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-GROUNDED"
+      ],
+      "capabilityUse": [
+        "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11-ANSWER-ROOM-GROUNDED-QUESTION"
+      ],
+      "text": "Answer a general visitor question without a selected scene object.",
+      "occurrenceProbability": [
+        "PV-STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11-OCCURRENCE"
+      ]
+    },
+    {
+      "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "type": "CapabilityUse",
+      "typeRef": [
+        "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "provider": [
+        "ENT-AGENT-CHEESE_EXPERT"
+      ],
+      "target": [],
+      "parameter": []
+    },
+    {
+      "id": "PV-STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12-OCCURRENCE",
+      "type": "ProbabilityValue",
+      "value": 1.0
+    },
+    {
+      "id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12",
+      "type": "ScenarioStep",
+      "kind": "systemResponse",
+      "actorRole": [],
+      "performedBy": [
+        "ENT-AGENT-CHEESE_EXPERT"
+      ],
+      "triggeredBy": [
+        "EV-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-NEEDED"
+      ],
+      "resultingAssertion": [
+        "SA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-VALID"
+      ],
+      "capabilityUse": [
+        "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "text": "Optionally hand off a general question to a responsible specialist agent.",
+      "guard": [
+        "COND-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TARGET-AVAILABLE"
+      ],
+      "occurrenceProbability": [
+        "PV-STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12-OCCURRENCE"
+      ]
+    },
+    {
       "id": "REL-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-01-02",
       "type": "StepRelation",
       "kind": "sequence",
@@ -2233,6 +2343,57 @@
       ]
     },
     {
+      "id": "REL-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-09-10",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S09"
+      ],
+      "targetStep": [
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S10"
+      ],
+      "source": [
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S09"
+      ],
+      "target": [
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S10"
+      ]
+    },
+    {
+      "id": "REL-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-10-11",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S10"
+      ],
+      "targetStep": [
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11"
+      ],
+      "source": [
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S10"
+      ],
+      "target": [
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11"
+      ]
+    },
+    {
+      "id": "REL-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-11-12",
+      "type": "StepRelation",
+      "kind": "sequence",
+      "sourceStep": [
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11"
+      ],
+      "targetStep": [
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12"
+      ],
+      "source": [
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11"
+      ],
+      "target": [
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12"
+      ]
+    },
+    {
       "id": "SC-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-MAIN",
       "type": "Scenario",
       "kind": "main",
@@ -2251,7 +2412,10 @@
         "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S06",
         "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S07",
         "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S08",
-        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S09"
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S09",
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S10",
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11",
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12"
       ],
       "stepRelation": [
         "REL-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-01-02",
@@ -2261,18 +2425,21 @@
         "REL-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-05-06",
         "REL-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-06-07",
         "REL-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-07-08",
-        "REL-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-08-09"
+        "REL-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-08-09",
+        "REL-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-09-10",
+        "REL-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-10-11",
+        "REL-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-11-12"
       ],
       "parallelGroup": [],
       "text": "Authoring pipeline for generating and validating a spatially grounded multi-agent room guide."
     },
     {
-      "id": "PV-STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S10-OCCURRENCE",
+      "id": "PV-STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ASK-OCCURRENCE",
       "type": "ProbabilityValue",
       "value": 1.0
     },
     {
-      "id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S10",
+      "id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ASK",
       "type": "ScenarioStep",
       "kind": "actorIntent",
       "actorRole": [
@@ -2286,16 +2453,16 @@
       "capabilityUse": [],
       "text": "Select oak_cheese_counter (main_service_counter) and ask for a description.",
       "occurrenceProbability": [
-        "PV-STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S10-OCCURRENCE"
+        "PV-STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ASK-OCCURRENCE"
       ]
     },
     {
-      "id": "PARAM-CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11-ANSWER-ROOM-GROUNDED-QUESTION-MODEL-GROUNDED-TARGET",
+      "id": "PARAM-CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ANSWER-ROOM-GROUNDED-QUESTION-MODEL-GROUNDED-TARGET",
       "type": "KeyValueParameter",
       "key": "modelGroundedTarget"
     },
     {
-      "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11-ANSWER-ROOM-GROUNDED-QUESTION",
+      "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ANSWER-ROOM-GROUNDED-QUESTION",
       "type": "CapabilityUse",
       "typeRef": [
         "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION"
@@ -2303,18 +2470,22 @@
       "provider": [
         "ENT-AGENT-CHEESE_EXPERT"
       ],
-      "target": [],
+      "target": [
+        "ENT-ASSET-MAIN_SERVICE_COUNTER",
+        "ENT-GROUP-FURNITURE",
+        "ENT-ZONE-CHEESE_PRODUCTION_ZONE"
+      ],
       "parameter": [
-        "PARAM-CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11-ANSWER-ROOM-GROUNDED-QUESTION-MODEL-GROUNDED-TARGET"
+        "PARAM-CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ANSWER-ROOM-GROUNDED-QUESTION-MODEL-GROUNDED-TARGET"
       ]
     },
     {
-      "id": "PV-STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11-OCCURRENCE",
+      "id": "PV-STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ANSWER-OCCURRENCE",
       "type": "ProbabilityValue",
       "value": 1.0
     },
     {
-      "id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11",
+      "id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ANSWER",
       "type": "ScenarioStep",
       "kind": "systemResponse",
       "actorRole": [
@@ -2328,20 +2499,20 @@
         "SA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-GROUNDED"
       ],
       "capabilityUse": [
-        "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11-ANSWER-ROOM-GROUNDED-QUESTION"
+        "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ANSWER-ROOM-GROUNDED-QUESTION"
       ],
       "text": "Cheese Expert describes oak_cheese_counter using knowledge grounded in source object main_service_counter.",
       "occurrenceProbability": [
-        "PV-STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11-OCCURRENCE"
+        "PV-STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ANSWER-OCCURRENCE"
       ]
     },
     {
-      "id": "PARAM-CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12-HANDOFF-TO-RESPONSIBLE-AGENT-MODEL-GROUNDED-TARGET",
+      "id": "PARAM-CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-HANDOFF-TO-RESPONSIBLE-AGENT-MODEL-GROUNDED-TARGET",
       "type": "KeyValueParameter",
       "key": "modelGroundedTarget"
     },
     {
-      "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-HANDOFF-TO-RESPONSIBLE-AGENT",
       "type": "CapabilityUse",
       "typeRef": [
         "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT"
@@ -2349,18 +2520,22 @@
       "provider": [
         "ENT-AGENT-CHEESE_EXPERT"
       ],
-      "target": [],
+      "target": [
+        "ENT-ASSET-MAIN_SERVICE_COUNTER",
+        "ENT-GROUP-FURNITURE",
+        "ENT-ZONE-CHEESE_PRODUCTION_ZONE"
+      ],
       "parameter": [
-        "PARAM-CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12-HANDOFF-TO-RESPONSIBLE-AGENT-MODEL-GROUNDED-TARGET"
+        "PARAM-CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-HANDOFF-TO-RESPONSIBLE-AGENT-MODEL-GROUNDED-TARGET"
       ]
     },
     {
-      "id": "PV-STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12-OCCURRENCE",
+      "id": "PV-STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-HANDOFF-OCCURRENCE",
       "type": "ProbabilityValue",
       "value": 1.0
     },
     {
-      "id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12",
+      "id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-HANDOFF",
       "type": "ScenarioStep",
       "kind": "systemResponse",
       "actorRole": [
@@ -2376,14 +2551,14 @@
         "SA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-VALID"
       ],
       "capabilityUse": [
-        "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12-HANDOFF-TO-RESPONSIBLE-AGENT"
+        "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-HANDOFF-TO-RESPONSIBLE-AGENT"
       ],
       "text": "Constrain any follow-up handoff about oak_cheese_counter to the modeled responsibility of Cheese Expert.",
       "guard": [
         "COND-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TARGET-AVAILABLE"
       ],
       "occurrenceProbability": [
-        "PV-STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12-OCCURRENCE"
+        "PV-STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-HANDOFF-OCCURRENCE"
       ]
     },
     {
@@ -2391,16 +2566,16 @@
       "type": "StepRelation",
       "kind": "sequence",
       "sourceStep": [
-        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S10"
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ASK"
       ],
       "targetStep": [
-        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11"
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ANSWER"
       ],
       "source": [
-        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S10"
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ASK"
       ],
       "target": [
-        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11"
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ANSWER"
       ]
     },
     {
@@ -2408,16 +2583,16 @@
       "type": "StepRelation",
       "kind": "sequence",
       "sourceStep": [
-        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11"
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ANSWER"
       ],
       "targetStep": [
-        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12"
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-HANDOFF"
       ],
       "source": [
-        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11"
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ANSWER"
       ],
       "target": [
-        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12"
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-HANDOFF"
       ]
     },
     {
@@ -2432,9 +2607,9 @@
         "SA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-VALID"
       ],
       "step": [
-        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S10",
-        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11",
-        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12"
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ASK",
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ANSWER",
+        "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-HANDOFF"
       ],
       "stepRelation": [
         "REL-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-01",
@@ -3778,8 +3953,7 @@
       "target": [
         "ENT-ASSET-RIGHT_LOUNGE_GREEN_PLANT",
         "ENT-GROUP-GREENERY",
-        "ENT-ZONE-LOUNGE_ZONE",
-        "ENT-ZONE-GREENERY_ZONE"
+        "ENT-ZONE-LOUNGE_ZONE"
       ],
       "parameter": [
         "PARAM-CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-RIGHT_LOUNGE_GREEN_PLANT-ANSWER-ROOM-GROUNDED-QUESTION-MODEL-GROUNDED-TARGET"
@@ -3829,8 +4003,7 @@
       "target": [
         "ENT-ASSET-RIGHT_LOUNGE_GREEN_PLANT",
         "ENT-GROUP-GREENERY",
-        "ENT-ZONE-LOUNGE_ZONE",
-        "ENT-ZONE-GREENERY_ZONE"
+        "ENT-ZONE-LOUNGE_ZONE"
       ],
       "parameter": [
         "PARAM-CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-RIGHT_LOUNGE_GREEN_PLANT-HANDOFF-TO-RESPONSIBLE-AGENT-MODEL-GROUNDED-TARGET"

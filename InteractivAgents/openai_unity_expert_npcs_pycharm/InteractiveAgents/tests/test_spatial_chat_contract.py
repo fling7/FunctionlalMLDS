@@ -187,6 +187,7 @@ class SpatialChatContractTests(unittest.TestCase):
             DINO_ENTITY_ID,
             response["grounding"]["selected_entity_id"],
         )
+
         self.assertEqual(
             "dinosaur_skeleton",
             response["grounding"]["selected_source_object_id"],
@@ -210,9 +211,12 @@ class SpatialChatContractTests(unittest.TestCase):
         )
         self.assertIn("asset priority", response["routing_reason"])
         self.assertEqual(
-            "exhibit_interpreter",
+            "teacher_agent",
             response["events"][0]["agent_id"],
         )
+        self.assertIn("zuständig", response["events"][0]["text"])
+        self.assertIn("weiter", response["events"][0]["text"])
+        self.assertEqual("exhibit_interpreter", response["events"][1]["agent_id"])
         developer_text = "\n".join(
             str(item.get("content") or "")
             for item in self.openai.calls[0]["input_messages"]
@@ -220,6 +224,33 @@ class SpatialChatContractTests(unittest.TestCase):
         )
         self.assertIn("dinosaur_skeleton", developer_text)
         self.assertIn("ENT-ASSET-DINOSAUR_SKELETON", developer_text)
+
+    def test_unity_presentation_hints_are_validated_but_never_trusted(self) -> None:
+        setup = self._setup("SESSION-SPATIAL-UNITY-PRESENTATION")
+        state = self.store.sessions[setup["session_id"]]
+        trusted_entity = next(
+            item
+            for item in state.functionalmlds_runtime_context["spatial_entities"]
+            if item.get("entity_id") == DINO_ENTITY_ID
+        )
+
+        context = self._context(
+            setup["model_sha256"],
+            display_name="MANIPULIERTER CLIENT-NAME",
+            synonyms=["manipuliert", "nicht vertrauenswuerdig"],
+        )
+        grounding = self.store._validate_spatial_context(state, context)
+
+        self.assertEqual(trusted_entity["name"], grounding["selected_name"])
+        self.assertNotEqual(context["display_name"], grounding["selected_name"])
+        self.assertNotIn("display_name", grounding)
+        self.assertNotIn("synonyms", grounding)
+
+        with self.assertRaisesRegex(ValueError, "synonyms muss eine Liste sein"):
+            self.store._validate_spatial_context(
+                state,
+                self._context(setup["model_sha256"], synonyms="ungueltig"),
+            )
 
     def test_priority_falls_back_from_asset_to_group_then_zone(self) -> None:
         setup = self._setup()

@@ -90,7 +90,8 @@
       "handoff_targets": [
         "tactile_guide",
         "heritage_educator",
-        "welcome_host"
+        "welcome_host",
+        "lounge_host"
       ],
       "preferred_zone_ids": [
         "cheese_production_zone"
@@ -141,7 +142,9 @@
       ],
       "handoff_targets": [
         "cheese_expert",
-        "welcome_host"
+        "welcome_host",
+        "heritage_educator",
+        "lounge_host"
       ],
       "preferred_zone_ids": [
         "tactile_exploration_zone"
@@ -194,7 +197,9 @@
       ],
       "handoff_targets": [
         "welcome_host",
-        "cheese_expert"
+        "cheese_expert",
+        "tactile_guide",
+        "lounge_host"
       ],
       "preferred_zone_ids": [
         "dairy_farming_exhibit_zone"
@@ -249,7 +254,10 @@
         "left_gallery_green_plant"
       ],
       "handoff_targets": [
-        "welcome_host"
+        "welcome_host",
+        "cheese_expert",
+        "tactile_guide",
+        "heritage_educator"
       ],
       "preferred_zone_ids": [
         "lounge_zone",

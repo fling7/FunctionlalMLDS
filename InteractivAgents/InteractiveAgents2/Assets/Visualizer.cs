@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
+#endif
 using UnityEngine;
 
 namespace Assets
@@ -107,7 +109,6 @@ namespace Assets
         private Reader _reader = new Reader();
         private Writer _writer = new Writer();
         private Spawner _spawner = new Spawner();
-        private ChatWindow _chatWindow;
         private object _json;
         private List<string> _jsons = new List<string>();
         private ReverseConverter _converter;
@@ -155,6 +156,7 @@ namespace Assets
             DoVisualize(File.ReadAllText(newestFile));
         }
 
+#if UNITY_EDITOR
         [MenuItem("GameObject/Visualize %g")]
         public static void Visualize()
         {
@@ -180,8 +182,11 @@ namespace Assets
                 Visualizer.Instance.Delete();
             }
         }
+#endif
 
+#if UNITY_EDITOR
         [MenuItem("GameObject/Check Collision")]
+#endif
         public static void CheckCollision()
         {
             int collisionPairs = CheckCollisionInternal(highlight: true);
@@ -312,12 +317,6 @@ namespace Assets
             return renderer != null ? renderer.name : "<missing renderer>";
         }
 
-        [MenuItem("GameObject/Show UI")]
-        public static void ShowWindow()
-        {
-            Instance._chatWindow = ChatWindow.OpenWindow();
-        }
-
         public void DoVisualize()
         {
             if (JsonFile != null)
@@ -343,6 +342,7 @@ namespace Assets
 
         private void QueueTextTo3DGenerationAfterLoad()
         {
+#if UNITY_EDITOR
             if (!GenerateTextTo3DModelsAfterLoad || _textTo3DGenerationQueued)
             {
                 return;
@@ -354,6 +354,9 @@ namespace Assets
                 _textTo3DGenerationQueued = false;
                 global::DevDescriptionImporter.GenerateForCurrentScene(TextTo3DApiUrl, false);
             };
+#else
+            _textTo3DGenerationQueued = false;
+#endif
         }
 
         public bool LoadLatestGeneratedJson()
@@ -395,6 +398,7 @@ namespace Assets
             {
                 MeshRenderer[] meshRenderers = FindObjectsByType<MeshRenderer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
 
+#if UNITY_EDITOR
                 EditorApplication.delayCall += () =>
                 {
                     foreach (MeshRenderer mr in meshRenderers)
@@ -402,6 +406,12 @@ namespace Assets
                         if (mr) DestroyImmediate(mr.gameObject);
                     }
                 };
+#else
+                foreach (MeshRenderer mr in meshRenderers)
+                {
+                    if (mr) Destroy(mr.gameObject);
+                }
+#endif
 
                 _spawner.LastSpawnedObjects.Clear();
                 return;
@@ -493,10 +503,12 @@ namespace Assets
                 Debug.LogWarning($"Visualizer: Keine Objekte erzeugt. Prüfe JsonVersion={EffectiveJsonVersion} und JSON-Struktur.");
             }
 
+#if UNITY_EDITOR
             if (!Application.isPlaying && gameObject.scene.IsValid())
             {
                 EditorSceneManager.MarkSceneDirty(gameObject.scene);
             }
+#endif
         }
 
         private static string GetGeneratedJsonFolderPath()

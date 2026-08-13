@@ -546,7 +546,9 @@ namespace Assets
             light.bounceIntensity = 1f;
             light.shadows = LightShadows.None;
             light.renderMode = LightRenderMode.Auto;
+#if UNITY_EDITOR
             light.lightmapBakeType = LightmapBakeType.Realtime;
+#endif
             light.enabled = true;
         }
 

@@ -169,6 +169,24 @@ def _semantic_tokens(value: Any) -> set[str]:
     return {m.group(0) for m in re.finditer(r"[a-z0-9]+", text)}
 
 
+_HANDOFF_SEMANTIC_ALIASES = (
+    frozenset({"cheese", "kaese", "kase"}),
+    frozenset({"welcome", "willkommen", "empfang"}),
+    frozenset({"heritage", "geschichte", "historie", "tradition"}),
+    frozenset({"tactile", "taktil", "haptisch"}),
+    frozenset({"lounge", "entspannung", "relax"}),
+)
+
+
+def _handoff_semantic_tokens(value: Any) -> set[str]:
+    """Add narrow German/English aliases used in modeled agent identities."""
+    tokens = _semantic_tokens(value)
+    for aliases in _HANDOFF_SEMANTIC_ALIASES:
+        if tokens.intersection(aliases):
+            tokens.update(aliases)
+    return tokens
+
+
 @dataclass
 class AgentSpec:
     id: str
@@ -1128,6 +1146,10 @@ class SessionStore:
             "ambiguous",
             "ambiguity",
             "ambiguity_reason",
+            # Compatibility-only presentation hints emitted by older Unity clients.
+            # They are validated below but never used as identity/model evidence.
+            "display_name",
+            "synonyms",
         }
         unknown_fields = sorted(set(raw_context) - allowed_fields)
         if unknown_fields:
@@ -1136,6 +1158,28 @@ class SessionStore:
                 + ", ".join(unknown_fields)
                 + "."
             )
+
+        # Accept the legacy Unity wire shape without trusting its presentation data.
+        # The canonical name and aliases are reconstructed from the pinned V2 model.
+        if raw_context.get("display_name") is not None:
+            self._bounded_spatial_text(
+                raw_context.get("display_name"),
+                "display_name",
+                maximum=256,
+            )
+        supplied_synonyms = raw_context.get("synonyms")
+        if supplied_synonyms is not None:
+            if not isinstance(supplied_synonyms, list):
+                raise ValueError("spatial_context.synonyms muss eine Liste sein.")
+            if len(supplied_synonyms) > 32:
+                raise ValueError("spatial_context.synonyms enthaelt zu viele Eintraege.")
+            for synonym in supplied_synonyms:
+                self._bounded_spatial_text(
+                    synonym,
+                    "synonyms[]",
+                    maximum=256,
+                    required=True,
+                )
 
         supplied_hash = self._bounded_spatial_text(
             raw_context.get("model_sha256"),
@@ -1469,6 +1513,21 @@ class SessionStore:
                 allowed.append(target_id)
         return allowed
 
+    @staticmethod
+    def _spatial_handoff_announcement(
+        target: AgentSpec,
+        grounding: Optional[Dict[str, Any]],
+    ) -> str:
+        object_name = str(
+            (grounding or {}).get("selected_name")
+            or (grounding or {}).get("selected_source_object_id")
+            or "dieses Objekt"
+        ).strip()
+        return (
+            f"Für {object_name} ist {target.display_name} zuständig. "
+            f"Ich leite dich jetzt zu {target.display_name} weiter."
+        )
+
     def _resolve_spatial_route(
         self,
         st: SessionState,
@@ -1685,10 +1744,14 @@ class SessionStore:
         lines.append("")
         if allow_handoff and others:
             lines.append("Handoff-Regel:")
+            lines.append("- Wenn der Nutzer ausdruecklich um eine Weiterleitung bittet (z. B. 'Leite mich an ...'), fuehre den Handoff sofort aus und stelle vorher keine Rueckfrage.")
             lines.append("- Wenn du weiterleitest, setze 'handoff_brief' auf 1-2 kurze Saetze fuer den Zielagenten: Thema, wichtige Nutzerangaben und offene Frage.")
             lines.append("- Wenn du nicht weiterleitest, setze 'handoff_to', 'handoff_reason' und 'handoff_brief' auf null.")
             lines.append("- Wenn die Nutzerfrage deutlich außerhalb deiner Expertise liegt oder du unsicher bist (confidence < 0.55), leite an den am besten passenden anderen Agenten weiter.")
             lines.append("- Setze dann 'handoff_to' auf dessen id, und 'say' ist nur eine kurze Weiterleitungsformulierung (ohne ausführliche Antwort).")
+            lines.append("- Eine Wegbeschreibung oder die bloße Empfehlung, einen anderen Agenten aufzusuchen, ist KEIN Ersatz fuer den Handoff.")
+            lines.append("- Sobald du dem Nutzer sagst, er solle einen anderen Agenten aufsuchen, fragen oder mit ihm sprechen, MUSST du 'handoff_to' auf dessen id setzen.")
+            lines.append("- Antworte nie nur mit 'Gehe zu ...', 'Frage ...' oder einer Ortsbeschreibung, wenn ein passender modellierter Handoff verfuegbar ist.")
             lines.append("")
             lines.append("Verfügbare andere Agenten:")
             for o in others:
@@ -1783,6 +1846,62 @@ class SessionStore:
         if best_score <= current_score:
             return None
         return best_agent
+
+    def _select_narrated_handoff_target(
+        self,
+        st: SessionState,
+        agent: AgentSpec,
+        say: str,
+        allow_handoff: bool,
+    ) -> Optional[AgentSpec]:
+        """Recover a handoff that the model narrated instead of structuring.
+
+        Structured output can still be semantically inconsistent: the text tells
+        the visitor to walk to a named specialist while ``handoff_to`` is null.
+        That used to suppress both the second agent response and Unity's dashed
+        route. Only an explicitly named, modeled target plus referral language is
+        recovered here; ordinary mentions of another agent remain normal speech.
+        """
+        if not allow_handoff or self.max_handoffs <= 0:
+            return None
+
+        say_tokens = _handoff_semantic_tokens(say)
+        referral_tokens = {
+            "geh", "gehe", "gehen", "komm", "komme", "kommen",
+            "frag", "frage", "fragen", "sprich", "spreche", "sprechen",
+            "wende", "leit", "leite", "leiten", "weiter", "weiterleiten",
+            "weitergeleitet", "weiterleitung",
+            "aufsuchen", "zustandig", "zustaendig", "weg",
+            "ask", "visit", "talk", "speak", "go", "walk", "refer",
+        }
+        if not referral_tokens.intersection(say_tokens):
+            return None
+
+        ranked: List[Tuple[int, int, AgentSpec]] = []
+        for modeled_order, target_id in enumerate(self._allowed_handoff_ids(st, agent)):
+            target = st.agents[target_id]
+            identity_tokens = _handoff_semantic_tokens(
+                " ".join((target.id, target.display_name))
+            )
+            # A target must be named, not merely guessed from a generic word such
+            # as "Expert" or "Guide". IDs/display names are server-side model data.
+            distinctive = {
+                token
+                for token in identity_tokens
+                if len(token) >= 4
+                and token not in {"agent", "expert", "guide", "host", "educator"}
+            }
+            overlap = len(distinctive.intersection(say_tokens))
+            if overlap:
+                ranked.append((overlap, modeled_order, target))
+
+        if not ranked:
+            return None
+        ranked.sort(key=lambda item: (-item[0], item[1], item[2].id))
+        best_overlap = ranked[0][0]
+        if sum(1 for overlap, _, _ in ranked if overlap == best_overlap) != 1:
+            return None
+        return ranked[0][2]
 
     @staticmethod
     def _grounded_query(user_text: str, grounding: Optional[Dict[str, Any]]) -> str:
@@ -1989,13 +2108,48 @@ class SessionStore:
             handoff_to = str(handoff_to).strip()
             if not handoff_to:
                 result["handoff_to"] = None
-                return result
-            if handoff_to not in allowed:
+            elif handoff_to not in allowed:
                 raise ValueError(
                     f"Agent {agent.id!r} versuchte einen nicht modellierten Handoff "
                     f"an {handoff_to!r}."
                 )
-            result["handoff_to"] = handoff_to
+            else:
+                result["handoff_to"] = handoff_to
+
+        if result.get("handoff_to") is None:
+            current_user_text = str(history_with_user[-1].get("content") or "")
+            requested_target = self._select_narrated_handoff_target(
+                st,
+                agent,
+                current_user_text,
+                allow_handoff=bool(allowed),
+            )
+            narrated_target = requested_target or self._select_narrated_handoff_target(
+                st,
+                agent,
+                result["say"],
+                allow_handoff=bool(allowed),
+            )
+            if narrated_target is not None:
+                result["say"] = (
+                    f"Ich leite deine Frage an {narrated_target.display_name} weiter."
+                )
+                result["handoff_to"] = narrated_target.id
+                if requested_target is not None:
+                    result["handoff_reason"] = (
+                        "Der Nutzer bat ausdruecklich um diesen modellierten "
+                        "Spezialisten; die Weiterleitung wurde als strukturierter "
+                        "Handoff erzwungen."
+                    )
+                else:
+                    result["handoff_reason"] = (
+                        "Der Modelltext verwies den Nutzer bereits an diesen "
+                        "modellierten Spezialisten; die Weiterleitung wurde als "
+                        "strukturierter Handoff normalisiert."
+                    )
+                result["handoff_brief"] = (
+                    f"Nutzerfrage: {history_with_user[-1]['content']}"
+                )
 
         return result
 
@@ -2220,7 +2374,19 @@ class SessionStore:
                 grounding=grounding,
             )
 
-        events = [{"type": "say", "agent_id": agent_a.id, "text": res_a["say"]}]
+        spatial_announcement = (
+            self._spatial_handoff_announcement(agent_a, grounding)
+            if spatial_handoff
+            else None
+        )
+        events = []
+        if spatial_announcement is not None:
+            events.append({
+                "type": "say",
+                "agent_id": requested_agent.id,
+                "text": spatial_announcement,
+            })
+        events.append({"type": "say", "agent_id": agent_a.id, "text": res_a["say"]})
         new_active = agent_a.id
         handoff = (
             {
@@ -2274,7 +2440,14 @@ class SessionStore:
             else:
                 st.history = history_with_user + [{"role": "assistant", "content": res_a["say"]}]
         else:
-            st.history = history_with_user + [{"role": "assistant", "content": res_a["say"]}]
+            assistant_events = []
+            if spatial_announcement is not None:
+                assistant_events.append({
+                    "role": "assistant",
+                    "content": spatial_announcement,
+                })
+            assistant_events.append({"role": "assistant", "content": res_a["say"]})
+            st.history = history_with_user + assistant_events
 
         st.history = self._trim_history(st.history)
         st.touch()
@@ -2330,7 +2503,19 @@ class SessionStore:
                 grounding=grounding,
             )
 
-        events = [{"type": "say", "agent_id": agent_a.id, "text": res_a["say"]}]
+        spatial_announcement = (
+            self._spatial_handoff_announcement(agent_a, grounding)
+            if spatial_handoff
+            else None
+        )
+        events = []
+        if spatial_announcement is not None:
+            events.append({
+                "type": "say",
+                "agent_id": requested_agent.id,
+                "text": spatial_announcement,
+            })
+        events.append({"type": "say", "agent_id": agent_a.id, "text": res_a["say"]})
         new_active = agent_a.id
         handoff = (
             {
@@ -2393,6 +2578,23 @@ class SessionStore:
                 st,
                 agent_b.id,
                 history_b_with_user + [{"role": "assistant", "content": res_b["say"]}],
+            )
+        elif spatial_handoff:
+            requested_history_with_user = list(
+                self._agent_history(st, requested_agent.id)
+            ) + [{"role": "user", "content": user_text}]
+            self._commit_agent_history(
+                st,
+                requested_agent.id,
+                requested_history_with_user + [{
+                    "role": "assistant",
+                    "content": spatial_announcement,
+                }],
+            )
+            self._commit_agent_history(
+                st,
+                agent_a.id,
+                history_a_with_user + [{"role": "assistant", "content": res_a["say"]}],
             )
         else:
             self._commit_agent_history(

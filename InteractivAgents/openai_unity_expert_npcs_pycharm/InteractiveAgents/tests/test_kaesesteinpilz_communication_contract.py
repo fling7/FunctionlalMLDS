@@ -141,6 +141,22 @@ class KaesesteinpilzCommunicationContractTests(unittest.TestCase):
                     selected["capability_use_id"],
                 )
 
+    def test_every_agent_can_directly_handoff_to_every_other_specialist(self) -> None:
+        agents = {
+            item["source_agent_id"]: item
+            for item in self.runtime["agents"]
+        }
+        all_ids = set(agents)
+        for source_id, agent in agents.items():
+            with self.subTest(source=source_id):
+                self.assertEqual(
+                    all_ids - {source_id},
+                    set(agent["handoff_target_source_agent_ids"]),
+                )
+
+        tactile = agents["tactile_guide"]
+        self.assertIn("heritage_educator", tactile["handoff_target_source_agent_ids"])
+
     def test_loaded_contract_hashes_are_pinned(self) -> None:
         self.assertEqual("v2", self.contract["kind"])
         self.assertEqual(
@@ -289,6 +305,63 @@ class KaesesteinpilzRuntimeHandoffTests(unittest.TestCase):
             self.assertIsNone(response["handoff"])
             self.assertNotIn("handoff_model_binding", response)
             self.assertIn("model_binding", response)
+
+    def test_narrated_route_is_normalized_to_real_handoff(self) -> None:
+        with tempfile.TemporaryDirectory(
+            prefix="functionalmlds-kaesesteinpilz-narrated-handoff-"
+        ) as temp_dir:
+            store, openai = self._build_store(Path(temp_dir))
+            openai.responses = [
+                {
+                    "say": (
+                        "Natürlich! Für detaillierte Fragen rund um Käse leite ich "
+                        "dich an unseren Käse-Experten weiter. Möchtest du etwas "
+                        "Bestimmtes über Sorten, Herstellung oder Verkostung wissen?"
+                    ),
+                    "handoff_to": None,
+                    "handoff_reason": None,
+                    "handoff_brief": None,
+                    "confidence": 0.8,
+                },
+                {
+                    "say": "Gerne erkläre ich dir die Käseherstellung.",
+                    "handoff_to": None,
+                    "handoff_reason": None,
+                    "handoff_brief": None,
+                    "confidence": 1.0,
+                },
+            ]
+            setup = store.setup_from_request(
+                {
+                    "project_id": PROJECT_ID,
+                    "session_id": "SESSION-NARRATED-HANDOFF",
+                    "memory_mode": "shared_history",
+                }
+            )
+
+            response = store.chat(
+                {
+                    "session_id": setup["session_id"],
+                    "active_agent_id": "welcome_host",
+                    "interaction_mode": "non_deictic",
+                    "user_text": "Leite mich an den Käse-Experten.",
+                },
+                include_runtime_actions=True,
+            )
+
+            self.assertEqual("cheese_expert", response["active_agent_id"])
+            self.assertEqual("welcome_host", response["handoff"]["from"])
+            self.assertEqual("cheese_expert", response["handoff"]["to"])
+            self.assertIs(response["handoff"]["modeled_handoff"], True)
+            self.assertIn("handoff_model_binding", response)
+            self.assertEqual(2, len(response["events"]))
+            self.assertEqual(2, len(openai.calls))
+            self.assertIn("Ich leite deine Frage", response["events"][0]["text"])
+            self.assertNotIn("?", response["events"][0]["text"])
+            self.assertIn("ausdruecklich", response["handoff"]["reason"])
+            developer_prompt = openai.calls[0]["input_messages"][0]["content"]
+            self.assertIn("KEIN Ersatz fuer den Handoff", developer_prompt)
+            self.assertIn("stelle vorher keine Rueckfrage", developer_prompt)
 
 
 if __name__ == "__main__":

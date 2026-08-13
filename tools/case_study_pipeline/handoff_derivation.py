@@ -66,6 +66,13 @@ def _declared_pairs(agent_roles: Mapping[str, Any], instance: Mapping[str, Any],
             _append_pair(pairs, source, str(target or "").strip(), agent_ids)
     for source, target in _matrix_entries_by_pair(existing_matrix):
         _append_pair(pairs, source, target, agent_ids)
+    # Spatial object selection can occur while the visitor is speaking with any
+    # agent. Every agent therefore needs a direct modeled edge to every other
+    # specialist; a merely transitive path cannot drive the single visible
+    # proximity handoff/route used by the runtime.
+    for source in agents:
+        for target in agents:
+            _append_pair(pairs, source, target, agent_ids)
     return pairs
 
 
