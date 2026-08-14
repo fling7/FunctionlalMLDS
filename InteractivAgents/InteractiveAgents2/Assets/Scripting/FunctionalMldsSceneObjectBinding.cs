@@ -173,6 +173,7 @@ public sealed class FunctionalMldsSceneObjectBinding : MonoBehaviour
     {
         highlightMaterialStates.Clear();
         var renderers = ResolveHighlightRenderers();
+        var capturedMaterials = new HashSet<Material>();
         for (var rendererIndex = 0; rendererIndex < renderers.Length; rendererIndex++)
         {
             var targetRenderer = renderers[rendererIndex];
@@ -183,21 +184,34 @@ public sealed class FunctionalMldsSceneObjectBinding : MonoBehaviour
             for (var materialIndex = 0; materialIndex < materials.Length; materialIndex++)
             {
                 var material = materials[materialIndex];
-                if (material == null)
+                if (material == null || !capturedMaterials.Add(material))
                     continue;
 
-                var colorProperty = material.HasProperty("_BaseColor")
-                    ? "_BaseColor"
-                    : material.HasProperty("_Color") ? "_Color" : null;
-                var hasEmission = material.HasProperty("_EmissionColor");
+                // Unity's standard/URP shaders and glTFast's shader graphs use
+                // different reference names for the same PBR inputs.
+                var colorProperty = FirstMaterialProperty(
+                    material,
+                    "_BaseColor",
+                    "_Color",
+                    "baseColorFactor",
+                    "_BaseColorFactor");
+                var emissionProperty = FirstMaterialProperty(
+                    material,
+                    "_EmissionColor",
+                    "emissiveFactor",
+                    "_EmissiveFactor");
+                var hasEmission = emissionProperty != null;
                 var state = new HighlightMaterialState
                 {
                     Material = material,
                     ColorProperty = colorProperty,
                     OriginalColor = colorProperty == null ? Color.white : material.GetColor(colorProperty),
                     HasEmission = hasEmission,
-                    OriginalEmission = hasEmission ? material.GetColor("_EmissionColor") : Color.black,
-                    EmissionKeywordEnabled = material.IsKeywordEnabled("_EMISSION")
+                    EmissionProperty = emissionProperty,
+                    OriginalEmission = hasEmission ? material.GetColor(emissionProperty) : Color.black,
+                    UsesEmissionKeyword = emissionProperty == "_EmissionColor",
+                    EmissionKeywordEnabled = emissionProperty == "_EmissionColor"
+                        && material.IsKeywordEnabled("_EMISSION")
                 };
                 highlightMaterialStates.Add(state);
 
@@ -205,8 +219,11 @@ public sealed class FunctionalMldsSceneObjectBinding : MonoBehaviour
                     material.SetColor(colorProperty, color);
                 if (hasEmission)
                 {
-                    material.EnableKeyword("_EMISSION");
-                    material.SetColor("_EmissionColor", color * Mathf.Max(0f, emissionStrength));
+                    if (state.UsesEmissionKeyword)
+                        material.EnableKeyword("_EMISSION");
+                    material.SetColor(
+                        emissionProperty,
+                        color * Mathf.Max(0f, emissionStrength));
                 }
             }
         }
@@ -222,10 +239,12 @@ public sealed class FunctionalMldsSceneObjectBinding : MonoBehaviour
 
             if (state.ColorProperty != null && state.Material.HasProperty(state.ColorProperty))
                 state.Material.SetColor(state.ColorProperty, state.OriginalColor);
-            if (state.HasEmission && state.Material.HasProperty("_EmissionColor"))
+            if (state.HasEmission
+                && !string.IsNullOrEmpty(state.EmissionProperty)
+                && state.Material.HasProperty(state.EmissionProperty))
             {
-                state.Material.SetColor("_EmissionColor", state.OriginalEmission);
-                if (!state.EmissionKeywordEnabled)
+                state.Material.SetColor(state.EmissionProperty, state.OriginalEmission);
+                if (state.UsesEmissionKeyword && !state.EmissionKeywordEnabled)
                     state.Material.DisableKeyword("_EMISSION");
             }
         }
@@ -258,6 +277,18 @@ public sealed class FunctionalMldsSceneObjectBinding : MonoBehaviour
         return string.IsNullOrWhiteSpace(value) ? string.Empty : value.Trim();
     }
 
+    private static string FirstMaterialProperty(Material material, params string[] names)
+    {
+        if (material == null || names == null)
+            return null;
+        for (var i = 0; i < names.Length; i++)
+        {
+            if (!string.IsNullOrEmpty(names[i]) && material.HasProperty(names[i]))
+                return names[i];
+        }
+        return null;
+    }
+
     private static string[] NormalizeAliases(IEnumerable<string> values)
     {
         if (values == null)
@@ -281,7 +312,9 @@ public sealed class FunctionalMldsSceneObjectBinding : MonoBehaviour
         public string ColorProperty;
         public Color OriginalColor;
         public bool HasEmission;
+        public string EmissionProperty;
         public Color OriginalEmission;
+        public bool UsesEmissionKeyword;
         public bool EmissionKeywordEnabled;
     }
 }

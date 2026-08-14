@@ -1,0 +1,16 @@
+.git
+**/.git
+**/.idea
+**/.vscode
+**/.pytest_cache
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/*.log
+archive
+research
+tmp
+output
+InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/config.json
+InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/projects
+InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/runtime_logs

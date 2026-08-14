@@ -3,13 +3,13 @@
   "errors": [],
   "warnings": [],
   "metrics": {
-    "object_count": 601,
+    "object_count": 609,
     "error_count": 0,
     "warning_count": 0
   },
   "subject": "native V2 runtime instance kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89",
   "ok": true,
-  "generated_at": "2026-08-12T19:18:17.965977+00:00",
+  "generated_at": "2026-08-14T07:57:09.993933+00:00",
   "error_count": 0,
   "warning_count": 0,
   "checks": [

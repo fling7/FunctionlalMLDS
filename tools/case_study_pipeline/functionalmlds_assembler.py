@@ -236,7 +236,7 @@ def _scenario_and_capability_uses(
     prefix: str,
     uc_id: str,
     *,
-    default_agent_provider_entity_id: str,
+    agent_provider_entity_ids: Iterable[str],
 ) -> tuple[Dict[str, Any], List[Dict[str, Any]]]:
     """Build the authoring pipeline scenario.
 
@@ -256,36 +256,63 @@ def _scenario_and_capability_uses(
         ("S07", "systemResponse", None, "Assemble and validate the FunctionalMLDS trace instance.", ["ASSEMBLE-FUNCTIONAL-MLDS"], [], None, ["FUNCTIONALMLDS-VALID"]),
         ("S08", "systemResponse", None, "Materialize the Interactive Agents project files.", ["MATERIALIZE-INTERACTIVE-AGENTS-PROJECT"], [], None, ["PROJECT-MATERIALIZED"]),
         ("S09", "systemResponse", None, "Set up an Interactive Agents runtime session.", ["SETUP-INTERACTIVE-SESSION"], [], "AGENTS-AVAILABLE", ["SETUP-VALID"]),
-        # Keep one targetless chat/handoff chain for ordinary text and voice.
-        # Object-specific deictic chains are modeled separately below and must
-        # never reuse these IDs, otherwise the first scene asset loses its exact
-        # target mapping when the runtime selects the generic chain.
+        # Keep one targetless chat/handoff chain per agent for ordinary text and
+        # voice. Object-specific deictic chains are modeled separately below.
+        # The provider-specific chains prevent a general request made to one
+        # agent from borrowing another agent's runtime evidence.
         ("S10", "actorIntent", "ACT-VISITOR", "Ask a general room-related question to an agent.", [], ["VISITOR-QUESTION"], None, []),
         ("S11", "systemResponse", None, "Answer a general visitor question without a selected scene object.", ["ANSWER-ROOM-GROUNDED-QUESTION"], [], None, ["ANSWER-GROUNDED"]),
         ("S12", "systemResponse", None, "Optionally hand off a general question to a responsible specialist agent.", ["HANDOFF-TO-RESPONSIBLE-AGENT"], ["HANDOFF-NEEDED"], "HANDOFF-TARGET-AVAILABLE", ["HANDOFF-VALID"]),
     ]
+    provider_entity_ids = _unique(agent_provider_entity_ids)
+    if not provider_entity_ids:
+        raise ValueError("At least one agent provider is required for user-facing communication.")
     capability_uses: List[Dict[str, Any]] = []
     steps = []
     for index, (step_suffix, kind, actor_id, text, capabilities, event_suffixes, condition_suffix, state_suffixes) in enumerate(steps_spec, start=1):
         step_id = f"STEP-{prefix}-{step_suffix}"
         use_ids = []
         for capability_suffix in capabilities:
-            cu_id = f"CU-{prefix}-{step_suffix}-{capability_suffix}"
-            use_ids.append(cu_id)
-            capability_use = {
+            provider_ids = (
+                provider_entity_ids
+                if capability_suffix
+                in {
+                    "ANSWER-ROOM-GROUNDED-QUESTION",
+                    "HANDOFF-TO-RESPONSIBLE-AGENT",
+                }
+                else [""]
+            )
+            for provider_entity_id in provider_ids:
+                provider_token = ""
+                if provider_entity_id:
+                    raw_provider_token = provider_entity_id
+                    if raw_provider_token.startswith("ENT-AGENT-"):
+                        raw_provider_token = raw_provider_token[len("ENT-AGENT-") :]
+                    provider_token = (
+                        slugify(raw_provider_token, fallback="agent")
+                        .upper()
+                    )
+                cu_id = "-".join(
+                    part
+                    for part in (
+                        "CU",
+                        prefix,
+                        provider_token,
+                        step_suffix,
+                        capability_suffix,
+                    )
+                    if part
+                )
+                use_ids.append(cu_id)
+                capability_use = {
                     "id": cu_id,
                     "step_id": step_id,
                     "capability_id": f"CAP-{prefix}-{capability_suffix}",
                     "parameters": [],
                 }
-            if capability_suffix in {
-                "ANSWER-ROOM-GROUNDED-QUESTION",
-                "HANDOFF-TO-RESPONSIBLE-AGENT",
-            }:
-                capability_use["preferred_provider_entity_id"] = (
-                    default_agent_provider_entity_id
-                )
-            capability_uses.append(capability_use)
+                if provider_entity_id:
+                    capability_use["preferred_provider_entity_id"] = provider_entity_id
+                capability_uses.append(capability_use)
         steps.append(
             {
                 "id": step_id,
@@ -679,7 +706,11 @@ def assemble_functionalmlds_instance(
     pipeline_scenario, capability_uses = _scenario_and_capability_uses(
         prefix,
         uc_id,
-        default_agent_provider_entity_id=interaction_targets[0]["provider_entity_id"],
+        agent_provider_entity_ids=[
+            _agent_entity_id(str(agent.get("id") or ""))
+            for agent in agent_roles.get("agents") or []
+            if str(agent.get("id") or "").strip()
+        ],
     )
     interaction_use_cases, interaction_capability_uses = _interaction_use_cases(
         prefix=prefix,

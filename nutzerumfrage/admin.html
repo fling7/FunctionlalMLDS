@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Studienverwaltung | Virtueller Messestand</title>
+    <meta
+      name="description"
+      content="Geschützte Verwaltung der Fragebogen-Antworten zum virtuellen Messestand."
+    />
+    <link rel="stylesheet" href="/src/admin.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Zum Hauptinhalt springen</a>
+
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand" href="/" aria-label="Zur Fragebogen-Startseite">
+          <span class="brand-mark" aria-hidden="true">S</span>
+          <span>
+            <strong>Studienverwaltung</strong>
+            <small>Virtueller Messestand</small>
+          </span>
+        </a>
+
+        <button class="button button-secondary button-compact" id="logout-button" type="button" hidden>
+          Abmelden
+        </button>
+      </header>
+
+      <main id="main-content" tabindex="-1">
+        <section class="login-view" id="login-view" aria-labelledby="login-title">
+          <div class="login-card">
+            <div class="eyebrow">Geschützter Bereich</div>
+            <h1 id="login-title">Antworten verwalten</h1>
+            <p>
+              Melden Sie sich mit der Verwaltungs-PIN an, um Fragebogenantworten
+              einzusehen und zu exportieren.
+            </p>
+
+            <form id="login-form" novalidate>
+              <div class="field">
+                <label for="pin">Verwaltungs-PIN</label>
+                <div class="pin-field">
+                  <input
+                    id="pin"
+                    name="pin"
+                    type="password"
+                    inputmode="numeric"
+                    autocomplete="current-password"
+                    aria-describedby="pin-hint login-error"
+                    required
+                  />
+                  <button
+                    class="reveal-button"
+                    id="reveal-pin"
+                    type="button"
+                    aria-controls="pin"
+                    aria-pressed="false"
+                  >
+                    Anzeigen
+                  </button>
+                </div>
+                <p class="field-hint" id="pin-hint">Die PIN wird nur zur Anmeldung an den Server gesendet.</p>
+                <p class="form-error" id="login-error" role="alert" hidden></p>
+              </div>
+
+              <button class="button button-primary button-wide" id="login-button" type="submit">
+                Anmelden
+              </button>
+            </form>
+          </div>
+        </section>
+
+        <section class="dashboard-view" id="dashboard-view" aria-labelledby="dashboard-title" hidden>
+          <div class="dashboard-heading">
+            <div>
+              <div class="eyebrow">Fragebogen-Auswertung</div>
+              <h1 id="dashboard-title">Antworten im Überblick</h1>
+              <p id="last-updated">Die Daten werden geladen.</p>
+            </div>
+
+            <div class="heading-actions" aria-label="Dashboard-Aktionen">
+              <button class="button button-secondary" id="refresh-button" type="button">
+                Aktualisieren
+              </button>
+              <button class="button button-secondary" id="export-json-button" type="button">
+                JSON exportieren
+              </button>
+              <button class="button button-primary" id="export-csv-button" type="button">
+                CSV exportieren
+              </button>
+              <button class="button button-secondary" id="export-raffle-button" type="button">
+                🎁 Verlosung exportieren
+              </button>
+              <button class="button button-danger" id="delete-all-button" type="button" disabled>
+                Alle Antworten löschen
+              </button>
+            </div>
+          </div>
+
+          <div class="status-message" id="status-message" role="status" aria-live="polite" hidden></div>
+
+          <section class="summary-grid" aria-label="Zusammenfassung">
+            <article class="summary-card summary-total">
+              <span class="summary-label">Teilnahmen insgesamt</span>
+              <strong id="total-count">–</strong>
+              <span class="summary-note">alle gespeicherten Datensätze</span>
+            </article>
+            <article class="summary-card summary-completed">
+              <span class="summary-label">Abgeschlossen</span>
+              <strong id="completed-count">–</strong>
+              <span class="summary-note" id="completed-share">vollständig beantwortet</span>
+            </article>
+            <article class="summary-card summary-draft">
+              <span class="summary-label">Entwürfe</span>
+              <strong id="draft-count">–</strong>
+              <span class="summary-note">noch nicht abgeschlossen</span>
+            </article>
+          </section>
+
+          <section class="analysis-section" aria-labelledby="analysis-title">
+            <div class="analysis-heading">
+              <div>
+                <div class="eyebrow">Automatisch aggregiert</div>
+                <h2 id="analysis-title">Grafische Gesamtauswertung</h2>
+                <p id="analysis-subtitle">Berücksichtigt alle bisher gespeicherten Antworten, einschließlich Entwürfen.</p>
+              </div>
+              <div class="analysis-legend" aria-label="Legende der Zustimmungsskala">
+                <span><i class="legend-swatch score-1"></i>1</span>
+                <span><i class="legend-swatch score-2"></i>2</span>
+                <span><i class="legend-swatch score-3"></i>3</span>
+                <span><i class="legend-swatch score-4"></i>4</span>
+                <span><i class="legend-swatch score-5"></i>5</span>
+              </div>
+            </div>
+
+            <div class="analysis-empty" id="analysis-empty" hidden>
+              Sobald erste Antworten vorliegen, erscheinen hier die Diagramme.
+            </div>
+
+            <div class="analysis-content" id="analysis-content">
+              <div class="analysis-grid analysis-grid-overview">
+                <article class="chart-panel chart-panel-status" aria-labelledby="status-chart-title">
+                  <div class="chart-title-row">
+                    <div>
+                      <h3 id="status-chart-title">Teilnahmestatus</h3>
+                      <p>Entwürfe und abgeschlossene Fragebögen</p>
+                    </div>
+                  </div>
+                  <div id="status-chart"></div>
+                </article>
+
+                <article class="chart-panel" aria-labelledby="device-chart-title">
+                  <div class="chart-title-row">
+                    <div>
+                      <h3 id="device-chart-title">Verwendete Geräte</h3>
+                      <p>Antworten auf Frage 1</p>
+                    </div>
+                    <span class="chart-sample" id="device-sample"></span>
+                  </div>
+                  <div class="horizontal-bars" id="device-chart"></div>
+                </article>
+
+                <article class="chart-panel" aria-labelledby="experience-chart-title">
+                  <div class="chart-title-row">
+                    <div>
+                      <h3 id="experience-chart-title">Vorerfahrung</h3>
+                      <p>Antworten auf Frage 2</p>
+                    </div>
+                    <span class="chart-sample" id="experience-sample"></span>
+                  </div>
+                  <div class="horizontal-bars" id="experience-chart"></div>
+                </article>
+              </div>
+
+              <div class="analysis-grid analysis-grid-two">
+                <article class="chart-panel" aria-labelledby="handoff-chart-title">
+                  <div class="chart-title-row">
+                    <div>
+                      <h3 id="handoff-chart-title">Weiterleitung wahrgenommen</h3>
+                      <p>Antworten auf Frage 5</p>
+                    </div>
+                    <span class="chart-sample" id="handoff-sample"></span>
+                  </div>
+                  <div class="horizontal-bars" id="handoff-chart"></div>
+                </article>
+
+                <article class="chart-panel" aria-labelledby="model-chart-title">
+                  <div class="chart-title-row">
+                    <div>
+                      <h3 id="model-chart-title">Verständnis der Agentenauswahl</h3>
+                      <p>Antworten auf Frage 10</p>
+                    </div>
+                    <span class="chart-sample" id="model-sample"></span>
+                  </div>
+                  <div class="horizontal-bars" id="model-chart"></div>
+                </article>
+              </div>
+
+              <div class="analysis-grid analysis-grid-two">
+                <article class="chart-panel"><div class="chart-title-row"><div><h3>Altersgruppen</h3><p>Demografische Frage 1</p></div><span class="chart-sample" id="age-sample"></span></div><div class="horizontal-bars" id="age-chart"></div></article>
+                <article class="chart-panel"><div class="chart-title-row"><div><h3>Tätigkeits- oder Studienbereich</h3><p>Demografische Frage 2</p></div><span class="chart-sample" id="activity-sample"></span></div><div class="horizontal-bars" id="activity-chart"></div></article>
+                <article class="chart-panel"><div class="chart-title-row"><div><h3>Nutzung dialogfähiger KI</h3><p>Demografische Frage 3</p></div><span class="chart-sample" id="ai-sample"></span></div><div class="horizontal-bars" id="ai-chart"></div></article>
+                <article class="chart-panel"><div class="chart-title-row"><div><h3>Sinnvollster Anwendungsbereich</h3><p>Abschlussfrage 5</p></div><span class="chart-sample" id="use-case-sample"></span></div><div class="horizontal-bars" id="use-case-chart"></div></article>
+              </div>
+
+              <article class="chart-panel chart-panel-wide" aria-labelledby="likert-chart-title">
+                <div class="chart-title-row">
+                  <div>
+                    <h3 id="likert-chart-title">Bewertungen auf der Zustimmungsskala</h3>
+                    <p>Verteilung von 1 „stimme überhaupt nicht zu“ bis 5 „stimme voll zu“</p>
+                  </div>
+                </div>
+                <div class="likert-chart" id="likert-chart"></div>
+              </article>
+
+              <article class="chart-panel chart-panel-wide" aria-labelledby="score-chart-title">
+                <div class="chart-title-row">
+                  <div>
+                    <h3 id="score-chart-title">Gesamturteil</h3>
+                    <p>Bewertung der gesamten Interaktion von 0 bis 10</p>
+                  </div>
+                  <div class="score-average" id="score-average"></div>
+                </div>
+                <div class="score-chart" id="score-chart"></div>
+              </article>
+
+              <article class="chart-panel chart-panel-wide" aria-labelledby="comments-title">
+                <div class="chart-title-row">
+                  <div>
+                    <h3 id="comments-title">Genannte Verbesserungen</h3>
+                    <p>Optionale Freitextantworten aus Frage 12</p>
+                  </div>
+                  <span class="chart-sample" id="comments-sample"></span>
+                </div>
+                <div class="comments-list" id="comments-list"></div>
+              </article>
+            </div>
+          </section>
+
+          <section class="responses-card raffle-card" aria-labelledby="raffle-title">
+            <div class="responses-header">
+              <div><div class="eyebrow">Getrennte Verlosungsdatenbank</div><h2 id="raffle-title">🎁 Gutscheinverlosung</h2><p>Die Ziehung verwendet nur die freiwillig hinterlegten Studierendenkennungen.</p></div>
+            </div>
+            <div class="raffle-controls">
+              <label for="raffle-winner-count">Anzahl der Gewinnerinnen und Gewinner</label>
+              <input id="raffle-winner-count" type="number" min="1" step="1" value="1" />
+              <button class="button button-primary" id="draw-raffle-button" type="button">Zufällig ziehen</button>
+              <button class="button button-secondary" id="copy-raffle-button" type="button" hidden>Ergebnis kopieren</button>
+            </div>
+            <p class="raffle-status" id="raffle-status" aria-live="polite">Noch keine Ziehung durchgeführt.</p>
+            <ol class="raffle-winners" id="raffle-winners"></ol>
+          </section>
+
+          <section class="responses-card" aria-labelledby="responses-title">
+            <div class="responses-header">
+              <div>
+                <h2 id="responses-title">Gespeicherte Antworten</h2>
+                <p id="results-summary" aria-live="polite">Noch keine Daten geladen.</p>
+              </div>
+
+              <div class="filters" role="search" aria-label="Antworten filtern">
+                <div class="filter-field search-field">
+                  <label for="search-input">Suchen</label>
+                  <input
+                    id="search-input"
+                    type="search"
+                    placeholder="Session-ID oder Antwort"
+                    autocomplete="off"
+                  />
+                </div>
+                <div class="filter-field">
+                  <label for="status-filter">Status</label>
+                  <select id="status-filter">
+                    <option value="all">Alle</option>
+                    <option value="completed">Abgeschlossen</option>
+                    <option value="draft">Entwurf</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-region" tabindex="0" aria-label="Antwortentabelle, horizontal scrollbar">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Session</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Gerät</th>
+                    <th scope="col">Fortschritt</th>
+                    <th scope="col">Begonnen</th>
+                    <th scope="col">Zuletzt gespeichert</th>
+                    <th scope="col"><span class="visually-hidden">Aktion</span></th>
+                  </tr>
+                </thead>
+                <tbody id="responses-body"></tbody>
+              </table>
+            </div>
+
+            <div class="empty-state" id="empty-state" hidden>
+              <div class="empty-symbol" aria-hidden="true">0</div>
+              <h3 id="empty-title">Keine Antworten vorhanden</h3>
+              <p id="empty-copy">Sobald Antworten gespeichert wurden, erscheinen sie hier.</p>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <dialog class="detail-dialog" id="detail-dialog" aria-labelledby="detail-title">
+      <div class="dialog-shell">
+        <header class="dialog-header">
+          <div>
+            <div class="eyebrow">Teilnahmedetails</div>
+            <h2 id="detail-title">Antworten</h2>
+          </div>
+          <button class="dialog-close" id="detail-close" type="button" aria-label="Detailansicht schließen">
+            ×
+          </button>
+        </header>
+        <div class="dialog-body" id="detail-content"></div>
+      </div>
+    </dialog>
+
+    <noscript>
+      <div class="noscript-message">Für die Studienverwaltung muss JavaScript aktiviert sein.</div>
+    </noscript>
+
+    <script type="module" src="/src/admin.js"></script>
+  </body>
+</html>

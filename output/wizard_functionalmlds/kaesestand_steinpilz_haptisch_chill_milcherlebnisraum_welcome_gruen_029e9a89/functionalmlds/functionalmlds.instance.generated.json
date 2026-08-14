@@ -222,7 +222,11 @@
                   "SA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-GROUNDED"
                 ],
                 "capabilityUseIds": [
-                  "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11-ANSWER-ROOM-GROUNDED-QUESTION"
+                  "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-WELCOME_HOST-S11-ANSWER-ROOM-GROUNDED-QUESTION",
+                  "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-CHEESE_CRAFT_EXPERT-S11-ANSWER-ROOM-GROUNDED-QUESTION",
+                  "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-DAIRY_EDUCATOR-S11-ANSWER-ROOM-GROUNDED-QUESTION",
+                  "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACTIVE_GUIDE-S11-ANSWER-ROOM-GROUNDED-QUESTION",
+                  "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-LOUNGE_HOST-S11-ANSWER-ROOM-GROUNDED-QUESTION"
                 ]
               },
               {
@@ -240,7 +244,11 @@
                   "SA-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-VALID"
                 ],
                 "capabilityUseIds": [
-                  "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12-HANDOFF-TO-RESPONSIBLE-AGENT"
+                  "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-WELCOME_HOST-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+                  "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-CHEESE_CRAFT_EXPERT-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+                  "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-DAIRY_EDUCATOR-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+                  "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACTIVE_GUIDE-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+                  "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-LOUNGE_HOST-S12-HANDOFF-TO-RESPONSIBLE-AGENT"
                 ]
               }
             ],
@@ -352,7 +360,7 @@
           {
             "id": "SC-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-MAIN",
             "kind": "main",
-            "description": "Visitor asks about source object main_service_counter; the model binds the interaction to Cheese Expert and its asset, group, and zone context.",
+            "description": "Visitor asks about source object main_service_counter; the model binds the interaction to Cheese Craft Expert and its asset, group, and zone context.",
             "precondition_ids": [
               "COND-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-AGENTS-AVAILABLE"
             ],
@@ -380,7 +388,7 @@
                 "stepNumber": 2,
                 "kind": "systemResponse",
                 "performedBy": "ACT-ROOM-GUIDE",
-                "text": "Cheese Expert describes oak_cheese_counter using knowledge grounded in source object main_service_counter.",
+                "text": "Cheese Craft Expert describes oak_cheese_counter using knowledge grounded in source object main_service_counter.",
                 "occurrenceProbability": 1.0,
                 "triggeredBy": [],
                 "guard": null,
@@ -396,7 +404,7 @@
                 "stepNumber": 3,
                 "kind": "systemResponse",
                 "performedBy": "ACT-ROOM-GUIDE",
-                "text": "Constrain any follow-up handoff about oak_cheese_counter to the modeled responsibility of Cheese Expert.",
+                "text": "Constrain any follow-up handoff about oak_cheese_counter to the modeled responsibility of Cheese Craft Expert.",
                 "occurrenceProbability": 1.0,
                 "triggeredBy": [
                   "EV-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-NEEDED"
@@ -446,7 +454,7 @@
           {
             "id": "SC-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CENTRAL_TOUCH_TABLE-MAIN",
             "kind": "main",
-            "description": "Visitor asks about source object central_touch_table; the model binds the interaction to Tactile Exploration Guide and its asset, group, and zone context.",
+            "description": "Visitor asks about source object central_touch_table; the model binds the interaction to Interactive Guide and its asset, group, and zone context.",
             "precondition_ids": [
               "COND-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-AGENTS-AVAILABLE"
             ],
@@ -474,7 +482,7 @@
                 "stepNumber": 2,
                 "kind": "systemResponse",
                 "performedBy": "ACT-ROOM-GUIDE",
-                "text": "Tactile Exploration Guide describes tactile_exploration_table using knowledge grounded in source object central_touch_table.",
+                "text": "Interactive Guide describes tactile_exploration_table using knowledge grounded in source object central_touch_table.",
                 "occurrenceProbability": 1.0,
                 "triggeredBy": [],
                 "guard": null,
@@ -490,7 +498,7 @@
                 "stepNumber": 3,
                 "kind": "systemResponse",
                 "performedBy": "ACT-ROOM-GUIDE",
-                "text": "Constrain any follow-up handoff about tactile_exploration_table to the modeled responsibility of Tactile Exploration Guide.",
+                "text": "Constrain any follow-up handoff about tactile_exploration_table to the modeled responsibility of Interactive Guide.",
                 "occurrenceProbability": 1.0,
                 "triggeredBy": [
                   "EV-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-NEEDED"
@@ -540,7 +548,7 @@
           {
             "id": "SC-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-DEMONSTRATION_CHEESE_PRESS-MAIN",
             "kind": "main",
-            "description": "Visitor asks about source object demonstration_cheese_press; the model binds the interaction to Cheese Expert and its asset, group, and zone context.",
+            "description": "Visitor asks about source object demonstration_cheese_press; the model binds the interaction to Cheese Craft Expert and its asset, group, and zone context.",
             "precondition_ids": [
               "COND-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-AGENTS-AVAILABLE"
             ],
@@ -568,7 +576,7 @@
                 "stepNumber": 2,
                 "kind": "systemResponse",
                 "performedBy": "ACT-ROOM-GUIDE",
-                "text": "Cheese Expert describes hand_cheese_press using knowledge grounded in source object demonstration_cheese_press.",
+                "text": "Cheese Craft Expert describes hand_cheese_press using knowledge grounded in source object demonstration_cheese_press.",
                 "occurrenceProbability": 1.0,
                 "triggeredBy": [],
                 "guard": null,
@@ -584,7 +592,7 @@
                 "stepNumber": 3,
                 "kind": "systemResponse",
                 "performedBy": "ACT-ROOM-GUIDE",
-                "text": "Constrain any follow-up handoff about hand_cheese_press to the modeled responsibility of Cheese Expert.",
+                "text": "Constrain any follow-up handoff about hand_cheese_press to the modeled responsibility of Cheese Craft Expert.",
                 "occurrenceProbability": 1.0,
                 "triggeredBy": [
                   "EV-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-NEEDED"
@@ -634,7 +642,7 @@
           {
             "id": "SC-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_KETTLE-MAIN",
             "kind": "main",
-            "description": "Visitor asks about source object cheese_kettle; the model binds the interaction to Cheese Expert and its asset, group, and zone context.",
+            "description": "Visitor asks about source object cheese_kettle; the model binds the interaction to Cheese Craft Expert and its asset, group, and zone context.",
             "precondition_ids": [
               "COND-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-AGENTS-AVAILABLE"
             ],
@@ -662,7 +670,7 @@
                 "stepNumber": 2,
                 "kind": "systemResponse",
                 "performedBy": "ACT-ROOM-GUIDE",
-                "text": "Cheese Expert describes cheese_kettle using knowledge grounded in source object cheese_kettle.",
+                "text": "Cheese Craft Expert describes cheese_kettle using knowledge grounded in source object cheese_kettle.",
                 "occurrenceProbability": 1.0,
                 "triggeredBy": [],
                 "guard": null,
@@ -678,7 +686,7 @@
                 "stepNumber": 3,
                 "kind": "systemResponse",
                 "performedBy": "ACT-ROOM-GUIDE",
-                "text": "Constrain any follow-up handoff about cheese_kettle to the modeled responsibility of Cheese Expert.",
+                "text": "Constrain any follow-up handoff about cheese_kettle to the modeled responsibility of Cheese Craft Expert.",
                 "occurrenceProbability": 1.0,
                 "triggeredBy": [
                   "EV-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-NEEDED"
@@ -728,7 +736,7 @@
           {
             "id": "SC-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_MILK_DELIVERY_TRUCK-MAIN",
             "kind": "main",
-            "description": "Visitor asks about source object steinpilz_milk_delivery_truck; the model binds the interaction to Heritage Educator and its asset, group, and zone context.",
+            "description": "Visitor asks about source object steinpilz_milk_delivery_truck; the model binds the interaction to Dairy Educator and its asset, group, and zone context.",
             "precondition_ids": [
               "COND-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-AGENTS-AVAILABLE"
             ],
@@ -756,7 +764,7 @@
                 "stepNumber": 2,
                 "kind": "systemResponse",
                 "performedBy": "ACT-ROOM-GUIDE",
-                "text": "Heritage Educator describes vintage_milk_truck using knowledge grounded in source object steinpilz_milk_delivery_truck.",
+                "text": "Dairy Educator describes vintage_milk_truck using knowledge grounded in source object steinpilz_milk_delivery_truck.",
                 "occurrenceProbability": 1.0,
                 "triggeredBy": [],
                 "guard": null,
@@ -772,7 +780,7 @@
                 "stepNumber": 3,
                 "kind": "systemResponse",
                 "performedBy": "ACT-ROOM-GUIDE",
-                "text": "Constrain any follow-up handoff about vintage_milk_truck to the modeled responsibility of Heritage Educator.",
+                "text": "Constrain any follow-up handoff about vintage_milk_truck to the modeled responsibility of Dairy Educator.",
                 "occurrenceProbability": 1.0,
                 "triggeredBy": [
                   "EV-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-NEEDED"
@@ -822,7 +830,7 @@
           {
             "id": "SC-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_DAIRY_COW-MAIN",
             "kind": "main",
-            "description": "Visitor asks about source object steinpilz_dairy_cow; the model binds the interaction to Heritage Educator and its asset, group, and zone context.",
+            "description": "Visitor asks about source object steinpilz_dairy_cow; the model binds the interaction to Dairy Educator and its asset, group, and zone context.",
             "precondition_ids": [
               "COND-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-AGENTS-AVAILABLE"
             ],
@@ -850,7 +858,7 @@
                 "stepNumber": 2,
                 "kind": "systemResponse",
                 "performedBy": "ACT-ROOM-GUIDE",
-                "text": "Heritage Educator describes calm_dairy_cow_model using knowledge grounded in source object steinpilz_dairy_cow.",
+                "text": "Dairy Educator describes calm_dairy_cow_model using knowledge grounded in source object steinpilz_dairy_cow.",
                 "occurrenceProbability": 1.0,
                 "triggeredBy": [],
                 "guard": null,
@@ -866,7 +874,7 @@
                 "stepNumber": 3,
                 "kind": "systemResponse",
                 "performedBy": "ACT-ROOM-GUIDE",
-                "text": "Constrain any follow-up handoff about calm_dairy_cow_model to the modeled responsibility of Heritage Educator.",
+                "text": "Constrain any follow-up handoff about calm_dairy_cow_model to the modeled responsibility of Dairy Educator.",
                 "occurrenceProbability": 1.0,
                 "triggeredBy": [
                   "EV-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-NEEDED"
@@ -1307,43 +1315,43 @@
       "source_object_ids": [
         "steinpilz_welcome_counter"
       ],
-      "purpose": "Initial visitor reception, information, and guidance area"
+      "purpose": "Initial visitor greeting, information, and orientation about the experience room and Steinpilz brand."
     },
     {
-      "id": "ENT-ZONE-CHEESE_PRODUCTION_ZONE",
-      "name": "Cheese Production Demonstration Zone",
+      "id": "ENT-ZONE-CHEESE_CRAFT_ZONE",
+      "name": "Cheese Craft Demonstration Zone",
       "kind": "zone",
-      "source_id": "cheese_production_zone",
+      "source_id": "cheese_craft_zone",
       "entityRole": "semanticZone",
       "source_object_ids": [
         "demonstration_cheese_press",
         "cheese_kettle",
         "main_service_counter"
       ],
-      "purpose": "Hands-on demonstration and interaction with cheese making equipment"
+      "purpose": "Hands-on demonstration and interaction with cheese making equipment to educate visitors about cheese production."
     },
     {
-      "id": "ENT-ZONE-TACTILE_EXPLORATION_ZONE",
-      "name": "Tactile Exploration Zone",
+      "id": "ENT-ZONE-DAIRY_EXHIBIT_ZONE",
+      "name": "Dairy Farming Exhibit Zone",
       "kind": "zone",
-      "source_id": "tactile_exploration_zone",
-      "entityRole": "semanticZone",
-      "source_object_ids": [
-        "central_touch_table"
-      ],
-      "purpose": "Interactive tactile exploration of cheese-related materials and information"
-    },
-    {
-      "id": "ENT-ZONE-DAIRY_FARMING_EXHIBIT_ZONE",
-      "name": "Dairy Farming and Delivery Exhibit Zone",
-      "kind": "zone",
-      "source_id": "dairy_farming_exhibit_zone",
+      "source_id": "dairy_exhibit_zone",
       "entityRole": "semanticZone",
       "source_object_ids": [
         "steinpilz_dairy_cow",
         "steinpilz_milk_delivery_truck"
       ],
-      "purpose": "Exhibition of dairy farming and milk delivery heritage related to Steinpilz brand"
+      "purpose": "Exhibit area featuring dairy farming elements to connect visitors with the source of milk and traditional farming."
+    },
+    {
+      "id": "ENT-ZONE-INTERACTIVE_EXPLORATION_ZONE",
+      "name": "Tactile Exploration Zone",
+      "kind": "zone",
+      "source_id": "interactive_exploration_zone",
+      "entityRole": "semanticZone",
+      "source_object_ids": [
+        "central_touch_table"
+      ],
+      "purpose": "Interactive tactile table for visitors to explore cheese related materials and information in an engaging way."
     },
     {
       "id": "ENT-ZONE-LOUNGE_ZONE",
@@ -1355,7 +1363,7 @@
         "cheese_lounge_rug",
         "right_lounge_green_plant"
       ],
-      "purpose": "Comfortable area for visitors to relax and socialize"
+      "purpose": "Comfortable area for visitors to relax, socialize, and enjoy cheese tasting experiences."
     },
     {
       "id": "ENT-ZONE-GREENERY_ZONE",
@@ -1364,9 +1372,10 @@
       "source_id": "greenery_zone",
       "entityRole": "semanticZone",
       "source_object_ids": [
-        "left_gallery_green_plant"
+        "left_gallery_green_plant",
+        "right_lounge_green_plant"
       ],
-      "purpose": "Visual and spatial softening with plants to enhance ambiance"
+      "purpose": "Decorative plant areas that soften the environment and enhance visitor comfort and ambiance."
     },
     {
       "id": "ENT-GROUP-ANIMAL",
@@ -1546,24 +1555,24 @@
       "entityRole": "interactiveAgent"
     },
     {
-      "id": "ENT-AGENT-CHEESE_EXPERT",
-      "name": "Cheese Expert",
+      "id": "ENT-AGENT-CHEESE_CRAFT_EXPERT",
+      "name": "Cheese Craft Expert",
       "kind": "agent",
-      "source_id": "cheese_expert",
+      "source_id": "cheese_craft_expert",
       "entityRole": "interactiveAgent"
     },
     {
-      "id": "ENT-AGENT-TACTILE_GUIDE",
-      "name": "Tactile Exploration Guide",
+      "id": "ENT-AGENT-DAIRY_EDUCATOR",
+      "name": "Dairy Educator",
       "kind": "agent",
-      "source_id": "tactile_guide",
+      "source_id": "dairy_educator",
       "entityRole": "interactiveAgent"
     },
     {
-      "id": "ENT-AGENT-HERITAGE_EDUCATOR",
-      "name": "Heritage Educator",
+      "id": "ENT-AGENT-INTERACTIVE_GUIDE",
+      "name": "Interactive Guide",
       "kind": "agent",
-      "source_id": "heritage_educator",
+      "source_id": "interactive_guide",
       "entityRole": "interactiveAgent"
     },
     {
@@ -1593,28 +1602,27 @@
         "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT"
       ],
       "handoff_targets": [
-        "cheese_expert",
-        "heritage_educator",
-        "tactile_guide",
+        "cheese_craft_expert",
+        "dairy_educator",
+        "interactive_guide",
         "lounge_host"
       ],
       "handoffTargetAgentIds": [
-        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-CHEESE_EXPERT",
-        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HERITAGE_EDUCATOR",
-        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-TACTILE_GUIDE",
+        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-CHEESE_CRAFT_EXPERT",
+        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-DAIRY_EDUCATOR",
+        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACTIVE_GUIDE",
         "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-LOUNGE_HOST"
       ],
       "display_name": "Welcome Host",
-      "persona": "Friendly and approachable guide who warmly welcomes visitors, provides clear orientation, and assists with navigation throughout the experience.",
+      "persona": "Friendly and approachable guide who warmly welcomes visitors and introduces them to the Steinpilz brand and experience room.",
       "expertise": [
-        "visitor guidance",
-        "information provision",
+        "visitor orientation",
+        "brand storytelling",
         "customer service"
       ],
       "knowledge_tags": [
-        "visitor_welcome_and_guidance",
-        "welcome_zone",
-        "steinpilz_welcome_counter"
+        "steinpilz_brand_story",
+        "welcome_zone"
       ],
       "voice": "fable",
       "voice_gender": "weiblich",
@@ -1640,9 +1648,9 @@
       ]
     },
     {
-      "id": "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-CHEESE_EXPERT",
-      "source_agent_id": "cheese_expert",
-      "entity_id": "ENT-AGENT-CHEESE_EXPERT",
+      "id": "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-CHEESE_CRAFT_EXPERT",
+      "source_agent_id": "cheese_craft_expert",
+      "entity_id": "ENT-AGENT-CHEESE_CRAFT_EXPERT",
       "playsActor": [
         "ACT-ROOM-GUIDE"
       ],
@@ -1651,40 +1659,37 @@
         "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT"
       ],
       "handoff_targets": [
-        "tactile_guide",
-        "heritage_educator",
+        "lounge_host",
+        "interactive_guide",
         "welcome_host",
-        "lounge_host"
+        "dairy_educator"
       ],
       "handoffTargetAgentIds": [
-        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-TACTILE_GUIDE",
-        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HERITAGE_EDUCATOR",
+        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-LOUNGE_HOST",
+        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACTIVE_GUIDE",
         "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-WELCOME_HOST",
-        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-LOUNGE_HOST"
+        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-DAIRY_EDUCATOR"
       ],
-      "display_name": "Cheese Expert",
-      "persona": "Enthusiastic cheese specialist passionate about explaining cheese making processes and demonstrating equipment to engage and educate visitors.",
+      "display_name": "Cheese Craft Expert",
+      "persona": "Enthusiastic cheese artisan who demonstrates cheese making techniques and assists visitors with interactive equipment.",
       "expertise": [
-        "cheese production",
-        "interactive demonstration",
-        "visitor education"
+        "cheese making",
+        "interactive demonstrations",
+        "visitor engagement"
       ],
       "knowledge_tags": [
         "cheese_making_process",
-        "cheese_production_zone",
-        "demonstration_cheese_press",
-        "cheese_kettle",
-        "main_service_counter"
+        "cheese_craft_zone"
       ],
       "voice": "ash",
       "voice_gender": "maennlich",
-      "voice_style": "informativ",
+      "voice_style": "kompetent",
       "tts_model": "gpt-4o-mini-tts",
       "responsible_zone_ids": [
-        "cheese_production_zone"
+        "cheese_craft_zone"
       ],
       "responsibleZoneEntityIds": [
-        "ENT-ZONE-CHEESE_PRODUCTION_ZONE"
+        "ENT-ZONE-CHEESE_CRAFT_ZONE"
       ],
       "grounded_object_ids": [
         "demonstration_cheese_press",
@@ -1706,67 +1711,9 @@
       ]
     },
     {
-      "id": "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-TACTILE_GUIDE",
-      "source_agent_id": "tactile_guide",
-      "entity_id": "ENT-AGENT-TACTILE_GUIDE",
-      "playsActor": [
-        "ACT-ROOM-GUIDE"
-      ],
-      "providedCapabilityIds": [
-        "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION",
-        "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT"
-      ],
-      "handoff_targets": [
-        "cheese_expert",
-        "welcome_host",
-        "heritage_educator",
-        "lounge_host"
-      ],
-      "handoffTargetAgentIds": [
-        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-CHEESE_EXPERT",
-        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-WELCOME_HOST",
-        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HERITAGE_EDUCATOR",
-        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-LOUNGE_HOST"
-      ],
-      "display_name": "Tactile Exploration Guide",
-      "persona": "Engaging and patient facilitator who encourages visitors to explore cheese textures and materials through hands-on tactile experiences.",
-      "expertise": [
-        "interactive learning",
-        "tactile exploration",
-        "visitor engagement"
-      ],
-      "knowledge_tags": [
-        "tactile_cheese_exploration",
-        "tactile_exploration_zone",
-        "central_touch_table"
-      ],
-      "voice": "sage",
-      "voice_gender": "weiblich",
-      "voice_style": "einladend",
-      "tts_model": "gpt-4o-mini-tts",
-      "responsible_zone_ids": [
-        "tactile_exploration_zone"
-      ],
-      "responsibleZoneEntityIds": [
-        "ENT-ZONE-TACTILE_EXPLORATION_ZONE"
-      ],
-      "grounded_object_ids": [
-        "central_touch_table"
-      ],
-      "groundedAssetEntityIds": [
-        "ENT-ASSET-CENTRAL_TOUCH_TABLE"
-      ],
-      "grounded_object_groups": [
-        "furniture"
-      ],
-      "groundedObjectGroupEntityIds": [
-        "ENT-GROUP-FURNITURE"
-      ]
-    },
-    {
-      "id": "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HERITAGE_EDUCATOR",
-      "source_agent_id": "heritage_educator",
-      "entity_id": "ENT-AGENT-HERITAGE_EDUCATOR",
+      "id": "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-DAIRY_EDUCATOR",
+      "source_agent_id": "dairy_educator",
+      "entity_id": "ENT-AGENT-DAIRY_EDUCATOR",
       "playsActor": [
         "ACT-ROOM-GUIDE"
       ],
@@ -1776,38 +1723,36 @@
       ],
       "handoff_targets": [
         "welcome_host",
-        "cheese_expert",
-        "tactile_guide",
+        "interactive_guide",
+        "cheese_craft_expert",
         "lounge_host"
       ],
       "handoffTargetAgentIds": [
         "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-WELCOME_HOST",
-        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-CHEESE_EXPERT",
-        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-TACTILE_GUIDE",
+        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACTIVE_GUIDE",
+        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-CHEESE_CRAFT_EXPERT",
         "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-LOUNGE_HOST"
       ],
-      "display_name": "Heritage Educator",
-      "persona": "Knowledgeable storyteller who shares the rich history of Steinpilz dairy farming and milk delivery, connecting visitors with the brand heritage.",
+      "display_name": "Dairy Educator",
+      "persona": "Knowledgeable educator passionate about dairy farming and the agricultural heritage of Steinpilz.",
       "expertise": [
-        "dairy farming history",
-        "brand heritage",
+        "dairy farming",
+        "agricultural history",
         "visitor education"
       ],
       "knowledge_tags": [
-        "dairy_farming_and_milk_delivery",
-        "dairy_farming_exhibit_zone",
-        "steinpilz_dairy_cow",
-        "steinpilz_milk_delivery_truck"
+        "dairy_farming_and_milk_supply",
+        "dairy_exhibit_zone"
       ],
-      "voice": "coral",
-      "voice_gender": "maennlich",
-      "voice_style": "erzählerisch",
+      "voice": "sage",
+      "voice_gender": "weiblich",
+      "voice_style": "informativ",
       "tts_model": "gpt-4o-mini-tts",
       "responsible_zone_ids": [
-        "dairy_farming_exhibit_zone"
+        "dairy_exhibit_zone"
       ],
       "responsibleZoneEntityIds": [
-        "ENT-ZONE-DAIRY_FARMING_EXHIBIT_ZONE"
+        "ENT-ZONE-DAIRY_EXHIBIT_ZONE"
       ],
       "grounded_object_ids": [
         "steinpilz_dairy_cow",
@@ -1827,6 +1772,63 @@
       ]
     },
     {
+      "id": "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACTIVE_GUIDE",
+      "source_agent_id": "interactive_guide",
+      "entity_id": "ENT-AGENT-INTERACTIVE_GUIDE",
+      "playsActor": [
+        "ACT-ROOM-GUIDE"
+      ],
+      "providedCapabilityIds": [
+        "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION",
+        "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT"
+      ],
+      "handoff_targets": [
+        "cheese_craft_expert",
+        "lounge_host",
+        "welcome_host",
+        "dairy_educator"
+      ],
+      "handoffTargetAgentIds": [
+        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-CHEESE_CRAFT_EXPERT",
+        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-LOUNGE_HOST",
+        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-WELCOME_HOST",
+        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-DAIRY_EDUCATOR"
+      ],
+      "display_name": "Interactive Guide",
+      "persona": "Engaging facilitator who helps visitors explore tactile exhibits and sensory learning experiences.",
+      "expertise": [
+        "interactive exhibits",
+        "sensory education",
+        "visitor assistance"
+      ],
+      "knowledge_tags": [
+        "tactile_cheese_exploration",
+        "interactive_exploration_zone"
+      ],
+      "voice": "coral",
+      "voice_gender": "weiblich",
+      "voice_style": "lebhaft",
+      "tts_model": "gpt-4o-mini-tts",
+      "responsible_zone_ids": [
+        "interactive_exploration_zone"
+      ],
+      "responsibleZoneEntityIds": [
+        "ENT-ZONE-INTERACTIVE_EXPLORATION_ZONE"
+      ],
+      "grounded_object_ids": [
+        "central_touch_table"
+      ],
+      "groundedAssetEntityIds": [
+        "ENT-ASSET-CENTRAL_TOUCH_TABLE"
+      ],
+      "grounded_object_groups": [
+        "furniture"
+      ],
+      "groundedObjectGroupEntityIds": [
+        "ENT-GROUP-FURNITURE"
+      ]
+    },
+    {
       "id": "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-LOUNGE_HOST",
       "source_agent_id": "lounge_host",
       "entity_id": "ENT-AGENT-LOUNGE_HOST",
@@ -1839,33 +1841,30 @@
       ],
       "handoff_targets": [
         "welcome_host",
-        "cheese_expert",
-        "tactile_guide",
-        "heritage_educator"
+        "cheese_craft_expert",
+        "dairy_educator",
+        "interactive_guide"
       ],
       "handoffTargetAgentIds": [
         "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-WELCOME_HOST",
-        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-CHEESE_EXPERT",
-        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-TACTILE_GUIDE",
-        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HERITAGE_EDUCATOR"
+        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-CHEESE_CRAFT_EXPERT",
+        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-DAIRY_EDUCATOR",
+        "AG-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACTIVE_GUIDE"
       ],
       "display_name": "Lounge Host",
-      "persona": "Calm and attentive host who ensures visitor comfort and ambiance in the lounge and greenery zones, assisting with relaxation and socializing needs.",
+      "persona": "Calm and hospitable host who ensures visitors feel comfortable and relaxed in the lounge area.",
       "expertise": [
         "visitor comfort",
-        "ambiance management",
-        "customer service"
+        "social facilitation",
+        "hospitality"
       ],
       "knowledge_tags": [
         "lounge_zone",
-        "greenery_zone",
-        "cheese_lounge_rug",
-        "right_lounge_green_plant",
-        "left_gallery_green_plant"
+        "greenery_zone"
       ],
-      "voice": "shimmer",
-      "voice_gender": "weiblich",
-      "voice_style": "beruhigend",
+      "voice": "ballad",
+      "voice_gender": "maennlich",
+      "voice_style": "entspannt",
       "tts_model": "gpt-4o-mini-tts",
       "responsible_zone_ids": [
         "lounge_zone",
@@ -2031,28 +2030,84 @@
       "parameters": []
     },
     {
-      "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11-ANSWER-ROOM-GROUNDED-QUESTION",
+      "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-WELCOME_HOST-S11-ANSWER-ROOM-GROUNDED-QUESTION",
       "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11",
       "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION",
       "parameters": [],
-      "preferred_provider_entity_id": "ENT-AGENT-CHEESE_EXPERT"
+      "preferred_provider_entity_id": "ENT-AGENT-WELCOME_HOST"
     },
     {
-      "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-CHEESE_CRAFT_EXPERT-S11-ANSWER-ROOM-GROUNDED-QUESTION",
+      "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11",
+      "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION",
+      "parameters": [],
+      "preferred_provider_entity_id": "ENT-AGENT-CHEESE_CRAFT_EXPERT"
+    },
+    {
+      "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-DAIRY_EDUCATOR-S11-ANSWER-ROOM-GROUNDED-QUESTION",
+      "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11",
+      "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION",
+      "parameters": [],
+      "preferred_provider_entity_id": "ENT-AGENT-DAIRY_EDUCATOR"
+    },
+    {
+      "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACTIVE_GUIDE-S11-ANSWER-ROOM-GROUNDED-QUESTION",
+      "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11",
+      "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION",
+      "parameters": [],
+      "preferred_provider_entity_id": "ENT-AGENT-INTERACTIVE_GUIDE"
+    },
+    {
+      "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-LOUNGE_HOST-S11-ANSWER-ROOM-GROUNDED-QUESTION",
+      "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S11",
+      "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION",
+      "parameters": [],
+      "preferred_provider_entity_id": "ENT-AGENT-LOUNGE_HOST"
+    },
+    {
+      "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-WELCOME_HOST-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
       "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12",
       "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT",
       "parameters": [],
-      "preferred_provider_entity_id": "ENT-AGENT-CHEESE_EXPERT"
+      "preferred_provider_entity_id": "ENT-AGENT-WELCOME_HOST"
+    },
+    {
+      "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-CHEESE_CRAFT_EXPERT-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12",
+      "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "parameters": [],
+      "preferred_provider_entity_id": "ENT-AGENT-CHEESE_CRAFT_EXPERT"
+    },
+    {
+      "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-DAIRY_EDUCATOR-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12",
+      "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "parameters": [],
+      "preferred_provider_entity_id": "ENT-AGENT-DAIRY_EDUCATOR"
+    },
+    {
+      "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACTIVE_GUIDE-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12",
+      "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "parameters": [],
+      "preferred_provider_entity_id": "ENT-AGENT-INTERACTIVE_GUIDE"
+    },
+    {
+      "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-LOUNGE_HOST-S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-S12",
+      "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT",
+      "parameters": [],
+      "preferred_provider_entity_id": "ENT-AGENT-LOUNGE_HOST"
     },
     {
       "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ANSWER-ROOM-GROUNDED-QUESTION",
       "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-ANSWER",
       "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION",
-      "preferred_provider_entity_id": "ENT-AGENT-CHEESE_EXPERT",
+      "preferred_provider_entity_id": "ENT-AGENT-CHEESE_CRAFT_EXPERT",
       "target_entity_ids": [
         "ENT-ASSET-MAIN_SERVICE_COUNTER",
         "ENT-GROUP-FURNITURE",
-        "ENT-ZONE-CHEESE_PRODUCTION_ZONE"
+        "ENT-ZONE-CHEESE_CRAFT_ZONE"
       ],
       "parameters": []
     },
@@ -2060,11 +2115,11 @@
       "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-HANDOFF-TO-RESPONSIBLE-AGENT",
       "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-MAIN_SERVICE_COUNTER-HANDOFF",
       "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT",
-      "preferred_provider_entity_id": "ENT-AGENT-CHEESE_EXPERT",
+      "preferred_provider_entity_id": "ENT-AGENT-CHEESE_CRAFT_EXPERT",
       "target_entity_ids": [
         "ENT-ASSET-MAIN_SERVICE_COUNTER",
         "ENT-GROUP-FURNITURE",
-        "ENT-ZONE-CHEESE_PRODUCTION_ZONE"
+        "ENT-ZONE-CHEESE_CRAFT_ZONE"
       ],
       "parameters": []
     },
@@ -2072,11 +2127,11 @@
       "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CENTRAL_TOUCH_TABLE-ANSWER-ROOM-GROUNDED-QUESTION",
       "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CENTRAL_TOUCH_TABLE-ANSWER",
       "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION",
-      "preferred_provider_entity_id": "ENT-AGENT-TACTILE_GUIDE",
+      "preferred_provider_entity_id": "ENT-AGENT-INTERACTIVE_GUIDE",
       "target_entity_ids": [
         "ENT-ASSET-CENTRAL_TOUCH_TABLE",
         "ENT-GROUP-FURNITURE",
-        "ENT-ZONE-TACTILE_EXPLORATION_ZONE"
+        "ENT-ZONE-INTERACTIVE_EXPLORATION_ZONE"
       ],
       "parameters": []
     },
@@ -2084,11 +2139,11 @@
       "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CENTRAL_TOUCH_TABLE-HANDOFF-TO-RESPONSIBLE-AGENT",
       "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CENTRAL_TOUCH_TABLE-HANDOFF",
       "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT",
-      "preferred_provider_entity_id": "ENT-AGENT-TACTILE_GUIDE",
+      "preferred_provider_entity_id": "ENT-AGENT-INTERACTIVE_GUIDE",
       "target_entity_ids": [
         "ENT-ASSET-CENTRAL_TOUCH_TABLE",
         "ENT-GROUP-FURNITURE",
-        "ENT-ZONE-TACTILE_EXPLORATION_ZONE"
+        "ENT-ZONE-INTERACTIVE_EXPLORATION_ZONE"
       ],
       "parameters": []
     },
@@ -2096,11 +2151,11 @@
       "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-DEMONSTRATION_CHEESE_PRESS-ANSWER-ROOM-GROUNDED-QUESTION",
       "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-DEMONSTRATION_CHEESE_PRESS-ANSWER",
       "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION",
-      "preferred_provider_entity_id": "ENT-AGENT-CHEESE_EXPERT",
+      "preferred_provider_entity_id": "ENT-AGENT-CHEESE_CRAFT_EXPERT",
       "target_entity_ids": [
         "ENT-ASSET-DEMONSTRATION_CHEESE_PRESS",
         "ENT-GROUP-CRAFT",
-        "ENT-ZONE-CHEESE_PRODUCTION_ZONE"
+        "ENT-ZONE-CHEESE_CRAFT_ZONE"
       ],
       "parameters": []
     },
@@ -2108,11 +2163,11 @@
       "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-DEMONSTRATION_CHEESE_PRESS-HANDOFF-TO-RESPONSIBLE-AGENT",
       "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-DEMONSTRATION_CHEESE_PRESS-HANDOFF",
       "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT",
-      "preferred_provider_entity_id": "ENT-AGENT-CHEESE_EXPERT",
+      "preferred_provider_entity_id": "ENT-AGENT-CHEESE_CRAFT_EXPERT",
       "target_entity_ids": [
         "ENT-ASSET-DEMONSTRATION_CHEESE_PRESS",
         "ENT-GROUP-CRAFT",
-        "ENT-ZONE-CHEESE_PRODUCTION_ZONE"
+        "ENT-ZONE-CHEESE_CRAFT_ZONE"
       ],
       "parameters": []
     },
@@ -2120,11 +2175,11 @@
       "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_KETTLE-ANSWER-ROOM-GROUNDED-QUESTION",
       "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_KETTLE-ANSWER",
       "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION",
-      "preferred_provider_entity_id": "ENT-AGENT-CHEESE_EXPERT",
+      "preferred_provider_entity_id": "ENT-AGENT-CHEESE_CRAFT_EXPERT",
       "target_entity_ids": [
         "ENT-ASSET-CHEESE_KETTLE",
         "ENT-GROUP-CRAFT",
-        "ENT-ZONE-CHEESE_PRODUCTION_ZONE"
+        "ENT-ZONE-CHEESE_CRAFT_ZONE"
       ],
       "parameters": []
     },
@@ -2132,11 +2187,11 @@
       "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_KETTLE-HANDOFF-TO-RESPONSIBLE-AGENT",
       "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-CHEESE_KETTLE-HANDOFF",
       "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT",
-      "preferred_provider_entity_id": "ENT-AGENT-CHEESE_EXPERT",
+      "preferred_provider_entity_id": "ENT-AGENT-CHEESE_CRAFT_EXPERT",
       "target_entity_ids": [
         "ENT-ASSET-CHEESE_KETTLE",
         "ENT-GROUP-CRAFT",
-        "ENT-ZONE-CHEESE_PRODUCTION_ZONE"
+        "ENT-ZONE-CHEESE_CRAFT_ZONE"
       ],
       "parameters": []
     },
@@ -2144,11 +2199,11 @@
       "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_MILK_DELIVERY_TRUCK-ANSWER-ROOM-GROUNDED-QUESTION",
       "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_MILK_DELIVERY_TRUCK-ANSWER",
       "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION",
-      "preferred_provider_entity_id": "ENT-AGENT-HERITAGE_EDUCATOR",
+      "preferred_provider_entity_id": "ENT-AGENT-DAIRY_EDUCATOR",
       "target_entity_ids": [
         "ENT-ASSET-STEINPILZ_MILK_DELIVERY_TRUCK",
         "ENT-GROUP-VEHICLE",
-        "ENT-ZONE-DAIRY_FARMING_EXHIBIT_ZONE"
+        "ENT-ZONE-DAIRY_EXHIBIT_ZONE"
       ],
       "parameters": []
     },
@@ -2156,11 +2211,11 @@
       "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_MILK_DELIVERY_TRUCK-HANDOFF-TO-RESPONSIBLE-AGENT",
       "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_MILK_DELIVERY_TRUCK-HANDOFF",
       "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT",
-      "preferred_provider_entity_id": "ENT-AGENT-HERITAGE_EDUCATOR",
+      "preferred_provider_entity_id": "ENT-AGENT-DAIRY_EDUCATOR",
       "target_entity_ids": [
         "ENT-ASSET-STEINPILZ_MILK_DELIVERY_TRUCK",
         "ENT-GROUP-VEHICLE",
-        "ENT-ZONE-DAIRY_FARMING_EXHIBIT_ZONE"
+        "ENT-ZONE-DAIRY_EXHIBIT_ZONE"
       ],
       "parameters": []
     },
@@ -2168,11 +2223,11 @@
       "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_DAIRY_COW-ANSWER-ROOM-GROUNDED-QUESTION",
       "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_DAIRY_COW-ANSWER",
       "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-ANSWER-ROOM-GROUNDED-QUESTION",
-      "preferred_provider_entity_id": "ENT-AGENT-HERITAGE_EDUCATOR",
+      "preferred_provider_entity_id": "ENT-AGENT-DAIRY_EDUCATOR",
       "target_entity_ids": [
         "ENT-ASSET-STEINPILZ_DAIRY_COW",
         "ENT-GROUP-ANIMAL",
-        "ENT-ZONE-DAIRY_FARMING_EXHIBIT_ZONE"
+        "ENT-ZONE-DAIRY_EXHIBIT_ZONE"
       ],
       "parameters": []
     },
@@ -2180,11 +2235,11 @@
       "id": "CU-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_DAIRY_COW-HANDOFF-TO-RESPONSIBLE-AGENT",
       "step_id": "STEP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-INTERACT-STEINPILZ_DAIRY_COW-HANDOFF",
       "capability_id": "CAP-KAESESTAND_STEINPILZ_HAPTISCH_CHILL_MILCHERLEBNISRAUM_WELCOME_GRUEN_029E9A89-HANDOFF-TO-RESPONSIBLE-AGENT",
-      "preferred_provider_entity_id": "ENT-AGENT-HERITAGE_EDUCATOR",
+      "preferred_provider_entity_id": "ENT-AGENT-DAIRY_EDUCATOR",
       "target_entity_ids": [
         "ENT-ASSET-STEINPILZ_DAIRY_COW",
         "ENT-GROUP-ANIMAL",
-        "ENT-ZONE-DAIRY_FARMING_EXHIBIT_ZONE"
+        "ENT-ZONE-DAIRY_EXHIBIT_ZONE"
       ],
       "parameters": []
     },
@@ -2244,7 +2299,8 @@
       "target_entity_ids": [
         "ENT-ASSET-RIGHT_LOUNGE_GREEN_PLANT",
         "ENT-GROUP-GREENERY",
-        "ENT-ZONE-LOUNGE_ZONE"
+        "ENT-ZONE-LOUNGE_ZONE",
+        "ENT-ZONE-GREENERY_ZONE"
       ],
       "parameters": []
     },
@@ -2256,7 +2312,8 @@
       "target_entity_ids": [
         "ENT-ASSET-RIGHT_LOUNGE_GREEN_PLANT",
         "ENT-GROUP-GREENERY",
-        "ENT-ZONE-LOUNGE_ZONE"
+        "ENT-ZONE-LOUNGE_ZONE",
+        "ENT-ZONE-GREENERY_ZONE"
       ],
       "parameters": []
     },

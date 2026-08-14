@@ -175,6 +175,23 @@ _HANDOFF_SEMANTIC_ALIASES = (
     frozenset({"heritage", "geschichte", "historie", "tradition"}),
     frozenset({"tactile", "taktil", "haptisch"}),
     frozenset({"lounge", "entspannung", "relax"}),
+    frozenset({"cow", "kuh", "milchkuh"}),
+    frozenset({"truck", "lkw", "milchlaster", "lieferwagen"}),
+)
+
+_GENERIC_HANDOFF_ROLE_TOKENS = frozenset(
+    {
+        "agent",
+        "assistant",
+        "ambassador",
+        "caretaker",
+        "educator",
+        "expert",
+        "guide",
+        "host",
+        "person",
+        "specialist",
+    }
 )
 
 
@@ -1818,6 +1835,196 @@ class SessionStore:
         direct = len(matched)
         return float(direct) + (direct / max(1, len(query_tokens)))
 
+    @staticmethod
+    def _runtime_agent_contract(
+        st: SessionState,
+        source_agent_id: str,
+    ) -> Dict[str, Any]:
+        for item in (st.functionalmlds_runtime_context or {}).get("agents") or []:
+            if not isinstance(item, dict):
+                continue
+            if str(item.get("source_agent_id") or "").strip() == source_agent_id:
+                return item
+        return {}
+
+    def _resolve_unstructured_handoff_target(
+        self,
+        st: SessionState,
+        agent: AgentSpec,
+        allowed: List[str],
+        raw_target: Any,
+        user_text: str,
+        grounding: Optional[Dict[str, Any]] = None,
+    ) -> Optional[AgentSpec]:
+        """Resolve a JSON-mode alias without widening the modeled handoff graph.
+
+        The Responses API's older JSON mode guarantees syntactic JSON but cannot
+        enforce the handoff enum.  Recovery is therefore restricted to the
+        current agent plus the exact allow-list of this invocation.  In
+        particular, a spatially routed call with handoffs disabled may only
+        resolve an invented role name back to the already selected agent.
+        """
+        if not isinstance(raw_target, str):
+            return None
+        raw = raw_target.strip()
+        if not raw:
+            return None
+
+        candidate_ids: List[str] = []
+        for candidate_id in [agent.id, *allowed]:
+            if candidate_id in st.agents and candidate_id not in candidate_ids:
+                candidate_ids.append(candidate_id)
+        candidates = [st.agents[candidate_id] for candidate_id in candidate_ids]
+
+        raw_exact = raw.casefold()
+        raw_slug = _slugify(raw)
+        exact_matches: List[AgentSpec] = []
+        for candidate in candidates:
+            contract = self._runtime_agent_contract(st, candidate.id)
+            aliases = {
+                candidate.id.casefold(),
+                candidate.display_name.casefold(),
+                str(contract.get("functionalmlds_agent_id") or "").strip().casefold(),
+                str(contract.get("entity_id") or "").strip().casefold(),
+            }
+            aliases.discard("")
+            if raw_exact in aliases or raw_slug in {_slugify(alias) for alias in aliases}:
+                exact_matches.append(candidate)
+        if len(exact_matches) == 1:
+            return exact_matches[0]
+        if exact_matches:
+            return None
+
+        query_tokens = _handoff_semantic_tokens(raw) - _GENERIC_HANDOFF_ROLE_TOKENS
+        if not query_tokens:
+            return None
+
+        ranked: List[Tuple[int, AgentSpec]] = []
+        for candidate in candidates:
+            contract = self._runtime_agent_contract(st, candidate.id)
+            descriptor = " ".join(
+                [
+                    candidate.id,
+                    candidate.display_name,
+                    candidate.persona,
+                    " ".join(candidate.expertise),
+                    " ".join(candidate.knowledge_tags),
+                    " ".join(candidate.responsible_zone_ids),
+                    " ".join(candidate.grounded_object_ids),
+                    str(contract.get("functionalmlds_agent_id") or ""),
+                    " ".join(contract.get("responsible_zone_ids") or []),
+                    " ".join(contract.get("grounded_asset_ids") or []),
+                    " ".join(contract.get("grounded_object_group_ids") or []),
+                ]
+            )
+            candidate_tokens = (
+                _handoff_semantic_tokens(descriptor) - _GENERIC_HANDOFF_ROLE_TOKENS
+            )
+            matched_query_tokens = {
+                query_token
+                for query_token in query_tokens
+                if any(
+                    query_token == candidate_token
+                    or (
+                        len(query_token) >= 4
+                        and len(candidate_token) >= 4
+                        and (
+                            query_token in candidate_token
+                            or candidate_token in query_token
+                        )
+                    )
+                    for candidate_token in candidate_tokens
+                )
+            }
+            if matched_query_tokens:
+                ranked.append((len(matched_query_tokens), candidate))
+
+        if not ranked:
+            return None
+        ranked.sort(key=lambda item: (-item[0], item[1].id))
+        best_score = ranked[0][0]
+        if sum(1 for score, _ in ranked if score == best_score) != 1:
+            return None
+        recovered = ranked[0][1]
+
+        # A free-form model alias is not independent routing evidence.  Require
+        # the pinned spatial owner or the user's own words to select the same
+        # candidate before executing a real handoff.
+        if grounding:
+            spatial_route = self._resolve_spatial_route(st, agent.id, grounding)
+            return (
+                recovered
+                if spatial_route.get("selected_agent_id") == recovered.id
+                else None
+            )
+
+        user_tokens = _handoff_semantic_tokens(user_text) - _GENERIC_HANDOFF_ROLE_TOKENS
+        if not user_tokens:
+            return None
+        user_ranked: List[Tuple[int, AgentSpec]] = []
+        for candidate in candidates:
+            contract = self._runtime_agent_contract(st, candidate.id)
+            descriptor = " ".join(
+                [
+                    candidate.id,
+                    candidate.display_name,
+                    candidate.persona,
+                    " ".join(candidate.expertise),
+                    " ".join(candidate.knowledge_tags),
+                    " ".join(candidate.responsible_zone_ids),
+                    " ".join(candidate.grounded_object_ids),
+                    str(contract.get("functionalmlds_agent_id") or ""),
+                    " ".join(contract.get("responsible_zone_ids") or []),
+                    " ".join(contract.get("grounded_asset_ids") or []),
+                    " ".join(contract.get("grounded_object_group_ids") or []),
+                ]
+            )
+            candidate_tokens = (
+                _handoff_semantic_tokens(descriptor) - _GENERIC_HANDOFF_ROLE_TOKENS
+            )
+            overlap = len(user_tokens.intersection(candidate_tokens))
+            if overlap:
+                user_ranked.append((overlap, candidate))
+        if not user_ranked:
+            return None
+        user_ranked.sort(key=lambda item: (-item[0], item[1].id))
+        user_best = user_ranked[0][0]
+        if sum(1 for score, _ in user_ranked if score == user_best) != 1:
+            return None
+        return recovered if user_ranked[0][1].id == recovered.id else None
+
+    def _safe_direct_answer_after_invalid_handoff(
+        self,
+        st: SessionState,
+        agent: AgentSpec,
+        user_text: str,
+        resolved_to_current: bool,
+        grounding: Optional[Dict[str, Any]] = None,
+    ) -> str:
+        if resolved_to_current:
+            prefix = (
+                f"Dafuer bin ich als {agent.display_name} bereits zustaendig."
+            )
+        else:
+            prefix = (
+                "Die genannte Rolle ist keinem eindeutigen modellierten "
+                "Spezialisten zuordenbar. "
+                "Ich bleibe dein Ansprechpartner."
+            )
+
+        fallback = self._fallback_room_answer(
+            st,
+            agent,
+            user_text,
+            grounding=grounding,
+        ).strip()
+        trusted_prefix = "Offline-Fallback aus FunctionalMLDS-Raumwissen: "
+        if fallback.startswith(trusted_prefix):
+            fallback = fallback[len(trusted_prefix):].strip()
+        elif fallback.startswith("Offline-Fallback"):
+            fallback = ""
+        return f"{prefix} {fallback}".strip()
+
     def _select_fallback_handoff_target(
         self,
         st: SessionState,
@@ -1892,7 +2099,11 @@ class SessionStore:
                 and token not in {"agent", "expert", "guide", "host", "educator"}
             }
             overlap = len(distinctive.intersection(say_tokens))
-            if overlap:
+            if overlap and not self._handoff_target_mention_is_rejected(
+                say,
+                distinctive,
+                referral_tokens,
+            ):
                 ranked.append((overlap, modeled_order, target))
 
         if not ranked:
@@ -1902,6 +2113,156 @@ class SessionStore:
         if sum(1 for overlap, _, _ in ranked if overlap == best_overlap) != 1:
             return None
         return ranked[0][2]
+
+    @staticmethod
+    def _handoff_target_mention_is_rejected(
+        text: str,
+        distinctive_target_tokens: set[str],
+        referral_tokens: set[str],
+    ) -> bool:
+        """Reject negated/refused referrals without suppressing a later request.
+
+        This parser is intentionally narrow: it only decides whether the named
+        target and referral language already detected by the caller occur in a
+        negated or explicitly rejected clause.  Clause boundaries keep an
+        unrelated statement such as ``Ich bin nicht sicher, bitte leite mich ...``
+        from cancelling the later positive request.  A contrast correction such
+        as ``nicht zum Empfang, sondern zum Kaeseexperten`` remains positive for
+        the target after ``sondern``.
+        """
+        normalized = str(text or "").lower()
+        for old, new in {
+            "ä": "ae",
+            "ö": "oe",
+            "ü": "ue",
+            "ß": "ss",
+            "_": " ",
+            "-": " ",
+            "don't": "dont",
+            "can't": "cant",
+            "won't": "wont",
+        }.items():
+            normalized = normalized.replace(old, new)
+
+        contrast_tokens = {
+            "aber",
+            "but",
+            "however",
+            "instead",
+            "jedoch",
+            "rather",
+            "sondern",
+        }
+        lexemes = re.findall(r"[a-z0-9]+|[,;.!?]", normalized)
+        clauses: List[Tuple[str, set[str]]] = []
+        current: List[str] = []
+        boundary_before = "start"
+
+        def flush_clause() -> bool:
+            nonlocal current
+            if current:
+                clauses.append(
+                    (
+                        boundary_before,
+                        _handoff_semantic_tokens(" ".join(current)),
+                    )
+                )
+                current = []
+                return True
+            return False
+
+        for lexeme in lexemes:
+            if lexeme in contrast_tokens:
+                flush_clause()
+                boundary_before = "contrast"
+            elif lexeme in {",", ";", ".", "!", "?"}:
+                flushed = flush_clause()
+                if flushed or boundary_before != "contrast":
+                    boundary_before = "punctuation"
+            else:
+                current.append(lexeme)
+        flush_clause()
+
+        if not clauses:
+            return False
+
+        negative_tokens = {
+            "cant",
+            "cannot",
+            "dont",
+            "kein",
+            "keine",
+            "keinem",
+            "keinen",
+            "keiner",
+            "keines",
+            "keinesfalls",
+            "never",
+            "nicht",
+            "nie",
+            "niemals",
+            "not",
+            "weder",
+            "wont",
+        }
+        rejection_tokens = {
+            "abbrechen",
+            "abbruch",
+            "ablehnen",
+            "ablehnung",
+            "lehne",
+            "stop",
+            "stopp",
+            "verweigere",
+            "verweigern",
+            "verzicht",
+            "verzichte",
+            "verzichten",
+        }
+        destination_tokens = {"an", "to", "toward", "towards", "zu", "zum", "zur"}
+        rejected_tokens = negative_tokens | rejection_tokens
+        target_clause_indexes = [
+            index
+            for index, (_, tokens) in enumerate(clauses)
+            if distinctive_target_tokens.intersection(tokens)
+        ]
+        referral_clause_indexes = [
+            index
+            for index, (_, tokens) in enumerate(clauses)
+            if referral_tokens.intersection(tokens)
+        ]
+        if not target_clause_indexes or not referral_clause_indexes:
+            return False
+
+        for target_index in target_clause_indexes:
+            _, target_clause = clauses[target_index]
+            if rejected_tokens.intersection(target_clause):
+                continue
+            if referral_tokens.intersection(target_clause):
+                return False
+
+            nearest_referral_index = min(
+                referral_clause_indexes,
+                key=lambda index: abs(index - target_index),
+            )
+            _, referral_clause = clauses[nearest_referral_index]
+            lower = min(nearest_referral_index, target_index) + 1
+            upper = max(nearest_referral_index, target_index) + 1
+            crossed_contrast = any(
+                clauses[index][0] == "contrast"
+                for index in range(lower, upper)
+            )
+            if (
+                crossed_contrast
+                and target_index > nearest_referral_index
+                and destination_tokens.intersection(target_clause)
+            ):
+                return False
+            if rejected_tokens.intersection(referral_clause):
+                continue
+            return False
+
+        return True
 
     @staticmethod
     def _grounded_query(user_text: str, grounding: Optional[Dict[str, Any]]) -> str:
@@ -2065,6 +2426,7 @@ class SessionStore:
         for m in trimmed:
             input_msgs.append({"role": m["role"], "content": m["content"]})
 
+        used_unstructured_json_fallback = False
         try:
             parsed, resp, out_text = self.openai.create_structured_json(
                 model=self.model,
@@ -2078,11 +2440,28 @@ class SessionStore:
             # This helps if the chosen model does not support json_schema.
             if e.status != 400:
                 raise
+            used_unstructured_json_fallback = True
             parsed, resp, out_text = self.openai.create_json_object(
                 model=self.model,
                 input_messages=input_msgs,
                 temperature=self.temperature,
             )
+
+        if not isinstance(parsed, dict):
+            parsed = {
+                "say": self._safe_direct_answer_after_invalid_handoff(
+                    st,
+                    agent,
+                    str(history_with_user[-1].get("content") or ""),
+                    resolved_to_current=False,
+                    grounding=grounding,
+                ),
+                "handoff_to": None,
+                "handoff_reason": None,
+                "handoff_brief": None,
+                "confidence": 0.0,
+                "_invalid_json_shape": type(parsed).__name__,
+            }
 
         # Normalise
         result = {
@@ -2109,10 +2488,47 @@ class SessionStore:
             if not handoff_to:
                 result["handoff_to"] = None
             elif handoff_to not in allowed:
-                raise ValueError(
-                    f"Agent {agent.id!r} versuchte einen nicht modellierten Handoff "
-                    f"an {handoff_to!r}."
+                if not used_unstructured_json_fallback:
+                    raise ValueError(
+                        f"Agent {agent.id!r} versuchte einen nicht modellierten Handoff "
+                        f"an {handoff_to!r}."
+                    )
+
+                recovered_target = self._resolve_unstructured_handoff_target(
+                    st,
+                    agent,
+                    allowed,
+                    handoff_to,
+                    str(history_with_user[-1].get("content") or ""),
+                    grounding=grounding,
                 )
+                result["_unstructured_handoff_target"] = handoff_to
+                if recovered_target is not None and recovered_target.id in allowed:
+                    result["handoff_to"] = recovered_target.id
+                    result["say"] = (
+                        f"Ich leite deine Frage an {recovered_target.display_name} weiter."
+                    )
+                    result["handoff_reason"] = (
+                        "Das unstrukturierte Modellziel wurde eindeutig einem "
+                        "modellierten Spezialisten zugeordnet."
+                    )
+                    result["handoff_brief"] = (
+                        f"Nutzerfrage: {history_with_user[-1]['content']}"
+                    )
+                else:
+                    result["handoff_to"] = None
+                    result["handoff_reason"] = None
+                    result["handoff_brief"] = None
+                    result["say"] = self._safe_direct_answer_after_invalid_handoff(
+                        st,
+                        agent,
+                        str(history_with_user[-1].get("content") or ""),
+                        resolved_to_current=(
+                            recovered_target is not None
+                            and recovered_target.id == agent.id
+                        ),
+                        grounding=grounding,
+                    )
             else:
                 result["handoff_to"] = handoff_to
 

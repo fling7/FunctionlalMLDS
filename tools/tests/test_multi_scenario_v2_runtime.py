@@ -126,15 +126,27 @@ class MultiScenarioV2RuntimeTests(unittest.TestCase):
                     self.by_id[action["scenario_id"]]["step"],
                 )
 
-    def test_setup_is_unique_but_chat_and_handoff_are_asset_specific(self) -> None:
+    def test_setup_is_unique_and_every_agent_has_a_targetless_communication_chain(self) -> None:
         setup = runtime_actions_for_kind(self.context, "setup")
         chats = runtime_actions_for_kind(self.context, "chat")
         handoffs = runtime_actions_for_kind(self.context, "handoff")
+        expected_providers = {
+            f"ENT-AGENT-{agent['id'].upper()}"
+            for agent in self.agent_roles["agents"]
+        }
         self.assertEqual(1, len(setup))
         self.assertGreater(len(chats), 1)
         self.assertEqual(len(chats), len(handoffs))
-        self.assertTrue(all(item["target_ids"] for item in chats))
-        self.assertTrue(all(item["target_ids"] for item in handoffs))
+        for actions in (chats, handoffs):
+            targetless = [item for item in actions if not item["target_ids"]]
+            self.assertEqual(len(expected_providers), len(targetless))
+            self.assertEqual(
+                expected_providers,
+                {item["provider_entity_id"] for item in targetless},
+            )
+            self.assertTrue(
+                all(item["target_ids"] for item in actions if item not in targetless)
+            )
 
     def test_deictic_selection_requires_both_trusted_target_and_provider(self) -> None:
         dinosaur_target = "ENT-ASSET-DINOSAUR_SKELETON"
@@ -161,7 +173,7 @@ class MultiScenarioV2RuntimeTests(unittest.TestCase):
                 provider_entity_id="ENT-AGENT-NOT-THE-ROUTED-PROVIDER",
             )
 
-    def test_multi_chain_non_deictic_request_cannot_claim_an_asset_chain(self) -> None:
+    def test_multi_chain_non_deictic_request_uses_the_exact_agent_chain(self) -> None:
         provider = runtime_actions_for_kind(
             self.context,
             "chat",
@@ -171,16 +183,14 @@ class MultiScenarioV2RuntimeTests(unittest.TestCase):
             "ambiguous action mappings",
         ):
             select_runtime_action(self.context, "chat")
-        with self.assertRaisesRegex(
-            FunctionalMldsContractError,
-            "no exact action mapping",
-        ):
-            select_runtime_action(
-                self.context,
-                "chat",
-                provider_entity_id=provider,
-                require_targetless=True,
-            )
+        selected = select_runtime_action(
+            self.context,
+            "chat",
+            provider_entity_id=provider,
+            require_targetless=True,
+        )
+        self.assertEqual(provider, selected["provider_entity_id"])
+        self.assertEqual([], selected["target_ids"])
 
     def test_single_chain_v2_context_remains_selectable(self) -> None:
         legacy_action = copy.deepcopy(

@@ -6,7 +6,7 @@
     "invariant_count": 8,
     "passed_invariant_count": 8,
     "failed_invariant_count": 0,
-    "checked_element_count": 126,
+    "checked_element_count": 139,
     "error_count": 0
   },
   "invariants": [
@@ -30,7 +30,7 @@
       "invariant_id": "SCENARIO_STEP_NO_DIRECT_RUNTIME_ACTION",
       "description": "ScenarioStep instances do not directly reference RuntimeAction instances.",
       "status": "valid",
-      "checked_count": 39,
+      "checked_count": 42,
       "error_count": 0,
       "errors": []
     },
@@ -38,7 +38,7 @@
       "invariant_id": "CAPABILITY_USE_REFERENCES_EXACTLY_ONE_CAPABILITY",
       "description": "Every CapabilityUse references exactly one existing Capability.",
       "status": "valid",
-      "checked_count": 28,
+      "checked_count": 38,
       "error_count": 0,
       "errors": []
     },

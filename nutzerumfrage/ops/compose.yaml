@@ -1,0 +1,78 @@
+name: interactive-study
+
+services:
+  edge:
+    image: forschungifai/interactive-study-edge:${RELEASE_TAG:?set RELEASE_TAG in .env}
+    build:
+      context: ./releases/${RELEASE_TAG:?set RELEASE_TAG in .env}/study/ops/edge
+    restart: unless-stopped
+    depends_on:
+      study-web:
+        condition: service_healthy
+      survey-api:
+        condition: service_healthy
+      npc-api:
+        condition: service_healthy
+      legacy-app:
+        condition: service_healthy
+    ports:
+      - "${EDGE_BIND:-0.0.0.0}:${EDGE_HTTP_PORT:-80}:8080"
+      - "${EDGE_BIND:-0.0.0.0}:${EDGE_HTTPS_PORT:-443}:8443"
+    volumes:
+      - /etc/ssl/forschungifai.crt:/etc/nginx/tls/fullchain.pem:ro
+      - /etc/ssl/private/forschungifai.key:/etc/nginx/tls/privkey.pem:ro
+    logging: &default-logging
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  study-web:
+    image: forschungifai/interactive-study-web:${RELEASE_TAG:?set RELEASE_TAG in .env}
+    build:
+      context: ./releases/${RELEASE_TAG:?set RELEASE_TAG in .env}/study
+      target: web
+    restart: unless-stopped
+    logging: *default-logging
+
+  survey-api:
+    image: forschungifai/interactive-study-survey-api:${RELEASE_TAG:?set RELEASE_TAG in .env}
+    build:
+      context: ./releases/${RELEASE_TAG:?set RELEASE_TAG in .env}/study
+      target: api
+    restart: unless-stopped
+    user: "1002:1002"
+    environment:
+      SURVEY_ADMIN_PIN_FILE: /run/secrets/survey_admin_pin
+      SURVEY_RAFFLE_SECRET_FILE: /run/secrets/survey_raffle_secret
+      SURVEY_RAFFLE_DB_PATH: /data/raffle.sqlite
+    volumes:
+      - ./data/survey:/data
+      - ./secrets/survey_admin_pin:/run/secrets/survey_admin_pin:ro
+      - ./secrets/survey_raffle_secret:/run/secrets/survey_raffle_secret:ro
+    logging: *default-logging
+
+  npc-api:
+    image: forschungifai/interactive-study-npc-api:${RELEASE_TAG:?set RELEASE_TAG in .env}
+    build:
+      context: ./releases/${RELEASE_TAG:?set RELEASE_TAG in .env}/functionalmlds
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      PYTHONUNBUFFERED: "1"
+      SERVER_HOST: 0.0.0.0
+      SERVER_PORT: "8787"
+      OPENAI_API_KEY_FILE: /run/secrets/openai_api_key
+    volumes:
+      - ./config/npc-config.json:/app/FunctionalMLDS/InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/config.json:ro
+      - ./secrets/openai_api_key:/run/secrets/openai_api_key:ro
+      - ./data/npc/projects:/app/FunctionalMLDS/InteractivAgents/openai_unity_expert_npcs_pycharm/InteractiveAgents/projects
+      - ./data/npc/output:/app/FunctionalMLDS/output
+    logging: *default-logging
+
+  legacy-app:
+    image: forschungifai/interactive-study-legacy:${LEGACY_TAG:?set LEGACY_TAG in .env}
+    build:
+      context: ./releases/${LEGACY_TAG:?set LEGACY_TAG in .env}/legacy
+    restart: unless-stopped
+    logging: *default-logging

@@ -18,6 +18,7 @@ from backend.functionalmlds_v2_runtime import (  # noqa: E402
     select_runtime_action,
 )
 from backend.kb import KnowledgeBase  # noqa: E402
+from backend.openai_client import OpenAIHTTPError  # noqa: E402
 from backend.projects import ProjectManager  # noqa: E402
 from backend.state import SessionStore  # noqa: E402
 
@@ -56,6 +57,16 @@ class _ScriptedOpenAI:
         self.calls.append(kwargs)
         parsed = copy.deepcopy(self.response)
         return parsed, {"id": "offline-response"}, json.dumps(parsed)
+
+
+class _LegacyJsonFallbackOpenAI(_ScriptedOpenAI):
+    def create_structured_json(self, **kwargs: object):
+        self.calls.append(kwargs)
+        raise OpenAIHTTPError(400, "structured output unsupported")
+
+    def create_json_object(self, **kwargs: object):
+        parsed = copy.deepcopy(self.response)
+        return parsed, {"id": "legacy-json-fallback"}, json.dumps(parsed)
 
 
 class SpatialChatContractTests(unittest.TestCase):
@@ -365,10 +376,8 @@ class SpatialChatContractTests(unittest.TestCase):
             before,
             self.store.snapshot_session_mutation(setup["session_id"]),
         )
-        allowed_enum = self.openai.calls[0]["schema"]["properties"]["handoff_to"][
-            "oneOf"
-        ][0]["enum"]
-        self.assertEqual([], allowed_enum)
+        handoff_schema = self.openai.calls[0]["schema"]["properties"]["handoff_to"]
+        self.assertEqual({"type": "null"}, handoff_schema)
 
     def test_non_deictic_chat_without_targetless_chain_fails_closed(self) -> None:
         setup = self._setup()
@@ -598,7 +607,7 @@ class SpatialChatContractTests(unittest.TestCase):
         )
         self.assertEqual("legacy_b", result["handoff_to"])
         allowed_enum = self.openai.calls[-1]["schema"]["properties"]["handoff_to"][
-            "oneOf"
+            "anyOf"
         ][0]["enum"]
         self.assertEqual(["legacy_b"], allowed_enum)
         self.openai.response = {
@@ -617,6 +626,49 @@ class SpatialChatContractTests(unittest.TestCase):
         )
         self.assertEqual("legacy_a", response["active_agent_id"])
         self.assertNotIn("interaction_mode", response)
+
+    def test_legacy_json_fallback_invalid_target_is_safely_suppressed(self) -> None:
+        room_plan = _read_json(self.project_dir / "room_plan.json")
+        legacy_openai = _LegacyJsonFallbackOpenAI()
+        legacy_openai.response = {
+            "say": "I will transfer to an invented specialist.",
+            "handoff_to": "invented_astronomy_oracle",
+            "handoff_reason": "not real",
+            "handoff_brief": "not real",
+            "confidence": 0.2,
+        }
+        previous_openai = self.store.openai
+        self.store.openai = legacy_openai
+        self.addCleanup(setattr, self.store, "openai", previous_openai)
+        legacy = self.store.create_session(
+            room_plan=room_plan,
+            agent_dicts=[
+                {
+                    "id": "legacy_a",
+                    "display_name": "Legacy A",
+                    "persona": "Entry agent.",
+                },
+                {
+                    "id": "legacy_b",
+                    "display_name": "Legacy B",
+                    "persona": "Specialist.",
+                },
+            ],
+            session_id="SESSION-LEGACY-INVALID-FALLBACK",
+        )
+
+        response = self.store.chat(
+            {
+                "session_id": legacy.session_id,
+                "active_agent_id": "legacy_a",
+                "user_text": "Please transfer me to the astronomy oracle.",
+            }
+        )
+
+        self.assertEqual("legacy_a", response["active_agent_id"])
+        self.assertIsNone(response["handoff"])
+        self.assertNotIn("invented_astronomy_oracle", json.dumps(response))
+        self.assertEqual(1, len(legacy_openai.calls))
 
 
 if __name__ == "__main__":

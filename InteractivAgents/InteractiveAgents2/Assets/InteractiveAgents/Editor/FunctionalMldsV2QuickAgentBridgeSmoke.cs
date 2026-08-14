@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -440,29 +441,94 @@ public static class FunctionalMldsV2QuickAgentBridgeSmoke
             BoundObservation(loaded, setupAction, false));
 
         var chatActions = actions.Where(item => (string)item["action_kind"] == "chat").ToList();
+        var handoffActions = actions
+            .Where(item => (string)item["action_kind"] == "handoff")
+            .ToList();
+        Require(handoffActions.Count > 0, "KAESESTEINPILZ has no handoff mappings.");
+
+        var expectedProviderSourceIds = new[]
+        {
+            "welcome_host",
+            "cheese_expert",
+            "tactile_guide",
+            "heritage_educator",
+            "lounge_host"
+        };
         var targetlessChats = chatActions
             .Where(item => !((JArray)item["target_ids"]).Values<string>().Any())
             .ToList();
-        Require(
-            targetlessChats.Count == 1,
-            "KAESESTEINPILZ must expose exactly one trusted targetless chat mapping.");
-
-        var providerSourceIds = chatActions
-            .Select(item => ProviderSourceId(loaded, item))
-            .Distinct(StringComparer.Ordinal)
+        var targetlessHandoffs = handoffActions
+            .Where(item => !((JArray)item["target_ids"]).Values<string>().Any())
             .ToList();
-        foreach (var providerSourceId in providerSourceIds)
-        {
-            var genericText = BoundObservation(loaded, targetlessChats[0], false);
-            genericText.InteractionMode =
-                FunctionalMldsV2InteractionEvidenceEvaluator.NonDeicticMode;
-            genericText.RequestedAgentId = providerSourceId;
-            bridge.RequireAction("chat", providerSourceId, genericText);
+        Require(
+            targetlessChats.Count == expectedProviderSourceIds.Length,
+            "KAESESTEINPILZ must expose one targetless chat mapping per agent provider.");
+        Require(
+            targetlessHandoffs.Count == expectedProviderSourceIds.Length,
+            "KAESESTEINPILZ must expose one targetless handoff mapping per agent provider.");
 
+        var targetlessChatsByProvider = targetlessChats.ToDictionary(
+            item => ProviderSourceId(loaded, item),
+            StringComparer.Ordinal);
+        var targetlessHandoffsByProvider = targetlessHandoffs.ToDictionary(
+            item => ProviderSourceId(loaded, item),
+            StringComparer.Ordinal);
+        Require(
+            new HashSet<string>(targetlessChatsByProvider.Keys, StringComparer.Ordinal)
+                .SetEquals(expectedProviderSourceIds),
+            "Targetless chat mappings do not cover the exact five agent providers.");
+        Require(
+            new HashSet<string>(targetlessHandoffsByProvider.Keys, StringComparer.Ordinal)
+                .SetEquals(expectedProviderSourceIds),
+            "Targetless handoff mappings do not cover the exact five agent providers.");
+
+        foreach (var providerSourceId in expectedProviderSourceIds)
+        {
+            var preflightObservation = CreateNonDeicticPreflightObservationViaManager(
+                loaded.Sha256,
+                providerSourceId);
+            Require(
+                preflightObservation.RequestedAgentId == null
+                && preflightObservation.RoutedAgentId == null
+                && preflightObservation.CapabilityUseId == null
+                && preflightObservation.CapabilityId == null
+                && preflightObservation.RuntimeBindingId == null
+                && preflightObservation.RuntimeActionId == null,
+                "A non-deictic QuickAgentManager preflight must carry no response/model binding.");
+            bridge.RequireAction("chat", providerSourceId, preflightObservation);
+            bridge.RequireAction("handoff", providerSourceId, preflightObservation);
+
+            var wrongProviderSourceId = expectedProviderSourceIds.First(
+                item => !string.Equals(item, providerSourceId, StringComparison.Ordinal));
+            var wrongChatAction = targetlessChatsByProvider[wrongProviderSourceId];
+            var wrongChatBinding = CreateNonDeicticPreflightObservationViaManager(
+                loaded.Sha256,
+                providerSourceId);
+            wrongChatBinding.CapabilityUseId = (string)wrongChatAction["capability_use_id"];
+            wrongChatBinding.CapabilityId = (string)wrongChatAction["capability_id"];
+            wrongChatBinding.RuntimeBindingId = (string)wrongChatAction["runtime_binding_id"];
+            wrongChatBinding.RuntimeActionId = (string)wrongChatAction["runtime_action_id"];
+            ExpectFailure(
+                () => bridge.RequireAction("chat", providerSourceId, wrongChatBinding),
+                "A provider-specific chat binding from another source must fail closed.");
+
+            var wrongHandoffAction = targetlessHandoffsByProvider[wrongProviderSourceId];
+            var wrongHandoffBinding = CreateNonDeicticPreflightObservationViaManager(
+                loaded.Sha256,
+                providerSourceId);
+            wrongHandoffBinding.CapabilityUseId = (string)wrongHandoffAction["capability_use_id"];
+            wrongHandoffBinding.CapabilityId = (string)wrongHandoffAction["capability_id"];
+            wrongHandoffBinding.RuntimeBindingId = (string)wrongHandoffAction["runtime_binding_id"];
+            wrongHandoffBinding.RuntimeActionId = (string)wrongHandoffAction["runtime_action_id"];
+            ExpectFailure(
+                () => bridge.RequireAction("handoff", providerSourceId, wrongHandoffBinding),
+                "A provider-specific handoff binding from another source must fail closed.");
+
+            var chatAction = targetlessChatsByProvider[providerSourceId];
             var responseObservation = CreateNonDeicticResponseObservationViaManager(
                 loaded.Sha256,
                 providerSourceId,
-                targetlessChats[0]);
+                chatAction);
             Require(
                 responseObservation.RequestedAgentId == null,
                 "A non-deictic QuickAgentManager response must not invent a requested agent.");
@@ -475,11 +541,10 @@ public static class FunctionalMldsV2QuickAgentBridgeSmoke
             Require(
                 responseObservation.ResponseObserved,
                 "QuickAgentManager must preserve the observed-response flag.");
-            bridge.RequireAction("chat", providerSourceId, responseObservation);
 
             var genericAssessment = bridge.RecordInteraction(
                 "chat",
-                "unity_qam_non_deictic_null_routing_observed",
+                "unity_qam_non_deictic_null_routing_observed_" + providerSourceId,
                 providerSourceId,
                 responseObservation,
                 new { interaction_mode = "non_deictic" },
@@ -489,10 +554,11 @@ public static class FunctionalMldsV2QuickAgentBridgeSmoke
                 && genericAssessment.TargetResolved
                 && genericAssessment.RouteResolved
                 && genericAssessment.CompletionSatisfied,
-                "A QuickAgentManager non-deictic response with null routing must complete successfully.");
+                "Every provider-specific non-deictic chat response must complete successfully.");
         }
 
-        foreach (var action in chatActions.Where(item => item != targetlessChats[0]))
+        foreach (var action in chatActions.Where(
+                     item => ((JArray)item["target_ids"]).Values<string>().Any()))
         {
             var providerSourceId = ProviderSourceId(loaded, action);
             bridge.RequireAction(
@@ -501,105 +567,144 @@ public static class FunctionalMldsV2QuickAgentBridgeSmoke
                 BoundObservation(loaded, action, true));
         }
 
-        var handoffActions = actions
-            .Where(item => (string)item["action_kind"] == "handoff")
-            .ToList();
-        Require(handoffActions.Count > 0, "KAESESTEINPILZ has no handoff mappings.");
-        var targetlessHandoffs = handoffActions
-            .Where(item => !((JArray)item["target_ids"]).Values<string>().Any())
-            .ToList();
-        Require(
-            targetlessHandoffs.Count == 1,
-            "KAESESTEINPILZ must expose exactly one trusted targetless handoff mapping.");
-
-        var genericProvider = loaded.Index.Require(
-            (string)targetlessChats[0]["provider_entity_id"],
-            "Entity");
-        var genericProviderSourceId = ProviderSourceId(loaded, targetlessChats[0]);
-        var modeledHandoffTarget = loaded.Index.Require(
-            genericProvider.References("handoffTarget").First(),
-            "Entity");
-        var modeledHandoffTargetSourceId = modeledHandoffTarget.OptionalString("sourceAgentId")
-            ?? modeledHandoffTarget.OptionalString("sourceId")
-            ?? modeledHandoffTarget.Id;
-        CreateNonDeicticHandoffObservationsViaManager(
-            loaded.Sha256,
-            genericProviderSourceId,
-            modeledHandoffTargetSourceId,
-            targetlessChats[0],
-            targetlessHandoffs[0],
-            out var chatHandoffObservation,
-            out var handoffObservation);
-        Require(
-            string.Equals(
-                chatHandoffObservation.CapabilityUseId,
-                (string)targetlessChats[0]["capability_use_id"],
-                StringComparison.Ordinal),
-            "QuickAgentManager must bind the chat observation to the S11 chat chain.");
-        Require(
-            string.Equals(
-                handoffObservation.CapabilityUseId,
-                (string)targetlessHandoffs[0]["capability_use_id"],
-                StringComparison.Ordinal),
-            "QuickAgentManager must bind the handoff observation to the S12 handoff chain.");
-        Require(
-            chatHandoffObservation.RoutedAgentId == genericProviderSourceId
-            && handoffObservation.RoutedAgentId == genericProviderSourceId,
-            "Both observations must fall back to active_agent_id when routing is null.");
-        Require(
-            chatHandoffObservation.ModeledHandoff == true
-            && handoffObservation.ModeledHandoff == true,
-            "Both observations must preserve handoff.modeled_handoff when routing is null.");
-
-        var chatWithHandoffAssessment = bridge.RecordInteraction(
-            "chat",
-            "unity_qam_non_deictic_chat_with_handoff_observed",
-            genericProviderSourceId,
-            chatHandoffObservation,
-            new { interaction_mode = "non_deictic" },
-            new
-            {
-                active_agent_id = genericProviderSourceId,
-                routing = (object)null,
-                handoff_to = modeledHandoffTargetSourceId
-            });
-        Require(
-            chatWithHandoffAssessment.Verdict == "pass"
-            && chatWithHandoffAssessment.RouteResolved
-            && chatWithHandoffAssessment.CompletionSatisfied,
-            "The S11 chat side of a non-deictic handoff response must pass.");
-
-        var handoffAssessment = bridge.RecordInteraction(
-            "handoff",
-            "unity_qam_non_deictic_handoff_observed",
-            genericProviderSourceId,
-            handoffObservation,
-            new { interaction_mode = "non_deictic" },
-            new
-            {
-                active_agent_id = genericProviderSourceId,
-                routing = (object)null,
-                handoff_to = modeledHandoffTargetSourceId
-            });
-        Require(
-            handoffAssessment.Verdict == "pass"
-            && handoffAssessment.RouteResolved
-            && handoffAssessment.CompletionSatisfied,
-            "The S12 handoff side of the same non-deictic response must pass.");
-
-        foreach (var providerSourceId in providerSourceIds)
+        foreach (var providerSourceId in expectedProviderSourceIds)
         {
-            var genericHandoff = BoundObservation(loaded, targetlessHandoffs[0], false);
-            genericHandoff.RequestedAgentId = providerSourceId;
-            bridge.RequireAction("handoff", providerSourceId, genericHandoff);
+            var chatAction = targetlessChatsByProvider[providerSourceId];
+            var handoffAction = targetlessHandoffsByProvider[providerSourceId];
+            var provider = loaded.Index.Require(
+                (string)chatAction["provider_entity_id"],
+                "Entity");
+            var modeledHandoffTarget = string.Equals(
+                    providerSourceId,
+                    "welcome_host",
+                    StringComparison.Ordinal)
+                ? loaded.Index.Require("ENT-AGENT-HERITAGE_EDUCATOR", "Entity")
+                : loaded.Index.Require(provider.References("handoffTarget").First(), "Entity");
+            Require(
+                provider.References("handoffTarget").Contains(modeledHandoffTarget.Id),
+                "The provider-specific smoke selected an unmodeled handoff target.");
+            var modeledHandoffTargetSourceId = modeledHandoffTarget.OptionalString("sourceAgentId")
+                ?? modeledHandoffTarget.OptionalString("sourceId")
+                ?? modeledHandoffTarget.Id;
+
+            CreateNonDeicticHandoffObservationsViaManager(
+                loaded.Sha256,
+                providerSourceId,
+                modeledHandoffTargetSourceId,
+                chatAction,
+                handoffAction,
+                out var chatHandoffObservation,
+                out var handoffObservation);
+            Require(
+                string.Equals(
+                    chatHandoffObservation.CapabilityUseId,
+                    (string)chatAction["capability_use_id"],
+                    StringComparison.Ordinal),
+                "QuickAgentManager must bind chat evidence to its provider-specific chain.");
+            Require(
+                string.Equals(
+                    handoffObservation.CapabilityUseId,
+                    (string)handoffAction["capability_use_id"],
+                    StringComparison.Ordinal),
+                "QuickAgentManager must bind handoff evidence to its provider-specific chain.");
+            Require(
+                chatHandoffObservation.RoutedAgentId == modeledHandoffTargetSourceId
+                && handoffObservation.RoutedAgentId == modeledHandoffTargetSourceId,
+                "A handoff response must expose its destination as the routed agent.");
+            Require(
+                handoffObservation.HandoffFromAgentId == providerSourceId
+                && handoffObservation.HandoffToAgentId == modeledHandoffTargetSourceId,
+                "The handoff observation must preserve its source and destination agents.");
+            Require(
+                chatHandoffObservation.ModeledHandoff == true
+                && handoffObservation.ModeledHandoff == true,
+                "Both observations must preserve handoff.modeled_handoff.");
+
+            var chatWithHandoffAssessment = bridge.RecordInteraction(
+                "chat",
+                "unity_qam_non_deictic_chat_with_handoff_observed_" + providerSourceId,
+                providerSourceId,
+                chatHandoffObservation,
+                new { interaction_mode = "non_deictic" },
+                new
+                {
+                    active_agent_id = modeledHandoffTargetSourceId,
+                    routing = (object)null,
+                    handoff_from = providerSourceId,
+                    handoff_to = modeledHandoffTargetSourceId
+                });
+            Require(
+                chatWithHandoffAssessment.Verdict == "pass"
+                && chatWithHandoffAssessment.RouteResolved
+                && chatWithHandoffAssessment.CompletionSatisfied,
+                "Every provider-specific chat side of a handoff response must pass.");
+
+            var handoffAssessment = bridge.RecordInteraction(
+                "handoff",
+                "unity_qam_non_deictic_handoff_observed_" + providerSourceId,
+                providerSourceId,
+                handoffObservation,
+                new { interaction_mode = "non_deictic" },
+                new
+                {
+                    active_agent_id = modeledHandoffTargetSourceId,
+                    routing = (object)null,
+                    handoff_from = providerSourceId,
+                    handoff_to = modeledHandoffTargetSourceId
+                });
+            Require(
+                handoffAssessment.Verdict == "pass"
+                && handoffAssessment.RouteResolved
+                && handoffAssessment.CompletionSatisfied,
+                "Every provider-specific handoff evidence assessment must pass.");
+
+            // Remove the response model binding to prove that non-deictic handoff
+            // selection prefers handoff.from/source over the routed destination.
+            handoffObservation.CapabilityUseId = null;
+            handoffObservation.CapabilityId = null;
+            handoffObservation.RuntimeBindingId = null;
+            handoffObservation.RuntimeActionId = null;
+            var unboundHandoffAssessment = bridge.RecordInteraction(
+                "handoff",
+                "unity_qam_non_deictic_unbound_handoff_" + providerSourceId,
+                providerSourceId,
+                handoffObservation,
+                new { interaction_mode = "non_deictic", model_binding = (object)null },
+                new
+                {
+                    handoff_from = providerSourceId,
+                    handoff_to = modeledHandoffTargetSourceId
+                });
+            Require(
+                unboundHandoffAssessment.Verdict == "pass"
+                && unboundHandoffAssessment.CompletionSatisfied,
+                "An unbound non-deictic handoff must resolve through its source provider.");
         }
-        foreach (var action in handoffActions.Where(item => item != targetlessHandoffs[0]))
+
+        foreach (var action in handoffActions.Where(
+                     item => ((JArray)item["target_ids"]).Values<string>().Any()))
         {
             var providerSourceId = ProviderSourceId(loaded, action);
             bridge.RequireAction(
                 "handoff",
                 providerSourceId,
                 BoundObservation(loaded, action, true));
+        }
+
+        var communicationEvents = File.ReadAllLines(Path.Combine(root, "events.v2.jsonl"))
+            .Select(JObject.Parse)
+            .ToList();
+        foreach (var providerSourceId in expectedProviderSourceIds)
+        {
+            var eventType = "unity_qam_non_deictic_unbound_handoff_" + providerSourceId;
+            var runtimeEvent = communicationEvents.Single(
+                item => string.Equals((string)item["event_type"], eventType, StringComparison.Ordinal));
+            Require(
+                string.Equals(
+                    (string)runtimeEvent["provider_entity_id"],
+                    (string)targetlessHandoffsByProvider[providerSourceId]["provider_entity_id"],
+                    StringComparison.Ordinal),
+                "An unbound handoff was recorded against the routed target instead of its source provider.");
         }
     }
 
@@ -611,6 +716,35 @@ public static class FunctionalMldsV2QuickAgentBridgeSmoke
         return provider.OptionalString("sourceAgentId")
             ?? provider.OptionalString("sourceId")
             ?? provider.Id;
+    }
+
+    private static FunctionalMldsV2InteractionObservation
+        CreateNonDeicticPreflightObservationViaManager(
+            string modelSha256,
+            string activeAgentId)
+    {
+        var managerObject = new GameObject("FunctionalMLDS_QAM_NonDeictic_Preflight_Smoke");
+        try
+        {
+            var manager = managerObject.AddComponent<QuickAgentManager>();
+            manager.activeAgentId = activeAgentId;
+
+            var modelHashField = typeof(QuickAgentManager).GetField(
+                "currentModelSha256",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+            Require(modelHashField != null, "QuickAgentManager.currentModelSha256 is unavailable.");
+            modelHashField.SetValue(manager, modelSha256);
+
+            return InvokeManagerObservation(
+                manager,
+                "CreateInteractionObservation",
+                null,
+                responseObserved: false);
+        }
+        finally
+        {
+            UnityEngine.Object.DestroyImmediate(managerObject);
+        }
     }
 
     private static FunctionalMldsV2InteractionObservation
@@ -679,7 +813,10 @@ public static class FunctionalMldsV2QuickAgentBridgeSmoke
 
             var response = new QuickAgentManager.ChatResponse
             {
-                active_agent_id = activeAgentId,
+                // The backend switches active_agent_id to the destination before
+                // Unity records the handoff. manager.activeAgentId still carries
+                // the source until the evidence checks complete.
+                active_agent_id = handoffTargetAgentId,
                 interaction_mode =
                     FunctionalMldsV2InteractionEvidenceEvaluator.NonDeicticMode,
                 routing = null,
@@ -711,7 +848,8 @@ public static class FunctionalMldsV2QuickAgentBridgeSmoke
     private static FunctionalMldsV2InteractionObservation InvokeManagerObservation(
         QuickAgentManager manager,
         string methodName,
-        QuickAgentManager.ChatResponse response)
+        QuickAgentManager.ChatResponse response,
+        bool responseObserved = true)
     {
         var method = typeof(QuickAgentManager).GetMethod(
             methodName,
@@ -731,7 +869,7 @@ public static class FunctionalMldsV2QuickAgentBridgeSmoke
                 {
                     FunctionalMldsV2InteractionEvidenceEvaluator.NonDeicticMode,
                     response,
-                    true
+                    responseObserved
                 })
             as FunctionalMldsV2InteractionObservation;
         Require(observation != null, "QuickAgentManager returned no interaction observation.");

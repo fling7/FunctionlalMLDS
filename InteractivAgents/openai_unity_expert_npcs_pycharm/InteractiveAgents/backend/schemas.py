@@ -19,24 +19,30 @@ def npc_action_schema(allowed_handoff_ids: List[str]) -> Dict:
             seen.add(_id)
             ids.append(_id)
 
+    handoff_target_schema = (
+        {
+            "anyOf": [
+                {"type": "string", "enum": ids},
+                {"type": "null"},
+            ]
+        }
+        if ids
+        else {"type": "null"}
+    )
+
     return {
         "type": "object",
         "properties": {
             "say": {"type": "string"},
-            "handoff_to": {
-                "oneOf": [
-                    {"type": "string", "enum": ids},
-                    {"type": "null"},
-                ]
-            },
+            "handoff_to": handoff_target_schema,
             "handoff_reason": {
-                "oneOf": [
+                "anyOf": [
                     {"type": "string"},
                     {"type": "null"},
                 ]
             },
             "handoff_brief": {
-                "oneOf": [
+                "anyOf": [
                     {"type": "string"},
                     {"type": "null"},
                 ]

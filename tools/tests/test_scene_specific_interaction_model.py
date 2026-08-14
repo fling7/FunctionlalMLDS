@@ -17,6 +17,7 @@ for import_root in (ROOT, TOOLS):
 
 from dynamic_functional_mlds_v2_compat import import_v05  # noqa: E402
 from case_study_pipeline.functionalmlds_assembler import (  # noqa: E402
+    _scenario_and_capability_uses,
     assemble_functionalmlds_instance,
     validate_functionalmlds_instance,
 )
@@ -108,7 +109,23 @@ class SceneSpecificInteractionModelTests(unittest.TestCase):
                         )
                     )
                 ]
-                self.assertEqual(2, len(generic_uses))
+                expected_provider_ids = {
+                    agent["entity_id"] for agent in instance["agents"]
+                }
+                self.assertEqual(
+                    len(expected_provider_ids) * 2,
+                    len(generic_uses),
+                )
+                for suffix in (
+                    "S11-ANSWER-ROOM-GROUNDED-QUESTION",
+                    "S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+                ):
+                    provider_ids = {
+                        item["preferred_provider_entity_id"]
+                        for item in generic_uses
+                        if item["id"].endswith(suffix)
+                    }
+                    self.assertEqual(expected_provider_ids, provider_ids)
                 self.assertEqual(
                     expected_count,
                     len(
@@ -159,6 +176,24 @@ class SceneSpecificInteractionModelTests(unittest.TestCase):
                 )
         self.assertEqual(3, len(observed_shapes))
 
+    def test_provider_specific_targetless_ids_do_not_merge_dash_and_underscore_agents(self) -> None:
+        _, uses = _scenario_and_capability_uses(
+            "COLLISION_TEST",
+            "UC-COLLISION-TEST",
+            agent_provider_entity_ids=(
+                "ENT-AGENT-FOO-BAR",
+                "ENT-AGENT-FOO_BAR",
+            ),
+        )
+        generic_ids = {
+            item["id"]
+            for item in uses
+            if item.get("preferred_provider_entity_id")
+        }
+        self.assertEqual(4, len(generic_ids))
+        self.assertTrue(any("-FOO-BAR-S11-" in item for item in generic_ids))
+        self.assertTrue(any("-FOO_BAR-S11-" in item for item in generic_ids))
+
     def test_dinosaur_chain_projects_exact_provider_asset_group_and_zone(self) -> None:
         use_id = (
             "CU-CLASSROOM_DINOSAUR-INTERACT-DINOSAUR_SKELETON-"
@@ -196,21 +231,17 @@ class SceneSpecificInteractionModelTests(unittest.TestCase):
         )
         self.assertEqual([expected_provider], native_step["performedBy"])
 
-        native_by_id = {
-            item["id"]: item for item in self.classroom_v2["objects"]
-        }
-        self.assertEqual(
-            [],
-            native_by_id[
-                "CU-CLASSROOM_DINOSAUR-S11-ANSWER-ROOM-GROUNDED-QUESTION"
-            ]["target"],
-        )
-        self.assertEqual(
-            [],
-            native_by_id[
-                "CU-CLASSROOM_DINOSAUR-S12-HANDOFF-TO-RESPONSIBLE-AGENT"
-            ]["target"],
-        )
+        for suffix in (
+            "S11-ANSWER-ROOM-GROUNDED-QUESTION",
+            "S12-HANDOFF-TO-RESPONSIBLE-AGENT",
+        ):
+            generic_use = next(
+                item
+                for item in _objects_by_type(self.classroom_v2, "CapabilityUse")
+                if item["id"].endswith(suffix)
+                and item["provider"] == [expected_provider]
+            )
+            self.assertEqual([], generic_use["target"])
 
     def test_native_validator_rejects_dinosaur_provider_target_mismatch(self) -> None:
         mutated = copy.deepcopy(self.classroom_v2)

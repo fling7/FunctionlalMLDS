@@ -229,6 +229,12 @@ def validate_handoff_derivation(agent_roles: Dict[str, Any], handoff_matrix: Dic
         if str(target or "").strip()
     }
     matrix_pairs = set(_matrix_entries_by_pair(handoff_matrix))
+    expected_pairs = {
+        (source, target)
+        for source in agent_ids
+        for target in agent_ids
+        if source != target
+    }
     for source, target in sorted(target_pairs | matrix_pairs):
         if source == target:
             errors.append(f"Self-handoff is not allowed: {source}->{target}.")
@@ -240,6 +246,10 @@ def validate_handoff_derivation(agent_roles: Dict[str, Any], handoff_matrix: Dic
         errors.append(f"Agent handoff target is missing in handoff_matrix: {source}->{target}.")
     for source, target in sorted(matrix_pairs - target_pairs):
         errors.append(f"Handoff matrix pair is missing in agent handoff_targets: {source}->{target}.")
+    for source, target in sorted(expected_pairs - target_pairs):
+        errors.append(f"Direct agent handoff is missing: {source}->{target}.")
+    for source, target in sorted(expected_pairs - matrix_pairs):
+        errors.append(f"Direct handoff matrix entry is missing: {source}->{target}.")
     for entry in handoff_matrix.get("handoffs") or []:
         if not isinstance(entry, Mapping):
             errors.append("Handoff entry is not an object.")
@@ -256,6 +266,8 @@ def validate_handoff_derivation(agent_roles: Dict[str, Any], handoff_matrix: Dic
             "agent_count": len(agent_ids),
             "agent_handoff_target_count": len(target_pairs),
             "matrix_handoff_count": len(matrix_pairs),
+            "expected_direct_handoff_count": len(expected_pairs),
+            "missing_direct_handoff_count": len(expected_pairs - matrix_pairs),
             "source_agent_with_handoff_count": len({source for source, _ in matrix_pairs}),
             "self_handoff_count": sum(1 for source, target in matrix_pairs if source == target),
         },

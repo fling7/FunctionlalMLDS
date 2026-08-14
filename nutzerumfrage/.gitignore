@@ -1,0 +1,27 @@
+# Build artifacts
+BuildOutput/Build/
+webxr_build.zip
+webxr_build.tgz
+*.gz
+*.tgz
+*.zip
+
+# Editor & System Files
+.DS_Store
+node_modules/
+dist/
+
+# Study database and local configuration
+data/
+.env
+.env.local
+!.env.example
+
+# Local deployment bundles and TLS material
+BuildOutput/Build-OLD/
+BuildOutput/TemplateData-OLD/
+ops/release/
+keys/
+*.pem
+*.key
+*.tar

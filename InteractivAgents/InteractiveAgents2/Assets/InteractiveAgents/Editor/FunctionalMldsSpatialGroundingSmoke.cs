@@ -373,6 +373,41 @@ public static class FunctionalMldsSpatialGroundingSmoke
                 && manager.SelectedSpatialEntityId == "ENT-LINKED-GENERATED",
             "The complete QAM ray path did not select the visible generated instance.");
 
+        // glTFast's shader graphs use these property names rather than Unity's
+        // _BaseColor/_EmissionColor convention. Verify both application and restore.
+        var generatedRenderer = generated.GetComponent<Renderer>();
+        var originalMaterial = generatedRenderer.material;
+        var gltfShader = Shader.Find("glTF-pbrMetallicRoughness")
+            ?? Shader.Find("Shader Graphs/glTF-pbrMetallicRoughness");
+        if (gltfShader != null
+            && gltfShader.isSupported
+            && gltfShader.FindPropertyIndex("baseColorFactor") >= 0
+            && gltfShader.FindPropertyIndex("emissiveFactor") >= 0)
+        {
+            var gltfMaterial = new Material(gltfShader);
+            var originalBase = new Color(0.18f, 0.31f, 0.47f, 1f);
+            var originalEmission = new Color(0.02f, 0.03f, 0.04f, 1f);
+            gltfMaterial.SetColor("baseColorFactor", originalBase);
+            gltfMaterial.SetColor("emissiveFactor", originalEmission);
+            generatedRenderer.material = gltfMaterial;
+
+            var highlightColor = new Color(1f, 0.9f, 0.25f, 1f);
+            binding.SetHighlighted(false, Color.clear, 0f);
+            binding.SetHighlighted(true, highlightColor, 2f);
+            Require(gltfMaterial.GetColor("baseColorFactor") == highlightColor,
+                "glTFast baseColorFactor did not receive the highlight color.");
+            Require(gltfMaterial.GetColor("emissiveFactor") == highlightColor * 2f,
+                "glTFast emissiveFactor did not receive the highlight emission.");
+
+            binding.SetHighlighted(false, Color.clear, 0f);
+            Require(gltfMaterial.GetColor("baseColorFactor") == originalBase,
+                "glTFast baseColorFactor was not restored after highlighting.");
+            Require(gltfMaterial.GetColor("emissiveFactor") == originalEmission,
+                "glTFast emissiveFactor was not restored after highlighting.");
+            UnityEngine.Object.DestroyImmediate(gltfMaterial);
+            generatedRenderer.material = originalMaterial;
+        }
+
         UnityEngine.Object.DestroyImmediate(managerObject);
         UnityEngine.Object.DestroyImmediate(generated);
         UnityEngine.Object.DestroyImmediate(placeholder);

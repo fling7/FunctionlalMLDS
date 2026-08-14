@@ -16,18 +16,37 @@ public static class KaesesteinpilzUserTestQuickAgentManagerSmoke
     {
         private readonly QuickAgentManager core;
         private readonly FieldInfo fpvField;
+        private readonly string expectedSpatialEntityId;
+        private readonly bool yieldOnce;
+        private int moveCount;
 
-        public HandoffProbeEnumerator(QuickAgentManager core, FieldInfo fpvField)
+        public HandoffProbeEnumerator(
+            QuickAgentManager core,
+            FieldInfo fpvField,
+            string expectedSpatialEntityId = null,
+            bool yieldOnce = false)
         {
             this.core = core;
             this.fpvField = fpvField;
+            this.expectedSpatialEntityId = expectedSpatialEntityId;
+            this.yieldOnce = yieldOnce;
         }
 
         public bool SawArmedFpv { get; private set; }
+        public bool SelectionSurvivedResponsePhase { get; private set; }
         public object Current => null;
         public bool MoveNext()
         {
             SawArmedFpv = (bool)fpvField.GetValue(core);
+            if (moveCount++ > 0 && !string.IsNullOrWhiteSpace(expectedSpatialEntityId))
+            {
+                SelectionSurvivedResponsePhase = string.Equals(
+                    core.SelectedSpatialEntityId,
+                    expectedSpatialEntityId,
+                    StringComparison.Ordinal);
+            }
+            if (yieldOnce && moveCount == 1)
+                return true;
             return false;
         }
         public void Reset() { }
@@ -46,6 +65,7 @@ public static class KaesesteinpilzUserTestQuickAgentManagerSmoke
         RequireMobileSelectionContract();
         RequireParticipantTranscriptContract();
         RequireHandoffNavigationContract();
+        RequireWebXrVisualContract();
         RequireAnimationAssets();
         RequireWebXrTemplate();
         Debug.Log("[KaesesteinpilzUserTestQuickAgentManagerSmoke] OK");
@@ -242,9 +262,76 @@ public static class KaesesteinpilzUserTestQuickAgentManagerSmoke
         fpvField.SetValue(core, false);
         var probe = new HandoffProbeEnumerator(core, fpvField);
         var wrapper = (IEnumerator)managerType.GetMethod(
-            "RunCoreChatWithHandoffNavigation", flags).Invoke(manager, new object[] { probe });
+            "RunCoreChatWithHandoffNavigation", flags).Invoke(
+                manager,
+                new object[] { probe, string.Empty });
         Require(!wrapper.MoveNext() && probe.SawArmedFpv && !(bool)fpvField.GetValue(core),
             "The legacy proximity branch is not armed atomically around chat processing.");
+
+        var bindingObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        bindingObject.name = "one_question_spatial_context_probe";
+        var binding = bindingObject.AddComponent<FunctionalMldsSceneObjectBinding>();
+        binding.Configure(
+            "ENT-ONE-QUESTION-PROBE",
+            "one_question_probe",
+            "",
+            "",
+            "One question probe",
+            bindingObject.GetComponent<Collider>(),
+            Array.Empty<string>());
+        try
+        {
+            core.RefreshSpatialBindingRegistry();
+            var setResolved = coreType.GetMethod("SetSpatialTargetResolved", flags);
+            Require(setResolved != null, "The spatial selection setup hook is missing.");
+            setResolved.Invoke(core, new object[]
+            {
+                binding,
+                bindingObject.transform.position,
+                1f,
+                "desktop_ray"
+            });
+
+            const string entityId = "ENT-ONE-QUESTION-PROBE";
+            var responseProbe = new HandoffProbeEnumerator(core, fpvField, entityId, true);
+            var responseWrapper = (IEnumerator)managerType.GetMethod(
+                "RunCoreChatWithHandoffNavigation", flags).Invoke(
+                    manager,
+                    new object[] { responseProbe, entityId });
+            Require(responseWrapper.MoveNext(),
+                "The simulated chat request did not reach its response wait.");
+            Require(core.SelectedSpatialEntityId == entityId,
+                "The object was cleared before response evidence could be evaluated.");
+            Require(!responseWrapper.MoveNext(),
+                "The simulated chat wrapper did not complete.");
+            Require(responseProbe.SelectionSurvivedResponsePhase,
+                "The object selection was unavailable during response evidence evaluation.");
+            Require(string.IsNullOrEmpty(core.SelectedSpatialEntityId),
+                "The one-question object context was not cleared after completion.");
+
+            setResolved.Invoke(core, new object[]
+            {
+                binding,
+                bindingObject.transform.position,
+                1f,
+                "desktop_ray"
+            });
+            var blockedProbe = new HandoffProbeEnumerator(core, fpvField);
+            var blockedWrapper = (IEnumerator)managerType.GetMethod(
+                "RunCoreChatWithHandoffNavigation", flags).Invoke(
+                    manager,
+                    new object[] { blockedProbe, entityId });
+            Require(!blockedWrapper.MoveNext(),
+                "The preflight-blocked chat probe unexpectedly yielded.");
+            Require(core.SelectedSpatialEntityId == entityId,
+                "A chat blocked before its request started consumed the object selection.");
+            core.ClearSelectedSpatialTarget();
+        }
+        finally
+        {
+            UnityEngine.Object.DestroyImmediate(bindingObject);
+            core.RefreshSpatialBindingRegistry();
+        }
     }
 
     private static void RequireAnimationAssets()
@@ -288,6 +375,133 @@ public static class KaesesteinpilzUserTestQuickAgentManagerSmoke
             Require(animator != null && animator.avatar != null
                     && animator.avatar.isHuman && animator.avatar.isValid,
                 "Character has no valid Humanoid avatar: " + path);
+        }
+    }
+
+    private static void RequireWebXrVisualContract()
+    {
+        const BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
+        var manager = UnityEngine.Object.FindAnyObjectByType<
+            KaesesteinpilzUserTestQuickAgentManager>();
+        Require(manager != null, "The study manager is unavailable for WebXR visual validation.");
+
+        var indicatorMaterial = AssetDatabase.LoadAssetAtPath<Material>(
+            "Assets/Resources/KAESESTEINPILZ_AgentIndicator.mat");
+        Require(indicatorMaterial != null
+                && indicatorMaterial.shader != null
+                && indicatorMaterial.shader.isSupported
+                && indicatorMaterial.shader.name.StartsWith(
+                    "Universal Render Pipeline/",
+                    StringComparison.Ordinal)
+                && indicatorMaterial.HasProperty("_EmissionColor"),
+            "The agent marker has no WebGL-safe URP material with emission support.");
+
+        var markerRoot = new GameObject("webxr_agent_marker_probe");
+        var markerObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+        markerObject.name = "SelectionIndicator";
+        markerObject.transform.SetParent(markerRoot.transform, false);
+        try
+        {
+            var configureMarker = typeof(KaesesteinpilzUserTestQuickAgentManager).GetMethod(
+                "ConfigureAgentIndicatorMaterial", flags);
+            Require(configureMarker != null, "The WebXR agent-marker material guard is missing.");
+            configureMarker.Invoke(manager, new object[] { markerRoot });
+            var renderer = markerObject.GetComponent<Renderer>();
+            Require(renderer != null
+                    && renderer.enabled
+                    && renderer.sharedMaterial == indicatorMaterial
+                    && renderer.sharedMaterial.shader.name != "Hidden/InternalErrorShader",
+                "SelectionIndicator still resolves to an unsupported/error shader.");
+        }
+        finally
+        {
+            UnityEngine.Object.DestroyImmediate(markerRoot);
+        }
+
+        var noDepthShader = AssetDatabase.LoadAssetAtPath<Shader>(
+            "Assets/Scripting/IuiStudyNoDepthUi.shader");
+        Require(noDepthShader != null
+                && noDepthShader.isSupported
+                && noDepthShader.name == "KAESESTEINPILZ/UI No Depth",
+            "The stereo-safe handoff no-depth shader is missing or unsupported.");
+        var graphicsSettings = File.ReadAllText("ProjectSettings/GraphicsSettings.asset");
+        Require(graphicsSettings.Contains("c09ccbdb67d94a0aa80e236f3d8c9c7e"),
+            "The handoff shader is not protected from WebGL shader stripping.");
+
+        var textObject = new GameObject("webxr_handoff_text_probe", typeof(RectTransform));
+        try
+        {
+            var text = textObject.AddComponent<UnityEngine.UI.Text>();
+            var applyNoDepth = typeof(KaesesteinpilzUserTestQuickAgentManager).GetMethod(
+                "ApplyHandoffNoDepthMaterial", flags);
+            Require(applyNoDepth != null, "The immersive handoff material hook is missing.");
+            applyNoDepth.Invoke(manager, new object[] { text });
+            Require(text.material != null && text.material.shader == noDepthShader,
+                "The handoff arrow does not use the XR no-depth material.");
+        }
+        finally
+        {
+            UnityEngine.Object.DestroyImmediate(textObject);
+        }
+
+        var managerType = typeof(KaesesteinpilzUserTestQuickAgentManager);
+        var canvasField = managerType.GetField("canvas", flags);
+        var cameraField = managerType.GetField("playerCamera", flags);
+        var xrActiveField = managerType.GetField("xrActive", flags);
+        var rayCameraField = managerType.GetField("xrUiRayCamera", flags);
+        var processRay = managerType.GetMethod("ProcessXrUiRay", flags);
+        Require(canvasField != null && cameraField != null && xrActiveField != null
+                && rayCameraField != null && processRay != null,
+            "The immersive UI camera contract cannot be inspected.");
+
+        var priorCanvas = canvasField.GetValue(manager);
+        var priorCamera = cameraField.GetValue(manager);
+        var priorXrActive = xrActiveField.GetValue(manager);
+        var priorRayCamera = rayCameraField.GetValue(manager) as Camera;
+        var canvasObject = new GameObject(
+            "webxr_world_canvas_probe",
+            typeof(RectTransform),
+            typeof(Canvas),
+            typeof(UnityEngine.UI.GraphicRaycaster));
+        var hmdObject = new GameObject("webxr_hmd_camera_probe", typeof(Camera));
+        GameObject eventObject = null;
+        try
+        {
+            if (UnityEngine.EventSystems.EventSystem.current == null)
+            {
+                eventObject = new GameObject(
+                    "webxr_event_system_probe",
+                    typeof(UnityEngine.EventSystems.EventSystem));
+            }
+            var worldCanvas = canvasObject.GetComponent<Canvas>();
+            var hmdCamera = hmdObject.GetComponent<Camera>();
+            worldCanvas.renderMode = RenderMode.WorldSpace;
+            worldCanvas.worldCamera = hmdCamera;
+            canvasField.SetValue(manager, worldCanvas);
+            cameraField.SetValue(manager, hmdCamera);
+            xrActiveField.SetValue(manager, true);
+            processRay.Invoke(manager, new object[]
+            {
+                new Ray(Vector3.zero, Vector3.forward),
+                false,
+                false
+            });
+            Require(worldCanvas.worldCamera == hmdCamera,
+                "The controller UI ray left its disabled helper camera on the XR canvas.");
+        }
+        finally
+        {
+            var createdRayCamera = rayCameraField.GetValue(manager) as Camera;
+            if (createdRayCamera != null && createdRayCamera != priorRayCamera)
+                UnityEngine.Object.DestroyImmediate(createdRayCamera.gameObject);
+            canvasField.SetValue(manager, priorCanvas);
+            cameraField.SetValue(manager, priorCamera);
+            xrActiveField.SetValue(manager, priorXrActive);
+            rayCameraField.SetValue(manager, priorRayCamera);
+            UnityEngine.Object.DestroyImmediate(canvasObject);
+            UnityEngine.Object.DestroyImmediate(hmdObject);
+            if (eventObject != null)
+                UnityEngine.Object.DestroyImmediate(eventObject);
         }
     }
 

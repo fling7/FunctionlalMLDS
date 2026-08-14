@@ -2,123 +2,123 @@
   "handoffs": [
     {
       "source_agent_id": "welcome_host",
-      "target_agent_id": "cheese_expert",
-      "condition": "Visitor requests detailed information about cheese making or demonstration equipment.",
-      "reason": "Cheese Expert specializes in cheese production and interactive demonstrations."
+      "target_agent_id": "cheese_craft_expert",
+      "condition": "visitor wants to learn about cheese making process or interact with production equipment",
+      "reason": "Cheese Craft Expert specializes in cheese making demonstrations and equipment interaction."
     },
     {
       "source_agent_id": "welcome_host",
-      "target_agent_id": "heritage_educator",
-      "condition": "Visitor shows interest in Steinpilz dairy farming history or related exhibits.",
-      "reason": "Heritage Educator provides expert knowledge on dairy farming and brand heritage."
+      "target_agent_id": "dairy_educator",
+      "condition": "visitor is interested in dairy farming and Steinpilz heritage",
+      "reason": "Dairy Educator provides detailed education on dairy farming and brand heritage."
     },
     {
       "source_agent_id": "welcome_host",
-      "target_agent_id": "tactile_guide",
-      "condition": "Visitor wants to engage in tactile exploration of cheese materials.",
-      "reason": "Tactile Exploration Guide facilitates hands-on tactile learning experiences."
+      "target_agent_id": "interactive_guide",
+      "condition": "visitor wants to engage with tactile exhibits",
+      "reason": "Interactive Guide facilitates sensory and tactile learning experiences."
     },
     {
       "source_agent_id": "welcome_host",
       "target_agent_id": "lounge_host",
-      "condition": "Visitor seeks a comfortable place to relax or socialize in the lounge or greenery zones.",
-      "reason": "Lounge Host manages visitor comfort and ambiance in relaxation areas."
+      "condition": "visitor wants to relax or taste cheese products in lounge area",
+      "reason": "Lounge Host manages visitor comfort and socializing in the lounge zone."
     },
     {
-      "source_agent_id": "cheese_expert",
-      "target_agent_id": "tactile_guide",
-      "condition": "Visitor interested in complementing cheese making knowledge with tactile exploration.",
-      "reason": "Tactile Exploration Guide supports tactile learning related to cheese textures."
-    },
-    {
-      "source_agent_id": "cheese_expert",
-      "target_agent_id": "heritage_educator",
-      "condition": "Visitor inquires about Steinpilz brand history after cheese production explanation.",
-      "reason": "Heritage Educator offers detailed brand and dairy farming history."
-    },
-    {
-      "source_agent_id": "cheese_expert",
-      "target_agent_id": "welcome_host",
-      "condition": "Visitor needs general orientation or assistance outside cheese production zone.",
-      "reason": "Welcome Host provides overall visitor guidance and information."
-    },
-    {
-      "source_agent_id": "tactile_guide",
-      "target_agent_id": "cheese_expert",
-      "condition": "Visitor wants to deepen understanding of cheese making after tactile exploration.",
-      "reason": "Cheese Expert delivers in-depth cheese production knowledge."
-    },
-    {
-      "source_agent_id": "tactile_guide",
-      "target_agent_id": "welcome_host",
-      "condition": "Visitor requests general information or navigation help after tactile experience.",
-      "reason": "Welcome Host assists with visitor orientation and guidance."
-    },
-    {
-      "source_agent_id": "heritage_educator",
-      "target_agent_id": "welcome_host",
-      "condition": "Visitor seeks general assistance or wants to explore other zones after heritage education.",
-      "reason": "Welcome Host manages overall visitor guidance and support."
-    },
-    {
-      "source_agent_id": "heritage_educator",
-      "target_agent_id": "cheese_expert",
-      "condition": "Visitor interested in cheese production details following heritage exhibit visit.",
-      "reason": "Cheese Expert specializes in cheese making education."
-    },
-    {
-      "source_agent_id": "lounge_host",
-      "target_agent_id": "welcome_host",
-      "condition": "Visitor requires information or assistance beyond lounge and greenery zones.",
-      "reason": "Welcome Host provides comprehensive visitor guidance."
-    },
-    {
-      "source_agent_id": "cheese_expert",
+      "source_agent_id": "cheese_craft_expert",
       "target_agent_id": "lounge_host",
-      "condition": "Visitor question concerns visitor comfort, ambiance management, customer service, lounge_zone, greenery_zone, ...; the current agent should hand off to Lounge Host.",
-      "reason": "Lounge Host owns visitor comfort, ambiance management, customer service, lounge_zone, greenery_zone, ... and is represented in FunctionalMLDS as a handoff-capable responsible agent."
+      "condition": "visitor finishes cheese making interaction and wants to relax or taste products",
+      "reason": "Lounge Host supports visitor comfort and tasting after demonstrations."
     },
     {
-      "source_agent_id": "tactile_guide",
-      "target_agent_id": "heritage_educator",
-      "condition": "Visitor question concerns dairy farming history, brand heritage, visitor education, dairy_farming_and_milk_delivery, dairy_farming_exhibit_zone, ...; the current agent should hand off to Heritage Educator.",
-      "reason": "Heritage Educator owns dairy farming history, brand heritage, visitor education, dairy_farming_and_milk_delivery, dairy_farming_exhibit_zone, ... and is represented in FunctionalMLDS as a handoff-capable responsible agent."
+      "source_agent_id": "cheese_craft_expert",
+      "target_agent_id": "interactive_guide",
+      "condition": "visitor wants to explore tactile cheese materials after demonstrations",
+      "reason": "Interactive Guide enhances sensory learning complementary to cheese craft."
     },
     {
-      "source_agent_id": "tactile_guide",
+      "source_agent_id": "cheese_craft_expert",
+      "target_agent_id": "welcome_host",
+      "condition": "Visitor question concerns visitor orientation, brand storytelling, customer service, steinpilz_brand_story, welcome_zone; the current agent should hand off to Welcome Host.",
+      "reason": "Welcome Host owns visitor orientation, brand storytelling, customer service, steinpilz_brand_story, welcome_zone and is represented in FunctionalMLDS as a handoff-capable responsible agent."
+    },
+    {
+      "source_agent_id": "cheese_craft_expert",
+      "target_agent_id": "dairy_educator",
+      "condition": "Visitor question concerns dairy farming, agricultural history, visitor education, dairy_farming_and_milk_supply, dairy_exhibit_zone; the current agent should hand off to Dairy Educator.",
+      "reason": "Dairy Educator owns dairy farming, agricultural history, visitor education, dairy_farming_and_milk_supply, dairy_exhibit_zone and is represented in FunctionalMLDS as a handoff-capable responsible agent."
+    },
+    {
+      "source_agent_id": "dairy_educator",
+      "target_agent_id": "welcome_host",
+      "condition": "visitor seeks brand story or orientation after dairy farming education",
+      "reason": "Welcome Host provides brand introduction and overall orientation."
+    },
+    {
+      "source_agent_id": "dairy_educator",
+      "target_agent_id": "interactive_guide",
+      "condition": "visitor wants to explore tactile exhibits related to dairy farming",
+      "reason": "Interactive Guide supports tactile exploration linked to dairy farming themes."
+    },
+    {
+      "source_agent_id": "dairy_educator",
+      "target_agent_id": "cheese_craft_expert",
+      "condition": "Visitor question concerns cheese making, interactive demonstrations, visitor engagement, cheese_making_process, cheese_craft_zone; the current agent should hand off to Cheese Craft Expert.",
+      "reason": "Cheese Craft Expert owns cheese making, interactive demonstrations, visitor engagement, cheese_making_process, cheese_craft_zone and is represented in FunctionalMLDS as a handoff-capable responsible agent."
+    },
+    {
+      "source_agent_id": "dairy_educator",
       "target_agent_id": "lounge_host",
-      "condition": "Visitor question concerns visitor comfort, ambiance management, customer service, lounge_zone, greenery_zone, ...; the current agent should hand off to Lounge Host.",
-      "reason": "Lounge Host owns visitor comfort, ambiance management, customer service, lounge_zone, greenery_zone, ... and is represented in FunctionalMLDS as a handoff-capable responsible agent."
+      "condition": "Visitor question concerns visitor comfort, social facilitation, hospitality, lounge_zone, greenery_zone; the current agent should hand off to Lounge Host.",
+      "reason": "Lounge Host owns visitor comfort, social facilitation, hospitality, lounge_zone, greenery_zone and is represented in FunctionalMLDS as a handoff-capable responsible agent."
     },
     {
-      "source_agent_id": "heritage_educator",
-      "target_agent_id": "tactile_guide",
-      "condition": "Visitor question concerns interactive learning, tactile exploration, visitor engagement, tactile_cheese_exploration, tactile_exploration_zone, ...; the current agent should hand off to Tactile Exploration Guide.",
-      "reason": "Tactile Exploration Guide owns interactive learning, tactile exploration, visitor engagement, tactile_cheese_exploration, tactile_exploration_zone, ... and is represented in FunctionalMLDS as a handoff-capable responsible agent."
+      "source_agent_id": "interactive_guide",
+      "target_agent_id": "cheese_craft_expert",
+      "condition": "visitor wants detailed cheese making demonstrations after tactile exploration",
+      "reason": "Cheese Craft Expert offers in-depth cheese production knowledge."
     },
     {
-      "source_agent_id": "heritage_educator",
+      "source_agent_id": "interactive_guide",
       "target_agent_id": "lounge_host",
-      "condition": "Visitor question concerns visitor comfort, ambiance management, customer service, lounge_zone, greenery_zone, ...; the current agent should hand off to Lounge Host.",
-      "reason": "Lounge Host owns visitor comfort, ambiance management, customer service, lounge_zone, greenery_zone, ... and is represented in FunctionalMLDS as a handoff-capable responsible agent."
+      "condition": "visitor wants to relax or socialize after interactive exploration",
+      "reason": "Lounge Host facilitates visitor comfort and socializing."
+    },
+    {
+      "source_agent_id": "interactive_guide",
+      "target_agent_id": "welcome_host",
+      "condition": "Visitor question concerns visitor orientation, brand storytelling, customer service, steinpilz_brand_story, welcome_zone; the current agent should hand off to Welcome Host.",
+      "reason": "Welcome Host owns visitor orientation, brand storytelling, customer service, steinpilz_brand_story, welcome_zone and is represented in FunctionalMLDS as a handoff-capable responsible agent."
+    },
+    {
+      "source_agent_id": "interactive_guide",
+      "target_agent_id": "dairy_educator",
+      "condition": "Visitor question concerns dairy farming, agricultural history, visitor education, dairy_farming_and_milk_supply, dairy_exhibit_zone; the current agent should hand off to Dairy Educator.",
+      "reason": "Dairy Educator owns dairy farming, agricultural history, visitor education, dairy_farming_and_milk_supply, dairy_exhibit_zone and is represented in FunctionalMLDS as a handoff-capable responsible agent."
     },
     {
       "source_agent_id": "lounge_host",
-      "target_agent_id": "cheese_expert",
-      "condition": "Visitor question concerns cheese production, interactive demonstration, visitor education, cheese_making_process, cheese_production_zone, ...; the current agent should hand off to Cheese Expert.",
-      "reason": "Cheese Expert owns cheese production, interactive demonstration, visitor education, cheese_making_process, cheese_production_zone, ... and is represented in FunctionalMLDS as a handoff-capable responsible agent."
+      "target_agent_id": "welcome_host",
+      "condition": "visitor wants orientation or brand story after relaxing",
+      "reason": "Welcome Host provides orientation and brand information."
     },
     {
       "source_agent_id": "lounge_host",
-      "target_agent_id": "tactile_guide",
-      "condition": "Visitor question concerns interactive learning, tactile exploration, visitor engagement, tactile_cheese_exploration, tactile_exploration_zone, ...; the current agent should hand off to Tactile Exploration Guide.",
-      "reason": "Tactile Exploration Guide owns interactive learning, tactile exploration, visitor engagement, tactile_cheese_exploration, tactile_exploration_zone, ... and is represented in FunctionalMLDS as a handoff-capable responsible agent."
+      "target_agent_id": "cheese_craft_expert",
+      "condition": "Visitor question concerns cheese making, interactive demonstrations, visitor engagement, cheese_making_process, cheese_craft_zone; the current agent should hand off to Cheese Craft Expert.",
+      "reason": "Cheese Craft Expert owns cheese making, interactive demonstrations, visitor engagement, cheese_making_process, cheese_craft_zone and is represented in FunctionalMLDS as a handoff-capable responsible agent."
     },
     {
       "source_agent_id": "lounge_host",
-      "target_agent_id": "heritage_educator",
-      "condition": "Visitor question concerns dairy farming history, brand heritage, visitor education, dairy_farming_and_milk_delivery, dairy_farming_exhibit_zone, ...; the current agent should hand off to Heritage Educator.",
-      "reason": "Heritage Educator owns dairy farming history, brand heritage, visitor education, dairy_farming_and_milk_delivery, dairy_farming_exhibit_zone, ... and is represented in FunctionalMLDS as a handoff-capable responsible agent."
+      "target_agent_id": "dairy_educator",
+      "condition": "Visitor question concerns dairy farming, agricultural history, visitor education, dairy_farming_and_milk_supply, dairy_exhibit_zone; the current agent should hand off to Dairy Educator.",
+      "reason": "Dairy Educator owns dairy farming, agricultural history, visitor education, dairy_farming_and_milk_supply, dairy_exhibit_zone and is represented in FunctionalMLDS as a handoff-capable responsible agent."
+    },
+    {
+      "source_agent_id": "lounge_host",
+      "target_agent_id": "interactive_guide",
+      "condition": "Visitor question concerns interactive exhibits, sensory education, visitor assistance, tactile_cheese_exploration, interactive_exploration_zone; the current agent should hand off to Interactive Guide.",
+      "reason": "Interactive Guide owns interactive exhibits, sensory education, visitor assistance, tactile_cheese_exploration, interactive_exploration_zone and is represented in FunctionalMLDS as a handoff-capable responsible agent."
     }
   ]
 }

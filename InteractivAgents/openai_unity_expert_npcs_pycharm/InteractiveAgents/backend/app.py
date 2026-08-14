@@ -91,13 +91,51 @@ def _select_setup_paths(root: Path) -> tuple[str, str]:
     return room_path, agents_path
 
 
+def _env_text(name: str) -> Optional[str]:
+    raw = os.getenv(name)
+    if raw is None:
+        return None
+    value = raw.strip()
+    return value or None
+
+
+def _load_openai_key_override() -> Optional[str]:
+    direct_key = _env_text("OPENAI_API_KEY")
+    key_file = _env_text("OPENAI_API_KEY_FILE")
+    if direct_key and key_file:
+        raise ValueError(
+            "OPENAI_API_KEY und OPENAI_API_KEY_FILE duerfen nicht gleichzeitig gesetzt sein."
+        )
+    if direct_key:
+        return direct_key
+    if not key_file:
+        return None
+
+    secret_path = Path(key_file)
+    try:
+        secret = secret_path.read_text(encoding="utf-8").strip()
+    except (OSError, UnicodeError) as exc:
+        raise ValueError(
+            f"OPENAI_API_KEY_FILE konnte nicht gelesen werden: {secret_path}"
+        ) from exc
+    if not secret:
+        raise ValueError("OPENAI_API_KEY_FILE enthaelt keinen API-Key.")
+    return secret
+
+
+def _parse_server_port(value: Any) -> int:
+    try:
+        port = int(str(value).strip())
+    except (TypeError, ValueError) as exc:
+        raise ValueError("SERVER_PORT/server_port muss eine Ganzzahl sein.") from exc
+    if not 1 <= port <= 65535:
+        raise ValueError("SERVER_PORT/server_port muss zwischen 1 und 65535 liegen.")
+    return port
+
+
 def _prompt_openai_key() -> str:
-    env_key = os.getenv("OPENAI_API_KEY", "").strip()
-    if env_key:
-        print("[Setup] OpenAI API Key aus Umgebungsvariable OPENAI_API_KEY geladen.")
-        return env_key
     print("\n[Setup] OpenAI API Key fehlt in config.json.")
-    print("Du kannst ihn jetzt eingeben oder die Umgebungsvariable OPENAI_API_KEY setzen.")
+    print("Du kannst ihn jetzt eingeben oder den Prozess mit OPENAI_API_KEY bzw. OPENAI_API_KEY_FILE neu starten.")
     try:
         key = getpass("OpenAI API Key eingeben (Eingabe bleibt unsichtbar): ").strip()
         if key:
@@ -122,12 +160,22 @@ def load_config() -> AppConfig:
     def _get(name: str, default: Any = None) -> Any:
         return raw.get(name, default)
 
+    openai_key_override = _load_openai_key_override()
+    configured_openai_key = str(_get("openai_api_key", "")).strip()
+    server_host = _env_text("SERVER_HOST") or str(_get("server_host", "127.0.0.1")).strip()
+    if not server_host:
+        raise ValueError("SERVER_HOST/server_host darf nicht leer sein.")
+    server_port_override = _env_text("SERVER_PORT")
+    server_port = _parse_server_port(
+        server_port_override if server_port_override is not None else _get("server_port", 8787)
+    )
+
     cfg = AppConfig(
-        openai_api_key=str(_get("openai_api_key", "")).strip(),
+        openai_api_key=openai_key_override or configured_openai_key,
         openai_base_url=str(_get("openai_base_url", "https://api.openai.com/v1/responses")).strip(),
         model=str(_get("model", "gpt-4.1")).strip(),
-        server_host=str(_get("server_host", "127.0.0.1")).strip(),
-        server_port=int(_get("server_port", 8787)),
+        server_host=server_host,
+        server_port=server_port,
         max_history_turns=int(_get("max_history_turns", 20)),
         memory_mode=normalize_memory_mode(_get("memory_mode", "shared_history")),
         max_handoffs=int(_get("max_handoffs", 1)),
@@ -141,7 +189,9 @@ def load_config() -> AppConfig:
         stt_max_audio_bytes=int(_get("stt_max_audio_bytes", 25 * 1024 * 1024)),
     )
 
-    # If key missing: ask once and write back to config.json
+    # Environment and file-backed secrets were already resolved. Only a key
+    # entered explicitly at an interactive prompt is persisted for backwards
+    # compatibility with the local setup flow.
     if not cfg.openai_api_key:
         print("Du kannst ihn jetzt einmalig eingeben (wird in config.json gespeichert).")
         try:
@@ -168,6 +218,9 @@ def run() -> None:
     except FileNotFoundError as exc:
         print(f"[Setup] {exc}")
         print("[Setup] Bitte config.json anlegen und erneut starten.\n")
+        sys.exit(1)
+    except ValueError as exc:
+        print(f"[Setup] Ungueltige Konfiguration: {exc}")
         sys.exit(1)
     root = _project_root()
     _print_setup_instructions(root)

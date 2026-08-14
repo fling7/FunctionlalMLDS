@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>KÄSESTEINPILZ · IUI User Study</title>
+    <meta name="description" content="">
+    <meta name="theme-color" content="#14271d">
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css?v=20260813-mobile-footer-1">
+  </head>
+  <body>
+    <div id="unity-container">
+      <div id="unity-canvas-container">
+        <canvas id="unity-canvas" style="width: 100%; height: 100%;"></canvas>
+      </div>
+      <div id="unity-loading-bar">
+        <div id="study-loading-title">KÄSESTEINPILZ</div>
+        <div id="study-loading-copy">Interaktive IUI-Studie wird vorbereitet</div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div>
+      <div id="unity-footer">
+        <div id="study-build-title">KÄSESTEINPILZ · Desktop · Smartphone · WebXR</div>
+        <button id="xr-menu-toggle" type="button" aria-expanded="false" aria-controls="xr-actions" hidden>XR</button>
+        <div id="xr-actions">
+          <button id="entervr" value="In VR starten" disabled>VR STARTEN</button>
+          <button id="enterar" value="In AR starten" disabled>AR STARTEN</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      var buildUrl = "Build";
+      // The Unity template filenames are stable across builds. Keep a small
+      // version token here so browsers cannot combine a new build with a
+      // previously cached template stylesheet or loader.
+      var templateVersion = "20260813-mobile-footer-1";
+      var loaderUrl = buildUrl + "/BuildOutput.loader.js?v=" + templateVersion;
+      var config = {
+        dataUrl: buildUrl + "/BuildOutput.data.br",
+        frameworkUrl: buildUrl + "/BuildOutput.framework.js.br",
+        codeUrl: buildUrl + "/BuildOutput.wasm.br",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DefaultCompany",
+        productName: "InteractiveAgents2",
+        productVersion: "0.1.0",
+      };
+
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var canvasContainer = document.querySelector("#unity-canvas-container");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+      var unityInstance = null;
+      
+
+      loadingBar.style.display = "block";
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          progressBarFull.style.width = 100 * progress + "%";
+        }).then((instance) => {
+          unityInstance = instance;
+          loadingBar.style.display = "none";
+          if (fullscreenButton)
+          {
+            fullscreenButton.onclick = () => {
+              unityInstance.SetFullscreen(1);
+            };
+          }
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
+
+      let enterARButton = document.getElementById('enterar');
+      let enterVRButton = document.getElementById('entervr');
+      let xrMenuToggle = document.getElementById('xr-menu-toggle');
+      let xrActions = document.getElementById('xr-actions');
+
+      function updateXrMenuAvailability() {
+        const hasSupportedMode = !enterARButton.disabled || !enterVRButton.disabled;
+        xrMenuToggle.hidden = !hasSupportedMode;
+        if (!hasSupportedMode) {
+          xrMenuToggle.setAttribute('aria-expanded', 'false');
+          xrActions.classList.remove('is-open');
+        }
+      }
+
+      xrMenuToggle.addEventListener('click', function () {
+        const isOpen = !xrActions.classList.contains('is-open');
+        xrActions.classList.toggle('is-open', isOpen);
+        xrMenuToggle.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      document.addEventListener('onARSupportedCheck', function (event) {
+        enterARButton.disabled = !event.detail.supported;
+        updateXrMenuAvailability();
+      }, false);
+      document.addEventListener('onVRSupportedCheck', function (event) {
+        enterVRButton.disabled = !event.detail.supported;
+        updateXrMenuAvailability();
+      }, false);
+
+      enterARButton.addEventListener('click', function (event) {
+        unityInstance.Module.WebXR.toggleAR();
+      }, false);
+      enterVRButton.addEventListener('click', function (event) {
+        unityInstance.Module.WebXR.toggleVR();
+      }, false);
+
+      updateXrMenuAvailability();
+    </script>
+  </body>
+</html>

@@ -50,7 +50,9 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
     private const BindingFlags CoreFlags =
         BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
     private const string PlayerRootName = "XR Origin (KAESESTEINPILZ User Test)";
+    private const string AgentIndicatorMaterialResource = "KAESESTEINPILZ_AgentIndicator";
     private const float AgentScanInterval = 0.2f;
+    private static readonly string[] WaitingSpinnerFrames = { "|", "/", "-", "\\" };
 
     [Header("Core integration")]
     [SerializeField] private QuickAgentManager coreManager;
@@ -84,7 +86,6 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
     public bool IsImmersiveXr => xrActive;
     public bool UsesTouchLayout => touchLayout;
     public FlatControlMode SelectedFlatControlMode => flatControlMode;
-    public string ParticipantCode => participantCode;
     public string ResolvedBackendBaseUrl { get; private set; }
 
     private Camera playerCamera;
@@ -104,6 +105,8 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
     private float nextXrSnapTurnAt;
     private float nextAgentScanAt;
     private float nextPoseScanAt;
+    private float blockedMovementSeconds;
+    private float nextUnstickAt;
     private int lastWebXrState = -1;
     private int lastScreenWidth;
     private int lastScreenHeight;
@@ -120,6 +123,7 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
     private bool inspectedObject;
     private readonly HashSet<string> contactedAgents = new HashSet<string>();
     private readonly HashSet<GameObject> knownAgentRoots = new HashSet<GameObject>();
+    private readonly HashSet<Renderer> configuredAgentIndicators = new HashSet<Renderer>();
     private readonly Dictionary<string, MethodInfo> methodCache = new Dictionary<string, MethodInfo>();
 
     private Canvas canvas;
@@ -131,9 +135,9 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
     private RectTransform moveControlRoot;
     private RectTransform lookControlRoot;
     private RectTransform introductionCard;
-    private RectTransform completionCard;
+    private RectTransform tutorialCard;
     private GameObject introductionOverlay;
-    private GameObject completionOverlay;
+    private GameObject tutorialOverlay;
     private GameObject crosshair;
     private RectTransform handoffIndicator;
     private RectTransform handoffArrowGlyph;
@@ -143,20 +147,43 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
     private Text taskLabel;
     private Text transcriptLabel;
     private Text micButtonLabel;
-    private Text completionLabel;
     private Text toastLabel;
     private Text controlModeButtonLabel;
+    private Text introductionConnectionLabel;
+    private Text introductionSpinnerLabel;
+    private Text tutorialTitleLabel;
+    private Text tutorialModeLabel;
+    private Text tutorialBodyLabel;
+    private Text tutorialProgressLabel;
+    private Material handoffNoDepthMaterial;
+    private Material agentIndicatorMaterial;
     private InputField chatInput;
     private ScrollRect transcriptScroll;
     private Button micButton;
     private Button retryButton;
     private Button controlModeButton;
+    private Button introductionStartButton;
+    private Button tutorialBackButton;
+    private Button tutorialNextButton;
     private Font uiFont;
     private IuiStudyVirtualStick moveStick;
     private IuiStudyLookSurface lookSurface;
     private Coroutine toastCoroutine;
+    private Coroutine selectionPulseCoroutine;
+    private FunctionalMldsSceneObjectBinding selectionPulseBinding;
+    private GameObject selectionFlashRoot;
+    private Material selectionFlashMaterial;
+    private readonly List<LineRenderer> selectionFlashLines = new List<LineRenderer>();
+    private float selectionFlashBaseWidth;
     private Camera xrUiRayCamera;
     private GameObject xrUiHover;
+    private bool setupFailed;
+    private bool tutorialActive;
+    private bool tutorialReturnsToSession;
+    private bool sessionCloseLogged;
+    private bool preciseNavigationCollidersConfigured;
+    private int tutorialStep;
+    private readonly HashSet<Collider> navigationProxyColliders = new HashSet<Collider>();
 
 #if ENABLE_INPUT_SYSTEM
     private TrackedPoseDriver trackedPoseDriver;
@@ -236,18 +263,34 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
 
     private void OnDisable()
     {
+        StopSelectionPulse(false);
         UnsubscribeCoreEvents();
         SetPointerLock(false);
     }
 
     private void OnDestroy()
     {
+        if (participantStarted && !sessionCloseLogged)
+        {
+            sessionCloseLogged = true;
+            LogStudyEvent("session_closed", CurrentModality(),
+                coreManager != null ? coreManager.activeAgentId : "",
+                coreManager != null ? coreManager.SelectedSpatialEntityId : "",
+                successfulInteractions);
+        }
+
         foreach (var watch in poseWatches.Values)
         {
             if (watch != null && watch.graph.IsValid())
                 watch.graph.Destroy();
         }
         poseWatches.Clear();
+
+        if (handoffNoDepthMaterial != null)
+            Destroy(handoffNoDepthMaterial);
+        handoffNoDepthMaterial = null;
+        configuredAgentIndicators.Clear();
+        agentIndicatorMaterial = null;
 
 #if ENABLE_INPUT_SYSTEM
         if (xrHeadPositionAction != null)
@@ -290,6 +333,9 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
         // The participant surface owns pointer routing so UI taps cannot leak through to
         // QAM's legacy global mouse selector. SelectRay enables the resolver atomically.
         coreManager.enableSpatialTargetSelection = false;
+        // Layer 2 contains navigation-only proxy colliders. Keep them physical
+        // for the participant but invisible to semantic selection rays.
+        coreManager.spatialSelectionMask &= ~(1 << 2);
         coreManager.fpvToggleKey = KeyCode.None;
         coreManager.moveXrOriginInsteadOfCamera = true;
 
@@ -367,6 +413,7 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
         PollWebXrState();
         UpdateResponsiveLayoutIfNeeded();
         UpdateRuntimeState();
+        UpdateIntroductionConnectionState();
         ForwardCompletedVoiceTranscript();
         EnforceVoiceRecordingLimit();
         UpdateInterfaceText();
@@ -376,11 +423,11 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
         // Keep the immersive UI ray alive during onboarding and connection errors;
         // otherwise a participant who enters VR from the browser would have no way to
         // press the start/retry buttons. World interaction, voice and locomotion stay gated.
-        var participantCanInteract = participantStarted && IsReady && !studyFinished;
+        var participantCanInteract = participantStarted && IsReady && !studyFinished && !tutorialActive;
         if (xrActive)
             UpdateXrInput(participantCanInteract);
 
-        if (studyFinished || !participantStarted || !IsReady)
+        if (studyFinished || !participantStarted || !IsReady || tutorialActive)
             return;
 
         if (!xrActive)
@@ -409,15 +456,23 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
             retryButton.gameObject.SetActive(false);
             if (autoEnterFlatFpv && !xrActive)
                 PositionAtStudyStart();
+            // Physics.IgnoreCollision pairs are lost when a collider is disabled.
+            // PositionAtStudyStart briefly disables the CharacterController, so the
+            // deterministic navigation filter must be applied afterwards.
+            ConfigurePreciseGeneratedNavigationColliders();
             ShowToast("Bereit – nähere dich einer Person oder untersuche ein Objekt.", 4f);
             LogStudyEvent("setup_ready", CurrentModality(), coreManager.activeAgentId, "", 0);
+            if (!showIntroduction)
+                BeginParticipantSession();
         }
 
         var coreStatus = GetCoreField<string>("statusMessage") ?? "";
         var failed = coreStatus.IndexOf("fehlgeschlagen", StringComparison.OrdinalIgnoreCase) >= 0
             || coreStatus.IndexOf("blockiert", StringComparison.OrdinalIgnoreCase) >= 0;
+        setupFailed = !IsReady && failed;
         if (retryButton != null)
-            retryButton.gameObject.SetActive(!IsReady && failed);
+            retryButton.gameObject.SetActive(
+                setupFailed && (introductionOverlay == null || !introductionOverlay.activeSelf));
     }
 
     private void EnsurePlayerRig()
@@ -445,10 +500,19 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
         if (characterController == null)
             characterController = playerRoot.AddComponent<CharacterController>();
         characterController.height = Mathf.Max(1.2f, eyeHeight);
-        characterController.radius = 0.28f;
+        // A compact capsule plus a generous skin avoids snagging on the many
+        // small seams of the generated exhibition meshes without allowing the
+        // participant to pass through walls.
+        characterController.radius = 0.24f;
         characterController.center = new Vector3(0f, characterController.height * 0.5f, 0f);
-        characterController.stepOffset = 0.28f;
-        characterController.slopeLimit = 50f;
+        characterController.skinWidth = 0.055f;
+        characterController.minMoveDistance = 0f;
+        // Only real floor seams should be stepped over. A larger value turns chairs
+        // and low furniture into stairs, especially on WebGL's PhysX integration.
+        characterController.stepOffset = 0.18f;
+        characterController.slopeLimit = 45f;
+        characterController.detectCollisions = true;
+        characterController.enableOverlapRecovery = true;
 
 #if ENABLE_INPUT_SYSTEM
         trackedPoseDriver = playerCamera.GetComponent<TrackedPoseDriver>();
@@ -511,7 +575,11 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
         playerRoot.transform.rotation = Quaternion.Euler(0f, yaw, 0f);
         playerCamera.transform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
         if (characterController != null)
+        {
             characterController.enabled = true;
+            if (preciseNavigationCollidersConfigured)
+                ApplyNavigationCollisionFilter();
+        }
     }
 
     private static GameObject FirstAgentRoot(Dictionary<string, GameObject> roots)
@@ -581,20 +649,16 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
 
         micButton = CreateButton("Microphone", chatPanel, "MIKRO", new Color(0.16f, 0.45f, 0.31f));
         micButtonLabel = micButton.GetComponentInChildren<Text>();
-        SetRect(micButton.GetComponent<RectTransform>(), new Vector2(0.04f, 0.04f), new Vector2(0.27f, 0.15f));
+        SetRect(micButton.GetComponent<RectTransform>(), new Vector2(0.04f, 0.04f), new Vector2(0.32f, 0.15f));
         micButton.onClick.AddListener(ToggleVoiceRecording);
 
         var interact = CreateButton("Interact", chatPanel, "ANSEHEN", new Color(0.15f, 0.48f, 0.54f));
-        SetRect(interact.GetComponent<RectTransform>(), new Vector2(0.29f, 0.04f), new Vector2(0.53f, 0.15f));
+        SetRect(interact.GetComponent<RectTransform>(), new Vector2(0.34f, 0.04f), new Vector2(0.66f, 0.15f));
         interact.onClick.AddListener(SelectAtViewCenter);
 
         var help = CreateButton("Help", chatPanel, "HILFE", new Color(0.28f, 0.30f, 0.27f));
-        SetRect(help.GetComponent<RectTransform>(), new Vector2(0.55f, 0.04f), new Vector2(0.73f, 0.15f));
+        SetRect(help.GetComponent<RectTransform>(), new Vector2(0.68f, 0.04f), new Vector2(0.96f, 0.15f));
         help.onClick.AddListener(ShowHelp);
-
-        var finish = CreateButton("Finish", chatPanel, "FERTIG", new Color(0.52f, 0.23f, 0.16f));
-        SetRect(finish.GetComponent<RectTransform>(), new Vector2(0.75f, 0.04f), new Vector2(0.96f, 0.15f));
-        finish.onClick.AddListener(FinishStudy);
 
         retryButton = CreateButton("Retry", safeAreaRoot, "ERNEUT VERBINDEN", new Color(0.66f, 0.24f, 0.18f));
         SetRect(retryButton.GetComponent<RectTransform>(), new Vector2(0.38f, 0.46f), new Vector2(0.62f, 0.54f));
@@ -632,7 +696,7 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
         toastLabel.gameObject.SetActive(false);
 
         BuildIntroduction();
-        BuildCompletion();
+        BuildTutorial();
         UpdateControlModeButton();
         UpdateResponsiveLayout(true);
     }
@@ -647,6 +711,7 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
         var arrow = CreateText("Arrow", handoffIndicator, "▲", 54, FontStyle.Bold,
             TextAnchor.MiddleCenter, new Color(1f, 0.78f, 0.15f));
         handoffArrowGlyph = arrow.rectTransform;
+        ApplyHandoffNoDepthMaterial(arrow);
         SetRect(handoffArrowGlyph, new Vector2(0.30f, 0.38f), new Vector2(0.70f, 1f));
         var arrowOutline = arrow.gameObject.AddComponent<Outline>();
         arrowOutline.effectColor = new Color(0f, 0f, 0f, 0.85f);
@@ -654,11 +719,35 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
 
         handoffTargetLabel = CreateText("Target", handoffIndicator, "", 14,
             FontStyle.Bold, TextAnchor.MiddleCenter, Color.white);
+        ApplyHandoffNoDepthMaterial(handoffTargetLabel);
         SetRect(handoffTargetLabel.rectTransform, new Vector2(0f, 0f), new Vector2(1f, 0.40f));
         var labelOutline = handoffTargetLabel.gameObject.AddComponent<Outline>();
         labelOutline.effectColor = new Color(0f, 0f, 0f, 0.95f);
         labelOutline.effectDistance = new Vector2(1.5f, -1.5f);
         handoffIndicator.gameObject.SetActive(false);
+    }
+
+    private void ApplyHandoffNoDepthMaterial(Graphic graphic)
+    {
+        if (graphic == null)
+            return;
+        if (handoffNoDepthMaterial == null)
+        {
+            // This project-owned shader asset is referenced by this exact name and
+            // validated by the build smoke, so WebGL cannot silently fall back to an
+            // occludable UI material from an optional package sample.
+            var shader = Shader.Find("KAESESTEINPILZ/UI No Depth");
+            if (shader != null && shader.isSupported)
+            {
+                handoffNoDepthMaterial = new Material(shader)
+                {
+                    name = "KAESESTEINPILZ Handoff UI No Depth",
+                    hideFlags = HideFlags.DontSave
+                };
+            }
+        }
+        if (handoffNoDepthMaterial != null)
+            graphic.material = handoffNoDepthMaterial;
     }
 
     private void BuildIntroduction()
@@ -695,28 +784,203 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
         SetRect(smartphone.GetComponent<RectTransform>(), new Vector2(0.52f, 0.19f), new Vector2(0.84f, 0.30f));
         smartphone.onClick.AddListener(() => SetFlatControlMode(FlatControlMode.Smartphone));
 
-        var start = CreateButton("Start study", introductionCard, "TEILNAHME STARTEN",
+        introductionSpinnerLabel = CreateText("Connection spinner", introductionCard, "|", 18,
+            FontStyle.Bold, TextAnchor.MiddleCenter, new Color(0.16f, 0.25f, 0.18f));
+        SetRect(introductionSpinnerLabel.rectTransform,
+            new Vector2(0.10f, 0.305f), new Vector2(0.16f, 0.345f));
+
+        introductionConnectionLabel = CreateText("Connection status", introductionCard,
+            "Server wird verbunden ...", 14, FontStyle.Bold, TextAnchor.MiddleLeft,
+            new Color(0.16f, 0.25f, 0.18f));
+        SetRect(introductionConnectionLabel.rectTransform,
+            new Vector2(0.16f, 0.305f), new Vector2(0.90f, 0.345f));
+
+        introductionStartButton = CreateButton("Start study", introductionCard, "BITTE WARTEN ...",
             new Color(0.16f, 0.45f, 0.31f));
-        SetRect(start.GetComponent<RectTransform>(), new Vector2(0.22f, 0.05f), new Vector2(0.78f, 0.15f));
-        start.onClick.AddListener(BeginParticipantSession);
+        SetRect(introductionStartButton.GetComponent<RectTransform>(),
+            new Vector2(0.22f, 0.05f), new Vector2(0.78f, 0.15f));
+        introductionStartButton.interactable = false;
+        introductionStartButton.onClick.AddListener(HandleIntroductionPrimaryAction);
         introductionOverlay.SetActive(showIntroduction);
+        UpdateIntroductionConnectionState();
     }
 
-    private void BuildCompletion()
+    private void UpdateIntroductionConnectionState()
     {
-        completionOverlay = NewUiObject("Completion overlay", canvas.transform);
-        Stretch(completionOverlay.GetComponent<RectTransform>());
-        completionOverlay.AddComponent<Image>().color = new Color(0.025f, 0.045f, 0.035f, 0.95f);
+        if (introductionStartButton == null || introductionConnectionLabel == null
+            || introductionSpinnerLabel == null)
+            return;
 
-        completionCard = CreatePanel("Completion card", completionOverlay.transform,
+        var buttonLabel = introductionStartButton.GetComponentInChildren<Text>();
+        if (IsReady)
+        {
+            introductionSpinnerLabel.text = "OK";
+            introductionConnectionLabel.text = "Server verbunden - Teilnahme kann beginnen.";
+            introductionStartButton.interactable = true;
+            if (buttonLabel != null)
+                buttonLabel.text = "TEILNAHME STARTEN";
+            return;
+        }
+
+        if (setupFailed)
+        {
+            introductionSpinnerLabel.text = "!";
+            introductionConnectionLabel.text = "Verbindung fehlgeschlagen. Bitte erneut versuchen.";
+            introductionStartButton.interactable = true;
+            if (buttonLabel != null)
+                buttonLabel.text = "ERNEUT VERBINDEN";
+            return;
+        }
+
+        introductionSpinnerLabel.text = WaitingSpinnerFrames[
+            Mathf.FloorToInt(Time.unscaledTime * 8f) % WaitingSpinnerFrames.Length];
+        introductionConnectionLabel.text = "Server wird verbunden ...";
+        introductionStartButton.interactable = false;
+        if (buttonLabel != null)
+            buttonLabel.text = "BITTE WARTEN ...";
+    }
+
+    private void HandleIntroductionPrimaryAction()
+    {
+        if (IsReady)
+        {
+            StartTutorial(false);
+            return;
+        }
+
+        if (setupFailed)
+            RetrySetup();
+    }
+
+    private void BuildTutorial()
+    {
+        tutorialOverlay = NewUiObject("Tutorial overlay", canvas.transform);
+        Stretch(tutorialOverlay.GetComponent<RectTransform>());
+        tutorialOverlay.AddComponent<Image>().color = new Color(0.025f, 0.045f, 0.035f, 0.88f);
+
+        tutorialCard = CreatePanel("Tutorial card", tutorialOverlay.transform,
             new Color(0.97f, 0.93f, 0.80f, 1f));
-        var title = CreateText("Completion title", completionCard, "Vielen Dank!", 34,
+        tutorialTitleLabel = CreateText("Tutorial title", tutorialCard, "", 28,
             FontStyle.Bold, TextAnchor.MiddleCenter, new Color(0.16f, 0.25f, 0.18f));
-        SetRect(title.rectTransform, new Vector2(0.08f, 0.72f), new Vector2(0.92f, 0.92f));
-        completionLabel = CreateText("Completion summary", completionCard, "", 19,
-            FontStyle.Normal, TextAnchor.UpperCenter, new Color(0.14f, 0.13f, 0.10f));
-        SetRect(completionLabel.rectTransform, new Vector2(0.08f, 0.22f), new Vector2(0.92f, 0.70f));
-        completionOverlay.SetActive(false);
+        SetRect(tutorialTitleLabel.rectTransform, new Vector2(0.07f, 0.78f), new Vector2(0.93f, 0.94f));
+
+        tutorialModeLabel = CreateText("Tutorial mode", tutorialCard, "", 14,
+            FontStyle.Bold, TextAnchor.MiddleCenter, new Color(0.15f, 0.48f, 0.54f));
+        SetRect(tutorialModeLabel.rectTransform, new Vector2(0.10f, 0.70f), new Vector2(0.90f, 0.78f));
+
+        tutorialBodyLabel = CreateText("Tutorial body", tutorialCard, "", 18,
+            FontStyle.Normal, TextAnchor.UpperLeft, new Color(0.14f, 0.13f, 0.10f));
+        SetRect(tutorialBodyLabel.rectTransform, new Vector2(0.09f, 0.28f), new Vector2(0.91f, 0.69f));
+
+        tutorialProgressLabel = CreateText("Tutorial progress", tutorialCard, "", 15,
+            FontStyle.Bold, TextAnchor.MiddleCenter, new Color(0.28f, 0.30f, 0.27f));
+        SetRect(tutorialProgressLabel.rectTransform, new Vector2(0.12f, 0.17f), new Vector2(0.88f, 0.26f));
+
+        tutorialBackButton = CreateButton("Tutorial back", tutorialCard, "ZURUECK",
+            new Color(0.28f, 0.30f, 0.27f));
+        SetRect(tutorialBackButton.GetComponent<RectTransform>(),
+            new Vector2(0.08f, 0.05f), new Vector2(0.38f, 0.15f));
+        tutorialBackButton.onClick.AddListener(PreviousTutorialStep);
+
+        tutorialNextButton = CreateButton("Tutorial next", tutorialCard, "WEITER",
+            new Color(0.16f, 0.45f, 0.31f));
+        SetRect(tutorialNextButton.GetComponent<RectTransform>(),
+            new Vector2(0.52f, 0.05f), new Vector2(0.92f, 0.15f));
+        tutorialNextButton.onClick.AddListener(NextTutorialStep);
+
+        tutorialOverlay.SetActive(false);
+    }
+
+    private void StartTutorial(bool returnToRunningSession)
+    {
+        if (!IsReady)
+            return;
+
+        tutorialReturnsToSession = returnToRunningSession;
+        tutorialStep = 0;
+        tutorialActive = true;
+        introductionOverlay.SetActive(false);
+        tutorialOverlay.SetActive(true);
+        SetPointerLock(false);
+        UpdateTutorialPage();
+        LogStudyEvent("tutorial_started", CurrentModality(), coreManager.activeAgentId, "", 0);
+    }
+
+    private void PreviousTutorialStep()
+    {
+        tutorialStep = Mathf.Max(0, tutorialStep - 1);
+        UpdateTutorialPage();
+    }
+
+    private void NextTutorialStep()
+    {
+        if (tutorialStep < 3)
+        {
+            tutorialStep++;
+            UpdateTutorialPage();
+            return;
+        }
+
+        tutorialActive = false;
+        tutorialOverlay.SetActive(false);
+        LogStudyEvent("tutorial_completed", CurrentModality(), coreManager.activeAgentId, "", 4);
+        if (tutorialReturnsToSession)
+        {
+            if (!touchLayout && !xrActive)
+                SetPointerLock(true);
+            return;
+        }
+
+        BeginParticipantSession();
+    }
+
+    private void UpdateTutorialPage()
+    {
+        if (tutorialTitleLabel == null)
+            return;
+
+        var mode = xrActive ? "WEBXR" : touchLayout ? "SMARTPHONE" : "COMPUTER";
+        tutorialModeLabel.text = "STEUERUNG: " + mode;
+        tutorialProgressLabel.text = (tutorialStep + 1) + " / 4   "
+            + new string('o', tutorialStep + 1) + new string('-', 3 - tutorialStep);
+        tutorialBackButton.interactable = tutorialStep > 0;
+        var nextLabel = tutorialNextButton.GetComponentInChildren<Text>();
+        if (nextLabel != null)
+            nextLabel.text = tutorialStep == 3 ? "RAUM BETRETEN" : "WEITER";
+
+        switch (tutorialStep)
+        {
+            case 0:
+                tutorialTitleLabel.text = "1. Im Raum bewegen";
+                tutorialBodyLabel.text = xrActive
+                    ? "Bewege dich mit dem linken Controller-Stick. Drehe den Kopf, um dich umzusehen. Der rechte Controller dient zum Zeigen und Auswaehlen."
+                    : touchLayout
+                        ? "Ziehe im linken Feld BEWEGEN, um zu laufen. Ziehe im rechten Feld BLICK, um dich umzusehen. Du kannst beide Bereiche gleichzeitig benutzen."
+                        : "Bewege dich mit W, A, S und D. Halte die Maus im Fenster und bewege sie, um dich umzusehen. Mit Umschalt laeufst du schneller.";
+                break;
+            case 1:
+                tutorialTitleLabel.text = "2. Objekte untersuchen";
+                tutorialBodyLabel.text = xrActive
+                    ? "Zeige mit dem Controller auf Kuh, Milchlaster oder Ausstellung und druecke den Trigger. Das ausgewaehlte Objekt wird zum Kontext fuer deine naechste Frage."
+                    : touchLayout
+                        ? "Richte den Blick auf Kuh, Milchlaster oder Ausstellung. Tippe im rechten Blickfeld oder auf ANSEHEN. Danach kannst du gezielt nach diesem Objekt fragen."
+                        : "Richte den Punkt in der Bildschirmmitte auf Kuh, Milchlaster oder Ausstellung und druecke E. Alternativ klickst du ANSEHEN. Danach kannst du dazu Fragen stellen.";
+                break;
+            case 2:
+                tutorialTitleLabel.text = "3. Sprechen und weiterleiten";
+                tutorialBodyLabel.text = xrActive
+                    ? "Gehe zu einer Person und nutze das Chatfenster oder MIKRO. Ist eine andere Fachperson zustaendig, kuendigt dein Gegenueber die Weiterleitung an. Folge danach Linie und Pfeil."
+                    : touchLayout
+                        ? "Gehe zu einer Person und schreibe im Chat oder tippe MIKRO. Ist jemand anderes zustaendig, wirst du weitergeleitet. Folge der gestrichelten Linie und dem Pfeil zur naechsten Person."
+                        : "Gehe zu einer Person. Oeffne den Chat mit T oder nutze V fuer Sprache. Ist eine andere Fachperson zustaendig, wirst du weitergeleitet. Folge Linie und Pfeil zur naechsten Person.";
+                break;
+            default:
+                tutorialTitleLabel.text = "4. Dein Ziel";
+                tutorialBodyLabel.text = "Sprich mit mindestens zwei Agent:innen, untersuche mindestens ein Objekt und erhalte eine hilfreiche Antwort. Lass dich bei einer passenden Frage weiterleiten und gehe dem Pfeil folgend zur zustaendigen Fachperson. Dein Fortschritt steht links oben.";
+                break;
+        }
+
+        LogStudyEvent("tutorial_step", CurrentModality(), coreManager.activeAgentId, "", tutorialStep + 1);
     }
 
     private void EnsureEventSystem()
@@ -867,10 +1131,9 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
         SetRect(introductionCard,
             new Vector2((1f - cardWidth) * 0.5f, (1f - cardHeight) * 0.5f),
             new Vector2((1f + cardWidth) * 0.5f, (1f + cardHeight) * 0.5f));
-        SetRect(completionCard,
-            new Vector2((1f - cardWidth) * 0.5f, 0.22f),
-            new Vector2((1f + cardWidth) * 0.5f, 0.78f));
-
+        SetRect(tutorialCard,
+            new Vector2((1f - cardWidth) * 0.5f, (1f - cardHeight) * 0.5f),
+            new Vector2((1f + cardWidth) * 0.5f, (1f + cardHeight) * 0.5f));
         if (force)
             LogStudyEvent("layout_changed", CurrentModality(), "", "", portrait ? 1 : 0);
     }
@@ -1073,9 +1336,17 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
 
     private void BeginParticipantSession()
     {
+        if (!IsReady)
+        {
+            ShowToast("Bitte warte, bis die Serververbindung bereit ist.", 2.5f);
+            return;
+        }
+
         participantStarted = true;
         studyFinished = false;
         introductionOverlay.SetActive(false);
+        tutorialActive = false;
+        tutorialOverlay.SetActive(false);
         UpdateResponsiveLayout(true);
         if (!touchLayout && !xrActive)
             SetPointerLock(true);
@@ -1090,26 +1361,7 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
 
     private void ShowHelp()
     {
-        introductionOverlay.SetActive(true);
-        SetPointerLock(false);
-    }
-
-    private void FinishStudy()
-    {
-        studyFinished = true;
-        SetPointerLock(false);
-        moveControlRoot.gameObject.SetActive(false);
-        lookControlRoot.gameObject.SetActive(false);
-        crosshair.SetActive(false);
-        completionLabel.text =
-            "Teilnahmecode: " + participantCode + "\n\n" +
-            "Gespräche mit Agent:innen: " + contactedAgents.Count + "\n" +
-            "Objekt untersucht: " + (inspectedObject ? "ja" : "noch nicht") + "\n" +
-            "Erfolgreiche Interaktionen: " + successfulInteractions + "\n\n" +
-            "Du kannst diesen Code der Studienleitung nennen.";
-        completionOverlay.SetActive(true);
-        LogStudyEvent("participant_finished", CurrentModality(), coreManager.activeAgentId,
-            coreManager.SelectedSpatialEntityId, successfulInteractions);
+        StartTutorial(participantStarted);
     }
 
     private void HandleInputEndEdit(string value)
@@ -1147,18 +1399,29 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
             contactedAgents.Add(activeId);
 
         InvokeCore("AddUserChatLine", new[] { typeof(string), typeof(bool) }, message, voice);
+        // A spatial target is a one-question context, not a sticky conversation mode.
+        // SendChat snapshots it into the request before its first yield; the wrapper can
+        // therefore clear the highlight as soon as that request has actually started.
+        var spatialEntityForQuestion = coreManager.SelectedSpatialEntityId;
         var routine = InvokeCore("SendChat", new[] { typeof(string) }, message) as IEnumerator;
         if (routine != null)
-            StartCoroutine(RunCoreChatWithHandoffNavigation(routine));
+            StartCoroutine(RunCoreChatWithHandoffNavigation(routine, spatialEntityForQuestion));
         LogStudyEvent(voice ? "voice_chat_sent" : "chat_sent", CurrentModality(), activeId,
-            coreManager.SelectedSpatialEntityId, message.Length);
+            spatialEntityForQuestion, message.Length);
     }
 
-    private IEnumerator RunCoreChatWithHandoffNavigation(IEnumerator routine)
+    private IEnumerator RunCoreChatWithHandoffNavigation(
+        IEnumerator routine,
+        string spatialEntityForQuestion)
     {
         if (routine == null)
             yield break;
 
+        // QuickAgentManager snapshots spatial_context before its first yield, but its
+        // FunctionalMLDS evidence observation is built only after the response arrives.
+        // Keep the same live selection until that complete request/evidence/handoff path
+        // has finished, then consume it as the one-question context.
+        var requestStarted = false;
         while (true)
         {
             bool hasNext;
@@ -1181,7 +1444,22 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
             }
 
             if (!hasNext)
+            {
+                if (requestStarted
+                    && !string.IsNullOrWhiteSpace(spatialEntityForQuestion)
+                    && string.Equals(
+                        coreManager.SelectedSpatialEntityId,
+                        spatialEntityForQuestion,
+                        StringComparison.Ordinal))
+                {
+                    coreManager.ClearSelectedSpatialTarget();
+                    LogStudyEvent("spatial_context_consumed", CurrentModality(),
+                        coreManager.activeAgentId, spatialEntityForQuestion, 1);
+                }
                 yield break;
+            }
+
+            requestStarted = true;
             yield return yielded;
         }
     }
@@ -1283,6 +1561,7 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
         }
         if (selected && !string.IsNullOrWhiteSpace(coreManager.SelectedSpatialEntityId))
         {
+            PulseSelectedObject(coreManager.SelectedSpatialEntityId);
             ShowToast("Objekt ausgewählt: " + SelectedObjectDisplayName()
                 + ". Stelle jetzt deine Frage.", 3.5f);
         }
@@ -1298,6 +1577,256 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
         }
         LogStudyEvent("selection_attempted", modality, coreManager.activeAgentId,
             coreManager.SelectedSpatialEntityId, selected ? 1 : 0);
+    }
+
+    private void PulseSelectedObject(string entityId)
+    {
+        if (coreManager == null || string.IsNullOrWhiteSpace(entityId))
+            return;
+
+        FunctionalMldsSceneObjectBinding binding = null;
+        var registry = coreManager.SpatialBindingRegistry;
+        if (registry != null)
+        {
+            foreach (var candidate in registry.Bindings)
+            {
+                if (candidate != null
+                    && string.Equals(candidate.EntityId, entityId, StringComparison.Ordinal))
+                {
+                    binding = candidate;
+                    break;
+                }
+            }
+        }
+        if (binding == null)
+            return;
+
+        StopSelectionPulse(false);
+        selectionPulseBinding = binding;
+        selectionPulseCoroutine = StartCoroutine(PulseSelectionHighlight(binding, entityId));
+    }
+
+    private IEnumerator PulseSelectionHighlight(
+        FunctionalMldsSceneObjectBinding binding,
+        string entityId)
+    {
+        // Some generated GLB shaders ignore the usual base/emission properties. Keep
+        // the material flash, but add a shader-independent world-space light frame so
+        // selection feedback remains unmistakable in URP, WebGL and WebXR.
+        binding.SetHighlighted(false, coreManager.selectedSpatialTargetColor, 0f);
+        binding.SetHighlighted(true, new Color(1f, 0.92f, 0.48f, 1f), 2.4f);
+        CreateSelectionFlash(binding);
+
+        const float flashDuration = 0.72f;
+        var elapsed = 0f;
+        while (elapsed < flashDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            var progress = Mathf.Clamp01(elapsed / flashDuration);
+            var pulse = 0.72f + Mathf.Sin(progress * Mathf.PI * 4f) * 0.28f;
+            var alpha = Mathf.Clamp01((1f - progress) * 1.45f);
+            UpdateSelectionFlash(
+                new Color(1f, 0.88f, 0.25f, alpha),
+                pulse);
+            yield return null;
+        }
+
+        DestroySelectionFlash();
+        binding.SetHighlighted(false, Color.white, 0f);
+
+        if (coreManager != null
+            && string.Equals(coreManager.SelectedSpatialEntityId, entityId, StringComparison.Ordinal))
+        {
+            binding.SetHighlighted(
+                true,
+                coreManager.selectedSpatialTargetColor,
+                coreManager.selectedSpatialTargetEmission);
+        }
+        selectionPulseBinding = null;
+        selectionPulseCoroutine = null;
+    }
+
+    private void StopSelectionPulse(bool restoreCurrentSelection)
+    {
+        if (selectionPulseCoroutine != null)
+            StopCoroutine(selectionPulseCoroutine);
+        selectionPulseCoroutine = null;
+
+        var binding = selectionPulseBinding;
+        selectionPulseBinding = null;
+        if (binding == null)
+        {
+            DestroySelectionFlash();
+            return;
+        }
+
+        DestroySelectionFlash();
+        binding.SetHighlighted(false, Color.white, 0f);
+        if (restoreCurrentSelection
+            && coreManager != null
+            && string.Equals(
+                coreManager.SelectedSpatialEntityId,
+                binding.EntityId,
+                StringComparison.Ordinal))
+        {
+            binding.SetHighlighted(
+                true,
+                coreManager.selectedSpatialTargetColor,
+                coreManager.selectedSpatialTargetEmission);
+        }
+    }
+
+    private void CreateSelectionFlash(FunctionalMldsSceneObjectBinding binding)
+    {
+        DestroySelectionFlash();
+        if (binding == null || !TryGetSelectionWorldBounds(binding, out var bounds))
+            return;
+
+        // Avoid a zero-size frame and leave a small gap so it reads as a highlight
+        // instead of replacing the object's own silhouette.
+        bounds.Expand(new Vector3(
+            Mathf.Max(0.10f, bounds.size.x * 0.06f),
+            Mathf.Max(0.10f, bounds.size.y * 0.06f),
+            Mathf.Max(0.10f, bounds.size.z * 0.06f)));
+
+        // Sprites/Default is already used by the handoff route and is therefore
+        // included in the WebGL build; it also honors LineRenderer vertex alpha.
+        var shader = Shader.Find("Sprites/Default")
+            ?? Shader.Find("Universal Render Pipeline/Unlit")
+            ?? Shader.Find("Unlit/Color");
+        if (shader == null)
+            return;
+
+        selectionFlashMaterial = new Material(shader)
+        {
+            name = "KAESESTEINPILZ Selection Flash",
+            hideFlags = HideFlags.DontSave,
+            renderQueue = 4000
+        };
+        SetSelectionFlashMaterialColor(Color.white);
+
+        selectionFlashRoot = new GameObject("KAESESTEINPILZ Selection Flash");
+        selectionFlashRoot.hideFlags = HideFlags.DontSave;
+        selectionFlashRoot.layer = 2;
+
+        var min = bounds.min;
+        var max = bounds.max;
+        var corners = new[]
+        {
+            new Vector3(min.x, min.y, min.z), new Vector3(max.x, min.y, min.z),
+            new Vector3(max.x, min.y, max.z), new Vector3(min.x, min.y, max.z),
+            new Vector3(min.x, max.y, min.z), new Vector3(max.x, max.y, min.z),
+            new Vector3(max.x, max.y, max.z), new Vector3(min.x, max.y, max.z)
+        };
+        var edges = new[,]
+        {
+            { 0, 1 }, { 1, 2 }, { 2, 3 }, { 3, 0 },
+            { 4, 5 }, { 5, 6 }, { 6, 7 }, { 7, 4 },
+            { 0, 4 }, { 1, 5 }, { 2, 6 }, { 3, 7 }
+        };
+        selectionFlashBaseWidth = Mathf.Clamp(bounds.size.magnitude * 0.009f, 0.025f, 0.075f);
+        for (var edgeIndex = 0; edgeIndex < edges.GetLength(0); edgeIndex++)
+        {
+            var edgeObject = new GameObject("Edge " + edgeIndex);
+            edgeObject.layer = 2;
+            edgeObject.transform.SetParent(selectionFlashRoot.transform, false);
+            var line = edgeObject.AddComponent<LineRenderer>();
+            line.useWorldSpace = true;
+            line.positionCount = 2;
+            line.SetPosition(0, corners[edges[edgeIndex, 0]]);
+            line.SetPosition(1, corners[edges[edgeIndex, 1]]);
+            line.sharedMaterial = selectionFlashMaterial;
+            line.startWidth = selectionFlashBaseWidth;
+            line.endWidth = selectionFlashBaseWidth;
+            line.numCapVertices = 4;
+            line.alignment = LineAlignment.View;
+            line.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            line.receiveShadows = false;
+            line.sortingOrder = 32000;
+            selectionFlashLines.Add(line);
+        }
+    }
+
+    private static bool TryGetSelectionWorldBounds(
+        FunctionalMldsSceneObjectBinding binding,
+        out Bounds bounds)
+    {
+        bounds = default;
+        if (binding == null)
+            return false;
+
+        var description = binding.GetComponent<DevDescription>();
+        var visualRoot = description != null && description.GeneratedInstance != null
+            ? description.GeneratedInstance
+            : binding.gameObject;
+        var renderers = visualRoot.GetComponentsInChildren<Renderer>(true);
+        var found = false;
+        foreach (var renderer in renderers)
+        {
+            if (renderer == null || !renderer.enabled || !renderer.gameObject.activeInHierarchy
+                || renderer is LineRenderer || renderer is ParticleSystemRenderer)
+                continue;
+            if (!found)
+            {
+                bounds = renderer.bounds;
+                found = true;
+            }
+            else
+            {
+                bounds.Encapsulate(renderer.bounds);
+            }
+        }
+
+        if (found)
+            return true;
+        if (binding.TryResolveSelectionCollider(out var collider, out _) && collider != null)
+        {
+            bounds = collider.bounds;
+            return true;
+        }
+        return false;
+    }
+
+    private void UpdateSelectionFlash(Color color, float widthScale)
+    {
+        SetSelectionFlashMaterialColor(color);
+        for (var i = 0; i < selectionFlashLines.Count; i++)
+        {
+            var line = selectionFlashLines[i];
+            if (line == null)
+                continue;
+            line.startWidth = selectionFlashBaseWidth * widthScale;
+            line.endWidth = selectionFlashBaseWidth * widthScale;
+            line.startColor = color;
+            line.endColor = color;
+        }
+    }
+
+    private void SetSelectionFlashMaterialColor(Color color)
+    {
+        if (selectionFlashMaterial == null)
+            return;
+        if (selectionFlashMaterial.HasProperty("_BaseColor"))
+            selectionFlashMaterial.SetColor("_BaseColor", color);
+        if (selectionFlashMaterial.HasProperty("_Color"))
+            selectionFlashMaterial.SetColor("_Color", color);
+        if (selectionFlashMaterial.HasProperty("_EmissionColor"))
+        {
+            selectionFlashMaterial.EnableKeyword("_EMISSION");
+            selectionFlashMaterial.SetColor("_EmissionColor", color * 3f);
+        }
+    }
+
+    private void DestroySelectionFlash()
+    {
+        selectionFlashLines.Clear();
+        selectionFlashBaseWidth = 0f;
+        if (selectionFlashRoot != null)
+            Destroy(selectionFlashRoot);
+        selectionFlashRoot = null;
+        if (selectionFlashMaterial != null)
+            Destroy(selectionFlashMaterial);
+        selectionFlashMaterial = null;
     }
 
     private string SelectedObjectDisplayName()
@@ -1421,17 +1950,212 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
         cameraRight.y = 0f;
         cameraRight = cameraRight.sqrMagnitude > 0.001f ? cameraRight.normalized : playerRoot.transform.right;
 
-        var velocity = cameraRight * move.x + cameraForward * move.y;
-        if (velocity.sqrMagnitude > 1f)
-            velocity.Normalize();
-        velocity *= moveSpeed * (sprint ? sprintMultiplier : 1f);
+        var horizontalVelocity = cameraRight * move.x + cameraForward * move.y;
+        if (horizontalVelocity.sqrMagnitude > 1f)
+            horizontalVelocity.Normalize();
+        horizontalVelocity *= moveSpeed * (sprint ? sprintMultiplier : 1f);
 
         if (characterController.isGrounded && verticalVelocity < 0f)
             verticalVelocity = -1.5f;
         else
             verticalVelocity -= gravity * Time.deltaTime;
-        velocity.y = verticalVelocity;
-        characterController.Move(velocity * Time.deltaTime);
+
+        var positionBeforeMove = playerRoot.transform.position;
+        MoveCharacterWithoutCornerSnag(
+            cameraRight * Vector3.Dot(horizontalVelocity, cameraRight),
+            cameraForward * Vector3.Dot(horizontalVelocity, cameraForward),
+            verticalVelocity);
+        DetectAndRecoverBlockedMovement(positionBeforeMove, horizontalVelocity);
+    }
+
+    private void MoveCharacterWithoutCornerSnag(
+        Vector3 lateralVelocity,
+        Vector3 forwardVelocity,
+        float verticalSpeed)
+    {
+        var deltaTime = Time.deltaTime;
+
+        // Moving the two ground-plane components separately lets Unity slide
+        // around convex furniture corners. A combined diagonal Move can press
+        // the capsule into both faces and leave it motionless.
+        if (lateralVelocity.sqrMagnitude > 0.000001f)
+            characterController.Move(lateralVelocity * deltaTime);
+        if (forwardVelocity.sqrMagnitude > 0.000001f)
+            characterController.Move(forwardVelocity * deltaTime);
+
+        // Keep gravity separate so downward pressure cannot suppress the
+        // controller's built-in step climbing on low thresholds.
+        characterController.Move(Vector3.up * (verticalSpeed * deltaTime));
+    }
+
+    private void DetectAndRecoverBlockedMovement(Vector3 positionBeforeMove, Vector3 intendedVelocity)
+    {
+        var intendedDistance = intendedVelocity.magnitude * Time.deltaTime;
+        if (intendedDistance < 0.002f)
+        {
+            blockedMovementSeconds = 0f;
+            return;
+        }
+
+        var actualDelta = Vector3.ProjectOnPlane(
+            playerRoot.transform.position - positionBeforeMove,
+            Vector3.up).magnitude;
+        if (actualDelta >= Mathf.Max(0.0015f, intendedDistance * 0.15f))
+        {
+            blockedMovementSeconds = 0f;
+            return;
+        }
+
+        blockedMovementSeconds += Time.unscaledDeltaTime;
+        if (blockedMovementSeconds < 0.32f || Time.unscaledTime < nextUnstickAt)
+            return;
+
+        blockedMovementSeconds = 0f;
+        nextUnstickAt = Time.unscaledTime + 0.65f;
+        TryUnstickCharacter(intendedVelocity.normalized);
+    }
+
+    private void TryUnstickCharacter(Vector3 intendedDirection)
+    {
+        if (characterController == null || !characterController.enabled)
+            return;
+
+        var side = Vector3.Cross(Vector3.up, intendedDirection).normalized;
+        var candidates = new[]
+        {
+            (intendedDirection + side * 1.35f).normalized,
+            (intendedDirection - side * 1.35f).normalized,
+            side,
+            -side
+        };
+
+        foreach (var direction in candidates)
+        {
+            var before = playerRoot.transform.position;
+            characterController.Move(direction * 0.07f);
+            var moved = Vector3.ProjectOnPlane(playerRoot.transform.position - before, Vector3.up).magnitude;
+            if (moved > 0.012f)
+            {
+                LogStudyEvent("movement_auto_unstuck", CurrentModality(),
+                    coreManager != null ? coreManager.activeAgentId : "", "", 1);
+                return;
+            }
+        }
+    }
+
+    private void ConfigurePreciseGeneratedNavigationColliders()
+    {
+        if (characterController == null)
+            return;
+
+        var proxyCount = 0;
+        if (!preciseNavigationCollidersConfigured)
+        {
+            var descriptions = FindObjectsByType<DevDescription>(
+                FindObjectsInactive.Include,
+                FindObjectsSortMode.None);
+            foreach (var description in descriptions)
+            {
+                var generatedRoot = description == null ? null : description.GeneratedInstance;
+                if (generatedRoot == null || !generatedRoot.activeInHierarchy)
+                    continue;
+
+                var dimensions = description.transform.lossyScale;
+                dimensions = new Vector3(
+                    Mathf.Abs(dimensions.x),
+                    Mathf.Abs(dimensions.y),
+                    Mathf.Abs(dimensions.z));
+                var bottom = description.transform.position.y - dimensions.y * 0.5f;
+                var top = description.transform.position.y + dimensions.y * 0.5f;
+
+                // Floors, rugs, tabletop pieces and objects fully above head height
+                // must never become participant obstacles. Grounded nested furniture
+                // (the lounge chairs live below the rug description) remains included.
+                var floorLike = dimensions.y < 0.14f
+                    && (dimensions.x > 1.4f || dimensions.z > 1.4f);
+                var tiny = dimensions.x < 0.32f && dimensions.z < 0.32f;
+                var floating = bottom > 0.30f;
+                if (floorLike || tiny || floating || top < 0.12f)
+                    continue;
+
+                var proxy = new GameObject("Navigation Footprint - " + description.gameObject.name);
+                proxy.layer = 2; // Excluded from semantic rays in ConfigureCoreForStudy.
+                proxy.hideFlags = HideFlags.DontSave;
+                proxy.transform.rotation = description.transform.rotation;
+
+                var shortSide = Mathf.Min(dimensions.x, dimensions.z);
+                var longSide = Mathf.Max(dimensions.x, dimensions.z);
+                var wallLike = dimensions.y > 2.0f && shortSide < 0.65f && longSide > 1.8f;
+                var box = proxy.AddComponent<BoxCollider>();
+                if (wallLike)
+                {
+                    proxy.transform.position = description.transform.position;
+                    box.size = new Vector3(
+                        Mathf.Max(0.08f, dimensions.x * 0.88f),
+                        dimensions.y,
+                        Mathf.Max(0.08f, dimensions.z * 0.88f));
+                }
+                else
+                {
+                    // A full-height inner box cannot be climbed like the former
+                    // horizontal capsule. Keeping it well inside the authored footprint
+                    // prevents invisible GLB bounding-box corners from closing corridors.
+                    var proxyHeight = Mathf.Max(0.65f, dimensions.y * 0.88f);
+                    proxy.transform.position = new Vector3(
+                        description.transform.position.x,
+                        Mathf.Max(0f, bottom) + proxyHeight * 0.5f,
+                        description.transform.position.z);
+                    box.size = new Vector3(
+                        Mathf.Max(0.12f, dimensions.x * 0.68f),
+                        proxyHeight,
+                        Mathf.Max(0.12f, dimensions.z * 0.68f));
+                }
+
+                navigationProxyColliders.Add(box);
+                proxyCount++;
+            }
+
+            preciseNavigationCollidersConfigured = true;
+            LogStudyEvent("precise_navigation_colliders_ready", "navigation", "", "",
+                proxyCount);
+        }
+
+        var ignoredColliderCount = ApplyNavigationCollisionFilter();
+        Debug.Log("[KAESESTEINPILZ Study] Navigation footprints: "
+            + navigationProxyColliders.Count + "; ignored broad colliders: "
+            + ignoredColliderCount + ".");
+    }
+
+    private int ApplyNavigationCollisionFilter()
+    {
+        if (characterController == null || !characterController.enabled)
+            return 0;
+
+        navigationProxyColliders.RemoveWhere(collider => collider == null);
+        var changedCount = 0;
+        var allColliders = FindObjectsByType<Collider>(
+            FindObjectsInactive.Exclude,
+            FindObjectsSortMode.None);
+        foreach (var collider in allColliders)
+        {
+            if (collider == null || collider == characterController
+                || !collider.enabled || collider.isTrigger)
+                continue;
+
+            // Only the fallback floor and our deliberately conservative proxies
+            // participate in locomotion. QAM's broad renderer boxes remain available
+            // for semantic ray selection but cannot form invisible navigation walls.
+            var shouldCollide = navigationProxyColliders.Contains(collider)
+                || string.Equals(collider.gameObject.name, "InteractiveAgents_FallbackGround",
+                    StringComparison.OrdinalIgnoreCase);
+            var shouldIgnore = !shouldCollide;
+            if (Physics.GetIgnoreCollision(characterController, collider) == shouldIgnore)
+                continue;
+
+            Physics.IgnoreCollision(characterController, collider, shouldIgnore);
+            changedCount++;
+        }
+        return changedCount;
     }
 
     private void UpdateXrInput(bool allowParticipantInteraction)
@@ -1574,7 +2298,7 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
             return false;
 
         xrUiRayCamera.transform.SetPositionAndRotation(ray.origin, Quaternion.LookRotation(ray.direction));
-        canvas.worldCamera = xrUiRayCamera;
+        var hmdCamera = canvas.worldCamera;
         var pointer = new PointerEventData(EventSystem.current)
         {
             position = new Vector2(50f, 50f),
@@ -1582,7 +2306,18 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
         };
         var results = new List<RaycastResult>();
         var graphicRaycaster = canvas.GetComponent<GraphicRaycaster>();
-        graphicRaycaster?.Raycast(pointer, results);
+        try
+        {
+            canvas.worldCamera = xrUiRayCamera;
+            graphicRaycaster?.Raycast(pointer, results);
+        }
+        finally
+        {
+            // The helper camera is required only to calculate this controller raycast.
+            // Leaving it assigned would make the disabled, culling-mask-zero camera the
+            // persistent event/render camera for the immersive world-space canvas.
+            canvas.worldCamera = playerCamera != null ? playerCamera : hmdCamera;
+        }
 
         GameObject handler = null;
         foreach (var result in results)
@@ -1738,6 +2473,9 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
         // camera reference can be assigned. Disable its pose restore (which would
         // otherwise dereference an uninitialised transform) and explicitly preserve
         // the live camera's render settings for normal, VR and AR modes.
+        var uiLayer = LayerMask.NameToLayer("UI");
+        if (uiLayer >= 0)
+            camera.cullingMask |= 1 << uiLayer;
         var mask = (LayerMask)camera.cullingMask;
         SetWebXrProperty(type, component, "Camera", camera);
         SetWebXrProperty(type, component, "UpdateNormalFieldOfView", false);
@@ -1769,7 +2507,12 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
             return;
         var inputObject = new GameObject("WebXRInputSystem");
         inputObject.AddComponent(type);
-        DontDestroyOnLoad(inputObject);
+        // DontDestroyOnLoad is only legal while the player is running. Keeping this
+        // guard also lets editor/batch validation instantiate the real study rig.
+        if (Application.isPlaying)
+            DontDestroyOnLoad(inputObject);
+        else
+            inputObject.hideFlags = HideFlags.HideAndDontSave;
     }
 
     private static void TryAddTrackedDeviceRaycaster(GameObject canvasObject)
@@ -1905,6 +2648,20 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
             if (root == null || knownAgentRoots.Contains(root))
                 continue;
             knownAgentRoots.Add(root);
+            ConfigureAgentIndicatorMaterial(root);
+
+            // Agents are interaction targets, not navigation obstacles. Ignoring
+            // only this controller/collider pair keeps their ray selection intact
+            // while preventing a participant from being wedged between an agent
+            // capsule and nearby exhibition furniture.
+            if (characterController != null)
+            {
+                foreach (var agentCollider in root.GetComponentsInChildren<Collider>(true))
+                {
+                    if (agentCollider != null && agentCollider != characterController)
+                        Physics.IgnoreCollision(characterController, agentCollider, true);
+                }
+            }
 
             var watch = new PoseWatch
             {
@@ -1926,6 +2683,48 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
             }
             StartCoroutine(ValidateAndRevealPose(watch));
         }
+    }
+
+    private void ConfigureAgentIndicatorMaterial(GameObject agentRoot)
+    {
+        if (agentRoot == null)
+            return;
+        if (agentIndicatorMaterial == null)
+            agentIndicatorMaterial = Resources.Load<Material>(AgentIndicatorMaterialResource);
+
+        var materialIsUsable = agentIndicatorMaterial != null
+            && agentIndicatorMaterial.shader != null
+            && agentIndicatorMaterial.shader.isSupported
+            && agentIndicatorMaterial.shader.name.StartsWith(
+                "Universal Render Pipeline/",
+                StringComparison.Ordinal);
+        var changed = false;
+        foreach (var renderer in agentRoot.GetComponentsInChildren<Renderer>(true))
+        {
+            if (renderer == null
+                || !string.Equals(renderer.gameObject.name, "SelectionIndicator", StringComparison.Ordinal))
+            {
+                continue;
+            }
+
+            if (!materialIsUsable)
+            {
+                renderer.enabled = false;
+                Debug.LogError(
+                    "[KAESESTEINPILZ Study] The WebGL-safe agent indicator material is missing or unsupported; "
+                    + "the marker was hidden instead of rendering magenta.");
+                continue;
+            }
+
+            renderer.sharedMaterial = agentIndicatorMaterial;
+            renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            renderer.receiveShadows = false;
+            configuredAgentIndicators.Add(renderer);
+            changed = true;
+        }
+
+        if (changed)
+            InvokeCore("UpdateAgentHighlights", Type.EmptyTypes);
     }
 
     private static Animator SelectValidAnimator(GameObject root)
@@ -2257,6 +3056,8 @@ public sealed class KaesesteinpilzUserTestQuickAgentManager : MonoBehaviour
     {
         if (coreManager == null)
             return;
+        setupFailed = false;
+        UpdateIntroductionConnectionState();
         ConfigureCoreForStudy();
         var routine = InvokeCore("SetupFromServer", Type.EmptyTypes) as IEnumerator;
         if (routine != null)

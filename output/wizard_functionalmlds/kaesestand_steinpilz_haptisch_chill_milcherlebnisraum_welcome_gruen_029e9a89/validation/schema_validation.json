@@ -2,15 +2,13 @@
   "case_id": "kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89",
   "status": "valid",
   "errors": [],
-  "warnings": [
-    "Runtime-Log fehlt: C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\runtime_logs\\events.jsonl"
-  ],
+  "warnings": [],
   "metrics": {
-    "artifact_count": 7,
-    "valid_artifact_count": 7,
+    "artifact_count": 9,
+    "valid_artifact_count": 9,
     "invalid_artifact_count": 0,
-    "schema_count": 7,
-    "runtime_event_count": 0,
+    "schema_count": 9,
+    "runtime_event_count": 164,
     "contract_mode": "v2-dual"
   },
   "artifacts": [
@@ -69,6 +67,22 @@
       "status": "valid",
       "error_count": 0,
       "errors": []
+    },
+    {
+      "artifact_id": "runtime_events_runtime_event_v2.schema.json",
+      "schema": "runtime_event_v2.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\runtime_logs\\events.jsonl",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "artifact_id": "runtime_validation_v2",
+      "schema": "runtime_validation_v2.schema.json",
+      "path": "C:\\Users\\burklo\\Documents\\FunctionalMLDS\\output\\wizard_functionalmlds\\kaesestand_steinpilz_haptisch_chill_milcherlebnisraum_welcome_gruen_029e9a89\\runtime_logs\\runtime_validation.v2.jsonl",
+      "status": "valid",
+      "error_count": 0,
+      "errors": []
     }
   ],
   "schemas": [
@@ -78,6 +92,8 @@
     "interactive_agents_project.schema.json",
     "knowledge.schema.json",
     "normalized_scene.schema.json",
+    "runtime_event_v2.schema.json",
+    "runtime_validation_v2.schema.json",
     "scene_semantics.schema.json"
   ],
   "contract_mode": "v2-dual"

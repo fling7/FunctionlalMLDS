@@ -19,6 +19,43 @@ class LlmStageError(RuntimeError):
     pass
 
 
+def _env_text(name: str) -> Optional[str]:
+    raw = os.environ.get(name)
+    if raw is None:
+        return None
+    value = raw.strip()
+    return value or None
+
+
+def _load_api_key(config: Dict[str, Any]) -> str:
+    direct_key = _env_text("OPENAI_API_KEY")
+    key_file = _env_text("OPENAI_API_KEY_FILE")
+    if direct_key and key_file:
+        raise LlmStageError(
+            "OPENAI_API_KEY and OPENAI_API_KEY_FILE must not both be set."
+        )
+    if direct_key:
+        return direct_key
+    if key_file:
+        secret_path = Path(key_file)
+        try:
+            secret = secret_path.read_text(encoding="utf-8").strip()
+        except (OSError, UnicodeError) as exc:
+            raise LlmStageError(
+                f"OPENAI_API_KEY_FILE could not be read: {secret_path}"
+            ) from exc
+        if not secret:
+            raise LlmStageError("OPENAI_API_KEY_FILE is empty.")
+        return secret
+
+    configured = str(config.get("openai_api_key") or "").strip()
+    if not configured:
+        raise LlmStageError(
+            "No OpenAI API key configured via environment, secret file, or backend config."
+        )
+    return configured
+
+
 def sanitize_error_text(text: Any) -> str:
     cleaned = str(text)
     cleaned = re.sub(r"sk-[A-Za-z0-9_-]+", "[REDACTED_API_KEY]", cleaned)
@@ -76,9 +113,7 @@ def load_llm_settings(
     if not config_path.exists():
         raise LlmStageError(f"Backend config not found: {config_path}")
     config = json.loads(config_path.read_text(encoding="utf-8-sig"))
-    api_key = os.environ.get("OPENAI_API_KEY") or str(config.get("openai_api_key") or "").strip()
-    if not api_key:
-        raise LlmStageError("No OpenAI API key configured in environment or backend config.")
+    api_key = _load_api_key(config)
 
     configured_model = (
         model_override

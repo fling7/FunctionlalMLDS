@@ -141,7 +141,7 @@ public sealed class FunctionalMldsV2QuickAgentBridge
         string activeAgentId,
         FunctionalMldsV2InteractionObservation observation = null)
     {
-        RequireMapping(Mapping(actionKind, observation), activeAgentId);
+        RequireMapping(Mapping(actionKind, observation, activeAgentId), activeAgentId);
     }
 
     public FunctionalMldsV2RuntimeEvent Record(
@@ -155,7 +155,7 @@ public sealed class FunctionalMldsV2QuickAgentBridge
         string errorSummary = null,
         FunctionalMldsV2InteractionObservation observation = null)
     {
-        var mapping = Mapping(actionKind, observation);
+        var mapping = Mapping(actionKind, observation, activeAgentId);
         var runtime = RequireMapping(mapping, activeAgentId);
         var runtimeEvent = runtime.Logger.Append(
             eventType,
@@ -211,7 +211,7 @@ public sealed class FunctionalMldsV2QuickAgentBridge
         object outputSummary,
         double? durationMs = null)
     {
-        var mapping = Mapping(actionKind, observation);
+        var mapping = Mapping(actionKind, observation, activeAgentId);
         var runtime = RequireMapping(mapping, activeAgentId);
         var assessment = interactionEvaluator.Evaluate(mapping.Execution, observation);
         var eventStatus = string.Equals(assessment.Verdict, "pass", StringComparison.Ordinal)
@@ -307,7 +307,8 @@ public sealed class FunctionalMldsV2QuickAgentBridge
 
     private RuntimeMapping Mapping(
         string actionKind,
-        FunctionalMldsV2InteractionObservation observation = null)
+        FunctionalMldsV2InteractionObservation observation = null,
+        string activeAgentId = null)
     {
         var normalized = (actionKind ?? string.Empty).Trim().ToLowerInvariant();
         List<RuntimeMapping> candidates;
@@ -325,29 +326,57 @@ public sealed class FunctionalMldsV2QuickAgentBridge
 
         if (observation != null)
         {
+            var nonDeictic = string.Equals(
+                observation.InteractionMode,
+                FunctionalMldsV2InteractionEvidenceEvaluator.NonDeicticMode,
+                StringComparison.Ordinal);
             narrowed = FilterExact(narrowed, observation.CapabilityUseId, item => item.Execution.CapabilityUseId);
             narrowed = FilterExact(narrowed, observation.CapabilityId, item => item.Execution.CapabilityId);
             narrowed = FilterExact(narrowed, observation.RuntimeBindingId, item => item.Execution.RuntimeBindingId);
             if (string.Equals(normalized, "chat", StringComparison.Ordinal))
                 narrowed = FilterExact(narrowed, observation.RuntimeActionId, item => item.Execution.RuntimeActionId);
 
-            // Non-deictic communication is intentionally independent of the
-            // currently active/routed agent. Select the one trusted targetless
-            // chain before provider narrowing; otherwise an active agent that
-            // also owns object-bound mappings can remove the generic chain.
-            if (string.Equals(
-                    observation.InteractionMode,
-                    FunctionalMldsV2InteractionEvidenceEvaluator.NonDeicticMode,
-                    StringComparison.Ordinal))
+            // Non-deictic communication uses provider-specific targetless
+            // chains. Remove object-bound mappings first, then resolve the
+            // exact source provider below.
+            if (nonDeictic)
             {
                 narrowed = narrowed.Where(item => item.Execution.TargetIds.Count == 0);
             }
 
-            var provider = TextOf(observation.RoutedAgentId, observation.RequestedAgentId);
+            string provider;
+            if (nonDeictic)
+            {
+                // In non-deictic mode the response's active/routed agent may
+                // already be the destination of a handoff. Bind the generic
+                // action to the source that initiated the request instead.
+                // Exact model-binding fields above remain authoritative: when
+                // they already selected a different single chain, a missing
+                // provider match must not override that trusted binding.
+                provider = string.Equals(normalized, "handoff", StringComparison.Ordinal)
+                    ? TextOf(
+                        observation.HandoffFromAgentId,
+                        activeAgentId,
+                        observation.RequestedAgentId,
+                        observation.RoutedAgentId)
+                    : TextOf(
+                        activeAgentId,
+                        observation.RequestedAgentId,
+                        observation.RoutedAgentId);
+            }
+            else
+            {
+                // Deictic communication remains bound to the routed agent that
+                // is responsible for the selected model target.
+                provider = TextOf(observation.RoutedAgentId, observation.RequestedAgentId);
+            }
             if (!string.IsNullOrWhiteSpace(provider))
             {
                 var providerMatches = narrowed.Where(item => ProviderMatches(item.Execution.ProviderId, provider)).ToList();
-                if (providerMatches.Count > 0)
+                // A source-bound non-deictic action must never inherit a chain
+                // selected for another provider. Deictic preflight keeps its
+                // target/owner fallback because the active source may differ.
+                if (nonDeictic || providerMatches.Count > 0)
                     narrowed = providerMatches;
             }
 

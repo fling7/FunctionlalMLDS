@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>G Steinpilz Familienunternehmen  | Snapshot</title>
+  <meta name="description" content="Unternehmensprofil: Käserei Steinpilz Familienunternehmen – Snapshot für lokalen Testserver." />
+  <style>
+    :root{
+      --bg:#ffffff; --text:#0f172a; --muted:#475569; --brand:#0ea5e9;
+      --chip:#f1f5f9; --chipText:#334155; --card:#ffffff; --border:#e2e8f0;
+
+      /* WebXR-Hint/Spotlight Variablen */
+      --hintBorder: rgba(148,163,184,.35);
+      --hintShadow: 0 10px 30px rgba(2,6,23,.25);
+      --cx: 50%;
+      --cy: 55%;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;padding:0;background:var(--bg);color:var(--text);
+      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+      /* verhindert, dass der Browser bei DOM-Änderungen “nachankert” */
+      overflow-anchor: none;
+    }
+    a{color:#0369a1;text-decoration:none} a:hover{text-decoration:underline}
+    .wrap{max-width:1100px;margin:0 auto;padding:24px}
+    header{padding:16px 0 8px;border-bottom:1px solid var(--border);margin-bottom:20px}
+    header h1{font-size:clamp(24px,3vw,36px);margin:0 0 4px}
+    header .sub{color:var(--muted)}
+    .top{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin:10px 0 22px}
+    .logo{height:56px;object-fit:contain}
+    .facts{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0}
+    .chip{background:var(--chip);color:var(--chipText);border:1px solid var(--border);padding:6px 10px;border-radius:999px;font-size:14px}
+    .cta{margin-left:auto;display:flex;gap:10px;align-items:center}
+
+    /* --- Buttons (auffälliger) --- */
+    .btn{
+      --btn-shadow: rgba(2,132,199,.35);
+      display:inline-flex;align-items:center;gap:10px;
+      padding:12px 18px;border-radius:12px;border:none;
+      background: linear-gradient(135deg,#0ea5e9 0%,#0284c7 100%);
+      color:#fff;font-weight:800;letter-spacing:.2px;
+      box-shadow: 0 10px 20px var(--btn-shadow), inset 0 1px 0 rgba(255,255,255,.25);
+      transition: transform .12s ease, box-shadow .2s ease, filter .2s ease;
+      text-decoration:none;
+    }
+    .btn:hover{transform: translateY(-1px); filter:brightness(1.03);
+      box-shadow: 0 14px 24px rgba(2,132,199,.45), inset 0 1px 0 rgba(255,255,255,.25);}
+    .btn:active{transform: translateY(0)}
+    .btn .icon{display:inline-grid;place-items:center;width:20px;height:20px}
+    .btn .label{display:inline-block}
+
+    /* Spezieller Survey-Button mit Shine + Glow-Pulse */
+    .btn.survey{position:relative;overflow:hidden}
+    .btn.survey::before{
+      content:""; position:absolute; inset:0; background:
+        linear-gradient(120deg, transparent 0%, rgba(255,255,255,.35) 45%, transparent 60%);
+      transform: translateX(-120%); pointer-events:none;
+    }
+    .btn.survey:hover::before{ animation: shine 1.2s ease forwards }
+    @keyframes shine{ to{ transform: translateX(120%) } }
+
+    .btn.survey::after{
+      content:""; position:absolute; inset:-6px; border-radius:14px;
+      box-shadow: 0 0 0 0 rgba(14,165,233,.55);
+      animation: glow 2.2s ease-out infinite;
+      pointer-events:none;
+    }
+    @keyframes glow{
+      0%{box-shadow: 0 0 0 0 rgba(14,165,233,.55)}
+      60%{box-shadow: 0 0 0 12px rgba(14,165,233,0)}
+      100%{box-shadow: 0 0 0 12px rgba(14,165,233,0)}
+    }
+    @media (prefers-reduced-motion: reduce){
+      .btn.survey::before, .btn.survey::after{animation:none}
+    }
+
+    .gallery {
+      position: relative; overflow: hidden; border-radius: 14px; border: 1px solid var(--border);
+      background: #000;
+      /* Desktop/Tablet: behalte die vorhandene Höhe bei */
+      height: clamp(420px, 55vh, 760px);
+    }
+    .slides { display: flex; transition: transform .6s ease; height: 100%; }
+    .slides img {
+      width: 100%; height: 100%;
+      flex: 0 0 100%; display: block; object-fit: cover;
+      /* Fokus noch weiter oben → unten wird stärker abgeschnitten */
+      object-position: 50% 10%;
+      max-height: none;
+    }
+    .nav { position: absolute; inset: 0; display: flex; justify-content: space-between; align-items: center; padding: 0 10px; }
+    .nav button { background: rgba(255, 255, 255, .85); border: 1px solid var(--border); width: 38px; height: 38px; border-radius: 999px; cursor: pointer; }
+    .dots { display: flex; gap: 6px; justify-content: center; margin: 8px 0 0; }
+    .dots button { width: 10px; height: 10px; border-radius: 999px; border: 0; background: #cbd5e1; cursor: pointer; }
+    .dots button.active { background: #0ea5e9; }
+
+    main { display: grid; grid-template-columns: 1.2fr .8fr; gap: 28px; margin-top: 22px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+    h2 { margin: 0 0 10px; font-size: 22px; }
+    h3 { margin: 16px 0 6px; font-size: 18px; }
+    p { margin: 0 0 12px; }
+    ul { margin: 0; padding-left: 18px; }
+    footer { border-top: 1px solid var(--border); margin-top: 30px; padding: 18px 0; color: var(--muted); }
+
+    @media (max-width: 900px) {
+      main { grid-template-columns: 1fr; }
+      .cta { margin-left: 0; }
+      /* Tablet: Höhe weiter ok */
+      .gallery { height: clamp(420px, 55vh, 760px); }
+    }
+
+    /* ---------- Handy-Ansicht (≤ 600px) ---------- */
+    @media (max-width: 600px){
+      /* Karussell: Seitenverhältnis statt fester Höhe → kein Verzerren */
+      .gallery{
+        height: auto;              /* fixe Höhe entfernen */
+        aspect-ratio: 4 / 5;       /* hochformatiges Verhältnis für Handy */
+      }
+      .slides{ height: 100%; }
+      .slides img{
+        height: 100%;
+        object-fit: cover;         /* füllt den Frame ohne Verzerren */
+        object-position: 50% 35%;  /* etwas tieferer Fokus für Portrait */
+      }
+      .nav button{
+        width: 44px; height: 44px; /* größere Touch-Ziele */
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+      .dots{ margin-top: 10px; gap: 8px; }
+      .dots button{ width: 12px; height: 12px; }
+
+      /* WebXR-Frame etwas höher für bessere Lesbarkeit + Touch */
+      .webxr-frame{
+        aspect-ratio: 3 / 2;         /* kompakter als 16:9, mehr Platz für Hinweis */
+      }
+
+      /* Hinweis-Overlay & Karte: volle Breite, klare Lesbarkeit */
+      .webxr-hint{
+        /* Fallback-Hintergrund für Geräte ohne blur */
+        background:
+          radial-gradient( 480px 340px at var(--cx) var(--cy),
+            rgba(255,255,255,.06) 0%,
+            rgba(15,23,42,.22) 55%,
+            rgba(15,23,42,.35) 100%);
+      }
+      .hint-card{
+        width: 96vw;
+        max-width: 640px;
+        padding: 16px;
+      }
+      .hint-grid{
+        grid-template-columns: 1fr; /* untereinander auf Handy */
+        gap: 10px;
+      }
+      .hint-title{ font-size: 17px; }
+      .hint-sub{ font-size: 13px; }
+      .hint-item{ padding: 10px; }
+      .hint-ico{ width: 40px; height: 40px; }
+      .enter-cta{ min-width: 0; }
+      .pulse{ width: 42px; height: 42px; }
+      .hint-actions{ gap: 8px; }
+      .btn-ghost,.btn-primary{ padding: 9px 12px; }
+      .hint-close{ top: 8px; right: 8px; width: 34px; height: 34px; }
+
+      /* Hilfe-Button prominenter, damit er nicht vom Canvas überdeckt wirkt */
+      .webxr-help-btn{
+        right: 10px; top: 10px;
+        width: 44px; height: 44px; z-index: 15; /* klar über dem Canvas */
+        background: rgba(255,255,255,.9);
+        backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      }
+    }
+
+    /* --- WebXR-Frame & Overrides --- */
+    .webxr-card h2 { margin-bottom: 12px; }
+    .webxr-frame {
+      position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000;
+      border: 1px solid var(--border); border-radius: 14px; overflow: hidden; isolation: isolate;
+    }
+
+    /* Canvas zwingend einpassen */
+    body > #unity-container,
+    body > #unityContainer,
+    .webxr-frame #unity-container,
+    .webxr-frame #unityContainer,
+    canvas#unity-canvas,
+    body > canvas,
+    #root > canvas,
+    .webxr-frame canvas {
+      position: absolute !important;
+      inset: 0 !important;
+      left: 0 !important;
+      top: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: none !important;
+      max-height: none !important;
+      margin: 0 !important;
+      transform: none !important;
+      z-index: auto !important;
+    }
+
+    .webxr-frame .webxr-ui-root,
+    .webxr-frame .webxr-ui,
+    .webxr-frame #WebXRUI {
+      position: absolute !important; left: 12px !important; bottom: 12px !important; width: auto !important; height: auto !important;
+    }
+
+    /* Unity WebXR Footer Buttons sichtbar und als Call-to-Action gestalten */
+    .webxr-frame #unity-footer {
+      position: absolute !important;
+      left: auto !important;
+      right: 12px !important;
+      bottom: 12px !important;
+      display: flex !important;
+      gap: 10px !important;
+      align-items: center !important;
+      justify-content: flex-end !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      background: none !important;
+      color: inherit !important;
+      font-size: 13px !important;
+      line-height: 1.3 !important;
+      box-shadow: none !important;
+      pointer-events: auto !important;
+    }
+    .webxr-frame #unity-footer > * {
+      float: none !important;
+      margin: 0 !important;
+    }
+    .webxr-frame #unity-footer > :not(button) {
+      display: none !important;
+    }
+    .webxr-frame #unity-footer button {
+      min-width: 68px !important;
+      height: 42px !important;
+      border-radius: 999px !important;
+      border: none !important;
+      padding: 0 20px !important;
+      font-weight: 700 !important;
+      font-size: 14px !important;
+      letter-spacing: .25px !important;
+      color: #0f172a !important;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.85), 0 8px 18px rgba(2,6,23,.28) !important;
+      cursor: pointer !important;
+      transition: transform .12s ease, box-shadow .18s ease;
+    }
+    .webxr-frame #unity-footer button:hover:enabled {
+      transform: translateY(-1px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.85), 0 12px 22px rgba(2,6,23,.32) !important;
+    }
+    .webxr-frame #unity-footer button:disabled {
+      opacity: .55 !important;
+      cursor: not-allowed !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.65), 0 4px 10px rgba(2,6,23,.18) !important;
+    }
+    .webxr-frame #unity-footer #unity-webgl-logo,
+    .webxr-frame #unity-footer #unity-build-title,
+    .webxr-frame #unity-footer #unity-webxr-link {
+      display: none !important;
+    }
+
+    /* --- Grafischer WebXR-Hinweis mit Spotlight & Pulse --- */
+    .webxr-help-btn{
+      position:absolute; right:12px; top:12px; z-index:5;
+      width:40px;height:40px;border-radius:12px;
+      border:1px solid var(--hintBorder);
+      background: rgba(255,255,255,.85);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      box-shadow: var(--hintShadow);
+      display:grid;place-items:center; cursor:pointer;
+      font-weight:700; line-height:1;
+    }
+    .webxr-help-btn:hover{filter:brightness(.98)}
+    .webxr-help-btn:focus{outline:2px solid var(--brand);outline-offset:2px}
+
+    .webxr-hint[hidden]{display:none}
+    .webxr-hint{
+      position:absolute; inset:0; z-index:10;          /* über dem Canvas */
+      background:
+        radial-gradient( 600px 420px at var(--cx) var(--cy),
+          rgba(255,255,255,.04) 0%,
+          rgba(15,23,42,.16) 55%,
+          rgba(15,23,42,.30) 100%);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display:grid; place-items:center; padding:18px;
+      transition: background-position .08s linear;
+      cursor: pointer;
+    }
+    .webxr-hint::before{
+      content:""; position:absolute; inset:0; pointer-events:none;
+      background-image: linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 100% 6px;
+      opacity:.35; mix-blend-mode: overlay;
+    }
+    .hint-card{
+      width:min(760px, 92%);
+      background: rgba(255,255,255,.82);
+      border:1px solid var(--hintBorder);
+      border-radius:16px; box-shadow: var(--hintShadow);
+      padding:18px; color: var(--text); position:relative;
+      animation: pop .18s ease-out; cursor:auto;
+    }
+    @keyframes pop{from{transform:scale(.98);opacity:0}to{transform:scale(1);opacity:1}}
+    @media (prefers-reduced-motion: reduce){ .hint-card{animation:none} }
+    .hint-header{ display:flex;align-items:center;gap:10px;margin-bottom:8px }
+    .hint-title{ margin:0;font-size:18px;font-weight:700 }
+    .hint-sub{ color:var(--muted);font-size:14px;margin-bottom:8px }
+    .hint-grid{ display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:8px }
+    @media (max-width:700px){ .hint-grid{grid-template-columns:1fr} }
+    .hint-item{
+      display:flex;gap:12px;align-items:center;
+      border:1px solid var(--border); background:#fff; border-radius:12px;padding:12px
+    }
+    .hint-ico{
+      width:42px;height:42px;border-radius:10px;
+      display:grid;place-items:center;border:1px solid var(--border);
+      background:linear-gradient(180deg,#f8fafc,#eef2f7)
+    }
+    .hint-item b{display:block}
+    .keyrow{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+    .key{
+      min-width:28px;height:28px;padding:0 8px;border:1px solid var(--border);border-bottom-width:2px;
+      background:#f8fafc;border-radius:8px;display:grid;place-items:center;font-weight:700;font-size:13px;line-height:1
+    }
+    .hint-actions{ display:flex;gap:10px;justify-content:space-between;align-items:center;margin-top:14px;flex-wrap:wrap }
+    .btn-ghost{ background:transparent;border:1px solid var(--border);border-radius:10px;padding:8px 12px;cursor:pointer }
+    .btn-primary{ background:var(--brand);color:#fff;border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer }
+    .btn-ghost:focus,.btn-primary:focus{outline:2px solid var(--brand);outline-offset:2px}
+    .hint-close{
+      position:absolute;top:10px;right:10px;width:36px;height:36px;border-radius:10px;border:1px solid var(--border);
+      background:#ffffffcc;display:grid;place-items:center;cursor:pointer
+    }
+    .hint-shortcut{ color:var(--muted);font-size:12px;margin-top:6px }
+
+    .enter-cta{ display:flex;align-items:center;gap:10px;flex:1 1 auto;min-width:240px;font-weight:800; }
+    .pulse{ position:relative; width:44px;height:44px;border-radius:999px; border:2px solid #fff; display:grid;place-items:center; font-size:18px; background: rgba(255,255,255,.15); }
+    .pulse::after{ content:""; position:absolute; inset:-6px; border-radius:999px; border:2px solid #fff; opacity:.6; animation: pulse 1.6s ease-out infinite; }
+    @keyframes pulse{ 0%{transform:scale(.8);opacity:.7} 70%{transform:scale(1.25);opacity:0} 100%{transform:scale(1.25);opacity:0} }
+  </style>
+  <script type="module" crossorigin src="/assets/index-RyzO8G94.js"></script>
+</head>
+<body>
+  <!-- Startanker -->
+  <div id="top"></div>
+
+  <div class="wrap">
+    <header>
+      <h1>Käserei Steinpilz Familienunternehmen</h1>
+      <div class="sub">Unternehmensprofil – Hochschuljobbörse</div>
+    </header>
+
+    <div class="top">
+      <img class="logo" alt="Logo Käserei Steinpilz" src="/assets/LogoSteinpilz-CyaVV4c2.png" />
+      <div class="facts">
+        <span class="chip">Gegründet 1908</span>
+        <span class="chip">1.000 – 2.499 Mitarbeitende</span>
+        <span class="chip">Standort: Lauben (Heising)</span>
+      </div>
+      <!-- Umfrage-Button oben rechts (auffälliger) -->
+      <div class="cta">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfG1dTJ62u_5jcr4I9KBMvqmEovZ3SraH1AurzwHhGvEevhXw/viewform?usp=dialog"
+           class="btn survey" target="_blank" aria-label="Zur Umfrage (öffnet in neuem Tab)">
+          <span class="icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M5 5h14v14H5z" stroke="white" stroke-width="1.5"/><path d="M8 9h8M8 13h5" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="label">Zur Umfrage</span>
+        </a>
+      </div>
+      <!-- zusätzlicher Button in der WebXR-Card -->
+<a href="vr.html" target="_blank" rel="noopener" class="btn" style="margin-top:10px; display:inline-flex;">
+  <span class="icon" aria-hidden="true">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M5 5h14v14H5z" stroke="white" stroke-width="1.5"/>
+      <path d="M8 12h8" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+    </svg>
+  </span>
+  <span class="label">Zur VR-Ansicht</span>
+</a>
+    </div>
+
+    <div class="gallery" id="gallery">
+      <div class="slides" id="slides">
+        <img alt="Galerie 1" src="/assets/Kaese11-Osqw1p24.png"  data-pos="50% 15%">
+        <img alt="Galerie 1" src="/assets/Kaese2-CbXX8plS.png" data-pos="50% 35%">
+        <img alt="Galerie 1" src="/assets/Kaese0-DSc1zaoC.png"  data-pos="50% 30%">
+        <img alt="Galerie 2" src="/assets/Kaese1-Cf0S9kHn.png"  data-pos="50% 35%">
+      </div>
+      <div class="nav">
+        <button aria-label="Vorheriges Bild" id="prev">&#10094;</button>
+        <button aria-label="Nächstes Bild" id="next">&#10095;</button>
+      </div>
+      <div class="dots" id="dots" aria-label="Slidenavigation"></div>
+    </div>
+
+    <main>
+      <section class="card">
+        <h2>Hier beweisen wir Tradition und Innovation!</h2>
+        <p>Die Käserei Steinpilz, ein Familienunternehmen im Allgäu, ist führend in der Herstellung von Käsespezialitäten und hochwertigen Molkederivaten. Seit 1908 verbindet uns die Leidenschaft für die handwerkliche Produktion und die Innovationskraft.</p>
+        <p>Unsere Werke in Bayern und Sachsen bieten eine einzigartige Kombination aus Tradition und Moderne, die unseren Erfolg ausmacht. Mit etwa 1.200 Mitarbeitenden schaffen wir außergewöhnliche Produkte für Märkte in über 55 Ländern weltweit.</p>
+        <p>Das Geheimnis unseres Erfolgs? Regionale Milch, meisterhafte Handwerkskunst und die Expertise unserer Teams an jedem Standort.</p>
+      </section>
+
+      <aside class="card">
+        <h3>Fachrichtungen</h3>
+        <ul>
+          <li>Wirtschaftswissenschaften</li>
+          <li>Naturwissenschaften / Informatik</li>
+          <li>Ingenieurwissenschaften</li>
+        </ul>
+
+        <h3>Branchen</h3>
+        <ul>
+          <li>Nahrungs- und Genussmittel</li>
+        </ul>
+
+        <h3>Deine Benefits</h3>
+        <ul>
+          <li>Betriebliche Altersvorsorge</li>
+          <li>Flexible Arbeitszeiten</li>
+          <li>Fortbildungen</li>
+          <li>Gesundheitsmaßnahmen</li>
+          <li>Gute Verkehrsanbindung</li>
+          <li>Hilfe bei der Wohnungssuche</li>
+          <li>Homeoffice</li>
+          <li>Jahressonderzahlung</li>
+          <li>Kantine</li>
+          <li>Kostenlose Getränke</li>
+          <li>Leistungsprämien</li>
+          <li>Mitarbeiterevents</li>
+          <li>Mitarbeiterrabatte</li>
+          <li>Parkplatz</li>
+          <li>Sportangebote</li>
+        </ul>
+      </aside>
+    </main>
+    <br></br>
+
+    <!-- WebXR -->
+    <section class="card webxr-card" aria-label="WebXR">
+      <h2>WebXR Vorschau</h2>
+      <div>Die Darstellung ist nur auf dem Computer verfügbar, wodurch die zentralen Aspekte der Käserei Steinpilz digital erlebbar gemacht werden.</div>
+      </br>
+      <div class="webxr-frame">
+        <!-- Hilfe-Button -->
+        <button class="webxr-help-btn" id="webxrHelpBtn" aria-haspopup="dialog" aria-controls="webxrHint" aria-label="Hilfe zur Steuerung anzeigen">?</button>
+
+        <!-- Hinweis-Overlay (bleibt im Frame, liegt darüber) -->
+        <div class="webxr-hint" id="webxrHint" role="dialog" aria-modal="true" aria-labelledby="hintTitle" hidden>
+          <div class="hint-card" role="document">
+            <button class="hint-close" id="webxrHintClose" aria-label="Hinweis schließen">✕</button>
+            <div class="hint-header">
+              <div class="hint-ico" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3h-2.5l-1.8 2.5a1 1 0 0 1-1.6 0L9.3 17H7a3 3 0 0 1-3-3V7z" stroke="#0f172a" stroke-width="1.3" />
+                </svg>
+              </div>
+              <h3 class="hint-title" id="hintTitle">Steuerung &amp; WebXR</h3>
+            </div>
+            <div class="hint-sub">Klicke in die 3D-Ansicht, um die Steuerung zu aktivieren.</div>
+
+            <div class="hint-grid" aria-label="Bedienhinweise">
+              <div class="hint-item">
+                <div class="hint-ico" aria-hidden="true">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 3c3.866 0 7 3.134 7 7v4a5 5 0 0 1-5 5h-4a5 5 0 0 1-5-5V10c0-3.866 3.134-7 7-7z" stroke="#0f172a" stroke-width="1.3"/>
+                    <path d="M12 6v5" stroke="#0ea5e9" stroke-width="1.6" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <b>In die Ansicht klicken &amp; ziehen</b>
+                  <div>Maus bewegt das Bild&nbsp;/ schaut sich um.</div>
+                </div>
+              </div>
+
+              <div class="hint-item">
+                <div class="hint-ico" aria-hidden="true">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+                    <rect x="3" y="4" width="6" height="6" rx="1.2" stroke="#0f172a" />
+                    <rect x="9.5" y="10" width="6" height="6" rx="1.2" stroke="#0f172a" />
+                    <rect x="16" y="4" width="6" height="6" rx="1.2" stroke="#0f172a" />
+                    <rect x="3" y="16" width="6" height="6" rx="1.2" stroke="#0f172a" />
+                  </svg>
+                </div>
+                <div>
+                  <b>Mit WASD laufen</b>
+                  <div class="keyrow" aria-label="WASD Tasten">
+                    <span class="key">W</span><span class="key">A</span><span class="key">S</span><span class="key">D</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hint-item">
+                <div class="hint-ico" aria-hidden="true">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7z" stroke="#0f172a"/>
+                    <path d="M9 12h6" stroke="#0ea5e9" stroke-width="1.6" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <b>Esc</b>
+                  <div>verlässt die WebXR-Ansicht.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hint-actions">
+              <div class="enter-cta">
+                <div class="pulse" aria-hidden="true">⟶</div>
+                <div>
+                  <div style="font-size:15px;margin-bottom:2px;">Bereit?</div>
+                  <div style="font-size:16px;">In die 3D-Ansicht klicken zum Start</div>
+                </div>
+              </div>
+              <div>
+                <button class="btn-ghost" id="webxrHintLater">Später</button>
+                <button class="btn-primary" id="webxrHintOk">Verstanden</button>
+              </div>
+            </div>
+            <div class="hint-shortcut">Tipp: Mit <span class="key">H</span> öffnest du die Hilfe jederzeit.</div>
+          </div>
+        </div>
+
+        <!-- Hier rendert deine WebXR/Unity-WebGL App -->
+        <div id="root"></div>
+        <!-- Proxy VR/AR Buttons (sichtbar) -->
+      </div>
+    </section>
+    </br>
+    <div>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfG1dTJ62u_5jcr4I9KBMvqmEovZ3SraH1AurzwHhGvEevhXw/viewform?usp=dialog"
+         class="btn survey" target="_blank" aria-label="Zur Umfrage (öffnet in neuem Tab)">
+        <span class="icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M5 5h14v14H5z" stroke="white" stroke-width="1.5"/><path d="M8 9h8M8 13h5" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="label">Zur Umfrage</span>
+      </a>
+    </div>
+
+    <footer>
+      <small>Die Fotos sowie Inhalte auf dieser Seite wurden für Evaluationszwecke KI generiert.</small>
+      <div style="margin-top: 10px; font-size: 12px; text-align: center;">
+        <a href="https://www.hochschuljobboerse.de/impressum" target="_blank" style="color: var(--muted); text-decoration: none;">Impressum</a> | 
+        <a href="https://www.hochschuljobboerse.de/datenschutz" target="_blank" style="color: var(--muted); text-decoration: none;">Datenschutz</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scroll: Immer am Seitenanfang starten -->
+  <script>
+    (function(){
+      try{ if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; }catch(e){}
+      // sofort auf Top, auch falls der Browser alten Scroll-Stand wiederherstellen möchte
+      window.scrollTo(0,0);
+      window.addEventListener('DOMContentLoaded', ()=> window.scrollTo(0,0));
+      window.addEventListener('pageshow', (e)=>{ if(e.persisted) window.scrollTo(0,0); });
+    })();
+  </script>
+
+  <!-- Galerie-Logik -->
+  <script>
+    (function(){
+      const slides = document.getElementById('slides');
+      const prev = document.getElementById('prev');
+      const next = document.getElementById('next');
+      const dots = document.getElementById('dots');
+      const total = slides.children.length;
+      let i = 0;
+
+      function go(n){
+        i = (n + total) % total;
+        slides.style.transform = `translateX(-${i*100}%)`;
+        [...dots.children].forEach((d,idx)=>d.classList.toggle('active', idx===i));
+      }
+
+      for(let k=0;k<total;k++){
+        const b=document.createElement('button');
+        b.addEventListener('click',()=>go(k));
+        dots.appendChild(b);
+      }
+
+      go(0);
+      prev.addEventListener('click',()=>go(i-1));
+      next.addEventListener('click',()=>go(i+1));
+
+      let timer=setInterval(()=>go(i+1),6000);
+      [prev,next,slides,dots].forEach(el=>{
+        el.addEventListener('mouseenter',()=>clearInterval(timer));
+        el.addEventListener('mouseleave',()=>timer=setInterval(()=>go(i+1),6000));
+      });
+
+      /* Pro-Bild-Fokus aus data-pos übernehmen */
+      document.querySelectorAll('#slides img[data-pos]').forEach(img=>{
+        img.style.objectPosition = img.getAttribute('data-pos');
+      });
+    })();
+  </script>
+
+  <!-- WebXR/Unity-Canvas aggressiv in den Frame “einpinnen” -->
+  <script>
+    (function(){
+      const frame = document.querySelector('.webxr-frame');
+
+      function pin(){
+        if(!frame) return;
+
+        const canvas =
+          frame.querySelector('canvas') ||
+          document.querySelector('#root canvas') ||
+          document.querySelector('canvas#unity-canvas') ||
+          document.querySelector('body > canvas') ||
+          document.querySelector('canvas');
+
+        if(canvas){
+          if(!frame.contains(canvas)) frame.appendChild(canvas);
+          canvas.style.setProperty('position', 'absolute', 'important');
+          canvas.style.setProperty('top', '0', 'important');
+          canvas.style.setProperty('left', '0', 'important');
+          canvas.style.setProperty('width', '100%', 'important');
+          canvas.style.setProperty('height', '100%', 'important');
+          canvas.style.setProperty('max-width', 'none', 'important');
+          canvas.style.setProperty('max-height', 'none', 'important');
+          canvas.style.setProperty('margin', '0', 'important');
+          canvas.removeAttribute('width');
+          canvas.removeAttribute('height');
+        }
+
+        const ui = document.querySelector('.webxr-ui-root, .webxr-ui, #WebXRUI');
+        if(ui){
+          if(!frame.contains(ui)) frame.appendChild(ui);
+          ui.style.setProperty('position','absolute','important');
+          ui.style.setProperty('left','12px','important');
+          ui.style.setProperty('bottom','12px','important');
+        }
+
+        const footer = document.querySelector('#unity-footer');
+        if(footer){
+          if(!frame.contains(footer)) frame.appendChild(footer);
+          footer.style.setProperty('position','absolute','important');
+          footer.style.setProperty('left','12px','important');
+          footer.style.setProperty('right','12px','important');
+          footer.style.setProperty('bottom','12px','important');
+          footer.style.setProperty('display','flex','important');
+          footer.style.setProperty('gap','10px','important');
+          footer.style.setProperty('align-items','center','important');
+          footer.style.setProperty('justify-content','flex-end','important');
+          footer.style.setProperty('padding','10px 12px','important');
+          footer.style.setProperty('border-radius','14px','important');
+          footer.style.setProperty('background','linear-gradient(135deg, rgba(15,23,42,.86) 0%, rgba(15,23,42,.72) 100%)','important');
+          footer.style.setProperty('color','#e2e8f0','important');
+          footer.style.setProperty('font-size','13px','important');
+          footer.style.setProperty('line-height','1.3','important');
+          footer.style.setProperty('box-shadow','0 14px 26px rgba(15,23,42,.35)','important');
+          footer.style.setProperty('pointer-events','auto','important');
+          footer.style.setProperty('backdrop-filter','blur(6px)');
+          footer.style.setProperty('-webkit-backdrop-filter','blur(6px)');
+
+          footer.querySelectorAll('*').forEach(node=>{
+            if(!(node instanceof HTMLElement)) return;
+            node.style.setProperty('float','none','important');
+            node.style.setProperty('margin','0','important');
+          });
+
+          footer.querySelectorAll('button').forEach(btn=>{
+            btn.style.setProperty('min-width','68px','important');
+            btn.style.setProperty('height','42px','important');
+            btn.style.setProperty('border-radius','999px','important');
+            btn.style.setProperty('border','none','important');
+            btn.style.setProperty('padding','0 20px','important');
+            btn.style.setProperty('font-weight','700','important');
+            btn.style.setProperty('font-size','14px','important');
+            btn.style.setProperty('letter-spacing','.25px','important');
+            btn.style.setProperty('color','#0f172a','important');
+            btn.style.setProperty('background','linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)','important');
+            btn.style.setProperty('box-shadow','inset 0 1px 0 rgba(255,255,255,.85), 0 8px 18px rgba(2,6,23,.28)','important');
+            btn.style.setProperty('cursor','pointer','important');
+          });
+
+          ['#unity-webgl-logo','#unity-build-title','#unity-webxr-link'].forEach(selector=>{
+            footer.querySelector(selector)?.style.setProperty('display','none','important');
+          });
+        }
+
+        requestAnimationFrame(pin);
+      }
+
+      requestAnimationFrame(pin);
+    })();
+  </script>
+
+  <!-- WebXR Hinweis-Logik + Spotlight-Parallax -->
+  <script>
+    (function(){
+      const helpBtn = document.getElementById('webxrHelpBtn');
+      const hint = document.getElementById('webxrHint');
+      const closeBtn = document.getElementById('webxrHintClose');
+      const okBtn = document.getElementById('webxrHintOk');
+      const laterBtn = document.getElementById('webxrHintLater');
+      const SEEN_KEY = 'webxrHintSeen';
+
+      function openHint(){
+        hint.hidden = false;
+        helpBtn?.setAttribute('aria-expanded','true');
+        /* WICHTIG: KEIN Fokus beim Öffnen -> verhindert Scroll-Jump zum WebXR-Bereich */
+      }
+      function closeHint(persist=true){
+        hint.hidden = true;
+        helpBtn?.setAttribute('aria-expanded','false');
+        if(persist) try{ localStorage.setItem(SEEN_KEY,'1'); }catch(e){}
+        /* Ebenfalls KEIN Rückfokus, sonst könnte wieder gescrollt werden */
+      }
+
+      // Klick überall auf Overlay => schließen (außer in der Card)
+      hint?.addEventListener('click', (e)=>{
+        const isInsideCard = e.composedPath().some(el=>el instanceof HTMLElement && el.classList && el.classList.contains('hint-card'));
+        if(!isInsideCard) closeHint(true);
+      });
+
+      helpBtn?.addEventListener('click', (e)=>{ e.stopPropagation(); openHint(); });
+      closeBtn?.addEventListener('click', (e)=>{ e.stopPropagation(); closeHint(false); });
+      okBtn?.addEventListener('click', (e)=>{ e.stopPropagation(); closeHint(true); });
+      laterBtn?.addEventListener('click', (e)=>{ e.stopPropagation(); closeHint(false); });
+
+      // ESC schließt nur den Hinweis-Dialog (nicht die App)
+      window.addEventListener('keydown', (e)=>{
+        if(!hint.hidden && e.key === 'Escape'){
+          e.stopPropagation();
+          closeHint(false);
+        }
+        // H toggelt Hilfe
+        if(e.key.toLowerCase() === 'h'){
+          if(hint.hidden) openHint(); else closeHint(false);
+        }
+      }, true);
+
+      // Auto-Open (einmalig), OHNE Fokus -> Seite bleibt oben
+      try{
+        const seen = localStorage.getItem(SEEN_KEY);
+        if(!seen) setTimeout(openHint, 350);
+      }catch(e){
+        setTimeout(openHint, 350);
+      }
+
+      // Spotlight-Parallax – Overlay folgt dem Mauszeiger
+      function moveSpotlightPoint(xPct,yPct){
+        hint.style.setProperty('--cx', `${xPct}%`);
+        hint.style.setProperty('--cy', `${yPct}%`);
+      }
+      function moveSpotlight(evt){
+        if(!hint || hint.hidden) return;
+        const rect = hint.getBoundingClientRect();
+        const x = ((evt.clientX - rect.left) / rect.width) * 100;
+        const y = ((evt.clientY - rect.top) / rect.height) * 100;
+        moveSpotlightPoint(x,y);
+      }
+      const frame = document.querySelector('.webxr-frame');
+      frame?.addEventListener('mousemove', moveSpotlight);
+      frame?.addEventListener('touchmove', (e)=>{
+        if(!e.touches?.[0]) return;
+        const t = e.touches[0];
+        moveSpotlight({clientX:t.clientX, clientY:t.clientY});
+      }, {passive:true});
+    })();
+  </script>
+
+  <!-- Vite/Dev-Bundle (ersetzen bei Build) -->
+</body>
+</html>
