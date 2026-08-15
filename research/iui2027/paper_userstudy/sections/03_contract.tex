@@ -1,89 +1,143 @@
 \section{Interaction Contract}
 \label{sec:contract}
 
-This section formalizes the contract through one running example.  A visitor
-selects \texttt{brand\_panel3} while the Lounge Host is active.  The model
-assigns the panel to the Reception Agent, which provides a grounded-answer
-capability bound to the backend chat action.  It anchors the failure model and
-checks below.
+Software contracts commonly guard technical boundaries.  In an intelligent
+interface, however, the same decisions also determine what the system may show,
+which agent may respond, and what explanation or correction point the user
+receives.  We illustrate this connection through one running scenario: a
+visitor selects \texttt{brand\_panel3} while the Lounge Host is active.  The
+system must preserve the selected panel, determine whether the Lounge Host or
+the Reception Agent is responsible, enforce any permitted handoff, invoke the
+corresponding capability, and present an answer only while that target--agent
+relation remains intact.
 
-\subsection{Failure model}
+\subsection{Interaction-design rationale and failure model}
 
-A fluent response can still hide an unknown panel, ambiguous responsibility,
-a forbidden handoff, or evidence for another target.  Table~\ref{tab:failure-model}
-groups such failures by the inconsistent relation.  They define the tested
-boundary, not prevalence.
+The contract is not itself a user-interface widget.  It is a typed state and
+evidence layer from which the interface derives four forms of transparency:
+\emph{reference transparency} (what object the system believes was selected),
+\emph{responsibility transparency} (which agent may act and why),
+\emph{capability transparency} (what operation is available), and
+\emph{outcome transparency} (whether the returned response still matches the
+pending interaction).  These goals reflect established human--AI interaction
+principles: make system status and capability boundaries visible, communicate
+why the system acted as it did, and leave users a clear recovery path when the
+system cannot proceed \cite{amershi2019guidelines,yang2020reexamining,weisz2024design}.
+They also correspond to explanation questions users may reasonably ask, such as
+``What did the system select?'', ``Why did this agent answer?'', ``Why not the
+agent I approached?'', and ``Why was the request blocked?''
+\cite{liao2020questioning}.
+
+The prototype uses progressive disclosure rather than exposing the complete
+contract trace to visitors.  A spatial highlight communicates the current
+target in place; a handoff cue names a change of responsible agent; and a short,
+neutral guidance message communicates ambiguity, unreachability, or an
+unavailable capability.  Detailed identifiers and violated relations remain
+available for developer diagnosis.  These mappings are design choices, not
+claims that a badge or visual cue is universally preferable to text, speech, a
+persistent responsibility panel, or an explicit clarification dialogue.  The
+formal contract is presentation-independent and can support any of these
+alternatives.  Moreover, explanation should not be treated as an automatic
+trust intervention: explanations can increase acceptance without necessarily
+improving appropriate reliance \cite{bansal2021whole}.  We therefore frame the
+signals as support for transparency, comprehension, and user control, and
+evaluate the implemented mapping empirically rather than assuming its benefit.
+
+A fluent response can otherwise mask critical interaction breakdowns, such as
+referencing an unintended object, presenting an agent as responsible when the
+model does not declare that responsibility, or silently failing a handoff.
+Table~\ref{tab:failure-model} maps each cross-layer failure to the contract
+boundary and to the corresponding transparency or recovery signal.  The final
+column describes the current prototype mapping; another interface may render
+the same contract state differently.
 
 \begin{table*}[t]
-  \caption{Cross-layer failures addressed by the executable contract.}
+  \caption{Cross-layer failures, contract decisions, and their interaction-design implications.}
   \label{tab:failure-model}
   \small
-  \begin{tabularx}{\textwidth}{@{}p{22mm}Y Y Y@{}}
+  \begin{tabularx}{\textwidth}{@{}p{22mm}Y p{34mm}Y@{}}
     \toprule
-    Failure & Example & Contract decision & Observable consequence \\
+    Failure & Cross-layer condition & Contract decision & User-facing transparency and control \\
     \midrule
     Target identity
       & A collider reports an unknown entity, an obsolete model hash, or a
         source identifier shared by several objects.
-      & Reject before routing.
-      & No response-model call; target relation and stage are reported. \\
+      & Reject before routing or response generation.
+      & Clear or invalidate the selection cue and state that the target could
+        not be grounded, rather than answering about a guessed object. \\
     Target ambiguity
-      & The client reports several candidates or a non-resolved deictic state.
-      & Reject rather than selecting a candidate.
-      & The interface remains in an unresolved state. \\
+      & Several raycast candidates overlap, or a deictic request has no unique
+        referent.
+      & Reject candidate selection instead of choosing silently.
+      & Keep the unresolved state visible and request a new or disambiguated
+        selection. \\
     Responsibility drift
       & The active agent is not the unique owner and has no declared direct
         handoff to the owner.
-      & Resolve asset, then group, then zone ownership; require one owner at the
-        highest matching tier and at most one direct handoff.
-      & Local/direct routes proceed; transitive or unreachable routes stop. \\
+      & Apply the responsibility hierarchy and permit at most one direct
+        handoff.
+      & Name a valid handoff and its destination; otherwise give a scoped
+        refusal that distinguishes ``not responsible'' from a generic failure. \\
     Action shortcut
       & A scenario or client attempts to invoke an endpoint without a matching
         provider-specific capability and runtime binding.
-      & Require an exact scenario-step--capability-use--capability--binding--action
+      & Require one exact scenario-step--capability-use--capability--binding--action
         path.
-      & Zero or multiple exact mappings fail closed. \\
+      & Do not call the response model; communicate that the requested
+        capability is unavailable for this target and provider. \\
     Evidence mismatch
       & A response names a different target, provider, binding, or action from
         the pending request.
-      & Reject presentation and retain the failed relation.
-      & A transport-level success is not treated as contract success. \\
+      & Reject presentation and retain the violated relation.
+      & Block the mismatching answer while preserving the visible pending
+        target, so transport success is not presented as interaction success. \\
     Undeclared handoff
       & The response model proposes an agent that is not an allowed handoff
         target.
-      & Validate the proposed response before commit.
-      & Provisional history is rolled back. \\
+      & Validate the proposal before commit and roll back provisional state.
+      & Abort the handoff transition and report that the proposed delegation is
+        not available, leaving a clean correction point. \\
     \bottomrule
   \end{tabularx}
 \end{table*}
 
 \subsection{Contract objects and executable path}
 
-A contract-grounded interaction is represented by
+A contract-grounded interaction is represented by the tuple
 \[
 \mathcal{I} =
-\langle m,s,t,p,u,c,b,a,q,o\rangle ,
+\langle m,s,t,p,u,c,b,a,q,o\rangle .
 \]
-where \(m\) is the pinned model and hash, \(s\) a scenario step, \(t\) the
-target, \(p\) the provider, \(u\) the capability use, \(c\) the capability,
-\(b\) the runtime binding, \(a\) the concrete action, \(q\) the assertions,
-and \(o\) the observation evidence.  In the example, \(t\) is
-\texttt{brand\_panel3}, \(p\) is the Reception Agent, \(s,u,c\) describe the
-grounded answer, \(b,a\) map it to backend chat, and \(q,o\) check the
-returned path.
+The symbols form three connected layers.  The interaction context consists of
+the pinned model and hash \(m\) and scenario step \(s\).  The user-visible
+referent and responsibility are the target \(t\) and provider \(p\), while
+\(u\) and \(c\) record the context-specific capability use and its reusable
+capability.  Execution and evidence are represented by runtime binding \(b\),
+concrete action \(a\), assertions \(q\), and observations \(o\).  Thus, the
+formal tuple answers the same questions exposed by the interface: what was
+selected, who may respond, what may be executed, and what evidence justifies
+presentation.
+
+In the running example, \(t\) is \texttt{brand\_panel3}, \(p\) resolves to the
+Reception Agent, \(s,u,c\) describe grounded answering, \(b,a\) map that
+capability to backend chat, and \(q,o\) retain the target and provider evidence
+required before the answer can be shown.
 
 The required declaration path is
 \[
 s \rightarrow u \rightarrow c \rightarrow b \rightarrow a.
 \]
-The step cannot invoke \(a\) directly.  Its capability use must name the
-provider and targets and resolve one capability, binding, and action; a
-validation case covers the same binding and assertions.  Thus, a generic
-\texttt{POST /chat} call cannot replace the declaration that the Reception
-Agent may answer about this panel.
+A scenario step cannot invoke action \(a\) directly.  Its capability use \(u\)
+must name the provider and targets and resolve exactly one capability, binding,
+and action; a validation case covers the same binding and assertions.  This
+prevents a generic \texttt{POST /chat} invocation from bypassing the declaration
+that the Reception Agent may answer about this panel.  It also supplies a
+traceable answer to ``why this operation?'': the operation is not selected by
+endpoint type alone but by the target-specific scenario, provider, and
+capability relation.
 
 The provider \(p\) is resolved independently of display names.  For target
-\(t\), the resolver selects the most specific non-empty tier:
+\(t\), the resolver selects the most specific non-empty responsibility tier:
 \[
 R(t) =
 \begin{cases}
@@ -92,37 +146,60 @@ R_{\mathrm{group}}(t), & \text{otherwise if non-empty},\\
 R_{\mathrm{zone}}(t), & \text{otherwise}.
 \end{cases}
 \]
-Exactly one agent at that tier is required; several are ambiguous and none is
-unassigned.  The panel's asset-level owner is the Reception Agent, so group or
-zone owners do not override it.  If another agent is active, one declared
-handoff may reach the provider; longer routes are diagnostic only.
+Exactly one agent at the selected tier is required; several owners are
+ambiguous and no owner leaves the target unassigned.  The rule is a policy of
+specificity, not a psychological model of whom visitors will intuitively expect
+to answer: an explicit asset-level assignment overrides broader group and zone
+defaults.  For \texttt{brand\_panel3}, this selects the Reception Agent.  If the
+Lounge Host is active, one declared handoff may reach that provider; longer
+routes remain diagnostic only.
+
+This distinction has a direct interaction-design consequence.  A deterministic
+resolver can still appear arbitrary when its provider differs from the active,
+nearest, or most visually salient agent.  The interface should therefore expose
+the selected provider and the reason for a handoff instead of asking users to
+infer the asset--group--zone policy.  The contract supplies that explanation
+state; the user study examines whether the current cues actually make the
+provider transition and division of responsibility understandable.
 
 \subsection{Admission and response conditions}
 
-A deictic request is admitted only if:
+A deictic request is admitted only if the following conditions hold.  Each gate
+is both a technical check and a possible explanation or recovery point:
 
 \begin{enumerate}
-  \item the session is pinned to \(m\), and the supplied model hash equals the
-  current project hash and stored contract fingerprint;
-  \item the supplied entity and source identifier resolve to the same unique
-  scene asset in \(m\), with a resolved, non-ambiguous selection state;
-  \item the responsibility rule yields one provider \(p\), and \(p\) is either
-  the active agent or one permitted direct handoff away;
-  \item one capability use \(u\) for the trusted target and provider resolves to
-  one capability \(c\), binding \(b\), and action \(a\);
-  \item the request conforms to the declared action schema.
+  \item \textbf{Environment consistency---is this still the same scene?}
+  The session is pinned to \(m\), and the supplied model hash equals the current
+  project hash and stored contract fingerprint.
+
+  \item \textbf{Reference clarity---what object was selected?}
+  The supplied entity and source identifier resolve to the same unique scene
+  asset in \(m\), with a resolved, non-ambiguous selection state.
+
+  \item \textbf{Responsibility clarity---why may this agent answer?}
+  The responsibility rule yields exactly one provider \(p\), and \(p\) is
+  either the active agent or one permitted direct handoff away.
+
+  \item \textbf{Capability clarity---what may the agent do here?}
+  One capability use \(u\) for the trusted target and provider resolves to one
+  capability \(c\), binding \(b\), and action \(a\).
+
+  \item \textbf{Executable request---can this operation run safely?}
+  The request conforms to the declared action schema.
 \end{enumerate}
 
-These checks confirm the pinned room and panel identity,
+For the running example, these gates confirm the pinned room and panel identity,
 resolve the Reception Agent, permit the Lounge Host's direct handoff, and select
-the grounded-answer action before the response model is called.  The proposal
-is then compared with that path: handoffs must be declared and all returned
-identifiers must agree.  A match is committed with evidence; another target or
-undeclared agent rolls back provisional state.  Later observations evaluate the
-assertions as pass, fail, inconclusive, or error.
+the grounded-answer action before the response model is called.  The generated
+proposal is then compared with the admitted path: handoffs must be declared and
+all returned identifiers must agree.  A match is committed with evidence;
+another target or undeclared agent rolls back provisional state.  Later
+observations evaluate the assertions as pass, fail, inconclusive, or error.
 
-Figure~\ref{fig:admission-boundary} shows the order.  Identity, responsibility,
-and operation precede generation; response agreement precedes presentation.
+Figure~\ref{fig:admission-boundary} shows the order and separates the technical
+gates from their interface consequences.  The current cues use lightweight
+visual status and short guidance text; the contract itself does not require
+that particular presentation.
 
 \begin{figure*}[t]
   \centering
@@ -132,9 +209,9 @@ and operation precede generation; response agreement precedes presentation.
       draw,
       rounded corners=2pt,
       align=center,
-      text width=28mm,
+      text width=27mm,
       minimum height=17mm,
-      inner sep=2mm
+      inner sep=1.5mm
     },
     gate/.style={
       stage,
@@ -147,21 +224,22 @@ and operation precede generation; response agreement precedes presentation.
       align=center,
       text width=38mm,
       minimum height=14mm,
-      inner sep=2mm,
+      inner sep=1.5mm,
       dashed
     },
     flow/.style={-{Latex[length=2.2mm]},semithick},
     fail/.style={-{Latex[length=2.2mm]},dashed},
     label/.style={font=\scriptsize,align=center,fill=white,inner sep=1pt}
   ]
-    \node[stage] (select) at (0,0) {\textbf{Unity selection}\\
-      stable entity/source ID\\and selection state};
+    \node[stage] (select) at (0,0) {\textbf{1. Target selection}\\
+      stable entity/source ID\\
+      \textit{UI: spatial highlight}};
     \node[gate] (identity) at (3.35,0) {\textbf{Gate 1: identity}\\
       pinned hash, unique asset, no ambiguity};
     \node[gate] (route) at (6.70,0) {\textbf{Gate 2: responsibility}\\
       asset $>$ group $>$ zone; local or direct};
-    \node[gate] (binding) at (10.05,0) {\textbf{Gate 3: operation}\\
-      exact scenario, provider, capability, binding, action};
+    \node[gate] (binding) at (10.05,0) {\textbf{Gate 3: capability}\\
+      exact scenario, provider, binding, action};
     \node[stage] (model) at (13.40,0) {\textbf{Response model}\\
       called only after deterministic preflight};
 
@@ -170,47 +248,75 @@ and operation precede generation; response agreement precedes presentation.
     \draw[flow] (route) -- (binding);
     \draw[flow] (binding) -- (model);
 
-    \node[reject] (reject) at (4.85,-3.25) {\textbf{Reject with location}\\
-      stage + violated relation; no model call or retained mutation};
+    \node[reject] (reject) at (4.85,-3.25) {\textbf{Clarify or guide}\\
+      expose target, responsibility, or capability problem; preserve a clean correction point};
     \draw[fail] (identity.south) to[bend right=13]
-      node[label,left,pos=.52] {stale/ambiguous} (reject.north west);
+      node[label,left,pos=.52] {stale or ambiguous} (reject.north west);
     \draw[fail] (route.south) --
       node[label,right,pos=.48] {no unique/permitted provider} (reject.north);
     \draw[fail] (binding.south) to[bend left=13]
-      node[label,right,pos=.52] {zero/multiple bindings} (reject.north east);
+      node[label,right,pos=.52] {zero/multiple actions} (reject.north east);
 
-    \node[gate] (evidence) at (13.40,-3.25) {\textbf{Gate 4: response}\\
-      declared handoff and identifier agreement};
+    \node[gate] (evidence) at (13.40,-3.25) {\textbf{Gate 4: evidence}\\
+      target, provider, action, and handoff agreement};
     \node[stage,text width=35mm] (present) at (9.30,-3.25)
-      {\textbf{Commit and present}\\
-      evidence retains target, provider, route, and action};
+      {\textbf{2. Commit and present}\\
+      render grounded answer and responsible-agent state};
     \draw[flow] (model) -- (evidence);
     \draw[flow] (evidence) -- (present);
 
-    \node[reject] (rollback) at (13.40,-5.65) {\textbf{Rollback}\\
-      discard response-dependent proposal and provisional history};
+    \node[reject] (rollback) at (13.40,-5.65) {\textbf{Rollback and explain}\\
+      discard mismatching proposal; retain pending target; report unavailable handoff};
     \draw[fail] (evidence) --
-      node[label,left] {undeclared handoff or mismatch} (rollback);
+      node[label,left] {mismatch or undeclared handoff} (rollback);
   \end{tikzpicture}
-  \caption{Fail-closed admission path.  Unity proposes a selected target, but
-  the backend re-resolves identity, responsibility, and the exact operation
-  from the pinned contract before generation.  Request-decidable failures stop
-  before the response model; response-dependent failures roll back the
-  proposal.}
-  \Description{A two-row pipeline begins with a Unity selection and then passes
-  through identity, responsibility, and operation gates before a response
-  model.  Those preflight gates point to a rejection box.  The response then
-  passes through an evidence gate before commit and presentation; a failed
-  response points to a rollback box.}
+  \caption{Fail-closed interaction boundary and its transparency points.  The
+  backend re-resolves identity, responsibility, and capability before invoking
+  the response model.  Each rejection can be translated into a specific
+  clarification or guidance state instead of a generic error.  After
+  generation, evidence agreement determines whether the answer is presented or
+  rolled back.  The shown highlight, handoff, and guidance cues are the current
+  prototype mapping, not requirements of the formal contract.}
+  \Description{A two-row pipeline begins with target selection and a spatial
+  highlight.  Identity, responsibility, and capability gates precede the
+  response model and point to a clarification and guidance state when they
+  fail.  The response then passes through an evidence gate before commit and
+  presentation.  A mismatching response or undeclared handoff points to a
+  rollback and explanation state.}
   \label{fig:admission-boundary}
 \end{figure*}
 
-\subsection{Guarantee boundary}
+\subsection{Guarantee boundary and interaction claims}
 
-The implementation provides a \emph{model-consistency guarantee}, not semantic
-correctness.  If the example is admitted, one trusted panel resolves to one
-provider reachable by at most one handoff and one capability-to-action binding;
-the response carries matching identifiers.  The guarantee does not establish
-that the visitor intended the collider, that the Reception Agent's knowledge is
-correct, or that the generated answer is good.  Those properties require
-trusted sensing, semantic ground truth, and human or task-level evaluation.
+The implementation provides a \emph{model-consistency guarantee}, together
+with structured evidence that an interface may use for transparency.  Its
+boundary is deliberately narrower than semantic correctness or improved trust:
+
+\begin{itemize}
+  \item \textbf{System consistency.} If the example is admitted, one trusted
+  panel resolves to one declared provider reachable by at most one handoff and
+  one capability-to-action binding.  The response is presented only when its
+  target, provider, handoff, binding, and action evidence agree with that path.
+
+  \item \textbf{Transparency and control support.} The same relations identify
+  what the system selected, why a provider was chosen, where a handoff occurred,
+  and which gate rejected a request.  This supports specific feedback,
+  explanation, and correction states instead of silent fallback.
+
+  \item \textbf{Not guaranteed.} The contract does not establish that the
+  visitor intended the selected collider, that the provider assignment matches
+  every visitor's expectation, that generated content is factually correct, or
+  that a particular visual cue improves comprehension, usability, or calibrated
+  trust.
+\end{itemize}
+
+The interaction-design hypothesis is therefore not that adding a badge or an
+explanation automatically creates trust.  It is that an explicit contract
+provides the minimum state needed to communicate target, responsibility,
+handoff, capability, and rejection without inventing a post-hoc rationale.  Our
+user study tests this concrete mapping by examining target-selection clarity,
+answer--target fit, handoff observation and understanding, final-agent clarity,
+perceived responsibility, predictability, guidance, and overall ease.  This
+connects the formal guarantee to an empirical HCI question: not only whether the
+system follows its declared path, but whether users can understand the parts of
+that path that the interface exposes.
