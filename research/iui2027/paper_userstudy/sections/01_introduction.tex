@@ -1,0 +1,141 @@
+\section{Introduction}
+\label{sec:introduction}
+
+A visitor enters a virtual exhibition, points to a product display, and asks an
+embodied agent, ``What is this?'' The environment might contain multiple agents
+(such as a receptionist, a product specialist, or a career advisor), each with
+unique responsibilities and capabilities. Generating a fluent answer does not
+guarantee that the interaction was correct: the system must also track the
+targeted object, identify the responsible agent, verify that the required
+capability is explicitly declared for that agent, execute the intended action,
+and ensure the resulting response remains anchored to the same object.
+
+This execution chain easily breaks because its components are spread across
+different architectural layers: a 3D engine (e.g., Unity) manages scene objects,
+colliders, and user state; configuration files specify agent roles;
+orchestration logic routes requests; and backend services call models or tools,
+frequently logging nothing beyond request success. Consequently, individual
+components may appear valid locally while the overall interaction fails---for
+instance, the answer might refer to a different object, originate from an
+unauthorized agent, or stem from an undeclared operation. Although our prototype
+uses Unity, this cross-layer mismatch is representative of similar multi-tiered
+architectures.
+
+In intelligent user interfaces, successful network transport or model invocation
+does not equal interaction validity. Before text generation starts, the system
+must answer four deterministic questions: which object was targeted, which
+agent owns responsibility for it, which capability is assigned to that agent
+and request, and which specific backend action implements this capability.
+Following generation, the system must verify that the output remains aligned
+with the selected object and responsible agent.
+
+We present an \emph{executable interaction contract}, \systemname{}
+(Functional Meta-Language-defined Structure), extending the MLDS
+(Meta-Language-defined Structure) artifact \cite{fischer2025machinereadable}.
+This contract maintains alignment between target, provider, capability, action,
+and evidence under a fixed model version, while rejecting and localizing
+incomplete, outdated, ambiguous, unreachable, or conflicting execution chains.
+
+Three key requirements, grounded in human--AI interaction guidelines
+\cite{amershi2019guidelines,yang2020reexamining,weisz2024design}, drive this design:
+
+\begin{description}
+\item[Stable spatial reference.] The focused object remains the active
+target throughout request construction, and the output is presented only when
+returned identifiers match that target.
+
+\item[Visible unresolved states.] Conditions like \emph{no target} or
+\emph{ambiguous target} explicitly prevent deictic queries instead of
+defaulting to a fluent yet ungrounded response.
+
+\item[Capability-aware, inspectable routing.] Agent selection depends on
+modeled roles and capabilities; the chosen provider, handoff step, capability,
+and action are preserved as structured evidence to inform UI cues or user
+explanations.
+\end{description}
+
+While these mechanisms establish a technical control boundary, their utility in
+intelligent interfaces depends on whether users can comprehend the interaction
+flow. The contract activates only after a target object is chosen; it neither
+infers unstated intent nor guarantees the factual accuracy of generated text.
+However, it guarantees that the chosen object is reliably linked to a declared
+provider, capability, and action, making parts of this linkage visible to the
+user.
+
+Consequently, we evaluate our system from two perspectives: a technical benchmark
+measuring contract coverage, non-regression, runtime enforcement, fault
+localization, and overhead cost; alongside a user study examining whether
+participants correctly identify the target object, observe handoffs, recognize
+the responding agent, and understand the system's delegation of responsibilities
+based on contract-driven visual cues. This empirical evaluation focuses
+specifically on the implemented interaction, measuring task clarity,
+predictability, guidance, and usability, rather than long-term trust or general
+cross-domain applicability.
+
+We address four central research questions:
+
+\begin{description}
+\item[RQ1---Coverage and non-regression.] Can multi-agent 3D environments
+be adapted to end-to-end target--provider--capability--action chains while
+maintaining existing ownership rules and routing logic under a fixed policy?
+
+\item[RQ2---Fail-closed enforcement.] Does the implemented communication path
+accept only valid local and single-hop requests, retain target and provider
+evidence, and cleanly reject stale, ambiguous, unreachable, or conflicting
+requests?
+
+\item[RQ3---Added assurance and cost.] What cross-layer inconsistencies
+can the contract catch and isolate beyond direct artifacts, and what are the
+associated representation and performance overheads?
+
+\item[RQ4---User comprehension.] How accurately do users perceive the chosen
+target, the object--answer mapping, handoffs, and agent responsibilities, and
+how predictable and supportive do they find the interaction?
+\end{description}
+
+This work provides four main contributions:
+
+\begin{enumerate}
+\item an interaction-centered failure taxonomy and executable contract binding
+spatial selections to a single responsible provider, capability, action, and
+evidence trace under a pinned model version;
+
+\item a fail-closed system architecture spanning a Unity 3D client and
+multi-agent backend featuring authoritative server-side resolution, staged
+validation, strict one-hop handoff rules, and transactional response
+verification;
+
+\item a reproducible, API-free technical evaluation across three 3D
+environments, including chain audits, non-regression comparisons with direct
+wiring, routing probes, fault injection, and structural cost analysis; and
+
+\item a user study evaluating target clarity, answer--target alignment,
+handoff perception, agent role recognition, predictability, and user guidance.
+\end{enumerate}
+
+Our technical evaluation indicates that the contract maintains baseline system
+behavior, strictly enforces one-hop policies, and detects cross-layer
+discrepancies that native artifacts miss. The empirical user study complements
+these findings: while users readily grasped object selection, target--answer
+grounding, and handoff events, agent selection rationales and functional
+boundaries were less intuitive. This demonstrates that while a contract can
+reliably enforce backend responsibilities, additional interface cues are
+necessary for full user clarity.
+
+The complete prototype, model artifacts, evaluation scripts, raw data, study
+materials, and reproduction guidelines are made available in the anonymous
+repository. We do not claim that formal metamodels alone grant intelligence
+to interfaces; rather, explicit relations constrain what systems interpret and
+execute, reducing errors like wrong-target references or undeclared actions into
+predictable, auditable bounds.
+
+Section~\ref{sec:related} outlines related research on embodied agents, spatial
+reference, conversational XR, model-driven engineering, and runtime
+verification. Section~\ref{sec:contract} details the proposed contract and its
+formal guarantees; Section~\ref{sec:implementation} describes its
+implementation across Unity, the backend, and evidence tracing.
+Sections~\ref{sec:evaluation} and~\ref{sec:results} present technical benchmarks
+and user study findings. Section~\ref{sec:discussion} explores system trade-offs,
+costs, and communication boundaries, while Sections~\ref{sec:limitations}
+and~\ref{sec:conclusion} outline limitations and conclusions. Supplementary
+materials are included in the appendix.

@@ -1,0 +1,151 @@
+\section{Related Work and Positioning}
+\label{sec:related}
+
+\subsection{Embodied agents and spatial reference}
+
+Embodied conversational agents combine language with a visible body, gesture,
+gaze, and shared space \cite{cassell1999embodiment}.  Museum-guide systems show
+why the location and social role of an agent matter to interaction
+\cite{kopp2005museum,bickmore2011museum}, while recent generative-agent and
+multi-agent work adds memory, role specialization, and language-mediated
+coordination \cite{park2023generative,li2023camel}.  These systems motivate the
+multi-agent setting considered here, but a role or dialogue policy does not by
+itself bind an utterance to one Unity entity and one executable operation.
+
+Situated-language research addresses the upstream reference problem.
+Approaches combine plan recognition with referring expressions
+\cite{gorniak2005grounding}, map directions into perceived environments
+\cite{kollar2010directions}, maintain symbolic anchors for discourse
+\cite{lemaignan2012grounding}, and learn perceptually grounded word meanings
+\cite{kennington2015reference}.  MM-Conv extends this line with synchronized
+speech, motion, gaze, and scene context for ambiguous reference in dynamic 3D
+dialogue \cite{deichler2026mmconv}.  Our contract does not compete with these
+resolvers: it accepts a candidate selection and checks whether the modeled
+interface permits that target to reach a specific provider and action.  A
+learned or multimodal resolver could therefore replace the current desktop ray
+without changing the downstream admission questions.
+
+\subsection{Conversational XR and model-based interface engineering}
+
+Language models increasingly author or operate immersive environments.  LLMR
+uses prompting, scene understanding, planning, execution, and self-debugging to
+edit mixed-reality worlds \cite{delatorre2024llmr}.  Tell-XR supports
+conversational end-user development of event--condition--action automations
+\cite{carcangiu2025tellxr}; CUIfy packages LLM-powered conversational agents
+for XR \cite{buldu2025cuify}; and AgentHands studies gestures for spatially
+grounded agent conversations \cite{liu2026agenthands}.  These systems establish
+that conversational generation, agent embodiment, and XR interaction are
+valuable and feasible.  The issue studied here is narrower: after a world and
+its agents exist, can the interface prevent a selected object, responsible
+agent, backend action, and returned evidence from silently diverging?
+
+Model-based interface development has long separated domain, task, abstract
+interface, and concrete implementation concerns
+\cite{puerta1999framework,calvary2003cameleon}.  UsiXML and MARIA support
+multiple development paths and abstraction levels
+\cite{limbourg2005usixml,paterno2009maria}, while OpenUIDL addresses runtime
+omni-channel interfaces \cite{moldovan2020openuidl}.  Model-driven work for
+immersive applications likewise generates AR applications from domain models
+\cite{camposlopez2023mdear} or structures VR requirements around roles,
+scenes, actions, states, and validation \cite{karre2024vrrequirements}.
+\systemname{} is not a general UI description language.  It specializes the
+runtime link among spatial entities, embodied-agent responsibility, permitted
+capabilities, concrete operations, and observable assertions.
+
+The closest lineage is MLDS.  Fischer et al.\ define a
+Meta-Language-defined Structure as a machine-readable artifact governed by a
+domain-specific language specification \cite{fischer2025machinereadable}.
+Prior work already uses this idea for natural-language-to-Unity materialization
+and optional placement refinement \cite{burk2025dynamicvr}, and modular MLDS
+instructions add profiles, dependencies, versions, and gatekeeper validation
+for evolving toolchains \cite{burk2026modular}.  Consequently, this paper does
+not claim novelty for MLDS-to-Unity generation, placement, or modular language
+specification.  Its contribution begins at interaction time: the same typed
+relations used during materialization remain active as an admission and
+evidence contract.
+
+\subsection{Human--AI control, contracts, and provenance}
+
+Human--AI interaction guidelines emphasize communicating system capability and
+status, making uncertainty visible, enabling correction, and supporting
+recovery \cite{amershi2019guidelines,yang2020reexamining,weisz2024design}.
+Explanations should answer questions people actually have
+\cite{liao2020questioning}, but explanation alone does not guarantee improved
+joint performance \cite{bansal2021whole}.  These findings motivate explicit
+selection states and structured route evidence.  They do not justify a claim
+that the current diagnostic payload is usable or beneficial; the evaluation
+tests conformance to the declared behavior, not human outcomes.
+
+Design by Contract separates preconditions, postconditions, and invariants
+\cite{meyer1992contract}; runtime verification evaluates specified properties
+against execution observations \cite{leucker2009runtime}.  We adopt this
+enforcement intuition without claiming formal program verification.
+The relevant obligations cross implementation layers: a request must use a
+pinned model, a unique target, a responsible and reachable provider, and an
+exact action binding; a response must preserve those identifiers.  W3C PROV
+shows how entities, activities, and agents can support exchangeable provenance
+\cite{lebo2013provo}, and failure-attribution work demonstrates that output-only
+traces are insufficient for multi-agent diagnosis \cite{chen2026elephant}.
+Our evidence is intentionally smaller than a full reasoning trace: it records
+contract identifiers and observable outcomes, not private chain-of-thought or
+an explanation of semantic answer quality.
+
+Requirements traceability is relevant because a link is valuable only when it
+supports reasoning about change and failure
+\cite{gotel1994traceability,maeder2015benefit}.  The evaluation therefore does
+not count links alone.  It tests whether valid cases resolve end to end,
+whether controlled mutations are localized, whether runtime requests are
+admitted or rejected at the intended boundary, and what representational cost
+the links introduce.
+
+\subsection{Positioning}
+
+Table~\ref{tab:positioning} distinguishes the unit constrained by representative
+work.  Conversational-XR systems primarily generate or control worlds;
+reference-resolution systems infer a target; model-based UI approaches connect
+abstract and concrete interfaces; and multi-agent systems coordinate roles.
+The present contract starts from a selected candidate and constrains the
+specific path that may cross the Unity--backend boundary.
+
+\begin{table*}[t]
+  \caption{Positioning by primary unit and assurance locus.  The distinctions
+  state the focus of this paper; they do not imply that a cited system lacks
+  mechanisms outside its stated contribution.}
+  \label{tab:positioning}
+  \small
+  \begin{tabularx}{\textwidth}{@{}p{27mm}Y Y Y@{}}
+    \toprule
+    Work & Primary represented unit & Main interface/runtime emphasis &
+    Distinction of this work \\
+    \midrule
+    LLMR \cite{delatorre2024llmr} and Tell-XR
+    \cite{carcangiu2025tellxr}
+      & World edits or event--condition--action automations
+      & Conversational generation and end-user authoring
+      & We constrain an already materialized request through target, provider,
+        capability, and action. \\
+    Spatial grounding \cite{gorniak2005grounding,lemaignan2012grounding}
+      & Referring expression, perception, and candidate referent
+      & Inferring what a person refers to
+      & We begin after candidate selection and test whether the selected entity
+        has a permitted executable path. \\
+    Model-based UI engineering
+    \cite{puerta1999framework,calvary2003cameleon,paterno2009maria}
+      & Tasks, domain concepts, and abstract/concrete interfaces
+      & Transformation across abstraction and deployment levels
+      & We specialize the runtime boundary to spatial entities, agents,
+        capabilities, actions, and evidence. \\
+    MLDS lineage
+    \cite{fischer2025machinereadable,burk2026modular}
+      & Machine-readable artifacts and modular language specifications
+      & Generation, validation, profiles, and toolchain evolution
+      & We keep one typed artifact active during request admission and response
+        presentation. \\
+    This work
+      & Pinned target--provider--capability--action--assertion contract
+      & Fail-closed spatial request admission and relation-level evidence
+      & The contribution is the composed boundary and its executable,
+        corpus-bounded evaluation. \\
+    \bottomrule
+  \end{tabularx}
+\end{table*}
