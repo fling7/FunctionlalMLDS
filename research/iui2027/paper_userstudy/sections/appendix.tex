@@ -1,4 +1,4 @@
-\section{Detailed Contract and Evaluation Tables}
+\section{Detailed Model, Contract, and Evaluation Tables}
 
 \subsection{Running-scenario identifiers}
 
@@ -43,6 +43,64 @@ prose, while execution uses these stable identifiers.
       & \path{SA-STEINPILZ_BRAND_ROOM-ANSWER-GROUNDED};
         \path{VC-STEINPILZ_BRAND_ROOM-INTERACT-REFRIGERATED_COUNTER1}
       & Declared identifier agreement and validation scope \\
+    \bottomrule
+  \end{tabularx}
+\end{table*}
+
+\subsection{FunctionalMLDS element and relation map}
+
+Table~\ref{tab:functionalmlds-relations} complements the interaction-focused
+view in Figure~\ref{fig:functionalmlds-core}.  It records the selected model
+elements and references used to construct the complete
+\contractpath{} paths evaluated in RQ1; it is a compact map rather than a full
+serialization schema.
+
+\begin{table*}[h]
+  \caption{Selected FunctionalMLDS elements and relations underlying the
+  runtime projection.}
+  \label{tab:functionalmlds-relations}
+  \small
+  \begin{tabularx}{\textwidth}{@{}p{37mm}Y Y@{}}
+    \toprule
+    Elements & Key relation & Role in the running scenario \\
+    \midrule
+    \texttt{DynamicFunctionalModel}; \texttt{RequirementsModel};
+    \texttt{UseCaseDefinitionSet} $\rightarrow$
+    \texttt{UseCaseDefinition} $\rightarrow$ \texttt{UseCase}
+      & One room-specific root links the selected UML/EAST-ADL requirements and
+        use-case foundation to interaction, execution, and validation elements.
+      & Fixes the authoritative cheese-booth model and scopes the visitor goal
+        represented by the counter interaction. \\
+    \texttt{UseCaseScenarioSpecification} $\rightarrow$
+    \texttt{Scenario} $\rightarrow$ \texttt{ScenarioStep}
+      & A use case is refined into ordered steps that identify the performer and
+        the interaction occurrence.
+      & Represents selection of \texttt{refrigerated\_counter1}, the question,
+        and the grounded-answer step. \\
+    \texttt{Actor}; \texttt{Entity};
+    \texttt{Agent} $\subseteq$ \texttt{Entity}
+      & Stable entity/source identifiers ground scene objects; agents additionally
+        reference capabilities, asset/group/zone responsibilities, and permitted
+        handoffs.
+      & Identifies the counter, the active Reception Agent, and the responsible
+        Product Specialist Agent. \\
+    \texttt{CapabilityUse} $\rightarrow$ \texttt{Capability}
+      & A situated capability use names its scenario step, provider, and targets
+        and resolves one reusable capability.
+      & Binds the Product Specialist Agent and selected counter to the
+        grounded-answer capability. \\
+    \texttt{RuntimePlatform}; \texttt{RuntimeBinding} $\rightarrow$
+    \texttt{RuntimeAction}
+      & The declared capability is realized by one platform-specific binding and
+        concrete endpoint, tool, or event.
+      & Resolves the accepted interaction to the exact backend-chat action rather
+        than a generic chat dispatch. \\
+    \texttt{Effect} $\rightarrow$ \texttt{Assertion}; runtime observation;
+    \texttt{VerificationValidation}/\texttt{VVCase}
+      & Assertions define expected results, observations record runtime evidence,
+        and validation cases cover the relevant binding and assertions.
+      & Requires returned target, provider, route, and action identifiers to agree
+        before the answer is presented. \\
     \bottomrule
   \end{tabularx}
 \end{table*}
