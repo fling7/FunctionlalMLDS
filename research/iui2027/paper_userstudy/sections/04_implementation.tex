@@ -1,13 +1,15 @@
 \section{System Realization}
 \label{sec:implementation}
 
-Section~\ref{sec:contract} defined the interaction contract independently of a
-particular implementation.  This section explains how the contract is represented,
-generated, and executed in the prototype.  We first introduce the underlying MLDS
-idea and the FunctionalMLDS extension, then follow the resulting model through the
-3D client, backend admission, and runtime evidence.  The running example remains the
-selected object \texttt{brand\_panel3}, for which the Reception Agent is the modeled
-provider of a grounded answer.
+Section~\ref{sec:contract} introduced the interaction contract through a
+refrigerated cheese display in an explorable multi-agent booth.  This section
+explains how the contract is represented, generated, and executed in the
+prototype.  We first introduce the underlying MLDS idea and the FunctionalMLDS
+extension, then follow the resulting model through the 3D client, backend
+admission, and runtime evidence.  The running interaction remains the selected
+object \texttt{refrigerated\_counter1}, for which the Product Specialist Agent
+is the modeled provider of a grounded answer.  A separate frozen screen capture
+later illustrates the same binding mechanism on \texttt{brand\_panel3}.
 
 \subsection{From MLDS to FunctionalMLDS}
 
@@ -130,15 +132,15 @@ which interaction occurs.  A reusable \texttt{Capability} describes what an agen
 can do.  A \texttt{CapabilityUse} records one concrete occurrence of that ability
 in a scenario and binds it to a provider and one or more targets.  This distinction
 is important: ``answer grounded questions'' is a capability, whereas ``the
-Reception Agent answers about \texttt{brand\_panel3} in this step'' is a capability
-use.  An \texttt{Agent} specializes \texttt{Entity} and additionally records
-provided capabilities, responsible zones, grounded assets and groups, and permitted
-handoffs.  Finally, a \texttt{RuntimeBinding} maps a capability to a platform and
-one or more executable \texttt{RuntimeAction}s, while effects, assertions, and
-verification cases describe what should be observable.  The
-\texttt{DynamicFunctionalModel} root connects these requirements, use cases,
-scenarios, entities, capabilities, runtime mappings, and validation elements in one
-room model.
+Product Specialist Agent answers about \texttt{refrigerated\_counter1} in this
+step'' is a capability use.  An \texttt{Agent} specializes \texttt{Entity} and
+additionally records provided capabilities, responsible zones, grounded assets and
+groups, and permitted handoffs.  Finally, a \texttt{RuntimeBinding} maps a
+capability to a platform and one or more executable \texttt{RuntimeAction}s,
+while effects, assertions, and verification cases describe what should be
+observable.  The \texttt{DynamicFunctionalModel} root connects these
+requirements, use cases, scenarios, entities, capabilities, runtime mappings,
+and validation elements in one room model.
 
 \subsection{Model validity and executable profile}
 
@@ -202,15 +204,15 @@ payload bounds numbers, list sizes, and string lengths.  Missing or ambiguous
 selection is blocked before serialization, although the backend repeats the
 authoritative check.
 
-Figure~\ref{fig:unity-selection} shows the running example.  The selected source
-object \texttt{brand\_panel3} is bound to
+Figure~\ref{fig:unity-selection} shows a separately captured binding example.
+The selected source object \texttt{brand\_panel3} is bound to
 \texttt{ENT-ASSET-BRAND\_PANEL3}.  The screenshot demonstrates the implemented
 desktop path, not a headset study or a finished diagnostic interface.
 
 \begin{figure}[t]
   \centering
   \includegraphics[alt={Unity Game view with a selected product panel and embodied agents},width=\columnwidth]{../paper/figures/unity-model-grounded-selection.png}
-  \caption{Implemented Unity desktop view after loading the model-grounded
+  \caption{Separate captured Unity desktop view after loading the model-grounded
   scene and selecting \texttt{brand\_panel3}.  Runtime admission uses the
   stable entity binding rather than the visible label.}
   \Description{A Unity Game view of a virtual exhibition room with embodied
@@ -277,11 +279,12 @@ clarification dialogues are not implemented or compared.
 
 \subsection{Running example}
 
-For \texttt{brand\_panel3}, the model resolves the exact asset, its branding
-group, and entrance zone.  Asset-level responsibility selects the Reception
-Agent, and one declared handoff reaches it from the Lounge Host.  The
-scenario-specific capability use links that provider and target to the grounded
-answer capability and its backend-chat action; an accepted response must carry
-the same identifiers.  From the Career Advisor, reaching the Reception Agent
-requires two edges, so the request is rejected before the response stub and the
-conversation state remains unchanged.
+For \texttt{refrigerated\_counter1}, the model resolves the exact asset, its
+\texttt{product\_counters} group, and the \texttt{product\_display\_zone}.
+Asset-level responsibility selects the Product Specialist Agent, and one
+declared handoff reaches it from the Reception Agent.  The scenario-specific
+capability use links that provider and target to the grounded-answer capability
+and its backend-chat action; an accepted response must carry the same
+identifiers.  From the Lounge Host, reaching the Product Specialist Agent
+requires two edges through the Reception Agent, so the request is rejected
+before the response stub and the conversation state remains unchanged.
