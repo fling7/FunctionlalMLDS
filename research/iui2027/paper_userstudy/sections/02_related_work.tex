@@ -64,17 +64,21 @@ specification.  Its contribution begins at interaction time: the same typed
 relations used during materialization remain active as an admission and
 evidence contract.
 
-\subsection{Human--AI control, contracts, and provenance}
+\subsection{Human--AI intelligibility, control, contracts, and provenance}
 
 Human--AI interaction guidelines emphasize communicating system capability and
 status, making uncertainty visible, enabling correction, and supporting
 recovery \cite{amershi2019guidelines,yang2020reexamining,weisz2024design}.
-Explanations should answer questions people actually have
-\cite{liao2020questioning}, but explanation alone does not guarantee improved
-joint performance \cite{bansal2021whole}.  These findings motivate explicit
-selection states and structured route evidence.  They do not justify a claim
-that the current diagnostic payload is usable or beneficial; the evaluation
-tests conformance to the declared behavior, not human outcomes.
+Lim and Dey organize intelligibility around recurring user questions such as
+\emph{What}, \emph{Why}, \emph{Why not}, \emph{What if}, and \emph{How to}
+\cite{lim2009demand}; Liao et al.\ adapt this question-driven perspective to
+explainable-AI design \cite{liao2020questioning}.  We use these established
+questions to organize which contract relation can be exposed at each
+interaction gate, rather than introducing a competing explanation taxonomy.
+Because explanations do not automatically improve appropriate reliance or
+joint performance \cite{bansal2021whole}, the contract supplies inspectable
+state while the user study separately evaluates whether the implemented cues
+support target, handoff, and responsibility comprehension.
 
 Design by Contract separates preconditions, postconditions, and invariants
 \cite{meyer1992contract}; runtime verification evaluates specified properties
