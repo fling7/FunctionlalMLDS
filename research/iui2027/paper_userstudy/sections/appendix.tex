@@ -48,6 +48,42 @@ prose, while execution uses these stable identifiers.
 \end{table*}
 \FloatBarrier
 
+\subsection{Runtime terminology}
+
+Table~\ref{tab:runtime-terms} maps the shorter terms used in
+Section~\ref{sec:implementation} to the exact repository and model
+terminology.
+
+\begin{table*}[h]
+  \caption{Reader-facing runtime terms and their exact artifact counterparts.}
+  \label{tab:runtime-terms}
+  \small
+  \begin{tabularx}{\textwidth}{@{}p{31mm}p{48mm}Y@{}}
+    \toprule
+    Paper term & Repository or model term & Meaning \\
+    \midrule
+    Room contract
+      & FunctionalMLDS V2 instance;
+        \path{functionalmlds.v2.instance.json}
+      & Authoritative room-specific model containing interaction, execution,
+        and evidence relations. \\
+    Runtime map
+      & Trace map and runtime context
+      & Executable subset used by the client and backend to resolve one
+        target-specific interaction path. \\
+    Content hash
+      & Model hash and contract fingerprint
+      & Digest that binds the room contract, generated projections, and active
+        session to the same model version. \\
+    Situated capability
+      & \texttt{CapabilityUse}
+      & One occurrence that links a scenario step, target, provider, and
+        reusable capability. \\
+    \bottomrule
+  \end{tabularx}
+\end{table*}
+\FloatBarrier
+
 \subsection{FunctionalMLDS element and relation map}
 
 Table~\ref{tab:functionalmlds-relations} complements the interaction-focused
@@ -105,6 +141,30 @@ serialization schema.
     \bottomrule
   \end{tabularx}
 \end{table*}
+\FloatBarrier
+
+\subsection{Separate implementation capture}
+
+Figure~\ref{fig:unity-binding-capture} records the exact
+collider-to-entity binding used by the Unity client.  It depicts
+\texttt{brand\_panel3}, because it is a frozen implementation capture rather
+than the running cheese-counter walkthrough; both objects use the same exact
+entity/source-ID mechanism.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[
+    alt={Unity Game view with a selected product panel and embodied agents},
+    width=.82\columnwidth
+  ]{../paper/figures/unity-model-grounded-selection.png}
+  \caption{Separate Unity desktop implementation capture.  The selected
+  \texttt{brand\_panel3} collider is bound to its stable model entity; the main
+  text uses \texttt{refrigerated\_counter1} as the running scenario.}
+  \Description{A Unity Game view of a virtual exhibition room with embodied
+  agents and product panels.  One panel is highlighted and annotated with its
+  stable source and model entity identifiers.}
+  \label{fig:unity-binding-capture}
+\end{figure}
 \FloatBarrier
 
 \subsection{Per-case structural results}
