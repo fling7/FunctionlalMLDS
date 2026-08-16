@@ -2,38 +2,35 @@
 \label{sec:implementation}
 
 Section~\ref{sec:contract} defined the relations that must remain consistent.
-Here we show how those relations become interaction state: a retained target
-highlight, an observable handoff, capability-specific guidance, and either a
-grounded answer or a recoverable rejection.  We continue the cheese-booth
-scenario in which the Reception Agent hands a question about
-\texttt{refrigerated\_counter1} to the Product Specialist Agent.  For
-readability, we call the canonical FunctionalMLDS V2 instance the \emph{room
-contract}, its trace-map/runtime-context projection the \emph{runtime map}, and
-the model hash or contract fingerprint the \emph{content hash}; Appendix
-Table~\ref{tab:runtime-terms} lists the corresponding repository terms.
+This section follows the same boundary from the implementation side and focuses
+on what changes for a visitor: a retained target highlight, an observable
+handoff, capability-specific guidance, and either a grounded answer or a
+recoverable rejection.  We continue the cheese-booth scenario in which the
+Reception Agent hands a question about \texttt{refrigerated\_counter1} to the
+Product Specialist Agent.  For readability, we call the canonical
+FunctionalMLDS V2 instance the \emph{room contract}, its
+trace-map/runtime-context projection the \emph{runtime map}, and the model hash
+or contract fingerprint the \emph{content hash}; Appendix
+Table~\ref{tab:runtime-terms} maps these shorter terms to the repository
+terminology.
 
 \subsection{Model relations that drive interface state}
 
 A Meta-Language-defined Structure (MLDS) is a machine-readable artifact whose
 vocabulary and structural rules are defined by an explicit meta-language
 specification \cite{fischer2025machinereadable}.  Each room-specific
-FunctionalMLDS document is such an instance.  Its practical role in the
-interface is to provide one authoritative chain from the selected spatial
-entity, through the responsible agent and permitted capability, to the runtime
-action and the evidence required before an answer may be shown.
+FunctionalMLDS document is such an instance.  Its role at interaction time is
+to provide one authoritative chain from the selected spatial entity, through
+the responsible agent and permitted capability, to the runtime action and the
+evidence required before an answer may be shown.
 
 FunctionalMLDS reuses selected UML and EAST-ADL use-case, requirements, and
 verification concepts as its scenario foundation \cite{eastadl2013spec}; it
-does not claim complete UML or EAST-ADL conformance.  For the interaction, the
-important extension is explicit state for spatial entities, agent
-responsibilities and handoffs, scenario-specific capability uses, runtime
-actions, and expected evidence.  Rather than reproducing the full metamodel,
-Figure~\ref{fig:functionalmlds-core} revisits the
-target--provider--action--evidence sequence introduced as a fail-closed process
-in Figure~\ref{fig:admission-boundary} and traces the concrete FunctionalMLDS
-relations that realize each gate.  Appendix
-Table~\ref{tab:functionalmlds-relations} provides the corresponding compact
-element-and-relation map.
+does not claim complete UML or EAST-ADL conformance.  The runtime-relevant
+extension adds stable spatial entities, agent responsibilities and handoffs,
+situated capability uses, concrete actions, and expected evidence.  Appendix
+Table~\ref{tab:functionalmlds-relations} gives the compact element-and-relation
+map needed to follow the migration and coverage claims in RQ1.
 
 The distinction between a reusable capability and one situated use of it is
 central.  ``Answer grounded questions'' is a capability; ``the Product
@@ -42,115 +39,64 @@ is a capability use.  The latter connects a visible target and responsible
 agent to one executable path, allowing the interface to retain the counter,
 show a provider change, or report that the requested operation is unavailable.
 
+A conventional dialogue manager or finite-state machine could reproduce the
+nominal behavior of this single walkthrough.  The difference appears when
+scene bindings, agent roles, handoffs, and backend actions evolve in separate
+artifacts.  Consider a drift case in which Unity still selects the refrigerated
+counter, the role configuration assigns it to the Product Specialist Agent,
+but a stale backend route invokes a generic Reception Agent action.  A state
+machine can prevent that failure only if it also imports and synchronizes the
+same target, provider, action, and evidence relations.  FunctionalMLDS makes
+that synchronization an explicit, typed, and versioned contract.  The
+user-perceivable benefit is not additional interface chrome: the inconsistent
+turn is blocked, the selection is retained, and guidance can identify the
+failed relation instead of presenting a plausible response from the wrong
+execution path.  We do not compare implementation effort against a state
+machine, so our claim is consistency and fault localization across layers, not
+that the formal representation is always the simplest authoring mechanism.
+
+\subsection{Prototype cue rationale and empirical status}
+
+The contract requires distinguishable target, responsibility, capability, and
+outcome states, but it does not prescribe their visual form.  The prototype
+uses a minimal mapping guided by four design constraints: spatial locality,
+event salience, limited persistent clutter, and actionable recovery.  The
+target is highlighted in the scene because the referent is spatial and the cue
+can remain co-located with it while the visitor composes a question.  A
+transient provider or handoff status appears only when responsibility changes,
+making the transition visible without occupying permanent scene space.  Text
+is reserved for blocked or unresolved states because recovery requires an
+actionable instruction.  Exact identifiers, bindings, and assertion records
+remain developer-facing.  This mapping operationalizes system-status visibility
+and recoverability rather than exposing the complete contract
+\cite{amershi2019guidelines}.
+
+These choices were not selected through a prior comparative design study,
+pilot study, or documented heuristic inspection.  They are fixed prototype
+decisions and therefore a design hypothesis, not an optimized cue set.
+Textual or spoken explanations, a persistent responsibility panel, and an
+explicit clarification dialogue remain plausible alternatives.  The user
+study is the first empirical assessment of the implemented mapping and examines
+target clarity, handoff understanding, perceived responsibility, guidance, and
+overall ease; it does not compare those alternatives or establish that the
+chosen cues optimally calibrate trust.
+
+Figure~\ref{fig:interface-cue-states} makes the mapping concrete.  It presents
+the same target--provider--action--evidence boundary as
+Figure~\ref{fig:admission-boundary}, but at the user-visible moments produced by
+the implementation rather than as a second gate diagram.
+
 \FloatBarrier
-\begin{figure*}[!t]
-  \centering
-  \begin{tikzpicture}[
-    font=\footnotesize,
-    state/.style={
-      draw,
-      rounded corners=2pt,
-      align=center,
-      text width=34mm,
-      minimum height=17mm,
-      inner sep=1.5mm
-    },
-    cue/.style={
-      draw,
-      dashed,
-      rounded corners=2pt,
-      align=center,
-      text width=34mm,
-      minimum height=14mm,
-      inner sep=1.5mm
-    },
-    flow/.style={-{Latex[length=2.2mm]},semithick},
-    projection/.style={-{Latex[length=2.2mm]},dashed}
-  ]
-    \node[font=\bfseries] at (6.3,1.55) {Internal contract state};
-
-    \node[state] (target) at (0,0)
-      {\textbf{Spatial target}\\
-       \texttt{Entity} + \texttt{sourceId}\\
-       unique selection state};
-    \node[state] (provider) at (4.2,0)
-      {\textbf{Responsible provider}\\
-       \texttt{Agent} + responsibility\\
-       permitted handoff};
-    \node[state] (operation) at (8.4,0)
-      {\textbf{Allowed operation}\\
-       \texttt{ScenarioStep} + \texttt{CapabilityUse}\\
-       binding + action};
-    \node[state] (evidence) at (12.6,0)
-      {\textbf{Evidence}\\
-       assertion + observation\\
-       returned identifiers};
-
-    \draw[flow] (target) -- (provider);
-    \draw[flow] (provider) -- (operation);
-    \draw[flow] (operation) -- (evidence);
-
-    \node[font=\bfseries] at (6.3,-2.05) {Visitor-facing projection};
-
-    \node[cue] (targetcue) at (0,-3.35)
-      {\textbf{Target state}\\
-       highlight or unresolved selection};
-    \node[cue] (providercue) at (4.2,-3.35)
-      {\textbf{Responsibility state}\\
-       provider or handoff cue};
-    \node[cue] (operationcue) at (8.4,-3.35)
-      {\textbf{Capability state}\\
-       guidance or scoped refusal};
-    \node[cue] (evidencecue) at (12.6,-3.35)
-      {\textbf{Outcome state}\\
-       present answer or roll back};
-
-    \draw[projection] (target) -- (targetcue);
-    \draw[projection] (provider) -- (providercue);
-    \draw[projection] (operation) -- (operationcue);
-    \draw[projection] (evidence) -- (evidencecue);
-  \end{tikzpicture}
-  \caption{Implementation view of the four-gate interaction boundary from
-  Figure~\ref{fig:admission-boundary}.  The upper row identifies the
-  FunctionalMLDS relations that realize target, provider, allowed-operation,
-  and evidence checks; the lower row shows the interface state projected from
-  each relation.  The formal model does not prescribe a cue's visual or
-  linguistic form.}
-  \Description{Four internal contract states form a left-to-right path:
-  spatial target, responsible provider, allowed operation, and evidence.
-  Dashed arrows map them to four visitor-facing states: target highlight or
-  unresolved selection, provider or handoff cue, capability guidance or
-  refusal, and answer presentation or rollback.}
-  \label{fig:functionalmlds-core}
-\end{figure*}
+\input{figures/interface-cue-states}
 \FloatBarrier
-
-\subsection{Prototype cue rationale and design scope}
-
-Following the progressive-disclosure rationale in
-Section~\ref{sec:contract}, the prototype exposes only the contract state needed
-at the current interaction step.  A spatial highlight is used for the target
-because the referent is an object in the 3D scene and the cue can remain
-co-located with it while the visitor composes the question.  A provider or
-handoff indication appears only when responsibility changes, making the
-transition observable without reserving permanent scene space for a
-responsibility panel.  Concise guidance is shown when an unresolved target or
-unavailable capability blocks continuation; detailed identifiers and route
-records remain developer-facing.
-
-This is a minimal prototype mapping, not the outcome of a comparative
-cue-design study.  We do not claim that the highlight, handoff indication, or
-guidance wording is optimal, or that a formal pre-study heuristic evaluation
-established it.  Textual or spoken explanations, persistent responsibility
-panels, and explicit clarification dialogues remain plausible alternatives.
-The user study evaluates only the implemented mapping.
 
 \subsection{When consistency is checked}
 
-Checks occur at three moments in the interaction lifecycle.  Before a room
-opens, serialization and model checks reject malformed fields, broken
-references, non-unique source identifiers, and contradictory relations.  Before
-an interaction is enabled, the executable-profile check requires one complete
+The four validation mechanisms are not four sequential operations paid on
+every conversational turn.  Before a room opens, serialization and model
+checks reject malformed fields, broken references, non-unique source
+identifiers, and contradictory relations.  Before an interaction is enabled,
+the executable-profile check requires one complete
 target--provider--capability--action path.  Per turn, runtime checks bind the
 request and response to the pinned room contract.  Appendix
 Table~\ref{tab:enforcement-layers} lists the detailed invariants and failure
@@ -168,10 +114,10 @@ During authoring, structured room data and frozen semantic artifacts are
 transformed into entities, agent roles, scenarios, capability uses, runtime
 bindings, assertions, and validation cases.  Language models may propose
 semantics, role labels, handoffs, and knowledge, but deterministic stages assign
-runtime identifiers and routes.  Atomic publication and content hashes keep the
-room contract and its client and backend projections together: a stale client,
-mismatching backend, or partially regenerated room fails during setup instead
-of entering an interaction with inconsistent responsibilities.
+runtime identifiers and routes.  Atomic publication and content hashes keep
+the room contract and its client and backend projections together: a stale
+client, mismatching backend, or partially regenerated room fails during setup
+instead of entering an interaction with inconsistent responsibilities.
 
 \subsection{3D-client selection and visible state}
 
@@ -186,10 +132,15 @@ inferred target.
 
 A scene-object component binds each relevant collider to an exact entity and
 source identifier.  At startup, the registry rejects duplicate or conflicting
-bindings and missing target-specific contexts.  The request carries the content
-hash, exact target identifiers, bounded ray and candidate data, input modality,
-active agent, and utterance.  The backend repeats the authoritative identity
-check rather than relying on the client alone.
+bindings and missing target-specific contexts.  The request carries the
+content hash, exact target identifiers, bounded ray and candidate data, input
+modality, active agent, and utterance.  The backend repeats the authoritative
+identity check rather than relying on the client alone.
+
+The main walkthrough and Figure~\ref{fig:interface-cue-states} remain on the
+refrigerated counter.  Appendix Figure~\ref{fig:unity-binding-capture} is a
+separate frozen implementation capture of \texttt{brand\_panel3}; it verifies
+the same collider-to-entity mechanism and is not a second running example.
 
 The client bridge uses the selected entity and server-resolved provider to
 locate one target-specific scenario context.  It accepts only the scenario,
@@ -220,17 +171,17 @@ suppress the output.  Model-call success alone is therefore insufficient for
 presentation.
 
 \paragraph{Responsiveness boundary.}
-The preflight and evidence checks surround the response-model call and add
-local deterministic work, but the current evaluation does not measure their
-end-to-end interaction cost.  The only timing evidence in
-Section~\ref{sec:results} is an in-memory structural workload of
-6.15--10.06\,ms for the contract representation; it excludes file parsing,
-Unity, networking, and model inference.  These values are therefore not
-conversational latency, and we make no claim about perceived responsiveness.
-Full turn time and users' sensitivity to delay remain to be evaluated for live
-spatial interaction.
+Only target/provider/action lookup, schema checks, evidence comparison, and
+snapshot bookkeeping lie on the per-turn contract path; authoring and room
+validation occur before the conversation.  The current evaluation nevertheless
+does not measure end-to-end interaction time.  Its only timing evidence is an
+in-memory structural workload of 6.15--10.06\,ms for the contract
+representation; it excludes file parsing, Unity, networking, and model
+inference.  These values are not conversational latency, and we make no claim
+about perceived responsiveness.  Full turn time and users' sensitivity to
+delay remain to be evaluated for live spatial interaction.
 
-\subsection{Evidence, feedback, and diagnostics}
+\subsection{Evidence, feedback, and identifier strictness}
 
 The runtime trace serves two audiences.  For presentation, the client compares
 the returned target, provider, route, binding, and action with its pending
@@ -241,18 +192,45 @@ retain the content hash, scenario and step, capability use, capability,
 assertion references, and observation verdicts.  Missing observations remain
 \texttt{inconclusive} rather than silently passing.
 
-The visitor interface applies the cue mapping described above: it exposes the
-selected or unresolved target, makes a provider change observable through the
-evaluated handoff state, and shows concise status or guidance when the request
-cannot proceed.  Exact route reasons, bindings, identifiers, and assertion
-records remain in developer logs.  The user study evaluates this lightweight
-mapping; richer explanations and persistent responsibility panels are not
-implemented or compared.
+Strictness applies to structured contract metadata, not to the wording of the
+generated answer.  The model may describe the counter in different natural
+language, but the returned target, provider, binding, and action identifiers
+must match the admitted path.  A known alias could be normalized before this
+comparison; an unknown or different identifier is rejected even when the prose
+appears plausible.  This deliberately favors referential and authorization
+consistency over fuzzy identifier recovery.  The current prototype does not
+implement approximate matching.
+
+The visitor interface exposes the selected or unresolved target, makes a
+provider change observable through the evaluated handoff state, and shows
+concise status or guidance when the request cannot proceed.  Exact route
+reasons, bindings, identifiers, and assertion records remain in developer logs.
+The user study evaluates this lightweight mapping; richer explanations and
+persistent responsibility panels are not implemented or compared.
+
+\subsection{Scope and scaling boundary}
+
+The contribution is not object anchoring or dialogue state by itself.
+Reference-resolution and conversational-XR systems can maintain a local
+candidate referent or dialogue context
+\cite{lemaignan2012grounding,delatorre2024llmr,carcangiu2025tellxr}.  The room
+contract starts from that selected candidate and additionally constrains who
+may respond, whether a handoff is permitted, which concrete action may run, and
+which identifiers must return before presentation.  Section~\ref{sec:related}
+positions this boundary against those systems in more detail.
+
+The evaluated corpus contains 93 routable assets and four to six agents per
+room.  The runtime map avoids scanning the full authoring model for each turn,
+and the interface exposes only the current target, provider transition, and
+status rather than all modeled relations.  Thus the visible cue count does not
+grow with the number of objects in the room.  We have not evaluated larger
+agent graphs, multi-hop execution, crowded selections, or whether users remain
+able to understand responsibilities in substantially denser scenes.
 
 \subsection{End-to-end walkthrough}
 
-The complete path is now concrete.  The visitor selects the refrigerated
-cheese counter and keeps its highlight while asking, ``What cheese is displayed
+The complete path is concrete.  The visitor selects the refrigerated cheese
+counter and keeps its highlight while asking, ``What cheese is displayed
 here?''  The client submits the counter's exact identifiers and the active
 Reception Agent.  The backend resolves the Product Specialist Agent, verifies
 the declared direct handoff, and invokes only the grounded-answer action
