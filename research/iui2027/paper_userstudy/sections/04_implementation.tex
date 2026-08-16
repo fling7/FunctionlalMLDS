@@ -1,30 +1,34 @@
-\section{System Realization}
+\section{From Model to Interface}
 \label{sec:implementation}
 
-Section~\ref{sec:contract} introduced the interaction contract through a
-refrigerated cheese display in an explorable multi-agent booth.  This section
-explains how the contract is represented, generated, and executed in the
-prototype.  We first introduce the underlying MLDS idea and the FunctionalMLDS
-extension, then follow the resulting model through the 3D client, backend
-admission, and runtime evidence.  The running interaction remains the selected
-object \texttt{refrigerated\_counter1}, for which the Product Specialist Agent
-is the modeled provider of a grounded answer.  A separate frozen screen capture
-later illustrates the same binding mechanism on \texttt{brand\_panel3}.
+Section~\ref{sec:contract} defined the relations that must remain consistent
+throughout an interaction.  This section shows how the prototype turns those
+relations into the states a visitor experiences: a stable target highlight, an
+observable provider or handoff, capability-specific guidance, and either a
+grounded answer or a recoverable rejection.  The running interaction takes
+place in the explorable cheese trade-fair booth introduced previously.  A
+visitor speaking with the Reception Agent selects
+\texttt{refrigerated\_counter1}; the Product Specialist Agent is responsible
+for that display.  We follow this interaction from the room model through the
+3D client and backend to the final presentation decision.
 
-\subsection{From MLDS to FunctionalMLDS}
+\subsection{Interaction state in FunctionalMLDS}
 
 A Meta-Language-defined Structure (MLDS) is a machine-readable artifact whose
 vocabulary and structural rules are defined by an explicit meta-language
-specification \cite{fischer2025machinereadable}.  In practical terms, the
-meta-language states which kinds of elements may occur, how they may refer to one
-another, and which constraints a generated artifact must satisfy.  A generator and
-a validator can therefore operate on the same declared structure instead of relying
-on implicit conventions spread across prompts, files, and source code.  In this work,
-each room-specific FunctionalMLDS document is such an MLDS instance.
+specification \cite{fischer2025machinereadable}.  Each room-specific
+FunctionalMLDS document is such an instance.  For the interface, its practical
+purpose is to provide one authoritative relation chain: which spatial entity
+was selected, which agent is responsible, which capability may be used in the
+current scenario, which runtime action realizes it, and which evidence is
+required before an answer may be shown.
 
-Figure~\ref{fig:functionalmlds-core} gives a compact map of the resulting
-metamodel.  The following paragraphs explain how the inherited foundation is
-extended and connected to executable behavior and evidence.
+Figure~\ref{fig:functionalmlds-core} summarizes this structure.  The three
+upper layers are internal authoring and runtime structures; the lower strip
+shows the interface state derived from selected relations.  Visitors do not see
+metamodel elements or identifiers directly.  They see their projection as a
+target highlight, a provider or handoff cue, capability guidance, and a
+present-or-rollback decision.
 
 \begin{figure*}[!t]
   \centering
@@ -36,6 +40,8 @@ extended and connected to executable behavior and evidence.
       text width=39mm,minimum height=8mm,fill=white,inner sep=1.5mm},
     root/.style={draw,double,double distance=0.6pt,rounded corners=2pt,
       align=center,minimum width=158mm,minimum height=8mm,inner sep=1.5mm},
+    ui/.style={draw,rounded corners=2pt,align=center,text width=154mm,
+      minimum height=12mm,fill=white,inner sep=1.5mm},
     flow/.style={-{Latex[length=2mm]},semithick},
     trace/.style={-{Latex[length=2mm]},dashed},
     edge/.style={font=\tiny,align=center,fill=white,inner sep=0.8pt}
@@ -47,7 +53,8 @@ extended and connected to executable behavior and evidence.
     \node[layer,fill=black!3] (foundation) at (0,0) {};
     \node[font=\bfseries,align=center,text width=43mm] at (0,2.72)
       {UML / EAST-ADL\\foundation};
-    \node[item] (req) at (0,1.35) {\textbf{RequirementsModel}\\requirements and references};
+    \node[item] (req) at (0,1.35)
+      {\textbf{RequirementsModel}\\requirements and references};
     \node[item] (uc) at (0,0)
       {\textbf{UseCaseDefinitionSet}\\
        $\rightarrow$ \textbf{UseCaseDefinition}\\
@@ -60,14 +67,14 @@ extended and connected to executable behavior and evidence.
       {FunctionalMLDS\\interaction extension};
     \node[item] (roles) at (5.4,1.65)
       {\textbf{Actor; Entity; Agent $\subseteq$ Entity}\\
-       roles, stable identity, responsibility, handoffs};
+       identity, responsibility, handoffs};
     \node[item] (scenario) at (5.4,0.55)
       {\textbf{UseCaseScenarioSpecification}\\
        $\rightarrow$ \textbf{Scenario}
        $\rightarrow$ \textbf{ScenarioStep}};
     \node[item] (capability) at (5.4,-0.65)
       {\textbf{CapabilityUse $\rightarrow$ Capability}\\
-       provider- and target-specific occurrence};
+       target- and provider-specific use};
     \node[item] (assertion) at (5.4,-1.85)
       {\textbf{Effect $\rightarrow$ Assertion}\\expected observable result};
 
@@ -82,7 +89,7 @@ extended and connected to executable behavior and evidence.
     \node[item] (projection) at (10.8,-0.65)
       {\textbf{Trace map / runtime context}\\minimal executable projection};
     \node[item] (evidence) at (10.8,-1.85)
-      {\textbf{Runtime observations}\\target, provider, action, assertion verdict};
+      {\textbf{Runtime observations}\\target, provider, action, verdict};
 
     \draw[trace] (root.south) -- (foundation.north);
     \draw[trace] (root.south) -- (extension.north);
@@ -98,193 +105,197 @@ extended and connected to executable behavior and evidence.
     \draw[flow] (projection) -- (evidence);
     \draw[trace] (vv.east) -- node[edge,below]{covers} (assertion.west);
     \draw[trace] (assertion.east) -- node[edge,below]{evaluated from} (evidence.west);
+
+    \node[ui] (ui) at (5.4,-4.35)
+      {\textbf{Visitor-facing projection}\\
+       target highlight $\leftarrow$ Entity \quad
+       provider / handoff cue $\leftarrow$ Agent + Scenario \quad
+       capability guidance $\leftarrow$ CapabilityUse\\
+       present or rollback $\leftarrow$ Assertion + runtime observations};
   \end{tikzpicture}
-  \caption{Selected layers of the FunctionalMLDS metamodel.  Familiar
-  use-case, requirements, and verification concepts form the foundation.
-  FunctionalMLDS adds explicit scenario flow, spatial entities and agents,
-  scenario-specific capability uses, and expected effects.  Runtime bindings
-  then map those declarations to executable actions and observation evidence.
+  \caption{Selected FunctionalMLDS layers and their interface projection.  The
+  upper layers retain requirements, scenarios, spatial entities, agent
+  responsibilities, capabilities, executable actions, and evidence.  The lower
+  strip identifies the subset that becomes visitor-facing interaction state.
   Attributes and secondary associations are omitted for readability.}
-  \Description{Three adjacent metamodel layers are connected under a
-  DynamicFunctionalModel root.  The left layer contains requirements, EAST-ADL
-  use-case definitions, and verification cases.  The middle layer contains
-  actors, entities and agents, scenarios and steps, capability uses and
-  capabilities, effects and assertions.  The right layer contains runtime
-  platforms, bindings and actions, executable projections, and observations.}
+  \Description{Three internal metamodel layers are connected under a
+  DynamicFunctionalModel root.  A separate strip underneath maps modeled
+  entities to target highlighting, agents and scenarios to provider or handoff
+  cues, capability uses to guidance, and assertions plus observations to the
+  decision to present or roll back an answer.}
   \label{fig:functionalmlds-core}
 \end{figure*}
 
-The conceptual starting point is the familiar UML use-case and scenario view:
-actors participate in use cases, and a concrete scenario refines a user-visible goal
-into ordered steps.  The repository realizes the use-case foundation with selected
-EAST-ADL 2.1.12 elements and associations, including
-\texttt{UseCaseDefinitionSet}, \texttt{UseCaseDefinition}, and \texttt{UseCase},
-together with requirements and verification/validation concepts
-\cite{eastadl2013spec}.  FunctionalMLDS preserves the meaning of this selected
-foundation and extends it with the explicit interaction information needed by a
-spatial multi-agent interface.  We do not claim complete UML or EAST-ADL
-conformance.
+The conceptual foundation is the UML use-case and scenario view: actors
+participate in use cases, and scenarios refine a user-visible goal into ordered
+steps.  The repository realizes this foundation with selected EAST-ADL 2.1.12
+elements and associations, including \texttt{UseCaseDefinitionSet},
+\texttt{UseCaseDefinition}, and \texttt{UseCase}, together with requirements
+and verification concepts \cite{eastadl2013spec}.  FunctionalMLDS does not
+claim complete UML or EAST-ADL conformance.  It extends this foundation with
+the information required by a spatial multi-agent interface: stable entities,
+agent responsibilities and handoffs, scenario-specific capability uses,
+runtime actions, and expected evidence.
 
-The middle layer in Figure~\ref{fig:functionalmlds-core} makes the use-case
-flow executable.  A use case is linked
-to a \texttt{Scenario}, whose ordered \texttt{ScenarioStep}s state who acts and
-which interaction occurs.  A reusable \texttt{Capability} describes what an agent
-can do.  A \texttt{CapabilityUse} records one concrete occurrence of that ability
-in a scenario and binds it to a provider and one or more targets.  This distinction
-is important: ``answer grounded questions'' is a capability, whereas ``the
-Product Specialist Agent answers about \texttt{refrigerated\_counter1} in this
-step'' is a capability use.  An \texttt{Agent} specializes \texttt{Entity} and
-additionally records provided capabilities, responsible zones, grounded assets and
-groups, and permitted handoffs.  Finally, a \texttt{RuntimeBinding} maps a
-capability to a platform and one or more executable \texttt{RuntimeAction}s,
-while effects, assertions, and verification cases describe what should be
-observable.  The \texttt{DynamicFunctionalModel} root connects these
-requirements, use cases, scenarios, entities, capabilities, runtime mappings,
-and validation elements in one room model.
+The distinction between a reusable capability and its use in one interaction
+is central.  ``Answer grounded questions'' is a capability; ``the Product
+Specialist Agent answers about \texttt{refrigerated\_counter1} in this step''
+is a capability use.  The latter binds a visible target and responsible agent
+to the executable path.  This is what lets the interface retain the selected
+counter, disclose a provider change, and state that an operation is unavailable
+instead of routing a generic chat request.
 
-\subsection{Model validity and executable profile}
+\subsection{Validation as an interface boundary}
 
-The implementation separates four questions that are easy to conflate.
-First, the JSON schema asks whether the serialization contains the required
-fields, value types, enumerations, and reference shapes.  Second, the canonical
-V2 metamodel asks whether it is a well-formed FunctionalMLDS model: references
-must close, cardinalities and element types must agree, source identifiers must
-be unique, assertions must have valid owners, and a scenario step may not bypass
-the capability path to call a runtime action directly.  Third, the executable
-profile asks whether a well-formed model is complete enough to run.  It requires,
-among other constraints, one provider and capability per evaluated capability
-use, agreement between provider, performer, and target responsibility, and a
-complete runtime binding.  Runtime checks then bind one request and response to
-one already valid, pinned instance.  This staging reports whether a failure
-belongs to serialization, model structure, executable completeness, or runtime
-evidence.
+Validation is organized as four gates, each protecting a state that may later
+become visible.  \textbf{Serialization validation} checks required fields,
+types, and reference shapes so that malformed room data never enters the
+interaction.  \textbf{Model validation} checks referential closure,
+cardinalities, unique source identifiers, valid assertion ownership, and the
+absence of direct scenario-step-to-action shortcuts; this prevents target and
+provider cues from being derived from contradictory relations.
+\textbf{Executable-profile validation} requires one provider and capability per
+evaluated capability use, agreement among provider, performer, and target
+responsibility, and a complete runtime binding; an incomplete interaction is
+therefore marked unavailable rather than guessed.  \textbf{Runtime validation}
+then binds one request and response to one already valid, pinned instance and
+blocks stale or mismatching output before presentation.
 
 Room objects are identified by stable \texttt{id} and \texttt{sourceId} values,
-not by display labels or 3D-engine object names.  Agents additionally have a
-unique source-agent identifier and typed references to their capabilities,
-responsibilities, grounded objects, and handoff targets.  Runtime bindings own
-ordered actions with a locator and optional input/output schemas.  The canonical
-instance remains authoritative; generated runtime projections contain only the
-subset needed by a particular client or backend.
+not by display labels or 3D-engine names.  Agents likewise have unique source
+identifiers and typed references to capabilities, responsibilities, grounded
+objects, and handoff targets.  The canonical instance remains authoritative;
+client and backend projections contain only the subset they need.  As a result,
+visible labels can change without silently changing which object or agent the
+interaction contract addresses.
 
-\subsection{Generation and publication}
+\subsection{Authoring and safe publication}
 
-The pipeline starts from structured room data and frozen semantic artifacts.  It
-normalizes objects, groups, and zones; derives agent roles and handoffs;
-materializes local knowledge; computes placement; and constructs use cases,
-scenarios, capability uses, runtime bindings, assertions, and validation cases.
-Deterministic stages assign stable identifiers and produce the trace map and
-backend runtime context.  All validators must pass before the artifacts are
-published atomically.  Content hashes connect the canonical model with its
-projections so that an outdated client or backend configuration can be detected.
+The generation pipeline is not part of the visitor's interaction, but it
+determines whether a room is made available as a coherent interactive space.
+Structured room data and frozen semantic artifacts are transformed into
+objects, groups, zones, agent roles, handoffs, scenarios, capability uses,
+runtime bindings, assertions, and validation cases.  Deterministic stages
+assign stable identifiers and derive the client trace map and backend runtime
+context.  All validators must pass before publication, and content hashes bind
+the canonical model to both projections.
 
-Language models may propose scene semantics, role labels, handoffs, and
-knowledge during generation.  They do not choose runtime identifiers, decide
-benchmark routes, or override a failed structural check.  After the semantic
-artifacts are frozen, the evaluation regenerates and tests the complete model
-without a network or model API.
+This publication boundary has a direct interaction consequence: an outdated
+client, backend configuration, or partially regenerated room is rejected during
+setup rather than being allowed to produce an answer under a different target
+or responsibility model.  Language models may propose scene semantics, role
+labels, handoffs, and knowledge during authoring, but they do not choose runtime
+identifiers, decide routes, or override failed structural checks.  Once these
+semantic artifacts are frozen, the complete model can be regenerated and
+tested without a network or model API.
 
-\subsection{3D-client target binding and interaction state}
+\subsection{3D-client selection and visible state}
 
-The evaluated 3D client is implemented in Unity, but the binding is
-engine-independent: a selectable scene object must map to exactly one stable
-model entity.  The Unity client imports the room, agent configuration, runtime
-projection, and trace map.  A scene-object component binds each relevant
-collider to an exact entity and source identifier.  During scene startup, a
-registry rejects duplicate entities, duplicate source matches, conflicting
-manual bindings, and missing target-specific contexts; UUID-like suffixes are
-not accepted as approximate matches.
+The evaluated client is implemented in Unity, but the binding principle is
+engine-independent: every selectable scene object must map to exactly one
+stable model entity.  In the desktop interaction, a camera ray selects a
+registered collider.  The client marks the object with a spatial highlight and
+retains that target while the visitor composes the request.  It distinguishes
+\texttt{none}, \texttt{resolved}, and \texttt{ambiguous} selection states.  Only
+a resolved state enables a deictic request; the other states remain visible and
+lead to guidance rather than an inferred target.
 
-In the desktop path, a camera ray selects a registered collider.  The client
-retains that selection while the request is composed and distinguishes
-\texttt{none}, \texttt{resolved}, and \texttt{ambiguous}.  A deictic request
-contains the pinned model hash, entity and source identifiers, candidate list,
-hit position and distance, input modality, active agent, and utterance.  The
-payload bounds numbers, list sizes, and string lengths.  Missing or ambiguous
-selection is blocked before serialization, although the backend repeats the
-authoritative check.
+A scene-object component binds each relevant collider to an exact entity and
+source identifier.  During startup, the registry rejects duplicate entities,
+duplicate source matches, conflicting manual bindings, and missing
+target-specific contexts; UUID-like suffixes are not accepted as approximate
+matches.  The request carries the pinned model hash, entity and source
+identifiers, candidate list, hit position and distance, input modality, active
+agent, and utterance.  Numeric ranges, list sizes, and string lengths are
+bounded.  The backend repeats the authoritative identity check rather than
+trusting the client alone.
 
-Figure~\ref{fig:unity-selection} shows a separately captured binding example.
-The selected source object \texttt{brand\_panel3} is bound to
-\texttt{ENT-ASSET-BRAND\_PANEL3}.  The screenshot demonstrates the implemented
-desktop path, not a headset study or a finished diagnostic interface.
+Figure~\ref{fig:unity-selection} shows the same binding mechanism on another
+object in the booth.  The selected source object \texttt{brand\_panel3} is
+bound to \texttt{ENT-ASSET-BRAND\_PANEL3}.  The running cheese-counter
+interaction uses the same exact entity/source-ID path; the screenshot is a
+committed desktop capture rather than a headset study or a finished diagnostic
+interface.
 
 \begin{figure}[t]
   \centering
   \includegraphics[alt={Unity Game view with a selected product panel and embodied agents},width=\columnwidth]{../paper/figures/unity-model-grounded-selection.png}
-  \caption{Separate captured Unity desktop view after loading the model-grounded
-  scene and selecting \texttt{brand\_panel3}.  Runtime admission uses the
-  stable entity binding rather than the visible label.}
+  \caption{Implemented Unity desktop selection state.  Runtime admission uses
+  the stable entity binding behind the visible highlight rather than the
+  object's display label.}
   \Description{A Unity Game view of a virtual exhibition room with embodied
-  agents and product panels.  One panel is selected and annotated with its
+  agents and product panels.  One panel is highlighted and annotated with its
   stable source and model entity identifiers.}
   \label{fig:unity-selection}
 \end{figure}
 
-The client bridge also avoids a generic ``chat'' dispatch.  It uses the selected
-entity and server-resolved provider to find the target-specific scenario
-context, then accepts only the scenario, capability, binding, and action
-identifiers confirmed by the backend.  Zero or several exact contexts fail
-closed.
+The client bridge does not dispatch a generic ``chat'' operation.  It uses the
+selected entity and server-resolved provider to find the target-specific
+scenario context, then accepts only the scenario, capability, binding, and
+action identifiers confirmed by the backend.  Zero or several exact contexts
+leave the interaction unresolved and fail closed.
 
-\subsection{Authoritative backend admission}
+\subsection{Authoritative routing, execution, and recovery}
 
 At session setup, the backend validates the native V2 instance and trace map,
 builds the runtime context, and pins the model hash and contract fingerprint.
-If project artifacts change, preflight detects the drift; the session must be
-set up again with the regenerated model rather than adopting it silently.
+If any artifact changes, the session must be set up again with the regenerated
+model rather than adopting the change silently.  For each request, the backend
+rejects malformed or stale spatial payloads, including conflicting identifiers,
+unknown scene objects, ambiguous candidates, invalid active agents, and
+non-finite or out-of-range ray values.  It derives the selected asset's group
+and zone from the pinned model instead of trusting client-provided
+responsibility information.
 
-For each deictic request, the backend strictly validates the spatial payload.
-It rejects unknown fields, non-finite or out-of-range ray values, oversized
-candidate lists, conflicting entity and source identifiers, unknown or
-non-scene objects, stale hashes, and ambiguous states.  It then derives the
-selected asset's group and zone from the pinned model instead of trusting
-client-provided responsibility information.
-
-Responsibility resolution applies the asset--group--zone precedence described
-in Section~\ref{sec:contract}.  The active agent may answer locally or hand off
-once along a declared edge.  A provider that is reachable only through several
-agents remains diagnostically reachable but is rejected for the current turn.
-The backend next resolves one exact runtime action from the trusted scenario,
-provider, and target; matching only a generic endpoint or action kind is
-insufficient.
+Responsibility resolution then applies the asset--group--zone precedence from
+Section~\ref{sec:contract}.  The active agent may answer locally or hand off
+once along a declared edge.  When another provider is selected, that change is
+returned as explicit interaction state for the handoff cue.  When no permitted
+provider exists, the request is rejected with relation-specific guidance rather
+than silently reaching a different agent.  The backend next resolves one exact
+runtime action from the trusted scenario, provider, and target; a matching
+generic endpoint or action kind is insufficient.
 
 Before generation, the backend snapshots mutable session state.  A
-request-decidable failure therefore occurs before a response-model call.  If the
-generated structured response proposes an undeclared handoff or violates an
-identifier postcondition, the snapshot is restored.  Only a response that
-matches the preselected contract path and its success evidence is committed.
+request-decidable failure therefore stops before a response-model call and
+leaves the conversation unchanged.  A failure that can be known only after
+generation---for example an undeclared handoff or mismatching returned
+identifier---restores the snapshot and suppresses the output.  Thus a fluent
+response is never presented merely because the model call itself succeeded.
 
-\subsection{Evidence and diagnostics}
+\subsection{Evidence, feedback, and diagnostics}
 
-The accepted response and runtime events retain the identifiers needed to
-reconstruct the path: model hash, scenario and step, target entity and source
-object, provider, route reason, capability use, capability, runtime binding,
-action, and assertion references.  Before presenting an answer, the client
-compares the returned target, provider, route, and action with its pending
-selection.  The validation recorder distinguishes operation invocation,
-grounding, provider agreement, action agreement, and the observed assertion
-result.  Missing observations can therefore remain \texttt{inconclusive}
-instead of silently passing.
+The runtime trace serves two audiences.  For presentation, the client compares
+the returned target, provider, route, binding, and action with its pending
+selection and the admitted contract path.  Matching evidence permits the answer
+to be shown while retaining the responsible-agent state; a mismatch produces
+rollback or corrective guidance.  For diagnosis, the accepted response and
+runtime events additionally retain the model hash, scenario and step,
+capability use, capability, assertion references, and observation verdicts.
+Missing observations can remain \texttt{inconclusive} instead of silently
+passing.
 
-The full diagnostic payload remains developer-facing.  The visitor interface
-uses progressive disclosure: it exposes the current target and unresolved
-selection state, and it makes a change of responsible agent observable through
-the provider or handoff state used in the evaluated interaction.  Concise status
-or guidance is shown when a request cannot proceed.  Internal identifiers,
-exact route reasons, bindings, and assertion records remain in logs and runtime
-components.  The user study evaluates this lightweight cue mapping; richer
-textual or spoken explanations, persistent responsibility panels, and explicit
-clarification dialogues are not implemented or compared.
+The visitor interface applies the progressive disclosure described in
+Section~\ref{sec:contract}: it exposes the selected or unresolved target, makes
+a provider change observable through the evaluated handoff state, and displays
+concise status or guidance when the request cannot proceed.  Internal
+identifiers, exact route reasons, bindings, and assertion records remain in
+logs and runtime components.  The user study evaluates this lightweight cue
+mapping; richer explanations and persistent responsibility panels are not
+implemented or compared.
 
-\subsection{Running example}
+\subsection{End-to-end walkthrough}
 
-For \texttt{refrigerated\_counter1}, the model resolves the exact asset, its
-\texttt{product\_counters} group, and the \texttt{product\_display\_zone}.
-Asset-level responsibility selects the Product Specialist Agent, and one
-declared handoff reaches it from the Reception Agent.  The scenario-specific
-capability use links that provider and target to the grounded-answer capability
-and its backend-chat action; an accepted response must carry the same
-identifiers.  From the Lounge Host, reaching the Product Specialist Agent
-requires two edges through the Reception Agent, so the request is rejected
-before the response stub and the conversation state remains unchanged.
+The running interaction now follows a concrete visitor path.  First, the
+visitor explores the booth, selects the refrigerated cheese counter, and keeps
+its highlight while asking, ``What cheese is displayed here?''  Second, the
+client submits the counter's exact identifiers together with the currently
+active Reception Agent.  Third, the backend resolves the Product Specialist
+Agent from the asset-level responsibility relation, verifies the declared
+direct handoff, and returns that provider change for the interface to expose.
+Fourth, it invokes only the grounded-answer action declared for this target and
+provider.  Finally, the answer is presented only when its evidence still names
+the same counter, provider, route, and action; otherwise the provisional state
+is restored and guidance is shown.  Starting the same request from the Lounge
+Host would require two handoff edges through the Reception Agent, so it is
+rejected before generation and the conversation remains unchanged.
