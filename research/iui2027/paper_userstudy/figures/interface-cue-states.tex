@@ -1,0 +1,102 @@
+\begin{figure*}[!t]
+  \centering
+  \begin{tikzpicture}[
+    font=\scriptsize,
+    panel/.style={
+      draw,
+      rounded corners=2pt,
+      minimum width=50mm,
+      minimum height=54mm,
+      inner sep=0pt
+    },
+    viewport/.style={
+      draw,
+      rounded corners=1.5pt,
+      minimum width=44mm,
+      minimum height=28mm,
+      inner sep=0pt
+    },
+    object/.style={
+      draw,
+      double,
+      double distance=0.7pt,
+      rounded corners=1pt,
+      align=center,
+      text width=27mm,
+      minimum height=8mm,
+      inner sep=0.8mm
+    },
+    agent/.style={
+      draw,
+      circle,
+      align=center,
+      minimum size=9mm,
+      inner sep=0.4mm,
+      font=\tiny
+    },
+    status/.style={
+      draw,
+      rounded corners=1.5pt,
+      align=center,
+      text width=42mm,
+      minimum height=11mm,
+      inner sep=1mm
+    },
+    blocked/.style={
+      status,
+      dashed
+    },
+    handoff/.style={-{Latex[length=2mm]},semithick},
+    denied/.style={-{Latex[length=2mm]},dashed}
+  ]
+    \node[panel] (selection) at (0,0) {};
+    \node[font=\bfseries] at (0,2.25) {(a) Target retained};
+    \node[viewport] at (0,0.55) {};
+    \node[agent] at (-1.45,1.25) {Reception};
+    \node[object] at (0,0.20)
+      {Refrigerated\\cheese counter};
+    \node[font=\tiny,align=center] at (1.45,1.25)
+      {Product\\specialist};
+    \node[status] at (0,-1.75)
+      {\textbf{Selected target}\\
+       Highlight remains while the question is composed};
+
+    \node[panel] (handoffpanel) at (5.6,0) {};
+    \node[font=\bfseries] at (5.6,2.25) {(b) Responsibility change};
+    \node[viewport] at (5.6,0.55) {};
+    \node[agent] (reception) at (4.65,1.25) {Reception};
+    \node[agent] (specialist) at (6.55,1.25)
+      {Product\\specialist};
+    \draw[handoff] (reception) -- node[above,font=\tiny] {handoff} (specialist);
+    \node[object] at (5.6,0.20)
+      {Refrigerated\\cheese counter};
+    \node[status] at (5.6,-1.75)
+      {\textbf{Provider changed}\\
+       Reception Agent $\rightarrow$ Product Specialist Agent};
+
+    \node[panel] (blockedpanel) at (11.2,0) {};
+    \node[font=\bfseries] at (11.2,2.25) {(c) Scoped rejection};
+    \node[viewport] at (11.2,0.55) {};
+    \node[agent] (lounge) at (10.25,1.25) {Lounge\\host};
+    \node[agent] (specialist2) at (12.15,1.25)
+      {Product\\specialist};
+    \draw[denied] (lounge) -- node[above,font=\tiny] {not one hop} (specialist2);
+    \node[font=\bfseries] at (11.2,1.25) {$\times$};
+    \node[object] at (11.2,0.20)
+      {Refrigerated\\cheese counter};
+    \node[blocked] at (11.2,-1.75)
+      {\textbf{Request blocked}\\
+       No permitted one-hop route; selection remains available};
+  \end{tikzpicture}
+  \caption{Illustrative interface-state mockup for the running scenario.
+  The panels show the target, handoff, and rejection states produced by the
+  same contract boundary as Figure~\ref{fig:admission-boundary}.  This is an
+  explanatory reconstruction rather than a pixel-accurate screenshot; the
+  labels paraphrase runtime state and are not prescribed by the formal model.}
+  \Description{Three schematic interface panels show a refrigerated cheese
+  counter remaining highlighted while a question is composed, a handoff from
+  the Reception Agent to the Product Specialist Agent, and a blocked request
+  from the Lounge Host in which the selected counter remains available for
+  correction.}
+  \label{fig:interface-cue-states}
+\end{figure*}
