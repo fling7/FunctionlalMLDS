@@ -265,10 +265,15 @@ grounding, provider agreement, action agreement, and the observed assertion
 result.  Missing observations can therefore remain \texttt{inconclusive}
 instead of silently passing.
 
-The detailed payload is currently developer-facing.  Visitors see selection
-highlighting and unresolved status, while route and assertion information is
-available to logs and runtime components.  Designing and evaluating a concise
-visitor-facing explanation or correction interface remains future work.
+The full diagnostic payload remains developer-facing.  The visitor interface
+uses progressive disclosure: it exposes the current target and unresolved
+selection state, and it makes a change of responsible agent observable through
+the provider or handoff state used in the evaluated interaction.  Concise status
+or guidance is shown when a request cannot proceed.  Internal identifiers,
+exact route reasons, bindings, and assertion records remain in logs and runtime
+components.  The user study evaluates this lightweight cue mapping; richer
+textual or spoken explanations, persistent responsibility panels, and explicit
+clarification dialogues are not implemented or compared.
 
 \subsection{Running example}
 
