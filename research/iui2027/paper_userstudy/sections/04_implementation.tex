@@ -2,13 +2,11 @@
 \label{sec:implementation}
 
 Section~\ref{sec:contract} defined the relations that must remain consistent.
-Here we show how the prototype turns them into visitor-facing state: a retained
-target highlight, an observable provider or handoff, capability guidance, and
-either a grounded answer or a recoverable rejection.  In the running
-cheese-booth interaction, the Reception Agent hands a question about
-\texttt{refrigerated\_counter1} to its modeled provider, the Product Specialist
-Agent.  Figure~\ref{fig:functionalmlds-core} maps the internal model relations
-to the interface states used along this path.
+Here we show how they become visitor-facing state: a retained target highlight,
+an observable handoff, capability guidance, and either a grounded answer or a
+recoverable rejection.  Figure~\ref{fig:functionalmlds-core} follows one
+request in the cheese booth, where the Reception Agent hands a question about
+\texttt{refrigerated\_counter1} to the Product Specialist Agent.
 
 \FloatBarrier
 \begin{figure*}[!t]
