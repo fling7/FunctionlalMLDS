@@ -6,7 +6,11 @@ Here we show how those relations become interaction state: a retained target
 highlight, an observable handoff, capability-specific guidance, and either a
 grounded answer or a recoverable rejection.  We continue the cheese-booth
 scenario in which the Reception Agent hands a question about
-\texttt{refrigerated\_counter1} to the Product Specialist Agent.
+\texttt{refrigerated\_counter1} to the Product Specialist Agent.  For
+readability, we call the canonical FunctionalMLDS V2 instance the \emph{room
+contract}, its trace-map/runtime-context projection the \emph{runtime map}, and
+the model hash or contract fingerprint the \emph{content hash}; Appendix
+Table~\ref{tab:runtime-terms} lists the corresponding repository terms.
 
 \subsection{Model relations that drive interface state}
 
@@ -20,13 +24,13 @@ action and the evidence required before an answer may be shown.
 
 FunctionalMLDS reuses selected UML and EAST-ADL use-case, requirements, and
 verification concepts as its scenario foundation \cite{eastadl2013spec}; it
-does not claim complete UML or EAST-ADL conformance.  For the interaction,
-the important extension is explicit state for spatial entities, agent
+does not claim complete UML or EAST-ADL conformance.  For the interaction, the
+important extension is explicit state for spatial entities, agent
 responsibilities and handoffs, scenario-specific capability uses, runtime
 actions, and expected evidence.  Rather than reproducing the full metamodel,
-Figure~\ref{fig:functionalmlds-core} revisits the target--provider--action--evidence
-sequence introduced as a fail-closed process in
-Figure~\ref{fig:admission-boundary} and traces the concrete FunctionalMLDS
+Figure~\ref{fig:functionalmlds-core} revisits the
+target--provider--action--evidence sequence introduced as a fail-closed process
+in Figure~\ref{fig:admission-boundary} and traces the concrete FunctionalMLDS
 relations that realize each gate.  Appendix
 Table~\ref{tab:functionalmlds-relations} provides the corresponding compact
 element-and-relation map.
@@ -121,37 +125,53 @@ show a provider change, or report that the requested operation is unavailable.
 \end{figure*}
 \FloatBarrier
 
-\subsection{Validation and publication boundary}
+\subsection{Prototype cue rationale and design scope}
 
-The implementation uses four checks, grouped by when they protect the
-interaction.  Before a room opens, \textbf{serialization validation} checks
-fields, types, and reference shapes, while \textbf{model validation} checks
-referential closure, cardinalities, unique source identifiers, assertion
-ownership, and the absence of direct scenario-step-to-action shortcuts.  Before
-an interaction is enabled, \textbf{executable-profile validation} requires one
-provider and capability per evaluated capability use, agreement among target,
-provider, and performer, and a complete runtime binding.  Per turn,
-\textbf{runtime validation} binds the request and response to one already
-valid, pinned instance.  Malformed or contradictory rooms therefore remain
-unavailable, and stale or mismatching output is blocked before presentation.
+Following the progressive-disclosure rationale in
+Section~\ref{sec:contract}, the prototype exposes only the contract state needed
+at the current interaction step.  A spatial highlight is used for the target
+because the referent is an object in the 3D scene and the cue can remain
+co-located with it while the visitor composes the question.  A provider or
+handoff indication appears only when responsibility changes, making the
+transition observable without reserving permanent scene space for a
+responsibility panel.  Concise guidance is shown when an unresolved target or
+unavailable capability blocks continuation; detailed identifiers and route
+records remain developer-facing.
+
+This is a minimal prototype mapping, not the outcome of a comparative
+cue-design study.  We do not claim that the highlight, handoff indication, or
+guidance wording is optimal, or that a formal pre-study heuristic evaluation
+established it.  Textual or spoken explanations, persistent responsibility
+panels, and explicit clarification dialogues remain plausible alternatives.
+The user study evaluates only the implemented mapping.
+
+\subsection{When consistency is checked}
+
+Checks occur at three moments in the interaction lifecycle.  Before a room
+opens, serialization and model checks reject malformed fields, broken
+references, non-unique source identifiers, and contradictory relations.  Before
+an interaction is enabled, the executable-profile check requires one complete
+target--provider--capability--action path.  Per turn, runtime checks bind the
+request and response to the pinned room contract.  Appendix
+Table~\ref{tab:enforcement-layers} lists the detailed invariants and failure
+boundaries.
 
 Room objects use stable \texttt{id} and \texttt{sourceId} values rather than
 display labels or engine object names.  Agents have corresponding source
 identifiers and typed references to their capabilities, responsibilities,
-grounded objects, and handoff targets.  The canonical instance remains
-authoritative, while client and backend projections contain only the subset
-needed at runtime.  A label can consequently change without silently changing
-the target or provider addressed by the contract.
+grounded objects, and handoff targets.  The room contract remains
+authoritative, while the client and backend receive only the runtime subset
+they need.  A visible label can consequently change without silently changing
+the target or provider addressed by the interaction.
 
 During authoring, structured room data and frozen semantic artifacts are
 transformed into entities, agent roles, scenarios, capability uses, runtime
 bindings, assertions, and validation cases.  Language models may propose
 semantics, role labels, handoffs, and knowledge, but deterministic stages assign
-runtime identifiers and routes.  All validators must pass before atomic
-publication, and content hashes bind the canonical model to the client and
-backend projections.  A stale client, mismatching backend, or partially
-regenerated room fails during setup instead of entering an interaction with
-inconsistent responsibilities.
+runtime identifiers and routes.  Atomic publication and content hashes keep the
+room contract and its client and backend projections together: a stale client,
+mismatching backend, or partially regenerated room fails during setup instead
+of entering an interaction with inconsistent responsibilities.
 
 \subsection{3D-client selection and visible state}
 
@@ -166,29 +186,15 @@ inferred target.
 
 A scene-object component binds each relevant collider to an exact entity and
 source identifier.  At startup, the registry rejects duplicate or conflicting
-bindings and missing target-specific contexts.  The request carries the pinned
-model hash, exact target identifiers, bounded ray and candidate data, input
-modality, active agent, and utterance.  The backend repeats the authoritative
-identity check rather than relying on the client alone.
+bindings and missing target-specific contexts.  The request carries the content
+hash, exact target identifiers, bounded ray and candidate data, input modality,
+active agent, and utterance.  The backend repeats the authoritative identity
+check rather than relying on the client alone.
 
-Figure~\ref{fig:unity-selection} shows the same binding mechanism on another
-object in the booth.  The selected source object \texttt{brand\_panel3} is
-bound to \texttt{ENT-ASSET-BRAND\_PANEL3}.  The running cheese-counter
-interaction uses the same entity/source-ID path; the screenshot is a committed
-desktop capture rather than a headset study or a finished diagnostic
-interface.
-
-\begin{figure}[!ht]
-  \centering
-  \includegraphics[alt={Unity Game view with a selected product panel and embodied agents},width=.82\columnwidth]{../paper/figures/unity-model-grounded-selection.png}
-  \caption{Implemented Unity desktop selection state.  Runtime admission uses
-  the stable entity binding behind the visible highlight rather than the
-  object's display label.}
-  \Description{A Unity Game view of a virtual exhibition room with embodied
-  agents and product panels.  One panel is highlighted and annotated with its
-  stable source and model entity identifiers.}
-  \label{fig:unity-selection}
-\end{figure}
+A separate recorded implementation capture of the same exact-binding mechanism
+is provided in Appendix Figure~\ref{fig:unity-binding-capture}.  It is kept
+outside the running walkthrough because the capture depicts another booth
+object rather than \texttt{refrigerated\_counter1}.
 
 The client bridge uses the selected entity and server-resolved provider to
 locate one target-specific scenario context.  It accepts only the scenario,
@@ -197,11 +203,11 @@ several exact contexts leave the interaction unresolved.
 
 \subsection{Authoritative routing, execution, and recovery}
 
-At session setup, the backend validates the V2 instance and trace map, builds
-the runtime context, and pins the model hash and contract fingerprint.  For
-each request, it rejects malformed, stale, ambiguous, or conflicting spatial
-payloads and derives the selected asset's group and zone from the pinned model
-rather than from client-provided responsibility fields.
+At session setup, the backend loads the room contract and runtime map, builds
+the executable context, and pins the content hash.  For each request, it rejects
+malformed, stale, ambiguous, or conflicting spatial payloads and derives the
+selected asset's group and zone from the room contract rather than from
+client-provided responsibility fields.
 
 Responsibility resolution applies the asset--group--zone precedence from
 Section~\ref{sec:contract}.  The active agent may answer locally or hand off
@@ -218,6 +224,17 @@ undeclared handoff or mismatching returned identifier, restore the snapshot and
 suppress the output.  Model-call success alone is therefore insufficient for
 presentation.
 
+\paragraph{Responsiveness boundary.}
+The preflight and evidence checks surround the response-model call and add
+local deterministic work, but the current evaluation does not measure their
+end-to-end interaction cost.  The only timing evidence in
+Section~\ref{sec:results} is an in-memory structural workload of
+6.15--10.06\,ms for the contract representation; it excludes file parsing,
+Unity, networking, and model inference.  These values are therefore not
+conversational latency, and we make no claim about perceived responsiveness.
+Full turn time and users' sensitivity to delay remain to be evaluated for live
+spatial interaction.
+
 \subsection{Evidence, feedback, and diagnostics}
 
 The runtime trace serves two audiences.  For presentation, the client compares
@@ -225,17 +242,17 @@ the returned target, provider, route, binding, and action with its pending
 selection and the admitted contract path.  Matching evidence permits the
 answer to be shown while retaining the responsible-agent state; a mismatch
 produces rollback or corrective guidance.  For diagnosis, runtime events also
-retain the model hash, scenario and step, capability use, capability, assertion
-references, and observation verdicts.  Missing observations remain
+retain the content hash, scenario and step, capability use, capability,
+assertion references, and observation verdicts.  Missing observations remain
 \texttt{inconclusive} rather than silently passing.
 
-The visitor interface applies the progressive disclosure described in
-Section~\ref{sec:contract}: it exposes the selected or unresolved target,
-makes a provider change observable through the evaluated handoff state, and
-shows concise status or guidance when the request cannot proceed.  Exact route
-reasons, bindings, identifiers, and assertion records remain in developer
-logs.  The user study evaluates this lightweight mapping; richer explanations
-and persistent responsibility panels are not implemented or compared.
+The visitor interface applies the cue mapping described above: it exposes the
+selected or unresolved target, makes a provider change observable through the
+evaluated handoff state, and shows concise status or guidance when the request
+cannot proceed.  Exact route reasons, bindings, identifiers, and assertion
+records remain in developer logs.  The user study evaluates this lightweight
+mapping; richer explanations and persistent responsibility panels are not
+implemented or compared.
 
 \subsection{End-to-end walkthrough}
 
