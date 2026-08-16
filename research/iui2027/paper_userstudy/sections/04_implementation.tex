@@ -1,34 +1,14 @@
 \section{From Model to Interface}
 \label{sec:implementation}
 
-Section~\ref{sec:contract} defined the relations that must remain consistent
-throughout an interaction.  This section shows how the prototype turns those
-relations into the states a visitor experiences: a stable target highlight, an
-observable provider or handoff, capability-specific guidance, and either a
-grounded answer or a recoverable rejection.  The running interaction takes
-place in the explorable cheese trade-fair booth introduced previously.  A
-visitor speaking with the Reception Agent selects
-\texttt{refrigerated\_counter1}; the Product Specialist Agent is responsible
-for that display.  We follow this interaction from the room model through the
-3D client and backend to the final presentation decision.
-
-\subsection{Interaction state in FunctionalMLDS}
-
-A Meta-Language-defined Structure (MLDS) is a machine-readable artifact whose
-vocabulary and structural rules are defined by an explicit meta-language
-specification \cite{fischer2025machinereadable}.  Each room-specific
-FunctionalMLDS document is such an instance.  For the interface, its practical
-purpose is to provide one authoritative relation chain: which spatial entity
-was selected, which agent is responsible, which capability may be used in the
-current scenario, which runtime action realizes it, and which evidence is
-required before an answer may be shown.
-
-Figure~\ref{fig:functionalmlds-core} summarizes this structure.  The three
-upper layers are internal authoring and runtime structures; the lower strip
-shows the interface state derived from selected relations.  Visitors do not see
-metamodel elements or identifiers directly.  They see their projection as a
-target highlight, a provider or handoff cue, capability guidance, and a
-present-or-rollback decision.
+Section~\ref{sec:contract} defined the relations that must remain consistent.
+Here we show how the prototype turns them into visitor-facing state: a retained
+target highlight, an observable provider or handoff, capability guidance, and
+either a grounded answer or a recoverable rejection.  In the running
+cheese-booth interaction, the Reception Agent hands a question about
+\texttt{refrigerated\_counter1} to its modeled provider, the Product Specialist
+Agent.  Figure~\ref{fig:functionalmlds-core} maps the internal model relations
+to the interface states used along this path.
 
 \FloatBarrier
 \begin{figure*}[!t]
@@ -127,6 +107,19 @@ present-or-rollback decision.
   \label{fig:functionalmlds-core}
 \end{figure*}
 \FloatBarrier
+
+\subsection{Interaction state in FunctionalMLDS}
+
+A Meta-Language-defined Structure (MLDS) is a machine-readable artifact whose
+vocabulary and structural rules are defined by an explicit meta-language
+specification \cite{fischer2025machinereadable}.  Each room-specific
+FunctionalMLDS document is such an instance.  For the interface, its practical
+purpose is to provide one authoritative relation chain: which spatial entity
+was selected, which agent is responsible, which capability may be used in the
+current scenario, which runtime action realizes it, and which evidence is
+required before an answer may be shown.  Visitors do not see these metamodel
+elements or identifiers directly; they see the projection summarized in
+Figure~\ref{fig:functionalmlds-core}.
 
 The conceptual foundation is the UML use-case and scenario view: actors
 participate in use cases, and scenarios refine a user-visible goal into ordered
