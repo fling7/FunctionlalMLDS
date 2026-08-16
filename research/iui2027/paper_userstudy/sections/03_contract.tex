@@ -2,19 +2,19 @@
 \label{sec:contract}
 
 Software contracts usually guard technical boundaries.  In an intelligent
-interface, those decisions also determine what the system treats as selected,
-which agent may respond, and how a failed request remains recoverable.  We use
-one running scenario: a visitor selects \texttt{brand\_panel3} while the Lounge
-Host is active.  The contract must preserve the target, resolve the provider,
-enforce an allowed handoff, invoke a declared capability, and present an answer
-only if returned evidence agrees.
+interface, the same decisions also determine what the system treats as
+selected, which agent may respond, and how users recover from a blocked
+request.  We use one running scenario: a visitor selects
+\texttt{brand\_panel3} while the Lounge Host is active.  The contract must
+preserve the target, resolve the provider, enforce an allowed handoff, invoke a
+declared capability, and present an answer only if returned evidence agrees.
 
 \subsection{Failure model and interface implications}
 
 A fluent answer can conceal an unknown target, an unauthorized provider, an
-unavailable operation, or evidence for another object.  Table~\ref{tab:failure-model}
-links each failure to a deterministic decision, a user question, and the
-prototype response.
+unavailable operation, or evidence for another object.
+Table~\ref{tab:failure-model} links each failure to a deterministic decision, a
+user question, and the prototype response.
 
 \begin{table*}[t]
   \caption{Cross-layer failures, the user questions they raise, and the current
@@ -67,25 +67,24 @@ prototype response.
 
 We interpret the questions in Table~\ref{tab:failure-model} through Lim and
 Dey's intelligibility types and later question-driven XAI work
-\cite{lim2009demand,liao2020questioning}.  These questions are not model
-elements, nor do we propose target, provider, capability, and evidence as a
-second taxonomy.  They are typed states from which the interface can answer
+\cite{lim2009demand,liao2020questioning}.  The questions are an interpretive
+lens, not model elements or a second taxonomy.  Target, provider, capability,
+and evidence are typed states from which the interface can answer
 \emph{What}, \emph{Why}, and \emph{Why not} questions about the interaction.
 
-The prototype applies progressive disclosure.  A spatial highlight communicates
-the current target in place; a lightweight provider or handoff indication is
-shown when responsibility changes; and concise, neutral guidance appears when
-the target is unresolved or the requested capability is unavailable.  Detailed
-identifiers, route reasons, bindings, and assertion records remain available for
-developer diagnosis rather than being shown by default.  This mapping follows
-human--AI interaction guidance to make system status, capability boundaries, and
-recovery opportunities visible \cite{amershi2019guidelines,yang2020reexamining,weisz2024design},
-but it is not the only plausible design.  Textual or spoken explanations, a
-persistent responsibility panel, and an explicit clarification dialogue are
-alternatives that the contract could support.  We do not compare these designs
-in this paper.  Because explanations can increase acceptance without improving
-appropriate reliance \cite{bansal2021whole}, we treat the cues as support for
-comprehension and control, not as evidence of calibrated trust.
+The prototype uses progressive disclosure: a spatial highlight marks the
+current target, a lightweight provider or handoff indication appears when
+responsibility changes, and concise guidance appears for unresolved targets or
+unavailable capabilities.  Internal identifiers, route reasons, bindings, and
+assertion records remain developer-facing.  This mapping operationalizes
+system-status visibility and recoverability in human--AI interaction guidance
+\cite{amershi2019guidelines}, but it is only one possible presentation.  The
+same contract could support textual or spoken explanations, a persistent
+responsibility panel, or an explicit clarification dialogue.  We neither
+compare these alternatives nor infer calibrated trust from the current cues:
+explanations can increase acceptance without improving appropriate reliance
+\cite{bansal2021whole}.  We therefore evaluate the implemented mapping as
+support for comprehension and control.
 
 \subsection{Contract objects and executable path}
 
@@ -97,13 +96,12 @@ A contract-grounded interaction is represented by
 where \(m\) is the pinned model and hash, \(s\) the scenario step, \(t\) the
 target, \(p\) the responsible provider, \(u\) the context-specific capability
 use, \(c\) the reusable capability, \(b\) the runtime binding, \(a\) the
-concrete action, \(q\) the assertions, and \(o\) the observation evidence.  The
-tuple follows the interaction in execution order: \(m,s\) fix the context;
-\(t,p\) record what is selected and who may act; \(u,c,b,a\) declare what may
-run; and \(q,o\) determine whether the returned result still agrees with the
-admitted request.  In the running example, \(t\) is
-\texttt{brand\_panel3}, \(p\) is the Reception Agent, and the remaining elements
-declare and verify its grounded-answer action.
+concrete action, \(q\) the assertions, and \(o\) the observation evidence.
+Read in execution order, \(m,s\) fix the context; \(t,p\) identify what was
+selected and who may act; \(u,c,b,a\) declare what may run; and \(q,o\) check
+whether the result still agrees with the admitted request.  In the running
+example, \(t\) is \texttt{brand\_panel3}, \(p\) is the Reception Agent, and the
+remaining elements declare and verify its grounded-answer action.
 
 The required declaration path is
 \[
@@ -156,10 +154,13 @@ A deictic request is admitted only if all of the following conditions hold:
   schema.
 \end{enumerate}
 
-For the running example, preflight confirms the pinned room and panel, resolves
-the Reception Agent, permits the Lounge Host's direct handoff, and selects the
-grounded-answer action before generation.  A failed preflight condition yields
-a relation-specific rejection state rather than model-generated fallback text.
+These gates connect directly to the failure model: Conditions 1--2 cover target
+identity and ambiguity, Condition 3 covers responsibility drift, and Conditions
+4--5 prevent action shortcuts.  Evidence mismatch and undeclared handoff are
+checked after generation.  In the running example, preflight confirms the
+pinned room and panel, resolves the Reception Agent, permits the Lounge Host's
+direct handoff, and selects the grounded-answer action.  A failed condition
+yields a relation-specific rejection rather than model-generated fallback text.
 After generation, the returned target, provider, route, binding, and action are
 checked against the admitted tuple and assertions \(q\).  Agreement is recorded
 in \(o\) and permits commit; a mismatch or undeclared handoff restores the
@@ -249,7 +250,7 @@ snapshot and blocks presentation.
 
 \subsection{Guarantee boundary}
 
-The contract separates three claims that should not be conflated:
+The guarantee has three parts:
 
 \begin{itemize}
   \item \textbf{System consistency.}  An admitted request has one trusted
@@ -268,9 +269,8 @@ The contract separates three claims that should not be conflated:
   it or calibrate trust appropriately.
 \end{itemize}
 
-The interaction claim is therefore empirical rather than assumed: the contract
-makes target, provider, handoff, capability, and rejection state available to
-the interface, while the user study examines whether the current cues support
-target-selection clarity, answer--target fit, handoff understanding,
-final-agent clarity, perceived responsibility, predictability, guidance, and
-overall ease.
+The interaction claim is empirical: the contract supplies target, provider,
+handoff, capability, and rejection state, while the user study examines whether
+the current cues support target-selection clarity, answer--target fit, handoff
+understanding, final-agent clarity, perceived responsibility, predictability,
+guidance, and overall ease.
