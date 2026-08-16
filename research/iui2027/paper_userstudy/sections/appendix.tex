@@ -1,14 +1,14 @@
 \section{Detailed Contract and Evaluation Tables}
 
-\subsection{Running-example identifiers}
+\subsection{Running-scenario identifiers}
 
 Table~\ref{tab:running-example} spells out the exact objects used for the
-\path{brand_panel3} walkthrough.  Display labels are shortened in the prose,
-while execution uses these stable identifiers.
+\path{refrigerated_counter1} scenario.  Display labels are shortened in the
+prose, while execution uses these stable identifiers.
 
 \begin{table*}[h]
   \caption{Exact contract objects for the Steinpilz
-  \texttt{brand\_panel3} interaction.}
+  \texttt{refrigerated\_counter1} interaction.}
   \label{tab:running-example}
   \small
   \begin{tabularx}{\textwidth}{@{}p{28mm}Y Y@{}}
@@ -16,32 +16,32 @@ while execution uses these stable identifiers.
     Element & Exact instance & Runtime meaning \\
     \midrule
     Target
-      & \path{brand_panel3} $\rightarrow$
-        \path{ENT-ASSET-BRAND_PANEL3}; group
-        \path{ENT-GROUP-BRANDING}; zone
-        \path{ENT-ZONE-ENTRANCE_ZONE}
+      & \path{refrigerated_counter1} $\rightarrow$
+        \path{ENT-ASSET-REFRIGERATED_COUNTER1}; group
+        \path{ENT-GROUP-PRODUCT_COUNTERS}; zone
+        \path{ENT-ZONE-PRODUCT_DISPLAY_ZONE}
       & Collider observation and trusted model referent \\
     Use case and scenario
-      & \path{UC-STEINPILZ_BRAND_ROOM-INTERACT-BRAND_PANEL3};
-        \path{SC-STEINPILZ_BRAND_ROOM-INTERACT-BRAND_PANEL3-MAIN}
+      & \path{UC-STEINPILZ_BRAND_ROOM-INTERACT-REFRIGERATED_COUNTER1};
+        \path{SC-STEINPILZ_BRAND_ROOM-INTERACT-REFRIGERATED_COUNTER1-MAIN}
       & User-facing interaction and executable flow \\
     Answer step
-      & \path{STEP-STEINPILZ_BRAND_ROOM-INTERACT-BRAND_PANEL3-ANSWER}
+      & \path{STEP-STEINPILZ_BRAND_ROOM-INTERACT-REFRIGERATED_COUNTER1-ANSWER}
       & Scenario occurrence requiring one capability use \\
     Capability use
-      & \path{CU-STEINPILZ_BRAND_ROOM-INTERACT-BRAND_PANEL3-ANSWER-ROOM-GROUNDED-QUESTION};
-        provider \path{ENT-AGENT-RECEPTION_AGENT}
+      & \path{CU-STEINPILZ_BRAND_ROOM-INTERACT-REFRIGERATED_COUNTER1-ANSWER-ROOM-GROUNDED-QUESTION};
+        provider \path{ENT-AGENT-PRODUCT_SPECIALIST_AGENT}
       & Explicit target tuple and provider \\
     Capability
       & \path{CAP-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION}
-      & Operation declared for the Reception Agent \\
+      & Operation declared for the Product Specialist Agent \\
     Binding and action
       & \path{RB-STEINPILZ_BRAND_ROOM-ANSWER-ROOM-GROUNDED-QUESTION};
         \path{RA-STEINPILZ_BRAND_ROOM-BACKEND-CHAT}
       & Exact realization at \texttt{POST /chat} \\
     Assertion and case
       & \path{SA-STEINPILZ_BRAND_ROOM-ANSWER-GROUNDED};
-        \path{VC-STEINPILZ_BRAND_ROOM-INTERACT-BRAND_PANEL3}
+        \path{VC-STEINPILZ_BRAND_ROOM-INTERACT-REFRIGERATED_COUNTER1}
       & Declared identifier agreement and validation scope \\
     \bottomrule
   \end{tabularx}
