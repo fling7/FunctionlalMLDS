@@ -14,13 +14,7 @@ only if returned evidence agrees.
 A fluent answer can conceal an unknown target, an unauthorized provider, an
 unavailable operation, or evidence for another object.  Table~\ref{tab:failure-model}
 links each failure to a deterministic decision, a user question, and the
-prototype response.  We use Lim and Dey's intelligibility questions and later
-question-driven XAI work as an interpretive lens
-\cite{lim2009demand,liao2020questioning}.  Their questions are not additional
-model elements, nor do we propose target, provider, capability, and evidence as
-a second taxonomy.  These fields are the typed state from which the interface
-can answer ``What was selected?'', ``Why this agent?'', and ``Why could the
-request not proceed?''
+prototype response.
 
 \begin{table*}[t]
   \caption{Cross-layer failures, the user questions they raise, and the current
@@ -70,6 +64,13 @@ request not proceed?''
     \bottomrule
   \end{tabularx}
 \end{table*}
+
+We interpret the questions in Table~\ref{tab:failure-model} through Lim and
+Dey's intelligibility types and later question-driven XAI work
+\cite{lim2009demand,liao2020questioning}.  These questions are not model
+elements, nor do we propose target, provider, capability, and evidence as a
+second taxonomy.  They are typed states from which the interface can answer
+\emph{What}, \emph{Why}, and \emph{Why not} questions about the interaction.
 
 The prototype applies progressive disclosure.  A spatial highlight communicates
 the current target in place; a lightweight provider or handoff indication is
