@@ -8,6 +8,7 @@ on:
       - ".github/workflows/build-iui-userstudy-pdf.yml"
       - "research/iui2027/paper_userstudy/*.tex"
       - "research/iui2027/paper_userstudy/sections/*.tex"
+      - "research/iui2027/paper_userstudy/figures/*.tex"
       - "research/iui2027/paper/references.bib"
       - "research/iui2027/paper/figures/unity-model-grounded-selection.png"
 
