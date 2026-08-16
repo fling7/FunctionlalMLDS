@@ -23,9 +23,13 @@ verification concepts as its scenario foundation \cite{eastadl2013spec}; it
 does not claim complete UML or EAST-ADL conformance.  For the interaction,
 the important extension is explicit state for spatial entities, agent
 responsibilities and handoffs, scenario-specific capability uses, runtime
-actions, and expected evidence.  Figure~\ref{fig:functionalmlds-core} focuses
-on these runtime-relevant relations rather than reproducing the full
-metamodel.
+actions, and expected evidence.  Rather than reproducing the full metamodel,
+Figure~\ref{fig:functionalmlds-core} revisits the target--provider--action--evidence
+sequence introduced as a fail-closed process in
+Figure~\ref{fig:admission-boundary} and traces the concrete FunctionalMLDS
+relations that realize each gate.  Appendix
+Table~\ref{tab:functionalmlds-relations} provides the corresponding compact
+element-and-relation map.
 
 The distinction between a reusable capability and one situated use of it is
 central.  ``Answer grounded questions'' is a capability; ``the Product
@@ -102,10 +106,11 @@ show a provider change, or report that the requested operation is unavailable.
     \draw[projection] (operation) -- (operationcue);
     \draw[projection] (evidence) -- (evidencecue);
   \end{tikzpicture}
-  \caption{Runtime-relevant FunctionalMLDS relations and their visitor-facing
-  projection.  The upper row records the target, provider, allowed operation,
-  and evidence path.  The lower row shows the interface state derived from
-  each relation; the formal model does not prescribe the cue's visual or
+  \caption{Implementation view of the four-gate interaction boundary from
+  Figure~\ref{fig:admission-boundary}.  The upper row identifies the
+  FunctionalMLDS relations that realize target, provider, allowed-operation,
+  and evidence checks; the lower row shows the interface state projected from
+  each relation.  The formal model does not prescribe a cue's visual or
   linguistic form.}
   \Description{Four internal contract states form a left-to-right path:
   spatial target, responsible provider, allowed operation, and evidence.
@@ -118,13 +123,12 @@ show a provider change, or report that the requested operation is unavailable.
 
 \subsection{Validation and publication boundary}
 
-The implementation retains four validation stages because they isolate
-different failures, but they align with three moments in the interaction.
-Before a room opens, \textbf{serialization validation} checks fields, types,
-and reference shapes, while \textbf{model validation} checks referential
-closure, cardinalities, unique source identifiers, assertion ownership, and
-the absence of direct scenario-step-to-action shortcuts.  Before an
-interaction is enabled, \textbf{executable-profile validation} requires one
+The implementation uses four checks, grouped by when they protect the
+interaction.  Before a room opens, \textbf{serialization validation} checks
+fields, types, and reference shapes, while \textbf{model validation} checks
+referential closure, cardinalities, unique source identifiers, assertion
+ownership, and the absence of direct scenario-step-to-action shortcuts.  Before
+an interaction is enabled, \textbf{executable-profile validation} requires one
 provider and capability per evaluated capability use, agreement among target,
 provider, and performer, and a complete runtime binding.  Per turn,
 \textbf{runtime validation} binds the request and response to one already
