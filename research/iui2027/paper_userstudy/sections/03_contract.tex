@@ -4,10 +4,17 @@
 Software contracts usually guard technical boundaries.  In an intelligent
 interface, the same decisions also determine what the system treats as
 selected, which agent may respond, and how users recover from a blocked
-request.  We use one running scenario: a visitor selects
-\texttt{brand\_panel3} while the Lounge Host is active.  The contract must
-preserve the target, resolve the provider, enforce an allowed handoff, invoke a
-declared capability, and present an answer only if returned evidence agrees.
+request.  Our running scenario takes place in an explorable 3D trade-fair booth
+for a cheese manufacturer.  Visitors can move through distinct exhibition
+areas, inspect products and production exhibits, and address several embodied
+agents with different responsibilities.  A visitor who is currently speaking
+with the Reception Agent selects a refrigerated cheese display counter
+(\texttt{refrigerated\_counter1}) and asks, ``What cheese is displayed here?''
+The counter is assigned to the Product Specialist Agent.  The contract must
+therefore preserve the selected counter, resolve that provider, authorize the
+declared direct handoff, invoke the grounded-answer capability, and present the
+response only if the returned evidence still names the same target and
+provider.
 
 \subsection{Failure model and interface implications}
 
@@ -100,8 +107,9 @@ concrete action, \(q\) the assertions, and \(o\) the observation evidence.
 Read in execution order, \(m,s\) fix the context; \(t,p\) identify what was
 selected and who may act; \(u,c,b,a\) declare what may run; and \(q,o\) check
 whether the result still agrees with the admitted request.  In the running
-example, \(t\) is \texttt{brand\_panel3}, \(p\) is the Reception Agent, and the
-remaining elements declare and verify its grounded-answer action.
+scenario, \(t\) is \texttt{refrigerated\_counter1}, \(p\) is the Product
+Specialist Agent, and the remaining elements declare and verify the grounded
+answer about the selected cheese display.
 
 The required declaration path is
 \[
@@ -110,7 +118,8 @@ s \rightarrow u \rightarrow c \rightarrow b \rightarrow a.
 A scenario step cannot invoke \(a\) directly.  Its capability use must name the
 trusted target and provider and resolve exactly one capability, binding, and
 action.  A generic \texttt{POST /chat} call therefore cannot bypass the
-declaration that the Reception Agent may answer about this panel.
+declaration that the Product Specialist Agent may answer product questions
+about this counter.
 
 The provider is resolved independently of display names.  For target \(t\), the
 resolver selects the most specific non-empty responsibility tier:
@@ -126,12 +135,12 @@ Exactly one provider at the selected tier is required; no provider or several
 providers make the request inadmissible.  This is a deterministic specificity
 policy, not a model of whom visitors intuitively expect to answer: an
 asset-level assignment overrides broader group and zone defaults.  For
-\texttt{brand\_panel3}, the policy selects the Reception Agent.  If the Lounge
-Host is active, one declared handoff may reach that provider.  The interaction
-design consequence is deliberately modest but important: when the resolved
-provider differs from the active agent, the change must not be silent.  The
-contract returns the provider and route reason; the interface decides how to
-communicate them.
+\texttt{refrigerated\_counter1}, the policy selects the Product Specialist
+Agent.  If the Reception Agent is active, one declared handoff may reach that
+provider.  The interaction-design consequence is deliberately modest but
+important: when the resolved provider differs from the active agent, the change
+must not be silent.  The contract returns the provider and route reason; the
+interface decides how to communicate them.
 
 \subsection{Admission and response conditions}
 
@@ -157,14 +166,14 @@ A deictic request is admitted only if all of the following conditions hold:
 These gates connect directly to the failure model: Conditions 1--2 cover target
 identity and ambiguity, Condition 3 covers responsibility drift, and Conditions
 4--5 prevent action shortcuts.  Evidence mismatch and undeclared handoff are
-checked after generation.  In the running example, preflight confirms the
-pinned room and panel, resolves the Reception Agent, permits the Lounge Host's
-direct handoff, and selects the grounded-answer action.  A failed condition
-yields a relation-specific rejection rather than model-generated fallback text.
-After generation, the returned target, provider, route, binding, and action are
-checked against the admitted tuple and assertions \(q\).  Agreement is recorded
-in \(o\) and permits commit; a mismatch or undeclared handoff restores the
-snapshot and blocks presentation.
+checked after generation.  In the running scenario, preflight confirms the
+pinned booth and refrigerated counter, resolves the Product Specialist Agent,
+permits the Reception Agent's direct handoff, and selects the grounded-answer
+action.  A failed condition yields a relation-specific rejection rather than
+model-generated fallback text.  After generation, the returned target,
+provider, route, binding, and action are checked against the admitted tuple and
+assertions \(q\).  Agreement is recorded in \(o\) and permits commit; a mismatch
+or undeclared handoff restores the snapshot and blocks presentation.
 
 \begin{figure*}[t]
   \centering
