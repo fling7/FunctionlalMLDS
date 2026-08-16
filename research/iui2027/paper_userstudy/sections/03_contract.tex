@@ -2,27 +2,25 @@
 \label{sec:contract}
 
 Software contracts usually guard technical boundaries.  In an intelligent
-interface, the same decisions also shape the interaction: what object the
-system treats as selected, which agent may respond, why responsibility changes,
-and where the user can recover when the request cannot proceed.  We use one
-running scenario throughout.  A visitor selects \texttt{brand\_panel3} while
-the Lounge Host is active.  The system must preserve that target, resolve the
-responsible provider, enforce any permitted handoff, invoke the declared
-capability, and present an answer only while the resulting target--provider
-relation remains intact.
+interface, those decisions also determine what the system treats as selected,
+which agent may respond, and how a failed request remains recoverable.  We use
+one running scenario: a visitor selects \texttt{brand\_panel3} while the Lounge
+Host is active.  The contract must preserve the target, resolve the provider,
+enforce an allowed handoff, invoke a declared capability, and present an answer
+only if returned evidence agrees.
 
 \subsection{Failure model and interface implications}
 
 A fluent answer can conceal an unknown target, an unauthorized provider, an
 unavailable operation, or evidence for another object.  Table~\ref{tab:failure-model}
-therefore connects each cross-layer failure to both a deterministic contract
-decision and an observable interface response.  We use the intelligibility
-questions established by Lim and Dey and later question-driven XAI work as an
-interpretive lens \cite{lim2009demand,liao2020questioning}.  The questions are
-not additional model elements, and target, provider, capability, and evidence
-are not proposed as a second explanation taxonomy.  They are the typed state
-from which an interface can answer questions such as ``What was selected?'',
-``Why did this agent answer?'', and ``Why could the request not proceed?''
+links each failure to a deterministic decision, a user question, and the
+prototype response.  We use Lim and Dey's intelligibility questions and later
+question-driven XAI work as an interpretive lens
+\cite{lim2009demand,liao2020questioning}.  Their questions are not additional
+model elements, nor do we propose target, provider, capability, and evidence as
+a second taxonomy.  These fields are the typed state from which the interface
+can answer ``What was selected?'', ``Why this agent?'', and ``Why could the
+request not proceed?''
 
 \begin{table*}[t]
   \caption{Cross-layer failures, the user questions they raise, and the current
