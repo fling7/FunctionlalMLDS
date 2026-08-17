@@ -3,18 +3,19 @@
 
 The dated user-study cut contains 65 completed sessions.  Target selection was
 rated positively (4 or 5) by 45/65 participants (69.2\%; median 4,
-IQR 3--5), and 50/65 rated the task-level answer--target fit positively
-(76.9\%; median 5, IQR 4--5).  Across the final ratings, 55/65 found the
+IQR 3--5), and 50/65 rated task-level answer--target fit positively
+(76.9\%; median 5, IQR 4--5).  In the final ratings, 55/65 found the
 guidance helpful (84.6\%), 47/65 rated the overall interaction easy (72.3\%),
 and the 0--10 overall score had a median of 8 (IQR 7--9).
 
-Forty-nine participants reported observing the intended handoff; eight were
-unsure and eight reported no handoff.  Among those 49, 40 rated the transition
-understandable (81.6\%; median 5, IQR 4--5) and 45 found the final responding
-agent clear (91.8\%; median 5, IQR 5--5).  These values measure perceived
-handoff visibility.  The questionnaire export does not contain the
-corresponding per-session backend event, so it cannot establish individual
-log--report agreement.
+Forty-nine participants answered ``yes'' when asked whether they observed the
+intended handoff; eight were unsure and eight answered ``no.''  Restricting the
+handoff ratings strictly to those 49, 40 rated the transition understandable
+(81.6\%; mean 4.41, median 5, IQR 4--5) and 45 found the final responding
+agent clear (91.8\%; mean 4.67, median 5, IQR 5--5).  Numeric downstream
+ratings attached to ``no'' or ``unsure'' responses were not included.  These
+values measure perceived handoff visibility.  The export contains no linked
+per-session backend event, so individual log--report agreement cannot be tested.
 
 Responsibility rationale was less consistently understood.  The general
 responsibility item was positive for 42/65 participants (64.6\%; median 4,
@@ -23,13 +24,14 @@ depends on the selected object and question topic (56.9\%; 95\% Wilson CI
 [44.8\%, 68.2\%]).  Ten selected the first-contacted agent, eight the nearest
 agent, and ten reported that the rule was unclear.  Likewise, only 30/65 rated
 the division among several specialized agents as helpful (46.2\%; median 3,
-IQR 3--4).  Thus the implemented cues made the handoff event and final agent
-more visible than the underlying responsibility rule.
+IQR 3--4).  Thus the handoff event and final agent were more visible than the
+underlying responsibility rule.
 
-Only 22 participants reported experiencing a state for which they could rate
-error explanation; 15/22 rated it positively.  We treat this result as
-exploratory because exposure was neither required nor controlled.  Optional
-comments primarily identified navigation and input friction, unclear or
-overlapping agent roles, and answer-presentation or content-quality issues.
-These observations guide interface refinement but do not alter the technical
-contract results.
+Only 22 participants encountered a state for which they supplied a numeric
+error-explanation rating; 15/22 rated it positively.  Because neither task
+deliberately induced ambiguity, a blocked capability, an unreachable provider,
+or rollback, this opportunistic subset does not establish user comprehension of
+fail-closed behavior.  Optional comments primarily identified navigation and
+input friction, unclear or overlapping agent roles, and answer-presentation or
+content-quality issues.  These observations guide interface refinement but do
+not alter the technical contract results.
