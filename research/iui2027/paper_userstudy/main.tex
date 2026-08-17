@@ -33,31 +33,31 @@ even when the selected object, responsible agent, invoked operation, and
 reported evidence do not agree.  Such failures are difficult to detect when
 scene bindings, agent roles, handoffs, and backend endpoints are wired in
 separate artifacts.  We present an executable interaction contract for spatial
-multi-agent interfaces, realized as \systemname{} across a Unity desktop client
-and a conversational-agent backend.  The contract pins one model version and
-requires each admitted request to resolve one spatial target, one declared
-provider, one capability use, and one concrete runtime action.  The backend
-re-resolves these relations rather than trusting client fields; stale,
-ambiguous, unreachable, or multiply bound requests fail before a response-model
-call and session mutation whenever the violation is request-decidable.
-Response-dependent violations are rejected transactionally.
+multi-agent interfaces, realized as \systemname{} across a Unity client and a
+conversational-agent backend.  The contract pins one model version and requires
+each admitted request to resolve one spatial target, one declared provider, one
+capability use, and one concrete runtime action.  The backend re-resolves these
+relations rather than trusting client fields; stale, ambiguous, unreachable, or
+multiply bound requests fail before a response-model call and session mutation
+whenever the violation is request-decidable.  Response-dependent violations
+are rejected transactionally.
 
-We evaluate coverage, migration non-regression, runtime enforcement, added
-cross-layer expressiveness, and structural cost in three authored spatial
-environments.  All 93 scene assets participate in complete declared interaction
-paths (186/186 asset-targeting step--capability-use pairs).  A normalized
-direct-wiring adapter and the contract representation agree on all 93 owner
-decisions and 459 object-by-start-agent route classifications under a fixed
-shared policy.  The executable backend admits all 298 local or directly
-reachable routes with matching target and provider evidence, and rejects all
-161 transitive or unreachable routes before the deterministic response stub
-without retained session mutation.  A stricter provider contract detects and
-localizes 9/9 additional cross-layer mutations with 0/3 false positives; the
-direct artifacts do not represent the corresponding typed relations.  This
-additional structure costs 5.9--7.6 times the local adapter workload in the
-reported microbenchmark.  The contribution is a fail-closed control and
-evidence boundary for an intelligent spatial interface, not a claim about
-answer quality or human experience.
+We use a complementary two-study evaluation.  A deterministic system study
+examines coverage, migration non-regression, runtime enforcement, added
+cross-layer expressiveness, and structural cost in three authored environments.
+All 93 scene assets participate in complete declared interaction paths, the
+direct-wiring and contract representations agree on all 459 route
+classifications under a fixed shared policy, and the runtime admits all 298
+local or direct routes while rejecting all 161 transitive or unreachable routes
+before the response stub without retained mutation.  A complementary remote,
+task-based user study with 65 completed sessions evaluates the visible target,
+handoff, and responsibility cues.  Participants generally reported clear
+answer--target fit and handoff transitions; among 49 who reported a handoff,
+45 found the final agent clear.  However, only 37/65 selected the intended
+object-and-topic responsibility rule.  The contribution is therefore a
+fail-closed control and evidence boundary with initial descriptive evidence
+about its intelligibility, not a causal claim that it improves usability over
+an alternative interface.
 \end{abstract}
 
 \ccsdesc[500]{Human-centered computing~Intelligent user interfaces}
@@ -78,6 +78,7 @@ interaction contracts, runtime assurance, model-driven engineering, Unity}
 \input{sections/04_implementation}
 \input{sections/05_evaluation}
 \input{sections/06_results}
+\input{sections/06_user_results}
 \input{sections/07_discussion}
 \input{sections/08_limitations_conclusion}
 \input{sections/09_genai_disclosure}
