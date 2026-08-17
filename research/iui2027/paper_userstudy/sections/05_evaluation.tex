@@ -1,146 +1,109 @@
 \section{Evaluation Method}
 \label{sec:evaluation}
 
-\subsection{Scope and design}
+\subsection{Complementary two-study design}
 
-We conduct a software-system evaluation of the contract rather than a study of
-generated language or human experience.  The design has four linked parts:
-(1) a migration and coverage audit over every modeled scene asset, (2) a
-controlled non-regression comparison with the direct artifacts from which the
-contract instances were generated, (3) executable backend and Unity contract
-tests, and (4) mutation and timing analyses that separate common faults from
-contract-only cross-layer faults.  All reported proportions use exact
-numerators and denominators for the fixed corpus.
+We evaluate the same contract at two different boundaries.  \emph{Study T}
+addresses RQ1--RQ3 with deterministic software evidence: whether the authored
+relations are complete, survive migration, reject invalid requests, and add
+enforceable invariants at measurable structural cost.  \emph{Study U} addresses
+RQ4 with a remote, unmoderated, task-based user evaluation: whether the
+implemented target, provider, and handoff cues are understandable in use.  The
+studies are complementary rather than interchangeable.  Study T cannot
+establish human comprehension, while Study U cannot validate the internal
+contract or show superiority over another architecture.
 
-The corpus contains the three spatial development cases available in the
-repository: a career-fair room, a classroom with a dinosaur exhibit, and a
-food/trade-fair brand room.  They contain 27, 36, and 30 routable scene assets
-and 5, 4, and 6 modeled agents, respectively.  The cases were authored during
-system development, not sampled from a population or held out from
-implementation decisions.  This scope supports exhaustive checks over the
-three models, not generalization to other rooms or authors.
+\subsection{Study T: contract coverage and enforcement}
 
-\subsection{RQ1: coverage and non-regression}
+The technical corpus comprises the three authored development cases in the
+repository: a career-fair room, a classroom, and the food/trade-fair brand room
+(93 routable assets and 15 agents in total).  A fresh native V2 instance is
+regenerated from each frozen version-0.5 case.  An asset is complete only when
+each asset-targeting \texttt{ScenarioStep}/\texttt{CapabilityUse} pair resolves
+one coherent provider, capability, binding, action, assertion set, and covering
+validation case.
 
-For each case, the benchmark regenerates a fresh native V2 instance in memory
-from its frozen version-0.5 case model.  Checked-in V2 files are hashed and
-audited but are not used as treatment input.  An asset is complete only if it
-appears in at least one asset-targeting interaction chain and every such chain
-resolves exactly one capability and provider, agrees with the scenario
-performer, contains the evaluated asset among its targets, reaches an
-executable runtime binding and action, resolves all resulting assertions, and
-has a use-case-linked validation case covering the binding and assertions.
-The asset denominator contains every V2 entity with
-\texttt{entityRole=sceneObject}; the chain denominator contains every
-\texttt{ScenarioStep}/\texttt{CapabilityUse} pair explicitly targeting one of
-those assets.  A complete chain is a declaration and traceability result, not
-evidence that a conversation was executed.
+Migration non-regression is checked with separately parsed direct-wiring and V2
+adapters.  Both expose ownership candidates and handoff edges to one fixed
+policy: asset ownership precedes group and zone ownership, and several owners at
+the highest active tier are ambiguous.  We compare the owner of every asset and
+the route from every modeled starting agent.  Because one shared function
+classifies the normalized views, agreement tests representation parity, not the
+correctness of the policy.  Derived copies separately exercise group fallback,
+zone fallback, and ambiguity because every natural corpus asset has an explicit
+asset owner.
 
-The non-regression comparison uses two independently parsed adapters over the
-same frozen cases:
+Runtime enforcement converts all 459 object--start-agent pairs into backend
+requests.  Local and direct routes must preserve target, provider, capability,
+binding, and action evidence; transitive and unreachable routes must stop
+before the deterministic response stub without retained state mutation.  A
+targeted suite adds one valid and 16 invalid spatial requests, and three Unity
+Editor smokes execute the generated client bridge and evidence checks.  Common
+mutations remove ownership, add a competing owner, or dangle a handoff.
+Contract-only mutations remove a capability-use provider, duplicate a runtime
+agent identifier, or assign domain behavior to the orchestrator.  We record
+detection, localization, false positives, representation edits, and an
+alternating 40-repetition in-memory timing benchmark.  All technical runs are
+API-free; timing excludes file I/O, generation, Unity, networking, and model
+latency.
 
-\begin{description}
-  \item[Direct wiring.] Reads the existing scene-semantics, generated
-  agent-role, and handoff-matrix artifacts.
-  \item[Contract representation.] Reads the fresh V2 instance regenerated in
-  the same benchmark run.
-\end{description}
+\subsection{Study U: browser-based interaction study}
 
-Both expose a normalized ownership graph and the same decision policy:
-asset assignment outranks object-group assignment, which outranks zone
-responsibility; more than one owner at the highest active tier is ambiguous.
-For every routeable object, the benchmark compares the owner and then classifies
-a route from every modeled starting agent as local, directly permitted,
-transitively graph-reachable, or unreachable.
+Study U evaluates the user-visible realization, not the metamodel in the
+abstract.  Participants used the browser-based 3D brand room and completed two
+standardized tasks while a short questionnaire guided the session.  First, they
+selected a product exhibit and asked the Product Specialist a grounded question,
+exercising target visibility and answer--target fit.  Second, they asked the
+Reception Agent a product question designed to invoke the declared direct
+handoff to the Product Specialist, exercising handoff awareness and final-agent
+clarity.  Immediate post-task questions reduce recall demands; a final block
+measures perceived responsibility, predictability, guidance, ease, and the
+usefulness of specialized agents.
 
-The parsers extract candidate sets and handoff edges separately, but one shared
-routing function classifies both normalized views.  Agreement is consequently
-a migration and serialization non-regression check under a fixed policy, not
-independent evidence that the policy itself is correct.
+The instrument uses five-point agreement items, a 0--10 overall score, one
+multiple-choice comprehension check, device and experience questions, and
+optional formative comments.  We treat the comprehension proportion as the
+primary human-study outcome; the custom ratings are secondary.  The
+comprehension check asks whether provider selection depends on the object and
+question topic; its distractors encode nearest-agent, first-contacted-agent, and
+unclear mental models.  The introduction describes the multi-agent setting
+without disclosing this rule.  There is no comparison condition, so Study U
+supplies descriptive evidence about the implemented cues and cannot establish
+that FunctionalMLDS improves usability over direct wiring or another interface.
 
-All natural objects currently have asset-level owners.  To exercise the entire
-precedence rule without misrepresenting corpus frequencies, a separate derived
-suite copies one object per case and creates three probes: remove its asset
-owner to require a group fallback; remove both asset and group owners to
-require a zone fallback; and add a competing owner at the highest active tier
-to require ambiguity rejection.  The direct artifacts have no native group
-relation, so the benchmark inserts the same normalized group candidate into
-both copies.  These probes test decision behavior, not equivalent native
-authoring expressiveness.
+\subsection{Participants, sample adequacy, and analysis}
 
-\subsection{RQ2: fail-closed runtime enforcement}
+% TODO before submission: add the institution-specific ethics/consent statement.
+The analysis cut of 17 August 2026 contains 65 unique completed sessions:
+45 on desktop or laptop browsers and 20 on tablets or smartphones.  Participants
+were 18--54 years old (41 aged 18--24, 20 aged 25--34, and 4 aged 45--54);
+44 reported computing, engineering, or design/HCI backgrounds, 11 business,
+and 10 other fields.  This convenience sample characterizes the current
+prototype audience and is not population-representative.
 
-The exhaustive runtime sweep converts all object-by-start-agent combinations
-into backend requests, for 459 probes in total.  The expected owner and route
-class come from the frozen direct-wiring projection.  A fresh V2 project is
-materialized and verified equal to the in-memory treatment before execution.
-Each probe runs through \texttt{SessionStore.chat} with a deterministic
-structured-response stub and an active network guard.
+Because Study U is a single-condition descriptive evaluation, an effect-size
+power calculation for a group difference would be inappropriate.  We instead
+judge adequacy by estimation precision.  With \(n=65\), the largest two-sided
+95\% Wilson interval half-width for a binary proportion is approximately
+0.12 at \(p=.5\) \cite{wilson1927probable}.  This is sufficient for the intended
+broad item-level and majority-versus-ambiguity claims, but not for small
+subgroup differences or population estimates.  Later responses will be analyzed
+as a new dated data cut rather than silently appended to the present results.
 
-Local and direct routes are expected to be admitted.  An admitted response must
-preserve the expected target and provider and contain non-empty,
-cross-field-consistent capability-use, capability, binding, and action
-identifiers.  Transitive and unreachable routes are expected to be rejected
-because one request permits at most one direct handoff.  A rejected request
-must stop before the stub and leave session state unchanged.  The benchmark
-restores a session snapshot after every probe so that cases remain independent.
+For Study T we report exact corpus counts and descriptive timing; confidence
+intervals would imply a sampling model the exhaustive probes do not have.  For
+Study U we report item medians and interquartile ranges, the proportion rating
+an item 4 or 5, and categorical counts; the comprehension proportion receives a
+95\% Wilson interval.  Handoff ratings are summarized among participants who
+reported observing a handoff, and error-feedback ratings only among those who
+experienced such a state.  We do not combine the custom items into an
+unvalidated omnibus scale or perform confirmatory subgroup tests.  Optional
+comments are used formatively rather than treated as a saturated qualitative
+study.
 
-A targeted spatial-contract suite exercises one valid deictic request and 16
-invalid variants, including missing context, unknown or contradictory
-identifiers, obsolete hashes, ambiguous candidates, invalid active agents,
-oversized fields, non-finite coordinates, and an undeclared handoff proposed by
-the stub.  Request-decidable variants require zero stub calls and no retained
-mutation.  The undeclared handoff is knowable only after generation; it
-requires one stub call and must then roll back provisional state.
-
-Three Unity Editor batch entry points load the same generated artifacts and
-runtime components used by the client.  They exercise scenario progression,
-dispatch, five assertion types, valid and broken evidence, desktop-ray
-selection, ambiguous binding registries, exact target-specific multi-scenario
-selection, and permission checks.  Exit status and explicit success markers are
-recorded.  These are executable Editor paths, not participant or headset
-trials.
-
-\subsection{RQ3: fault scope, representation edits, and local cost}
-
-The \emph{common} mutation suite applies three changes that both
-representations can express, once per case: remove all ownership paths for one
-object, add a second asset-level owner, and replace a handoff target with a
-dangling identifier.  Each mutation starts from an expected-valid copy.
-A detection counts only a new issue relative to that copy; localization
-requires the new issue to name a mutation-specific object, agent, or field
-token.  We record false positives, edited top-level artifacts, and added,
-removed, or replaced stored references.  Edit counts describe deterministic
-patches, not developer effort.
-
-A separate \emph{contract-only} suite mutates typed relations absent from the
-direct representation: it removes a capability-use provider, duplicates an
-agent's source-agent identifier, or assigns a domain capability to the runtime
-orchestrator.  Each mutation is applied once per case.  We report the canonical
-V2 validator and the stricter pipeline agent--provider contract separately.
-The baseline is marked ``not representable'' rather than failed; these results
-measure added invariant scope, not comparative superiority on an impossible
-task.
-
-For descriptive cost, each adapter repeatedly constructs its normalized
-responsibility view and enumerates all routes.  After four warm-ups, execution
-order alternates for 40 measured repetitions per case using a monotonic
-nanosecond clock.  The measurement includes adapter construction from already
-parsed artifacts and route enumeration.  It excludes JSON I/O, v0.5-to-V2
-generation, Unity, networking, and model latency.  We report medians,
-quartiles, ranges, and the V2/direct median ratio without inferential claims.
-
-\subsection{Reproducibility and analysis boundary}
-
-The benchmark is API-free and records raw per-probe results, environment
-metadata, source and input hashes, mutations, validation issues, timing samples,
-and generated tables.  A verifier regenerates fresh V2 instances, reruns
-targeted tests, checks the three Unity smokes when the Editor is available, and
-scans the anonymous artifact for identifiers and secrets.
-
-No confidence intervals or significance tests are attached to exhaustive,
-deterministic probes over three purposively authored cases; doing so would imply
-a sampling model the design does not have.  The evaluation does not measure
-answer correctness, usefulness, trust, workload, preference, end-to-end
-latency, or maintenance time.  It also does not use a language model as a
-semantic judge.
+The questionnaire export records perceived handoffs but no per-session backend
+handoff event.  Consequently, RQ4 concerns whether participants reported and
+understood the transition; Study T independently establishes that the modeled
+handoff path is executable.  The dated questionnaire export, analysis code,
+technical inputs, mutations, and raw probe outcomes form the reproducibility
+boundary.
