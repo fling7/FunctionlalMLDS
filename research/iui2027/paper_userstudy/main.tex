@@ -20,7 +20,7 @@
 \newcommand{\contractpath}{\texttt{target--provider--capability--action}}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 
-\title[Executable Contracts for Spatial Agents]{Preventing Wrong-Target Agent Actions in Spatial Interfaces with Executable Interaction Contracts}
+\title[Executable Contracts for Spatial Multi-Agent Interfaces]{From Target Selection to Agent Execution: Executable Contracts for Spatial Multi-Agent Interfaces}
 
 \author{Anonymous Author(s)}
 \affiliation{%
@@ -28,36 +28,38 @@
   \country{Anonymous}}
 
 \begin{abstract}
-Embodied agents in three-dimensional interfaces can return a fluent response
-even when the selected object, responsible agent, invoked operation, and
-reported evidence do not agree.  Such failures are difficult to detect when
-scene bindings, agent roles, handoffs, and backend endpoints are wired in
-separate artifacts.  We present an executable interaction contract for spatial
-multi-agent interfaces, realized as \systemname{} across a Unity client and a
-conversational-agent backend.  The contract pins one model version and requires
-each admitted request to resolve one spatial target, one declared provider, one
-capability use, and one concrete runtime action.  The backend re-resolves these
-relations rather than trusting client fields; stale, ambiguous, unreachable, or
-multiply bound requests fail before a response-model call and session mutation
-whenever the violation is request-decidable.  Response-dependent violations
-are rejected transactionally.
+People increasingly interact with multiple embodied agents in immersive 3D
+environments, where agents have distinct responsibilities and capabilities.
+Such interfaces require more than fluent dialogue: the selected object,
+responsible agent, permitted capability, concrete runtime action, and returned
+evidence must remain consistent across the spatial client and agent backend.
+We present \systemname{}, an executable interaction-contract approach that
+represents these relations in a machine-readable, traceable model and
+materializes coordinated artifacts for both layers.  At runtime, a pinned
+contract is authoritative.  The backend re-resolves the selected entity,
+applies asset-, group-, and zone-level responsibility, verifies at most one
+declared handoff, selects one target- and provider-specific capability binding,
+and checks returned evidence before presentation.  Request-decidable violations
+stop before response generation and retained state mutation; response-dependent
+violations trigger rollback with relation-level diagnostics.
 
-We use a complementary two-study evaluation.  A deterministic system study
-examines coverage, migration non-regression, runtime enforcement, added
-cross-layer expressiveness, and structural cost in three authored environments.
-All 93 scene assets participate in complete declared interaction paths, the
-direct-wiring and contract representations agree on all 459 route
-classifications under a fixed shared policy, and the runtime admits all 298
-local or direct routes while rejecting all 161 transitive or unreachable routes
-before the response stub without retained mutation.  A complementary remote,
-task-based user study with 65 completed sessions evaluates the visible target,
-handoff, and responsibility cues.  Participants generally reported clear
-answer--target fit and handoff transitions; among 49 who reported a handoff,
-45 found the final agent clear.  However, only 37/65 selected the intended
-object-and-topic responsibility rule.  The contribution is therefore a
-fail-closed control and evidence boundary with initial descriptive evidence
-about its intelligibility, not a causal claim that it improves usability over
-an alternative interface.
+We evaluate the approach through two complementary studies.  Study T performs
+deterministic model analysis, systematic fault injection, and end-to-end
+contract tests across three authored environments.  All 93 assets and 186
+target-specific declaration pairs were complete.  Direct-wiring and contract
+adapters agreed on all 93 owner decisions and 459 route classifications under a
+shared policy.  Runtime tests admitted all 298 local or direct routes and
+rejected all 161 transitive or unreachable routes without retained mutation;
+the strict provider contract also detected and localized all nine injected
+contract-only faults.  Study U is a remote, unmoderated, task-based evaluation
+with 65 completed browser sessions.  Fifty participants rated answer--target
+fit positively and 55 found the interface guidance helpful.  Of 49 who reported
+observing the intended handoff, 40 found it understandable and 45 found the
+final responding agent clear.  However, only 37 participants identified the
+intended object-and-topic responsibility rule.  \systemname{} therefore
+provides a fail-closed control and evidence boundary with initial evidence that
+successful target and handoff cues are intelligible; clearer responsibility and
+failure communication remains necessary.
 \end{abstract}
 
 \ccsdesc[500]{Human-centered computing~Intelligent user interfaces}
@@ -76,11 +78,8 @@ interaction contracts, runtime assurance, model-driven engineering, Unity}
 {\tikzset{every picture/.append style={scale=.90,transform shape}}%
 \input{sections/03_contract}}
 \input{sections/04_implementation}
-% Study U scope, ethics, filtering, and failure-state limits are fixed in the
-% dated evaluation and results sections below.
 \input{sections/05_evaluation}
 \input{sections/06_results}
-\input{sections/06_user_results}
 \input{sections/07_discussion}
 \input{sections/08_limitations_conclusion}
 \input{sections/09_genai_disclosure}
