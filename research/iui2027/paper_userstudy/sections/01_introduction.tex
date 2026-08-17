@@ -58,19 +58,18 @@ While these mechanisms establish a technical control boundary, their utility in
 intelligent interfaces depends on whether users can comprehend the interaction
 flow. The contract activates only after a target object is chosen; it neither
 infers unstated intent nor guarantees the factual accuracy of generated text.
-However, it guarantees that the chosen object is reliably linked to a declared
-provider, capability, and action, making parts of this linkage visible to the
-user.
+For an admitted request, however, it enforces one model-consistent link from the
+chosen object to a declared provider, capability, and action and returns the
+corresponding evidence for presentation and diagnosis.
 
 Consequently, we evaluate our system from two perspectives: a technical benchmark
 measuring contract coverage, non-regression, runtime enforcement, fault
-localization, and overhead cost; alongside a user study examining whether
-participants correctly identify the target object, observe handoffs, recognize
-the responding agent, and understand the system's delegation of responsibilities
-based on contract-driven visual cues. This empirical evaluation focuses
-specifically on the implemented interaction, measuring task clarity,
-predictability, guidance, and usability, rather than long-term trust or general
-cross-domain applicability.
+localization, and structural cost; and a user study examining whether
+participants identify the target object, observe handoffs, recognize the
+responding agent, and understand how responsibilities are delegated through the
+implemented cues. The human study focuses on successful target and direct-handoff
+paths and measures clarity, predictability, guidance, and ease rather than
+long-term trust or general cross-domain applicability.
 
 We address four central research questions:
 
@@ -113,14 +112,15 @@ wiring, routing probes, fault injection, and structural cost analysis; and
 handoff perception, agent role recognition, predictability, and user guidance.
 \end{enumerate}
 
-Our technical evaluation indicates that the contract maintains baseline system
-behavior, strictly enforces one-hop policies, and detects cross-layer
-discrepancies that native artifacts miss. The empirical user study complements
-these findings: while users readily grasped object selection, target--answer
-grounding, and handoff events, agent selection rationales and functional
-boundaries were less intuitive. This demonstrates that while a contract can
-reliably enforce backend responsibilities, additional interface cues are
-necessary for full user clarity.
+Study T shows that the contract preserves the fixed routing policy, enforces the
+one-hop runtime boundary, and detects typed cross-layer inconsistencies absent
+from the direct artifacts. Study U provides a complementary interface result:
+50/65 participants rated answer--target fit positively; among the 49 who
+reported observing the intended handoff, 40 found it understandable and 45
+found the final responding agent clear. Only 37/65, however, identified the
+intended object-and-topic responsibility rule. The results therefore distinguish
+successful-path cue visibility from a responsibility rationale that still
+requires clearer communication.
 
 The complete prototype, model artifacts, evaluation scripts, raw data, study
 materials, and reproduction guidelines are made available in the anonymous
@@ -129,13 +129,14 @@ to interfaces; rather, explicit relations constrain what systems interpret and
 execute, reducing errors like wrong-target references or undeclared actions into
 predictable, auditable bounds.
 
-Section~\ref{sec:related} outlines related research on embodied agents, spatial
+Section~\ref{sec:related} positions the work against embodied agents, spatial
 reference, conversational XR, model-driven engineering, and runtime
-verification. Section~\ref{sec:contract} details the proposed contract and its
-formal guarantees; Section~\ref{sec:implementation} describes its
-implementation across Unity, the backend, and evidence tracing.
-Sections~\ref{sec:evaluation} and~\ref{sec:results} present technical benchmarks
-and user study findings. Section~\ref{sec:discussion} explores system trade-offs,
-costs, and communication boundaries, while Sections~\ref{sec:limitations}
-and~\ref{sec:conclusion} outline limitations and conclusions. Supplementary
-materials are included in the appendix.
+verification. Section~\ref{sec:contract} defines the interaction contract and
+its guarantee boundary, and Section~\ref{sec:implementation} follows the model
+into the client, backend, and interface cues. Section~\ref{sec:evaluation}
+describes the complementary technical and user-study methods; Section~\ref{sec:results}
+reports RQ1--RQ4. Section~\ref{sec:discussion} integrates both studies and their
+design implications. Sections~\ref{sec:limitations} and~\ref{sec:conclusion}
+state the validity boundaries and conclusion. The appendix supplies supporting
+contract identifiers, runtime terminology, enforcement details, per-case
+results, and the artifact map.
