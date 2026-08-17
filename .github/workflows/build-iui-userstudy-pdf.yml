@@ -12,6 +12,10 @@ on:
       - "research/iui2027/paper/references.bib"
       - "research/iui2027/paper/figures/unity-model-grounded-selection.png"
 
+concurrency:
+  group: iui-userstudy-pdf-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
@@ -24,12 +28,53 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Compile ACM review manuscript
+      - name: Compile ACM review manuscript and count words
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
           working_directory: research/iui2027/paper_userstudy
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+          post_compile: |
+            awk '/\\appendix/{exit} {print}' main.tex > main-no-appendix.tex
+            printf '\n\\end{document}\n' >> main-no-appendix.tex
+            texcount -merge -sum -total main-no-appendix.tex | tee word-count-no-appendix.txt
+            rm -f main-no-appendix.tex
+
+      - name: Check table, figure, and cross-reference coverage
+        shell: bash
+        run: |
+          python - <<'PY'
+          from collections import Counter
+          from pathlib import Path
+          import re
+          import sys
+
+          root = Path("research/iui2027/paper_userstudy")
+          paths = [root / "main.tex", *sorted((root / "sections").glob("*.tex")), *sorted((root / "figures").glob("*.tex"))]
+          text = "\n".join(path.read_text(encoding="utf-8") for path in paths)
+          text = re.sub(r"(?<!\\)%.*", "", text)
+
+          labels = re.findall(r"\\label\{([^}]+)\}", text)
+          refs = set(re.findall(r"\\(?:ref|pageref|autoref|cref|Cref)\{([^}]+)\}", text))
+          counts = Counter(labels)
+          duplicates = sorted(label for label, count in counts.items() if count > 1)
+          undefined = sorted(ref for ref in refs if ref not in counts)
+          unreferenced_floats = sorted(
+              label for label in counts
+              if label.startswith(("fig:", "tab:")) and label not in refs
+          )
+
+          if duplicates or undefined or unreferenced_floats:
+              if duplicates:
+                  print("Duplicate labels:", duplicates)
+              if undefined:
+                  print("Undefined references:", undefined)
+              if unreferenced_floats:
+                  print("Unreferenced figure/table labels:", unreferenced_floats)
+              sys.exit(1)
+
+          print(f"Checked {len(labels)} labels and {len(refs)} references; all figure/table labels are referenced.")
+          PY
 
       - name: Publish compiled PDF
         shell: bash
@@ -49,10 +94,12 @@ jobs:
             git push origin HEAD:paper/iui2027-userstudy
           fi
 
-      - name: Upload manuscript PDF
+      - name: Upload manuscript PDF and word count
         uses: actions/upload-artifact@v4
         with:
           name: iui2027-userstudy-pdf
-          path: research/iui2027/paper_userstudy/main.pdf
+          path: |
+            research/iui2027/paper_userstudy/main.pdf
+            research/iui2027/paper_userstudy/word-count-no-appendix.txt
           if-no-files-found: error
           retention-days: 7
