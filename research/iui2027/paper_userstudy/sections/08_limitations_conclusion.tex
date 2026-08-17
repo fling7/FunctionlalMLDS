@@ -1,86 +1,58 @@
 \section{Limitations and Threats to Validity}
 \label{sec:limitations}
 
-The technical evaluation establishes behavior for three purposively authored
-development cases, not frequencies in a population of rooms, domains, or
-authors.  Every natural asset has an explicit asset-level owner, so group and
-zone fallback and ambiguity are exercised only in derived copies.  No
-independently authored or held-out scene tests generalization.
+Study T is exhaustive for three purposively authored development cases, not for
+a population of rooms or authors.  Every natural asset has an asset-level
+owner, so group and zone fallback and ambiguity are tested only in derived
+copies.  Both representations originate from shared semantic artifacts and
+use one routing classifier after separate parsing; agreement therefore
+establishes migration parity, not an independent validation of the policy.
+The mutation catalog is small, the assembler and validators share a codebase,
+and the deterministic response stub isolates contract behavior rather than
+answer quality.  The timing benchmark covers only in-memory adapter work.
 
-The non-regression comparison is controlled rather than independent.  Both
-representations originate from shared semantic artifacts and are classified by
-one routing function after separate parsing; the direct-wiring projection also
-supplies expected routes for the runtime sweep.  Agreement therefore detects
-migration divergence but cannot validate the shared policy against an external
-oracle.  Binding identifiers are checked for agreement within one pinned model,
-not against independently authored labels.
+Study U is a single-condition convenience study of one brand room.  The current
+cut contains 65 browser sessions across desktop/laptop and tablet/smartphone
+devices, no headset sessions, and a young, technically weighted sample.  Its
+approximately 12-percentage-point worst-case Wilson half-width supports broad
+descriptive patterns, not fine subgroup or population claims.  Without a
+baseline, the ratings cannot be causally attributed to FunctionalMLDS rather
+than the implemented interface and tasks.
 
-Fault injection covers three common and three contract-only mutation types.
-Detection and localization do not imply complete fault coverage or repair, and
-scripted deltas are not developer effort.  The V2 assembler, validators, and
-materializer share a codebase, so their agreement is not independent standards
-conformance.  Runtime tests use a deterministic structured stub, isolating
-admission, evidence, and rollback but not answer correctness or naturalness.
-Timing covers only in-memory adapter work and excludes the end-to-end path.
+The two user tasks had a fixed order and exercised only successful grounding
+and a permitted direct handoff.  They do not establish comprehension of
+ambiguity, unavailable capabilities, unreachable providers, or rollback.
+Error feedback was rated by a self-selected subset of 22 participants and is
+exploratory.  The questionnaire records perceived, not backend-linked,
+handoffs; its custom items are not a validated scale.  Long-term use, trust,
+workload, immersion, and developer diagnosis remain outside the study.
 
-Study U is an unmoderated, single-condition convenience study of one brand room.
-The current cut contains 45 desktop/laptop and 20 tablet/smartphone sessions,
-but no headset session.  Device heterogeneity, self-selection, and the young,
-technically weighted sample limit generalization.  With 65 sessions, binary
-proportions have at worst an approximately 12-percentage-point 95\% Wilson
-half-width; this supports broad descriptive patterns, not fine subgroup or
-population claims.  Without a baseline, observed comprehension cannot be
-causally attributed to FunctionalMLDS rather than the interface and tasks.
-
-The two user tasks were presented in a fixed order and both targeted successful
-paths: one grounded object answer and one permitted direct handoff.  Study U
-therefore does not directly test whether users understand the central
-fail-closed states in Table~\ref{tab:failure-model}, including ambiguity,
-unavailable capabilities, unreachable providers, or rollback.  Only 22
-participants happened to rate an error explanation, so that result is
-opportunistic and exploratory.  A controlled failure-comprehension task is
-needed before claiming that the ``clarify or guide'' and rollback behavior is
-intelligible to users.
-
-The questionnaire records perceived handoffs but no linked per-session backend
-handoff events, preventing individual log--report agreement.  The custom items
-are not a validated psychometric scale, and the study does not evaluate
-long-term use, trust calibration, workload, immersion, or developer diagnosis.
-It tests only whether the current cues support target, answer, handoff, and
-responsibility comprehension.
-
-The project remains static within a session.  Drift is detected, but there is
-no live migration for objects created, deleted, merged, or rebound during a
-conversation.  Online routing permits at most one direct handoff per request;
-transitive reachability is an offline diagnostic.  Concurrent writes and
-simultaneous visitors were not tested.  Finally, the selected EAST-ADL subset is
-a traceability foundation; full conformance has not been independently assessed.
+The prototype pins a static model per session, permits one direct handoff per
+request, and does not evaluate live migration, concurrent writes, or multiple
+visitors.  The selected EAST-ADL subset provides traceability concepts rather
+than independently assessed full conformance.  These boundaries narrow the
+claims but do not change the observed corpus and participant results.
 
 \section{Conclusion}
 \label{sec:conclusion}
 
-We presented an executable interaction contract that keeps a selected spatial
-entity, responsible embodied agent, declared capability, concrete backend
-action, and returned evidence within one pinned model version.  The client
-makes unresolved selection explicit, while the backend re-resolves identity,
-responsibility, route, and action before generation and rolls back
-response-dependent violations.
+We presented an executable interaction contract that binds a selected spatial
+entity to one responsible agent, declared capability, runtime action, and
+evidence record within a pinned model version.  The client exposes unresolved
+selection, while the backend re-resolves identity, responsibility, route, and
+action before generation and rolls back response-dependent violations.
 
 Across three authored environments, all 93 assets and 186 target-specific
 declaration pairs were complete.  Migration preserved all 93 owner decisions
-and 459 route classifications under a shared policy.  The runtime admitted all
-298 local or direct routes with matching evidence and rejected all 161
-transitive or unreachable routes before the response stub without retained
-mutation.  A strict provider contract additionally detected and localized all
-nine injected cross-layer faults that rely on relations absent from the direct
-artifacts.
+and 459 route classifications under the shared policy; runtime enforcement
+admitted all 298 local or direct routes and rejected all 161 transitive or
+unreachable routes without retained mutation.  The strict provider contract
+also detected all nine injected cross-layer faults based on relations absent
+from the direct artifacts.
 
-The complementary user study shows why technical enforcement and interface
-intelligibility must be evaluated separately.  Participants generally reported
-clear target--answer fit and visible handoffs, but only 37/65 identified the
-intended object-and-topic responsibility rule, and the usefulness of several
-specialized agents received mixed ratings.  These results provide initial
-evidence for successful-path intelligibility, not for comprehension of blocked
-or rolled-back interactions.  FunctionalMLDS provides the evaluated fail-closed
-control and evidence boundary, while the interface still needs clearer
-responsibility and failure communication.
+The user study complements this technical evidence.  Successful target--answer
+and handoff interactions were generally understandable, but the responsibility
+rule and value of several specialized agents were less consistently clear.
+FunctionalMLDS therefore provides the evaluated fail-closed control and
+evidence boundary; the next interface challenge is to communicate provider
+rationale and blocked states as clearly as the system enforces them.
