@@ -3,107 +3,115 @@
 
 \subsection{Complementary two-study design}
 
-We evaluate the same contract at two different boundaries.  \emph{Study T}
-addresses RQ1--RQ3 with deterministic software evidence: whether the authored
-relations are complete, survive migration, reject invalid requests, and add
-enforceable invariants at measurable structural cost.  \emph{Study U} addresses
-RQ4 with a remote, unmoderated, task-based user evaluation: whether the
-implemented target, provider, and handoff cues are understandable in use.  The
-studies are complementary rather than interchangeable.  Study T cannot
-establish human comprehension, while Study U cannot validate the internal
-contract or show superiority over another architecture.
+We evaluate the contract at two boundaries.  \emph{Study T} addresses
+RQ1--RQ3 with deterministic software evidence: whether the authored relations
+are complete, survive migration, reject invalid requests, and add enforceable
+invariants at measurable structural cost.  \emph{Study U} addresses RQ4 with a
+remote, unmoderated, task-based evaluation of the implemented interface:
+whether visitors can follow its target, provider, and handoff cues.  The studies
+are complementary.  Study T cannot establish human comprehension; Study U
+cannot validate the internal contract or show superiority over another
+architecture.
 
 \subsection{Study T: contract coverage and enforcement}
 
-The technical corpus comprises the three authored development cases in the
-repository: a career-fair room, a classroom, and the food/trade-fair brand room
-(93 routable assets and 15 agents in total).  A fresh native V2 instance is
-regenerated from each frozen version-0.5 case.  An asset is complete only when
-each asset-targeting \texttt{ScenarioStep}/\texttt{CapabilityUse} pair resolves
-one coherent provider, capability, binding, action, assertion set, and covering
-validation case.
+The technical corpus comprises the three authored repository cases: a
+career-fair room, a classroom, and the food/trade-fair brand room (93 routable
+assets and 15 agents).  A fresh native V2 instance is regenerated from each
+frozen version-0.5 case.  An asset is complete only when every asset-targeting
+\texttt{ScenarioStep}/\texttt{CapabilityUse} pair resolves one coherent
+provider, capability, binding, action, assertion set, and covering validation
+case.
 
-Migration non-regression is checked with separately parsed direct-wiring and V2
-adapters.  Both expose ownership candidates and handoff edges to one fixed
-policy: asset ownership precedes group and zone ownership, and several owners at
-the highest active tier are ambiguous.  We compare the owner of every asset and
-the route from every modeled starting agent.  Because one shared function
-classifies the normalized views, agreement tests representation parity, not the
-correctness of the policy.  Derived copies separately exercise group fallback,
-zone fallback, and ambiguity because every natural corpus asset has an explicit
-asset owner.
+Separately parsed direct-wiring and V2 adapters expose ownership candidates and
+handoff edges to one fixed policy: asset ownership precedes group and zone
+ownership, and several owners at the highest active tier are ambiguous.  We
+compare the owner of every asset and the route from every modeled starting
+agent.  Because one shared function classifies both normalized views, agreement
+tests migration parity rather than policy correctness.  Derived copies exercise
+group fallback, zone fallback, and ambiguity because every natural asset has an
+explicit asset owner.
 
 Runtime enforcement converts all 459 object--start-agent pairs into backend
 requests.  Local and direct routes must preserve target, provider, capability,
 binding, and action evidence; transitive and unreachable routes must stop
-before the deterministic response stub without retained state mutation.  A
-targeted suite adds one valid and 16 invalid spatial requests, and three Unity
-Editor smokes execute the generated client bridge and evidence checks.  Common
-mutations remove ownership, add a competing owner, or dangle a handoff.
-Contract-only mutations remove a capability-use provider, duplicate a runtime
-agent identifier, or assign domain behavior to the orchestrator.  We record
-detection, localization, false positives, representation edits, and an
-alternating 40-repetition in-memory timing benchmark.  All technical runs are
-API-free; timing excludes file I/O, generation, Unity, networking, and model
-latency.
+before the deterministic response stub without retained mutation.  A targeted
+suite adds one valid and 16 invalid requests, and three Unity Editor smokes
+execute the generated client bridge and evidence checks.  Common and
+contract-only mutations test detection, localization, and false positives.  An
+alternating 40-repetition in-memory benchmark measures structural adapter cost;
+it excludes file I/O, generation, Unity, networking, and model latency.  All
+technical runs are API-free.
 
 \subsection{Study U: browser-based interaction study}
 
 Study U evaluates the user-visible realization, not the metamodel in the
-abstract.  Participants used the browser-based 3D brand room and completed two
-standardized tasks while a short questionnaire guided the session.  First, they
-selected a product exhibit and asked the Product Specialist a grounded question,
-exercising target visibility and answer--target fit.  Second, they asked the
-Reception Agent a product question designed to invoke the declared direct
-handoff to the Product Specialist, exercising handoff awareness and final-agent
-clarity.  Immediate post-task questions reduce recall demands; a final block
-measures perceived responsibility, predictability, guidance, ease, and the
-usefulness of specialized agents.
+abstract.  Participants used the WebXR-capable brand-room prototype through a
+standard browser; the current analysis cut contains desktop/laptop and
+tablet/smartphone sessions but no headset session.  A short questionnaire
+guided two tasks in a fixed order.  First, participants selected a product
+exhibit and asked the Product Specialist a grounded question, exercising target
+visibility and answer--target fit.  Second, they asked the Reception Agent a
+product question designed to invoke the declared direct handoff to the Product
+Specialist, exercising handoff awareness and final-agent clarity.  Immediate
+post-task questions reduced recall demands.
+
+Both tasks deliberately exercise successful target and direct-handoff paths.
+The study therefore evaluates whether normal contract-grounded interaction is
+intelligible; it does not experimentally induce target ambiguity, an unavailable
+capability, an unreachable provider, or response rollback.  Error explanation
+was rated only when participants happened to encounter such a state.  The fixed
+task order kept the unmoderated procedure short and uniform, but prevents
+separating task from order effects.
 
 The instrument uses five-point agreement items, a 0--10 overall score, one
 multiple-choice comprehension check, device and experience questions, and
-optional formative comments.  We treat the comprehension proportion as the
-primary human-study outcome; the custom ratings are secondary.  The
-comprehension check asks whether provider selection depends on the object and
-question topic; its distractors encode nearest-agent, first-contacted-agent, and
-unclear mental models.  The introduction describes the multi-agent setting
-without disclosing this rule.  There is no comparison condition, so Study U
-supplies descriptive evidence about the implemented cues and cannot establish
-that FunctionalMLDS improves usability over direct wiring or another interface.
+optional formative comments.  The comprehension proportion is the primary
+human-study outcome; the custom ratings are secondary.  Its distractors encode
+nearest-agent, first-contacted-agent, and unclear mental models, while the
+introduction describes the multi-agent setting without disclosing the intended
+object-and-topic rule.  With no comparison condition, Study U supplies
+descriptive evidence about the current cues, not evidence that FunctionalMLDS
+improves usability over direct wiring or another interface.
 
-\subsection{Participants, sample adequacy, and analysis}
+\subsection{Participants, ethics, sample adequacy, and analysis}
 
-% TODO before submission: add the institution-specific ethics/consent statement.
-The analysis cut of 17 August 2026 contains 65 unique completed sessions:
-45 on desktop or laptop browsers and 20 on tablets or smartphones.  Participants
-were 18--54 years old (41 aged 18--24, 20 aged 25--34, and 4 aged 45--54);
-44 reported computing, engineering, or design/HCI backgrounds, 11 business,
-and 10 other fields.  This convenience sample characterizes the current
-prototype audience and is not population-representative.
+Participants were recruited by convenience sampling; the questionnaire export
+does not encode a recruitment source for individual sessions.  The analysis cut
+of 17 August 2026 contains 65 unique completed sessions: 45 on desktop or
+laptop browsers and 20 on tablets or smartphones.  Participants were 18--54
+years old (41 aged 18--24, 20 aged 25--34, and 4 aged 45--54); 44 reported
+computing, engineering, or design/HCI backgrounds, 11 business, and 10 other
+fields.  The sample characterizes the current prototype audience and is not
+population-representative.
 
-Because Study U is a single-condition descriptive evaluation, an effect-size
-power calculation for a group difference would be inappropriate.  We instead
-judge adequacy by estimation precision.  With \(n=65\), the largest two-sided
-95\% Wilson interval half-width for a binary proportion is approximately
-0.12 at \(p=.5\) \cite{wilson1927probable}.  This is sufficient for the intended
-broad item-level and majority-versus-ambiguity claims, but not for small
-subgroup differences or population estimates.  Later responses will be analyzed
-as a new dated data cut rather than silently appended to the present results.
+Participation was voluntary.  Before beginning, participants received study
+information and provided informed consent; they could discontinue without
+penalty.  The questionnaire collected no names or direct contact identifiers
+and stored responses under pseudonymous session identifiers.  Results are
+reported only in aggregate.
 
-For Study T we report exact corpus counts and descriptive timing; confidence
+Because Study U is single-condition and descriptive, a group-difference power
+calculation would be inappropriate.  We instead assess estimation precision.
+With \(n=65\), the largest two-sided 95\% Wilson interval half-width for a binary
+proportion is approximately 0.12 at \(p=.5\) \cite{wilson1927probable}.  This
+supports broad item-level and majority-versus-ambiguity claims, but not small
+subgroup differences or population estimates.  Later responses will form a new
+dated data cut rather than being silently appended.
+
+For Study T we report exact corpus counts and descriptive timing; inferential
 intervals would imply a sampling model the exhaustive probes do not have.  For
-Study U we report item medians and interquartile ranges, the proportion rating
-an item 4 or 5, and categorical counts; the comprehension proportion receives a
-95\% Wilson interval.  Handoff ratings are summarized among participants who
-reported observing a handoff, and error-feedback ratings only among those who
-experienced such a state.  We do not combine the custom items into an
-unvalidated omnibus scale or perform confirmatory subgroup tests.  Optional
-comments are used formatively rather than treated as a saturated qualitative
-study.
+Study U we report item medians and interquartile ranges, positive ratings (4 or
+5), and categorical counts; the comprehension proportion receives a 95\%
+Wilson interval.  Handoff ratings are restricted strictly to participants with
+\texttt{q5\_handoff\_observed=yes}; ``no'' and ``unsure'' responses are excluded
+even if downstream fields contain numeric values.  Error-feedback ratings
+include only numeric responses to \texttt{q9}; ``not experienced'' is excluded.
+We do not combine the custom items into an unvalidated omnibus scale or perform
+confirmatory subgroup tests.  Optional comments are used formatively.
 
-The questionnaire export records perceived handoffs but no per-session backend
-handoff event.  Consequently, RQ4 concerns whether participants reported and
-understood the transition; Study T independently establishes that the modeled
-handoff path is executable.  The dated questionnaire export, analysis code,
-technical inputs, mutations, and raw probe outcomes form the reproducibility
-boundary.
+The questionnaire export records perceived handoffs but no linked per-session
+backend event.  RQ4 therefore concerns reported transition awareness and
+understanding; Study T independently establishes that the modeled handoff path
+is executable.  The dated export, analysis code, technical inputs, mutations,
+and raw probe outcomes define the reproducibility boundary.
