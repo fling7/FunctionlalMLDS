@@ -1,4 +1,5 @@
-\section{Detailed Model, Contract, and Evaluation Tables}
+\section{Supporting Contract and Runtime Details}
+\label{app:contract-details}
 
 \subsection{Running-scenario identifiers}
 
@@ -86,11 +87,10 @@ terminology.
 
 \subsection{FunctionalMLDS element and relation map}
 
-Table~\ref{tab:functionalmlds-relations} complements the interaction-focused
-view in Figure~\ref{fig:functionalmlds-core}.  It records the selected model
-elements and references used to construct the complete
-\contractpath{} paths evaluated in RQ1; it is a compact map rather than a full
-serialization schema.
+Section~\ref{sec:implementation} introduces the model layers used at runtime.
+Table~\ref{tab:functionalmlds-relations} records the selected elements and
+references needed to construct the complete \contractpath{} paths evaluated in
+RQ1; it is a compact reader map rather than a full serialization schema.
 
 \begin{table*}[h]
   \caption{Selected FunctionalMLDS elements and relations underlying the
@@ -143,6 +143,47 @@ serialization schema.
 \end{table*}
 \FloatBarrier
 
+\subsection{Enforcement layers}
+
+Table~\ref{tab:enforcement-layers} expands the staged checks summarized in
+Sections~\ref{sec:contract} and~\ref{sec:implementation}.  The backend remains
+authoritative even when the client performs an earlier equivalent check.
+
+\begin{table*}[h]
+  \caption{Representative invariants and failure boundaries in the implemented
+  interaction path.}
+  \label{tab:enforcement-layers}
+  \small
+  \begin{tabularx}{\textwidth}{@{}p{31mm}Y Y@{}}
+    \toprule
+    Layer & Representative invariant & Failure boundary \\
+    \midrule
+    JSON schema
+      & Required fields, types, enumerations, reference shapes
+      & Before constructing a model instance \\
+    Canonical V2 model
+      & Referential closure, typed cardinalities, source-ID uniqueness,
+        assertion/validation ownership, no direct step-to-action shortcut
+      & Instance rejected before materialization \\
+    Executable profile
+      & One provider and capability per occurrence, provider/performer/target
+        agreement, complete binding and action
+      & Invalid chains are not published \\
+    Backend runtime
+      & Pinned hash, unique trusted entity, derived group/zone, unique provider,
+        local/direct route, exact target-specific action, request/response schema
+      & Before generation and mutation when request-decidable; rollback after a
+        response-dependent failure \\
+    Unity client
+      & Exact collider binding, explicit unresolved states, returned
+        target/provider/route/action agreement
+      & Before request serialization or answer presentation; backend remains
+        authoritative \\
+    \bottomrule
+  \end{tabularx}
+\end{table*}
+\FloatBarrier
+
 \subsection{Separate implementation capture}
 
 Figure~\ref{fig:unity-binding-capture} records the exact
@@ -167,7 +208,12 @@ entity/source-ID mechanism.
 \end{figure}
 \FloatBarrier
 
-\subsection{Per-case structural results}
+\section{Per-Case Evaluation Results}
+\label{app:per-case-results}
+
+Tables~\ref{tab:per-case-chains} and~\ref{tab:per-case-routing} provide the
+per-case denominators behind the aggregate RQ1 results.  The routing table
+separates one-turn local/direct admission from transitive graph reachability.
 
 \begin{table}[h]
   \caption{Complete interaction paths. ``Pairs'' are asset-targeting
@@ -206,55 +252,21 @@ entity/source-ID mechanism.
   \end{tabular}
 \end{table*}
 \FloatBarrier
-\clearpage
-
-\subsection{Enforcement layers}
-
-\begin{table*}[h]
-  \caption{Representative invariants and failure boundaries in the implemented
-  interaction path.}
-  \label{tab:enforcement-layers}
-  \small
-  \begin{tabularx}{\textwidth}{@{}p{31mm}Y Y@{}}
-    \toprule
-    Layer & Representative invariant & Failure boundary \\
-    \midrule
-    JSON schema
-      & Required fields, types, enumerations, reference shapes
-      & Before constructing a model instance \\
-    Canonical V2 model
-      & Referential closure, typed cardinalities, source-ID uniqueness,
-        assertion/validation ownership, no direct step-to-action shortcut
-      & Instance rejected before materialization \\
-    Executable profile
-      & One provider and capability per occurrence, provider/performer/target
-        agreement, complete binding and action
-      & Invalid chains are not published \\
-    Backend runtime
-      & Pinned hash, unique trusted entity, derived group/zone, unique provider,
-        local/direct route, exact target-specific action, request/response schema
-      & Before generation and mutation when request-decidable; rollback after a
-        response-dependent failure \\
-    Unity client
-      & Exact collider binding, explicit unresolved states, returned
-        target/provider/route/action agreement
-      & Before request serialization or answer presentation; backend remains
-        authoritative \\
-    \bottomrule
-  \end{tabularx}
-\end{table*}
-\FloatBarrier
 
 \section{Artifact Map}
+\label{app:artifact-map}
 
-The reproducible benchmark is rooted at
+The reproducible technical benchmark is rooted at
 \texttt{research/iui2027/evaluation}.  Its \texttt{results.json} contains raw
-records; \texttt{tables.md} contains regenerated paper summaries; and
+records, \texttt{tables.md} contains regenerated paper summaries, and
 \texttt{environment.json} records hashes and the local timing environment.
 The verifier and frozen regeneration entry points are under
-\texttt{research/iui2027/artifact}.  Backend runtime code is under
+\texttt{research/iui2027/artifact}.  Study U analysis code is under
+\texttt{research/iui2027/paper\_userstudy/analysis}; the dated questionnaire
+export and study materials belong to the anonymous supplementary package.
+Backend runtime code is under
 \texttt{InteractivAgents/openai\_unity\_expert\_npcs\_pycharm/InteractiveAgents/backend},
 and Unity runtime components are under the corresponding
 \texttt{unity\_scripts/FunctionalMldsV2} directory.  The original manuscript
-remains in \texttt{research/iui2027/paper}; this reframed manuscript is
-deliberately separate.
+remains in \texttt{research/iui2027/paper}; this user-study manuscript is kept
+separate in \texttt{research/iui2027/paper\_userstudy}.
