@@ -1,5 +1,6 @@
 \begin{figure*}[!t]
   \centering
+  \resizebox{0.96\textwidth}{!}{%
   \begin{tikzpicture}[
     font=\scriptsize,
     panel/.style={
@@ -87,7 +88,8 @@
     \node[blocked] at (11.2,-1.75)
       {\textbf{Request blocked}\\
        No permitted one-hop route; selection remains available};
-  \end{tikzpicture}
+  \end{tikzpicture}%
+  }
   \caption{Illustrative interface-state mockup for the running scenario.
   The panels show the target, handoff, and rejection states produced by the
   same contract boundary as Figure~\ref{fig:admission-boundary}.  This is an
