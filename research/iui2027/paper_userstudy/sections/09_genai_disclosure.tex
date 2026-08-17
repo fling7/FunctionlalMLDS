@@ -1,17 +1,15 @@
 \section*{GenAI Usage Disclosure}
 
-The frozen case-study inputs include eight successful structured-output calls
-to \texttt{gpt-4.1-mini-2025-04-14} at temperature 0.2: two scene-semantics
-artifacts, three agent-role and handoff artifacts, and three sets of local
-knowledge entries.  A remaining scene-semantics artifact was recovered
-deterministically without a model call.  Prompts, returned JSON, model
-identifiers, token metadata, and validation records are retained with the case
-artifacts.  The authors reviewed and froze these outputs as study inputs; no
-generative model supplied evaluation labels or served as a semantic judge.
-Model assembly, routing probes, fault injection, measurements, and reported
-tables are deterministic and API-free.
+The frozen case inputs include eight structured-output calls to
+\texttt{gpt-4.1-mini-2025-04-14} at temperature 0.2 for scene semantics, agent
+roles and handoffs, and local knowledge; one additional semantics artifact was
+recovered deterministically.  Prompts, outputs, model and token metadata, and
+validation records are retained.  The authors reviewed and froze these
+artifacts.  No generative model supplied questionnaire responses, evaluation
+labels, technical outcomes, or semantic judgments; model assembly, probes,
+mutations, measurements, and tables are deterministic and API-free.
 
 A coding assistant supported prototype hardening, test and analysis code,
-literature-search support, and drafting and editing.  The authors inspected and
-revised the resulting code and prose, verified citations and generated
-evidence, and remain responsible for all claims.
+literature-search support, and drafting and editing.  The authors reviewed the
+resulting code and prose, verified citations and evidence, and remain
+responsible for all claims.
