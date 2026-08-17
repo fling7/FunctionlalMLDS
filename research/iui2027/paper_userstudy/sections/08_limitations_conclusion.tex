@@ -2,61 +2,59 @@
 \label{sec:limitations}
 
 The technical evaluation establishes behavior for three purposively authored
-development cases.  It does not estimate frequencies in a population of rooms,
-domains, or authors.  Every natural asset has an explicit asset-level owner, so
-group and zone fallback and ambiguity are exercised only in derived copies.  No
+development cases, not frequencies in a population of rooms, domains, or
+authors.  Every natural asset has an explicit asset-level owner, so group and
+zone fallback and ambiguity are exercised only in derived copies.  No
 independently authored or held-out scene tests generalization.
 
 The non-regression comparison is controlled rather than independent.  Both
 representations originate from shared semantic artifacts and are classified by
-one routing function after separate parsing.  The direct-wiring projection also
-supplies expected owner and route classes for the runtime sweep.  Agreement
-therefore detects migration and serialization divergence but cannot validate
-the shared policy against an external oracle.  Binding identifiers are checked
-for cross-field agreement within one pinned model, not against independently
-authored labels.
+one routing function after separate parsing; the direct-wiring projection also
+supplies expected routes for the runtime sweep.  Agreement therefore detects
+migration divergence but cannot validate the shared policy against an external
+oracle.  Binding identifiers are checked for agreement within one pinned model,
+not against independently authored labels.
 
-Fault injection is systematic but small.  The common denominator contains
-three mutation types, and the contract-only denominator contains three
-additional types.  Detection and localization do not imply complete fault
-coverage or automatic repair.  Scripted artifact and reference deltas are not
-developer effort.  The V2 assembler, validators, and materializer also share a
-codebase, so their agreement is not independent standards conformance.
+Fault injection covers three common and three contract-only mutation types.
+Detection and localization do not imply complete fault coverage or repair, and
+scripted deltas are not developer effort.  The V2 assembler, validators, and
+materializer share a codebase, so their agreement is not independent standards
+conformance.  Runtime tests use a deterministic structured stub, isolating
+admission, evidence, and rollback but not answer correctness or naturalness.
+Timing covers only in-memory adapter work and excludes the end-to-end path.
 
-Runtime tests replace the online response model with a deterministic structured
-stub.  This isolates admission, evidence, call counts, and rollback, but does
-not measure factual correctness, naturalness, refusal quality, or interaction
-between generated content and the contract.  The local timing benchmark covers
-only in-memory adapter work and excludes parsing, generation, Unity, network,
-and model latency.
+Study U is an unmoderated, single-condition convenience study of one brand room.
+The current cut contains 45 desktop/laptop and 20 tablet/smartphone sessions,
+but no headset session.  Device heterogeneity, self-selection, and the young,
+technically weighted sample limit generalization.  With 65 sessions, binary
+proportions have at worst an approximately 12-percentage-point 95\% Wilson
+half-width; this supports broad descriptive patterns, not fine subgroup or
+population claims.  Without a baseline, observed comprehension cannot be
+causally attributed to FunctionalMLDS rather than the interface and tasks.
 
-The user study adds human-centered evidence but has a different boundary.  It is
-an unmoderated, single-condition convenience study of one implemented brand
-room, with 45 desktop/laptop and 20 tablet/smartphone sessions and no headset
-response in the current data cut.  Device heterogeneity, self-selection, and the
-young, technically weighted sample limit generalization.  With 65 sessions,
-binary proportions have at worst approximately a 12-percentage-point 95\%
-Wilson half-width; this supports broad descriptive patterns, not fine subgroup
-comparisons or population estimates.  Without a baseline, the study cannot
-attribute usability or comprehension to FunctionalMLDS rather than the
-particular interface and tasks.
+The two user tasks were presented in a fixed order and both targeted successful
+paths: one grounded object answer and one permitted direct handoff.  Study U
+therefore does not directly test whether users understand the central
+fail-closed states in Table~\ref{tab:failure-model}, including ambiguity,
+unavailable capabilities, unreachable providers, or rollback.  Only 22
+participants happened to rate an error explanation, so that result is
+opportunistic and exploratory.  A controlled failure-comprehension task is
+needed before claiming that the ``clarify or guide'' and rollback behavior is
+intelligible to users.
 
-The questionnaire records perceived handoffs but not linked per-session backend
-handoff events.  It therefore cannot test individual log--report agreement.
-Error feedback was rated by only 22 participants who happened to experience a
-relevant state, and that result remains exploratory.  The custom items are not
-a validated psychometric scale, and the study does not evaluate long-term use,
-trust calibration, workload, immersion, or developer diagnosis.  It tests
-whether the current cues support target, answer, handoff, and responsibility
-comprehension.
+The questionnaire records perceived handoffs but no linked per-session backend
+handoff events, preventing individual log--report agreement.  The custom items
+are not a validated psychometric scale, and the study does not evaluate
+long-term use, trust calibration, workload, immersion, or developer diagnosis.
+It tests only whether the current cues support target, answer, handoff, and
+responsibility comprehension.
 
-The evaluated project remains static within a session.  Drift is detected, but
-there is no live migration for objects created, deleted, merged, or rebound
-during a conversation.  Online routing permits at most one direct handoff per
-request; transitive reachability is an offline diagnostic.  Concurrent writes
-to one session and coordination among simultaneous visitors were not tested.
-Finally, the selected EAST-ADL subset serves as a traceability foundation; full
-EAST-ADL conformance has not been independently assessed.
+The project remains static within a session.  Drift is detected, but there is
+no live migration for objects created, deleted, merged, or rebound during a
+conversation.  Online routing permits at most one direct handoff per request;
+transitive reachability is an offline diagnostic.  Concurrent writes and
+simultaneous visitors were not tested.  Finally, the selected EAST-ADL subset is
+a traceability foundation; full conformance has not been independently assessed.
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -81,8 +79,8 @@ The complementary user study shows why technical enforcement and interface
 intelligibility must be evaluated separately.  Participants generally reported
 clear target--answer fit and visible handoffs, but only 37/65 identified the
 intended object-and-topic responsibility rule, and the usefulness of several
-specialized agents received mixed ratings.  FunctionalMLDS can therefore
-provide the evaluated fail-closed control and evidence boundary, while the
-current interface still needs clearer responsibility communication.  The
-results are initial and descriptive; they do not establish better dialogue or
-causal usability improvement over an alternative interface.
+specialized agents received mixed ratings.  These results provide initial
+evidence for successful-path intelligibility, not for comprehension of blocked
+or rolled-back interactions.  FunctionalMLDS provides the evaluated fail-closed
+control and evidence boundary, while the interface still needs clearer
+responsibility and failure communication.
