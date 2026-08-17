@@ -1,131 +1,63 @@
 \section{Discussion}
 \label{sec:discussion}
 
-\subsection{Why the contract is an intelligent-interface contribution}
+\subsection{What the two studies establish}
 
-The contract does not generate the linguistic content that makes an agent
-appear intelligent.  It determines whether the interface may use and present
-that content for a particular spatial interaction.  This distinction matters
-because a wrong-target answer can be both fluent and locally plausible.  By
-binding the pending selection to one provider and action before generation, the
-system turns a silent semantic-looking failure into a deterministic admission
-decision.
+Study T shows that the contract can keep target, provider, capability, action,
+and evidence aligned across the evaluated client--backend boundary.  The
+direct-wiring comparison also bounds this claim: under the shared policy, both
+representations preserve the same ownership and routing decisions and detect
+the same common faults.  FunctionalMLDS adds value where relations cross
+artifacts, because provider, capability, binding, action, and assertion links
+become typed invariants that can be checked and localized.  It does not by
+itself make the routing policy more correct.
 
-The user-facing consequence is limited but concrete.  A deictic request cannot
-proceed from a missing or ambiguous selection; a returned answer cannot be
-presented as grounded when its target or provider disagrees with the pending
-interaction.  The current implementation exposes the detailed route and
-binding primarily to developers, not visitors.  A future interface could use
-the same evidence to explain, for example, ``This object is handled by the
-Reception Agent'' or to offer a clarification choice.  Whether such
-explanations improve understanding, reliance, or recovery remains an empirical
-question.
-
-\subsection{What the direct-wiring comparison establishes}
-
-The comparison is intentionally less dramatic than an architecture
-competition.  For explicit asset ownership, handoff edges, and a fixed priority
-rule, direct artifacts can produce the same routing decisions and detect the
-same three common fault types.  This is an important result: introducing
-\systemname{} did not change the behavior already encoded in the source
-artifacts, but neither did the migration automatically improve it.
-
-The added value appears where the interaction crosses artifact boundaries.
-Direct wiring has no typed occurrence connecting a scenario target to one
-provider, capability, binding, action, and assertion.  Consequently, relations
-such as ``this capability use has no provider'' or ``this domain capability is
-provided by the runtime orchestrator'' are not representable as baseline
-invariants.  The strict provider contract detected all such injected faults.
-This supports a scoped adoption argument: the model is useful when a system
-needs lifecycle-wide target--provider--action evidence, not merely an owner
-lookup table.
+Study U adds the complementary interface result.  Participants generally
+reported that answers matched selected objects and that an observed handoff and
+final agent were clear.  However, only 37/65 identified the intended
+object-and-topic responsibility rule, and ratings for the usefulness of several
+specialized agents were mixed.  Technical enforcement is therefore necessary
+but not sufficient for intelligibility: the interface can execute the correct
+provider transition while leaving its rationale only partly understood.
 
 \subsection{When the added structure is justified}
 
-A static room with one chatbot and a small, stable set of objects may not
-justify more than direct configuration and tests.  The contract becomes more
-plausible when several agents divide responsibility, the same action kind has
-many target-specific bindings, scenes are regenerated, or developers need to
-trace a failure across Unity and backend artifacts.  Even then, its cost is not
-free.  The current representation stores more references for the common
-patches and its normalized adapter is substantially slower than direct wiring,
-although the measured workload remains small relative to a typical model call.
+A small, static room with one general agent may need only direct configuration
+and tests.  The contract is better motivated when several agents divide
+responsibility, scenes are regenerated, one operation has many target-specific
+bindings, or failures must be traced across scene and backend artifacts.  This
+assurance has a cost: the representation stores more references and the
+normalized V2 workload is slower than direct wiring in the reported
+microbenchmark.  The absolute workload remains small, but it is not end-to-end
+latency, and the benchmark does not measure authoring effort.  We therefore
+argue for scoped adoption rather than universal replacement of simpler
+configurations.
 
-The benchmark does not measure authoring effort.  Fewer changed top-level files
-could reduce search and coordination, while more explicit references could
-increase editing burden.  A developer study must test this trade rather than
-inferring it from patch counts.
+\subsection{Interface implications and next evidence}
 
-\subsection{Interaction design opportunities}
+The contract already supplies the states needed to communicate the selected
+target, responsible provider, handoff reason, and rejection location.  The user
+results suggest that the current lightweight cues communicate successful
+handoffs more effectively than the underlying division of responsibility.
+Near-term improvements should therefore make agent roles and provider changes
+more explicit, for example through concise role summaries, a short reason at
+handoff time, and clarification choices when a request cannot proceed.
 
-The present boundary supports several interaction patterns that are not yet
-implemented as evaluated visitor experiences:
+The present user tasks covered successful grounding and one permitted handoff,
+not ambiguity, unavailable capabilities, unreachable providers, or rollback.
+A controlled failure-comprehension task is the most direct next interface
+evaluation.  On the technical side, an independently authored scene with
+natural group- and zone-level responsibility, unassigned and ambiguous objects,
+and an independently reviewed route oracle would strengthen transfer evidence.
+A later developer study could then test whether typed diagnostics reduce fault
+localization and repair effort.
 
-\begin{description}
-  \item[Clarification.] When several candidates or owners exist, the interface
-  can present the alternatives instead of only blocking the request.
-  \item[Transparent handoff.] Before delegating, the active agent can name the
-  responsible provider and reason, then let the visitor confirm.
-  \item[Correction.] A visitor or author can replace the selected target or
-  report that the proposed responsibility is wrong; the model relation can then
-  be revised through a typed transaction.
-  \item[Abstention with location.] A rejection can distinguish ``I cannot
-  identify the object,'' ``no agent is responsible,'' and ``the responsible
-  agent is not reachable'' rather than presenting one generic failure.
-\end{description}
+\subsection{Deployment boundary}
 
-These patterns use evidence the system already produces, but their wording,
-timing, and cognitive cost require design and evaluation.  They are stronger
-future directions than adding more internal trace fields without an interface
-that uses them.
-
-\subsection{Priority evidence needed beyond this study}
-
-Two additions would most improve external validity.  First, a fourth
-independently authored, frozen scene should contain natural group- and
-zone-level responsibility, at least one unassigned object, and one genuine
-ambiguity.  Resolver and validator code should be frozen before the case is
-revealed.  This would test transfer without deriving every interesting
-condition synthetically.
-
-Second, expected routes should be supplied by an independent oracle or a
-separately implemented resolver rather than the same shared classification
-function.  A declarative table reviewed before execution would be sufficient
-for a modest held-out case.  These technical additions address the strongest
-circularity concern without making unsupported human claims.
-
-A developer task study is the most relevant human follow-up if ethics review,
-participants, and sufficient time are available.  Participants could diagnose
-and repair target, provider, and handoff faults using direct artifacts or the
-contract representation.  Completion rate, time, inspected artifacts,
-incorrect repairs, and explanation accuracy would test the proposed diagnostic
-benefit.  A small convenience study using only subjective ratings would add
-less evidence than a well-controlled held-out technical evaluation.
-
-\subsection{Authorization and policy composition}
-
-``Permitted'' in this paper means declared by the interaction model.  The
-contract neither authenticates a visitor nor grants access to protected data or
-actuators.  A deployment can first resolve the exact target--provider--action
-tuple and then submit it to an external authorization policy.  Capability
-lifecycle governance can separately decide which implementation version is
-active.  The current prototype implements neither identity management nor
-resource authorization and should not be presented as a security boundary by
-itself.
-
-\subsection{Privacy, bias, and accountability}
-
-A spatial-agent request can reveal utterances, selected objects, locations, and
-interaction histories.  The backend receives the utterance, stable target
-identifiers, ray metadata, modality, and bounded history.  Persistent runtime
-events omit the utterance text in the evaluated path, but the prototype lacks
-visitor-facing consent, retention, export, and deletion controls.  A
-deployment should minimize stored spatial data and separate technical entity
-identifiers from personal identities.
-
-Explicit agent responsibility can make organizational assumptions easier to
-inspect, but it can also formalize biased or inappropriate authority.  A
-validator can establish that one provider is declared consistently; it cannot
-establish that the provider assignment is fair, representative, or safe.
-Model review, knowledge provenance, refusal behavior, and domain safeguards
-remain necessary.
+``Permitted'' means declared by the interaction model; it does not authenticate
+a visitor or authorize access to protected resources.  A deployment should
+compose the resolved target--provider--action tuple with an external security
+policy.  It should also minimize stored utterance and spatial data, provide
+retention controls, and review modeled responsibilities for inappropriate or
+biased authority.  Consistent assignment is inspectable, but not automatically
+fair or safe.
