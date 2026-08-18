@@ -8,7 +8,7 @@ on:
       - ".github/workflows/build-iui-userstudy-pdf.yml"
       - "research/iui2027/paper_userstudy/*.tex"
       - "research/iui2027/paper_userstudy/sections/*.tex"
-      - "research/iui2027/paper_userstudy/figures/*.tex"
+      - "research/iui2027/paper_userstudy/figures/*"
       - "research/iui2027/paper/references.bib"
       - "research/iui2027/paper/figures/unity-model-grounded-selection.png"
 
@@ -76,6 +76,84 @@ jobs:
           print(f"Checked {len(labels)} labels and {len(refs)} references; all figure/table labels are referenced.")
           PY
 
+      - name: Prepare self-contained Overleaf source
+        shell: bash
+        run: |
+          set -euo pipefail
+          src="research/iui2027/paper_userstudy"
+          shared="research/iui2027/paper"
+          pkg="build/iui2027-overleaf"
+          verify="build/iui2027-overleaf-verify"
+
+          rm -rf "$pkg" "$verify"
+          mkdir -p "$pkg/sections" "$pkg/figures"
+
+          cp "$src/main.tex" "$pkg/main.tex"
+          cp "$src/references_userstudy.bib" "$pkg/references_userstudy.bib"
+          cp "$shared/references.bib" "$pkg/references.bib"
+          cp "$src/sections/"*.tex "$pkg/sections/"
+          cp "$src/figures/"* "$pkg/figures/"
+          cp "$shared/figures/unity-model-grounded-selection.png" "$pkg/figures/"
+
+          PKG="$pkg" python - <<'PY'
+          from pathlib import Path
+          import os
+
+          pkg = Path(os.environ["PKG"])
+
+          main = pkg / "main.tex"
+          text = main.read_text(encoding="utf-8")
+          old_bib = r"\bibliography{../paper/references,references_userstudy}"
+          new_bib = r"\bibliography{references,references_userstudy}"
+          if old_bib not in text:
+              raise SystemExit("Expected bibliography path not found in main.tex")
+          main.write_text(text.replace(old_bib, new_bib), encoding="utf-8")
+
+          appendix = pkg / "sections" / "appendix.tex"
+          text = appendix.read_text(encoding="utf-8")
+          old_image = "../paper/figures/unity-model-grounded-selection.png"
+          new_image = "figures/unity-model-grounded-selection.png"
+          if old_image not in text:
+              raise SystemExit("Expected shared image path not found in appendix.tex")
+          appendix.write_text(text.replace(old_image, new_image), encoding="utf-8")
+
+          remaining = []
+          for path in pkg.rglob("*.tex"):
+              if "../paper/" in path.read_text(encoding="utf-8"):
+                  remaining.append(str(path))
+          if remaining:
+              raise SystemExit(f"Non-self-contained paths remain: {remaining}")
+          PY
+
+          cat > "$pkg/README_OVERLEAF.md" <<'EOF'
+          # Overleaf package
+
+          1. Upload `IUI2027_Overleaf_Source.zip` as a new Overleaf project.
+          2. Set `main.tex` as the main document.
+          3. Use pdfLaTeX and the newest available TeX Live version (preferably TeX Live 2025).
+          4. Overleaf provides the ACM `acmart` class and runs BibTeX automatically.
+
+          The package is self-contained: all section files, BibTeX databases, TikZ sources, and raster images referenced by the manuscript are included. The source package is compiled in GitHub Actions before publication.
+          EOF
+
+          cp -R "$pkg" "$verify"
+
+      - name: Compile self-contained Overleaf source
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+          working_directory: build/iui2027-overleaf-verify
+          args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+
+      - name: Create Overleaf source ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd build/iui2027-overleaf
+          zip -q -r ../IUI2027_Overleaf_Source.zip .
+          test -s ../IUI2027_Overleaf_Source.zip
+          unzip -l ../IUI2027_Overleaf_Source.zip
+
       - name: Publish compiled PDF
         shell: bash
         run: |
@@ -101,5 +179,13 @@ jobs:
           path: |
             research/iui2027/paper_userstudy/main.pdf
             research/iui2027/paper_userstudy/word-count-no-appendix.txt
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload self-contained Overleaf source
+        uses: actions/upload-artifact@v4
+        with:
+          name: iui2027-overleaf-source
+          path: build/IUI2027_Overleaf_Source.zip
           if-no-files-found: error
           retention-days: 7
